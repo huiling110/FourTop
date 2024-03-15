@@ -83,7 +83,8 @@ def main():
     
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
-    version = 'v0_btagEffMeasure'
+    # version = 'v0_btagEffMeasure'
+    version = 'v0_btagEffMeasure_histNameChange'
     
     # version = 'v0dataMC_btagWPsf'
     # version = 'v0dataMC_jets6pt45'

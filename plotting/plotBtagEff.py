@@ -16,13 +16,17 @@ def main():
     # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTto4Q.root'
     # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTtoLNu2Q.root'
     # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTto2L2Nu.root'
-    inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/'
+    # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure_histNameChange/'
     
-    era = uf.getEraFromDir(inputDirFile)
+    era = uf.getEraFromDir(inputDir)
+    print('era=', era)
+    isRun3 = uf.isRun3(inputDir)
    
-    subProList =  ['TTto4Q', 'TTtoLNu2Q', 'TTto2L2Nu']
-    plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
-    plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
+    # subProList =  ['TTto4Q', 'TTtoLNu2Q', 'TTto2L2Nu']
+    # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
+    # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
+    plotOverLayForBtagEff(inputDir, 'Eta1', era, isRun3)
     
     # plotBEffFromFile(inputDirFile )
     # plotBEffFromFile(inputDirFile, 'C' )
@@ -137,39 +141,50 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     hist2DPlot.SetTitle(histTitle)
     
    
-def plotOverLayForBtagEff(inputDirFileList, eta='Eta1',era='2017'):   
+# def plotOverLayForBtagEff(inputDirFileList, eta='Eta1',era='2017'):   
+def plotOverLayForBtagEff(inputDir, eta='Eta1',era='2017', isRun3=False):   
     
-    eff_b_eta1 = getEffFromFile(inputDirFile,  ['b_jets_pt'+eta+'_de', 'b_jets_pt'+eta+'_nu'])
-    eff_c_eta1 = getEffFromFile(inputDirFile,  ['c_jets_pt'+eta+'_de', 'c_jets_pt'+eta+'_nu'])
-    eff_l_eta1 = getEffFromFile(inputDirFile,  ['l_jets_pt'+eta+'_de', 'l_jets_pt'+eta+'_nu'])
+    # eff_b_eta1 = getEffFromFile(inputDir,  ['b_jets_pt'+eta+'_de', 'b_jets_pt'+eta+'_nu'])
+    # eff_c_eta1 = getEffFromFile(inputDir,  ['c_jets_pt'+eta+'_de', 'c_jets_pt'+eta+'_nu'])
+    # eff_l_eta1 = getEffFromFile(inputDir,  ['l_jets_pt'+eta+'_de', 'l_jets_pt'+eta+'_nu'])
+    
+    #get efficiecy for TT instead of TT4Q
+    sumPro = ['tt']
+    regionList = ['b_'+eta+'_de', 'b_'+eta+'_nu', 'c_'+eta+'_de', 'c_'+eta+'_nu', 'l_'+eta+'_de', 'l_'+eta+'_nu']
+    variables = ['jets_pt']
+    inputDirDic = uf.getInputDicNew( inputDir)
+    ttHists = uf.getSumHist(inputDirDic,  regionList, sumPro, variables, era, isRun3) ##sumProcessPerVar[ivar][region][sumPro]
+    
+    eff_b_eta1 = uf.getEff(ttHists['jets_pt']['b_'+eta+'_de']['tt'], ttHists['jets_pt']['b_'+eta+'_nu']['tt'])
+    eff_c_eta1 = uf.getEff(ttHists['jets_pt']['c_'+eta+'_de']['tt'], ttHists['jets_pt']['c_'+eta+'_nu']['tt'])
+    eff_l_eta1 = uf.getEff(ttHists['jets_pt']['l_'+eta+'_de']['tt'], ttHists['jets_pt']['l_'+eta+'_nu']['tt'])
+   
+    
     histList = [eff_b_eta1, eff_c_eta1, eff_l_eta1]
     legendList = ['b', 'c', 'light']
     
-    inputDir = inputDirFile.rsplit('/',1)[0]
+    # inputDir = inputDirFile.rsplit('/',1)[0]
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
+    plotName = plotDir+'/TT_overlay_'+eta
     # plotName = plotDir+'/overlay_'+eta
-    # plotName = plotDir+'/TT0L_overlay_'+eta
-    plotName = plotDir+'/TT2L_overlay_'+eta
-    # uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.8, 0.9,0.93], [0., 1.2] )
+    # # plotName = plotDir+'/TT0L_overlay_'+eta
+    # # plotName = plotDir+'/TT2L_overlay_'+eta
+    # # uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.8, 0.9,0.93], [0., 1.2] )
     uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.72, 0.95,0.93], [0., 1.2] )
    
         
 
     
    
-# def getEffFromFile(inputDirFile, Histlist):   
-#     b_eta1List= getHistFromFile( inputDirFile, Histlist) 
-#     eff_b_eta1 = getEff( b_eta1List[0], b_eta1List[1] )
-#     eff_b_eta1.Print() 
-#     return eff_b_eta1
 def getEffFromFile(inputDirFileList, Histlist):   
     b_eta1List= getHistFromFile( inputDirFile, Histlist) 
     eff_b_eta1 = getEff( b_eta1List[0], b_eta1List[1] )
     eff_b_eta1.Print() 
     return eff_b_eta1
  
- 
+
+#! in usefulFunc.py 
 def getEff(de, nu) :
     #!!! use maybe TEfficiency later to calculate efficiency
     de_d = de.Clone()

@@ -338,7 +338,14 @@ def getSameValues(diction, value):
         # sys.exit()
     # subprocesses = getSameValues(gq.histoGramPerSample, sumBG)
     # for ifile in os.listdir(inputDir):
-        
+    
+def getEff(h_de, h_nu):    
+    eff = ROOT.TGraphAsymmErrors()
+    eff.Divide(h_nu, h_de, "cp") #cp : Clopper-Pearson interval; #https://root.cern.ch/doc/master/classTGraphAsymmErrors.html#ac9a2403d1297546c603f5cf1511a5ca5
+    # eff.Draw("AP")
+    eff.SetTitle(h_de.GetTitle())
+    eff.SetName(h_de.GetName())
+    return eff
     
 def plotEffTEff(h_nu, h_de, plotName, era, legendName, ifFixMax=True, rightTitle='Efficiency'):
     '''
