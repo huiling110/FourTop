@@ -101,12 +101,9 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle, ifOnlyDraw=False):
     ratio = de.Clone()
     ratio.Divide(nu)
     ratioName = ratio.GetName().split('_')[0]+'_SF'
-    ratio.SetName(ratioName)
-    
-    
+ratio.SetName(ratioName)
     pB.plot2D(ratio, plotName, canTitle, True, [0.65, 1.35])
     
-    # SFfileName = plotName.replace('.png', '.root')
     SFfileName = plotName + '.root'
     if not ifOnlyDraw:
         pB.saveHistToFile(ratio, SFfileName)

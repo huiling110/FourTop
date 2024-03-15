@@ -23,22 +23,22 @@ def main():
     print('era=', era)
     isRun3 = uf.isRun3(inputDir)
    
-    # subProList =  ['TTto4Q', 'TTtoLNu2Q', 'TTto2L2Nu']
-    # plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
-    # plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
-    plotOverLayForBtagEff(inputDir, 'Eta1', era, isRun3)
+    # plotOverLayForBtagEff(inputDir, 'Eta1', era, isRun3)
+    # plotOverLayForBtagEff(inputDir, 'Eta2', era, isRun3)
     
-    # plotBEffFromFile(inputDirFile )
+    plotBEffFromFile(inputDir )
     # plotBEffFromFile(inputDirFile, 'C' )
     # plotBEffFromFile(inputDirFile, 'L' )
     
 
 def plotBEffFromFile(inputDirFile, gen='B'):    
-     
     hist2d_b = getEffFromFile(inputDirFile, ['jets_ptEta_gen'+gen, 'jets_ptEta_gen'+gen+'_nu'])
+    
+    
     inputDir = inputDirFile.rsplit('/',1)[0]
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
+    
     plotName = plotDir+'bEff_'+gen+'.png'
     plotName2 = plotDir+'bEff_'+gen+'_compareOneSelf.png'
     outName = plotDir + 'bEff_'+gen+ '.root'
@@ -171,7 +171,7 @@ def plotOverLayForBtagEff(inputDir, eta='Eta1',era='2017', isRun3=False):
     # # plotName = plotDir+'/TT0L_overlay_'+eta
     # # plotName = plotDir+'/TT2L_overlay_'+eta
     # # uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.8, 0.9,0.93], [0., 1.2] )
-    uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.72, 0.95,0.93], [0., 1.2] )
+    uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, 'AP', [0.65, 0.72, 0.95,0.93], [0., 1.2] )
    
         
 
