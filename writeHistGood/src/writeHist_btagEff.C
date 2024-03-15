@@ -76,7 +76,8 @@ void WriteHist_btagEff::LoopTree(UInt_t entry)
             continue;
         }
         // Double_t eventWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v();
-        Double_t eventWeight = e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v()*e->tauT_IDSF_weight_new.v();//!!run2, shouldn't add HLT_weight!
+        // Double_t eventWeight = e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v()*e->tauT_IDSF_weight_new.v();//!!run2, shouldn't add HLT_weight!
+        Double_t eventWeight = e->PUweight_.v() ;//!!run2, shouldn't add HLT_weight!
 
         for (UInt_t i = 0; i < e->jets_pt_->size(); i++)
         {
@@ -87,8 +88,15 @@ void WriteHist_btagEff::LoopTree(UInt_t entry)
             Bool_t ifEta2 = jetEta > 1.5;
 
             //!Run 2 and run 3 different
-            Double_t jetBtag = e->jets_btags_->at(i);
-            Bool_t ifPassBtagM = jetBtag > TTTT::DeepJetM.at(m_era);
+            Bool_t ifPassBtagM = kFALSE;
+            if (!m_isRun3)
+            {
+                ifPassBtagM = e->jets_btags_->at(i) > TTTT::DeepJetM.at(m_era);
+            }
+            else
+            {
+                ifPassBtagM = e->jets_btagsPT_->at(i) > TTTT::particleNetBMT.at(m_era).at(0);
+            }
 
             switch (jetFlavour)
             {
