@@ -39,6 +39,7 @@ def plotBEffFromFile(inputDir, era, isRun3, gen='B'):
     sumProPerVar = uf.getSumHist(uf.getInputDicNew(inputDir),  regionList, sumPro, variable, era, isRun3) ##sumProcessPerVar[ivar][region][sumPro]
     
     hist2d_b = getEff(sumProPerVar['jets_ptEta']['gen'+gen+'_de']['tt'], sumProPerVar['jets_ptEta']['gen'+gen+'_nu']['tt'])
+    hist2d_b.SetName('jets_ptEta_gen'+gen)
     
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
@@ -162,7 +163,6 @@ def plotOverLayForBtagEff(inputDir, eta='Eta1',era='2017', isRun3=False):
     eff_b_eta1 = uf.getEff(ttHists['jets_pt']['b_'+eta+'_de']['tt'], ttHists['jets_pt']['b_'+eta+'_nu']['tt'])
     eff_c_eta1 = uf.getEff(ttHists['jets_pt']['c_'+eta+'_de']['tt'], ttHists['jets_pt']['c_'+eta+'_nu']['tt'])
     eff_l_eta1 = uf.getEff(ttHists['jets_pt']['l_'+eta+'_de']['tt'], ttHists['jets_pt']['l_'+eta+'_nu']['tt'])
-   
     
     histList = [eff_b_eta1, eff_c_eta1, eff_l_eta1]
     legendList = ['b', 'c', 'light']
