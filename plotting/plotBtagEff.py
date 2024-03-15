@@ -2,7 +2,7 @@ import ROOT
 import setTDRStyle as st
 import usefulFunc as uf
 
-#!!!functions here are more generic than that of plotForFR.py and plotHLTEfficiency.py, to be generized
+#!!!functions here are more generic than that of plotForFR.py to be generized
 
 def main():
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v2_btagEffBugFixed/ttbar_0l.root'
@@ -11,16 +11,17 @@ def main():
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
-    inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
+    # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
+    inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTto4Q.root'
     
     era = uf.getEraFromDir(inputDirFile)
     
     plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
     plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
-    plotBEffFromFile(inputDirFile )
-    plotBEffFromFile(inputDirFile, 'C' )
-    plotBEffFromFile(inputDirFile, 'L' )
+    # plotBEffFromFile(inputDirFile )
+    # plotBEffFromFile(inputDirFile, 'C' )
+    # plotBEffFromFile(inputDirFile, 'L' )
     
 
 def plotBEffFromFile(inputDirFile, gen='B'):    
@@ -142,8 +143,8 @@ def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):
     inputDir = inputDirFile.rsplit('/',1)[0]
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
-    plotName = plotDir+'/overlay_'+eta+'.png'
-    plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, [0., 1.2] )
+    plotName = plotDir+'/overlay_'+eta
+    uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.8, 0.9,0.93], [0., 1.2] )
    
 #!!!new version in usefulFunc, keep this here just for now    
 def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8, 0.9,0.93], yRange=[]):
