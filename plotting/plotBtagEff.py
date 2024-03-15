@@ -1,6 +1,7 @@
 import ROOT
 import setTDRStyle as st
 import usefulFunc as uf
+# import ttttGlobleQuantity as gq
 
 #!!!functions here are more generic than that of plotForFR.py to be generized
 
@@ -12,10 +13,14 @@ def main():
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
     # inputDirFile = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v0btagEff/ttbar_0l.root'
-    inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTto4Q.root'
+    # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTto4Q.root'
+    # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTtoLNu2Q.root'
+    # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTto2L2Nu.root'
+    inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/'
     
     era = uf.getEraFromDir(inputDirFile)
-    
+   
+    subProList =  ['TTto4Q', 'TTtoLNu2Q', 'TTto2L2Nu']
     plotOverLayForBtagEff(inputDirFile, 'Eta1', era)
     plotOverLayForBtagEff(inputDirFile, 'Eta2', era)
     
@@ -132,7 +137,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     hist2DPlot.SetTitle(histTitle)
     
    
-def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):   
+def plotOverLayForBtagEff(inputDirFileList, eta='Eta1',era='2017'):   
     
     eff_b_eta1 = getEffFromFile(inputDirFile,  ['b_jets_pt'+eta+'_de', 'b_jets_pt'+eta+'_nu'])
     eff_c_eta1 = getEffFromFile(inputDirFile,  ['c_jets_pt'+eta+'_de', 'c_jets_pt'+eta+'_nu'])
@@ -143,17 +148,23 @@ def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):
     inputDir = inputDirFile.rsplit('/',1)[0]
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
-    plotName = plotDir+'/overlay_'+eta
+    # plotName = plotDir+'/overlay_'+eta
+    # plotName = plotDir+'/TT0L_overlay_'+eta
+    plotName = plotDir+'/TT2L_overlay_'+eta
     # uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.8, 0.9,0.93], [0., 1.2] )
-    uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.7, 0.7, 0.95,0.93], [0., 1.2] )
+    uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.72, 0.95,0.93], [0., 1.2] )
    
         
 
     
    
-def getEffFromFile(inputDirFile, Histlist):   
+# def getEffFromFile(inputDirFile, Histlist):   
+#     b_eta1List= getHistFromFile( inputDirFile, Histlist) 
+#     eff_b_eta1 = getEff( b_eta1List[0], b_eta1List[1] )
+#     eff_b_eta1.Print() 
+#     return eff_b_eta1
+def getEffFromFile(inputDirFileList, Histlist):   
     b_eta1List= getHistFromFile( inputDirFile, Histlist) 
-    #    print(b_eta1List)
     eff_b_eta1 = getEff( b_eta1List[0], b_eta1List[1] )
     eff_b_eta1.Print() 
     return eff_b_eta1
