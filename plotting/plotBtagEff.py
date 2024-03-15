@@ -26,16 +26,20 @@ def main():
     # plotOverLayForBtagEff(inputDir, 'Eta1', era, isRun3)
     # plotOverLayForBtagEff(inputDir, 'Eta2', era, isRun3)
     
-    plotBEffFromFile(inputDir )
-    # plotBEffFromFile(inputDirFile, 'C' )
-    # plotBEffFromFile(inputDirFile, 'L' )
+    plotBEffFromFile(inputDir, era, isRun3, 'B' )
+    plotBEffFromFile(inputDir, era, isRun3, 'C' )
+    plotBEffFromFile(inputDir, era, isRun3, 'L' )
     
 
-def plotBEffFromFile(inputDirFile, gen='B'):    
-    hist2d_b = getEffFromFile(inputDirFile, ['jets_ptEta_gen'+gen, 'jets_ptEta_gen'+gen+'_nu'])
+def plotBEffFromFile(inputDir, era, isRun3, gen='B'):    
+    # hist2d_b = getEffFromFile(inputDirFile, ['jets_ptEta_gen'+gen, 'jets_ptEta_gen'+gen+'_nu'])
+    sumPro = ['tt']
+    regionList = ['gen'+gen+'_de', 'gen'+gen+'_nu'] 
+    variable = ['jets_ptEta']
+    sumProPerVar = uf.getSumHist(uf.getInputDicNew(inputDir),  regionList, sumPro, variable, era, isRun3) ##sumProcessPerVar[ivar][region][sumPro]
     
+    hist2d_b = getEff(sumProPerVar['jets_ptEta']['gen'+gen+'_de']['tt'], sumProPerVar['jets_ptEta']['gen'+gen+'_nu']['tt'])
     
-    inputDir = inputDirFile.rsplit('/',1)[0]
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
     
@@ -184,7 +188,7 @@ def getEffFromFile(inputDirFileList, Histlist):
     return eff_b_eta1
  
 
-#! in usefulFunc.py 
+#used  only for 2D
 def getEff(de, nu) :
     #!!! use maybe TEfficiency later to calculate efficiency
     de_d = de.Clone()
