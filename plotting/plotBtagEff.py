@@ -146,61 +146,6 @@ def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):
     plotName = plotDir+'/overlay_'+eta
     uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.8, 0.9,0.93], [0., 1.2] )
    
-#!!!new version in usefulFunc, keep this here just for now    
-def plotOverlay(histList, legenList, era, yTitle, plotName, legendPos=[0.65, 0.8, 0.9,0.93], yRange=[]):
-    print('start to plot overlay plot')
-    mySty =  st.setMyStyle()
-    mySty.cd()
-    can = ROOT.TCanvas('overlay', 'overlay', 1000, 800)
-    
-    # legend = ROOT.TLegend(0.65, 0.8, 0.9, 0.93)  # Create a legend to label the histograms
-    legend = ROOT.TLegend(legendPos[0], legendPos[1], legendPos[2], legendPos[3])  # Create a legend to label the histograms
-    legend.SetBorderSize(0)
-    legend.SetFillStyle(0) 
-    legend.SetTextFont(42)
-    
-    yMax = getYmax(histList)
-    #plot style
-    LineColorDic={
-        # 0: ROOT.TColor.GetColor("#fdae61"),
-        0: ROOT.TColor.GetColor("#fd8d3c"),
-        1: ROOT.TColor.GetColor("#f03b20"),
-        2: ROOT.TColor.GetColor("#2ca25f"),
-        #2ca25f green
-        #d01c8b purple
-        ##fdae61 fc9272" orange
-    }
-    
-
-    for i, histogram in enumerate(histList):
-        if i == 0:
-            histogram.Draw()  # Draw the first histogram without any options
-        else:
-            histogram.Draw("same")  # Draw subsequent histograms with "same" option to overlay
-
-        histogram.SetLineColor(LineColorDic[i])
-        histogram.SetMarkerColor(LineColorDic[i])
-        histogram.SetLineWidth(3)  # Set line width for each histogram
-        histogram.SetMarkerSize(1.5)
-        # histogram.SetMarkerStyle(45)
-        histogram.SetMarkerStyle(64)
-        histogram.GetXaxis().SetTitle(histogram.GetTitle())  # Set X-axis title (modify as needed)
-        histogram.GetYaxis().SetTitle(yTitle)  # Set Y-axis title (modify as needed)
-        histogram.GetXaxis().SetTitleSize(0.05)
-        histogram.GetYaxis().SetTitleSize(0.06)
-        if len(yRange)>1:
-            histList[i].GetYaxis().SetRangeUser(yRange[0], yRange[1])
-        else:
-            histList[i].GetYaxis().SetRangeUser(0, yMax*1.3)
-
-        legend.AddEntry(histogram, legenList[i], "lep")  # Add an entry to the legend
-        legend.Draw() 
-        
-    # st.addCMSTextToCan(can, 0.22, 0.4, 0.9, 0.94, era, False)
-    st.addCMSTextToCan(can, 0.225, 0.4, 0.9, 0.94, era)
-        
-    can.SaveAs(plotName)
-    print('Done overlay plotting\n\n')
         
 
     
