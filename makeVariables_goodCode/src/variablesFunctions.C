@@ -794,8 +794,11 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
     Double_t sf = 1.0;
     if (!isData)
     {
-        auto corr_deepJet = cset_btag->at("deepJet_comb");       // b and c jet
-        auto corr_deepJet_light = cset_btag->at("deepJet_incl"); // for light jet
+        // auto corr_deepJet = cset_btag->at("deepJet_comb");       // b and c jet
+        // auto corr_deepJet_light = cset_btag->at("deepJet_incl"); // for light jet
+        auto corr_deepJet = cset_btag->at("robustParticleTransformer_comb");       // b and c jet
+        auto corr_deepJet_light = cset_btag->at("robustParticleTransformer_light");       // b and c jet
+        // auto corr_deepJet_light = cset_btag->at("robustParticleTransformer_incl"); // for light jet
         for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
         {
             Double_t ijetSF = 1.0;
