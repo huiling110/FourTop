@@ -144,7 +144,8 @@ def plotOverLayForBtagEff(inputDirFile, eta='Eta1',era='2017'):
     plotDir = inputDir+'/results/'
     uf.checkMakeDir(plotDir)
     plotName = plotDir+'/overlay_'+eta
-    uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.8, 0.9,0.93], [0., 1.2] )
+    # uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.65, 0.8, 0.9,0.93], [0., 1.2] )
+    uf.plotOverlay(histList, legendList, era, 'B tag efficiency', plotName, '', [0.7, 0.7, 0.95,0.93], [0., 1.2] )
    
         
 
