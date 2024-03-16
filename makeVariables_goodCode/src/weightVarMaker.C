@@ -110,20 +110,20 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     cset_muonLPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(0)).Data()); 
     cset_muonMPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(1)).Data()); 
     cset_muonHPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(2)).Data()); 
-    for (auto &corr : *cset_muonLPt)  
-    {
-        printf("Correction: %s\n", corr.first.c_str());
-    }
+    // for (auto &corr : *cset_muonLPt)  
+    // {
+    //     printf("Correction: %s\n", corr.first.c_str());
+    // }
+    // std::cout << "\n";
+    // for (auto &corr : *cset_muonMPt)
+    // {
+    //     printf("Correction: %s\n", corr.first.c_str());
+    // }
     std::cout << "\n";
-    for (auto &corr : *cset_muonMPt)
-    {
-        printf("Correction: %s\n", corr.first.c_str());
-    }
-    std::cout << "\n";
-    for (auto &corr : *cset_muonHPt)  
-    {
-        printf("Correction: %s\n", corr.first.c_str());
-    }
+    // for (auto &corr : *cset_muonHPt)  
+    // {
+    //     printf("Correction: %s\n", corr.first.c_str());
+    // }
 
 
     // new SF files from
@@ -225,29 +225,29 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData);
     tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData);
 
-    btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "central");
-    btagShape_weight_jes_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_jes");
-    btagShape_weight_jes_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_jes");
-    btagShape_weight_lf_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_lf");
-    btagShape_weight_lf_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_lf");
-    btagShape_weight_hf_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_hf");
-    btagShape_weight_hf_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_hf");
-    btagShape_weight_hfstats1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_hfstats1");
-    btagShape_weight_hfstats1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_hfstats1");
-    btagShape_weight_hfstats2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_hfstats2");
-    btagShape_weight_hfstats2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_hfstats2");
-    btagShape_weight_lfstats1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_lfstats1");
-    btagShape_weight_lfstats1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_lfstats1");
-    btagShape_weight_lfstats2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_lfstats2");
-    btagShape_weight_lfstats2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_lfstats2");
-    btagShape_weight_cferr1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_cferr1");
-    btagShape_weight_cferr1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr1");
-    btagShape_weight_cferr2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "up_cferr2");
-    btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, e->jets_btags, cset_btag.get(), m_isData, "down_cferr2");
+    TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btags : e->jets_btagsPT;
+    btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");
+    btagShape_weight_jes_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_jes");
+    btagShape_weight_jes_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_jes");
+    btagShape_weight_lf_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lf");
+    btagShape_weight_lf_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lf");
+    btagShape_weight_hf_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hf");
+    btagShape_weight_hf_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hf");
+    btagShape_weight_hfstats1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hfstats1");
+    btagShape_weight_hfstats1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hfstats1");
+    btagShape_weight_hfstats2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_hfstats2");
+    btagShape_weight_hfstats2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_hfstats2");
+    btagShape_weight_lfstats1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lfstats1");
+    btagShape_weight_lfstats1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lfstats1");
+    btagShape_weight_lfstats2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_lfstats2");
+    btagShape_weight_lfstats2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_lfstats2");
+    btagShape_weight_cferr1_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr1");
+    btagShape_weight_cferr1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr1");
+    btagShape_weight_cferr2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr2");
+    btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
 
     //btag WorkingPoint
-    TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btags : e->jets_btagsPT;
     btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "central", m_isRun3);
     btagWPMedium_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "up", m_isRun3) ;
     btagWPMedium_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "down", m_isRun3) ;

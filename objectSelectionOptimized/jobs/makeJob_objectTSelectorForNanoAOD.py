@@ -48,7 +48,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v1for2022preSel/'
 # jobVersionName = 'v2leptonsNameChange/'
 # jobVersionName = 'v3EnergyScaleDone/'
-jobVersionName = 'v3NoHLTNoBtagButTauSel/'
+# jobVersionName = 'v3NoHLTNoBtagButTauSel/'
+jobVersionName = 'v3NotHLT'
 
 
 def main():

@@ -790,12 +790,9 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
 Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3)
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
-
     Double_t sf = 1.0;
     if (!isData)
     {
-        // auto corr_deepJet = cset_btag->at("deepJet_comb");       // b and c jet
-        // auto corr_deepJet_light = cset_btag->at("deepJet_incl"); // for light jet
         std::string btagWPTag = isRun3 ? "robustParticleTransformer_comb" : "deepJet_comb";
         std::string btagWPLTag = isRun3 ? "robustParticleTransformer_light" : "deepJet_incl";
         auto corr_deepJet = cset_btag->at(btagWPTag);       // b and c jet
@@ -829,7 +826,6 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
                     ifBtagged = kTRUE;
                 }
             }
-            // Bool_t ifBtagged = ijetBtag > TTTT::DeepJetM.at(era);//!!!need to be updated
             Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
             if (ifBtagged)
             {

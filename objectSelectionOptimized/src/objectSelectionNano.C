@@ -90,11 +90,11 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         //systematic Weight cal
         systWeightCal.Select(e, m_isData);
 
-        // pre selection
         if (preSelection)
         {
-            // if (!(jetSel.getSize() > 5 && bjetMSel.getSize() > 0)) //!!!different b-tag for run2 and run3
-            if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
+            Int_t bjetsNum = m_isRun3? bjetPTMSel.getSize(): bjetMSel.getSize();
+            if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //!!!different b-tag for run2 and run3
+            // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
                 continue;
         }
 
@@ -141,20 +141,3 @@ objectSelection::~objectSelection()
     delete e;
     // delete m_output;
 };
-
-// void objectSelection::getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec)
-// {
-//     std::vector<Double_t> &muEtaVec = muTopMVATSel.getEtaVec();
-//     std::vector<Double_t> &muPhiVec = muTopMVATSel.getPhiVec();
-//     std::vector<Double_t> &eleEtaVec = eleTopMVATSel.getEtaVec();
-//     std::vector<Double_t> &elePhiVec = eleTopMVATSel.getPhiVec();
-//     if(m_isRun3){
-//         muEtaVec = muSel.getEtaVec();
-//         muPhiVec = muSel.getPhiVec();
-//         eleEtaVec = eleMVASel.getEtaVec();
-//         elePhiVec = eleMVASel.getPhiVec();
-//         }
-//     OS::addTwoObjs(muEtaVec, eleEtaVec, lepEtaVec);
-//     OS::addTwoObjs(muPhiVec, elePhiVec, lepPhiVec);
-//     // std::cout<<"lepEtaVec = "<< lepEtaVec.size()<<"\n";
-// };
