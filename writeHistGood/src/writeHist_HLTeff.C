@@ -115,9 +115,9 @@ void WH_HLTeff::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        Bool_t baseline = baselineSelection(e);
+        Bool_t baseline = baselineSelection(e, m_isRun3);
         // baseline = baseline && e->jets_6pt.v()>45.; //!!!testing
-        baseline = baseline && e->jets_HT.v()>550.; //!!!testing
+        // baseline = baseline && e->jets_HT.v()>550.; //!!!testing
         // baseline = baseline && e->jets_HT.v()>600.; //!!!testing
         if (!(baseline))
         {
@@ -126,9 +126,10 @@ void WH_HLTeff::LoopTree(UInt_t entry)
 
         Bool_t is1muon = kTRUE;
         Bool_t ifHLT = HLTSel(e, m_era);
-        const Bool_t is1b = e->bjetsM_num.v() == 1;
-        const Bool_t is2b = e->bjetsM_num.v() == 2;
-        const Bool_t is3b = e->bjetsM_num.v() > 2;
+        Int_t bjetsNum = m_isRun3? e->bjetsPTM_num.v(): e->bjetsM_num.v();
+        const Bool_t is1b = bjetsNum == 1;
+        const Bool_t is2b = bjetsNum == 2;
+        const Bool_t is3b = bjetsNum > 2;
 
         if (m_era.CompareTo("2016") == 0)
         {
@@ -154,12 +155,23 @@ void WH_HLTeff::LoopTree(UInt_t entry)
                 std::cout << "HLT selection for 2017\n";
             }
             is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
+        }else if(m_era.Contains("2022")==0){
+            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsT_num.v() == 1 && e->muonsT_1pt.v() >= 30.;
         }
+        else
+        {
+            std::cout << "!!! no HLT selection\n";
+        }
+
 
         Double_t basicWeight = 1.0;
         if (!m_isData)
         {
-            basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->musTopMVAT_weight.v()) * (e->btagWPMedium_weight.v());
+            if(!m_isRun3){
+                basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->musTopMVAT_weight.v()) * (e->btagWPMedium_weight.v());
+            }else{
+                basicWeight = (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->btagWPMedium_weight.v());
+            }
         }
 
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon, "baseline1Muon", basicWeight, m_isData);

@@ -10,7 +10,7 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3)
     }else{
         // std::cout << "not run 3\n";
         // pass = event->jets_num.v() >= 6 && event->bjetsPNM_num.v() >= 1 && event->jets_HT.v() > 500. && event->jets_6pt.v() > 40.;
-        pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 500. && event->jets_6pt.v() > 40.;
+        pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
     }
     return pass;
 }
@@ -41,7 +41,10 @@ Bool_t HLTSel(event *e, const TString m_era){
             //     std::cout << "HLT selection for 2017\n";
             // }
             ifHLT = e->HLT_PFHT430_SixJet40_BTagCSV_p080.v() == 1 || e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075.v() == 1 || e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() == 1 || e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2.v() == 1 || e->HLT_PFJet500.v() == 1;
-        }else{
+        }else if(m_era.Contains("2022")){
+            ifHLT = e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59.v() || e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94.v()|| e->HLT_PFJet500.v();
+        }
+        else{
             std::cout<<"!!! no HLT selection\n";
         }
 

@@ -49,8 +49,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v2leptonsNameChange/'
 # jobVersionName = 'v3EnergyScaleDone/'
 # jobVersionName = 'v3NoHLTNoBtagButTauSel/'
-jobVersionName = 'v3NotHLT'
-
+jobVersionName = 'v3NotHLTPre/'
+#!same version numbers means no change in algrithm but only in selection
 
 def main():
     # era = '2016'
@@ -65,7 +65,7 @@ def main():
     # dataList = ['singleMu'] 
     # dataList = ['JetMET', 'JetHT']
     # dataList = ['JetMET', 'JetHT', 'Muon']
-    dataList = []
+    dataList = [ 'Muon']
     
 
     print( "era: ", era )
@@ -152,7 +152,7 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era, isRun3):
     jobScriptsFolder = codePath + 'jobs_eachYear/'
     uf.checkMakeDir( jobScriptsFolder )
     jobScriptsFolder = jobScriptsFolder+era+'/'
-    uf.checkMakeDir(jobScriptsFolder, True)
+    uf.checkMakeDir(jobScriptsFolder)
 
     for k in allProcesses:
         print( 'kProcess: ', k )

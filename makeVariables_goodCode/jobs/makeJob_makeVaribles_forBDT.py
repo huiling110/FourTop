@@ -62,9 +62,10 @@ def main():
     # inVersion = 'v2leptonsNameChange'
     # inVersion = 'v0for2022baseline'
     # inVersion = 'v3EnergyScaleDone'
-    inVersion = 'v3NoHLTNoBtagButTauSel'
-    # outVersion = 'v0baseline'
-    outVersion = 'v0NoBtagSel'
+    # inVersion = 'v3NoHLTNoBtagButTauSel'
+    inVersion = 'v3NotHLTPre'
+    outVersion = 'v0baseline'
+    # outVersion = 'v0NoBtagSel'
   
    
     

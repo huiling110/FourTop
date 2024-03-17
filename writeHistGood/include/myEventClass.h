@@ -119,6 +119,7 @@ public:
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
     myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
     myBranch<Int_t> muonsT_num{"muonsT_num"};
+    myBranch<Int_t> muonsT_1pt{"muonsT_1pt"};
     myBranch<Double_t> jets_HT{"jets_HT"};
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
@@ -250,6 +251,9 @@ public:
     myBranch<Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080{"HLT_PFHT430_SixJet40_BTagCSV_p080"};
     myBranch<Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075{"HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
     myBranch<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2{"HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
+    //2022
+    myBranch<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59{"HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59"};
+    myBranch<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94{"HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94"};
 
     //for btag eff study
     std::vector<Double_t>* jets_pt_=nullptr;//???not sure why it has to be a pointer to read branch
@@ -274,6 +278,7 @@ private:
         {muonsTopMVAT_num.n(), &muonsTopMVAT_num},
         {elesMVAT_num.n(), &elesMVAT_num},
         {muonsT_num.n(), &muonsT_num},
+        {muonsT_1pt.n(), &muonsT_1pt},
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {jets_HT.n(), &jets_HT},
         {jets_6pt.n(), &jets_6pt},
