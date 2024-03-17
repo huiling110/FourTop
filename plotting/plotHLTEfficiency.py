@@ -26,9 +26,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT600BinE/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinE/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasure/'
+   
     
+    isRun3 = uf.isRun3(inputDir)
     inputDirDic = uf.getDirDic(inputDir)
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
@@ -36,22 +39,26 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic)
-    # plotEfficiencyHLT(inputDirDic, '1b')
+    plotEfficiencyHLT(inputDirDic, '1b', isRun3)
     # plotEfficiencyHLT(inputDirDic, '2b')
     # plotEfficiencyHLT(inputDirDic, '3b')
     
     #plotSF
-    plotSF(inputDirDic, True)
+    # plotSF(inputDirDic, True)
     
     
    
-def plotSF(inputDirDic, ifOnlyDraw=False):
+def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
     variableList = ['jetsHTAnd6pt']
     regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
     
-    sumProList = ['tt', 'singleMu']
+    if isRun3:
+        sumProList = ['tt', 'singleMu']
+    else:
+        sumProList = ['TT', 'singleMu']
+    
     era = uf.getEraFromDir(inputDirDic['mc'])
-    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variableList, era)
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variableList, era, isRun3)
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
@@ -101,7 +108,7 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle, ifOnlyDraw=False):
     ratio = de.Clone()
     ratio.Divide(nu)
     ratioName = ratio.GetName().split('_')[0]+'_SF'
-ratio.SetName(ratioName)
+    ratio.SetName(ratioName)
     pB.plot2D(ratio, plotName, canTitle, True, [0.65, 1.35])
     
     SFfileName = plotName + '.root'
@@ -110,7 +117,7 @@ ratio.SetName(ratioName)
     
     
     
-def plotEfficiencyHLT(inputDirDic, bjet = ''):
+def plotEfficiencyHLT(inputDirDic, bjet = '', isRun3 = False):
     regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
     for i in range(len(regionList)):
         regionList[i] = regionList[i]+bjet
@@ -126,7 +133,7 @@ def plotEfficiencyHLT(inputDirDic, bjet = ''):
     varList = list(variableDic.keys())     
     sumList = ['singleMu', 'tt', 'tttt']
     era = uf.getEraFromDir(inputDirDic['mc'])   
-    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumList, varList, era )#sumProcessPerVar[ivar][region][sumPro]
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumList, varList, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)

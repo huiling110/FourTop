@@ -407,6 +407,8 @@ private:
         {HLT_PFHT430_SixJet40_BTagCSV_p080.n(), &HLT_PFHT430_SixJet40_BTagCSV_p080},
         {HLT_PFHT380_SixJet32_DoubleBTagCSV_p075.n(), &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075},
         {HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2.n(), &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2},
+        {HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59.n(), &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59},
+        {HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94.n(), &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94},
 
     };
 
