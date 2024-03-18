@@ -61,7 +61,12 @@ void WH_HLTeff::Init()
     SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 22, 40, 150, regionsForVariables, &(e->jets_6pt));
     SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 40, 500, 2500, regionsForVariables, &(e->jets_HT));
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
-    SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 7, 0.5, 7.5, regionsForVariables,  &(e->bjetsM_num));
+    if(!m_isRun3){
+        SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 7, 0.5, 7.5, regionsForVariables,  &(e->bjetsM_num));
+    }else{
+    }
+    auto adressBjets = m_isRun3? &(e->bjetsPTM_num): &(e->bjetsM_num);
+    SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 7, 0.5, 7.5, regionsForVariables,  adressBjets);
 
     histsForRegion_vec.clear();
     histsForRegion_vec.push_back(jets_1pt_class);
@@ -69,6 +74,7 @@ void WH_HLTeff::Init()
     histsForRegion_vec.push_back(jets_HT_class);
     histsForRegion_vec.push_back(jets_num_class);
     histsForRegion_vec.push_back(bjetsM_num_class);
+    // histsForRegion_vec.push_back(bjetsPTM_num_class);
 
     // 2D for SF
     // Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500}; // HT
@@ -127,9 +133,9 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         Bool_t is1muon = kTRUE;
         Bool_t ifHLT = HLTSel(e, m_era);
         Int_t bjetsNum = m_isRun3? e->bjetsPTM_num.v(): e->bjetsM_num.v();
-        const Bool_t is1b = bjetsNum == 1;
-        const Bool_t is2b = bjetsNum == 2;
-        const Bool_t is3b = bjetsNum > 2;
+        const Bool_t is1b = (bjetsNum == 1);
+        const Bool_t is2b = (bjetsNum == 2);
+        const Bool_t is3b = (bjetsNum > 2);
 
         if (m_era.CompareTo("2016") == 0)
         {
@@ -197,15 +203,15 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         // 2D
         if (baseline && is1muon)
         {
-            if (e->bjetsM_num.v() == 1)
+            if (is1b)
             {
                 WH::fillDeNu(ifHLT, b1HT6pt_de, b1HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
             }
-            if (e->bjetsM_num.v() == 2)
+            if (is2b)
             {
                 WH::fillDeNu(ifHLT, b2HT6pt_de, b2HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
             }
-            if (e->bjetsM_num.v() >= 3 && e->bjetsM_num.v() <= 7)
+            if (is3b)
             {
                 WH::fillDeNu(ifHLT, b3HT6pt_de, b3HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
             }
