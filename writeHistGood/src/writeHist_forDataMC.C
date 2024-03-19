@@ -148,8 +148,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             continue;
         }
 
-        // Double_t basicWeight = e->EVENT_genWeight.v();
-        Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v();
+        Double_t basicWeight = e->EVENT_genWeight.v();
+        // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->eleMVAT_IDSF_weight.v(); //!!! run 3 
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
         // std::cout << "HLT_weight=" << e->HLT_weight.v() << "\n";
@@ -200,9 +200,18 @@ void WH_forDataMC::Terminate()
     std::cout << "Termintate: ..........................................\n";
     if (!m_isData)
     {
+        //???Problme of summing same process with extra extension!!!
+        //for now merge input tree of same process before running this code
         Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
         TString processName = WH::getProcessName(m_processName, m_isRun3);
         std::cout<<"newProcessName="<<processName<<"\n";
+
+        //
+        if(std::find(WH::processWithExt.begin(), WH::processWithExt.end(), processName) != WH::processWithExt.end()){
+            genWeightSum = TTTT::getGenSum(m_inputDir + processName + "1.root") + TTTT::getGenSum(m_inputDir+processName+".root");
+        }
+        std::cout << "genWeightSum=" << genWeightSum << "\n";
+
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at( processName)) / genWeightSum);
         std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processName)<<"\n";
         WH::histRegionsVectScale(histsForRegion_vec, processScale);

@@ -40,6 +40,8 @@ TString getProcessName(const TString processName, Bool_t isRun3);
 //         }
 //     }
 // };
+
+extern std::array<TString, 8> processWithExt;
 }
 
 #endif

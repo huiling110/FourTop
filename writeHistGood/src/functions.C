@@ -129,7 +129,16 @@ TString getProcessName(const TString processName, Bool_t isRun3){
         }
     }
     return processNameNew;
-}
+};
 
-
+ std::array<TString, 8> processWithExt = {
+    "TTto4Q",
+    "TTto2L2Nu",
+    "TTtoLNu2Q",
+    "QCD_PT-2400to3200",
+    "QCD_PT-300to470",
+    "QCD_PT-3200",
+    "QCD_PT-470to600",
+    "QCD_PT-600to800",
+};
 }

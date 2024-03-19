@@ -52,7 +52,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone//'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v3EnergyScaleDone/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -68,7 +69,7 @@ def main():
     # version = 'v1FR_application_bjets2_bShapeWeight'
    
     # version = 'v0_HLTSFMeasure'
-    version = 'v0_HLTSFMeasureAddNoMu'
+    # version = 'v0_HLTSFMeasureAddNoMu'
     
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
@@ -76,18 +77,7 @@ def main():
     # version = 'v0_btagEffMeasure_histNameChange'
     
     # version = 'v0dataMC_btagWPsf'
-    # version = 'v0dataMC_jets6pt45'
-    # version = 'v0dataMC_jets6pt40'
-    # version = 'v0dataMC_jets6pt42'
-    # version = 'v0dataMC_HT600'
-    # version = 'v1dataMC_noHLTSF'
-    # version = 'v2dataMC_HT600HLTSF'
-    # version = 'v3dataMC_HT600HLTSFBinA'
-    # version = 'v3dataMC_HT600HLTSFBinB'
-    # version = 'v3dataMC_HT600HLTSFBinD'
-    # version = 'v3dataMC_HT600HLTSFBinE'
-    # version = 'v3dataMC_HT550HLTSFBinF'
-    # version = 'v0dataMC_noCorrection'
+    version = 'v0dataMC_noCorrection'
     # version = 'v1dataMC_eleSF'
     # version = 'v1dataMC_pileupSF'
     channel = 0
