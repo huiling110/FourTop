@@ -166,8 +166,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     TString triggerSFName3b = triggerSFName2b.ReplaceAll("2b_", "3b_");
     triggerHist3b = TTTT::getHistogramFromFile<TH2D>(triggerSFName3b, "singleMu_SF");
     std::cout << "getting 1b trigger SF file: " << trigger1b << "\n";
-    // std::cout << "getting 2b trigger SF file: " << triggerSFFile2b->GetName() << "\n";
-    // std::cout << "getting 3b trigger SF file: " << triggerSFFile3b->GetName() << "\n";
 
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
