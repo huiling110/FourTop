@@ -77,9 +77,9 @@ def main():
     # version = 'v0_btagEffMeasure_histNameChange'
     
     # version = 'v0dataMC_btagWPsf'
-    version = 'v0dataMC_noCorrection'
-    # version = 'v1dataMC_eleSF'
+    # version = 'v0dataMC_noCorrection'
     # version = 'v1dataMC_pileupSF'
+    version = 'v2dataMC_pileupBtagSF'
     channel = 0
     
         
