@@ -74,20 +74,16 @@ def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
         bRegions_nu = ibR.replace('1Muon', '1MuonAndHLT')
         print('regions: ', ibR, bRegions_nu)
         canTitle = regionTitleDic[ibR] 
-        dataEff1b = getEffHist(sumProcessPerVar,  bRegions_nu, ibR, 'singleMu', plotDir, canTitle) 
-        ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle) 
+        dataEff1b = getEffHist(sumProcessPerVar,  bRegions_nu, ibR, 'singleMu', plotDir, canTitle, 'dataEff') 
+        ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle, 'MCEff') 
     
-        # plotName = plotDir + ibR + '_triggerSF_new'
         plotName = plotDir + ibR + '_triggerSF_v0'
         plotSFSingle( dataEff1b,  ttEff1b, plotName, canTitle, ifOnlyDraw)
    
-def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
+def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle, histName):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
     dataEff1b_nu = sumProcessPerVar['jetsHTAnd6pt'][regionNu][process].Clone() 
-    # dataEff1b_de.Print()
-    # dataEff1b_de.Print()
     dataEff1b = dataEff1b_de.Clone()
-    # dataEff1b.Print()
     
     dataEff1b.Sumw2()
     dataEff1b.Divide(dataEff1b_nu)

@@ -119,7 +119,7 @@ public:
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
     myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
     myBranch<Int_t> muonsT_num{"muonsT_num"};
-    myBranch<Int_t> muonsT_1pt{"muonsT_1pt"};
+    myBranch<Double_t> muonsT_1pt{"muonsT_1pt"};
     myBranch<Double_t> jets_HT{"jets_HT"};
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};

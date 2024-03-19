@@ -162,7 +162,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
             }
             is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
         }else if(m_era.Contains("2022")){
-            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsT_num.v() == 1 && e->muonsT_1pt.v() >= 30.;
+            is1muon = e->HLT_IsoMu24.v() && e->muonsT_num.v() == 1 && e->muonsT_1pt.v() >= 30.;
         }
         else
         {

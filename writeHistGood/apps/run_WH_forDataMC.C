@@ -45,9 +45,11 @@ void run_treeAnalyzer(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/",
     // TString process = "TTto4Q1",
     // TString process = "JetMET2022G",
-    TString process = "TTtoLNu2Q",
+    // TString process = "TTtoLNu2Q",
     // TString process = "tttt",
     // TString process = "TTTT",
+    TString process = "TTto4Q",
+
     // TString process = "jetHT_2018a",
     // TString process = "ttbar_0l",
     // TString process = "ttbar_1l",
@@ -60,11 +62,11 @@ void run_treeAnalyzer(
     TStopwatch t;
     t.Start();
 
-    WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
+    // WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
     // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
-    // WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
+    WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
 
     writeHist.Init();
     UInt_t entry = 0;
