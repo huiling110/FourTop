@@ -169,7 +169,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     // std::cout << "getting 2b trigger SF file: " << triggerSFFile2b->GetName() << "\n";
     // std::cout << "getting 3b trigger SF file: " << triggerSFFile3b->GetName() << "\n";
 
-
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
 };

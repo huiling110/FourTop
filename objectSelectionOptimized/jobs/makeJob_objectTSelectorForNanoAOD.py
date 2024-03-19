@@ -49,7 +49,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v2leptonsNameChange/'
 # jobVersionName = 'v3EnergyScaleDone/'
 # jobVersionName = 'v3NoHLTNoBtagButTauSel/'
-jobVersionName = 'v3NotHLTPre/'
+# jobVersionName = 'v3NotHLTPre/'
+jobVersionName = 'v3HLTPre/'
 #!same version numbers means no change in algrithm but only in selection
 
 def main():
@@ -63,9 +64,8 @@ def main():
     # dataList = ['jetHT']
     # dataList = [ 'jetHT', 'singleMu'] 
     # dataList = ['singleMu'] 
-    # dataList = ['JetMET', 'JetHT']
-    # dataList = ['JetMET', 'JetHT', 'Muon']
-    dataList = [ 'Muon']
+    dataList = ['JetMET', 'JetHT']
+    # dataList = [ 'Muon']
     
 
     print( "era: ", era )
