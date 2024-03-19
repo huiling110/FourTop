@@ -28,7 +28,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasureAddNoMu/'
    
     
     isRun3 = uf.isRun3(inputDir)
@@ -50,7 +51,7 @@ def main():
    
 def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
     variableList = ['jetsHTAnd6pt']
-    regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
+    regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b', 'baseline1b', 'baselineAndHLT1b', 'baseline2b', 'baselineAndHLT2b', 'baseline3b', 'baselineAndHLT3b' ]
     
     if isRun3:
         sumProList = ['tt', 'singleMu']
@@ -72,25 +73,28 @@ def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
     
     for ibR in bRegions:
         bRegions_nu = ibR.replace('1Muon', '1MuonAndHLT')
+        bRegion_nu_MC = ibR.replace('1Muon', 'AndHLT')
+        bRegion_de_MC = ibR.replace('1Muon', '')
         print('regions: ', ibR, bRegions_nu)
         canTitle = regionTitleDic[ibR] 
-        dataEff1b = getEffHist(sumProcessPerVar,  bRegions_nu, ibR, 'singleMu', plotDir, canTitle, 'dataEff') 
-        ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle, 'MCEff') 
+        dataEff1b = getEffHist(sumProcessPerVar,  bRegions_nu, ibR, 'singleMu', plotDir, canTitle ) 
+        # ttEff1b = getEffHist(sumProcessPerVar, bRegions_nu, ibR, 'tt', plotDir, canTitle) 
+        ttEff1b = getEffHist(sumProcessPerVar, bRegion_nu_MC, bRegion_de_MC, 'tt', plotDir, canTitle) #!MC true
     
-        plotName = plotDir + ibR + '_triggerSF_v0'
+        # plotName = plotDir + ibR + '_triggerSF_v0'
+        plotName = plotDir + ibR + '_triggerSF_MCtrue'
         plotSFSingle( dataEff1b,  ttEff1b, plotName, canTitle, ifOnlyDraw)
    
-def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle, histName):
+def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle):
     dataEff1b_de = sumProcessPerVar['jetsHTAnd6pt'][regionDe][process].Clone() 
     dataEff1b_nu = sumProcessPerVar['jetsHTAnd6pt'][regionNu][process].Clone() 
     dataEff1b = dataEff1b_de.Clone()
     
     dataEff1b.Sumw2()
     dataEff1b.Divide(dataEff1b_nu)
-    dataEff1b.SetName(dataEff1b.GetName()+'_eff')
-    
+    dataEff1b.SetName(dataEff1b.GetName()+'_effMCtrue')
         
-    pB.plot2D(dataEff1b, plotDir+dataEff1b.GetName()+'.png', canTitle, True, [0.65, 1.35])
+    pB.plot2D(dataEff1b, plotDir+dataEff1b.GetName(), canTitle, True, [0.65, 1.35])
     
     return dataEff1b
     

@@ -35,6 +35,14 @@ private:
     TH2D *b3HT6pt_de;
     TH2D *b3HT6pt_nu;
 
+    TH2D *b1HT6ptNoMu_de;
+    TH2D *b1HT6ptNoMu_nu;
+    TH2D *b2HT6ptNoMu_de;
+    TH2D *b2HT6ptNoMu_nu;
+    TH2D *b3HT6ptNoMu_de;
+    TH2D *b3HT6ptNoMu_nu;
+
+
 
 public:
     WH_HLTeff(const TString inputDir, const TString process, TString outVersion = "v0", Bool_t isTest = kTRUE);

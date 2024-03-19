@@ -107,6 +107,13 @@ void WH_HLTeff::Init()
     b2HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT2b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_de = new TH2D(m_processName + "_baseline1Muon3b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT3b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    //noMuon
+    b1HT6ptNoMu_de = new TH2D(m_processName + "_baseline1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6ptNoMu_nu = new TH2D(m_processName + "_baselineAndHLT1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6ptNoMu_de = new TH2D(m_processName + "_baseline2b" + "_jetsHTAnd6pt", "H(GeV)Tpt_{6th jet}t", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b2HT6ptNoMu_nu = new TH2D(m_processName + "_baselineAndHLT2b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6ptNoMu_de = new TH2D(m_processName + "_baseline3b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b3HT6ptNoMu_nu = new TH2D(m_processName + "_baselineAndHLT3b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
 }
 
 void WH_HLTeff::LoopTree(UInt_t entry)
@@ -201,19 +208,29 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is3b, "baselineAndHLT3b", basicWeight, m_isData);
 
         // 2D
-        if (baseline && is1muon)
+        // if (baseline && is1muon)
+        if (baseline)
         {
             if (is1b)
             {
-                WH::fillDeNu(ifHLT, b1HT6pt_de, b1HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                WH::fillDeNu(ifHLT, b1HT6ptNoMu_de, b1HT6ptNoMu_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                if(is1muon){
+                    WH::fillDeNu(ifHLT, b1HT6pt_de, b1HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                }
             }
             if (is2b)
             {
-                WH::fillDeNu(ifHLT, b2HT6pt_de, b2HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
-            }
+                WH::fillDeNu(ifHLT, b2HT6ptNoMu_de, b2HT6ptNoMu_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                if(is1muon){
+                    WH::fillDeNu(ifHLT, b2HT6pt_de, b2HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                }
+            }    
             if (is3b)
             {
-                WH::fillDeNu(ifHLT, b3HT6pt_de, b3HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                WH::fillDeNu(ifHLT, b3HT6ptNoMu_de, b3HT6ptNoMu_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                if(is1muon){
+                    WH::fillDeNu(ifHLT, b3HT6pt_de, b3HT6pt_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
+                }
             }
         }
 

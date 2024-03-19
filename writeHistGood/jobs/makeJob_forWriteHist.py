@@ -67,7 +67,8 @@ def main():
     # version = 'v1FR_application_bjets2_bWPWeight'
     # version = 'v1FR_application_bjets2_bShapeWeight'
    
-    version = 'v0_HLTSFMeasure'
+    # version = 'v0_HLTSFMeasure'
+    version = 'v0_HLTSFMeasureAddNoMu'
     
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
