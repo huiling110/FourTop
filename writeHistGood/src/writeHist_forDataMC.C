@@ -69,6 +69,7 @@ void WH_forDataMC::Init()
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
     SP_i bjetsPTM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsPTM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsPTM_num));
     SP_i tausT_leptonsTopMVA_chargeMulti_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}",m_processName, 3, -1.5, 1.5, regionsForVariables,  &(e->tausT_leptonsTopMVA_chargeMulti));
+    SP_i PV_npvsGood_class = std::make_shared<histsForRegionsMap<Int_t>>("PV_npvsGood", "n^{PV}", m_processName, 10, 0, 60, regionsForVariables, &(e->PV_npvsGood));
 
     //I guess jets_1pt_class goes out range and destroyed after this function
     histsForRegion_vec.push_back(jets_1pt_class);
@@ -114,6 +115,7 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(bjetsM_num_class);
     histsForRegion_vec.push_back(bjetsPTM_num_class);
     histsForRegion_vec.push_back(tausT_leptonsTopMVA_chargeMulti_class);
+    histsForRegion_vec.push_back(PV_npvsGood_class);
 
 
     // jets_HT_class.print();

@@ -255,6 +255,8 @@ public:
     myBranch<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59{"HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59"};
     myBranch<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94{"HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94"};
 
+    myBranch<Int_t> PV_npvsGood{"PV_npvsGood"};
+
     //for btag eff study
     std::vector<Double_t>* jets_pt_=nullptr;//???not sure why it has to be a pointer to read branch
     std::vector<Double_t>* jets_eta_=nullptr;
@@ -409,6 +411,8 @@ private:
         {HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2.n(), &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2},
         {HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59.n(), &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59},
         {HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94.n(), &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94},
+
+        {PV_npvsGood.n(), &PV_npvsGood},
 
     };
 
