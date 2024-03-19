@@ -63,7 +63,8 @@ def main():
     # inVersion = 'v0for2022baseline'
     # inVersion = 'v3EnergyScaleDone'
     # inVersion = 'v3NoHLTNoBtagButTauSel'
-    inVersion = 'v3NotHLTPre'
+    # inVersion = 'v3NotHLTPre'
+    inVersion = 'v3HLTPre'
     outVersion = 'v0baseline'
     # outVersion = 'v0NoBtagSel'
   
