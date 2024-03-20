@@ -23,9 +23,9 @@ inline const std::map<TString, Double_t> lumiMap = {
 
 inline const std::map<TString, Double_t> crossSectionMap = {
     {"tttt", 0.01197},
-    {"ttbar_2l", 88.29},//TT intotal 833.9pb
     {"ttbar_0l", 377.96},
     {"ttbar_1l", 365.34},
+    {"ttbar_2l", 88.29},//TT intotal 833.9pb
     {"ttG", 4.62},        // 3.773
     {"ttZ", 0.783},       // 0.6559
     {"ttW", 0.611},       // 0.2014 changed to 611
@@ -82,11 +82,14 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     // https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO},
     // cross check these?},
     // https://cms.cern.ch/iCMS/analysisadmin/cadilines?line=TOP-22-012},
-    {"TTto4Q", 410.89 },//923.6 * 0.667 * 0.667  // = 410.89  (762.1)},
-    {"TTto2L2Nu", 102.41},//923.6 * 0.333 * 0.333  // = 102.41 (96.9)},
-    {"TTtoLNu2Q", 410.28},//923.6 * 2 * (0.667 * 0.333)  // = 410.28 (404.0)},
+    // {"TTto4Q", 410.89 },//923.6 * 0.667 * 0.667  // = 410.89  (762.1)},
+    // {"TTto2L2Nu", 102.41},//923.6 * 0.333 * 0.333  // = 102.41 (96.9)},
+    // {"TTtoLNu2Q", 410.28},//923.6 * 2 * (0.667 * 0.333)  // = 410.28 (404.0)},
+    {"TTto4Q", 431.10 },//923.6 * 0.6832 * 0.6832  // = 410.89  (762.1)},
+    {"TTto2L2Nu", 92.69},//923.6 * 0.3168 * 0.3168  // = 102.41 (96.9)},
+    {"TTtoLNu2Q", 399.80},//923.6 * 2 * (0.6832 * 0.3168)  // = 410.28 (404.0)},
     //TTTT run 3
-    {"TTTT", 0.0158},//!!!to be updated, using the rartio
+    {"TTTT", 0.0158},
 };
 
 // inline const std::map<TString, double> DeepJetM = {
