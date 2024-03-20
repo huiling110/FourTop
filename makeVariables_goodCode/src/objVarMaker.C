@@ -67,43 +67,24 @@ void ObjVarMaker::setupLorentzObjs(const EventForMV *e)
     switch (m_type)
     {
     case 0:
-        // objNum = e->muonsT_pt.GetSize();
         getLorentzVec(e->muonsT_pt, e->muonsT_eta, e->muonsT_phi, e->muonsT_mass, objsLorentz);
         break;
     case 1:
-        // objNum = e->muonsTopMVAT_pt.GetSize();
         getLorentzVec(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, e->muonsTopMVAT_phi, e->muonsTopMVAT_mass, objsLorentz);
         break;
     }
-    // for (UInt_t i = 0; i < objNum; i++)
-    // {
-    //     Double_t objPt = -99;
-    //     Double_t objEta = -99;
-    //     Double_t objPhi = -99;
-    //     Double_t objMass = -99;
-    //     switch (m_type)
-    //     {
-    //     case 0:
-    //         objPt = e->muonsT_pt[i];
-    //         objEta = e->muonsT_eta[i];
-    //         objPhi = e->muonsT_phi[i];
-    //         objMass = e->muonsT_mass[i];
-    //         break;
-    //     case 1: //!!!loose and fake muon not in OS
-    //         objPt = e->muonsTopMVAT_pt[i];
-    //         objEta = e->muonsTopMVAT_eta[i];
-    //         objPhi = e->muonsTopMVAT_phi[i];
-    //         objMass = e->muonsTopMVAT_mass[i];
-    //         break;
-    //     }
-    //     ROOT::Math::PtEtaPhiMVector muLorentz{objPt, objEta, objPhi, objMass};
-    //     objsLorentz.push_back(muLorentz);
-    // }
 };
 
 
 Int_t ObjVarMaker::getNum(){
     return muons_num;
 }
+
+
+
+std::vector<ROOT::Math::PtEtaPhiMVector>& ObjVarMaker::getLorentzObjs(){
+    return objsLorentz;
+}
+
 
 ObjVarMaker::~ObjVarMaker(){};

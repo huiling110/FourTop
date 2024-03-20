@@ -218,6 +218,7 @@ void WH_forDataMC::Terminate()
         std::cout << "genWeightSum=" << genWeightSum << "\n";
 
         Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at( processName)) / genWeightSum);
+        std::cout<<"processScale="<<processScale<<"\n";
         std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processName)<<"\n";
         WH::histRegionsVectScale(histsForRegion_vec, processScale);
     };

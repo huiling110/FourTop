@@ -15,6 +15,7 @@ public:
     void setupLorentzObjs(const EventForMV *e);
     void basicVariables();
     Int_t getNum();
+    std::vector<ROOT::Math::PtEtaPhiMVector>& getLorentzObjs();
     void reportEntry(TString className);
 
     // private:
