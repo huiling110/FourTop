@@ -125,10 +125,6 @@ void objectSelection::Terminate()
         runsForOut->SetDirectory(m_output);
     }
 
-    //scale cutflow hist
-    //!!!I don't think we can scale individial tree like this
-
-
     m_output->Write();
     m_output->Close();
 

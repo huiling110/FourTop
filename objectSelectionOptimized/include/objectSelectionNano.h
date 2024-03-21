@@ -90,7 +90,7 @@ private:
     const UChar_t m_eleScale = 0;
     const UChar_t m_eleSmear = 0;
     const UChar_t m_JESSys = 0;
-    const UChar_t m_TES = 0;
+    const UChar_t m_TES = 3;
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; 
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3
