@@ -139,7 +139,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         jets_btags.push_back(e->Jet_btagDeepFlavB.At(j));
         if (m_isRun3){
             jets_btagsPN.push_back(e->Jet_btagPNetB->At(j));
-            jets_btagsPT.push_back(e->Jet_btagRobustParTAK4B->At(j));
+            jets_btagsPT.push_back(e->Jet_btagRobustParTAK4B->At(j));//???small portions of value -3???
         }else{
             jets_btagsPN.push_back(-99);
             jets_btagsPT.push_back(-99);

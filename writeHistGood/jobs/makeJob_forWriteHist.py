@@ -78,10 +78,10 @@ def main():
     
     # version = 'v0dataMC_btagWPsf'
     # version = 'v0dataMC_noCorrection'
-    # version = 'v0dataMC_noCorrectionNewTTBR'
+    version = 'v0dataMC_noCorrectionNewTTBR'
     # version = 'v1dataMC_pileupSF'
     # version = 'v2dataMC_pileupBtagSF'
-    version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
+    # version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
     channel = 0
     
         

@@ -46,8 +46,8 @@ void run_treeAnalyzer(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/",
     // TString process = "TTto4Q1",
     // TString process = "JetMET2022G",
-    TString process = "TTtoLNu2Q",
-    // TString process = "TTto2L2Nu",
+    // TString process = "TTtoLNu2Q",
+    TString process = "TTto2L2Nu",
     // TString process = "tttt",
     // TString process = "TTTT",
 

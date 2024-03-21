@@ -728,6 +728,13 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
             Double_t ijetEta = std::abs(jets_eta.At(j));
             Double_t ijetBtag = jets_btag.At(j);
             Int_t ijetFlav = jets_flavour.At(j);
+
+            //for PT btag a few value of -3
+            if(ijetBtag<0 || ijetBtag>1){
+                std::cout<<"!!!Warning: btag value out of range: "<<ijetBtag<<"\n";
+                return 1.0;
+            }
+
             if (sys == "central")
             {
                 ijetSF = corr_deepJet->evaluate({sys, jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j), jets_btag.At(j)});
@@ -805,6 +812,13 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
             Double_t ijetEta = std::abs(jets_eta.At(j));
             Double_t ijetPt = jets_pt.At(j);
             Double_t ijetBtag = jets_btag.At(j);
+
+
+            if(ijetBtag<0. || ijetBtag>1.){
+                std::cout<<"!!!Warning: btag value out of range: "<<ijetBtag<<"\n";
+                return 1.0;
+            }
+
             if (ijetFlav == 4 || ijetFlav == 5)
             {
                 // b and c

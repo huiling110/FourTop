@@ -16,8 +16,10 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/mc/TTTT/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTTT/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTtoLNu2Q/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTTT/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTtoLNu2Q/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTto2L2Nu/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTto4Q/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022F/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/JetMET2022D/",
     // TString singleFileName = "outTree_0.root",
@@ -26,7 +28,7 @@ void run_objectSelection(
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
     Int_t eventNum = 1000)
-// Int_t eventNum = 10000
+// Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 {
     TStopwatch t;
@@ -58,6 +60,7 @@ void run_objectSelection(
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES, JER, JES); //no HLT selection, for HLT study
     // os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER, JES); //with HLT and preselection
     os.EventLoop(kTRUE, kTRUE, eventNum, TES, JER); //with HLT and preselection
+    // os.EventLoop(kFALSE, kFALSE, eventNum, TES, JER); //no selection
 
     os.Terminate();
 
