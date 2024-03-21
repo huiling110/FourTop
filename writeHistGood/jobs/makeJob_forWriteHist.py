@@ -53,7 +53,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v3EnergyScaleDone/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baselineBtagWeightFix_v3HLTPre/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -78,9 +79,9 @@ def main():
     
     # version = 'v0dataMC_btagWPsf'
     # version = 'v0dataMC_noCorrection'
-    version = 'v0dataMC_noCorrectionNewTTBR'
+    # version = 'v0dataMC_noCorrectionNewTTBR'
     # version = 'v1dataMC_pileupSF'
-    # version = 'v2dataMC_pileupBtagSF'
+    version = 'v2dataMC_pileupBtagSFNewTTBR'
     # version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
     channel = 0
     

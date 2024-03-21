@@ -14,7 +14,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v0FR_newLep/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1FR_applicationNewTitle/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/mc/variableHists_v0_triggerSFNewRange/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHist_v6_btagRMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHist_v6_btagRMeasure/'
 
     # inputDirDic = uf.getDirDic(inputDir) 
     # era = uf.getEraFromDir(inputDir)
@@ -29,9 +29,10 @@ def main():
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_postVFP/v54noHLTButPreMetFixed/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v56NoHLTButPre/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v57ovelapWithTausF/'
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v65TheoryWeightAdded/'
-    era = uf.getEraFromDir(obDir)
-    checkOSJobs(obDir, era)
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v65TheoryWeightAdded/'
+    # era = uf.getEraFromDir(obDir)
+    # checkOSJobs(obDir, era)
+    # checkLogOB(obDir)
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = inputDir[:inputDir.find('mc')]
@@ -45,19 +46,49 @@ def main():
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/'
     # checkMVJobs(mvDir)
     
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/data/JetMET2022G/'
+    nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022G/'
+    compareEntry( nanoDir, obDir)
     
+    # OSDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/'
+    # checkOSJobEntry(OSDir)
     
+# def checkOSJobEntry(obDir):
+#     dirDic = uf.getDirDic(obDir)
+
+#         compareEntry(nanoDir, obDir)
+   
+def compareEntry(nanoDir, OSDir):
+    entryNano = getEntryNano(nanoDir)    
+    entryOS = getEntryOS(OSDir)
+
+def getEntryOS(OSDir):
+    entry = 0
+    for ifile in os.listdir(OSDir):
+        if not '.root' in ifile: continue
+        rootF = ROOT.TFile(OSDir+ifile, 'READ')
+        entry += rootF.Get('OS_initial').GetEntries()
+        rootF.Close()
+    print(OSDir, ' entries: ', entry)
+    return entry
     
-    
-    
-    
+def getEntryNano(nanoDir):
+    chain = ROOT.TChain('Events')
+    chain.Add(nanoDir+'*.root')
+    entries = chain.GetEntries()
+    print(nanoDir, ' entries: ', entries)
+    return entries
+ 
 def checkOSJobs(obDir, era='2016preVFP'):
     nanoDirDic = {
         '2016postVFP': '/publicfs/cms/data/TopQuark/nanoAOD/2016/',
         '2016preVFP': '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/',
         '2017': '/publicfs/cms/data/TopQuark/nanoAOD/2017/',
         '2018': '/publicfs/cms/data/TopQuark/nanoAOD/2018/',
+        '2022postEE': '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/',
+        '2022preEE': '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/',
     }
+    
     nanoDir = nanoDirDic[era]
     print('inputNano dir: ', nanoDir)
     fileDic = getProcessFileDic(nanoDir, era)
@@ -72,10 +103,9 @@ def checkOSJobs(obDir, era='2016preVFP'):
         print('os file not the same with nanofile')
     else:
         print('os file the same with nanofile')
-    check2Dic( fileDic['mc'], OSfileDic['mc'])
-    check2Dic( fileDic['data'], OSfileDic['data'])
+    # check2Dic( fileDic['mc'], OSfileDic['mc'])
+    # check2Dic( fileDic['data'], OSfileDic['data'])
 
-    # checkLogOB(obDir)
 
 def check2Dic( dict1, dict2):
     # get the keys that are in dict1 but not in dict2
@@ -118,7 +148,7 @@ def checkLogOB(obDir):
     obDirDic['data']=obDir+'data/'
     for ikey in obDirDic.keys():
         for isub in os.listdir(obDirDic[ikey]):
-            checkLogDir(obDirDic[ikey]+isub+'/log/')
+            checkLogDir(obDirDic[ikey]+isub+'/log/', 'outFile here:')
                 
          
     
@@ -223,8 +253,10 @@ def checkJobStatus(inputDirDic):
 def checkLogDir(logDir, word ):            
     print('checking log dir: ', logDir)
     for ifile in os.listdir(logDir):
-        if not 'err' in ifile: continue
-        if not checkWordInFile( logDir + ifile , word):
+        # if not 'err' in ifile: continue
+        if '.err' in ifile: continue
+        # if not checkWordInFile( logDir + ifile , word):
+        if not check_string_in_log_file(logDir + ifile, word):
             print('job not successful: ', ifile)
             
                     
@@ -240,6 +272,19 @@ def checkWordInFile( file, word='Terminate' ):
                    inFile = True
     # print(inFile)
     return inFile
+
+def check_string_in_log_file(log_file_path, search_string):
+    try:
+        with open(log_file_path, 'r') as file:
+            for line in file:
+                if search_string in line:
+                    return True
+        return False
+    except FileNotFoundError:
+        print("Log file not found.")
+        return False
+
+
 
 
 if __name__=='__main__':
