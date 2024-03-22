@@ -2,7 +2,7 @@
 #include "../include/usefulFunc.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, ULong_t numEntries, const Int_t tauTES, const Int_t ifJER, const Int_t sysJEC)
+void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, ULong_t numEntries)
 {
     ULong_t entryCount = 0;
     if (numEntries <= 0)
@@ -14,7 +14,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
     {
         entryCount++;
         if(entryCount==1){
-            std::cout << "tauTES=" << tauTES << ";  JER=" << ifJER << "; JES="<<sysJEC<<";  preSelection="<< preSelection << "; ifHLT="<<ifHLT<< "\n";
+            std::cout << "preSelection="<< preSelection << "; ifHLT="<<ifHLT<< "\n";
         }
 
         Double_t genWeight = 1.0;
@@ -61,9 +61,9 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         std::vector<Double_t> elePhiVec = m_isRun3 ? eleMVASel.getPhiVec(): eleTopMVATSel.getPhiVec();
 
         // tau selection
-        tauSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tauTES);
-        tauSelF.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tauTES);
-        tauSelL.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tauTES);
+        tauSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
+        tauSelF.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
+        tauSelL.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
         const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
         m_tausTotal += tauSel.getSize();
@@ -71,13 +71,13 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         m_tausLTotal += tauSelL.getSize();
 
         // jet and bjet selection
-        jetSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        jetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetLSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetPNMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
-        bjetPTMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE, ifJER);
+        jetSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
+        jetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
+        bjetMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
+        bjetLSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
+        bjetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
+        bjetPNMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
+        bjetPTMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
         m_jetsTotal += jetSel.getSize();
         m_bjetsM += bjetMSel.getSize();
 
@@ -93,7 +93,8 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         if (preSelection)
         {
             Int_t bjetsNum = m_isRun3? bjetPTMSel.getSize(): bjetMSel.getSize();
-            if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //different b-tag for run2 and run3
+            // if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //different b-tag for run2 and run3
+            if (!(jetSel.getSize() > 5)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
                 continue;
         }

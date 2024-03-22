@@ -152,9 +152,9 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         }
 
         //!!!Testing corrections
-        // Double_t basicWeight = e->EVENT_genWeight.v();
+        Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v();
-        Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v();
+        // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v() * e->HLT_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->eleMVAT_IDSF_weight.v(); //!!! run 3 
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);
@@ -176,10 +176,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         // Bool_t ifbaseline = baselineSelection(e, m_isRun3);
 
-        // Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v();
+        Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
         // Bool_t if1tau = e->tausT_num.v() == 1 ; 
         // Bool_t if1tau = e->tausT_num.v() == 1 && (e->bjetsPTM_num.v()>=2); 
-        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum &&(e->bjetsPTM_num.v()>=2), "baseline", basicWeight, m_isData);
 
         // SR
         if (!m_isData)
