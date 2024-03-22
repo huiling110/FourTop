@@ -64,9 +64,10 @@ def main():
     # inVersion = 'v3EnergyScaleDone'
     # inVersion = 'v3NoHLTNoBtagButTauSel'
     # inVersion = 'v3NotHLTPre'
-    inVersion = 'v3HLTPre'
-    # outVersion = 'v0baseline'
-    outVersion = 'v0baselineBtagWeightFix'
+    # inVersion = 'v3HLTPre'
+    inVersion = 'v4HLTPreNoEnergyScale'
+    outVersion = 'v0baseline'
+    # outVersion = 'v0baselineBtagWeightFix'
     # outVersion = 'v0NoBtagSel'
   
    
