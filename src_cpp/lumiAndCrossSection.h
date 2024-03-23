@@ -82,12 +82,12 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     // https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO},
     // cross check these?},
     // https://cms.cern.ch/iCMS/analysisadmin/cadilines?line=TOP-22-012},
-    {"TTto4Q", 410.89 },//923.6 * 0.667 * 0.667  // = 410.89  (762.1)},
-    {"TTto2L2Nu", 102.41},//923.6 * 0.333 * 0.333  // = 102.41 (96.9)},
-    {"TTtoLNu2Q", 410.28},//923.6 * 2 * (0.667 * 0.333)  // = 410.28 (404.0)},
-    // {"TTto4Q", 431.10 },//923.6 * 0.6832 * 0.6832  // = 410.89  (762.1)},
-    // {"TTto2L2Nu", 92.69},//923.6 * 0.3168 * 0.3168  // = 102.41 (96.9)},
-    // {"TTtoLNu2Q", 399.80},//923.6 * 2 * (0.6832 * 0.3168)  // = 410.28 (404.0)},
+    // {"TTto4Q", 410.89 },//923.6 * 0.667 * 0.667  // = 410.89  (762.1)},
+    // {"TTto2L2Nu", 102.41},//923.6 * 0.333 * 0.333  // = 102.41 (96.9)},
+    // {"TTtoLNu2Q", 410.28},//923.6 * 2 * (0.667 * 0.333)  // = 410.28 (404.0)},
+    {"TTto4Q", 419.69},//923.6 * 0.6741 * 0.6741 },//branching ratio of W boson from pdg: https://pdglive.lbl.gov/Particle.action?node=S043&init=0
+    {"TTto2L2Nu", 98.09},//923.6 * 0.3259 * 0.3259  ,
+    {"TTtoLNu2Q", 405.80},//923.6 * 2 * (0.6741 * 0.3259) ,
     //TTTT run 3
     {"TTTT", 0.0158},
 };
