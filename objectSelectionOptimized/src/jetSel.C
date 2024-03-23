@@ -91,7 +91,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
                 continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         }
 
-        //! jet veto map //https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
         Bool_t ifveto = jetVetoMap(ijetEta, ijetPhi);
         if(ifveto){
             continue;
