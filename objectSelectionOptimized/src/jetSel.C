@@ -75,8 +75,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Double_t ijetPhi = e->Jet_phi.At(j);
         // maybe scaling only changes pt and mass? yes!
 
-        //! jet veto map //https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
-        // jetVetoMap(ijetEta, ijetPhi);
 
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
@@ -91,6 +89,12 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         {
             if (!(ijet_jetID > 2))
                 continue; // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+        }
+
+        //! jet veto map //https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+        Bool_t ifveto = jetVetoMap(ijetEta, ijetPhi);
+        if(ifveto){
+            continue;
         }
 
         // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
@@ -402,6 +406,20 @@ Int_t JetSel::getSize()
 
 Bool_t JetSel::jetVetoMap(Double_t eta, Double_t phi){
 //    https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
-    auto corr_jetVeto = cset_jetVeto->at(corr_SF_map[m_era].at(3).Data());
+    if(!m_isRun3){
+        return kFALSE;
+    }
 
+    //!json file can not handle |phi|>3.14159; veto it mannually
+    if(TMath::Abs(phi)>3.1159){
+        return kTRUE;
+    }
+
+    auto corr_jetVeto = cset_jetVeto->at(corr_SF_map[m_era].at(3).Data());
+    Double_t veto = corr_jetVeto->evaluate({"jetvetomap", eta, phi});
+    if(TMath::Abs(veto)>1e-9){
+        return kTRUE;
+    }else{
+        return kFALSE;
+    }
 }
