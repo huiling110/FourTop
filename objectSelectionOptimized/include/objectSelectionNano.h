@@ -30,7 +30,7 @@
 class objectSelection
 {
 public:
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0, const UChar_t JESSys =0) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}, m_JESSys{JESSys}
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0, const UChar_t JESSys =0, const UChar_t TES = 0) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}, m_JESSys{JESSys}, m_TES{TES}
     {
         std::cout << "Initialize objectSelection class..................................\n";
         m_input = new TFile(inputDir + singleFileName, "READ");
@@ -90,7 +90,7 @@ private:
     const UChar_t m_eleScale = 0;
     const UChar_t m_eleSmear = 0;
     const UChar_t m_JESSys = 0;
-    const UChar_t m_TES = 3;
+    const UChar_t m_TES = 0;
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; 
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3

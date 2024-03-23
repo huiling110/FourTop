@@ -48,9 +48,9 @@ void run_treeAnalyzer(
     // TString process = "TTto4Q1",
     // TString process = "JetMET2022G",
     // TString process = "TTtoLNu2Q",
-    // TString process = "TTto2L2Nu",
+    TString process = "TTto2L2Nu",
     // TString process = "tttt",
-    TString process = "TTTT",
+    // TString process = "TTTT",
 
     // TString process = "jetHT_2018a",
     // TString process = "ttbar_0l",

@@ -8,8 +8,10 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
 
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
+    cset_jetVeto = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(4)).Data());
     // auto cset_jerSF_com = cset_jerSF->compound();
     std::cout << "JEC sf file: " << (jsonBase + json_map[era].at(0)).Data() << "\n";
+    std::cout << "Jet veto file: " << (jsonBase + json_map[era].at(4)).Data() << "\n";
     // for (auto &corr : *cset_jerSF)  
     // {
     //     printf("Correction: %s\n", corr.first.c_str());
@@ -72,6 +74,9 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Double_t ijetEta = e->Jet_eta.At(j);
         Double_t ijetPhi = e->Jet_phi.At(j);
         // maybe scaling only changes pt and mass? yes!
+
+        //! jet veto map //https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+        // jetVetoMap(ijetEta, ijetPhi);
 
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
@@ -393,4 +398,10 @@ std::vector<Double_t> &JetSel::getPhiVec()
 Int_t JetSel::getSize()
 {
     return jets_pt.size();
+}
+
+Bool_t JetSel::jetVetoMap(Double_t eta, Double_t phi){
+//    https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
+    auto corr_jetVeto = cset_jetVeto->at(corr_SF_map[m_era].at(3).Data());
+
 }

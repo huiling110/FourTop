@@ -26,6 +26,7 @@ public:
     std::vector<Double_t> &getEtaVec();
     std::vector<Double_t> &getPhiVec();
     Int_t getSize();
+    Bool_t jetVetoMap(Double_t eta, Double_t phi);
 
 private:
     Int_t m_jetType = 0;
@@ -35,6 +36,7 @@ private:
     const Bool_t m_isData;
     const UChar_t m_JESSys = 0;
     std::unique_ptr<correction::CorrectionSet> cset_jerSF;
+    std::unique_ptr<correction::CorrectionSet> cset_jetVeto;
     std::vector<Double_t> JER_SF_new;
     std::vector<Double_t> JES_SF;
     std::vector<Double_t> jets_JESuncer;

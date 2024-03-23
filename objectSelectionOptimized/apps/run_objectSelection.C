@@ -47,7 +47,9 @@ Int_t eventNum = 10000)
     const UChar_t eleSmear = 3;
     // const UChar_t JESSys = 0;
     const UChar_t JESSys = 3; //no correction
-    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys);
+    const UChar_t TES = 3; //no correction
+    std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) << "\n\n";
+    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, TES);
 
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES); //no HLT selection, for HLT study
     // os.EventLoop(kTRUE, kTRUE, eventNum, TES); //with HLT and preselection

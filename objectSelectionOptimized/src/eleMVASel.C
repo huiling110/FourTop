@@ -90,6 +90,7 @@ Double_t EleMVASel::getEleSmear( Double_t eta, Double_t r9){
         default:
             // If the default case does not need to generate a random number,
             // you can handle it accordingly here.
+            return 1.0;
             break;
     }
 

@@ -1,23 +1,23 @@
 #include "../include/inputMap.h"
 
-std::map<TString, std::array<TString, 3>> corr_SF_map{
+std::map<TString, std::array<TString, 4>> corr_SF_map{
     //  Summer19UL17_JRV2_MC.db ,, Summer19UL18_JRV2_MC.db
-    // array[0]: JERSF, array[1]: JECuncertainty_MC, array[2]:JERpt resolution
-    {"2016preVFP", {"Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16APV_V7_MC_Total_AK4PFchs", "Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs"}},
-    {"2016postVFP", {"Summer20UL16_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16_V7_MC_Total_AK4PFchs", "Summer20UL16_JRV3_MC_PtResolution_AK4PFchs"}},
-    {"2017", {"Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL17_V5_MC_Total_AK4PFchs", "Summer19UL17_JRV2_MC_PtResolution_AK4PFchs"}},
-    {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},
-    {"2022", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},//!!!
-    {"2022preEE", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}},//!!!
-    {"2022postEE", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs"}}, //!!!1
+    // array[0]: JERSF, array[1]: JECuncertainty_MC, array[2]:JERpt resolution; array[3]:vetoMap
+    {"2016preVFP", {"Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16APV_V7_MC_Total_AK4PFchs", "Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
+    {"2016postVFP", {"Summer20UL16_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16_V7_MC_Total_AK4PFchs", "Summer20UL16_JRV3_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
+    {"2017", {"Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL17_V5_MC_Total_AK4PFchs", "Summer19UL17_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
+    {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
+    {"2022", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},//!!!
+    {"2022preEE", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1" }},//!!!
+    {"2022postEE", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22EE_23Sep2023_RunEFG_V1"}}, //!!!1
 };
-std::map<TString, std::array<TString, 4>> json_map = {
-    {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json", "LUM/2016preVFP_UL/puWeights.json"}},
-    {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json", "LUM/2016postVFP_UL/puWeights.json"}},
-    {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json", "BTV/2017_UL/btagging.json", "LUM/2017_UL/puWeights.json"}},
-    {"2018", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json", "LUM/2018_UL/puWeights.json"}},
-    {"2022preEE", {"JME/2022_Summer22/jet_jerc.json", "../newRun3/TAU/2022_preEE/tau_DeepTau2018v2p5_2022_preEE.json", "BTV/2018_UL/btagging.json", "LUM/2022_Summer22/puWeights.json"}},//!!! to be updated!!!
-    {"2022postEE", {"/JME/2022_Summer22EE/jet_jerc.json", "../newRun3/TAU/2022_postEE/tau_DeepTau2018v2p5_2022_postEE.json", "BTV/2018_UL/btagging.json", "LUM/2022_Summer22EE/puWeights.json"}},//!!! to be updated!!!
+std::map<TString, std::array<TString, 5>> json_map = {
+    {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json", "LUM/2016preVFP_UL/puWeights.json", "JME/2016preVFP_UL/jetvetomaps.json"}},
+    {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json", "LUM/2016postVFP_UL/puWeights.json", "JME/2016postVFP_UL/jetvetomaps.json""JME/2016postVFP_UL/jetvetomaps.json"}},
+    {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json", "BTV/2017_UL/btagging.json", "LUM/2017_UL/puWeights.json", "JME/2017_UL/jetvetomaps.json"}},
+    {"2018", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json", "LUM/2018_UL/puWeights.json", "JME/2018_UL/jetvetomaps.json"}},
+    {"2022preEE", {"JME/2022_Summer22/jet_jerc.json", "../newRun3/TAU/2022_preEE/tau_DeepTau2018v2p5_2022_preEE.json", "BTV/2018_UL/btagging.json", "LUM/2022_Summer22/puWeights.json", "JME/2022_Summer22/jetvetomaps.json"}},//!!! to be updated!!!
+    {"2022postEE", {"/JME/2022_Summer22EE/jet_jerc.json", "../newRun3/TAU/2022_postEE/tau_DeepTau2018v2p5_2022_postEE.json", "BTV/2018_UL/btagging.json", "LUM/2022_Summer22EE/puWeights.json", "JME/2022_Summer22EE/jetvetomaps.json"}},//!!! to be updated!!!
 };
 
 std::map<TString, std::array<TString, 5>> jesTagMC = {
