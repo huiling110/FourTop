@@ -352,7 +352,6 @@ private:
         {tausF_prongNum.n(), &tausF_prongNum},
         {tausF_1jetPt.n(), &tausF_1jetPt},
         {tausF_1eta.n(), &tausF_1eta},
-        {tausF_num.n(), &tausF_num},
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
         {tausF_1pt.n(), &tausF_1pt},

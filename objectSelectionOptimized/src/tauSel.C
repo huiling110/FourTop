@@ -39,8 +39,8 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
 {
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
+    //https://twiki.cern.ch/twiki/bin/view/CMS/TauIDRecommendationForRun3#Choice_of_the_tau_ID_algorithm
     clearBranch();
-    // calTauSF_new(e, isData);//deprecated
 
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
@@ -50,10 +50,8 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Int_t itau_charge = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_charge, j);
 
         Double_t itau_pt = e->Tau_pt.At(j);
-        Double_t iTES = 1.0;
-        if(!m_isData){
-            iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j)); // TES handled inside the function
-        }
+        Double_t iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j)); // TES handled inside the function
+        // std::cout<<"iTES="<<iTES<<"\n";
         itau_pt *= iTES;
         Double_t itau_mass = e->Tau_mass.At(j)*iTES;
 
@@ -121,7 +119,6 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
             }
             if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
                 continue;
-            // if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)//!!!
             if (itau_decayMode == 5 || itau_decayMode == 6)
                 continue;
         }
@@ -129,7 +126,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         { // channel specific in ttH. use the tight from 1t 1l
             if (m_isRun3)
             {
-                isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1
+                isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1//!will this comparision with unsigned char work?
                 isVSeVVVLoose = tauID_vsEle >= 1; // check if the 1st bit (VVVLoose WP) is 1
                 isVSmuVLoose = tauID_vsMu >= 3;   // check if the 1st bit (VLoose WP) is 1
             }
@@ -141,7 +138,6 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
             }
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
                 continue;
-            // if (e->Tau_decayMode.At(j) == 5 || e->Tau_decayMode.At(j) == 6)//!!!
             if (itau_decayMode == 5 || itau_decayMode == 6)
                 continue;
         }
@@ -220,6 +216,7 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
 
 Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_eta, Int_t itau_genPartFlav)
 {
+    //
     auto corr_tauES = cset_tauSF->at("tau_energy_scale");
     Double_t iTES_sf = 1.0;
     if(!m_isData && !(itau_decayMode == 5 || itau_decayMode == 6)){
