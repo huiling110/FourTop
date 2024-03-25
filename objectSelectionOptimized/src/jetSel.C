@@ -282,10 +282,18 @@ Double_t JetSel::calJER_SF_new(Double_t pt, Double_t eta, Double_t phi, Double_t
         }
         break;
     case 1:
-        ijet_sf = corr_jerSF->evaluate({eta, "up"});
+        if(m_isRun3){
+            ijet_sf = corr_jerSF->evaluate({eta, pt, "up"});
+        }else{
+            ijet_sf = corr_jerSF->evaluate({eta, "up"});
+        }
         break;
     case 2:
-        ijet_sf = corr_jerSF->evaluate({eta, "down"});
+        if(m_isRun3){
+            ijet_sf = corr_jerSF->evaluate({eta, pt, "down"});
+        }else{
+            ijet_sf = corr_jerSF->evaluate({eta, "down"});
+        }
         break;
     default:
         // std::cout << "!!!JER sf not getting correctly\n";
@@ -293,7 +301,8 @@ Double_t JetSel::calJER_SF_new(Double_t pt, Double_t eta, Double_t phi, Double_t
     }
 
     // Int_t genMatchIndex = OS::genMatchForJER(ieta, iphi, ipt, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt, ijet_res);
-    Double_t ijet_res = corr_jerResolution->evaluate({{pt, eta, rho}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
+    // Double_t ijet_res = corr_jerResolution->evaluate({{pt, eta, rho}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
+    Double_t ijet_res = corr_jerResolution->evaluate({{ eta, pt, rho}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
     Int_t genMatchIndex = OS::genMatchForJER(eta, phi, pt, genEta, genPhi, genPt, ijet_res);
 
     if (genMatchIndex > 0)
@@ -320,8 +329,6 @@ Double_t JetSel::calJER_SF_new(Double_t pt, Double_t eta, Double_t phi, Double_t
     }
 
     return iSF;
-
-
 }
 
 
