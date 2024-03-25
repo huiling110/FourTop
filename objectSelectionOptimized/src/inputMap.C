@@ -8,8 +8,8 @@ std::map<TString, std::array<TString, 4>> corr_SF_map{
     {"2017", {"Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL17_V5_MC_Total_AK4PFchs", "Summer19UL17_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
     {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
     {"2022", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},//!!!
-    {"2022preEE", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1" }},//!!!
-    {"2022postEE", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22EE_23Sep2023_RunEFG_V1"}}, //!!!1
+    {"2022preEE", {"Summer22_22Sep2023_JRV1_MC_ScaleFactor_AK4PFPuppi", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer22_22Sep2023_JRV1_MC_PtResolution_AK4PFPuppi", "Summer22_23Sep2023_RunCD_V1" }},//!!!
+    {"2022postEE", {"Summer22EE_22Sep2023_JRV1_MC_ScaleFactor_AK4PFPuppi", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer22EE_22Sep2023_JRV1_MC_PtResolution_AK4PFPuppi", "Summer22EE_23Sep2023_RunEFG_V1"}}, //!!!1
 };
 std::map<TString, std::array<TString, 5>> json_map = {
     {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json", "LUM/2016preVFP_UL/puWeights.json", "JME/2016preVFP_UL/jetvetomaps.json"}},

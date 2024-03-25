@@ -11,7 +11,7 @@
 class JetSel
 {
 public:
-    JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3=kFALSE, const Bool_t isData=kFALSE,  const Int_t jetType = 0, const UChar_t JESSys = 0);
+    JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3=kFALSE, const Bool_t isData=kFALSE,  const Int_t jetType = 0, const UChar_t JESSys = 0, UChar_t JERSys = 0);
 
     ~JetSel();
 
@@ -20,8 +20,9 @@ public:
     void calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys=0);
     // void calJES_SF(const eventForNano *e, const Int_t sys);
     Double_t calJES_SF(Double_t area, Double_t eta, Double_t pt, Double_t pho);
+    Double_t calJER_SF_new(Double_t pt, Double_t eta, Double_t phi, Double_t mass, Double_t rho, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, TTreeReaderArray<Float_t> &genPt);
 
-    void calTauSF_new(const eventForNano *e, const Bool_t isData);
+    // void calTauSF_new(const eventForNano *e, const Bool_t isData);
     void clearBranch();
     std::vector<Double_t> &getEtaVec();
     std::vector<Double_t> &getPhiVec();
@@ -35,6 +36,7 @@ private:
     const Bool_t m_isRun3;
     const Bool_t m_isData;
     const UChar_t m_JESSys = 0;
+    const UChar_t m_JERSys = 0;
     std::unique_ptr<correction::CorrectionSet> cset_jerSF;
     std::unique_ptr<correction::CorrectionSet> cset_jetVeto;
     std::vector<Double_t> JER_SF_new;

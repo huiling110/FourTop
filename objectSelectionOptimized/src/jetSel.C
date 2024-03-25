@@ -1,10 +1,10 @@
 #include "../include/jetSel.h"
 #include <map>
 
-JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}
+JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys, const UChar_t JERSys) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}, m_JERSys{JERSys}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<" m_JESSys="<<static_cast<unsigned int>(m_JESSys)<< "......\n";
+    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<" m_JESSys="<<static_cast<unsigned int>(m_JESSys)<< " m_JERSys="<<static_cast<unsigned int>(m_JERSys)<<"......\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
@@ -66,16 +66,20 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Int_t ijet_hadronFlavour = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_hadronFlavour, j);
 
         Double_t JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
-        std::cout<<"JESSF="<<JESSF<<"\n";
+        // std::cout<<"JESSF="<<JESSF<<"\n";
 
         Double_t jetpt = e->Jet_pt.At(j)*JESSF;
         Double_t ijetMass = e->Jet_mass.At(j)*JESSF;
         // std::cout << "JESSF: " << JESSF << "\n";
-
         Double_t ijetEta = e->Jet_eta.At(j);
         Double_t ijetPhi = e->Jet_phi.At(j);
         // maybe scaling only changes pt and mass? yes!
 
+        Double_t JERSF = 1.0;
+        if(!m_isData){
+            JERSF = calJER_SF_new(jetpt, ijetEta, ijetPhi, ijetMass, **e->Rho_fixedGridRhoFastjetAll, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt);
+        }
+        std::cout << "JERSF=" << JERSF << "\n";
 
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
@@ -159,7 +163,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
 void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
 {
     // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
-    // https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
+    // https://twiki.cern.ch/twi:162,ki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
     // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
     //https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetSmearer.py
@@ -249,6 +253,78 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
         jets_JESuncer.push_back(iSF_JESuncer);
     }
 };
+
+Double_t JetSel::calJER_SF_new(Double_t pt, Double_t eta, Double_t phi, Double_t mass, Double_t rho, TTreeReaderArray<Float_t> &genEta, TTreeReaderArray<Float_t> &genPhi, TTreeReaderArray<Float_t> &genPt){
+    // https://gitlab.cern.ch/cms-nanoAOD/jsonpog-integration/-/blob/master/examples/jercExample.py
+    // https://twiki.cern.ch/twi:162,ki/bin/view/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
+    // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
+    // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
+    //https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetSmearer.py
+    if(m_isData){
+        return 1.0;
+    }
+    //run 3: Summer22EE_22Sep2023_JRV1_MC_ScaleFactor_AK4PFPuppi
+    auto corr_jerSF = cset_jerSF->at(corr_SF_map[m_era].at(0).Data());
+    auto corr_jerResolution = cset_jerSF->at(corr_SF_map[m_era].at(2).Data());
+    ROOT::Math::PtEtaPhiMVector ijetVec(pt, eta, phi, mass);
+    Double_t ienergy = ijetVec.energy();
+    Double_t iSF = 1.0; // JER_SF_new
+    // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
+
+    Double_t ijet_sf = 1.0;
+    switch (m_JERSys)
+    {
+    case 0:
+        if(m_isRun3){
+            ijet_sf = corr_jerSF->evaluate({eta, pt, "nom"});
+        }else{
+            ijet_sf = corr_jerSF->evaluate({eta, "nom"});
+        }
+        break;
+    case 1:
+        ijet_sf = corr_jerSF->evaluate({eta, "up"});
+        break;
+    case 2:
+        ijet_sf = corr_jerSF->evaluate({eta, "down"});
+        break;
+    default:
+        // std::cout << "!!!JER sf not getting correctly\n";
+        break;
+    }
+
+    // Int_t genMatchIndex = OS::genMatchForJER(ieta, iphi, ipt, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt, ijet_res);
+    Double_t ijet_res = corr_jerResolution->evaluate({{pt, eta, rho}}); // !!!jet_resolution, there are fixedGridRhoFastjetCentral and others, not sure which rho to use?
+    Int_t genMatchIndex = OS::genMatchForJER(eta, phi, pt, genEta, genPhi, genPt, ijet_res);
+
+    if (genMatchIndex > 0)
+    {
+        // Case 1: we have a "good" generator level jet matched to the reconstructed jet
+        // Double_t dPt = ipt - (*e->GenJet_pt)[genMatchIndex];
+        Double_t dPt = pt - genPt[genMatchIndex];
+        iSF = 1 + (ijet_sf - 1.) * dPt / pt;
+    }
+    else
+    { // Case 2: we don't have a gen jet. Smear jet pt using a random gaussian variation
+        Double_t sigma = ijet_res * std::sqrt(ijet_sf * ijet_sf - 1);
+        std::normal_distribution<> d(0, sigma);
+        iSF = 1. + d(m_random_generator); // m_random_generator = std::mt19937(seed) //std::uint32_t>("seed", 37428479);
+    }
+    const Double_t MIN_JET_ENERGY = 1e-2;
+    if (ienergy * iSF < MIN_JET_ENERGY)
+    {
+        // Negative or too small smearFactor. We would change direction of the jet
+        // and this is not what we want.
+        // Recompute the smearing factor in order to have jet.energy() == MIN_JET_ENERGY
+        Double_t newSmearFactor = MIN_JET_ENERGY / ienergy;
+        iSF = newSmearFactor;
+    }
+
+    return iSF;
+
+
+}
+
+
 /*
 void JetSel::calJES_SF(const eventForNano* e, const Int_t sys)
 {
