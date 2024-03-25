@@ -9,7 +9,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
 
     outTree->Branch(objName + "_MHT", &taus_MHT);
     outTree->Branch(objName + "_HT", &taus_HT);
-    outTree->Branch(objName + "invariantMass", &taus_invariantMass);
+    outTree->Branch(objName + "_invariantMass", &taus_invariantMass);
     outTree->Branch(objName + "_minDeltaR", &taus_minDeltaR);
     outTree->Branch(objName + "_genTauNum", &taus_genTauNum);
     outTree->Branch(objName + "_leptonsT_transMass", &taus_leptonsT_transMass);
@@ -122,24 +122,6 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
         break;
     }
 
-    // for (UInt_t i = 0; i < objNum; i++)
-    // {
-    //     ROOT::Math::PtEtaPhiMVector muLorentz{-99, -99, -99, -99};
-    //     switch (m_type)
-    //     {
-    //     case 0:
-    //         muLorentz = {e->tausT_pt.At(i), e->tausT_eta.At(i), e->tausT_phi[i], e->tausT_mass[i]};
-    //         break;
-    //     case 1:
-    //         muLorentz = {e->tausF_pt.At(i), e->tausF_eta.At(i), e->tausF_phi[i], e->tausF_mass[i]};
-    //         break;
-    //     case 2:
-    //         muLorentz = {e->tausL_pt.At(i), e->tausL_eta.At(i), e->tausL_phi[i], e->tausL_mass[i]};
-    //         break;
-    //     }
-    //     // ROOT::Math::PtEtaPhiMVector muLorentz{e->tausT_pt.At(i), e->tausT_eta.At(i), e->tausT_phi[i], e->tausT_mass[i]};
-    //     objsLorentz.push_back(muLorentz);
-    // }
 };
 
 TauVarMaker::~TauVarMaker(){};

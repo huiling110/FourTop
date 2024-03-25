@@ -49,8 +49,8 @@ namespace MV
         {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json"}},
         {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json", "BTV/2017_UL/btagging.json"}},
         {"2018", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json"}},
-        {"2022preEE", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2022_Summer22/btagging.json"}},
-        {"2022postEE", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2022_Summer22EE/btagging.json"}},
+        {"2022preEE", {"JME/2018_UL/jet_jerc.json", "../newRun3/TAU/2022_preEE/tau_DeepTau2018v2p5_2022_preEE.json", "BTV/2022_Summer22/btagging.json"}},
+        {"2022postEE", {"JME/2018_UL/jet_jerc.json", "../newRun3/TAU/2022_postEE/tau_DeepTau2018v2p5_2022_postEE.json", "BTV/2022_Summer22EE/btagging.json"}},
     };
 
     inline const std::map<TString, std::array<TString, 3>> json_muon2022 = {
