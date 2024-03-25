@@ -116,6 +116,7 @@ void EleMVASel::Select( eventForNano *e)
         Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j));//sys variation taken care of in getEleScale
         Double_t eleSmear = getEleSmear(e->Electron_eta.At(j), e->Electron_r9.At(j));
         Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
+        Double_t mass = e->Electron_mass.At(j)*eleScale*eleSmear;
         // Double_t pt = e->Electron_pt.At(j);
         // std::cout<<"eleScale="<<eleScale<<" eleSmear="<<eleSmear<<" pt="<<pt<<"\n";
 
@@ -160,7 +161,7 @@ void EleMVASel::Select( eventForNano *e)
         muonsTopMVAT_pt.push_back(pt);
         muonsTopMVAT_eta.push_back(e->Electron_eta.At(j));
         muonsTopMVAT_phi.push_back(e->Electron_phi.At(j));
-        muonsTopMVAT_mass.push_back(e->Electron_mass.At(j));
+        muonsTopMVAT_mass.push_back(mass);
         muonsTopMVAT_index.push_back(j);
     }
     m_objTotal+=muonsTopMVAT_pt.size();

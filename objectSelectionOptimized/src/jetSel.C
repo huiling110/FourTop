@@ -58,8 +58,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
     // JES: 0: nominal; 1:up; 2: down; 
     clearBranch();
 
-    // calJER_SF(e, isData, JER);
-
     for (UInt_t j = 0; j < e->Jet_pt.GetSize(); ++j)
     {
         Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
@@ -75,11 +73,14 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Double_t ijetPhi = e->Jet_phi.At(j);
         // maybe scaling only changes pt and mass? yes!
 
+        //JER
         Double_t JERSF = 1.0;
         if(!m_isData){
             JERSF = calJER_SF_new(jetpt, ijetEta, ijetPhi, ijetMass, **e->Rho_fixedGridRhoFastjetAll, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt);
         }
-        std::cout << "JERSF=" << JERSF << "\n";
+        // std::cout << "JERSF=" << JERSF << "\n";
+        jetpt *= JERSF;
+        ijetMass *= JERSF;
 
         // here SF_up or SF_down should also be apllied.
         if (!(jetpt > 25))
@@ -297,6 +298,7 @@ Double_t JetSel::calJER_SF_new(Double_t pt, Double_t eta, Double_t phi, Double_t
         break;
     default:
         // std::cout << "!!!JER sf not getting correctly\n";
+        return 1.0;
         break;
     }
 

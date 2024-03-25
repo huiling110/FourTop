@@ -30,7 +30,7 @@
 class objectSelection
 {
 public:
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0, const UChar_t JESSys =0, const UChar_t TES = 0) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}, m_JESSys{JESSys}, m_TES{TES}
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0, const UChar_t JESSys =0,  const UChar_t JERSys=0,const UChar_t TES = 0) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}, m_JESSys{JESSys}, m_JERSys{JERSys}, m_TES{TES}
     {
         std::cout << "Initialize objectSelection class..................................\n";
         m_input = new TFile(inputDir + singleFileName, "READ");
@@ -51,7 +51,7 @@ public:
             // set up
             std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; m_isRun3="<<m_isRun3<<"  m_processName="<<m_processName<< "\n";
             std::cout<<"m_eleScale="<<m_eleScale<<" m_eleSmear="<<m_eleSmear<<"\n";
-            std::cout<<"m_JESSys="<<m_JESSys<<"\n";
+            std::cout<<"m_JESSys="<<m_JESSys<<" m_JERSys="<<m_JERSys<<"\n";
 
             m_cutflow->SetDirectory(m_output);
             CF_initial->SetDirectory(m_output);
@@ -90,6 +90,7 @@ private:
     const UChar_t m_eleScale = 0;
     const UChar_t m_eleSmear = 0;
     const UChar_t m_JESSys = 0;
+    const UChar_t m_JERSys = 0;
     const UChar_t m_TES = 0;
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; 
@@ -105,13 +106,13 @@ private:
     TauSel tauSel{m_outTree, m_era, m_isData, m_isRun3, 3, m_TES};
     TauSel tauSelF{m_outTree, m_era, m_isData, m_isRun3, 2, m_TES};
     TauSel tauSelL{m_outTree, m_era, m_isData, m_isRun3, 1, m_TES};
-    JetSel jetSel{m_outTree, m_era, m_processName,  m_isRun3, m_isData, 0, m_JESSys};
-    JetSel jetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 1, m_JESSys};
-    JetSel bjetLSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 11, m_JESSys};
-    JetSel bjetMSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 12, m_JESSys};
-    JetSel bjetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 13, m_JESSys};
-    JetSel bjetPNMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 15, m_JESSys};
-    JetSel bjetPTMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 17, m_JESSys};
+    JetSel jetSel{m_outTree, m_era, m_processName,  m_isRun3, m_isData, 0, m_JESSys, m_JERSys};
+    JetSel jetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 1, m_JESSys, m_JERSys};
+    JetSel bjetLSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 11, m_JESSys, m_JERSys};
+    JetSel bjetMSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 12, m_JESSys, m_JERSys};
+    JetSel bjetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 13, m_JESSys, m_JERSys};
+    JetSel bjetPNMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 15, m_JESSys, m_JERSys};
+    JetSel bjetPTMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 17, m_JESSys, m_JERSys};
     CopyBranch copyBranch{m_outTree, m_isRun3};
     PUWeightCal puWeightCal{m_outTree, m_isData, m_era, m_isRun3};
     SystWeightCal systWeightCal{m_outTree, m_isData};
