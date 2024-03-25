@@ -689,21 +689,28 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
             tauVsEle = "DeepTau2018v2p5VSe";
         }
         auto corr_vsjet = cset->at(tauVsJet.Data());
-        // auto corr_vsmu = cset->at(tauVsMu.Data());
-        // auto corr_vsele = cset->at(tauVsEle.Data());
-        // for (UInt_t i = 0; i < taus_pt.GetSize(); i++)
-        // {
-        //     Double_t ipt = taus_pt.At(i);
-        //     Int_t idecayMode = tausT_decayMode.At(i);
-        //     Int_t igenMatch = tausT_genPartFlav.At(i);
-        //     Double_t ieta = taus_eta.At(i);
-        //     Double_t sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"}); //???not sure if is should be 5 or the genmatch of the tau
-        //     Double_t sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu});
-        //     Double_t sf_vsele = corr_vsele->evaluate({ieta, igenMatch, "VVLoose", syst_vsele}); // no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
-            // sf *= sf_vsJet;
-            // sf *= sf_vsmu;
-            // sf *= sf_vsele;
-        // }
+        auto corr_vsmu = cset->at(tauVsMu.Data());
+        auto corr_vsele = cset->at(tauVsEle.Data());
+        for (UInt_t i = 0; i < taus_pt.GetSize(); i++)
+        {
+            Double_t ipt = taus_pt.At(i);
+            Int_t idecayMode = tausT_decayMode.At(i);
+            Int_t igenMatch = tausT_genPartFlav.At(i);
+            Double_t ieta = taus_eta.At(i);
+            Double_t sf_vsJet = 1.0;
+            Double_t sf_vsele = 1.0;
+            if(isRun3){
+                sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "VVLoose", syst_vsjet, "dm"}); //!why need WPVSEle?
+                sf_vsele = corr_vsele->evaluate({ieta, idecayMode, igenMatch, "VVLoose", syst_vsele}); 
+            }else{
+                sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"}); //???not sure if is should be 5 or the genmatch of the tau
+                sf_vsele = corr_vsele->evaluate({ieta, igenMatch, "VVLoose", syst_vsele}); // no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
+            }
+            Double_t sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu});
+            sf *= sf_vsJet;
+            sf *= sf_vsmu;
+            sf *= sf_vsele;
+        }
     }
     return sf;
 }

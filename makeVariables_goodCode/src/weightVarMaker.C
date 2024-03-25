@@ -34,7 +34,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("musTopMVAT_weight", &musTopMVAT_weight);
     outTree->Branch("musTopMVAT_weight_up", &musTopMVAT_weight_up);
     outTree->Branch("musTopMVAT_weight_down", &musTopMVAT_weight_down);
-    outTree->Branch("tauT_IDSF_weight", &tauT_IDSF_weight);
     outTree->Branch("tauT_IDSF_weight_new", &tauT_IDSF_weight_new);
     outTree->Branch("tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up);
     outTree->Branch("tauT_IDSF_weight_new_vsjet_down", &tauT_IDSF_weight_new_vsjet_down);
