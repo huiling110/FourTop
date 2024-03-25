@@ -67,8 +67,9 @@ def main():
     # inVersion = 'v3HLTPre'
     # inVersion = 'v4HLTPreNoEnergyScale'
     inVersion = 'v5HLTPreJetVetoMap'
-    outVersion = 'v0baseline'
+    # outVersion = 'v0baseline'
     # outVersion = 'v0baselineBtagWeightFix'
+    outVersion = 'v0baselineTauIDSFUpdated'
     # outVersion = 'v0NoBtagSel'
   
    
