@@ -50,7 +50,10 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Int_t itau_charge = OS::getValForDynamicReader<Short_t>(m_isRun3, e->Tau_charge, j);
 
         Double_t itau_pt = e->Tau_pt.At(j);
-        Double_t iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j)); // TES handled inside the function
+        Double_t iTES = 1.0;
+        if(!m_isData){
+            calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j)); // TES handled inside the function
+        }
         // std::cout<<"iTES="<<iTES<<"\n";
         itau_pt *= iTES;
         Double_t itau_mass = e->Tau_mass.At(j)*iTES;

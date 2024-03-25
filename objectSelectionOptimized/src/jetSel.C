@@ -66,6 +66,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Int_t ijet_hadronFlavour = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_hadronFlavour, j);
 
         Double_t JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
+        std::cout<<"JESSF="<<JESSF<<"\n";
 
         Double_t jetpt = e->Jet_pt.At(j)*JESSF;
         Double_t ijetMass = e->Jet_mass.At(j)*JESSF;
@@ -328,36 +329,43 @@ Double_t JetSel::calJES_SF(Double_t area, Double_t eta, Double_t pt, Double_t ph
         TString L2Tag;
         TString L3Tag;
         TString L2L3Re;
-        // TString compound;//???compound not working
+        TString compound;//???compound not working
         if (m_isData)
         {
-            L1Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(2);
-            L2Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(3);
-            L3Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(4);
-            L2L3Re= jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(5);
+            // L1Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(2);
+            // L2Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(3);
+            // L3Tag = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(4);
+            // L2L3Re= jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + jesTagData.at(m_era).at(5);
+            compound = jesTagData.at(m_era).at(0) + jesTagDataRuns.at(m_processName) + "_V2_DATA_L1L2L3Res_AK4PFPuppi";//Summer22_22Sep2023_RunCD_V2_DATA_L1L2L3Res_AK4PFPuppi
         }
         else
         {
-            L1Tag = jesTagMC.at(m_era).at(0);
-            L2Tag = jesTagMC.at(m_era).at(1);
-            L3Tag = jesTagMC.at(m_era).at(2);
-        }
-        auto corr_JESSF_L1 = cset_jerSF->at(L1Tag.Data()); // L1FastJet
-        auto corr_JESSF_L2 = cset_jerSF->at(L2Tag.Data()); // L2Relative
-        auto corr_JESSF_L3 = cset_jerSF->at(L3Tag.Data());
-
-        Double_t iJES_SF_L1 = corr_JESSF_L1->evaluate({area, eta, pt, pho}); //!!!seems all 1 for data
-        Double_t iJES_SF_L2 = corr_JESSF_L2->evaluate({eta, pt});             //!!!seems all larger than 1 for MC, why?
-        Double_t iJES_SF_L3 = corr_JESSF_L3->evaluate({eta, pt});             // all 1, dummy for data
-        if(!m_isData){
-            JES_SF = iJES_SF_L1 * iJES_SF_L2 * iJES_SF_L3;
+            // L1Tag = jesTagMC.at(m_era).at(0);
+            // L2Tag = jesTagMC.at(m_era).at(1);
+            // L3Tag = jesTagMC.at(m_era).at(2);
+            compound = jesTagMC.at(m_era).at(3); // Summer22_22Sep2023_V2_MC_L1L2L3Res_AK4PFPuppi
             auto corr_jesUncer = cset_jerSF->at(jesTagMC.at(m_era).at(4).Data());
             JES_uncer = corr_jesUncer->evaluate({eta, pt}); 
-        }else{
-            auto corr_JESSF_L2L3Res = cset_jerSF->at(L2L3Re.Data());
-            Double_t iJES_SF_L2L3Res = corr_JESSF_L2L3Res->evaluate({eta, pt});       
-            JES_SF = iJES_SF_L1 * iJES_SF_L2 * iJES_SF_L3 * iJES_SF_L2L3Res;
         }
+        // auto corr_JESSF_L1 = cset_jerSF->at(L1Tag.Data()); // L1FastJet
+        // auto corr_JESSF_L2 = cset_jerSF->at(L2Tag.Data()); // L2Relative
+        // auto corr_JESSF_L3 = cset_jerSF->at(L3Tag.Data());
+        // std::cout << compound << "\n";
+        auto corr_JESSF_compound = cset_jerSF->compound().at(compound.Data());//!!!
+        JES_SF = corr_JESSF_compound->evaluate({area, eta, pt, pho});
+
+        // Double_t iJES_SF_L1 = corr_JESSF_L1->evaluate({area, eta, pt, pho}); //!!!seems all 1 for data
+        // Double_t iJES_SF_L2 = corr_JESSF_L2->evaluate({eta, pt});             //!!!seems all larger than 1 for MC, why?
+        // Double_t iJES_SF_L3 = corr_JESSF_L3->evaluate({eta, pt});             // all 1, dummy for data
+        // if(!m_isData){
+        //     // JES_SF = iJES_SF_L1 * iJES_SF_L2 * iJES_SF_L3;
+        //     auto corr_jesUncer = cset_jerSF->at(jesTagMC.at(m_era).at(4).Data());
+        //     JES_uncer = corr_jesUncer->evaluate({eta, pt}); 
+        // }else{
+        //     auto corr_JESSF_L2L3Res = cset_jerSF->at(L2L3Re.Data());
+        //     Double_t iJES_SF_L2L3Res = corr_JESSF_L2L3Res->evaluate({eta, pt});       
+        //     JES_SF = iJES_SF_L1 * iJES_SF_L2 * iJES_SF_L3 * iJES_SF_L2L3Res;
+        // }
 
     }
 
