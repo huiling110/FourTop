@@ -37,7 +37,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v4HLTPreNoEnergyScale/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v4HLTPreNoEnergyScale/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v5HLTPreJetVetoMap/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v5HLTPreJetVetoMap/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v6AllEnergyScale/mc/",
     // TString inputDir = "tttt",
     // TString inputDir = "TTTT",
     TString inputDir = "TTto2L2Nu",
@@ -53,8 +54,8 @@ void run_objectSelection(
     // TString inputDir = "JetMET_G",
     // TString inputDir = "output",
     TString outputDir = "output/",
-    Int_t numEntries = 10000)
-    // Int_t numEntries = 1000)
+    // Int_t numEntries = 10000)
+    Int_t numEntries = 1000)
 {
     TStopwatch t;
     t.Start();

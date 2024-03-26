@@ -105,19 +105,15 @@ void TauVarMaker::clearBranch()
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)
 {
     // overide base ObjValMaker
-    // UInt_t objNum = 0;
     switch (m_type)
     {
     case 0:
-        // objNum = e->tausT_pt.GetSize();
         getLorentzVec(e->tausT_pt, e->tausT_eta, e->tausT_phi, e->tausT_mass, objsLorentz);
         break;
     case 1:
-        // objNum = e->tausF_pt.GetSize();
         getLorentzVec(e->tausF_pt, e->tausF_eta, e->tausF_phi, e->tausF_mass, objsLorentz);
         break;
     case 2:
-        // objNum = e->tausL_pt.GetSize();
         getLorentzVec(e->tausL_pt, e->tausL_eta, e->tausL_phi, e->tausL_mass, objsLorentz);
         break;
     }
