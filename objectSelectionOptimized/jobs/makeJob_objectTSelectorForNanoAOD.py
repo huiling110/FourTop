@@ -53,7 +53,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v3HLTPre/'
 # jobVersionName = 'v4HLTPreNoEnergyScale/'
 # jobVersionName = 'v5HLTPreJetVetoMap/'
-jobVersionName = 'v6AllEnergyScale/'
+# jobVersionName = 'v6AllEnergyScale/'
+jobVersionName = 'v7tauSelFix/'
 #!same version numbers means no change in algrithm but only in selection
 
 def main():
