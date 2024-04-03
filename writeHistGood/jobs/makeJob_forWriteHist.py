@@ -59,7 +59,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v4HLTPreNoEnergyScale/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v5HLTPreJetVetoMap/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baselineTauIDSFUpdated_v5HLTPreJetVetoMap/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v6AllEnergyScale/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v6AllEnergyScale/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v7tauSelFix/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -89,9 +90,10 @@ def main():
     # version = 'v1dataMC_pileupSFNewTTBR'
     # version = 'v2dataMC_pileupBtagSFNewTTBR'
     # version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
-    version = 'v2dataMC_pileupTauIDSF'
+    # version = 'v2dataMC_pileupTauIDSF'
     # version = 'v2dataMC_pileupSF'
     # version = 'v3dataMC_pileupTauIDBtagWPSF'
+    version = 'v4dataMC_pileupBtagWPSF'
     channel = 0
     
         

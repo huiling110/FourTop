@@ -22,6 +22,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
     outTree->Branch(objName + "_1charge", &taus_1charge);
     outTree->Branch(objName + "_1neutralIso", &taus_1neutralIso);
+    outTree->Branch(objName + "_1genFlavour", &taus_1genFlavour);
 
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
@@ -62,6 +63,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_1jetEtaAbs = e->tausT_jetEta.At(0);
             taus_genTauNum = calGenTauNum(e->tausT_genPartFlav); //!!!
             taus_prongNum = getTauProng(e->tausT_decayMode);
+            taus_1genFlavour = e->tausT_genPartFlav.At(0);
         }
         break;
     case 1:
@@ -71,6 +73,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_1jetEtaAbs = e->tausF_jetEta.At(0);
             taus_genTauNum = calGenTauNum(e->tausF_genPartFlav); //!!!
             taus_prongNum = getTauProng(e->tausF_decayMode);
+            taus_1genFlavour = e->tausF_genPartFlav.At(0);
         }
         break;
     case 2:
@@ -80,6 +83,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_1jetEtaAbs = e->tausL_jetEta.At(0);
             taus_genTauNum = calGenTauNum(e->tausL_genPartFlav); //!!!
             taus_prongNum = getTauProng(e->tausL_decayMode);
+            taus_1genFlavour = e->tausL_genPartFlav.At(0);
         }
         break;
     default:
@@ -100,6 +104,7 @@ void TauVarMaker::clearBranch()
 
     taus_1jetPt = -99;
     taus_1jetEtaAbs = -99;
+    taus_1genFlavour = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)

@@ -32,6 +32,7 @@ private:
     Double_t taus_1jetEtaAbs = -99;
     Int_t taus_1charge = -99;
     Double_t taus_1neutralIso = -99;
+    Int_t taus_1genFlavour = -99;
 };
 
 #endif
