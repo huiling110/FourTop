@@ -707,7 +707,7 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
                 sf_vsele = corr_vsele->evaluate({ieta, igenMatch, "VVLoose", syst_vsele}); // no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
             }
             sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu});
-            std::cout<<"sf_vsJet="<<sf_vsJet<<" sf_vsMu="<<sf_vsmu<<" sf_vsEle="<<sf_vsele<<"\n";
+            // std::cout<<"sf_vsJet="<<sf_vsJet<<" sf_vsMu="<<sf_vsmu<<" sf_vsEle="<<sf_vsele<<"\n";
             sf *= sf_vsJet;
             sf *= sf_vsmu;
             sf *= sf_vsele;
