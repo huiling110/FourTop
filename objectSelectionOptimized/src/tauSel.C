@@ -60,11 +60,15 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
 
         if (!(itau_pt > 20))
             continue;
-        if (!(e->Tau_eta.At(j) < 2.3 && e->Tau_eta.At(j) > -2.3))
-            continue;
+        if (m_isRun3){
+            if(!(TMath::Abs(e->Tau_eta.At(j)) < 2.5))
+                continue;
+        }else{
+            if (!(TMath::Abs(e->Tau_eta.At(j)) < 2.3))
+                continue;
+        }
         if (!(TMath::Abs(e->Tau_dz.At(j)) < 0.2))
             continue;
-        // if (!(e->Tau_idDecayModeOldDMs.At(j) == 0))      continue;//already in NANOAOD
         if (m_isRun3){
             if (!(e->Tau_idDecayModeNewDMs->At(j)))
                 continue; // for 2022

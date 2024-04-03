@@ -671,7 +671,6 @@ Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTre
     return sf;
 }
 
-// Double_t calTau_IDSF_new(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &tausT, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<Int_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData)
 Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData, Bool_t isRun3)
 {
     // read from official json file
@@ -699,6 +698,7 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
             Double_t ieta = taus_eta.At(i);
             Double_t sf_vsJet = 1.0;
             Double_t sf_vsele = 1.0;
+            Double_t sf_vsmu = 1.0;
             if(isRun3){
                 sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "VVLoose", syst_vsjet, "dm"}); //!why need WPVSEle?
                 sf_vsele = corr_vsele->evaluate({ieta, idecayMode, igenMatch, "VVLoose", syst_vsele}); 
@@ -706,8 +706,8 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
                 sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"}); //???not sure if is should be 5 or the genmatch of the tau
                 sf_vsele = corr_vsele->evaluate({ieta, igenMatch, "VVLoose", syst_vsele}); // no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
             }
-            Double_t sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu});
-            // std::cout<<"sf_vsJet="<<sf_vsJet<<" sf_vsMu="<<sf_vsmu<<" sf_vsEle="<<sf_vsele<<"\n";
+            sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu});
+            std::cout<<"sf_vsJet="<<sf_vsJet<<" sf_vsMu="<<sf_vsmu<<" sf_vsEle="<<sf_vsele<<"\n";
             sf *= sf_vsJet;
             sf *= sf_vsmu;
             sf *= sf_vsele;

@@ -90,6 +90,8 @@ def main():
     # version = 'v2dataMC_pileupBtagSFNewTTBR'
     # version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
     version = 'v2dataMC_pileupTauIDSF'
+    # version = 'v2dataMC_pileupSF'
+    # version = 'v3dataMC_pileupTauIDBtagWPSF'
     channel = 0
     
         
