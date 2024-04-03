@@ -69,13 +69,16 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         }
         if (!(TMath::Abs(e->Tau_dz.At(j)) < 0.2))
             continue;
-        if (m_isRun3){
-            if (!(e->Tau_idDecayModeNewDMs->At(j)))
-                continue; // for 2022
-        }
-        UChar_t tauID_vsJet;
-        UChar_t tauID_vsEle;
-        UChar_t tauID_vsMu;
+        // if (m_isRun3){
+        //     if (!(e->Tau_idDecayModeNewDMs->At(j))) //already applied in nanoAOD
+        //         continue; // for 2022
+        // }
+        // UChar_t tauID_vsJet;
+        // UChar_t tauID_vsEle;
+        // UChar_t tauID_vsMu;
+        Int_t tauID_vsJet;
+        Int_t tauID_vsEle;
+        Int_t tauID_vsMu;
         if (!m_isRun3)
         {
             tauID_vsJet = e->Tau_idDeepTau2017v2p1VSjet.At(j);//DeepTau2017v2p1
@@ -115,7 +118,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
             if (m_isRun3)
             {
                 isVSjetVVLoose = tauID_vsJet >= 2; // check if the 2nd bit (VVLoose WP) is 1
-                isVSeVVVLoose = tauID_vsEle >= 1;  // check if the 1st bit (VVVLoose WP) is 1
+                isVSeVVVLoose = tauID_vsEle >= 2;  // VVLoose WP) is 2
                 isVSmuVLoose = tauID_vsMu >= 3;    // check if the 1st bit (VLoose WP) is 1
             }
             else
@@ -130,11 +133,11 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
                 continue;
         }
         if (m_tauWP == 3)
-        { // channel specific in ttH. use the tight from 1t 1l
+        { // tight tau
             if (m_isRun3)
-            {
-                isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1//!will this comparision with unsigned char work?
-                isVSeVVVLoose = tauID_vsEle >= 1; // check if the 1st bit (VVVLoose WP) is 1
+            {//1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
+                isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1//will this comparision with unsigned char work? yes
+                isVSeVVVLoose = tauID_vsEle >= 2; // (VVVLoose WP) is 1 //!TauPOG recommend VVLoose of tight
                 isVSmuVLoose = tauID_vsMu >= 3;   // check if the 1st bit (VLoose WP) is 1
             }
             else
