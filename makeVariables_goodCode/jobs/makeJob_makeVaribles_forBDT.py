@@ -69,10 +69,11 @@ def main():
     # inVersion = 'v5HLTPreJetVetoMap'
     # inVersion = 'v6AllEnergyScale'
     inVersion = 'v7tauSelFix'
-    outVersion = 'v0baseline'
+    # outVersion = 'v0baseline'
     # outVersion = 'v0baselineBtagWeightFix'
     # outVersion = 'v0baselineTauIDSFUpdated'
     # outVersion = 'v0NoBtagSel'
+    outVersion = 'v0baselineTauGenFlavour'
   
    
     

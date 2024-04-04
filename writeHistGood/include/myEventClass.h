@@ -197,6 +197,7 @@ public:
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
     myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
     myBranch<Double_t> tausF_1pt{"tausF_1pt"};
+    myBranch<Int_t> tausT_1genFlavour{"tausT_1genFlavour"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -355,6 +356,7 @@ private:
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
         {tausF_1pt.n(), &tausF_1pt},
+        {tausT_1genFlavour.n(), &tausT_1genFlavour},
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},
