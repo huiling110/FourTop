@@ -79,7 +79,8 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Int_t tauID_vsJet;
         Int_t tauID_vsEle;
         Int_t tauID_vsMu;
-        if (!m_isRun3)
+        // if (!m_isRun3)
+        if (m_isRun3)//!testing
         {
             tauID_vsJet = e->Tau_idDeepTau2017v2p1VSjet.At(j);//DeepTau2017v2p1
             tauID_vsEle = e->Tau_idDeepTau2017v2p1VSe.At(j);

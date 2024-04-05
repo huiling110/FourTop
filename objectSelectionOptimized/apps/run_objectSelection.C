@@ -48,8 +48,8 @@ void run_objectSelection(
     // const UChar_t JESSys = 0;
     const UChar_t JESSys = 0; //norminal
     const UChar_t JERSys = 0; //norminal
-    // const UChar_t TES = 3; //no correction
-    const UChar_t TES = 0; //no correction
+    const UChar_t TES = 3; //no correction
+    // const UChar_t TES = 0; //no correction
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES);
 
