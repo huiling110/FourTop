@@ -64,6 +64,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_genTauNum = calGenTauNum(e->tausT_genPartFlav); //!!!
             taus_prongNum = getTauProng(e->tausT_decayMode);
             taus_1genFlavour = e->tausT_genPartFlav.At(0);
+            taus_1decayMode = e->tausT_decayMode.At(0);
         }
         break;
     case 1:
@@ -74,6 +75,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_genTauNum = calGenTauNum(e->tausF_genPartFlav); //!!!
             taus_prongNum = getTauProng(e->tausF_decayMode);
             taus_1genFlavour = e->tausF_genPartFlav.At(0);
+            taus_1decayMode = e->tausF_decayMode.At(0);
         }
         break;
     case 2:
@@ -84,6 +86,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_genTauNum = calGenTauNum(e->tausL_genPartFlav); //!!!
             taus_prongNum = getTauProng(e->tausL_decayMode);
             taus_1genFlavour = e->tausL_genPartFlav.At(0);
+            taus_1decayMode = e->tausL_decayMode.At(0);
         }
         break;
     default:

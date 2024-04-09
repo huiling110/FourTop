@@ -40,10 +40,11 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v5HLTPreJetVetoMap/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v6AllEnergyScale/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v7tauSelFix/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v8OldTauIDNoTES/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v8OldTauIDNoTES/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v9addTauTT/mc/",
     // TString inputDir = "tttt",
-    // TString inputDir = "TTTT",
-    TString inputDir = "TTto2L2Nu",
+    TString inputDir = "TTTT",
+    // TString inputDir = "TTto2L2Nu",
     // TString inputDir = "TTtoLNu2Q",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
@@ -56,8 +57,8 @@ void run_objectSelection(
     // TString inputDir = "JetMET_G",
     // TString inputDir = "output",
     TString outputDir = "output/",
-    Int_t numEntries = 10000)
-    // Int_t numEntries = 1000)
+    // Int_t numEntries = 10000)
+    Int_t numEntries = 1000)
 {
     TStopwatch t;
     t.Start();
