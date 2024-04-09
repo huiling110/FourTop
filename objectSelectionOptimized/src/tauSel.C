@@ -16,6 +16,7 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, 
         {1, "L"},
         {2, "F"},
         {3, "T"},
+        {4, "TT"}, //tight tauVsJet ID
     };
 
     outTree->Branch("taus" + tauWPMap[tauWP] + "_pt", &taus_pt);
@@ -133,17 +134,23 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
             if (itau_decayMode == 5 || itau_decayMode == 6)
                 continue;
         }
-        if (m_tauWP == 3)
+        if (m_tauWP == 3 || m_tauWP ==4)
         { // tight tau
             if (m_isRun3)
             {//1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
-                isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1//will this comparision with unsigned char work? yes
+                // isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1//will this comparision with unsigned char work? yes
+                // if m_tauWP == 3? isVSjetM = (tauID_vsJet >= 5) : isVSjetM = (tauID_vsJet >= 6); 
+                isVSjetM = (m_tauWP == 3) ? (tauID_vsJet >= 5) : (tauID_vsJet >= 6);
                 isVSeVVVLoose = tauID_vsEle >= 2; // (VVVLoose WP) is 1 //!TauPOG recommend VVLoose of tight
                 isVSmuVLoose = tauID_vsMu >= 3;   // check if the 1st bit (VLoose WP) is 1
             }
             else
             {
-                isVSjetM = tauID_vsJet & (1 << 4);      // check if the 5th bit (Medium WP) is 1
+                if(m_tauWP==3){
+                    isVSjetM = tauID_vsJet & (1 << 4);      // check if the 5th bit (Medium WP) is 1
+                }else{
+                    isVSjetM = tauID_vsJet & (1 << 5);      // check if the 6th bit (Tight WP) is 1
+                }
                 isVSeVVVLoose = tauID_vsEle & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
                 isVSmuVLoose = tauID_vsMu & (1 << 0);   // check if the 1st bit (VLoose WP) is 1
             }
@@ -258,7 +265,9 @@ Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_et
             break;
         }
     }
-    // std::cout<<"TES_sf: "<<iTES_sf<<"\n";
+    // if(itau_genPartFlav==0){
+        // std::cout<<"TES_sf: "<<iTES_sf<<"\n";
+    // }
 
     return iTES_sf;
 };
