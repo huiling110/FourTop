@@ -43,8 +43,9 @@ private:
     Double_t musTopMVAT_weight;
     Double_t musTopMVAT_weight_up;
     Double_t musTopMVAT_weight_down;
-    Double_t tauT_IDSF_weight;
+    // Double_t tauT_IDSF_weight;
     Double_t tauT_IDSF_weight_new;
+    Double_t tauTT_IDSF_weight_new;
     Double_t tauT_IDSF_weight_new_vsjet_up;
     Double_t tauT_IDSF_weight_new_vsjet_down;
     Double_t tauT_IDSF_weight_new_vsmu_up;

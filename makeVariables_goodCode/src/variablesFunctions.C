@@ -671,7 +671,7 @@ Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTre
     return sf;
 }
 
-Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, Bool_t isData, Bool_t isRun3)
+Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, std::string VsJetWP, Bool_t isData, Bool_t isRun3)
 {
     // read from official json file
     // syst='nom', 'up' or  'down'.
@@ -700,7 +700,8 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
             Double_t sf_vsele = 1.0;
             Double_t sf_vsmu = 1.0;
             if(isRun3){
-                sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "VVLoose", syst_vsjet, "dm"}); //!why need WPVSEle?
+                // sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "VVLoose", syst_vsjet, "dm"}); //!why need WPVSEle?
+                sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, VsJetWP, "VVLoose", syst_vsjet, "dm"}); //!why need WPVSEle?
                 sf_vsele = corr_vsele->evaluate({ieta, idecayMode, igenMatch, "VVLoose", syst_vsele}); 
             }else{
                 sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"}); //???not sure if is should be 5 or the genmatch of the tau

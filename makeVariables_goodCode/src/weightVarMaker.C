@@ -35,6 +35,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("musTopMVAT_weight_up", &musTopMVAT_weight_up);
     outTree->Branch("musTopMVAT_weight_down", &musTopMVAT_weight_down);
     outTree->Branch("tauT_IDSF_weight_new", &tauT_IDSF_weight_new);
+    outTree->Branch("tauTT_IDSF_weight_new", &tauTT_IDSF_weight_new);
     outTree->Branch("tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up);
     outTree->Branch("tauT_IDSF_weight_new_vsjet_down", &tauT_IDSF_weight_new_vsjet_down);
     outTree->Branch("tauT_IDSF_weight_new_vsmu_up", &tauT_IDSF_weight_new_vsmu_up);
@@ -212,13 +213,14 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     muonIDSF_weight_up = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 1, m_isData);//!!!check input muon collection
     muonIDSF_weight_down = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 2, m_isData);//!!!check input muon collection
 
-    tauT_IDSF_weight_new = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "nom", m_isData, m_isRun3);
-    tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", m_isData, m_isRun3);
-    tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "down", "nom", "nom", m_isData, m_isRun3);
-    tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "up", "nom", m_isData, m_isRun3);
-    tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "down", "nom", m_isData, m_isRun3);
-    tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "up", m_isData, m_isRun3);
-    tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", m_isData, m_isRun3);
+    tauT_IDSF_weight_new = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "nom",  "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "up", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "down", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "up", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", "Medium", m_isData, m_isRun3);
+    tauTT_IDSF_weight_new = calTau_IDSF_new(e->tausTT_pt, e->tausTT_eta, e->tausTT_decayMode, e->tausTT_genPartFlav, cset.get(), "nom", "nom", "nom",  "Tight", m_isData, m_isRun3);
 
     // TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btags : e->jets_btagsPT;
     TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btagsPT : e->jets_btags;
