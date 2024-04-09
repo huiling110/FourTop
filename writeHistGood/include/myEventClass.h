@@ -108,6 +108,7 @@ public:
     };
     // branches for selection and weight
     myBranch<Int_t> tausT_num{"tausT_num"};
+    myBranch<Int_t> tausTT_num{"tausTT_num"};
     myBranch<Int_t> tausF_genTauNum{"tausF_genTauNum"};
     myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
     myBranch<Int_t> jets_num{"jets_num"};
@@ -195,9 +196,14 @@ public:
     myBranch<Double_t> tausF_1eta{"tausF_1eta"};
     myBranch<Int_t> tausF_num{"tausF_num"};
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
-    myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
     myBranch<Double_t> tausF_1pt{"tausF_1pt"};
+    myBranch<Double_t> tausTT_1pt{"tausTT_1pt"};
     myBranch<Int_t> tausT_1genFlavour{"tausT_1genFlavour"};
+    myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
+    myBranch<Int_t> tausTT_1genFlavour{"tausTT_1genFlavour"};
+    myBranch<Int_t> tausT_1decayMode{"tausT_1decayMode"};
+    myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
+    myBranch<Int_t> tausTT_1decayMode{"tausTT_1decayMode"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -270,6 +276,7 @@ private:
     TTree *m_tree;
     std::map<TString, std::variant<myBranch<Int_t> *, myBranch<Double_t> *, myBranch<Bool_t> *>> m_variableMap = {
         {tausT_num.n(), &tausT_num},
+        {tausTT_num.n(), &tausTT_num},
         {tausF_genTauNum.n(), &tausF_genTauNum},
         {tausT_genTauNum.n(), &tausT_genTauNum},
         {jets_num.n(), &jets_num},
@@ -310,7 +317,6 @@ private:
         {scaleWeightFa_up_.n(), &scaleWeightFa_up_},
         {scaleWeightFa_down_.n(), &scaleWeightFa_down_},
 
-
         {jets_bScore.n(), &jets_bScore},
         {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
         {jets_1btag.n(), &jets_1btag},
@@ -350,13 +356,20 @@ private:
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
 
+        (tausF_num.n(), &tausF_num);
         {tausF_prongNum.n(), &tausF_prongNum},
         {tausF_1jetPt.n(), &tausF_1jetPt},
         {tausF_1eta.n(), &tausF_1eta},
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
+        {tausT_1decayMode.n(), &tausT_1decayMode},
+        {tausTT_1decayMode.n(), &tausTT_1decayMode},
         {tausF_1pt.n(), &tausF_1pt},
+        {tausT_1pt.n(), &tausT_1pt},
+        {tausTT_1pt.n(), &tausTT_1pt},
         {tausT_1genFlavour.n(), &tausT_1genFlavour},
+        {tausF_1genFlavour.n(), &tausF_1genFlavour},
+        {tausTT_1genFlavour.n(), &tausTT_1genFlavour},
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},
@@ -414,7 +427,6 @@ private:
         {HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94.n(), &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94},
 
         {PV_npvsGood.n(), &PV_npvsGood},
-
     };
 
 
