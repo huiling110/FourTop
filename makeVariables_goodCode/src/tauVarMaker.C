@@ -89,6 +89,19 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_1decayMode = e->tausL_decayMode.At(0);
         }
         break;
+    case 3:
+        if (e->tausTT_jetPt.GetSize() > 0)
+        {
+            taus_1jetPt = e->tausTT_jetPt.At(0);
+            taus_1jetEtaAbs = e->tausTT_jetEta.At(0);
+            taus_genTauNum = calGenTauNum(e->tausTT_genPartFlav); //!!!
+            taus_prongNum = getTauProng(e->tausTT_decayMode);
+            taus_1genFlavour = e->tausTT_genPartFlav.At(0);
+            taus_1decayMode = e->tausTT_decayMode.At(0);
+        }
+        break;
+
+
     default:
         break;
     }
@@ -108,6 +121,7 @@ void TauVarMaker::clearBranch()
     taus_1jetPt = -99;
     taus_1jetEtaAbs = -99;
     taus_1genFlavour = -99;
+    taus_1decayMode = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)
@@ -124,6 +138,13 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
     case 2:
         getLorentzVec(e->tausL_pt, e->tausL_eta, e->tausL_phi, e->tausL_mass, objsLorentz);
         break;
+    case 3:
+        getLorentzVec(e->tausTT_pt, e->tausTT_eta, e->tausTT_phi, e->tausTT_mass, objsLorentz);
+        break;
+    default:
+        std::cout<<"!!!tau type not wrong!<<\n";
+        break;
+
     }
 
 };

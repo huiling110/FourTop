@@ -85,6 +85,7 @@ private:
     TauVarMaker tauVarMaker{m_outTree, "tausT"};
     TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};
     TauVarMaker tauLVarMaker{m_outTree, "tausL", 2};
+    TauVarMaker tauTTVarMaker{m_outTree, "tausTT", 3};
     JetVarMaker jetVarMaker{m_outTree, "jets", 0};
     JetVarMaker jetTVarMaker{m_outTree, "jetsT", 1};
     // JetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 2};

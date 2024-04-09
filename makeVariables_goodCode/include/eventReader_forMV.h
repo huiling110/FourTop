@@ -57,9 +57,23 @@ public:
                                       tausT_mass(reader, "tausT_mass"),
                                       tausT_genPartFlav(reader, "tausT_genPartFlav"),
                                       tausT_decayMode(reader, "tausT_decayMode"),
+                                      tausT_charge(reader, "tausT_charge"),
+                                      tausT_jetPt(reader, "tausT_jetPt"),
+                                      tausT_jetEta(reader, "tausT_jetEta"),
+
+                                      tausTT_pt(reader, "tausTT_pt"),
+                                      tausTT_eta(reader, "tausTT_eta"),
+                                      tausTT_phi(reader, "tausTT_phi"),
+                                      tausTT_mass(reader, "tausTT_mass"),
+                                      tausTT_genPartFlav(reader, "tausTT_genPartFlav"),
+                                      tausTT_decayMode(reader, "tausTT_decayMode"),
+                                      tausTT_charge(reader, "tausTT_charge"),
+                                      tausTT_jetPt(reader, "tausTT_jetPt"),
+                                      tausTT_jetEta(reader, "tausTT_jetEta"),
+
+
                                       tausF_decayMode(reader, "tausF_decayMode"),
                                       tausL_decayMode(reader, "tausL_decayMode"),
-                                      tausT_charge(reader, "tausT_charge"),
                                       tausF_pt(reader, "tausF_pt"),
                                       tausF_eta(reader, "tausF_eta"),
                                       tausF_phi(reader, "tausF_phi"),
@@ -70,10 +84,8 @@ public:
                                       tausL_phi(reader, "tausL_phi"),
                                       tausL_mass(reader, "tausL_mass"),
                                       tausL_genPartFlav(reader, "tausL_genPartFlav"),
-                                      tausT_jetPt(reader, "tausT_jetPt"),
                                       tausF_jetPt(reader, "tausF_jetPt"),
                                       tausL_jetPt(reader, "tausL_jetPt"),
-                                      tausT_jetEta(reader, "tausT_jetEta"),
                                       tausF_jetEta(reader, "tausF_jetEta"),
                                       tausL_jetEta(reader, "tausL_jetEta"),
 
@@ -186,9 +198,20 @@ public:
     TTreeReaderArray<Double_t> tausT_mass;
     TTreeReaderArray<UChar_t> tausT_genPartFlav;
     TTreeReaderArray<Int_t> tausT_decayMode;
+    TTreeReaderArray<Int_t> tausT_charge;
+    TTreeReaderArray<Double_t> tausTT_pt;
+    TTreeReaderArray<Double_t> tausTT_eta;
+    TTreeReaderArray<Double_t> tausTT_phi;
+    TTreeReaderArray<Double_t> tausTT_mass;
+    TTreeReaderArray<UChar_t> tausTT_genPartFlav;
+    TTreeReaderArray<Int_t> tausTT_decayMode;
+    TTreeReaderArray<Int_t> tausTT_charge;
+    TTreeReaderArray<Double_t> tausTT_jetPt;
+    TTreeReaderArray<Double_t> tausTT_jetEta;
+
+
     TTreeReaderArray<Int_t> tausF_decayMode;
     TTreeReaderArray<Int_t> tausL_decayMode;
-    TTreeReaderArray<Int_t> tausT_charge;
     TTreeReaderArray<Double_t> tausF_pt;
     TTreeReaderArray<Double_t> tausF_eta;
     TTreeReaderArray<Double_t> tausF_phi;
