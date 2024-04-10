@@ -32,12 +32,12 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
 
         // jet
         jetVarMaker.makeVariables(e);
-        // jetTVarMaker.makeVariables(e);
         bjetMVarMaker.makeVariables(e);
         bjetLVarMaker.makeVariables(e);
         bjetTVarMaker.makeVariables(e);
         bjetPNMVarMaker.makeVariables(e);
         bjetPTMVarMaker.makeVariables(e);
+        bjetPTTVarMaker.makeVariables(e);
 
         // baseline selection
         Int_t bjetM_num = m_isRun3? bjetPTMVarMaker.getJet_num(): bjetMVarMaker.getJet_num();

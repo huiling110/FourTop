@@ -102,9 +102,9 @@ def main():
 
     # for 1tau1l
     # variables = ['jets_num']
-    variables = ['tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode']
+    # variables = ['tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode']
     # variables = ['jets_HT']
-    # variables = ['bjetsPTM_num']
+    variables = ['bjetsPTT_num']
     # variables = ['PV_npvsGood']
     # variables = ['jets_6pt']
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
