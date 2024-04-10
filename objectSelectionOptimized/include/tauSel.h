@@ -14,7 +14,7 @@ public:
     void Select(const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec);
 
     void calTauSF_new(const eventForNano *e, const Bool_t isData);
-    Double_t calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_eta, Int_t itau_genPartFlav);
+    Double_t calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_eta, Int_t itau_genPartFlav, std::string tauVsJetWP = "Medium");
     void clearBranch();
     std::vector<Double_t> &getEtaVec();
     std::vector<Double_t> &getPhiVec();
@@ -27,6 +27,14 @@ private:
     Bool_t m_isRun3=kFALSE;
     const UChar_t m_TES = 0;
     std::unique_ptr<correction::CorrectionSet> cset_tauSF;
+    const std::map<Int_t, std::string> tauVsJetWP = {
+        {0, "VLoose"},
+        {1, "Loose"},
+        {2, "Loose"}, //!!!no tau enegy scale for VVLoose
+        {3, "Medium"},
+        {4, "Tight"},
+    };
+
     std::vector<Double_t> taus_TES;
     std::vector<Double_t> taus_TES_up;
     std::vector<Double_t> taus_TES_down;

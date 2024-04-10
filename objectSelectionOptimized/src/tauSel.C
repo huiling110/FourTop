@@ -14,8 +14,8 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, 
 
     std::map<Int_t, TString> tauWPMap = {
         {1, "L"},
-        {2, "F"},
-        {3, "T"},
+        {2, "F"}, //
+        {3, "T"}, //Medium WP 
         {4, "TT"}, //tight tauVsJet ID
     };
 
@@ -53,7 +53,9 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Double_t itau_pt = e->Tau_pt.At(j);
         Double_t iTES = 1.0;
         if(!m_isData){
-            calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j)); // TES handled inside the function
+            // calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j)); // TES handled inside the function
+            // calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j), "Tight"); // TES handled inside the function
+            calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j), tauVsJetWP.at(m_tauWP)); // TES handled inside the function
         }
         // std::cout<<"iTES="<<iTES<<"\n";
         itau_pt *= iTES;
@@ -140,7 +142,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
                 // isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1//will this comparision with unsigned char work? yes
                 // if m_tauWP == 3? isVSjetM = (tauID_vsJet >= 5) : isVSjetM = (tauID_vsJet >= 6); 
                 isVSjetM = (m_tauWP == 3) ? (tauID_vsJet >= 5) : (tauID_vsJet >= 6);
-                isVSeVVVLoose = tauID_vsEle >= 2; // (VVVLoose WP) is 1 //!TauPOG recommend VVLoose of tight
+                isVSeVVVLoose = tauID_vsEle >= 2; // (VVLoose WP) is 1 //!TauPOG recommend VVLoose of tight
                 isVSmuVLoose = tauID_vsMu >= 3;   // check if the 1st bit (VLoose WP) is 1
             }
             else
@@ -231,7 +233,7 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
 };
 
 
-Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_eta, Int_t itau_genPartFlav)
+Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_eta, Int_t itau_genPartFlav, std::string tauVsJetWP)
 {
     //
     auto corr_tauES = cset_tauSF->at("tau_energy_scale");
@@ -241,21 +243,21 @@ Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_et
         {
         case 0:
             if (m_isRun3){
-                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", "Medium", "VVLoose", "nom"}); 
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", tauVsJetWP, "VVLoose", "nom"}); 
             }else{
                 iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             }
             break;
         case 1:
             if (m_isRun3){
-                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", "Medium", "VVLoose", "up"}); 
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", tauVsJetWP, "VVLoose", "up"}); 
             }else{
                 iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"});
             }
             break;
         case 2:
             if(m_isRun3){
-                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", "Medium", "VVLoose", "down"}); 
+                iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2018v2p5", tauVsJetWP, "VVLoose", "down"}); 
             }else{
                 iTES_sf = corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"});
             }
