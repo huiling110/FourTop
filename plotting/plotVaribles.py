@@ -97,11 +97,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v7tauSelFix/mc/variableHists_v4dataMC_pileupBtagWPSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baselineTauGenFlavour_v7tauSelFix/mc/variableHists_v3dataMC_pileupTauIDBtagWPSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v8OldTauIDNoTES/mc/variableHists_v4dataMC_pileupBtagWPSF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v9addTauTT/mc/variableHists_v4dataMC_pileupBtagWPSF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v9addTauTT/mc/variableHists_v4dataMC_pileupBtagWPSF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v1TauSFNew_v9addTauTT/mc/variableHists_v4dataMC_pileupBtagWPSF_tausTT/'
 
     # for 1tau1l
     # variables = ['jets_num']
-    variables = ['tausT_num', 'tausF_num', 'tausTT_num']
+    variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'taus_TT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'taus_F_1genFlavour']
     # variables = ['tausT_1genFlavour']
     # variables = ['jets_HT']
     # variables = ['bjetsPTM_num']

@@ -60,6 +60,8 @@ void WH_forDataMC::Init()
     SP_d tausT_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_HT", "HT_{#tau}(GeV)", m_processName, 10, 25, 300, regionsForVariables, &(e->tausT_HT));
     SP_d tausT_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_MHT", "MHT_{#tau}(GeV)", m_processName, 10, 25, 300, regionsForVariables, &(e->tausT_MHT));
     SP_d tausT_leptonsT_invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_leptonsT_invariantMass", "m_{#tau and lep}(GeV)", m_processName, 10, 0, 500, regionsForVariables, &(e->tausT_leptonsT_invariantMass));
+    SP_d tausF_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1pt", "p_{T}^{1st fakeble#tau}", m_processName, 10, 20, 200, regionsForVariables, &(e->tausF_1pt));
+    SP_d tausTT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("tausTT_1pt", "p_{T}^{1st TT#tau}", m_processName, 10, 20, 200, regionsForVariables, &(e->tausTT_1pt));
 
     SP_d muonsTopMVAT_1t_class = std::make_shared<histsForRegionsMap<Double_t>>("muonsTopMVAT_1pt", "p_{T}^{#mu}(GeV)", m_processName, 10, 0, 140, regionsForVariables, &(e->muonsTopMVAT_1pt));
     SP_d elesTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_1pt", "p_{T}^{e}(GeV)", m_processName, 10, 0, 140, regionsForVariables, &(e->elesTopMVAT_1pt));
@@ -116,6 +118,8 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(tausT_HT_class);
     histsForRegion_vec.push_back(tausT_MHT_class);
     histsForRegion_vec.push_back(tausT_leptonsT_invariantMass_class);
+    histsForRegion_vec.push_back(tausF_1pt_class);
+    histsForRegion_vec.push_back(tausTT_1pt_class);
     histsForRegion_vec.push_back(muonsTopMVAT_1t_class);
     histsForRegion_vec.push_back(elesTopMVAT_1pt_class);
     // histsForRegion_vec.push_back();
