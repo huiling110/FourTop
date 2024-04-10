@@ -356,7 +356,7 @@ private:
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
 
-        (tausF_num.n(), &tausF_num);
+        {tausF_num.n(), &tausF_num},
         {tausF_prongNum.n(), &tausF_prongNum},
         {tausF_1jetPt.n(), &tausF_1jetPt},
         {tausF_1eta.n(), &tausF_1eta},

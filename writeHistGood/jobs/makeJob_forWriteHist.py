@@ -63,7 +63,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v7tauSelFix/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baselineTauGenFlavour_v7tauSelFix/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v8OldTauIDNoTES/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v9addTauTT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v9addTauTT/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v1TauSFNew_v9addTauTT/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -95,8 +96,8 @@ def main():
     # version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
     # version = 'v2dataMC_pileupTauIDSF'
     # version = 'v2dataMC_pileupSF'
-    # version = 'v3dataMC_pileupTauIDBtagWPSF'
-    version = 'v4dataMC_pileupBtagWPSF'
+    version = 'v3dataMC_pileupTauIDBtagWPSF'
+    # version = 'v4dataMC_pileupBtagWPSF'
     channel = 0
     
         
