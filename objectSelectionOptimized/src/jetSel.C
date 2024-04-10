@@ -65,7 +65,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
 
         Double_t JESSF = 1.0;
         if(m_isRun3){
-            Double_t JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
+            JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
         }
         // std::cout<<"JESSF="<<JESSF<<"\n";
 
