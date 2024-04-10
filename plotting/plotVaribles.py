@@ -98,11 +98,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baselineTauGenFlavour_v7tauSelFix/mc/variableHists_v3dataMC_pileupTauIDBtagWPSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v8OldTauIDNoTES/mc/variableHists_v4dataMC_pileupBtagWPSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v9addTauTT/mc/variableHists_v4dataMC_pileupBtagWPSF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v1TauSFNew_v9addTauTT/mc/variableHists_v4dataMC_pileupBtagWPSF_tausTT/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v1TauSFNew_v9addTauTT/mc/variableHists_v5dataMC_pileupTauTTIDBtagWPSF_tauTT/'
 
     # for 1tau1l
     # variables = ['jets_num']
-    variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'taus_TT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'taus_F_1genFlavour']
     # variables = ['tausT_1genFlavour']
     # variables = ['jets_HT']
     # variables = ['bjetsPTM_num']
@@ -110,13 +109,14 @@ def main():
     # variables = ['jets_6pt']
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag', 'PV_npvsGood']
-    # variables = ['tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_MHT', 'tausT_1pt', 'tausT_1eta', 'tausT_num', 'tausT_leptonsTopMVA_chargeMulti','bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'bjetsPTM_num'] #for 1tau1l BDT input
+    variables = [ 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'bjetsPTM_num'] #for 1tau1l BDT input
+    # variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'tausTT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausF_1genFlavour', 'tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_1eta']
     # regionList = ['1tau1lCR1', '1tau1lCR2']
-    regionList = ['baseline']
+    # regionList = ['baseline']
     # regionList = ['1tau0lSR']
     # regionList = ['1tau1lSR']
     # variables = ['BDT']
-    # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
+    regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     ifFR_sys = False
     plotName = 'dataVsMC_v1'
   

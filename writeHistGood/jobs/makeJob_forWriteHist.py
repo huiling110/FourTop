@@ -98,7 +98,8 @@ def main():
     # version = 'v2dataMC_pileupSF'
     # version = 'v3dataMC_pileupTauIDBtagWPSF'
     # version = 'v4dataMC_pileupBtagWPSF'
-    version = 'v4dataMC_pileupBtagWPSF_tausTT'
+    # version = 'v4dataMC_pileupBtagWPSF_tausTT'
+    version = 'v5dataMC_pileupTauTTIDBtagWPSF_tauTT'
     channel = 0
     
         

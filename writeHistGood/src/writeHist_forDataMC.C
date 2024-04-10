@@ -70,6 +70,7 @@ void WH_forDataMC::Init()
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
     SP_i bjetsPTM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsPTM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsPTM_num));
+    SP_i bjetsPTT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsPTT_num", "n^{tight b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsPTT_num));
     SP_i tausT_leptonsTopMVA_chargeMulti_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}",m_processName, 3, -1.5, 1.5, regionsForVariables,  &(e->tausT_leptonsTopMVA_chargeMulti));
     SP_i PV_npvsGood_class = std::make_shared<histsForRegionsMap<Int_t>>("PV_npvsGood", "n^{PV}", m_processName, 10, 0, 60, regionsForVariables, &(e->PV_npvsGood));
     SP_i tausT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_num", "n^{#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausT_num));
@@ -127,6 +128,7 @@ void WH_forDataMC::Init()
 
     histsForRegion_vec.push_back(bjetsM_num_class);
     histsForRegion_vec.push_back(bjetsPTM_num_class);
+    histsForRegion_vec.push_back(bjetsPTT_num_class);
     histsForRegion_vec.push_back(tausT_leptonsTopMVA_chargeMulti_class);
     histsForRegion_vec.push_back(PV_npvsGood_class);
     histsForRegion_vec.push_back(tausT_num_class);
@@ -177,7 +179,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v();
-        Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
+        // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
+        Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauTT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v() * e->HLT_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->eleMVAT_IDSF_weight.v(); //!!! run 3 

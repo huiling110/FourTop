@@ -115,6 +115,7 @@ public:
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Int_t> bjetsPNM_num{"bjetsPNM_num"};
     myBranch<Int_t> bjetsPTM_num{"bjetsPTM_num"};
+    myBranch<Int_t> bjetsPTT_num{"bjetsPTT_num"};
     myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> elesTopMVAT_num{"elesTopMVAT_num"};
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
@@ -127,6 +128,7 @@ public:
     myBranch<Double_t> PUweight_{"PUweight_"};
     myBranch<Double_t> HLT_weight{"HLT_weight"};
     myBranch<Double_t> tauT_IDSF_weight_new{"tauT_IDSF_weight_new"};
+    myBranch<Double_t> tauTT_IDSF_weight_new{"tauTT_IDSF_weight_new"};
     myBranch<Double_t> elesTopMVAT_weight{"elesTopMVAT_weight"};
     myBranch<Double_t> musTopMVAT_weight{"musTopMVAT_weight"};
     myBranch<Double_t> btagShape_weight{"btagShape_weight"};
@@ -283,6 +285,7 @@ private:
         {bjetsM_num.n(), &bjetsM_num},
         {bjetsPNM_num.n(), &bjetsPNM_num},
         {bjetsPTM_num.n(), &bjetsPTM_num},
+        {bjetsPTT_num.n(), &bjetsPTT_num},
         {bjetsT_num.n(), &bjetsT_num},
         {elesTopMVAT_num.n(), &elesTopMVAT_num},
         {muonsTopMVAT_num.n(), &muonsTopMVAT_num},
@@ -297,6 +300,7 @@ private:
         {PUweight_.n(), &PUweight_},
         {HLT_weight.n(), &HLT_weight},
         {tauT_IDSF_weight_new.n(), &tauT_IDSF_weight_new},
+        {tauTT_IDSF_weight_new.n(), &tauTT_IDSF_weight_new},
         {elesTopMVAT_weight.n(), &elesTopMVAT_weight},
         {musTopMVAT_weight.n(), &musTopMVAT_weight},
         {btagShape_weight.n(), &btagShape_weight},
