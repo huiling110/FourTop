@@ -264,9 +264,9 @@ Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_et
             break;
         }
     }
-    // if(itau_genPartFlav==0){
-        // std::cout<<"TES_sf: "<<iTES_sf<<"\n";
-    // }
+    if(itau_genPartFlav==0){
+        std::cout<<"TES_sf: "<<iTES_sf<<"\n";
+    }
 
     return iTES_sf;
 };

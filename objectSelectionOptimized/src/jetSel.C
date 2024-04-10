@@ -63,7 +63,10 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
         Int_t ijet_hadronFlavour = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_hadronFlavour, j);
 
-        Double_t JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
+        Double_t JESSF = 1.0;
+        if(m_isRun3){
+            Double_t JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
+        }
         // std::cout<<"JESSF="<<JESSF<<"\n";
 
         Double_t jetpt = e->Jet_pt.At(j)*JESSF;
@@ -76,7 +79,9 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         //JER
         Double_t JERSF = 1.0;
         if(!m_isData){
-            JERSF = calJER_SF_new(jetpt, ijetEta, ijetPhi, ijetMass, **e->Rho_fixedGridRhoFastjetAll, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt);
+            Double_t fixedGridRhoFastjetAll = m_isRun3? **e->Rho_fixedGridRhoFastjetAll:**e->fixedGridRhoFastjetAll;
+            // JERSF = calJER_SF_new(jetpt, ijetEta, ijetPhi, ijetMass, **e->Rho_fixedGridRhoFastjetAll, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt);
+            JERSF = calJER_SF_new(jetpt, ijetEta, ijetPhi, ijetMass, fixedGridRhoFastjetAll, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt);
         }
         // std::cout << "JERSF=" << JERSF << "\n";
         jetpt *= JERSF;

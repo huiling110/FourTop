@@ -79,9 +79,9 @@ void WH_forDataMC::Init()
     SP_i tausT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1genFlavour", "gen flavour^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1genFlavour));
     SP_i tausF_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1genFlavour", "gen flavour^{F#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausF_1genFlavour));
     SP_i tausTT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1genFlavour", "gen flavour^{TT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1genFlavour));
-    SP_i tausT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1decayMode", "gen flavour^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1decayMode));
-    SP_i tausF_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1decayMode", "gen flavour^{F#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausF_1decayMode));
-    SP_i tausTT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1decayMode", "gen flavour^{TT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1decayMode));
+    SP_i tausT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1decayMode", "decay mode^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1decayMode));
+    SP_i tausF_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1decayMode", "decay mode^{F#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausF_1decayMode));
+    SP_i tausTT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1decayMode", "decay mode^{TT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1decayMode));
 
     //I guess jets_1pt_class goes out range and destroyed after this function
     histsForRegion_vec.push_back(jets_1pt_class);
