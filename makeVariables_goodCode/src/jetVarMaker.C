@@ -101,17 +101,6 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     // jets_bScoreMultiply = bScoreMultiCal(jets_btags);
     jets_average_deltaR = AverageDeltaRCal(objsLorentz);
 
-    // const TTreeReaderArray<Double_t> &jets_btags{e->jets_btags};
-    // switch(m_type){
-    // case 0:
-    //     jets_btags = e->jets_btags;
-    //     break;
-    // case 1:
-    //     jets_btags = e->jetsT_btags;
-    //     break;
-    // default:
-    //     break;
-    // }
     jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);//!!!code needs to be reconstructed 
     jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
     jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags

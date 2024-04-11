@@ -16,6 +16,7 @@ EleMVASel::EleMVASel(TTree *outTree, const TString era, const Bool_t isData, Boo
     outTree->Branch("elesMVA"+typeMap.at(m_type)+"_eta", &muonsTopMVAT_eta);
     outTree->Branch("elesMVA"+typeMap.at(m_type)+"_phi", &muonsTopMVAT_phi);
     outTree->Branch("elesMVA"+typeMap.at(m_type)+"_mass", &muonsTopMVAT_mass);
+    outTree->Branch("elesMVA"+typeMap.at(m_type)+"_charge", &muonsTopMVAT_charge);
     outTree->Branch("elesMVA"+typeMap.at(m_type)+"_index", &muonsTopMVAT_index);
 
     //
@@ -162,6 +163,7 @@ void EleMVASel::Select( eventForNano *e)
         muonsTopMVAT_eta.push_back(e->Electron_eta.At(j));
         muonsTopMVAT_phi.push_back(e->Electron_phi.At(j));
         muonsTopMVAT_mass.push_back(mass);
+        muonsTopMVAT_charge.push_back(e->Electron_charge.At(j));
         muonsTopMVAT_index.push_back(j);
     }
     m_objTotal+=muonsTopMVAT_pt.size();
@@ -175,6 +177,7 @@ void EleMVASel::clearBranch()
     muonsTopMVAT_eta.clear();
     muonsTopMVAT_phi.clear();
     muonsTopMVAT_mass.clear();
+    muonsTopMVAT_charge.clear();
     muonsTopMVAT_index.clear();
 };
 

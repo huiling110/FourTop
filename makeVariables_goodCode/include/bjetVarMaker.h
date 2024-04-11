@@ -18,6 +18,7 @@ private:
     Double_t bjets_HT = -99;
     Double_t bjets_invariantMass = -99;
     Double_t bjets_transMass = -99;
+    Double_t bjets_minDeltaR = -99.;
 
 };
 

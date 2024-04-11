@@ -17,6 +17,7 @@ MuSel::MuSel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t
     outTree->Branch("muons" + muonMap.at(m_type)+"_eta", &muonsTopMVAT_eta);
     outTree->Branch("muons" + muonMap.at(m_type)+"_phi", &muonsTopMVAT_phi);
     outTree->Branch("muons" + muonMap.at(m_type)+"_mass", &muonsTopMVAT_mass);
+    outTree->Branch("muons" + muonMap.at(m_type)+"_charge", &muonsTopMVAT_charge);
     outTree->Branch("muons" + muonMap.at(m_type)+"_index", &muonsTopMVAT_index);
     // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
 
@@ -100,6 +101,7 @@ void MuSel::Select(const eventForNano *e)
         muonsTopMVAT_eta.push_back(e->Muon_eta.At(j));
         muonsTopMVAT_phi.push_back(e->Muon_phi.At(j));
         muonsTopMVAT_mass.push_back(e->Muon_mass.At(j));
+        muonsTopMVAT_charge.push_back(e->Muon_charge.At(j));
         muonsTopMVAT_index.push_back(j);
     }
     m_muTotal+=muonsTopMVAT_pt.size();
@@ -111,6 +113,7 @@ void MuSel::clearBranch()
     muonsTopMVAT_eta.clear();
     muonsTopMVAT_phi.clear();
     muonsTopMVAT_mass.clear();
+    muonsTopMVAT_charge.clear();
     muonsTopMVAT_index.clear();
 };
 
