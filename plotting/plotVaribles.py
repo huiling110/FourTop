@@ -113,12 +113,12 @@ def main():
     # variables = [ 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'bjetsPTM_num', 'bjetsPTT_num'] #for 1tau1l BDT input
     # variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'tausTT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausF_1genFlavour', 'tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_1eta']
     # regionList = ['1tau1lCR1', '1tau1lCR2']
-    regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
+    # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
     # regionList = ['baseline']
     # regionList = ['1tau0lSR']
     # regionList = ['1tau1lSR']
     # variables = ['BDT']
-    # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
+    regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     ifFR_sys = False
     plotName = 'dataVsMC_v1'
   
@@ -155,7 +155,8 @@ def main():
     # print('\n')
     
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
-    sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
+    # sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
+    sumProList = ['jetHT','tt',  'qcd', 'tttt'] # run3 1tau1l for now 
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
 
     plotDir = inputDirDic['mc']+'results/'
