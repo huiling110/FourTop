@@ -33,23 +33,27 @@ public:
                                       muonsT_eta(reader, "muonsT_eta"),
                                       muonsT_phi(reader, "muonsT_phi"),
                                       muonsT_mass(reader, "muonsT_mass"),
+                                      muonsT_charge(reader, "muonsT_charge"),
                                       muonsTopMVAT_pt(reader, "muonsTopMVAT_pt"),
                                       muonsTopMVAT_eta(reader, "muonsTopMVAT_eta"),
                                       muonsTopMVAT_phi(reader, "muonsTopMVAT_phi"),
                                       muonsTopMVAT_mass(reader, "muonsTopMVAT_mass"),
-                                      muonsTopMVAT_index(reader, "muonsTopMVAT_index"),
+                                      muonsTopMVAT_charge(reader, "muonsTopMVAT_charge"),
+                                    //   muonsTopMVAT_index(reader, "muonsTopMVAT_index"),
                                       elesMVAT_pt(reader, "elesMVAT_pt"),
                                       elesMVAT_eta(reader, "elesMVAT_eta"),
                                       elesMVAT_phi(reader, "elesMVAT_phi"),
                                       elesMVAT_mass(reader, "elesMVAT_mass"),
+                                      elesMVAT_charge(reader, "elesMVAT_charge"),
                                       elesTopMVAT_pt(reader, "elesTopMVAT_pt"),
                                       elesTopMVAT_eta(reader, "elesTopMVAT_eta"),
                                       elesTopMVAT_phi(reader, "elesTopMVAT_phi"),
                                       elesTopMVAT_mass(reader, "elesTopMVAT_mass"),
-                                      elesTopMVAT_index(reader, "elesTopMVAT_index"),
+                                      elesTopMVAT_charge(reader, "elesTopMVAT_charge"),
+                                    //   elesTopMVAT_index(reader, "elesTopMVAT_index"),
 
-                                      Electron_charge_(reader, "Electron_charge_"),
-                                      Muon_charge_(reader, "Muon_charge_"),
+                                    //   Electron_charge_(reader, "Electron_charge_"),
+                                    //   Muon_charge_(reader, "Muon_charge_"),
 
                                       tausT_pt(reader, "tausT_pt"),
                                       tausT_eta(reader, "tausT_eta"),
@@ -73,6 +77,7 @@ public:
 
 
                                       tausF_decayMode(reader, "tausF_decayMode"),
+                                      tausF_charge(reader, "tausF_charge"),
                                       tausL_decayMode(reader, "tausL_decayMode"),
                                       tausF_pt(reader, "tausF_pt"),
                                       tausF_eta(reader, "tausF_eta"),
@@ -178,23 +183,27 @@ public:
     TTreeReaderArray<Double_t> muonsT_eta;
     TTreeReaderArray<Double_t> muonsT_phi;
     TTreeReaderArray<Double_t> muonsT_mass;
+    TTreeReaderArray<Int_t> muonsT_charge;
     TTreeReaderArray<Double_t> muonsTopMVAT_pt;
     TTreeReaderArray<Double_t> muonsTopMVAT_eta;
     TTreeReaderArray<Double_t> muonsTopMVAT_phi;
     TTreeReaderArray<Double_t> muonsTopMVAT_mass;
-    TTreeReaderArray<Int_t> muonsTopMVAT_index;
+    TTreeReaderArray<Int_t> muonsTopMVAT_charge;
+    // TTreeReaderArray<Int_t> muonsTopMVAT_index;
     TTreeReaderArray<Double_t> elesMVAT_pt;
     TTreeReaderArray<Double_t> elesMVAT_eta;
     TTreeReaderArray<Double_t> elesMVAT_phi;
     TTreeReaderArray<Double_t> elesMVAT_mass;
+    TTreeReaderArray<Int_t> elesMVAT_charge;
     TTreeReaderArray<Double_t> elesTopMVAT_pt;
     TTreeReaderArray<Double_t> elesTopMVAT_eta;
     TTreeReaderArray<Double_t> elesTopMVAT_phi;
     TTreeReaderArray<Double_t> elesTopMVAT_mass;
-    TTreeReaderArray<Int_t> elesTopMVAT_index;
+    TTreeReaderArray<Int_t> elesTopMVAT_charge;
+    // TTreeReaderArray<Int_t> elesTopMVAT_index;
 
-    TTreeReaderArray<Int_t> Electron_charge_;
-    TTreeReaderArray<Int_t> Muon_charge_;
+    // TTreeReaderArray<Int_t> Electron_charge_;
+    // TTreeReaderArray<Int_t> Muon_charge_;
 
     TTreeReaderArray<Double_t> tausT_pt;
     TTreeReaderArray<Double_t> tausT_eta;
@@ -215,6 +224,7 @@ public:
 
 
     TTreeReaderArray<Int_t> tausF_decayMode;
+    TTreeReaderArray<Int_t> tausF_charge;
     TTreeReaderArray<Int_t> tausL_decayMode;
     TTreeReaderArray<Double_t> tausF_pt;
     TTreeReaderArray<Double_t> tausF_eta;

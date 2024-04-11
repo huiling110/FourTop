@@ -18,6 +18,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_leptonsTopMVA_chargeMulti", &taus_leptonsTopMVA_chargeMulti);
     outTree->Branch(objName + "_prongNum", &taus_prongNum);
     outTree->Branch(objName + "_1decayMode", &taus_1decayMode);
+    outTree->Branch(objName + "_1lepton1_charge", &taus_1lepton1_charge);
     outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
     outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
     outTree->Branch(objName + "_1charge", &taus_1charge);
@@ -52,8 +53,6 @@ void TauVarMaker::makeVariables(const EventForMV *e)
     leptonsMVAT.insert(leptonsMVAT.end(), eleTopMVAT.begin(), eleTopMVAT.end());
     taus_leptonsT_invariantMass = InvariantMass2SysCal(objsLorentz, leptonsMVAT);
 
-    taus_leptonsTopMVA_chargeMulti = chargeMulCal(e->tausT_charge, e->Muon_charge_, e->muonsTopMVAT_index, e->Electron_charge_, e->elesTopMVAT_index);
-
     switch (m_type)
     {//!!!todo: better make each object a compact object
     case 0:
@@ -65,6 +64,8 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_prongNum = getTauProng(e->tausT_decayMode);
             taus_1genFlavour = e->tausT_genPartFlav.At(0);
             taus_1decayMode = e->tausT_decayMode.At(0);
+            taus_1lepton1_charge = chargeMulCalNew(e->tausT_charge, e->elesMVAT_charge, e->muonsT_charge);
+            std::cout<<"tauCharge"<<e->tausT_charge.GetSize()<<" eleCharge="<<e->elesMVAT_charge.GetSize()<<" muonCharge="<<e->muonsT_charge.GetSize()<<"\n";
         }
         break;
     case 1:
@@ -76,6 +77,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_prongNum = getTauProng(e->tausF_decayMode);
             taus_1genFlavour = e->tausF_genPartFlav.At(0);
             taus_1decayMode = e->tausF_decayMode.At(0);
+            taus_1lepton1_charge = chargeMulCalNew(e->tausF_charge, e->elesMVAT_charge, e->muonsT_charge);
         }
         break;
     case 2:
@@ -98,9 +100,9 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_prongNum = getTauProng(e->tausTT_decayMode);
             taus_1genFlavour = e->tausTT_genPartFlav.At(0);
             taus_1decayMode = e->tausTT_decayMode.At(0);
+            taus_1lepton1_charge = chargeMulCalNew(e->tausTT_charge, e->elesMVAT_charge, e->muonsT_charge);
         }
         break;
-
 
     default:
         break;
@@ -122,6 +124,7 @@ void TauVarMaker::clearBranch()
     taus_1jetEtaAbs = -99;
     taus_1genFlavour = -99;
     taus_1decayMode = -99;
+    taus_1lepton1_charge = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)

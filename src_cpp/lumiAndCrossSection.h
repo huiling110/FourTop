@@ -22,7 +22,7 @@ inline const std::map<TString, Double_t> lumiMap = {
 };
 
 inline const std::map<TString, Double_t> crossSectionMap = {
-    {"tttt", 0.01197},
+    {"tttt", 0.01197}, //!!!0.01337 from https://www.arxiv.org/abs/2212.03259
     {"ttbar_0l", 377.96},
     {"ttbar_1l", 365.34},
     {"ttbar_2l", 88.29},//TT intotal 833.9pb

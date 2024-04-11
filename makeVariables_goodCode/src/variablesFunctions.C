@@ -453,6 +453,20 @@ Int_t chargeMulCal(const TTreeReaderArray<Int_t> &tausT_charge, const TTreeReade
     return charge;
 };
 
+Int_t chargeMulCalNew(const TTreeReaderArray<Int_t>& taus_charge, const TTreeReaderArray<Int_t>& muons_charge, const TTreeReaderArray<Int_t> &eles_charge){
+    Int_t charge = -99;
+    if(taus_charge.GetSize() > 0 && ((muons_charge.GetSize()+muons_charge.GetSize())==1 )){
+        charge = taus_charge.At(0);
+        if(muons_charge.GetSize() == 1){
+            charge = charge * muons_charge.At(0);
+        }else
+        {
+            charge = charge * eles_charge.At(0);
+        }
+    }
+    return charge;
+};
+
 /*
 void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla)
 {
