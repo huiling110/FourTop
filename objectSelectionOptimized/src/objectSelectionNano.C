@@ -77,7 +77,6 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
 
         // jet and bjet selection
         jetSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
-        jetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
         bjetMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
         bjetLSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
         bjetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
