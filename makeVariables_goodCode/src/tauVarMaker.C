@@ -65,7 +65,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_1genFlavour = e->tausT_genPartFlav.At(0);
             taus_1decayMode = e->tausT_decayMode.At(0);
             taus_1lepton1_charge = chargeMulCalNew(e->tausT_charge, e->elesMVAT_charge, e->muonsT_charge);
-            std::cout<<"tauCharge"<<e->tausT_charge.GetSize()<<" eleCharge="<<e->elesMVAT_charge.GetSize()<<" muonCharge="<<e->muonsT_charge.GetSize()<<"\n";
+            // std::cout<<"tauCharge"<<e->tausT_charge.GetSize()<<" eleCharge="<<e->elesMVAT_charge.GetSize()<<" muonCharge="<<e->muonsT_charge.GetSize()<<"\n";
         }
         break;
     case 1:
