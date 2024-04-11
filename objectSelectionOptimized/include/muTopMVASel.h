@@ -29,6 +29,7 @@ private:
     std::vector<Double_t> muonsTopMVAT_eta;
     std::vector<Double_t> muonsTopMVAT_phi;
     std::vector<Double_t> muonsTopMVAT_mass;
+    std::vector<Int_t> muonsTopMVAT_charge;
     std::vector<Int_t> muonsTopMVAT_index;
     std::vector<Double_t> muonsTopMVAT_topMVAScore;
 };

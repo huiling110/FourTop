@@ -55,7 +55,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
     taus_leptonsTopMVA_chargeMulti = chargeMulCal(e->tausT_charge, e->Muon_charge_, e->muonsTopMVAT_index, e->Electron_charge_, e->elesTopMVAT_index);
 
     switch (m_type)
-    {
+    {//!!!todo: better make each object a compact object
     case 0:
         if (e->tausT_jetPt.GetSize() > 0)
         {

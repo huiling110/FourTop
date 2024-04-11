@@ -8,6 +8,7 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era,  const Bool_t isRun3
     outTree->Branch("muonsTopMVAT_eta", &muonsTopMVAT_eta);
     outTree->Branch("muonsTopMVAT_phi", &muonsTopMVAT_phi);
     outTree->Branch("muonsTopMVAT_mass", &muonsTopMVAT_mass);
+    outTree->Branch("muonsTopMVAT_charge", &muonsTopMVAT_charge);
     outTree->Branch("muonsTopMVAT_index", &muonsTopMVAT_index);
     outTree->Branch("muonsTopMVAT_topMVAScore", &muonsTopMVAT_topMVAScore);
     // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
@@ -100,6 +101,7 @@ void MuTopMVASel::Select(const eventForNano *e)
         muonsTopMVAT_eta.push_back(e->Muon_eta.At(j));
         muonsTopMVAT_phi.push_back(e->Muon_phi.At(j));
         muonsTopMVAT_mass.push_back(e->Muon_mass.At(j));
+        muonsTopMVAT_charge.push_back(e->Muon_charge.At(j));
         muonsTopMVAT_index.push_back(j);
         muonsTopMVAT_topMVAScore.push_back(topLeptonScore);
     }
@@ -111,6 +113,7 @@ void MuTopMVASel::clearBranch()
     muonsTopMVAT_eta.clear();
     muonsTopMVAT_phi.clear();
     muonsTopMVAT_mass.clear();
+    muonsTopMVAT_charge.clear();
     muonsTopMVAT_index.clear();
     muonsTopMVAT_topMVAScore.clear();
 };

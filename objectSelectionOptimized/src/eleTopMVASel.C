@@ -8,6 +8,7 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun
     outTree->Branch("elesTopMVAT_eta", &elesTopMVAT_eta);
     outTree->Branch("elesTopMVAT_phi", &elesTopMVAT_phi);
     outTree->Branch("elesTopMVAT_mass", &elesTopMVAT_mass);
+    outTree->Branch("elesTopMVAT_charge", &elesTopMVAT_charge);
     outTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
     outTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
     // outTree->Branch("elesTopMVAT_", &elesTopMVAT_);
@@ -128,6 +129,7 @@ void EleTopMVASel::Select(const eventForNano *e)
         elesTopMVAT_eta.push_back(e->Electron_eta.At(j));
         elesTopMVAT_phi.push_back(e->Electron_phi.At(j));
         elesTopMVAT_mass.push_back(e->Electron_mass.At(j));
+        elesTopMVAT_charge.push_back(e->Electron_charge.At(j));
         elesTopMVAT_index.push_back(j);
         elesTopMVAT_topMVAScore.push_back(topMVAScore);
     } //
@@ -139,6 +141,7 @@ void EleTopMVASel::clearBranch()
     elesTopMVAT_eta.clear();
     elesTopMVAT_phi.clear();
     elesTopMVAT_mass.clear();
+    elesTopMVAT_charge.clear();
     elesTopMVAT_index.clear();
     elesTopMVAT_topMVAScore.clear();
 };
