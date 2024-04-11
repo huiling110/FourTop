@@ -103,6 +103,18 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_1lepton1_charge = chargeMulCalNew(e->tausTT_charge, e->elesMVAT_charge, e->muonsT_charge);
         }
         break;
+    case 4:
+        if (e->tausTTT_jetPt.GetSize() > 0)
+        {
+            taus_1jetPt = e->tausTTT_jetPt.At(0);
+            taus_1jetEtaAbs = e->tausTTT_jetEta.At(0);
+            taus_genTauNum = calGenTauNum(e->tausTTT_genPartFlav); //!!!
+            taus_prongNum = getTauProng(e->tausTTT_decayMode);
+            taus_1genFlavour = e->tausTTT_genPartFlav.At(0);
+            taus_1decayMode = e->tausTTT_decayMode.At(0);
+            taus_1lepton1_charge = chargeMulCalNew(e->tausTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        }
+        break;
 
     default:
         break;
@@ -143,6 +155,9 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
         break;
     case 3:
         getLorentzVec(e->tausTT_pt, e->tausTT_eta, e->tausTT_phi, e->tausTT_mass, objsLorentz);
+        break;
+    case 4:
+        getLorentzVec(e->tausTTT_pt, e->tausTTT_eta, e->tausTTT_phi, e->tausTTT_mass, objsLorentz);
         break;
     default:
         std::cout<<"!!!tau type not wrong!<<\n";
