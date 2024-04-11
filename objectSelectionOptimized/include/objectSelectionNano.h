@@ -107,6 +107,7 @@ private:
     TauSel tauSelF{m_outTree, m_era, m_isData, m_isRun3, 2, m_TES};
     TauSel tauSelL{m_outTree, m_era, m_isData, m_isRun3, 1, m_TES};
     TauSel tauSelTT{m_outTree, m_era, m_isData, m_isRun3, 4, m_TES};//TT
+    TauSel tauSelTTT{m_outTree, m_era, m_isData, m_isRun3, 5, m_TES};//TT
     JetSel jetSel{m_outTree, m_era, m_processName,  m_isRun3, m_isData, 0, m_JESSys, m_JERSys};
     JetSel jetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 1, m_JESSys, m_JERSys};
     JetSel bjetLSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 11, m_JESSys, m_JERSys};

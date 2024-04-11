@@ -33,6 +33,8 @@ private:
         {2, "Loose"}, //!!!no tau enegy scale for VVLoose
         {3, "Medium"},
         {4, "Tight"},
+        {5, "VTight"},
+        {6, "VVTight"},
     };
 
     std::vector<Double_t> taus_TES;
