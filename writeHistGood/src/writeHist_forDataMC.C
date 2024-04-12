@@ -81,7 +81,8 @@ void WH_forDataMC::Init()
     SP_i tausT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1decayMode", "decay mode^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1decayMode));
     SP_i tausF_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1decayMode", "decay mode^{F#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausF_1decayMode));
     SP_i tausTT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1decayMode", "decay mode^{TT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1decayMode));
-    // SP_i tausTT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1decayMode", "decay mode^{TT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1decayMode));
+    SP_i tausTT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1lepton1_charge", "charge^{#tau}*charge^{lep}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1lepton1_charge));
+    SP_i tausTTT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTTT_1lepton1_charge", "charge^{#tau}*charge^{lep}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTTT_1lepton1_charge));
 
     //I guess jets_1pt_class goes out range and destroyed after this function
     histsForRegion_vec.push_back(jets_1pt_class);
@@ -140,6 +141,7 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(tausT_1decayMode_class);
     histsForRegion_vec.push_back(tausF_1decayMode_class);
     histsForRegion_vec.push_back(tausTT_1decayMode_class);
+    histsForRegion_vec.push_back(tausTT_1lepton1_charge_class);
 
     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 

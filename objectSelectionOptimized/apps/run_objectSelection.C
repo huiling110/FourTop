@@ -27,8 +27,8 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
-    Int_t eventNum = 1000)
-// Int_t eventNum = 10000)
+    // Int_t eventNum = 1000)
+Int_t eventNum = 50000)
 // Int_t eventNum = 0)
 {
     TStopwatch t;
@@ -55,8 +55,8 @@ void run_objectSelection(
 
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES); //no HLT selection, for HLT study
     // os.EventLoop(kTRUE, kTRUE, eventNum, TES); //with HLT and preselection
-    os.EventLoop(kTRUE, kTRUE, eventNum); //with HLT and preselection
-    // os.EventLoop(kFALSE, kFALSE, eventNum); //no selection
+    // os.EventLoop(kTRUE, kTRUE, eventNum); //with HLT and preselection
+    os.EventLoop(kFALSE, kFALSE, eventNum); //no selection
 
     os.Terminate();
 

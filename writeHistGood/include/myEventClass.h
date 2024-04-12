@@ -206,6 +206,8 @@ public:
     myBranch<Int_t> tausT_1decayMode{"tausT_1decayMode"};
     myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
     myBranch<Int_t> tausTT_1decayMode{"tausTT_1decayMode"};
+    myBranch<Int_t> tausTT_1lepton1_charge{"tausTT_1lepton1_charge"};
+    myBranch<Int_t> tausTTT_1lepton1_charge{"tausTTT_1lepton1_charge"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -368,6 +370,8 @@ private:
         {tausF_1decayMode.n(), &tausF_1decayMode},
         {tausT_1decayMode.n(), &tausT_1decayMode},
         {tausTT_1decayMode.n(), &tausTT_1decayMode},
+        {tausTT_1lepton1_charge.n(), &tausTT_1lepton1_charge},
+        {tausTTT_1lepton1_charge.n(), &tausTTT_1lepton1_charge},
         {tausF_1pt.n(), &tausF_1pt},
         {tausT_1pt.n(), &tausT_1pt},
         {tausTT_1pt.n(), &tausTT_1pt},
