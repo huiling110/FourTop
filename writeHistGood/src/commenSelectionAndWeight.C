@@ -9,8 +9,8 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3)
         pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
     }else{
         // std::cout << "not run 3\n";
-        // pass = event->jets_num.v() >= 6 && event->bjetsPNM_num.v() >= 1 && event->jets_HT.v() > 500. && event->jets_6pt.v() > 40.;
-        pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
+        // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
+        pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 30.;
     }
     return pass;
 }
