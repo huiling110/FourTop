@@ -133,6 +133,11 @@ public:
         //
         OS::readPointer(HLT_IsoMu24, reader, "HLT_IsoMu24");
         OS::readPointer(HLT_IsoMu27, reader, "HLT_IsoMu27");
+
+        OS::readPointer(HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1, reader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1");
+        OS::readPointer(HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1, reader, "HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1");
+        OS::readPointer(HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1, reader, "HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1");
+
         // gen
         OS::readPointerArray(GenJet_eta, reader, "GenJet_eta");
         OS::readPointerArray(GenJet_phi, reader, "GenJet_phi");
@@ -222,6 +227,12 @@ public:
     //
     TTreeReaderValue<Bool_t> *HLT_IsoMu24 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_IsoMu27 = nullptr;
+
+    //tau triggers
+    TTreeReaderValue<Bool_t> *HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1 = nullptr;
+
 
     TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
     TTreeReaderArray<Float_t> *GenJet_phi = nullptr;

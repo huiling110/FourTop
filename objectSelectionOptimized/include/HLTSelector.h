@@ -6,14 +6,17 @@
 class HLTSelector
 {
 public:
-    HLTSelector(TTree *outTree, const TString era);
+    HLTSelector(TTree *outTree, const TString era, const Bool_t isData = kFALSE, const  Bool_t isRun3= kFALSE);
     ~HLTSelector(){};
 
-    Bool_t Select(eventForNano *e, const TString era = "2017", const Bool_t isData = kFALSE, Bool_t isHLTSel = kTRUE);
+    Bool_t SelectTauTri(const eventForNano *e, const Bool_t ifHLTSel=kFALSE);
+    Bool_t Select(eventForNano *e, const Bool_t isHLTSel = kTRUE);
     void clearBranch();
 
 private:
     const TString m_era;
+    const Bool_t m_isData;
+    const Bool_t m_isRun3;
     // output branches
     Bool_t HLT_PFHT450_SixJet40_BTagCSV_p056_ = kFALSE;
     Bool_t HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_ = kFALSE;
@@ -35,6 +38,11 @@ private:
     //
     Bool_t HLT_IsoMu24_ = kFALSE;
     Bool_t HLT_IsoMu27_ = kFALSE;
+
+    //hadronic triggers
+    Bool_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_ = kFALSE;
+    Bool_t HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_ = kFALSE;
+    Bool_t HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_ = kFALSE;
 };
 
 #endif

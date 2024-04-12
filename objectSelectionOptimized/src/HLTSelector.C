@@ -1,8 +1,11 @@
 #include "../include/HLTSelector.h"
 
-HLTSelector::HLTSelector(TTree *outTree, const TString era): m_era{era}
+HLTSelector::HLTSelector(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3): m_era{era}, m_isData{isData}, m_isRun3{isRun3}
 {
     std::cout<<"Initializing HLTSelector...........\n";
+    std::cout<<"m_era="<<m_era<<" isData="<<m_isData<<" isRun3="<<m_isRun3<<"\n";
+
+
     outTree->Branch("HLT_PFHT450_SixJet40_BTagCSV_p056_", &HLT_PFHT450_SixJet40_BTagCSV_p056_);
     outTree->Branch("HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_", &HLT_PFHT400_SixJet30_DoubleBTagCSV_p056_);
     outTree->Branch("HLT_PFJet450_", &HLT_PFJet450_);
@@ -19,12 +22,17 @@ HLTSelector::HLTSelector(TTree *outTree, const TString era): m_era{era}
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_);
     outTree->Branch("HLT_IsoMu24_", &HLT_IsoMu24_);
     outTree->Branch("HLT_IsoMu27_", &HLT_IsoMu27_);
+
+    outTree->Branch("HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_);
+    outTree->Branch("HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_", &HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_);
+    outTree->Branch("HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_", &HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_);
+
+
     std::cout<<"Done HLTSelector initializing .............\n";
     std::cout<<"\n";
 };
-// HLTSelector::~HLTSelector(){};
 
-Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isData, Bool_t isHLTSel)
+Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
 {
     // Here I manully set the branch value = nanoAOD value only when the trigger is supposed to work in the run period;
     // otherwise trigger=false;
@@ -45,7 +53,7 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
     {
         // std::cout<<"HLT 2017\n";
         HLT_PFJet500_ = **e->HLT_PFJet500;
-        if (!isData)
+        if (!m_isData)
         {
             ifPass = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFJet500;
             HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
@@ -78,7 +86,7 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
     else if (m_era.CompareTo("2018") == 0)
     {
         HLT_PFJet500_ = **e->HLT_PFJet500;
-        if (!isData)
+        if (!m_isData)
         {
             ifPass = **e->HLT_PFJet500 || **e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94;
             HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
@@ -126,6 +134,24 @@ Bool_t HLTSelector::Select(eventForNano *e, const TString era, const Bool_t isDa
     // std::cout<<"ifHLT="<<ifPass<<"\n";
     return ifPass;
 };
+
+Bool_t HLTSelector::SelectTauTri(const eventForNano *e, const Bool_t ifHLTSel)
+{
+    Bool_t ifPass = kFALSE;
+    if(m_isRun3){
+        HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_ = **e->HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1;
+        HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_ = **e->HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1;
+        HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_ = **e->HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1;
+    }
+
+    if (!ifHLTSel)
+    {
+        ifPass = kTRUE;
+    }
+
+    return ifPass;
+}
+
 void HLTSelector::clearBranch()
 {
     HLT_PFHT450_SixJet40_BTagCSV_p056_ = kFALSE;
