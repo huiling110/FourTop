@@ -96,16 +96,30 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         //systematic Weight cal
         systWeightCal.Select(e, m_isData);
 
-        if (preSelection)
-        {
-            Int_t bjetsNum = m_isRun3? bjetPTMSel.getSize(): bjetMSel.getSize();
-            if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //different b-tag for run2 and run3
+        // if (preSelection)
+        // {
+            // Int_t bjetsNum = m_isRun3? bjetPTMSel.getSize(): bjetMSel.getSize();
+            // if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
-                continue;
+        if (tauSel.getSize()>0) {
+            m_cutflow->Fill(3);
+        }else{
+            continue;
         }
+        if(jetSel.getSize()>5){
+            m_cutflow->Fill(4);
+        }else{
+            continue;
+        }
+        if(bjetMSel.getSize()>0){
+            m_cutflow->Fill(5);
+        }else{
+            continue;
+        }
+        // }
 
-        m_cutflow->Fill(3);
+        // m_cutflow->Fill(3);
         CF_pre->Fill(0., genWeight);
 
         m_outTree->Fill();

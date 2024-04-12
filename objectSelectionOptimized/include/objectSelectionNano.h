@@ -128,7 +128,8 @@ private:
     ULong_t m_jetsTotal = 0;
     ULong_t m_bjetsM = 0;
 
-    TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: preSelection", 4, 0, 4);
+    // TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: preSelection", 4, 0, 4);
+    TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: >=1tauT: >=6jet: >=1bjetM", 6, 0, 6);
     TH1D *CF_initial = new TH1D("OS_initial", "OS_initial", 2, -1, 1);
     TH1D *CF_met = new TH1D("OS_MetFilter", "OS_MetFilter", 2, -1, 1);
     TH1D *CF_HLT = new TH1D("OS_HLT", "OS_HLT", 2, -1, 1);

@@ -54,7 +54,7 @@ Int_t eventNum = 50000)
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES);
 
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES); //no HLT selection, for HLT study
-    os.EventLoop(kFALSE, kTRUE, eventNum); //with HLT 
+    os.EventLoop(kFALSE, kTRUE, eventNum); //with only HLT 
     // os.EventLoop(kTRUE, kTRUE, eventNum); //with HLT and preselection
     // os.EventLoop(kFALSE, kFALSE, eventNum); //no selection
 
