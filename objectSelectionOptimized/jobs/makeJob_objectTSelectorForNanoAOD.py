@@ -59,7 +59,7 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v9addTauTT/'
 # jobVersionName = 'v10addBjetPTT/'
 # jobVersionName = 'v11overlapRemovalTausT/'
-jobVersionName = 'v12Add1tauCut/'
+jobVersionName = 'v12Add1TauMCutJet5/'
 #!same version numbers means no change in algrithm but only in selection
 
 def main():
@@ -78,8 +78,6 @@ def main():
     
 
     print( "era: ", era )
-
-
 
     onlyMC = False
 
