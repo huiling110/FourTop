@@ -18,14 +18,14 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lRSL"};
 
     using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
     using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
 
     std::shared_ptr<histsForRegionsMap<Double_t>> jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 10, 30, 700, regionsForVariables, &(e->jets_1pt));
     SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
-    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_HT));
+    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 10, 400, 1800, regionsForVariables, &(e->jets_HT));
     SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 10, 30, 140, regionsForVariables, &(e->jets_6pt));
     SP_d jets_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2pt", "p_{T}^{2nd jet}(GeV)", m_processName, 10, 30, 600, regionsForVariables, &(e->jets_2pt));
     SP_d jets_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3pt", "p_{T}^{3th jet}(GeV)", m_processName, 10, 30, 140, regionsForVariables, &(e->jets_3pt));
@@ -172,10 +172,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         //!!!Testing corrections
         // Double_t basicWeight = e->EVENT_genWeight.v();
-        // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v();
+        Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
-        Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauTT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
+        // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauTT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v() * e->HLT_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->eleMVAT_IDSF_weight.v(); //!!! run 3 
@@ -209,6 +209,9 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
         }
+
+        Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau1lSRL, "1tau1lRSL", basicWeight, m_isData);
 
         // 1tau0l CR
         Bool_t is1tau0lVR = SR1tau1lSel(e, 7, m_isRun3);
