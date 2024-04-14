@@ -6,7 +6,7 @@ df = ROOT.RDataFrame('Events', input)
 
 
 ROOT.gInterpreter.Declare("""
-bool containsValue5(const ROOT::VecOps::RVec<int>& vec) {
+bool containsValue5(const ROOT::VecOps::RVec<UChar_t>& vec) {
     for (auto el : vec) {
         if (el == 5) return true;
     }

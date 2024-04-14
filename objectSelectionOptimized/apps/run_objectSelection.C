@@ -15,10 +15,10 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/mc/TTTT/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/mc/TTTT/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTTT/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTtoLNu2Q/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTto2L2Nu/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTto2L2Nu/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/mc/TTto4Q/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022F/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/JetMET2022D/",
@@ -54,8 +54,8 @@ Int_t eventNum = 50000)
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES);
 
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES); //no HLT selection, for HLT study
-    os.EventLoop(kFALSE, kTRUE, eventNum); //with only HLT 
-    // os.EventLoop(kTRUE, kTRUE, eventNum); //with HLT and preselection
+    // os.EventLoop(kFALSE, kTRUE, eventNum); //with only HLT 
+    os.EventLoop(kTRUE, kTRUE, eventNum); //with HLT and preselection
     // os.EventLoop(kFALSE, kFALSE, eventNum); //no selection
 
     os.Terminate();

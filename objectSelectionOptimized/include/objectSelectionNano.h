@@ -71,7 +71,7 @@ public:
 
     void Init();
 
-    void EventLoop(const Bool_t preSelection = kTRUE, const Bool_t ifHLT= kTRUE, ULong_t numEntries = 0);
+    void EventLoop(const Bool_t iftauSel = kFALSE, const Bool_t preSelection = kTRUE, const Bool_t ifHLT= kTRUE, ULong_t numEntries = 0);
 
     void Terminate();
     void getLepEtaPhi(std::vector<Double_t> &lepEtaVec, std::vector<Double_t> &lepPhiVec);
@@ -108,6 +108,7 @@ private:
     TauSel tauSelL{m_outTree, m_era, m_isData, m_isRun3, 1, m_TES};
     TauSel tauSelTT{m_outTree, m_era, m_isData, m_isRun3, 4, m_TES};//TT
     TauSel tauSelTTT{m_outTree, m_era, m_isData, m_isRun3, 5, m_TES};//TT
+    TauSel tauSelM{m_outTree, m_era, m_isData, m_isRun3, 6, m_TES};// 
     JetSel jetSel{m_outTree, m_era, m_processName,  m_isRun3, m_isData, 0, m_JESSys, m_JERSys};
     JetSel jetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 1, m_JESSys, m_JERSys};
     JetSel bjetLSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 11, m_JESSys, m_JERSys};

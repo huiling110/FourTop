@@ -34,7 +34,7 @@ private:
         {3, "Medium"},
         {4, "Tight"},
         {5, "VTight"},
-        {6, "VVTight"},
+        {6, "Loose"},
     };
 
     std::vector<Double_t> taus_TES;

@@ -2,7 +2,7 @@
 #include "../include/usefulFunc.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
-void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, ULong_t numEntries)
+void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection, const Bool_t ifHLT, ULong_t numEntries)
 {
     ULong_t entryCount = 0;
     if (numEntries <= 0)
@@ -14,7 +14,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
     {
         entryCount++;
         if(entryCount==1){
-            std::cout << "preSelection="<< preSelection << "; ifHLT="<<ifHLT<< "\n";
+            std::cout <<"ifTauSel="<<iftauSel<< " preSelection="<< preSelection << "; ifHLT="<<ifHLT<< "\n";
         }
 
         Double_t genWeight = 1.0;
@@ -67,6 +67,7 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
         tauSelL.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
         tauSelTT.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
         tauSelTTT.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
+        tauSelM.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
 
         // const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         // const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
@@ -102,27 +103,30 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
             // if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
-        // if (preSelection){
-        if (tauSel.getSize()>0) {
+        if(iftauSel){
+            if (tauSelM.getSize()>0) {
+                m_cutflow->Fill(3);
+            }else{
+                continue;
+            }
+        }else{
             m_cutflow->Fill(3);
-        }else{
-            if(preSelection){
+        }
+
+        if(preSelection){
+            if(jetSel.getSize()>4){
+                m_cutflow->Fill(4);
+            }else{
                 continue;
             }
-        }
-        if(jetSel.getSize()>5){
+            if(bjetMSel.getSize()>0){
+                m_cutflow->Fill(5);
+            }else{
+                continue;
+            }
+        }else{
             m_cutflow->Fill(4);
-        }else{
-            if(preSelection){
-                continue;
-            }
-        }
-        if(bjetMSel.getSize()>0){
             m_cutflow->Fill(5);
-        }else{
-            if(preSelection){
-                continue;
-            }
         }
 
         CF_pre->Fill(0., genWeight);
