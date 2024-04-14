@@ -102,24 +102,29 @@ void objectSelection::EventLoop(const Bool_t preSelection, const Bool_t ifHLT, U
             // if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
+        // if (preSelection){
         if (tauSel.getSize()>0) {
             m_cutflow->Fill(3);
         }else{
-            continue;
+            if(preSelection){
+                continue;
+            }
         }
         if(jetSel.getSize()>5){
             m_cutflow->Fill(4);
         }else{
-            continue;
+            if(preSelection){
+                continue;
+            }
         }
         if(bjetMSel.getSize()>0){
             m_cutflow->Fill(5);
         }else{
-            continue;
+            if(preSelection){
+                continue;
+            }
         }
-        // }
 
-        // m_cutflow->Fill(3);
         CF_pre->Fill(0., genWeight);
 
         m_outTree->Fill();

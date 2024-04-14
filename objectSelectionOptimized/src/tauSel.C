@@ -54,8 +54,6 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         Double_t itau_pt = e->Tau_pt.At(j);
         Double_t iTES = 1.0;
         if(!m_isData){
-            // calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j)); // TES handled inside the function
-            // calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j), "Tight"); // TES handled inside the function
             calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j), tauVsJetWP.at(m_tauWP)); // TES handled inside the function
         }
         // std::cout<<"iTES="<<iTES<<"\n";
@@ -77,9 +75,6 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         //     if (!(e->Tau_idDecayModeNewDMs->At(j))) //already applied in nanoAOD
         //         continue; // for 2022
         // }
-        // UChar_t tauID_vsJet;
-        // UChar_t tauID_vsEle;
-        // UChar_t tauID_vsMu;
         Int_t tauID_vsJet;
         Int_t tauID_vsEle;
         Int_t tauID_vsMu;
@@ -138,6 +133,8 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         }
         if (m_tauWP == 3 || m_tauWP ==4 || m_tauWP ==5)
         { // tight tau
+            if (itau_decayMode == 5 || itau_decayMode == 6)
+                continue;
             if (m_isRun3)
             {//1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
                 // isVSjetM = tauID_vsJet >= 5;      // check if the 5th bit (Medium WP) is 1//will this comparision with unsigned char work? yes
@@ -179,11 +176,16 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
                 isVSeVVVLoose = tauID_vsEle & (1 << 0); // check if the 1st bit (VVVLoose WP) is 1
                 isVSmuVLoose = tauID_vsMu & (1 << 0);   // check if the 1st bit (VLoose WP) is 1
             }
+
+
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
                 continue;
-            if (itau_decayMode == 5 || itau_decayMode == 6)
-                continue;
         }
+
+
+
+
+
         // overlap removal
         Bool_t removeTau = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), muEtaVec, muPhiVec);
         Bool_t removeTauWithE = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), eEtaVec, ePhiVec);
