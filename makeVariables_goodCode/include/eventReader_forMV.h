@@ -85,6 +85,16 @@ public:
                                       tausTTT_jetPt(reader, "tausTTT_jetPt"),
                                       tausTTT_jetEta(reader, "tausTTT_jetEta"),
 
+                                      tausM_pt(reader, "tausM_pt"),
+                                      tausM_eta(reader, "tausM_eta"),
+                                      tausM_phi(reader, "tausM_phi"),
+                                      tausM_mass(reader, "tausM_mass"),
+                                      tausM_genPartFlav(reader, "tausM_genPartFlav"),
+                                      tausM_decayMode(reader, "tausM_decayMode"),
+                                      tausM_charge(reader, "tausM_charge"),
+                                      tausM_jetPt(reader, "tausM_jetPt"),
+                                      tausM_jetEta(reader, "tausM_jetEta"),
+
                                       tausF_pt(reader, "tausF_pt"),
                                       tausF_eta(reader, "tausF_eta"),
                                       tausF_phi(reader, "tausF_phi"),
@@ -112,11 +122,13 @@ public:
                                       jets_btagsPN(reader, "jets_btagsPN"),
                                       jets_btagsPT(reader, "jets_btagsPT"),
                                       jets_flavour(reader, "jets_flavour"),
-                                      jetsT_pt(reader, "jetsT_pt"),
-                                      jetsT_eta(reader, "jetsT_eta"),
-                                      jetsT_phi(reader, "jetsT_phi"),
-                                      jetsT_mass(reader, "jetsT_mass"),
-                                      jetsT_btags(reader, "jetsT_btags"),
+
+                                    //   jetsT_pt(reader, "jetsT_pt"),
+                                    //   jetsT_eta(reader, "jetsT_eta"),
+                                    //   jetsT_phi(reader, "jetsT_phi"),
+                                    //   jetsT_mass(reader, "jetsT_mass"),
+                                    //   jetsT_btags(reader, "jetsT_btags"),
+
                                       bjetsM_pt(reader, "bjetsM_pt"),
                                       bjetsM_eta(reader, "bjetsM_eta"),
                                       bjetsM_phi(reader, "bjetsM_phi"),
@@ -242,6 +254,16 @@ public:
     TTreeReaderArray<Double_t> tausTTT_jetPt;
     TTreeReaderArray<Double_t> tausTTT_jetEta;
 
+    TTreeReaderArray<Double_t> tausM_pt;
+    TTreeReaderArray<Double_t> tausM_eta;
+    TTreeReaderArray<Double_t> tausM_phi;
+    TTreeReaderArray<Double_t> tausM_mass;
+    TTreeReaderArray<UChar_t> tausM_genPartFlav;
+    TTreeReaderArray<Int_t> tausM_decayMode;
+    TTreeReaderArray<Int_t> tausM_charge;
+    TTreeReaderArray<Double_t> tausM_jetPt;
+    TTreeReaderArray<Double_t> tausM_jetEta;
+
     TTreeReaderArray<Double_t> tausF_pt;
     TTreeReaderArray<Double_t> tausF_eta;
     TTreeReaderArray<Double_t> tausF_phi;
@@ -269,11 +291,11 @@ public:
     TTreeReaderArray<Double_t> jets_btagsPN;
     TTreeReaderArray<Double_t> jets_btagsPT;
     TTreeReaderArray<Int_t> jets_flavour;
-    TTreeReaderArray<Double_t> jetsT_pt;
-    TTreeReaderArray<Double_t> jetsT_eta;
-    TTreeReaderArray<Double_t> jetsT_phi;
-    TTreeReaderArray<Double_t> jetsT_mass;
-    TTreeReaderArray<Double_t> jetsT_btags;
+    // TTreeReaderArray<Double_t> jetsT_pt;
+    // TTreeReaderArray<Double_t> jetsT_eta;
+    // TTreeReaderArray<Double_t> jetsT_phi;
+    // TTreeReaderArray<Double_t> jetsT_mass;
+    // TTreeReaderArray<Double_t> jetsT_btags;
     TTreeReaderArray<Double_t> bjetsM_pt;
     TTreeReaderArray<Double_t> bjetsM_eta;
     TTreeReaderArray<Double_t> bjetsM_phi;

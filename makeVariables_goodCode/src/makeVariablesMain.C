@@ -30,6 +30,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         tauLVarMaker.makeVariables(e);
         tauTTVarMaker.makeVariables(e);
         tauTTTVarMaker.makeVariables(e);
+        tauMVarMaker.makeVariables(e);
 
         // jet
         jetVarMaker.makeVariables(e);
