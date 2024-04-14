@@ -762,7 +762,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
             Int_t ijetFlav = jets_flavour.At(j);
 
             //for PT btag a few value of -3
-            if(ijetBtag<0 || ijetBtag>1){
+            if(!(ijetBtag>0. && ijetBtag<1.)){
                 std::cout<<"!!!Warning: btag value out of range: "<<ijetBtag<<"\n";
                 return 1.0;
             }

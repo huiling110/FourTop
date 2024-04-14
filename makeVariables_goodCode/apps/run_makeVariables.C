@@ -61,7 +61,8 @@ void run_objectSelection(
     // TString inputDir = "output",
     TString outputDir = "output/",
     // Int_t numEntries = 10000)
-    Int_t numEntries = 1000)
+    // Int_t numEntries = 1000)
+    Int_t numEntries = 0)
 {
     TStopwatch t;
     t.Start();
