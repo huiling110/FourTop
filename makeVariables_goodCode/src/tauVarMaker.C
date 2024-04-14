@@ -89,6 +89,7 @@ void TauVarMaker::makeVariables(const EventForMV *e)
             taus_prongNum = getTauProng(e->tausL_decayMode);
             taus_1genFlavour = e->tausL_genPartFlav.At(0);
             taus_1decayMode = e->tausL_decayMode.At(0);
+            // taus_1lepton1_charge = chargeMulCalNew(e->tausL_charge, e->elesMVAT_charge, e->muonsT_charge);
         }
         break;
     case 3:

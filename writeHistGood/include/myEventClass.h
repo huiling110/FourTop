@@ -204,11 +204,15 @@ public:
     myBranch<Int_t> tausT_1genFlavour{"tausT_1genFlavour"};
     myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
     myBranch<Int_t> tausTT_1genFlavour{"tausTT_1genFlavour"};
+    myBranch<Int_t> tausTTT_1genFlavour{"tausTTT_1genFlavour"};
+    myBranch<Int_t> tausM_1genFlavour{"tausM_1genFlavour"};
     myBranch<Int_t> tausT_1decayMode{"tausT_1decayMode"};
     myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
     myBranch<Int_t> tausTT_1decayMode{"tausTT_1decayMode"};
     myBranch<Int_t> tausTT_1lepton1_charge{"tausTT_1lepton1_charge"};
     myBranch<Int_t> tausTTT_1lepton1_charge{"tausTTT_1lepton1_charge"};
+    myBranch<Int_t> tausT_1lepton1_charge{"tausT_1lepton1_charge"};
+    myBranch<Int_t> tausM_1lepton1_charge{"tausM_1lepton1_charge"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -374,12 +378,16 @@ private:
         {tausTT_1decayMode.n(), &tausTT_1decayMode},
         {tausTT_1lepton1_charge.n(), &tausTT_1lepton1_charge},
         {tausTTT_1lepton1_charge.n(), &tausTTT_1lepton1_charge},
+        {tausT_1lepton1_charge.n(), &tausT_1lepton1_charge},
+        {tausM_1lepton1_charge.n(), &tausM_1lepton1_charge},
         {tausF_1pt.n(), &tausF_1pt},
         {tausT_1pt.n(), &tausT_1pt},
         {tausTT_1pt.n(), &tausTT_1pt},
         {tausT_1genFlavour.n(), &tausT_1genFlavour},
         {tausF_1genFlavour.n(), &tausF_1genFlavour},
         {tausTT_1genFlavour.n(), &tausTT_1genFlavour},
+        {tausTTT_1genFlavour.n(), &tausTTT_1genFlavour},
+        {tausM_1genFlavour.n(), &tausM_1genFlavour},
 
         {EVENT_prefireWeight_up.n(), &EVENT_prefireWeight_up},
         {PUweight_up_.n(), &PUweight_up_},

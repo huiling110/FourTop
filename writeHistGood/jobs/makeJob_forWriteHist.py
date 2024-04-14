@@ -67,6 +67,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v1TauSFNew_v9addTauTT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v10addBjetPTT/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline6thJet30_v11overlapRemovalTausT/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -103,7 +104,12 @@ def main():
     # version = 'v4dataMC_pileupBtagWPSF_tausTT'
     # version = 'v5dataMC_pileupTauTTIDBtagWPSF_tauTT'
     # version = 'v6dataMC_pileupTauTTIDBtagWPSF_6thJet30'
-    version = 'v0_looseBaselineTausM_pileupSF'
+    # version = 'v0_looseBaseline_pileupSF'
+    # version = 'v1_looseBaselineBtag2_pileupSF'
+    # version = 'v2_looseBaselineBtag2TTau_pileupSF'
+    # version = 'v3_looseBaselineBtag2TTauHT450_pileupSF'
+    version = 'v4_looseBaselineBtag2TTauHT500_pileupSF'
+    # version = 'v5_looseBaselineBtag2TTTauHT500_pileupSF'
     channel = 0
     
         

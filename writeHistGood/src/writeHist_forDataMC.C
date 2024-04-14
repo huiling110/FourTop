@@ -25,13 +25,13 @@ void WH_forDataMC::Init()
 
     std::shared_ptr<histsForRegionsMap<Double_t>> jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 10, 30, 700, regionsForVariables, &(e->jets_1pt));
     SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
-    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 10, 400, 1800, regionsForVariables, &(e->jets_HT));
-    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 10, 30, 140, regionsForVariables, &(e->jets_6pt));
-    SP_d jets_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2pt", "p_{T}^{2nd jet}(GeV)", m_processName, 10, 30, 600, regionsForVariables, &(e->jets_2pt));
-    SP_d jets_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3pt", "p_{T}^{3th jet}(GeV)", m_processName, 10, 30, 140, regionsForVariables, &(e->jets_3pt));
-    SP_d jets_4pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4pt", "p_{T}^{4th jet}(GeV)", m_processName, 10, 30, 300, regionsForVariables, &(e->jets_4pt));
-    SP_d jets_5pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5pt", "p_{T}^{5th jet}(GeV)", m_processName, 10, 30, 160, regionsForVariables, &(e->jets_5pt));
-    SP_d jets_7pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_7pt", "p_{T}^{7th jet}(GeV)", m_processName, 10, 30, 145, regionsForVariables, &(e->jets_7pt));
+    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 20, 400, 1800, regionsForVariables, &(e->jets_HT));
+    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 40, 25, 140, regionsForVariables, &(e->jets_6pt));
+    SP_d jets_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2pt", "p_{T}^{2nd jet}(GeV)", m_processName, 40, 25, 600, regionsForVariables, &(e->jets_2pt));
+    SP_d jets_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3pt", "p_{T}^{3th jet}(GeV)", m_processName, 40, 25, 140, regionsForVariables, &(e->jets_3pt));
+    SP_d jets_4pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4pt", "p_{T}^{4th jet}(GeV)", m_processName, 40, 25, 300, regionsForVariables, &(e->jets_4pt));
+    SP_d jets_5pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5pt", "p_{T}^{5th jet}(GeV)", m_processName, 40, 25, 160, regionsForVariables, &(e->jets_5pt));
+    SP_d jets_7pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_7pt", "p_{T}^{7th jet}(GeV)", m_processName, 40, 25, 145, regionsForVariables, &(e->jets_7pt));
 
     SP_d jets_rationHT_4toRest_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_rationHT_4toRest", "HT^{4 leaading jets}/HT^{rest of jets}", m_processName, 10, 0, 12, regionsForVariables, &(e->jets_rationHT_4toRest));
     // SP_d jets_leading2invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_leading2invariantMass", "m^{2 leading jets}", m_processName, 10, 100, 1000, regionsForVariables, &(e->jets_leading2invariantMass));
@@ -66,23 +66,29 @@ void WH_forDataMC::Init()
     SP_d elesTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_1pt", "p_{T}^{e}(GeV)", m_processName, 10, 0, 140, regionsForVariables, &(e->elesTopMVAT_1pt));
 
 
-    SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
+    SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 8, 4.5, 12.5, regionsForVariables, &(e->jets_num));
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
     SP_i bjetsPTM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsPTM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsPTM_num));
     SP_i bjetsPTT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsPTT_num", "n^{tight b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsPTT_num));
     SP_i tausT_leptonsTopMVA_chargeMulti_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}",m_processName, 3, -1.5, 1.5, regionsForVariables,  &(e->tausT_leptonsTopMVA_chargeMulti));
     SP_i PV_npvsGood_class = std::make_shared<histsForRegionsMap<Int_t>>("PV_npvsGood", "n^{PV}", m_processName, 10, 0, 60, regionsForVariables, &(e->PV_npvsGood));
+
     SP_i tausT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_num", "n^{#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausT_num));
     SP_i tausTT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_num", "n^{TT#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausTT_num));
     SP_i tausF_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_num", "n^{F#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausF_num));
+    SP_i tausM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausM_num", "n^{M#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausM_num));
     SP_i tausT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1genFlavour", "gen flavour^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1genFlavour));
     SP_i tausF_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1genFlavour", "gen flavour^{F#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausF_1genFlavour));
     SP_i tausTT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1genFlavour", "gen flavour^{TT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1genFlavour));
+    SP_i tausTTT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTTT_1genFlavour", "gen flavour^{TTT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTTT_1genFlavour));
+    SP_i tausM_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausM_1genFlavour", "gen flavour^{M#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausM_1genFlavour));
     SP_i tausT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1decayMode", "decay mode^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1decayMode));
     SP_i tausF_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1decayMode", "decay mode^{F#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausF_1decayMode));
     SP_i tausTT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1decayMode", "decay mode^{TT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1decayMode));
-    SP_i tausTT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1lepton1_charge", "charge^{#tau}*charge^{lep}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1lepton1_charge));
-    SP_i tausTTT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTTT_1lepton1_charge", "charge^{#tau}*charge^{lep}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTTT_1lepton1_charge));
+    SP_i tausTT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1lepton1_charge", "charge^{TT#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausTT_1lepton1_charge));
+    SP_i tausTTT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTTT_1lepton1_charge", "charge^{TTT#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausTTT_1lepton1_charge));
+    SP_i tausT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1lepton1_charge", "charge^{T#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausT_1lepton1_charge));
+    SP_i tausM_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausM_1lepton1_charge", "charge^{M#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausM_1lepton1_charge));
 
     //I guess jets_1pt_class goes out range and destroyed after this function
     histsForRegion_vec.push_back(jets_1pt_class);
@@ -135,13 +141,19 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(tausT_num_class);
     histsForRegion_vec.push_back(tausTT_num_class);
     histsForRegion_vec.push_back(tausF_num_class);
+    histsForRegion_vec.push_back(tausM_num_class);
     histsForRegion_vec.push_back(tausT_1genFlavour_class);
     histsForRegion_vec.push_back(tausF_1genFlavour_class);
     histsForRegion_vec.push_back(tausTT_1genFlavour_class);
+    histsForRegion_vec.push_back(tausTTT_1genFlavour_class);
+    histsForRegion_vec.push_back(tausM_1genFlavour_class);
     histsForRegion_vec.push_back(tausT_1decayMode_class);
     histsForRegion_vec.push_back(tausF_1decayMode_class);
     histsForRegion_vec.push_back(tausTT_1decayMode_class);
     histsForRegion_vec.push_back(tausTT_1lepton1_charge_class);
+    histsForRegion_vec.push_back(tausTTT_1lepton1_charge_class);
+    histsForRegion_vec.push_back(tausT_1lepton1_charge_class);
+    histsForRegion_vec.push_back(tausM_1lepton1_charge_class);
 
     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 
@@ -208,10 +220,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3);
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
-        }
 
         Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3);
         WH::histRegionVectFill(histsForRegion_vec, is1tau1lSRL, "1tau1lRSL", basicWeight, m_isData);
+        }
 
         // 1tau0l CR
         Bool_t is1tau0lVR = SR1tau1lSel(e, 7, m_isRun3);
