@@ -72,13 +72,14 @@ def main():
     # inVersion = 'v8OldTauIDNoTES'
     # inVersion = 'v9addTauTT'
     # inVersion = 'v10addBjetPTT'
-    inVersion = 'v11overlapRemovalTausT'
+    # inVersion = 'v11overlapRemovalTausT'
+    inVersion = 'v13BetterHLTSel'
     # outVersion = 'v0baseline'
-    outVersion = 'v0baseline6thJet30'
     # outVersion = 'v1TauSFNew'
     # outVersion = 'v0baselineTauIDSFUpdated'
     # outVersion = 'v0NoBtagSel'
     # outVersion = 'v0baselineTauGenFlavour'
+    outVersion = 'v0NoSel'
   
    
     
