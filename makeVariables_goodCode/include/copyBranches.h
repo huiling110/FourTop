@@ -35,6 +35,9 @@ private:
     //2022
     Bool_t HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = kFALSE;
     Bool_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = kFALSE;
+    Bool_t HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5 = kFALSE;
+    Bool_t HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5 = kFALSE;
+    Bool_t HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5 =kFALSE;
 
 
     //

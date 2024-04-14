@@ -75,7 +75,8 @@ void run_objectSelection(
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     // mv.EventLoop(kTRUE,kTRUE, numEntries); //1tau1l cut
-    mv.EventLoop(kTRUE, kFALSE, numEntries);
+    // mv.EventLoop(kTRUE, kFALSE, numEntries);
+    mv.EventLoop(kFALSE, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();

@@ -28,6 +28,9 @@ CopyBranches::CopyBranches(TTree *outTree)
     // 2022
     outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59", &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59);
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94);
+    outTree->Branch("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5", &HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5);
+    outTree->Branch("HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5", &HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5);
+    outTree->Branch("HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5", &HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5);
 
     outTree->Branch("MET_pt", &MET_pt);
     outTree->Branch("MET_phi", &MET_phi);
@@ -69,6 +72,10 @@ void CopyBranches::makeVariables(EventForMV *e)
     //2022
     HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = *e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = *e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;
+    HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5 = *e->HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_;
+    HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5 = *e->HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_;
+    HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5 = *e->HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_;
+    
 
 
     copy_TTreeReaderArray_toVector(e->jets_pt, jets_pt_);
