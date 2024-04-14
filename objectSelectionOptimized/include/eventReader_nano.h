@@ -130,6 +130,9 @@ public:
         // 2022
         OS::readPointer(HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94, reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94");
         OS::readPointer(HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59, reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59");
+        OS::readPointer(HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5, reader, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5");
+        OS::readPointer(HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5, reader, "HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5");
+        OS::readPointer(HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5, reader, "HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5");
         //
         OS::readPointer(HLT_IsoMu24, reader, "HLT_IsoMu24");
         OS::readPointer(HLT_IsoMu27, reader, "HLT_IsoMu27");
@@ -224,6 +227,9 @@ public:
     // 2022
     TTreeReaderValue<Bool_t> *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5 = nullptr;
     //
     TTreeReaderValue<Bool_t> *HLT_IsoMu24 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_IsoMu27 = nullptr;

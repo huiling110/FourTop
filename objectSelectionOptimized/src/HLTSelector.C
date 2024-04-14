@@ -20,6 +20,10 @@ HLTSelector::HLTSelector(TTree *outTree, const TString era, const Bool_t isData,
     outTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_);
     outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_);
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_);
+    outTree->Branch("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_", &HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_);
+    outTree->Branch("HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_", &HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_);
+    outTree->Branch("HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_", &HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_);
+
     outTree->Branch("HLT_IsoMu24_", &HLT_IsoMu24_);
     outTree->Branch("HLT_IsoMu27_", &HLT_IsoMu27_);
 
@@ -122,10 +126,14 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
             }
         }
     }else if(m_era.CompareTo("2022")==0 || m_era.CompareTo("2022postEE")==0 || m_era.CompareTo("2022preEE")==0){
-        ifPass = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94|| **e->HLT_PFJet500;
+        // ifPass = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94|| **e->HLT_PFJet500;
         HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_ = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59;
         HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_ = **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94;
-        HLT_PFJet500_ = **e->HLT_PFJet500;
+        HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_ = **e->HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5;
+        HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_ = **e->HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5;
+        HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_ = **e->HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5;
+        HLT_PFJet500_ = **e->HLT_PFJet500; //!should probably romove this trigger
+        ifPass = HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_ || HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_ || HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_ || HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_ || HLT_PFJet500_;
     }
     if (!isHLTSel)
     {
