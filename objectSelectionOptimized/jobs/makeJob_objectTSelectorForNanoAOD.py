@@ -59,7 +59,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v9addTauTT/'
 # jobVersionName = 'v10addBjetPTT/'
 # jobVersionName = 'v11overlapRemovalTausT/'
-jobVersionName = 'v12Add1TauMCutJet5/'
+# jobVersionName = 'v12Add1TauMCutJet5/'
+jobVersionName = 'v13BetterHLTSel/'
 #!same version numbers means no change in algrithm but only in selection
 
 def main():
