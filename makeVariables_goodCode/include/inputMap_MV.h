@@ -57,10 +57,10 @@ namespace MV
             {"2022postEE", {"MUO/2022EE_27Jun2023/muon_JPsi.json", "MUO/2022EE_27Jun2023/muon_Z.json", "MUO/2022EE_27Jun2023/muon_HighPt.json"}},
             {"2022preEE", {"MUO/2022_27Jun2023/muon_JPsi.json", "MUO/2022_27Jun2023/muon_Z.json", "MUO/2022_27Jun2023/muon_HighPt.json"}},
             // {"2022preEE", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
-            {"2016preVFP", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},//!!!dummy
-            {"2016postVFP", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
-            {"2017", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
-            {"2018", {"../newRun3/muonefficiencies/Run3/2022/2022_Jpsi/ScaleFactors_Muon_Jpsi_ID_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_Z/ScaleFactors_Muon_Z_ID_ISO_2022_schemaV2.json", "../newRun3/muonefficiencies/Run3/2022/2022_HighPt/ScaleFactors_Muon_highPt_IDISO_2022_schemaV2.json"}},
+            {"2016preVFP", {"MUO/2022_27Jun2023/muon_JPsi.json", "MUO/2022_27Jun2023/muon_Z.json", "MUO/2022_27Jun2023/muon_HighPt.json"}},
+            {"2016postVFP", {"MUO/2022_27Jun2023/muon_JPsi.json", "MUO/2022_27Jun2023/muon_Z.json", "MUO/2022_27Jun2023/muon_HighPt.json"}},
+            {"2017", {"MUO/2022_27Jun2023/muon_JPsi.json", "MUO/2022_27Jun2023/muon_Z.json", "MUO/2022_27Jun2023/muon_HighPt.json"}},
+            {"2018", {"MUO/2022_27Jun2023/muon_JPsi.json", "MUO/2022_27Jun2023/muon_Z.json", "MUO/2022_27Jun2023/muon_HighPt.json"}},
         };
 
     inline const std::map<TString, TString> btagR_map = {

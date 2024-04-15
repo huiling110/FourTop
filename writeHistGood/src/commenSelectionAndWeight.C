@@ -11,10 +11,10 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3)
         // std::cout << "not run 3\n";
         // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
         // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 30.;
-        // pass = event->jets_num.v() >= 5 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 400. && event->tausM_num.v();//!testing
+        pass = event->jets_num.v() >= 5 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 400. && event->tausM_num.v();//!testing
         // pass = event->jets_num.v() >= 5 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 450. && event->tausM_num.v();//!testing
         // pass = event->jets_num.v() >= 5 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 500. && event->tausM_num.v();//!testing
-        pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 500. && event->tausM_num.v();//!testing
+        // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 500. && event->tausM_num.v();//!testing
     }
     return pass;
 }
@@ -111,10 +111,10 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 0;
         break;
     case 11://1tau1lSRL //for testing
-        // isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 1;
+        isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 1;
         // isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
         // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
-        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
+        // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
         // isPass = e->tausTT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
         break;
 

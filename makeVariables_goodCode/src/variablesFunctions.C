@@ -639,7 +639,6 @@ Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeRead
     return muonIDSF;
 }
 
-// Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, std::string sysMuon, Bool_t isData){
 Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, Int_t sysMuon, Bool_t isData){
     Double_t sf = 1.0;
     if(isData){
