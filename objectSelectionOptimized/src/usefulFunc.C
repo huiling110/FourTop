@@ -244,5 +244,12 @@ namespace OS
     // }
 
 
+Bool_t ifPass(const_t Bool_t ifSel, const Bool_t ifPass, TH1D* cutflow, Int_t cutIndex)
+    
+    if(ifPass){
+        cutflow->Fill(cutIndex);
+    }
+    return ifSel && ifPass;
+    
 
 };

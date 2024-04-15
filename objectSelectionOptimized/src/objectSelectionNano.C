@@ -129,8 +129,9 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
             m_cutflow->Fill(5);
         }
 
-        CF_pre->Fill(0., genWeight);
 
+
+        CF_pre->Fill(0., genWeight);
         m_outTree->Fill();
     };
     std::cout << "End of event loop...................................................\n\n";
