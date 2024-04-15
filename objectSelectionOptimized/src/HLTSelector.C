@@ -97,7 +97,8 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
             // ifPass = **e->HLT_PFJet500 || **e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94;
             HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
             HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ = **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94;
-            ifPass = HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+            // ifPass = HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
+            ifPass = HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ || HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_ ;
         }
         else
         {
@@ -110,6 +111,7 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
                     HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
                     HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
                     ifPass = HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ || HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
+                    
                 }
                 else if (*e->run < 317509)
                 {

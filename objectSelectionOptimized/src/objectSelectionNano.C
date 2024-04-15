@@ -39,13 +39,12 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         CF_met->Fill(0., genWeight);
 
         // HLT selection and HLT branch filling
-        Bool_t passHLT = HLTselection.Select(e,  ifHLT);
-        Bool_t passTauTri = HLTselection.SelectTauTri(e, ifHLT);
-        if(!passHLT)
-        {
-            continue; // pass on this event 
-        }
-        m_cutflow->Fill(2);
+        // if(!passHLT)
+        // {
+        //     continue; // pass on this event 
+        // }
+        // m_cutflow->Fill(2);
+
         CF_HLT->Fill(0., genWeight);
 
         muSel.Select(e); //muons tight for run 3
@@ -112,7 +111,14 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         // }else{
         //     m_cutflow->Fill(3);
         // }
-        if(!(OS::ifEventPass(iftauSel, tauSelM.getSize()>0, m_cutflow, 3))){
+        // if(!(OS::ifEventPass(iftauSel, tauSelM.getSize()>0, m_cutflow, 2))){
+        if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 2))){//!testing
+            continue;
+        }
+
+        Bool_t passHLT = HLTselection.Select(e,  ifHLT);
+        Bool_t passTauTri = HLTselection.SelectTauTri(e, ifHLT);
+        if(!(OS::ifEventPass(ifHLT, passHLT, m_cutflow, 3))){
             continue;
         }
 
