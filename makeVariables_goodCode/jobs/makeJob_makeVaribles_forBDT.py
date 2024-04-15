@@ -115,7 +115,7 @@ def main():
     subprocess.run( 'chmod 777 '+ subAllofAllName, shell=True )
 
 
-    # uf.sumbitJobs(  subAllofAllName )
+    uf.sumbitJobs(  subAllofAllName )
 
 
 
