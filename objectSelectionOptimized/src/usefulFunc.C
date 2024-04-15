@@ -245,10 +245,24 @@ namespace OS
 
 
 Bool_t ifEventPass(const Bool_t ifSel, const Bool_t ifPass, TH1D* cutflow, Int_t cutIndex){
-    if(ifPass){
+    // if(ifPass){
+    //     cutflow->Fill(cutIndex);
+    // }
+    // if(ifSel && ifPass){
+    //     cutflow->Fill(cutIndex);
+    // }
+    if(!ifSel){
         cutflow->Fill(cutIndex);
+        return kTRUE;
+    }else{
+        if(ifPass){
+            cutflow->Fill(cutIndex);
+            return kTRUE;
+        }else{
+            return kFALSE;
+        }
     }
-    return ifSel && ifPass;
+    return (!ifSel) || ifPass;
 }
     
 };
