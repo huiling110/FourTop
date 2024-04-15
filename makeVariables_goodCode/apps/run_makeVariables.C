@@ -25,6 +25,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v64PreAndHLTSel/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v65TheoryWeightAdded/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v67TheoryWeightAdded/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v70BetterHLT/mc/",
+
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v0for2022NoHLT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v0for2022baseline/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v1for2022preSel/mc/",
@@ -44,9 +46,9 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v9addTauTT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v10addBjetPTT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v11overlapRemovalTausT/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v13BetterHLTSel/mc/",
-    // TString inputDir = "tttt",
-    TString inputDir = "TTTT",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v13BetterHLTSel/mc/",
+    TString inputDir = "tttt",
+    // TString inputDir = "TTTT",
     // TString inputDir = "TTto2L2Nu",
     // TString inputDir = "TTtoLNu2Q",
     // TString inputDir = "ttbar_0l",
@@ -60,8 +62,9 @@ void run_objectSelection(
     // TString inputDir = "JetMET_G",
     // TString inputDir = "output",
     TString outputDir = "output/",
-    Int_t numEntries = 10000)
+    // Int_t numEntries = 10000)
     // Int_t numEntries = 1000)
+    Int_t numEntries = 5000)
     // Int_t numEntries = 0)
 {
     TStopwatch t;

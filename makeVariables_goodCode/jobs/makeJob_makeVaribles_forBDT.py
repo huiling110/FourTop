@@ -12,13 +12,8 @@ import usefulFunc as uf
 def main():
     # year = '2022'
     # year = '2016'
-    # year = '2018'
+    year = '2018'
     # year = '2017'
-    # year = '2022postEE'
-    # inVersion = 'v0Testing'
-    # inVersion = 'v1newCrab'
-    # inVersion = 'v59newOScode'
-    # inVersion = 'v60fixeJetBtagBug'
     # inVersion = 'v61fixesLepRemovalBug'
     # inVersion = 'v62addTauJetVars'
     # inVersion = 'v63smallFixJER'
@@ -32,6 +27,7 @@ def main():
     # inVersion = 'v64PreAndHLTSel_TESUp'
     # inVersion = 'v65TheoryWeightAdded'
     # inVersion = 'v67TheoryWeightAdded'
+    inVersion = 'v70BetterHLT'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
@@ -39,7 +35,7 @@ def main():
     # outVersion = 'v6updatedBtagR'
     # outVersion = 'v8tau1elCut'
     # outVersion = 'v0baseline_addTauGenNum'
-    # outVersion = 'v1btagWP:w
+    # outVersion = 'v1btagWP
     # andRUpdated'
     # outVersion = 'v2eraBugFixed'
     # outVersion = 'v3btagWeightGood'
@@ -53,10 +49,11 @@ def main():
     # outVersion = 'v0NewHLTSFHT550BinF'
     # outVersion = 'v1NewHLTSF1tau1lCut'
     # outVersion = 'v2cut1tau1l'
+    outVersion = 'v0NoSel'
     
     #2022
     # year = '2022postEE'
-    year = '2022preEE'
+    # year = '2022preEE'
     # inVersion = 'v0preSel'
     # inVersion = 'v1for2022preSel'
     # inVersion = 'v2leptonsNameChange'
@@ -73,13 +70,13 @@ def main():
     # inVersion = 'v9addTauTT'
     # inVersion = 'v10addBjetPTT'
     # inVersion = 'v11overlapRemovalTausT'
-    inVersion = 'v13BetterHLTSel'
+    # inVersion = 'v13BetterHLTSel'
     # outVersion = 'v0baseline'
     # outVersion = 'v1TauSFNew'
     # outVersion = 'v0baselineTauIDSFUpdated'
     # outVersion = 'v0NoBtagSel'
     # outVersion = 'v0baselineTauGenFlavour'
-    outVersion = 'v0NoSel'
+    # outVersion = 'v0NoSel'
   
    
     
@@ -118,7 +115,7 @@ def main():
     subprocess.run( 'chmod 777 '+ subAllofAllName, shell=True )
 
 
-    uf.sumbitJobs(  subAllofAllName )
+    # uf.sumbitJobs(  subAllofAllName )
 
 
 

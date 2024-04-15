@@ -649,11 +649,23 @@ def drop_last_one(input_string):
         # If '1' was not found, return the original string
         return input_string
     
+def remove_last_char_if_1(s):
+    # Check if the last character of the string is '1'
+    if s.endswith('1'):
+        # Remove the last character
+        return s[:-1]
+    # Return the original string if the last character is not '1'
+    return s
+    
+    
 def checkIfInputDic(entry, isRun3):
     ifInDic = False
-    entryName = drop_last_one(entry) 
+    # entryName = drop_last_one(entry) 
+    entryName = remove_last_char_if_1(entry)
+    # print('entryName=', entryName)
     if not isRun3:
-        if  entryName in gq.samples: 
+        # if  entryName in gq.samples: 
+        if  entryName in gq.histoGramPerSample.keys(): 
             ifInDic = True
     else:
         if  entryName in gq.Run3Samples.keys(): 

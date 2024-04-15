@@ -79,7 +79,6 @@ def main():
     # dataList = [ 'Muon']
     
 
-    print( "era: ", era )
 
     onlyMC = False
 
@@ -91,6 +90,7 @@ def main():
     jobsDir = codePath + 'jobs_eachYear/'
     uf.checkMakeDir(jobsDir)
     isRun3 = uf.isRun3(inputDir)
+    print( "era: ", era, 'isRun3=', isRun3 )
 
 
     inputDirMC = inputDir + 'mc/'
@@ -166,6 +166,7 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era, isRun3):
     for k in allProcesses:
         print( 'kProcess: ', k )
         if not uf.checkIfInputDic(k, isRun3): continue
+        print('input=', inputDir+k)
         
         print(k)
         sample_k = k
