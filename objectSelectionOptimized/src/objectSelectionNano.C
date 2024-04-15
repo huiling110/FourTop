@@ -103,31 +103,41 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
             // if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5)) //different b-tag for run2 and run3
             // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
-        if(iftauSel){
-            if (tauSelM.getSize()>0) {
-                m_cutflow->Fill(3);
-            }else{
-                continue;
-            }
-        }else{
-            m_cutflow->Fill(3);
+        // if(iftauSel){
+        //     if (tauSelM.getSize()>0) {
+        //         m_cutflow->Fill(3);
+        //     }else{
+        //         continue;
+        //     }
+        // }else{
+        //     m_cutflow->Fill(3);
+        // }
+        if(!(OS::ifEventPass(iftauSel, tauSelM.getSize()>0, m_cutflow, 3))){
+            continue;
         }
 
-        if(preSelection){
-            if(jetSel.getSize()>4){
-                m_cutflow->Fill(4);
-            }else{
-                continue;
-            }
-            if(bjetMSel.getSize()>0){
-                m_cutflow->Fill(5);
-            }else{
-                continue;
-            }
-        }else{
-            m_cutflow->Fill(4);
-            m_cutflow->Fill(5);
+        if(!(OS::ifEventPass(preSelection, jetSel.getSize()>4, m_cutflow, 4))){
+            continue;
         }
+        if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
+            continue;
+        }
+
+        // if(preSelection){
+        //     if(jetSel.getSize()>4){
+        //         m_cutflow->Fill(4);
+        //     }else{
+        //         continue;
+        //     }
+        //     if(bjetMSel.getSize()>0){
+        //         m_cutflow->Fill(5);
+        //     }else{
+        //         continue;
+        //     }
+        // }else{
+        //     m_cutflow->Fill(4);
+        //     m_cutflow->Fill(5);
+        // }
 
 
 

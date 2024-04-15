@@ -6,6 +6,7 @@
 #include "TTreeReaderArray.h"
 #include <TROOT.h>
 #include <vector>
+#include <TH1D.h>
 
 #include "TFormula.h"
 #include <TRandom3.h>
@@ -99,7 +100,7 @@ namespace OS
         };
     };
 
+    Bool_t ifEventPass(const Bool_t ifSel, const Bool_t ifPass, TH1D *cutflow, Int_t cutIndex);
 };
-
 
 #endif
