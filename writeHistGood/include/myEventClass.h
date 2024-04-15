@@ -114,10 +114,10 @@ public:
     myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
     myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
+    myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> bjetsPNM_num{"bjetsPNM_num"};
     myBranch<Int_t> bjetsPTM_num{"bjetsPTM_num"};
     myBranch<Int_t> bjetsPTT_num{"bjetsPTT_num"};
-    myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> elesTopMVAT_num{"elesTopMVAT_num"};
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
     myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
@@ -291,10 +291,10 @@ private:
         {tausT_genTauNum.n(), &tausT_genTauNum},
         {jets_num.n(), &jets_num},
         {bjetsM_num.n(), &bjetsM_num},
+        {bjetsT_num.n(), &bjetsT_num},
         {bjetsPNM_num.n(), &bjetsPNM_num},
         {bjetsPTM_num.n(), &bjetsPTM_num},
         {bjetsPTT_num.n(), &bjetsPTT_num},
-        {bjetsT_num.n(), &bjetsT_num},
         {elesTopMVAT_num.n(), &elesTopMVAT_num},
         {muonsTopMVAT_num.n(), &muonsTopMVAT_num},
         {elesMVAT_num.n(), &elesMVAT_num},

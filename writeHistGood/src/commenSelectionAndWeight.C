@@ -6,12 +6,13 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3)
     // Bool_t pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 500. && event->jets_6pt.v() > 40.;
     Bool_t pass = kFALSE;
     if (!isRun3){
-        pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
+        // pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
+        pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 400.;//!testing
     }else{
         // std::cout << "not run 3\n";
         // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
         // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 30.;
-        pass = event->jets_num.v() >= 5 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 400. && event->tausM_num.v();//!testing
+        pass = event->jets_num.v() >= 5 && event->bjetsPTM_num.v() >= 2 && event->jets_HT.v() > 400. && event->tausM_num.v();//!testing
         // pass = event->jets_num.v() >= 5 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 450. && event->tausM_num.v();//!testing
         // pass = event->jets_num.v() >= 5 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 500. && event->tausM_num.v();//!testing
         // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 500. && event->tausM_num.v();//!testing
@@ -86,8 +87,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
     case 2: // 1tau1lCR1
         isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum == 1;
         break;
-    case 3: // 1tau1lCR1 old
-        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 7 && bjetsMNum == 0;
+    case 3: //!!! 1tau1lCRComb, new
+        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() == 5 && bjetsMNum<3;
         break;
     case 4: // 1tau1lCR2
         isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() == 6 && bjetsMNum >= 2;
@@ -111,8 +112,10 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 0;
         break;
     case 11://1tau1lSRL //for testing
-        isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 1;
         // isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
+        // isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
+        // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
+        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 3;
         // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
         // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
         // isPass = e->tausTT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;

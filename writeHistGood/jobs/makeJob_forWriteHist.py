@@ -47,6 +47,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/'
+    
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3EnergyScaleDone//'
@@ -67,7 +69,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v1TauSFNew_v9addTauTT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v10addBjetPTT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline6thJet30_v11overlapRemovalTausT/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/'
 
     #!fakerate
     # version = 'v0FR_measureVR_1prong'
@@ -89,13 +91,9 @@ def main():
     # version = 'v1_btagRMeasure'
     # version = 'v0_btagEffMeasure'
     # version = 'v0_btagEffMeasure_histNameChange'
-    
-    # version = 'v0dataMC_btagWPsf'
+   
+    #dataMC
     # version = 'v0dataMC_noCorrection'
-    # version = 'v0dataMC_noCorrectionNewTTBR'
-    # version = 'v1dataMC_pileupSF'
-    # version = 'v1dataMC_pileupSFNewTTBR'
-    # version = 'v2dataMC_pileupBtagSFNewTTBR'
     # version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
     # version = 'v2dataMC_pileupTauIDSF'
     # version = 'v2dataMC_pileupSF'
@@ -109,8 +107,12 @@ def main():
     # version = 'v2_looseBaselineBtag2TTau_pileupSF'
     # version = 'v3_looseBaselineBtag2TTauHT450_pileupSF'
     # version = 'v4_looseBaselineBtag2TTauHT500_pileupSF'
-    version = 'v5_looseBaselineBtag2TTauHT500Jet6_pileupSF'
+    # version = 'v5_looseBaselineBtag2TTauHT500Jet6_pileupSF'
     # version = 'v5_looseBaselineBtag2TTTauHT500_pileupSF'
+    # version = 'v0dataMC_looseSR_pileupSF'
+    # version = 'v1dataMC_looseSRJet6_pileupSF'
+    # version = 'v2dataMC_looseSRJet6TauT_pileupSF'
+    version = 'v3dataMC_looseSRJet6TauTBjet3_pileupSF'
     channel = 0
     
         
