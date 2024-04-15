@@ -39,11 +39,11 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         CF_met->Fill(0., genWeight);
 
         // HLT selection and HLT branch filling
-        // if(!passHLT)
-        // {
-        //     continue; // pass on this event 
-        // }
-        // m_cutflow->Fill(2);
+        Bool_t passHLT = HLTselection.Select(e,  ifHLT);
+        Bool_t passTauTri = HLTselection.SelectTauTri(e, ifHLT);
+        if(!(OS::ifEventPass(ifHLT, passHLT, m_cutflow, 2))){
+            continue;
+        }
 
         CF_HLT->Fill(0., genWeight);
 
@@ -96,55 +96,18 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         //systematic Weight cal
         systWeightCal.Select(e, m_isData);
 
-        // if (preSelection)
-        // {
-            // Int_t bjetsNum = m_isRun3? bjetPTMSel.getSize(): bjetMSel.getSize();
-            // if (!(jetSel.getSize() > 5 && bjetsNum > 0)) //different b-tag for run2 and run3
-            // if (!(jetSel.getSize() > 5)) //different b-tag for run2 and run3
-            // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
-        // if(iftauSel){
-        //     if (tauSelM.getSize()>0) {
-        //         m_cutflow->Fill(3);
-        //     }else{
-        //         continue;
-        //     }
-        // }else{
-        //     m_cutflow->Fill(3);
-        // }
-        // if(!(OS::ifEventPass(iftauSel, tauSelM.getSize()>0, m_cutflow, 2))){
-        if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 2))){//!testing
+        if(!(OS::ifEventPass(iftauSel, tauSelM.getSize()>0, m_cutflow, 3))){
+        // if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){//!testing
             continue;
         }
 
-        Bool_t passHLT = HLTselection.Select(e,  ifHLT);
-        Bool_t passTauTri = HLTselection.SelectTauTri(e, ifHLT);
-        if(!(OS::ifEventPass(ifHLT, passHLT, m_cutflow, 3))){
-            continue;
-        }
-
+        // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
         if(!(OS::ifEventPass(preSelection, jetSel.getSize()>4, m_cutflow, 4))){
             continue;
         }
         if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
             continue;
         }
-
-        // if(preSelection){
-        //     if(jetSel.getSize()>4){
-        //         m_cutflow->Fill(4);
-        //     }else{
-        //         continue;
-        //     }
-        //     if(bjetMSel.getSize()>0){
-        //         m_cutflow->Fill(5);
-        //     }else{
-        //         continue;
-        //     }
-        // }else{
-        //     m_cutflow->Fill(4);
-        //     m_cutflow->Fill(5);
-        // }
-
 
 
         CF_pre->Fill(0., genWeight);

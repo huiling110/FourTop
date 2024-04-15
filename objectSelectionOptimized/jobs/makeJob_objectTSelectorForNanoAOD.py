@@ -38,6 +38,7 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v65TheoryWeightAdded/'
 # jobVersionName = 'v66TheoryWeightAdded/'
 # jobVersionName = 'v67TheoryWeightAdded/'
+jobVersionName = 'v70BetterHLT/'
 
 #run3
 # jobVersionName = 'v0Testing/'
@@ -60,21 +61,21 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v10addBjetPTT/'
 # jobVersionName = 'v11overlapRemovalTausT/'
 # jobVersionName = 'v12Add1TauMCutJet5/'
-jobVersionName = 'v13BetterHLTSel/'
+# jobVersionName = 'v13BetterHLTSel/'
 #!same version numbers means no change in algrithm but only in selection
 
 def main():
     # era = '2016'
     # era = '2016APV'
     # era = '2017'
-    # era = '2018'
+    era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
-    era = '2022_13p6/crabNanoPost_2022preEE_v3'
+    # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # onlyMC = True
-    # dataList = ['jetHT']
+    dataList = ['jetHT']
     # dataList = [ 'jetHT', 'singleMu'] 
     # dataList = ['singleMu'] 
-    dataList = ['JetMET', 'JetHT']
+    # dataList = ['JetMET', 'JetHT']
     # dataList = [ 'Muon']
     
 
