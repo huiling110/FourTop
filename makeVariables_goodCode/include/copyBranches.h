@@ -28,7 +28,7 @@ private:
     Bool_t HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = kFALSE;
     Bool_t HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = kFALSE;
     Bool_t HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = kFALSE;
-    // Bool_t HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = kFALSE;
+    Bool_t HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = kFALSE;
     // 2017
     Bool_t HLT_PFHT430_SixJet40_BTagCSV_p080 = kFALSE;
     Bool_t HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = kFALSE;

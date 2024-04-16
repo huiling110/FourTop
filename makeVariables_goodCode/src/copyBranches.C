@@ -21,7 +21,7 @@ CopyBranches::CopyBranches(TTree *outTree)
     outTree->Branch("HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5", &HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5);
     outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59", &HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59);
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94);
-    // outTree->Branch("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5", "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5");
+    outTree->Branch("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5", &HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5);
     // 2017
     outTree->Branch("HLT_PFHT430_SixJet40_BTagCSV_p080", &HLT_PFHT430_SixJet40_BTagCSV_p080);
     outTree->Branch("HLT_PFHT380_SixJet32_DoubleBTagCSV_p075", &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075);
@@ -66,7 +66,7 @@ void CopyBranches::makeVariables(EventForMV *e)
     HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 = *e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
     HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 = *e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 = *e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
-    // HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = *e->HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
+    HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 = *e->HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
     // 2017
     HLT_PFHT430_SixJet40_BTagCSV_p080 = *e->HLT_PFHT430_SixJet40_BTagCSV_p080_;
     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = *e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
