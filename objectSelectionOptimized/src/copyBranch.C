@@ -11,8 +11,8 @@ CopyBranch::CopyBranch(TTree *outTree, const Bool_t isRun3)
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);
     outTree->Branch("PV_npvsGood_", &PV_npvsGood_);
-    outTree->Branch("Electron_charge_", &Electron_charge_);
-    outTree->Branch("Muon_charge_", &Muon_charge_);
+    // outTree->Branch("Electron_charge_", &Electron_charge_);
+    // outTree->Branch("Muon_charge_", &Muon_charge_);
     outTree->Branch("MET_pt_", &MET_pt_);
     outTree->Branch("EVENT_prefireWeight_", &EVENT_prefireWeight_);
     outTree->Branch("EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_);
@@ -31,15 +31,13 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
 
     run_ = *e->run;
     event_ = *e->event;
+    MET_pt_ = *e->MET_pt;
 
-    // PV_npvsGood_ = *e->PV_npvsGood;
-    // e->PV_npvsGood.Print();
     if (m_isRun3){
         PV_npvsGood_ = std::any_cast<UChar_t>(e->PV_npvsGood.GetValue());//nanoAODv12
     }else{
         PV_npvsGood_ = std::any_cast<Int_t>(e->PV_npvsGood.GetValue());//nanoAODv9
     }
-    // std::cout<<"PV_npvsGood_="<<PV_npvsGood_<<"\n";
 
     if (e->L1PreFiringWeight_Nom){
         EVENT_prefireWeight_ = **e->L1PreFiringWeight_Nom;
@@ -57,8 +55,8 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     // LHEPdfWeight_ = **e->LHEPdfWeight;
     //!!!causing too much memory consumption!!!???
     // maybe template argument deduction  is not working well, not the culprit
-    OS::copy_TTreeReaderArray_toVector<Int_t>(e->Electron_charge, Electron_charge_); // this line is fine
-    OS::copy_TTreeReaderArray_toVector<Int_t>(e->Muon_charge, Muon_charge_);         // this okay too
+    // OS::copy_TTreeReaderArray_toVector<Int_t>(e->Electron_charge, Electron_charge_); // this line is fine
+    // OS::copy_TTreeReaderArray_toVector<Int_t>(e->Muon_charge, Muon_charge_);         // this okay too
     // OS::copy_TTreeReaderArray_toVector<Float_t>(e->LHEPdfWeight, LHEPdfWeight_);
     // if (!isData)
     // {
@@ -70,8 +68,8 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
 };
 void CopyBranch::clearBranch()
 {
-    Electron_charge_.clear();
-    Muon_charge_.clear();
+    // Electron_charge_.clear();
+    // Muon_charge_.clear();
     GenPart_genPartIdxMother_.clear();
     GenPart_pdgId_.clear();
     LHEPdfWeight_.clear();

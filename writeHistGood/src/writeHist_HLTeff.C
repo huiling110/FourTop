@@ -58,13 +58,13 @@ void WH_HLTeff::Init()
     using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
     using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
     SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 40, 25, 625, regionsForVariables, &(e->jets_1pt));
-    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 22, 40, 150, regionsForVariables, &(e->jets_6pt));
-    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 40, 500, 2500, regionsForVariables, &(e->jets_HT));
+    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 22, 25, 150, regionsForVariables, &(e->jets_6pt));
+    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 40, 400, 2500, regionsForVariables, &(e->jets_HT));
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
-    if(!m_isRun3){
-        SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 7, 0.5, 7.5, regionsForVariables,  &(e->bjetsM_num));
-    }else{
-    }
+    // if(!m_isRun3){
+    //     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 7, 0.5, 7.5, regionsForVariables,  &(e->bjetsM_num));
+    // }else{
+    // }
     auto adressBjets = m_isRun3? &(e->bjetsPTM_num): &(e->bjetsM_num);
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 7, 0.5, 7.5, regionsForVariables,  adressBjets);
 
@@ -74,7 +74,6 @@ void WH_HLTeff::Init()
     histsForRegion_vec.push_back(jets_HT_class);
     histsForRegion_vec.push_back(jets_num_class);
     histsForRegion_vec.push_back(bjetsM_num_class);
-    // histsForRegion_vec.push_back(bjetsPTM_num_class);
 
     // 2D for SF
     // Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500}; // HT
@@ -99,8 +98,13 @@ void WH_HLTeff::Init()
     // Double_t ybins[] = {40, 45., 50.,  150};                                   // 6th jet pt
     // Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
     //BinF
-    Double_t ybins[] = {40, 45., 50.,  150};                                   // 6th jet pt
-    Double_t xbins[] = {500, 700, 1200,  2500}; // HT
+    // Double_t ybins[] = {40, 45., 50.,  150};                                   // 6th jet pt
+    // Double_t xbins[] = {500, 700, 1200,  2500}; // HT
+ 
+    //BinG
+    Double_t ybins[] = {25., 30, 35., 40, 45., 50.,  150};                                   // 6th jet pt
+    Double_t xbins[] = {400, 500, 700, 1200,  2500}; // HT
+
     b1HT6pt_de = new TH2D(m_processName + "_baseline1Muon1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b1HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b2HT6pt_de = new TH2D(m_processName + "_baseline1Muon2b" + "_jetsHTAnd6pt", "H(GeV)Tpt_{6th jet}t", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
@@ -158,8 +162,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
             {
                 std::cout << "HLT selection for 2018\n";
             }
-            is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
-            // is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 35.; //!!!testing
+            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
         }
         else if (m_era.CompareTo("2017") == 0)
         {

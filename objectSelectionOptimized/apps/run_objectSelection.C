@@ -27,7 +27,7 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
-    Int_t eventNum = 5000)
+    Int_t eventNum = 1000)
 // Int_t eventNum = 50000)
 // Int_t eventNum = 0)
 {
@@ -53,8 +53,10 @@ void run_objectSelection(
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES);
 
-    const Bool_t tauSel = kFALSE;
-    const Bool_t HLTSel = kFALSE;
+    // const Bool_t tauSel = kFALSE;
+    const Bool_t tauSel = kTRUE;
+    // const Bool_t HLTSel = kFALSE;
+    const Bool_t HLTSel = kTRUE;
     os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); //with HLT and preselection
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES); //no HLT selection, for HLT study
     // os.EventLoop(kFALSE, kTRUE, eventNum); //with only HLT 

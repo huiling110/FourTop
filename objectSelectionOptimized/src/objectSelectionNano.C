@@ -96,8 +96,8 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         //systematic Weight cal
         systWeightCal.Select(e, m_isData);
 
-        if(!(OS::ifEventPass(iftauSel, tauSelM.getSize()>0, m_cutflow, 3))){
-        // if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){//!testing
+        // if(!(OS::ifEventPass(iftauSel, tauSelM.getSize()>0, m_cutflow, 3))){
+        if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0, m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
             continue;
         }
 

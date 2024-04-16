@@ -30,9 +30,11 @@ def main():
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v56NoHLTButPre/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v57ovelapWithTausF/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v65TheoryWeightAdded/'
-    # era = uf.getEraFromDir(obDir)
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v71NoHLTNoTau/'
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v70BetterHLT/'
+    era = uf.getEraFromDir(obDir)
     # checkOSJobs(obDir, era)
-    # checkLogOB(obDir)
+    checkLogOB(obDir)
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = inputDir[:inputDir.find('mc')]
@@ -46,9 +48,9 @@ def main():
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/'
     # checkMVJobs(mvDir)
     
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/data/JetMET2022G/'
-    nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022G/'
-    compareEntry( nanoDir, obDir)
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/data/JetMET2022G/'
+    # nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022G/'
+    # compareEntry( nanoDir, obDir)
     
     # OSDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/'
     # checkOSJobEntry(OSDir)
