@@ -20,7 +20,7 @@ public:
      HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_(reader, "HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_"),
      HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_(reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_"),
      HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_(reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_"),
-     HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_(reader, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_"),
+    //  HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_(reader, "HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_"),
     // 2017
      HLT_PFHT430_SixJet40_BTagCSV_p080_(reader, "HLT_PFHT430_SixJet40_BTagCSV_p080_"),
      HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_(reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_"),
@@ -43,7 +43,6 @@ public:
                                       muonsTopMVAT_phi(reader, "muonsTopMVAT_phi"),
                                       muonsTopMVAT_mass(reader, "muonsTopMVAT_mass"),
                                       muonsTopMVAT_charge(reader, "muonsTopMVAT_charge"),
-                                    //   muonsTopMVAT_index(reader, "muonsTopMVAT_index"),
                                       elesMVAT_pt(reader, "elesMVAT_pt"),
                                       elesMVAT_eta(reader, "elesMVAT_eta"),
                                       elesMVAT_phi(reader, "elesMVAT_phi"),
@@ -54,10 +53,6 @@ public:
                                       elesTopMVAT_phi(reader, "elesTopMVAT_phi"),
                                       elesTopMVAT_mass(reader, "elesTopMVAT_mass"),
                                       elesTopMVAT_charge(reader, "elesTopMVAT_charge"),
-                                    //   elesTopMVAT_index(reader, "elesTopMVAT_index"),
-
-                                    //   Electron_charge_(reader, "Electron_charge_"),
-                                    //   Muon_charge_(reader, "Muon_charge_"),
 
                                       tausT_pt(reader, "tausT_pt"),
                                       tausT_eta(reader, "tausT_eta"),
@@ -127,12 +122,6 @@ public:
                                       jets_btagsPT(reader, "jets_btagsPT"),
                                       jets_flavour(reader, "jets_flavour"),
 
-                                    //   jetsT_pt(reader, "jetsT_pt"),
-                                    //   jetsT_eta(reader, "jetsT_eta"),
-                                    //   jetsT_phi(reader, "jetsT_phi"),
-                                    //   jetsT_mass(reader, "jetsT_mass"),
-                                    //   jetsT_btags(reader, "jetsT_btags"),
-
                                       bjetsM_pt(reader, "bjetsM_pt"),
                                       bjetsM_eta(reader, "bjetsM_eta"),
                                       bjetsM_phi(reader, "bjetsM_phi"),
@@ -197,7 +186,7 @@ public:
     TTreeReaderValue<Bool_t> HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_;
     TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_;
     TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
-    TTreeReaderValue<Bool_t> HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
+    // TTreeReaderValue<Bool_t> HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
     // 2017
     TTreeReaderValue<Bool_t> HLT_PFHT430_SixJet40_BTagCSV_p080_;
     TTreeReaderValue<Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
