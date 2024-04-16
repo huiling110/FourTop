@@ -114,7 +114,8 @@ def main():
     # version = 'v2dataMC_looseSRJet6TauT_pileupSF'
     # version = 'v3dataMC_looseSRJet6TauTBjet3_pileupSF'
     # version = 'v3dataMC_looseSRJet6TauTBjet3_NoHLTSF'
-    version = 'v3dataMC_looseSRJet6TauTBjet3_allOldSF'
+    # version = 'v3dataMC_looseSRJet6TauTBjet3_allOldSF'
+    version = 'v4dataMC_looseSRJet6TauT_pileupSF'
     channel = 0
     
         
