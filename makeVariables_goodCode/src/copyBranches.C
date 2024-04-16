@@ -53,6 +53,7 @@ void CopyBranches::makeVariables(EventForMV *e)
 
     clearBranch();
     PV_npvsGood = *e->PV_npvsGood_;
+    MET_pt = *e->MET_pt_;
 
     //
     HLT_PFHT450_SixJet40_BTagCSV_p056 = *e->HLT_PFHT450_SixJet40_BTagCSV_p056_;

@@ -17,6 +17,12 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if(entryCount==1){
             std::cout << "baselineSel=" << baselineSel << "  tau1e1Sel=" << tau1e1Sel << "\n";
         }
+        //report every 10%
+        if (entryCount % (numEntries / 10) == 0)
+        {
+            // std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\r" << std::flush;
+            std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\n";
+        }
 
         muVarMaker.makeVariables(e);
         muTopTVarMaker.makeVariables(e);
