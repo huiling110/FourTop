@@ -25,7 +25,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v64PreAndHLTSel/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v65TheoryWeightAdded/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v67TheoryWeightAdded/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v70BetterHLT/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v70BetterHLT/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v71NoHLTNoTau/mc/",
 
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v0for2022NoHLT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v0for2022baseline/mc/",
@@ -78,9 +79,10 @@ void run_objectSelection(
     std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
+    Bool_t baseline = kTRUE;
     // mv.EventLoop(kTRUE,kTRUE, numEntries); //1tau1l cut
     // mv.EventLoop(kTRUE, kFALSE, numEntries);
-    mv.EventLoop(kFALSE, kFALSE, numEntries);
+    mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();

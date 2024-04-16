@@ -27,7 +27,8 @@ def main():
     # inVersion = 'v64PreAndHLTSel_TESUp'
     # inVersion = 'v65TheoryWeightAdded'
     # inVersion = 'v67TheoryWeightAdded'
-    inVersion = 'v70BetterHLT'
+    # inVersion = 'v70BetterHLT'
+    inVersion = 'v71NoHLTNoTau'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
@@ -40,7 +41,7 @@ def main():
     # outVersion = 'v2eraBugFixed'
     # outVersion = 'v3btagWeightGood'
     # outVersion = 'v4forBDT1tau1lCut'
-    # outVersion = 'v0baseline'
+    outVersion = 'v0baseline'
     # outVersion = 'v0NewHLTSF'
     # outVersion = 'v0NewHLTSFBinA'
     # outVersion = 'v0NewHLTSFBinD'
@@ -49,7 +50,7 @@ def main():
     # outVersion = 'v0NewHLTSFHT550BinF'
     # outVersion = 'v1NewHLTSF1tau1lCut'
     # outVersion = 'v2cut1tau1l'
-    outVersion = 'v0NoSel'
+    # outVersion = 'v0NoSel'
     
     #2022
     # year = '2022postEE'
