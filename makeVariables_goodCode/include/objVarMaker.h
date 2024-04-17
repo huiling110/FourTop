@@ -18,7 +18,6 @@ public:
     std::vector<ROOT::Math::PtEtaPhiMVector>& getLorentzObjs();
     void reportEntry(TString className);
 
-    // private:
 protected:
     Int_t m_type = 0;
     ULong_t m_entry = 0;

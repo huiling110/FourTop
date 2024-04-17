@@ -29,7 +29,8 @@ def main():
     # inVersion = 'v67TheoryWeightAdded'
     # inVersion = 'v70BetterHLT'
     # inVersion = 'v71NoHLTNoTau'
-    inVersion = 'v73NoHLTNoTauHT400'
+    # inVersion = 'v73NoHLTNoTauHT400'
+    inVersion = 'v73NoHLTTauFHT400'
     # outVersion = 'v0NewMV'
     # outVersion = 'v2btagShapeWeightCorrected'
     # outVersion = 'v3btagWPWeightGood'
@@ -87,7 +88,7 @@ def main():
     justMC = False
     
     
-    
+    print('jobVersion:', inVersion+'_'+outVersion) 
     #all the parameters you need to change is in this part , better not change the rest of the code.
     inOutDirMap = getInOutDic( year, inVersion, outVersion, justMC )
 
