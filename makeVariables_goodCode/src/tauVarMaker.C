@@ -12,7 +12,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_invariantMass", &taus_invariantMass);
     outTree->Branch(objName + "_minDeltaR", &taus_minDeltaR);
     outTree->Branch(objName + "_genTauNum", &taus_genTauNum);
-    outTree->Branch(objName + "_leptonsT_transMass", &taus_leptonsT_transMass);
+    outTree->Branch(objName + "_leptonsT_transMass", &taus_leptonsT_transMass); 
     outTree->Branch(objName + "_leptonsT_invariantMass", &taus_leptonsT_invariantMass);
     outTree->Branch(objName + "_leptonsTMVA_minDeltaR", &taus_leptonsTMVA_minDeltaR);
     outTree->Branch(objName + "_leptonsTopMVA_chargeMulti", &taus_leptonsTopMVA_chargeMulti);
@@ -56,84 +56,103 @@ void TauVarMaker::makeVariables(const EventForMV *e)
     switch (m_type)
     {//!!!todo: better make each object a compact object
     case 0:
-        if (e->tausT_jetPt.GetSize() > 0)
-        {
-            taus_1jetPt = e->tausT_jetPt.At(0);
-            taus_1jetEtaAbs = e->tausT_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausT_genPartFlav); //!!!
-            taus_prongNum = getTauProng(e->tausT_decayMode);
-            taus_1genFlavour = e->tausT_genPartFlav.At(0);
-            taus_1decayMode = e->tausT_decayMode.At(0);
-            taus_1lepton1_charge = chargeMulCalNew(e->tausT_charge, e->elesMVAT_charge, e->muonsT_charge);
-            // std::cout<<"tauCharge"<<e->tausT_charge.GetSize()<<" eleCharge="<<e->elesMVAT_charge.GetSize()<<" muonCharge="<<e->muonsT_charge.GetSize()<<"\n";
-        }
+        // if (e->tausT_jetPt.GetSize() > 0)
+        // {
+        //     taus_1jetPt = e->tausT_jetPt.At(0);
+        //     taus_1jetEtaAbs = e->tausT_jetEta.At(0);
+        //     taus_genTauNum = calGenTauNum(e->tausT_genPartFlav); //!!!
+        //     taus_prongNum = getTauProng(e->tausT_decayMode);
+        //     taus_1genFlavour = e->tausT_genPartFlav.At(0);
+        //     taus_1decayMode = e->tausT_decayMode.At(0);
+        //     taus_1lepton1_charge = chargeMulCalNew(e->tausT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        // }
+        tauVariables(e->tausT_jetPt, e->tausT_jetEta, e->tausT_genPartFlav, e->tausT_decayMode, e->tausT_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 1:
-        if (e->tausF_jetPt.GetSize() > 0)
-        {
-            taus_1jetPt = e->tausF_jetPt.At(0);
-            taus_1jetEtaAbs = e->tausF_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausF_genPartFlav); //!!!
-            taus_prongNum = getTauProng(e->tausF_decayMode);
-            taus_1genFlavour = e->tausF_genPartFlav.At(0);
-            taus_1decayMode = e->tausF_decayMode.At(0);
-            taus_1lepton1_charge = chargeMulCalNew(e->tausF_charge, e->elesMVAT_charge, e->muonsT_charge);
-        }
+        // if (e->tausF_jetPt.GetSize() > 0)
+        // {
+        //     taus_1jetPt = e->tausF_jetPt.At(0);
+        //     taus_1jetEtaAbs = e->tausF_jetEta.At(0);
+        //     taus_genTauNum = calGenTauNum(e->tausF_genPartFlav); //!!!
+        //     taus_prongNum = getTauProng(e->tausF_decayMode);
+        //     taus_1genFlavour = e->tausF_genPartFlav.At(0);
+        //     taus_1decayMode = e->tausF_decayMode.At(0);
+        //     taus_1lepton1_charge = chargeMulCalNew(e->tausF_charge, e->elesMVAT_charge, e->muonsT_charge);
+        // }
+        tauVariables(e->tausF_jetPt, e->tausF_jetEta, e->tausF_genPartFlav, e->tausF_decayMode, e->tausF_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 2:
-        if (e->tausL_jetPt.GetSize() > 0)
-        {
-            taus_1jetPt = e->tausL_jetPt.At(0);
-            taus_1jetEtaAbs = e->tausL_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausL_genPartFlav); //!!!
-            taus_prongNum = getTauProng(e->tausL_decayMode);
-            taus_1genFlavour = e->tausL_genPartFlav.At(0);
-            taus_1decayMode = e->tausL_decayMode.At(0);
-            // taus_1lepton1_charge = chargeMulCalNew(e->tausL_charge, e->elesMVAT_charge, e->muonsT_charge);
-        }
+        // if (e->tausL_jetPt.GetSize() > 0)
+        // {
+        //     taus_1jetPt = e->tausL_jetPt.At(0);
+        //     taus_1jetEtaAbs = e->tausL_jetEta.At(0);
+        //     taus_genTauNum = calGenTauNum(e->tausL_genPartFlav); //!!!
+        //     taus_prongNum = getTauProng(e->tausL_decayMode);
+        //     taus_1genFlavour = e->tausL_genPartFlav.At(0);
+        //     taus_1decayMode = e->tausL_decayMode.At(0);
+        //     // taus_1lepton1_charge = chargeMulCalNew(e->tausL_charge, e->elesMVAT_charge, e->muonsT_charge);
+        // }
+        tauVariables(e->tausL_jetPt, e->tausL_jetEta, e->tausL_genPartFlav, e->tausL_decayMode, e->tausL_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 3:
-        if (e->tausTT_jetPt.GetSize() > 0)
-        {
-            taus_1jetPt = e->tausTT_jetPt.At(0);
-            taus_1jetEtaAbs = e->tausTT_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausTT_genPartFlav); //!!!
-            taus_prongNum = getTauProng(e->tausTT_decayMode);
-            taus_1genFlavour = e->tausTT_genPartFlav.At(0);
-            taus_1decayMode = e->tausTT_decayMode.At(0);
-            taus_1lepton1_charge = chargeMulCalNew(e->tausTT_charge, e->elesMVAT_charge, e->muonsT_charge);
-        }
+        // if (e->tausTT_jetPt.GetSize() > 0)
+        // {
+        //     taus_1jetPt = e->tausTT_jetPt.At(0);
+        //     taus_1jetEtaAbs = e->tausTT_jetEta.At(0);
+        //     taus_genTauNum = calGenTauNum(e->tausTT_genPartFlav); //!!!
+        //     taus_prongNum = getTauProng(e->tausTT_decayMode);
+        //     taus_1genFlavour = e->tausTT_genPartFlav.At(0);
+        //     taus_1decayMode = e->tausTT_decayMode.At(0);
+        //     taus_1lepton1_charge = chargeMulCalNew(e->tausTT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        // }
+        tauVariables(e->tausTT_jetPt, e->tausTT_jetEta, e->tausTT_genPartFlav, e->tausTT_decayMode, e->tausTT_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 4:
-        if (e->tausTTT_jetPt.GetSize() > 0)
-        {
-            taus_1jetPt = e->tausTTT_jetPt.At(0);
-            taus_1jetEtaAbs = e->tausTTT_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausTTT_genPartFlav); //!!!
-            taus_prongNum = getTauProng(e->tausTTT_decayMode);
-            taus_1genFlavour = e->tausTTT_genPartFlav.At(0);
-            taus_1decayMode = e->tausTTT_decayMode.At(0);
-            taus_1lepton1_charge = chargeMulCalNew(e->tausTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
-        }
+        // if (e->tausTTT_jetPt.GetSize() > 0)
+        // {
+        //     taus_1jetPt = e->tausTTT_jetPt.At(0);
+        //     taus_1jetEtaAbs = e->tausTTT_jetEta.At(0);
+        //     taus_genTauNum = calGenTauNum(e->tausTTT_genPartFlav); //!!!
+        //     taus_prongNum = getTauProng(e->tausTTT_decayMode);
+        //     taus_1genFlavour = e->tausTTT_genPartFlav.At(0);
+        //     taus_1decayMode = e->tausTTT_decayMode.At(0);
+        //     taus_1lepton1_charge = chargeMulCalNew(e->tausTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        // }
+        tauVariables(e->tausTTT_jetPt, e->tausTTT_jetEta, e->tausTTT_genPartFlav, e->tausTTT_decayMode, e->tausTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 5:
-        if (e->tausM_jetPt.GetSize() > 0)
-        {
-            taus_1jetPt = e->tausM_jetPt.At(0);
-            taus_1jetEtaAbs = e->tausM_jetEta.At(0);
-            taus_genTauNum = calGenTauNum(e->tausM_genPartFlav); //!!!
-            taus_prongNum = getTauProng(e->tausM_decayMode);
-            taus_1genFlavour = e->tausM_genPartFlav.At(0);
-            taus_1decayMode = e->tausM_decayMode.At(0);
-            taus_1lepton1_charge = chargeMulCalNew(e->tausM_charge, e->elesMVAT_charge, e->muonsT_charge);
-        }
+        // if (e->tausM_jetPt.GetSize() > 0)
+        // {
+        //     taus_1jetPt = e->tausM_jetPt.At(0);
+        //     taus_1jetEtaAbs = e->tausM_jetEta.At(0);
+        //     taus_genTauNum = calGenTauNum(e->tausM_genPartFlav); //!!!
+        //     taus_prongNum = getTauProng(e->tausM_decayMode);
+        //     taus_1genFlavour = e->tausM_genPartFlav.At(0);
+        //     taus_1decayMode = e->tausM_decayMode.At(0);
+        //     taus_1lepton1_charge = chargeMulCalNew(e->tausM_charge, e->elesMVAT_charge, e->muonsT_charge);
+        // }
+        tauVariables(e->tausM_jetPt, e->tausM_jetEta, e->tausM_genPartFlav, e->tausM_decayMode, e->tausM_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
-
 
     default:
         break;
     }
 }
+
+void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge){
+    if (tau_jetPt.GetSize() > 0)
+    {
+        taus_1jetPt = tau_jetPt.At(0);
+        taus_1jetEtaAbs = tau_jetEta.At(0);
+        taus_genTauNum = calGenTauNum(tau_genPartFlav); //!!!
+        taus_prongNum = getTauProng(tau_decayMode);
+        taus_1genFlavour = tau_genPartFlav.At(0);
+        taus_1decayMode = tau_decayMode.At(0);
+        // taus_1lepton1_charge = chargeMulCalNew(tau_charge, e->elesMVAT_charge, e->muonsT_charge);
+        taus_1lepton1_charge = chargeMulCalNew(tau_charge, ele_charge, muon_charge);
+    }
+
+} 
 
 void TauVarMaker::clearBranch()
 {

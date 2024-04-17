@@ -111,6 +111,7 @@ public:
                                       tausL_mass(reader, "tausL_mass"),
                                       tausL_genPartFlav(reader, "tausL_genPartFlav"),
                                       tausL_decayMode(reader, "tausL_decayMode"),
+                                      tausL_charge(reader, "tausL_charge"),
                                       tausL_jetPt(reader, "tausL_jetPt"),
                                       tausL_jetEta(reader, "tausL_jetEta"),
 
@@ -279,6 +280,7 @@ public:
     TTreeReaderArray<Double_t> tausL_mass;
     TTreeReaderArray<UChar_t> tausL_genPartFlav;
     TTreeReaderArray<Int_t> tausL_decayMode;
+    TTreeReaderArray<Int_t> tausL_charge;
     TTreeReaderArray<Double_t> tausL_jetPt;
     TTreeReaderArray<Double_t> tausL_jetEta;
 

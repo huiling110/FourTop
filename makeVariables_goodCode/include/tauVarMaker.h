@@ -1,6 +1,9 @@
 #ifndef TAUVARMAKER_H
 #define TAUVARMAKER_H
 
+#include <TTreeReader.h>
+#include <TTreeReaderArray.h>
+#include "TTreeReaderValue.h"
 // #include "TLorentzVector.h"
 // #include <Math/Vector4D.h>
 // #include "eventReader_forMV.h"
@@ -12,7 +15,7 @@ public:
     TauVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~TauVarMaker();
     void makeVariables(const EventForMV *e);
-    // void makeVariables(const &std::vector<ROOT::Math::PtEtaPhiMVector> objsLorentz);
+    void tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
 

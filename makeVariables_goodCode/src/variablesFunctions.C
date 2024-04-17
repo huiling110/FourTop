@@ -288,17 +288,11 @@ Double_t MinDeltaRSingleCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets
                 min = min_1;
             }
         }
-        // min_2 = min;
-        // if (min_2 < min_3) {min_3 = min_2;}
         if (min < min_3)
         {
             min_3 = min;
         }
     }
-    // if (Jets.GetSize() < 2)
-    // {
-    // 	min_3 = 0;
-    // }
     return min_3;
 }
 
