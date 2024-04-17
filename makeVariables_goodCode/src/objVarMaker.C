@@ -81,10 +81,13 @@ Int_t ObjVarMaker::getNum(){
 }
 
 
-
-std::vector<ROOT::Math::PtEtaPhiMVector>& ObjVarMaker::getLorentzObjs(){
+// Provide read-only access to objsLorentz
+const std::vector<ROOT::Math::PtEtaPhiMVector>& ObjVarMaker::getLorentzObjs(){
     return objsLorentz;
 }
 
+// const std::vector<ROOT::Math::PtEtaPhiMVector>& getObjsLorentz() const {
+//     return objsLorentz;
+// }
 
 ObjVarMaker::~ObjVarMaker(){};

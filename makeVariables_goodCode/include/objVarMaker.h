@@ -15,10 +15,11 @@ public:
     void setupLorentzObjs(const EventForMV *e);
     void basicVariables();
     Int_t getNum();
-    std::vector<ROOT::Math::PtEtaPhiMVector>& getLorentzObjs();
+    const std::vector<ROOT::Math::PtEtaPhiMVector>& getLorentzObjs();
     void reportEntry(TString className);
 
-protected:
+
+protected://derived class can munipulate these variables
     Int_t m_type = 0;
     ULong_t m_entry = 0;
     // output branches

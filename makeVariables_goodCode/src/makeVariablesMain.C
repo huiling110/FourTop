@@ -28,15 +28,13 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         muTopTVarMaker.makeVariables(e);
         eleVarMaker.makeVariables(e);
         eleTopVarMaker.makeVariables(e);
-        // lepVarMaker.makeVariables(e);
-        // std::cout<<"lep="<<muVarMaker.getNum()+eleVarMaker.getNum()<<"\n";
 
-        tauVarMaker.makeVariables(e); // tight tau
-        tauFVarMaker.makeVariables(e);
-        tauLVarMaker.makeVariables(e);
-        tauTTVarMaker.makeVariables(e);
-        tauTTTVarMaker.makeVariables(e);
-        tauMVarMaker.makeVariables(e);
+        tauVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs()); // tight tau
+        tauFVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
+        tauLVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
+        tauTTVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
+        tauTTTVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
+        tauMVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
 
         // jet
         jetVarMaker.makeVariables(e);

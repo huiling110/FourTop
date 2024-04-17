@@ -29,7 +29,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     std::cout << "\n";
 };
 
-void TauVarMaker::makeVariables(const EventForMV *e)
+void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& muonsLorentz, const std::vector<ROOT::Math::PtEtaPhiMVector>& elesLoretz )
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
