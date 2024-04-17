@@ -27,6 +27,7 @@ public:
     std::vector<Double_t> &getEtaVec();
     std::vector<Double_t> &getPhiVec();
     Int_t getSize();
+    Double_t getHT();
     Bool_t jetVetoMap(Double_t eta, Double_t phi);
 
 private:

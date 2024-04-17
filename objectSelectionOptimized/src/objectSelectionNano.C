@@ -108,6 +108,9 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
             continue;
         }
+        if(!OS::ifEventPass(preSelection, jetSel.getHT()>400., m_cutflow, 6)){//!testin, for HLT to run faster later
+            continue;
+        }
 
 
         CF_pre->Fill(0., genWeight);
@@ -120,7 +123,7 @@ void objectSelection::Terminate()
 {
     std::cout << "Terminate phase.......................................................\n";
     std::cout << "outFile here: " << m_output->GetName() << "\n";
-    std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) << " preSelection: " << m_cutflow->GetBinContent(4) << "\n";
+    std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) <<"; >=tauF:"<<m_cutflow->GetBinContent(4) <<" preSelection: " << m_cutflow->GetBinContent(6) << "\n";
     std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";//includes entries not passing selection
 
     // get Runs tree

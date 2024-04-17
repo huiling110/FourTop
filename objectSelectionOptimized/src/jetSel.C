@@ -501,6 +501,15 @@ Int_t JetSel::getSize()
     return jets_pt.size();
 }
 
+Double_t JetSel::getHT(){
+    Double_t HT = 0;
+    for (UInt_t i = 0; i < jets_pt.size(); i++)
+    {
+        HT += jets_pt[i];
+    }
+    return HT;
+};
+
 Bool_t JetSel::jetVetoMap(Double_t eta, Double_t phi){
 //    https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
     if(!m_isRun3){
