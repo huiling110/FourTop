@@ -75,9 +75,9 @@ def main():
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # onlyMC = True
-    dataList = ['jetHT']
+    # dataList = ['jetHT']
     # dataList = [ 'jetHT', 'singleMu'] 
-    # dataList = ['singleMu'] 
+    dataList = ['singleMu'] 
     # dataList = ['JetMET', 'JetHT']
     # dataList = [ 'Muon']
     
