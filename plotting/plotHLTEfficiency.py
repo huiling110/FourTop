@@ -5,7 +5,6 @@ import ROOT
 import ttttGlobleQuantity as gq 
 import usefulFunc as uf
 
-# from plotForFakeRate import plotEfficiency, plotFROverlay
 
 import plotBtagEff as pB
 
@@ -28,8 +27,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1fixedTauProng_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasureAddNoMu/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/mc/variableHists_v0_HLTSFMeasure/'
    
     
     isRun3 = uf.isRun3(inputDir)
@@ -39,8 +39,8 @@ def main():
     era = uf.getEraFromDir(inputDir)
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
-    plotEfficiencyHLT(inputDirDic, '', isRun3)
-    # plotEfficiencyHLT(inputDirDic, '1b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '', isRun3)
+    plotEfficiencyHLT(inputDirDic, '1b', isRun3)
     # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
     # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
     
@@ -125,9 +125,10 @@ def plotEfficiencyHLT(inputDirDic, bjet = '', isRun3 = False):
         regionList[i] = regionList[i]+bjet
     
     variableDic = {
-        'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
+        # 'jets_HT': np.array( [500., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
+        'jets_HT': np.array( [400., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
         'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
-        'jets_6pt': np.array([40., 55., 70., 85., 115, 150]),
+        'jets_6pt': np.array([25., 55., 70., 85., 115, 150]),
         'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
         'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
     }

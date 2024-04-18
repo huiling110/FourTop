@@ -562,6 +562,7 @@ def isData(subPro):
         isdata = True
     if('JetHT' in subPro) or ('Muon' in subPro) or ('JetMET' in subPro):
         isdata = True
+    # print(isdata)
     return isdata
 
 def getYmax(histograms):

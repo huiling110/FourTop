@@ -14,7 +14,7 @@ class TauVarMaker : public ObjVarMaker
 public:
     TauVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~TauVarMaker();
-    void makeVariables(const EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& muonsLorentz, const std::vector<ROOT::Math::PtEtaPhiMVector>& elesLoretz );
+    void makeVariables(const EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& muonsLorentz, const std::vector<ROOT::Math::PtEtaPhiMVector>& elesLorentz );
     void tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
