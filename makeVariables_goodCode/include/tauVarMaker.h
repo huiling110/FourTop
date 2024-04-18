@@ -37,6 +37,9 @@ private:
     Int_t taus_1charge = -99;
     Double_t taus_1neutralIso = -99;
     Int_t taus_1genFlavour = -99;
+
+    Double_t taus_1lepton1_deltaR = -99; //delta R of leading and leading lepton
+    Double_t taus_1Met_transsMass = -99.;
 };
 
 #endif

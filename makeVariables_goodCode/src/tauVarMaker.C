@@ -25,6 +25,9 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_1neutralIso", &taus_1neutralIso);
     outTree->Branch(objName + "_1genFlavour", &taus_1genFlavour);
 
+    outTree->Branch(objName + "_1lepton1_deltaR", &taus_1lepton1_deltaR);
+    outTree->Branch(objName + "_1Met_transMass", &taus_1Met_transsMass);
+
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
 };
@@ -45,6 +48,8 @@ void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Mat
     taus_invariantMass = InvariantMassCalculator(objsLorentz);
     // taus_minDeltaR = MinDeltaRSingleCal(objsLorentz);//!!!
     taus_leptonsT_invariantMass = InvariantMass2SysCal(objsLorentz, leptonsMVAT);
+
+    taus_1lepton1_deltaR = deltaR_Leading(objsLorentz, leptonsMVAT);
 
 
     switch (m_type)
@@ -72,7 +77,6 @@ void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Mat
     }
 }
 
-// void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge){
 void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge){
     if (tau_jetPt.GetSize() > 0)
     {
@@ -104,6 +108,9 @@ void TauVarMaker::clearBranch()
     taus_1genFlavour = -99;
     taus_1decayMode = -99;
     taus_1lepton1_charge = -99;
+
+    taus_1lepton1_deltaR = -99;
+    taus_1Met_transsMass = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)

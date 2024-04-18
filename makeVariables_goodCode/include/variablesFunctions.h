@@ -69,6 +69,7 @@ Double_t MinDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets,
                       const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons);
 
 Double_t MinDeltaRSingleCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets);
+Double_t deltaR_Leading(const std::vector<ROOT::Math::PtEtaPhiMVector> &taus, const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets);
 
 Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 

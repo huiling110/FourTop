@@ -296,6 +296,17 @@ Double_t MinDeltaRSingleCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets
     return min_3;
 }
 
+Double_t deltaR_Leading(const std::vector<ROOT::Math::PtEtaPhiMVector> &taus, const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets)
+{
+    Double_t deltaR = 0;
+    if(taus.size() > 0 && Jets.size() > 0)
+    {
+        deltaR = DeltaR(taus[0].Eta(), Jets[0].Eta(), taus[0].Phi(), Jets[0].Phi());
+    }
+    return deltaR;
+}
+
+
 // Double_t AverageDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
