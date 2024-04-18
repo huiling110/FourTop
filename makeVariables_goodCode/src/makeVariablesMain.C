@@ -1,5 +1,5 @@
-// #include "../include/usefulFunc.h"
 #include "../include/makeVariablesMain.h"
+#include "../include/variablesFunctions.h"
 
 void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t numEntries)
 {
@@ -29,12 +29,17 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         eleVarMaker.makeVariables(e);
         eleTopVarMaker.makeVariables(e);
 
-        tauVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs()); // tight tau
-        tauFVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
-        tauLVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
-        tauTTVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
-        tauTTTVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
-        tauMVarMaker.makeVariables(e, eleTopVarMaker.getLorentzObjs(), muTopTVarMaker.getLorentzObjs());
+        // std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT(muTopTVarMaker.getLorentzObjs().begin(), muTopTVarMaker.getLorentzObjs().end());
+        // leptonsMVAT.insert(leptonsMVAT.end(), elesLorentz.begin(), elesLorentz.end());
+        std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT;
+        addLorentzVector(muTopTVarMaker.getLorentzObjs(), eleTopVarMaker.getLorentzObjs(), leptonsMVAT);
+
+        tauVarMaker.makeVariables(e, leptonsMVAT); // tight tau
+        tauFVarMaker.makeVariables(e, leptonsMVAT);
+        tauLVarMaker.makeVariables(e, leptonsMVAT);
+        tauTTVarMaker.makeVariables(e, leptonsMVAT);
+        tauTTTVarMaker.makeVariables(e, leptonsMVAT);
+        tauMVarMaker.makeVariables(e, leptonsMVAT);
 
         // jet
         jetVarMaker.makeVariables(e);

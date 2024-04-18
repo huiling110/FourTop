@@ -29,7 +29,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     std::cout << "\n";
 };
 
-void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& muonsLorentz, const std::vector<ROOT::Math::PtEtaPhiMVector>& elesLorentz )
+void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& leptonsMVAT)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
@@ -44,14 +44,8 @@ void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Mat
     taus_HT = HTcalculator(objsLorentz);
     taus_invariantMass = InvariantMassCalculator(objsLorentz);
     // taus_minDeltaR = MinDeltaRSingleCal(objsLorentz);//!!!
-
-    // std::vector<ROOT::Math::PtEtaPhiMVector> muonTopMVAT;
-    // getLorentzVec(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, e->muonsTopMVAT_phi, e->muonsTopMVAT_mass, muonTopMVAT);
-    // std::vector<ROOT::Math::PtEtaPhiMVector> eleTopMVAT;
-    // getLorentzVec(e->elesTopMVAT_pt, e->elesTopMVAT_eta, e->elesTopMVAT_phi, e->elesTopMVAT_mass, eleTopMVAT);
-    std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT(muonsLorentz.begin(), muonsLorentz.end());
-    leptonsMVAT.insert(leptonsMVAT.end(), elesLorentz.begin(), elesLorentz.end());
     taus_leptonsT_invariantMass = InvariantMass2SysCal(objsLorentz, leptonsMVAT);
+
 
     switch (m_type)
     {//!!!todo: better make each object a compact object

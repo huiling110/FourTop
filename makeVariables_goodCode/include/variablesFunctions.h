@@ -107,6 +107,9 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std
 
 void getLorentzVec(const TTreeReaderArray<Double_t> &ptVec, const TTreeReaderArray<Double_t> &etaVec, const TTreeReaderArray<Double_t> &phiVec, const TTreeReaderArray<Double_t> &massVec, std::vector<ROOT::Math::PtEtaPhiMVector> &outLorVec);
 
+void sortByPt(std::vector<ROOT::Math::PtEtaPhiMVector> &vec);
+void addLorentzVector(const std::vector<ROOT::Math::PtEtaPhiMVector> &a, const std::vector<ROOT::Math::PtEtaPhiMVector> &b, std::vector<ROOT::Math::PtEtaPhiMVector> &out);
+
 // Double_t TopScoreAllTopsCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& SelectedTops) ;
 // Double_t init = 0;
 // for (UInt_t j = 0; j < SelectedTops.GetSize(); ++j) {
