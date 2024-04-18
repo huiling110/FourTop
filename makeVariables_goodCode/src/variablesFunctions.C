@@ -67,7 +67,7 @@ Double_t HTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJe
             HTprov + SelectedJets[j].Pt(); //.Pt: the 3 vertor component, scalar
     }
     return HTprov;
-} /*}}}*/
+} 
 // Double_t MHTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 // {
 //     /*{{{*/
@@ -79,7 +79,7 @@ Double_t HTcalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJe
 //     }
 //     MHTprov = SumJets.Pt();
 //     return MHTprov;
-// } /*}}}*/
+// }
 Double_t energyCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     Double_t sumE = 0;
@@ -132,7 +132,6 @@ Double_t rationHT_4toRestCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Sel
         return -99;
 }
 
-// Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> SelectedJets) {
 Double_t InvariantMassCalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     ROOT::Math::PtEtaPhiMVector jet_sum = {0, 0, 0, 0};
@@ -171,19 +170,6 @@ Double_t InvariantMass2SysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &a,
     return invariantMass;
 }
 
-// Int_t ChargeSum(const std::vector<Int_t> SelectedElectronsMVATIndex, Int_t type) {
-// Int_t charge_sum = 0;
-// for (UInt_t j = 0; j < SelectedElectronsMVATIndex.size(); ++j) {
-// if (type == 0)
-// charge_sum += patElectron_charge_->at(j);
-// charge_sum += patElectron_charge_->at(SelectedElectronsMVATIndex[j]);
-// if (type == 1)
-// charge_sum += Tau_charge_->at(SelectedElectronsMVATIndex[j]);
-// if (type == 2)
-// charge_sum += Muon_charge_->at(SelectedElectronsMVATIndex[j]);
-// }
-// return charge_sum;
-// }
 
 Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector &SelectedJets)
 {
@@ -202,15 +188,6 @@ Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Selec
     }
     return transE;
 }
-// Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
-// {
-//     Double_t transE = 0;
-//     for (UInt_t j = 0; j < SelectedJets.size(); ++j)
-//     {
-//         transE += TransEnergyCal(SelectedJets[j]);
-//     }
-//     return transE;
-// }
 
 Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
@@ -244,6 +221,32 @@ Double_t TransMassSysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets, c
     Double_t transMass = std::sqrt((transE1 + transE2) * (transE1 + transE2) - MHTsum.Mag2());
     return transMass;
 }
+
+Double_t calculateTransverseMass(const ROOT::Math::PtEtaPhiMVector& vec1, const ROOT::Math::PtEtaPhiMVector& vec2) {
+    // Calculate the magnitudes of the transverse momentum vectors
+    Double_t pt1 = vec1.Pt();
+    Double_t pt2 = vec2.Pt();
+    
+    // Calculate the squared masses
+    Double_t m1_squared = vec1.M2(); // M2() returns the squared mass
+    Double_t m2_squared = vec2.M2();
+    
+    // Calculate the sum of the magnitudes of the transverse momenta
+    Double_t et1 = std::sqrt(m1_squared + pt1 * pt1);
+    Double_t et2 = std::sqrt(m2_squared + pt2 * pt2);
+    Double_t etSum = et1 + et2;
+    
+    // Calculate the transverse momentum of the system (vec1 + vec2)
+    ROOT::Math::PtEtaPhiMVector systemVec = vec1 + vec2;
+    Double_t ptSystem = systemVec.Pt();
+    
+    // Calculate the squared transverse mass
+    Double_t mt_squared = etSum * etSum - ptSystem * ptSystem;
+
+    return std::sqrt(mt_squared); // Return the transverse mass
+}
+
+
 
 Double_t MinDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets,
                       const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons)

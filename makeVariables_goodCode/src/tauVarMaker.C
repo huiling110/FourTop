@@ -50,6 +50,7 @@ void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Mat
     taus_leptonsT_invariantMass = InvariantMass2SysCal(objsLorentz, leptonsMVAT);
 
     taus_1lepton1_deltaR = deltaR_Leading(objsLorentz, leptonsMVAT);
+    // taus_1Met_transMass = objsLorentz.size()>0? calculateTransverseMass(objsLorentz.at(0), )  //to provide information about top decaying into tau and neutrino 
 
 
     switch (m_type)

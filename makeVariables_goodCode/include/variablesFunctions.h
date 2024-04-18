@@ -65,6 +65,8 @@ Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJe
 
 Double_t TransMassSysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets, const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons);
 
+Double_t calculateTransverseMass(const ROOT::Math::PtEtaPhiMVector& vec1, const ROOT::Math::PtEtaPhiMVector& vec2);
+
 Double_t MinDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets,
                       const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons);
 

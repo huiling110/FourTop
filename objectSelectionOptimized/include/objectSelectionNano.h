@@ -10,7 +10,6 @@
 #include <TTreeReaderValue.h>
 #include <TH1D.h>
 
-// #include "eventReader_nano.C"
 #include "eventReader_nano.h" //use ttreeReader to construct event
 #include "HLTSelector.h"
 #include "usefulFunc.h"

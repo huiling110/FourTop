@@ -102,8 +102,8 @@ public:
                                         Jet_jetId(reader, "Jet_jetId"),
                                         Jet_hadronFlavour(reader, "Jet_hadronFlavour"),
                                         Jet_area(reader, "Jet_area"),
-                                        MET_pt(reader, "MET_pt")
-                                        //
+                                        MET_pt(reader, "MET_pt"),
+                                        MET_phi(reader, "MET_phi")
 
     {
         // dealing with case: HLT branch not existing in this nanofile;
@@ -355,6 +355,7 @@ public:
     TTreeReaderValue<Float_t>* Rho_fixedGridRhoFastjetAll = nullptr;//nanoAODv12
 
     TTreeReaderValue<Float_t> MET_pt;
+    TTreeReaderValue<Float_t> MET_phi;
 
     TTreeReaderArray<Float_t> *LHEPdfWeight = nullptr;
     TTreeReaderArray<Float_t> *LHEScaleWeight = nullptr;

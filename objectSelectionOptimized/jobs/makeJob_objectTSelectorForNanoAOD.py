@@ -42,7 +42,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v71NoHLTNoTau/'
 # jobVersionName = 'v72PreSelWithTauF_METAdd'
 # jobVersionName = 'v73NoHLTNoTauHT400/'
-jobVersionName = 'v73NoHLTTauFHT400/'
+# jobVersionName = 'v73NoHLTTauFHT400/'
+jobVersionName = 'v74AddMETPhi/'
 
 #run3
 # jobVersionName = 'v0Testing/'
@@ -76,9 +77,9 @@ def main():
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # onlyMC = True
-    # dataList = ['jetHT']
+    dataList = ['jetHT']
     # dataList = [ 'jetHT', 'singleMu'] 
-    dataList = ['singleMu'] 
+    # dataList = ['singleMu'] 
     # dataList = ['JetMET', 'JetHT']
     # dataList = [ 'Muon']
     
@@ -165,6 +166,8 @@ def makeJobsInDir( inputDir, outputDir, isData, dataSet, era, isRun3):
     jobScriptsFolder = codePath + 'jobs_eachYear/'
     uf.checkMakeDir( jobScriptsFolder )
     jobScriptsFolder = jobScriptsFolder+era+'/'
+    # if os.path.exists( jobScriptsFolder ):
+    #     subprocess.run('rm -fr '+ jobScriptsFolder , shell=True)
     uf.checkMakeDir(jobScriptsFolder)
 
     for k in allProcesses:

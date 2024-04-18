@@ -11,9 +11,9 @@ CopyBranch::CopyBranch(TTree *outTree, const Bool_t isRun3)
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);
     outTree->Branch("PV_npvsGood_", &PV_npvsGood_);
-    // outTree->Branch("Electron_charge_", &Electron_charge_);
-    // outTree->Branch("Muon_charge_", &Muon_charge_);
     outTree->Branch("MET_pt_", &MET_pt_);
+    outTree->Branch("MET_phi_", &MET_phi_);
+
     outTree->Branch("EVENT_prefireWeight_", &EVENT_prefireWeight_);
     outTree->Branch("EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_);
     outTree->Branch("EVENT_prefireWeight_down_", &EVENT_prefireWeight_down_);
@@ -32,6 +32,7 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     run_ = *e->run;
     event_ = *e->event;
     MET_pt_ = *e->MET_pt;
+    MET_phi_ = *e->MET_phi;
 
     if (m_isRun3){
         PV_npvsGood_ = std::any_cast<UChar_t>(e->PV_npvsGood.GetValue());//nanoAODv12

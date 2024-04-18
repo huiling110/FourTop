@@ -55,8 +55,8 @@ void run_objectSelection(
 
     // const Bool_t tauSel = kFALSE;
     const Bool_t tauSel = kTRUE;
-    const Bool_t HLTSel = kFALSE;
-    // const Bool_t HLTSel = kTRUE;
+    // const Bool_t HLTSel = kFALSE;
+    const Bool_t HLTSel = kTRUE;
     os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); //with HLT and preselection
     // os.EventLoop(kTRUE, kFALSE, eventNum, TES); //no HLT selection, for HLT study
     // os.EventLoop(kFALSE, kTRUE, eventNum); //with only HLT 
