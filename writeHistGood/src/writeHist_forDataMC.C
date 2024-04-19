@@ -26,10 +26,17 @@ void WH_forDataMC::Init()
     SP_d jets_rationHT_4toRest_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_rationHT_4toRest", "HT^{4 leaading jets}/HT^{rest of jets}", m_processName, 10, 0, 12, regionsForVariables, &(e->jets_rationHT_4toRest));
     SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 20, 400, 1800, regionsForVariables, &(e->jets_HT));
     SP_d jets_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_MHT", "MHT(GeV)", m_processName, 20, 400, 1800, regionsForVariables, &(e->jets_MHT));
-    SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
     SP_d jets_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_transMass", "m_{T}^{jets}", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_transMass));
+    SP_d jets_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_minDeltaR", "min(#Delta R_{i,j})", m_processName, 10, 0, 2, regionsForVariables, &(e->jets_minDeltaR));
+    SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
     SP_d jets_avaregeDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_average_deltaR", "average(#Delta R)^{jets}", m_processName, 10, 1.2, 3.2, regionsForVariables, &(e->jets_average_deltaR));
-    // SP_d jets_4largestBscoreMulti_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4largestBscoreMulti", "#sqrt{#prod_{i=4 highest} bscore_{i}^{jet}}", m_processName, 10, 0, 0.3, regionsForVariables, &(e->jets_4largestBscoreMulti));
+    SP_d jets_4largestBscoreSum_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4largestBscoreSum", "#sum_{i=4 highest} bscore_{i}^{jet}}", m_processName, 10, 0, 4, regionsForVariables, &(e->jets_4largestBscoreMulti));
+    SP_d jets_4largestBscoreMulti_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4largestBscoreMulti", "#sqrt{#prod_{i=4 highest} bscore_{i}^{jet}}", m_processName, 10, 0, 1, regionsForVariables, &(e->jets_4largestBscoreMulti));
+    SP_d jets_HTDivideMET_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HTDivideMET", "HT/MET", m_processName, 10, 0, 1, regionsForVariables, &(e->jets_HTDivideMET));
+    SP_d jets_METDivideHT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_METDivideHT", "MET/HT", m_processName, 10, 0, 1, regionsForVariables, &(e->jets_METDivideHT));
+    SP_d jets_sphericity_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_sphericity", "sphericity", m_processName, 10, 0, 1, regionsForVariables, &(e->jets_sphericity));
+    SP_d jets_aplanarity_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_aplanarity", "aplanarity", m_processName, 10, 0, 0.5, regionsForVariables, &(e->jets_aplanarity));
+    SP_d jets_tausT_invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_tausT_invariantMass", "m^{#tau and jet}", m_processName, 10, 0, 1000, regionsForVariables, &(e->jets_tausT_invariantMass));
 
     SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 40, 25, 700, regionsForVariables, &(e->jets_1pt));
     SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 40, 25, 140, regionsForVariables, &(e->jets_6pt));
@@ -91,29 +98,36 @@ void WH_forDataMC::Init()
     SP_i tausT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1lepton1_charge", "charge^{T#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausT_1lepton1_charge));
     SP_i tausM_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausM_1lepton1_charge", "charge^{M#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausM_1lepton1_charge));
 
-    //I guess jets_1pt_class goes out range and destroyed after this function
-    histsForRegion_vec.push_back(jets_1pt_class);
     histsForRegion_vec.push_back(jets_bScore_class);
     histsForRegion_vec.push_back(jets_num_class);
     histsForRegion_vec.push_back(jets_HT_class);
+    histsForRegion_vec.push_back(jets_1pt_class);
     histsForRegion_vec.push_back(jets_6pt_class);
-    // histsForRegion_vec.push_back(jets_1pt_class);
     histsForRegion_vec.push_back(jets_2pt_class);
     histsForRegion_vec.push_back(jets_3pt_class);
     histsForRegion_vec.push_back(jets_4pt_class);
     histsForRegion_vec.push_back(jets_5pt_class);
     histsForRegion_vec.push_back(jets_7pt_class);
     histsForRegion_vec.push_back(jets_rationHT_4toRest_class);
-    // histsForRegion_vec.push_back(jets_leading2invariantMass_class);
     histsForRegion_vec.push_back(jets_transMass_class);
     histsForRegion_vec.push_back(jets_avaregeDeltaR_class);
-    // histsForRegion_vec.push_back(jets_4largestBscoreMulti_class);
+    histsForRegion_vec.push_back(jets_minDeltaR_class);
+    histsForRegion_vec.push_back(jets_4largestBscoreSum_class);
+    histsForRegion_vec.push_back(jets_4largestBscoreMulti_class);
+    histsForRegion_vec.push_back(jets_HTDivideMET_class);
+    histsForRegion_vec.push_back(jets_METDivideHT_class);
+    histsForRegion_vec.push_back(jets_sphericity_class);
+    histsForRegion_vec.push_back(jets_aplanarity_class);
+    histsForRegion_vec.push_back(jets_tausT_invariantMass_class);
+
+
     histsForRegion_vec.push_back(jets_1btag_class);
     histsForRegion_vec.push_back(jets_2btag_class);
     histsForRegion_vec.push_back(jets_3btag_class);
     histsForRegion_vec.push_back(jets_4btag_class);
     histsForRegion_vec.push_back(jets_5btag_class);
     histsForRegion_vec.push_back(jets_6btag_class);
+
     histsForRegion_vec.push_back(MET_pt_class);
     histsForRegion_vec.push_back(bjetsM_HT_class);
     histsForRegion_vec.push_back(bjetsM_MHT_class);
