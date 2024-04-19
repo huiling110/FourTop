@@ -40,6 +40,7 @@ private:
 
     Double_t taus_1lepton1_deltaR = -99; //delta R of leading and leading lepton
     Double_t taus_1Met_transMass = -99.;
+    Double_t taus_1lepton1Met1_stransMass = -99.;
 };
 
 #endif

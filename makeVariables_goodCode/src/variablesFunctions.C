@@ -1020,29 +1020,15 @@ void addLorentzVector(const std::vector<ROOT::Math::PtEtaPhiMVector> &a, const s
     sortByPt(out);
 }
 
-Double_t calculateMT2(const TLorentzVector& visible1, const TLorentzVector& visible2, const TVector2& met) {
-    // Convert TLorentzVector to the format expected by the Mt2 calculator
-    Double_t pa[3] = {visible1.M(), visible1.Px(), visible1.Py()};
-    Double_t pb[3] = {visible2.M(), visible2.Px(), visible2.Py()};
-    Double_t pmiss[2] = {met.Px(), met.Py()};
-
-    // Invisible particle mass hypothesis (e.g., neutrino)
-    Double_t mn = 0.0;
-
-    // Create an instance of the calculator
-    // mt2_bisect::Basic_Mt2_332_Calculator mt2Calculator;
-    // mt2_bisect::Mt2_332 mt2Event(pa, pb, pmiss, mn);
-    // Double_t MT2 = asymm_mt2_lester_bisect::get_mT2(pa, pb, pmiss, mn);
+Double_t calculateMT2(const ROOT::Math::PtEtaPhiMVector& visible1, const ROOT::Math::PtEtaPhiMVector& visible2, const Double_t MET_pt, const Double_t MET_phi) {
     Double_t MT2 = asymm_mt2_lester_bisect::get_mT2(
         visible1.M(), visible1.Px(), visible1.Py(),
         visible2.M(), visible2.Px(), visible2.Py(),
-        met.Px(), met.Py(),
+        MET_pt, MET_phi,
         0, 0,
         0
     );
 
-    // Calculate and return mT2
-    // return mt2Calculator.mt2_332(mt2Event);
     return MT2;
 }
 

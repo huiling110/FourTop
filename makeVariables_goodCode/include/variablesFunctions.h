@@ -115,6 +115,7 @@ void getLorentzVec(const TTreeReaderArray<Double_t> &ptVec, const TTreeReaderArr
 
 void sortByPt(std::vector<ROOT::Math::PtEtaPhiMVector> &vec);
 void addLorentzVector(const std::vector<ROOT::Math::PtEtaPhiMVector> &a, const std::vector<ROOT::Math::PtEtaPhiMVector> &b, std::vector<ROOT::Math::PtEtaPhiMVector> &out);
+Double_t calculateMT2(const ROOT::Math::PtEtaPhiMVector& visible1, const ROOT::Math::PtEtaPhiMVector& visible2, const Double_t MET_pt, const Double_t MET_phi);
 
 // Double_t TopScoreAllTopsCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& SelectedTops) ;
 // Double_t init = 0;
