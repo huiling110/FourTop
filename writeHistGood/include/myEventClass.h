@@ -112,11 +112,8 @@ public:
     myBranch<Int_t> tausM_num{"tausM_num"};
     myBranch<Int_t> tausF_genTauNum{"tausF_genTauNum"};
     myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
-    myBranch<Int_t> bjetsM_num{"bjetsM_num"};
-    myBranch<Int_t> bjetsT_num{"bjetsT_num"};
-    myBranch<Int_t> bjetsPNM_num{"bjetsPNM_num"};
-    myBranch<Int_t> bjetsPTM_num{"bjetsPTM_num"};
-    myBranch<Int_t> bjetsPTT_num{"bjetsPTT_num"};
+
+
     myBranch<Int_t> elesTopMVAT_num{"elesTopMVAT_num"};
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
     myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
@@ -181,13 +178,28 @@ public:
 
     myBranch<Double_t> MET_pt{"MET_pt"};
 
+    myBranch<Int_t> bjetsM_num{"bjetsM_num"};
+    myBranch<Int_t> bjetsT_num{"bjetsT_num"};
+    myBranch<Int_t> bjetsPNM_num{"bjetsPNM_num"};
+    myBranch<Int_t> bjetsPTM_num{"bjetsPTM_num"};
+    myBranch<Int_t> bjetsPTT_num{"bjetsPTT_num"};
     myBranch<Double_t> bjetsM_invariantMass{"bjetsM_invariantMass"};
-    myBranch<Double_t> bjetsM_minDeltaR{"bjetsM_minDeltaR"};
-    myBranch<Double_t> bjetsM_2pt{"bjetsM_2pt"};
     myBranch<Double_t> bjetsM_HT{"bjetsM_HT"};
-    myBranch<Double_t> bjetsT_HT{"bjetsT_HT"};
     myBranch<Double_t> bjetsM_MHT{"bjetsM_MHT"};
+    myBranch<Double_t> bjetsM_transMass{"bjetsM_transMass"};
+    myBranch<Double_t> bjetsM_minDeltaR{"bjetsM_minDeltaR"};
+    myBranch<Double_t> bjetsM_2leptons2_stransMass{"bjetsM_2leptons2_stransMass"};
+    myBranch<Double_t> bjetsM_2tau1lep1_stransMass{"bjetsM_2tau1lep1_stransMass"};
+    myBranch<Double_t> bjetsM_2MET_stransMass{"bjetsM_2MET_stransMass"};
+    myBranch<Double_t> bjetsM_leptons_minDeltaR{"bjetsM_leptons_minDeltaR"};
+    myBranch<Double_t> bjetsM_taus_minDeltaR{"bjetsM_taus_minDeltaR"};
+
     myBranch<Double_t> bjetsM_1pt{"bjetsM_1pt"};
+    myBranch<Double_t> bjetsM_2pt{"bjetsM_2pt"};
+
+    myBranch<Double_t> bjetsT_HT{"bjetsT_HT"};
+
+
     myBranch<Double_t> tausT_1eta{"tausT_1eta"};
     myBranch<Double_t> tausT_1phi{"tausT_1phi"};
     myBranch<Double_t> tausT_HT{"tausT_HT"};
@@ -365,19 +377,29 @@ private:
         {MET_pt.n(), &MET_pt},
 
         {bjetsM_invariantMass.n(), &bjetsM_invariantMass},
-        {bjetsM_minDeltaR.n(), &bjetsM_minDeltaR},
-        {bjetsM_2pt.n(), &bjetsM_2pt},
         {bjetsM_HT.n(), &bjetsM_HT},
-        {bjetsT_HT.n(), &bjetsT_HT},
-        {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
+        {bjetsM_MHT.n(), &bjetsM_MHT},
+        {bjetsM_transMass.n(), &bjetsM_transMass},
+        {bjetsM_minDeltaR.n(), &bjetsM_minDeltaR},
+        {bjetsM_2leptons2_stransMass.n(), &bjetsM_2leptons2_stransMass},
+        {bjetsM_2tau1lep1_stransMass.n(), &bjetsM_2tau1lep1_stransMass},
+        {bjetsM_2MET_stransMass.n(), &bjetsM_2MET_stransMass},
+        {bjetsM_leptons_minDeltaR.n(), &bjetsM_leptons_minDeltaR},
+        {bjetsM_taus_minDeltaR.n(), &bjetsM_taus_minDeltaR},
+
         {tausT_1pt.n(), &tausT_1pt},
         {bjetsM_MHT.n(), &bjetsM_MHT},
+
         {bjetsM_1pt.n(), &bjetsM_1pt},
+        {bjetsM_2pt.n(), &bjetsM_2pt},
+
+        {bjetsT_HT.n(), &bjetsT_HT},
 
         {tausT_1eta.n(), &tausT_1eta},
         {tausT_1phi.n(), &tausT_1phi},
         {tausT_HT.n(), &tausT_HT},
         {tausT_MHT.n(), &tausT_MHT},
+        {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
 
