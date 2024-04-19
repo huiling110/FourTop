@@ -57,12 +57,15 @@ Double_t InvariantMass2SysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &a,
 // return charge_sum;
 // }
 
+Double_t deltaPhi(const Double_t phi1, const Double_t phi2);
+Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2);
+
 Double_t TransEnergyCal(const ROOT::Math::PtEtaPhiMVector &SelectedJets);
 
 Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
+Double_t calculateTransverseMass(const ROOT::Math::PtEtaPhiMVector& particleVec, Double_t Met_pt, Double_t Met_phi);
 Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
-
 Double_t TransMassSysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets, const std::vector<ROOT::Math::PtEtaPhiMVector> &Leptons);
 
 Double_t calculateTransverseMass(const ROOT::Math::PtEtaPhiMVector& vec1, const ROOT::Math::PtEtaPhiMVector& vec2);

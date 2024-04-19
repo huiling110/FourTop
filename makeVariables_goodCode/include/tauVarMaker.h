@@ -14,7 +14,7 @@ class TauVarMaker : public ObjVarMaker
 public:
     TauVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~TauVarMaker();
-    void makeVariables(const EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& leptonsMVAT);
+    void makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& leptonsMVAT);
     void tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
@@ -39,7 +39,7 @@ private:
     Int_t taus_1genFlavour = -99;
 
     Double_t taus_1lepton1_deltaR = -99; //delta R of leading and leading lepton
-    Double_t taus_1Met_transsMass = -99.;
+    Double_t taus_1Met_transMass = -99.;
 };
 
 #endif

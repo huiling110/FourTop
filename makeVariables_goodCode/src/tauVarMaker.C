@@ -26,13 +26,13 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_1genFlavour", &taus_1genFlavour);
 
     outTree->Branch(objName + "_1lepton1_deltaR", &taus_1lepton1_deltaR);
-    outTree->Branch(objName + "_1Met_transMass", &taus_1Met_transsMass);
+    outTree->Branch(objName + "_1Met_transMass", &taus_1Met_transMass);
 
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
 };
 
-void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& leptonsMVAT)
+void TauVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& leptonsMVAT)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
@@ -50,8 +50,7 @@ void TauVarMaker::makeVariables(const EventForMV *e, const std::vector<ROOT::Mat
     taus_leptonsT_invariantMass = InvariantMass2SysCal(objsLorentz, leptonsMVAT);
 
     taus_1lepton1_deltaR = deltaR_Leading(objsLorentz, leptonsMVAT);
-    // taus_1Met_transMass = objsLorentz.size()>0? calculateTransverseMass(objsLorentz.at(0), )  //to provide information about top decaying into tau and neutrino 
-
+    taus_1Met_transMass = objsLorentz.size() > 0 ? calculateTransverseMass(objsLorentz.at(0), *e->MET_pt_, *e->MET_phi_) : 0; // to provide information about top decaying into tau and neutrino
 
     switch (m_type)
     {//!!!todo: better make each object a compact object
@@ -111,7 +110,7 @@ void TauVarMaker::clearBranch()
     taus_1lepton1_charge = -99;
 
     taus_1lepton1_deltaR = -99;
-    taus_1Met_transsMass = -99;
+    taus_1Met_transMass = -99;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)

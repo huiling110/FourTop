@@ -151,6 +151,7 @@ public:
 
                                       PV_npvsGood_(reader, "PV_npvsGood_"),
                                       MET_pt_(reader, "MET_pt_"),
+                                      MET_phi_(reader, "MET_phi_"),
                                       EVENT_genWeight_(reader, "EVENT_genWeight_"),
                                       EVENT_prefireWeight_(reader, "EVENT_prefireWeight_"),
                                       EVENT_prefireWeight_up_(reader, "EVENT_prefireWeight_up_"),
@@ -324,6 +325,8 @@ public:
 
     TTreeReaderValue<Int_t> PV_npvsGood_;
     TTreeReaderValue<Double_t> MET_pt_;
+    TTreeReaderValue<Double_t> MET_phi_;
+
 
     TTreeReaderValue<Double_t> EVENT_genWeight_;
     TTreeReaderValue<Double_t> EVENT_prefireWeight_;

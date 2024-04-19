@@ -23,6 +23,14 @@ void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std
     }
 };
 
+Double_t deltaPhi(const Double_t phi1, const Double_t phi2)
+{
+    Double_t deltaPhi = TMath::Abs(phi1 - phi2);
+    if (deltaPhi > TMath::Pi())
+        deltaPhi = TMath::TwoPi() - deltaPhi;
+    return deltaPhi;
+}
+
 Double_t DeltaR(Double_t eta1, Double_t eta2, Double_t phi1, Double_t phi2)
 {
     Double_t deltaPhi = TMath::Abs(phi1 - phi2);
@@ -142,16 +150,6 @@ Double_t InvariantMassCalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> 
     Double_t InMass = jet_sum.M();
     return InMass;
 }
-// Double_t InvariantMassCalculator(std::vector<ROOT::Math::PtEtaPhiMVector> SelectedJets)
-// {
-//     ROOT::Math::PtEtaPhiMVector jet_sum = {0, 0, 0, 0};
-//     for (UInt_t j = 0; j < SelectedJets.size(); ++j)
-//     {
-//         jet_sum = jet_sum + SelectedJets[j];
-//     }
-//     Double_t InMass = jet_sum.M();
-//     return InMass;
-// }
 
 Double_t InvariantMass2SysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &a,
                               const std::vector<ROOT::Math::PtEtaPhiMVector> &b)
@@ -187,6 +185,22 @@ Double_t TransEnergySysCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Selec
         transE += TransEnergyCal(SelectedJets[j]);
     }
     return transE;
+}
+
+
+
+// Function to calculate the transverse mass (mT) given a particle's Lorentz vector and MET
+Double_t calculateTransverseMass(const ROOT::Math::PtEtaPhiMVector& particleVec, Double_t Met_pt, Double_t Met_phi) {
+    // double pt = particleVec.Pt(); // Magnitude of the particle's transverse momentum
+    // double met = metVec.Pt(); // Magnitude of the missing transverse energy (MET)
+    
+    // Calculate the azimuthal angle difference
+    // double deltaPhi = std::fabs(particleVec.DeltaPhi(metVec));
+    Double_t delta_phi = deltaPhi(particleVec.Phi(), Met_phi);
+    
+    // Calculate and return the transverse mass
+    // return std::sqrt(2 * pt * met * (1 - std::cos(deltaPhi)));
+    return std::sqrt(2 * particleVec.Pt() * Met_pt * (1 - std::cos(delta_phi)));
 }
 
 Double_t TransMassCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
