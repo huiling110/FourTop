@@ -22,7 +22,7 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_HTDividedByMet);", &jets_HTDividedByMet);
     outTree->Branch(objName + "_MetDividedByHT", &jets_MetDividedByHT);
     outTree->Branch(objName + "_MHTDividedByMet);", &jets_MHTDividedByMet);
-    outTree->Branch(objName + "_spherilty", &jets_spherilty);
+    outTree->Branch(objName + "_sphericity", &jets_sphericity);
     outTree->Branch(objName + "_aplanarity", &jets_aplanarity);
     outTree->Branch(objName + "_1btag", &jets_1btag);
     outTree->Branch(objName + "_2btag", &jets_2btag);
@@ -92,9 +92,13 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);//!!!code needs to be reconstructed 
     jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
     jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
-
     jets_rationHT_4toRest = rationHT_4toRestCal(objsLorentz);
 
+    // jets_sphericity = calculateSphericity(objsLorentz);
+    // It provides a measure of how much an event is confined to a plane, with higher values indicating events that are more isotropic (spread out in all directions) and lower values suggesting events that are planar or two-dimensional. Aplanarity is derived from the sphericity tensor, similar to the sphericity calculation.
+    TVectorD eigenValues = calculateEigenvalues(objsLorentz);
+    jets_sphericity = calculateSphericityFromEigenvalues(eigenValues);
+    jets_aplanarity = calculateAplanarityFromEigenvalues(eigenValues);
 
     //!!! todo later
     // if (*MET_pt_ == 0)
@@ -114,7 +118,6 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     // jets_tausT_invariantMass = InvariantMass2SysCal(jets, tausT);
 
     //    // aplanarity and sphericity
-    // SpheriltyAplanarityCal(jets, jets_spherilty, jets_aplanarity);
 
     if(muons_num>1 && m_type==0){
         jets_1btag = e->jets_btags.At(0);
@@ -175,7 +178,7 @@ void JetVarMaker::clearBranch()
     jets_HTDividedByMet = -99;
     jets_MetDividedByHT = -99;
     jets_MHTDividedByMet = -99;
-    jets_spherilty = -99.0;
+    jets_sphericity = -99.;
     jets_aplanarity = -99.0;
     jets_1btag = -99.0;
     jets_2btag = -99.0;

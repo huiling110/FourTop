@@ -488,7 +488,7 @@ Int_t chargeMulCalNew(const TTreeReaderArray<Int_t>& taus_charge, const TTreeRea
     return charge;
 };
 
-Double_t calculateSphericity(const std::vector<TLorentzVector>& particles) {
+Double_t calculateSphericity(const std::vector<ROOT::Math::PtEtaPhiMVector>& particles) {
     // Initialize the momentum tensor
     TMatrixDSym S_ij(3);
     Double_t pSum2 = 0.0;
@@ -529,6 +529,39 @@ Double_t calculateSphericity(const std::vector<TLorentzVector>& particles) {
 }
 
 
+TVectorD calculateEigenvalues(const std::vector<ROOT::Math::PtEtaPhiMVector>& particles) {
+    TMatrixDSym S_ij(3);
+    Double_t pSum2 = 0.0;
+
+    for (const auto& p : particles) {
+        Double_t px = p.Px(), py = p.Py(), pz = p.Pz();
+        pSum2 += px*px + py*py + pz*pz;
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                S_ij(i, j) += (i == 0 ? px : (i == 1 ? py : pz)) * (j == 0 ? px : (j == 1 ? py : pz));
+            }
+        }
+    }
+
+    if (pSum2 > 0) {
+        S_ij *= (1.0 / pSum2);
+        TVectorD eigenValues(3);
+        S_ij.EigenVectors(eigenValues);
+        return eigenValues;
+    }
+
+    return TVectorD(3); // Return a vector filled with zeros if no particles or all particles have no momentum
+}
+Double_t calculateSphericityFromEigenvalues(const TVectorD& eigenValues) {
+    // Assuming eigenValues are sorted, which they are by the EigenVectors method
+    Double_t sphericity = 1.5 * (eigenValues(1) + eigenValues(2)); // λ2 + λ3
+    return sphericity;
+}
+
+Double_t calculateAplanarityFromEigenvalues(const TVectorD& eigenValues) {
+    Double_t aplanarity = 1.5 * eigenValues(2); // 3/2 * λ3
+    return aplanarity;
+}
 
 
 
@@ -664,7 +697,6 @@ void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> 
 // return init;
 // }
 
-// Double_t calMuonIDSF(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &muonsT, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData)
 Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeReaderArray<Double_t> &muons_eta, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData)
 {
     Double_t muonIDSF = 1.0;

@@ -10,6 +10,7 @@
 #include <TTreeReader.h>
 #include <TTreeReaderValue.h>
 #include <TTreeReaderArray.h>
+#include "TVectorD.h"
 
 #include "correction.h"
 
@@ -83,26 +84,29 @@ Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJets
 
 Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
 Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
-// Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav);
+
+Double_t calculateSphericity(const std::vector<ROOT::Math::PtEtaPhiMVector> &particles);
+TVectorD calculateEigenvalues(const std::vector<ROOT::Math::PtEtaPhiMVector> &particles);
+Double_t calculateSphericityFromEigenvalues(const TVectorD &eigenValues);
+Double_t calculateAplanarityFromEigenvalues(const TVectorD &eigenValues);
+
 Int_t calGenTauNum(const TTreeReaderArray<UChar_t> &tausT_genPartFlav);
 
 Int_t getTauProng(const TTreeReaderArray<Int_t> &tausT_decayMode);
 
 // Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index, TTreeReaderArray<Int_t> &patElectron_charge_, TTreeReaderArray<Int_t> &eleMVAT_index);
 Int_t chargeMulCal(const TTreeReaderArray<Int_t> &tausT_charge, const TTreeReaderArray<Int_t> &Muon_charge_, const TTreeReaderArray<Int_t> &muonsT_index, const TTreeReaderArray<Int_t> &patElectron_charge_, const TTreeReaderArray<Int_t> &eleMVAT_index);
-Int_t chargeMulCalNew(const TTreeReaderArray<Int_t>& taus_charge, const TTreeReaderArray<Int_t>& muons_charge, const TTreeReaderArray<Int_t> &eles_charge);
-
-void SpheriltyAplanarityCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla);
+Int_t chargeMulCalNew(const TTreeReaderArray<Int_t> &taus_charge, const TTreeReaderArray<Int_t> &muons_charge, const TTreeReaderArray<Int_t> &eles_charge);
 
 Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeReaderArray<Double_t> &muons_eta, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData);
 
-Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, Int_t sysMuon=0, Bool_t isData=kFALSE);
+Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t> &muon_eta, const TTreeReaderArray<Double_t> &muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, Int_t sysMuon = 0, Bool_t isData = kFALSE);
 
-Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, std::string VsJetWP="Medium", Bool_t isData = kFALSE, Bool_t isRun3=kFALSE);
+Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, std::string VsJetWP = "Medium", Bool_t isData = kFALSE, Bool_t isRun3 = kFALSE);
 
 Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData, const std::string sys);
 
-Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3=kFALSE);
+Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3 = kFALSE);
 Double_t getBtagEff(TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor, Int_t sys);
 Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys);
 
@@ -115,7 +119,7 @@ void getLorentzVec(const TTreeReaderArray<Double_t> &ptVec, const TTreeReaderArr
 
 void sortByPt(std::vector<ROOT::Math::PtEtaPhiMVector> &vec);
 void addLorentzVector(const std::vector<ROOT::Math::PtEtaPhiMVector> &a, const std::vector<ROOT::Math::PtEtaPhiMVector> &b, std::vector<ROOT::Math::PtEtaPhiMVector> &out);
-Double_t calculateMT2(const ROOT::Math::PtEtaPhiMVector& visible1, const ROOT::Math::PtEtaPhiMVector& visible2, const Double_t MET_pt, const Double_t MET_phi);
+Double_t calculateMT2(const ROOT::Math::PtEtaPhiMVector &visible1, const ROOT::Math::PtEtaPhiMVector &visible2, const Double_t MET_pt, const Double_t MET_phi);
 
 // Double_t TopScoreAllTopsCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector>& SelectedTops) ;
 // Double_t init = 0;

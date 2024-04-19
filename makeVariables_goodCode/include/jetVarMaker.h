@@ -31,8 +31,9 @@ private:
     Double_t jets_HTDividedByMet = -99;
     Double_t jets_MetDividedByHT = -99;
     Double_t jets_MHTDividedByMet = -99;
-    Double_t jets_spherilty = -99.0;
+    Double_t jets_sphericity = - 99.;
     Double_t jets_aplanarity = -99.0;
+
     Double_t jets_1btag = -99.0;
     Double_t jets_2btag = -99.0;
     Double_t jets_3btag = -99.0;
