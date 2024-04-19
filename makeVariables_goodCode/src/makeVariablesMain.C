@@ -41,7 +41,6 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         tauTTTVarMaker.makeVariables(e, leptonsMVAT);
         tauMVarMaker.makeVariables(e, leptonsMVAT);
 
-        // std::vector<ROOT::Math::PtEtaPhiMVector> taus
         // jet
         jetVarMaker.makeVariables(e);
         //bjet variables

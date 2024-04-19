@@ -14,6 +14,10 @@ BjetVarMaker::BjetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVar
     outTree->Branch(objName + "_minDeltaR", &bjets_minDeltaR);
 
     outTree->Branch(objName + "_2leptons2_stransMass", &bjets_2leptons2_stransMass);
+    outTree->Branch(objName + "_2tau1lep1_stransMass", &bjets_2tau1lep1_stransMass);
+    outTree->Branch(objName + "_2MET_stransMass", &bjets_2MET_stransMass);
+    outTree->Branch(objName + "_leptons_minDeltaR", &bjets_leptons_minDeltaR);
+    outTree->Branch(objName + "_taus_minDeltaR", &bjets_taus_minDeltaR);
 
     std::cout << "Done initilization........\n";
     std::cout << "\n";
@@ -61,13 +65,21 @@ void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::Pt
     bjets_transMass = TransMassCal(objsLorentz);
     bjets_minDeltaR = MinDeltaRSingleCal(objsLorentz);
 
-    if(objsLorentz.size()>1 && leptons.size()>1){
+    if(objsLorentz.size()>1 ){
         ROOT::Math::PtEtaPhiMVector bjets2 = objsLorentz.at(0) + objsLorentz.at(1);
-        ROOT::Math::PtEtaPhiMVector leptons2 = leptons.at(0) + leptons.at(1);
-        bjets_2leptons2_stransMass = calculateMT2(bjets2, leptons2, *e->MET_pt_, *e->MET_phi_);
+        if(leptons.size()>1){
+            ROOT::Math::PtEtaPhiMVector leptons2 = leptons.at(0) + leptons.at(1);
+            bjets_2leptons2_stransMass = calculateMT2(bjets2, leptons2, *e->MET_pt_, *e->MET_phi_);
+        }
+        if(taus.size()>1 && leptons.size()>0){
+            ROOT::Math::PtEtaPhiMVector tauLep = taus.at(0) + leptons.at(0);
+            bjets_2tau1lep1_stransMass = calculateMT2(bjets2, tauLep, *e->MET_pt_, *e->MET_phi_);
+        }
+        bjets_2MET_stransMass = calculateMT2(objsLorentz.at(0), objsLorentz.at(1), *e->MET_pt_, *e->MET_phi_);
     }
-    // bjets_2taus1lepton1_stransMass = 
-    // bjets_1taus1_transMass = 
+
+    bjets_leptons_minDeltaR = MinDeltaRCal(objsLorentz, leptons);
+    bjets_taus_minDeltaR = MinDeltaRCal(objsLorentz, taus);
 };
 
 void BjetVarMaker::clearBranch()
@@ -80,6 +92,9 @@ void BjetVarMaker::clearBranch()
     bjets_minDeltaR = -99.;
 
     bjets_2leptons2_stransMass = -99.;
+    bjets_2MET_stransMass = -99.;
+    bjets_leptons_minDeltaR = -99.;
+    bjets_taus_minDeltaR = -99.;
 };
 
 Int_t BjetVarMaker::getJet_num()

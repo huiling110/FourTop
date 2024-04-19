@@ -274,7 +274,6 @@ Double_t MinDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets,
     {
         for (UInt_t k = 0; k < Leptons.size(); ++k)
         {
-            // deltaR_init = Jets[j].DeltaR(Leptons[k]);//???
             deltaR_init = DeltaR(Jets[j].Eta(), Leptons[k].Eta(), Jets[j].Phi(), Leptons[k].Phi());
 
             if (min_deltar > deltaR_init)
@@ -285,6 +284,8 @@ Double_t MinDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets,
     }
     return min_deltaR;
 }
+
+
 Double_t MinDeltaRSingleCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Jets)
 {
     Double_t min = 10;
@@ -326,7 +327,6 @@ Double_t deltaR_Leading(const std::vector<ROOT::Math::PtEtaPhiMVector> &taus, co
 }
 
 
-// Double_t AverageDeltaRCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
     Double_t eta_1;
@@ -392,7 +392,6 @@ Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJets
     return sum;
 }
 
-// Double_t BScoreAllJetsCal(const std::vector<Double_t> &SelectedJetsBTags)
 Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
 {
     Double_t initB = 0;
@@ -403,8 +402,6 @@ Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
     return initB;
 }
 
-// Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags)
-// Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags)
 Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
 {
     Double_t initB = 1;

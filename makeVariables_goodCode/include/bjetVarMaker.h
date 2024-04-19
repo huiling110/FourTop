@@ -20,9 +20,10 @@ private:
     Double_t bjets_transMass = -99;
     Double_t bjets_minDeltaR = -99.;
     Double_t bjets_2leptons2_stransMass = -99.;
-    Double_t bjets_2stransMass = -99.;
     Double_t bjets_2tau1lep1_stransMass = -99.;
-    Double_t bjets_1tau1_transMass = -99.;
+    Double_t bjets_2MET_stransMass = -99.;
+    Double_t bjets_leptons_minDeltaR = -99.;
+    Double_t bjets_taus_minDeltaR = -99.;
 
 };
 
