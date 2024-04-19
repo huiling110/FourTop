@@ -2,6 +2,8 @@
 #include "correction.h"
 #include <TMatrixDSymEigen.h>
 #include <limits>
+#include "../include/lester_mt2_bisect.h"
+
 #include "../include/variablesFunctions.h"
 #include "../src_cpp/lumiAndCrossSection.h"
 #include "../../myLibrary/commenFunction.h"
@@ -1017,6 +1019,33 @@ void addLorentzVector(const std::vector<ROOT::Math::PtEtaPhiMVector> &a, const s
     out.insert(out.end(), b.begin(), b.end());
     sortByPt(out);
 }
+
+Double_t calculateMT2(const TLorentzVector& visible1, const TLorentzVector& visible2, const TVector2& met) {
+    // Convert TLorentzVector to the format expected by the Mt2 calculator
+    Double_t pa[3] = {visible1.M(), visible1.Px(), visible1.Py()};
+    Double_t pb[3] = {visible2.M(), visible2.Px(), visible2.Py()};
+    Double_t pmiss[2] = {met.Px(), met.Py()};
+
+    // Invisible particle mass hypothesis (e.g., neutrino)
+    Double_t mn = 0.0;
+
+    // Create an instance of the calculator
+    // mt2_bisect::Basic_Mt2_332_Calculator mt2Calculator;
+    // mt2_bisect::Mt2_332 mt2Event(pa, pb, pmiss, mn);
+    // Double_t MT2 = asymm_mt2_lester_bisect::get_mT2(pa, pb, pmiss, mn);
+    Double_t MT2 = asymm_mt2_lester_bisect::get_mT2(
+        visible1.M(), visible1.Px(), visible1.Py(),
+        visible2.M(), visible2.Px(), visible2.Py(),
+        met.Px(), met.Py(),
+        0, 0,
+        0
+    );
+
+    // Calculate and return mT2
+    // return mt2Calculator.mt2_332(mt2Event);
+    return MT2;
+}
+
 
 
 
