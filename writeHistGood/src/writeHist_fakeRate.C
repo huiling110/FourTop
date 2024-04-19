@@ -90,7 +90,7 @@ void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForR
     SP_d jets_5btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5btag", "btag^{5th jet}", m_processName, 40, 0, 1, regionsForVariables, &(e->jets_5btag));
     SP_d jets_6btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6btag", "6th jet btag", m_processName, 40, 0, 1, regionsForVariables, &(e->jets_6btag));
     // SP_d = std::make_shared<histsForRegionsMap<Double_t>>("", 10));
-    SP_d jets_bScoreMultiply_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScoreMultiply", "square root of b score multiplicity", m_processName, 30, 0, 1, regionsForVariables, &(e->jets_bScoreMultiply));
+    // SP_d jets_bScoreMultiply_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScoreMultiply", "square root of b score multiplicity", m_processName, 30, 0, 1, regionsForVariables, &(e->jets_bScoreMultiply));
     SP_d jets_4largestBscoreSum_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4largestBscoreSum", "sum of 4 largest jets b score", m_processName, 30, 0.6,  4, regionsForVariables, &(e->jets_4largestBscoreSum));
     SP_d jets_4largestBscoreMulti_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4largestBscoreMulti", "jets_4largestBscoreMulti", m_processName, 30, 0, 1, regionsForVariables, &(e->jets_4largestBscoreMulti));
 

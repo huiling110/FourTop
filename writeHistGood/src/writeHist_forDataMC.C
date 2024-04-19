@@ -23,9 +23,15 @@ void WH_forDataMC::Init()
     using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
     using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
 
-    std::shared_ptr<histsForRegionsMap<Double_t>> jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 10, 30, 700, regionsForVariables, &(e->jets_1pt));
-    SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
+    SP_d jets_rationHT_4toRest_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_rationHT_4toRest", "HT^{4 leaading jets}/HT^{rest of jets}", m_processName, 10, 0, 12, regionsForVariables, &(e->jets_rationHT_4toRest));
     SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 20, 400, 1800, regionsForVariables, &(e->jets_HT));
+    SP_d jets_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_MHT", "MHT(GeV)", m_processName, 20, 400, 1800, regionsForVariables, &(e->jets_MHT));
+    SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
+    SP_d jets_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_transMass", "m_{T}^{jets}", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_transMass));
+    SP_d jets_avaregeDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_average_deltaR", "average(#Delta R)^{jets}", m_processName, 10, 1.2, 3.2, regionsForVariables, &(e->jets_average_deltaR));
+    // SP_d jets_4largestBscoreMulti_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4largestBscoreMulti", "#sqrt{#prod_{i=4 highest} bscore_{i}^{jet}}", m_processName, 10, 0, 0.3, regionsForVariables, &(e->jets_4largestBscoreMulti));
+
+    SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 40, 25, 700, regionsForVariables, &(e->jets_1pt));
     SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 40, 25, 140, regionsForVariables, &(e->jets_6pt));
     SP_d jets_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2pt", "p_{T}^{2nd jet}(GeV)", m_processName, 40, 25, 600, regionsForVariables, &(e->jets_2pt));
     SP_d jets_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3pt", "p_{T}^{3th jet}(GeV)", m_processName, 40, 25, 140, regionsForVariables, &(e->jets_3pt));
@@ -33,18 +39,12 @@ void WH_forDataMC::Init()
     SP_d jets_5pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5pt", "p_{T}^{5th jet}(GeV)", m_processName, 40, 25, 160, regionsForVariables, &(e->jets_5pt));
     SP_d jets_7pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_7pt", "p_{T}^{7th jet}(GeV)", m_processName, 40, 25, 145, regionsForVariables, &(e->jets_7pt));
 
-    SP_d jets_rationHT_4toRest_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_rationHT_4toRest", "HT^{4 leaading jets}/HT^{rest of jets}", m_processName, 10, 0, 12, regionsForVariables, &(e->jets_rationHT_4toRest));
-    // SP_d jets_leading2invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_leading2invariantMass", "m^{2 leading jets}", m_processName, 10, 100, 1000, regionsForVariables, &(e->jets_leading2invariantMass));
-    SP_d jets_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_transMass", "m_{T}^{jets}", m_processName, 10, 500, 1800, regionsForVariables, &(e->jets_transMass));
-    SP_d jets_avaregeDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_average_deltaR", "average(#Delta R)^{jets}", m_processName, 10, 1.2, 3.2, regionsForVariables, &(e->jets_average_deltaR));
-    // SP_d jets_4largestBscoreMulti_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4largestBscoreMulti", "#sqrt{#prod_{i=4 highest} bscore_{i}^{jet}}", m_processName, 10, 0, 0.3, regionsForVariables, &(e->jets_4largestBscoreMulti));
     SP_d jets_1btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1btag", "btag^{1st jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_1btag));
     SP_d jets_2btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2btag", "btag^{2nd jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_2btag));
     SP_d jets_3btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3btag", " btag^{3rd jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_3btag));
     SP_d jets_4btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4btag", "btag^{4th jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_4btag));
     SP_d jets_5btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5btag", "btag^{5th jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_5btag));
     SP_d jets_6btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6btag", "6th jet btag",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_6btag));
-    // SP_d = std::make_shared<histsForRegionsMap<Double_t>>("", 10));
 
     SP_d MET_pt_class = std::make_shared<histsForRegionsMap<Double_t>>("MET_pt", "MET", m_processName, 10, 0, 500, regionsForVariables, &(e->MET_pt));
     SP_d bjetsM_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_HT", "HT^{b jets}", m_processName, 10, 25, 700, regionsForVariables, &(e->bjetsM_HT));

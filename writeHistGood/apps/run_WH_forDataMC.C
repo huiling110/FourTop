@@ -31,7 +31,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/mc/",//HLT study
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/mc/",//HLT study
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/",
 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/data/",
@@ -75,11 +76,11 @@ void run_treeAnalyzer(
     TStopwatch t;
     t.Start();
 
-    // WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
+    WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
     // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
-    WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
+    // WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
 
     writeHist.Init();
     UInt_t entry = 0;

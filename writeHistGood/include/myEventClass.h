@@ -112,7 +112,6 @@ public:
     myBranch<Int_t> tausM_num{"tausM_num"};
     myBranch<Int_t> tausF_genTauNum{"tausF_genTauNum"};
     myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
-    myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> bjetsPNM_num{"bjetsPNM_num"};
@@ -123,7 +122,6 @@ public:
     myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
     myBranch<Int_t> muonsT_num{"muonsT_num"};
     myBranch<Double_t> muonsT_1pt{"muonsT_1pt"};
-    myBranch<Double_t> jets_HT{"jets_HT"};
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
     myBranch<Double_t> PUweight_{"PUweight_"};
@@ -150,20 +148,23 @@ public:
     myBranch<Double_t> scaleWeightFa_up_{"scaleWeightFa_up_"};
     myBranch<Double_t> scaleWeightFa_down_{"scaleWeightFa_down_"};
 
-    // branches for MVA
-    myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
-    myBranch<Double_t> jets_bScore{"jets_bScore"};
+    myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
-    myBranch<Double_t> jets_1btag{"jets_1btag"};
+    myBranch<Double_t> jets_MHT{"jets_MHT"};
+    myBranch<Double_t> jets_HT{"jets_HT"};
+    myBranch<Double_t> jets_invariantMass{"jets_invariantMass"};
     myBranch<Double_t> jets_transMass{"jets_transMass"};
+    myBranch<Double_t> jets_minDeltaR{"jets_minDeltaR"};
+    myBranch<Double_t> jets_centrality{"jets_centrality"};
+    myBranch<Double_t> jets_bScore{"jets_bScore"};
     myBranch<Double_t> jets_average_deltaR{"jets_average_deltaR"};
-    myBranch<Double_t> bjetsM_invariantMass{"bjetsM_invariantMass"};
-    myBranch<Double_t> bjetsM_minDeltaR{"bjetsM_minDeltaR"};
-    myBranch<Double_t> bjetsM_2pt{"bjetsM_2pt"};
-    myBranch<Double_t> bjetsM_HT{"bjetsM_HT"};
-    myBranch<Double_t> bjetsT_HT{"bjetsT_HT"};
-    myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
-    myBranch<Double_t> tausT_1pt{"tausT_1pt"};
+    myBranch<Double_t> jets_4largestBscoreSum{"jets_4largestBscoreSum"};
+    myBranch<Double_t> jets_4largestBscoreMulti{"jets_4largestBscoreMulti"};
+    myBranch<Double_t> jets_HTDivideMET{"jets_HTDivideMET"};
+    myBranch<Double_t> jets_METDivideHT{"jets_METDivideHT"}; 
+    myBranch<Double_t> jets_sphericity{"jets_sphericity"}; 
+    myBranch<Double_t> jets_aplanarity{"jets_aplanarity"};
+    myBranch<Double_t> jets_tausT_invariantMass{"jets_tausT_invariantMass"};
     myBranch<Double_t> jets_1pt{"jets_1pt"};
     myBranch<Double_t> jets_2pt{"jets_2pt"};
     myBranch<Double_t> jets_3pt{"jets_3pt"};
@@ -171,18 +172,20 @@ public:
     myBranch<Double_t> jets_5pt{"jets_5pt"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
     myBranch<Double_t> jets_7pt{"jets_7pt"};
-    // myBranch<Double_t> jets_leading2invariantMass{"jets_leading2invariantMass"};//not in tree
-    // myBranch<Double_t> jets_4largestBscoreMulti{"jets_4largestBscoreMulti"};
+    myBranch<Double_t> jets_1btag{"jets_1btag"};
     myBranch<Double_t> jets_2btag{"jets_2btag"};
     myBranch<Double_t> jets_3btag{"jets_3btag"};
     myBranch<Double_t> jets_4btag{"jets_4btag"};
     myBranch<Double_t> jets_5btag{"jets_5btag"};
     myBranch<Double_t> jets_6btag{"jets_6btag"};
-    myBranch<Double_t> jets_bScoreMultiply{"jets_bScoreMultiply"};
-    myBranch<Double_t> jets_4largestBscoreSum{"jets_4largestBscoreSum"};
-    myBranch<Double_t> jets_4largestBscoreMulti{"jets_4largestBscoreMulti"};
 
     myBranch<Double_t> MET_pt{"MET_pt"};
+
+    myBranch<Double_t> bjetsM_invariantMass{"bjetsM_invariantMass"};
+    myBranch<Double_t> bjetsM_minDeltaR{"bjetsM_minDeltaR"};
+    myBranch<Double_t> bjetsM_2pt{"bjetsM_2pt"};
+    myBranch<Double_t> bjetsM_HT{"bjetsM_HT"};
+    myBranch<Double_t> bjetsT_HT{"bjetsT_HT"};
     myBranch<Double_t> bjetsM_MHT{"bjetsM_MHT"};
     myBranch<Double_t> bjetsM_1pt{"bjetsM_1pt"};
     myBranch<Double_t> tausT_1eta{"tausT_1eta"};
@@ -191,7 +194,6 @@ public:
     myBranch<Double_t> tausT_MHT{"tausT_MHT"};
     myBranch<Double_t> muonsTopMVAT_1pt{"muonsTopMVAT_1pt"};
     myBranch<Double_t> elesTopMVAT_1pt{"elesTopMVAT_1pt"};
-    // myBranch<Double_t>{""};
 
     // branches for fakeTau;
     myBranch<Int_t> tausF_prongNum{"tausF_prongNum"};
@@ -213,6 +215,9 @@ public:
     myBranch<Int_t> tausTTT_1lepton1_charge{"tausTTT_1lepton1_charge"};
     myBranch<Int_t> tausT_1lepton1_charge{"tausT_1lepton1_charge"};
     myBranch<Int_t> tausM_1lepton1_charge{"tausM_1lepton1_charge"};
+    myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
+    myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
+    myBranch<Double_t> tausT_1pt{"tausT_1pt"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -289,7 +294,6 @@ private:
         {tausM_num.n(), &tausM_num},
         {tausF_genTauNum.n(), &tausF_genTauNum},
         {tausT_genTauNum.n(), &tausT_genTauNum},
-        {jets_num.n(), &jets_num},
         {bjetsM_num.n(), &bjetsM_num},
         {bjetsT_num.n(), &bjetsT_num},
         {bjetsPNM_num.n(), &bjetsPNM_num},
@@ -301,8 +305,6 @@ private:
         {muonsT_num.n(), &muonsT_num},
         {muonsT_1pt.n(), &muonsT_1pt},
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
-        {jets_HT.n(), &jets_HT},
-        {jets_6pt.n(), &jets_6pt},
         {EVENT_genWeight.n(), &EVENT_genWeight},
         {EVENT_prefireWeight.n(), &EVENT_prefireWeight},
         {PUweight_.n(), &PUweight_},
@@ -329,11 +331,39 @@ private:
         {scaleWeightFa_up_.n(), &scaleWeightFa_up_},
         {scaleWeightFa_down_.n(), &scaleWeightFa_down_},
 
-        {jets_bScore.n(), &jets_bScore},
-        {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
-        {jets_1btag.n(), &jets_1btag},
-        {jets_transMass.n(), &jets_transMass},
-        {jets_average_deltaR.n(), &jets_average_deltaR},
+    {jets_num.n(), &jets_num},
+    {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
+    {jets_MHT.n(), &jets_MHT},
+    {jets_HT.n(), &jets_HT},
+    {jets_invariantMass.n(), &jets_invariantMass},
+    {jets_transMass.n(), &jets_transMass},
+    {jets_minDeltaR.n(), &jets_minDeltaR},
+    {jets_centrality.n(), &jets_centrality},
+    {jets_bScore.n(), &jets_bScore},
+    {jets_average_deltaR.n(), &jets_average_deltaR},
+    {jets_4largestBscoreSum.n(), &jets_4largestBscoreSum},
+    {jets_4largestBscoreMulti.n(), &jets_4largestBscoreMulti},
+    {jets_HTDivideMET.n(), &jets_HTDivideMET},
+    {jets_METDivideHT.n(), &jets_METDivideHT}, 
+    {jets_sphericity.n(), &jets_sphericity}, 
+    {jets_aplanarity.n(), &jets_aplanarity},
+    {jets_tausT_invariantMass.n(), &jets_tausT_invariantMass},
+    {jets_1pt.n(), &jets_1pt},
+    {jets_2pt.n(), &jets_2pt},
+    {jets_3pt.n(), &jets_3pt},
+    {jets_4pt.n(), &jets_4pt},
+    {jets_5pt.n(), &jets_5pt},
+    {jets_6pt.n(), &jets_6pt},
+    {jets_7pt.n(), &jets_7pt},
+    {jets_1btag.n(), &jets_1btag},
+    {jets_2btag.n(), &jets_2btag},
+    {jets_3btag.n(), &jets_3btag},
+    {jets_4btag.n(), &jets_4btag},
+    {jets_5btag.n(), &jets_5btag},
+    {jets_6btag.n(), &jets_6btag},
+
+        {MET_pt.n(), &MET_pt},
+
         {bjetsM_invariantMass.n(), &bjetsM_invariantMass},
         {bjetsM_minDeltaR.n(), &bjetsM_minDeltaR},
         {bjetsM_2pt.n(), &bjetsM_2pt},
@@ -341,26 +371,9 @@ private:
         {bjetsT_HT.n(), &bjetsT_HT},
         {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
         {tausT_1pt.n(), &tausT_1pt},
-        {jets_1pt.n(), &jets_1pt},
-        {jets_2pt.n(), &jets_2pt},
-        {jets_3pt.n(), &jets_3pt},
-        {jets_4pt.n(), &jets_4pt},
-        {jets_5pt.n(), &jets_5pt},
-        {jets_6pt.n(), &jets_6pt},
-        {jets_7pt.n(), &jets_7pt},
-        // {jets_leading2invariantMass.n(), &jets_leading2invariantMass},
-        // {jets_4largestBscoreMulti.n(), &jets_4largestBscoreMulti},
-        {jets_2btag.n(), &jets_2btag},
-        {jets_3btag.n(), &jets_3btag},
-        {jets_4btag.n(), &jets_4btag},
-        {jets_5btag.n(), &jets_5btag},
-        {jets_6btag.n(), &jets_6btag},
-        {jets_bScoreMultiply.n(), &jets_bScoreMultiply},
-        {jets_4largestBscoreSum.n(), &jets_4largestBscoreSum},
-        {jets_4largestBscoreMulti.n(), &jets_4largestBscoreMulti},
-        {MET_pt.n(), &MET_pt},
         {bjetsM_MHT.n(), &bjetsM_MHT},
         {bjetsM_1pt.n(), &bjetsM_1pt},
+
         {tausT_1eta.n(), &tausT_1eta},
         {tausT_1phi.n(), &tausT_1phi},
         {tausT_HT.n(), &tausT_HT},
