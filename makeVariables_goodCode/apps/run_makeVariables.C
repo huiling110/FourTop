@@ -82,9 +82,9 @@ void run_objectSelection(
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
-    // mv.EventLoop(kTRUE,kTRUE, numEntries); //1tau1l cut
+    mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut
     // mv.EventLoop(kTRUE, kFALSE, numEntries);
-    mv.EventLoop(baseline, kFALSE, numEntries);
+    // mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
