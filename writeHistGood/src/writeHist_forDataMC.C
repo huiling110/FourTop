@@ -68,6 +68,22 @@ void WH_forDataMC::Init()
     SP_d bjetsM_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_2pt", "p_{T}^{2nd bjet}", m_processName, 10, 25, 500, regionsForVariables, &(e->bjetsM_2pt));//!!need to create in MV 
     SP_d bjetsM_taus_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_taus_minDeltaR", "min(#Delta R_{b jets and #tau})", m_processName, 10, 0, 5, regionsForVariables, &(e->bjetsM_taus_minDeltaR));
 
+    SP_d bjetsT_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_HT", "HT^{b jets}", m_processName, 10, 25, 700, regionsForVariables, &(e->bjetsT_HT));
+    SP_d bjetsT_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_MHT", "MHT^{b jets}", m_processName, 10, 25, 700, regionsForVariables, &(e->bjetsT_HT));
+    SP_d bjetsT_invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_invariantMass", "m^{b jets}", m_processName, 10, 0, 1000, regionsForVariables, &(e->bjetsT_invariantMass));
+    SP_d bjetsT_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_transMass", "m_{T}^{b jets}", m_processName, 10, 0, 1000, regionsForVariables, &(e->bjetsT_transMass));
+    SP_d bjetsT_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_minDeltaR", "min(#Delta R_{b jets})", m_processName, 6, 0, 5, regionsForVariables, &(e->bjetsT_minDeltaR));
+    SP_d bjetsT_2leptons2_stransMass_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_2leptons2_stransMass", "m_{T2}^{2 leptons and 2 b jets}", m_processName, 10, 0, 1000, regionsForVariables, &(e->bjetsT_2leptons2_stransMass));
+    SP_d bjetsT_2tau1lep1_stransMass_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_2tau1lep1_stransMass", "m_{T2}^{#tau and lep and 2 b jets}", m_processName, 10, 0, 1000, regionsForVariables, &(e->bjetsT_2tau1lep1_stransMass));
+    SP_d bjetsT_2MET_stransMass_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_2MET_stransMass", "m_{T2}^{MET and 2 b jets}", m_processName, 10, 0, 1000, regionsForVariables, &(e->bjetsT_2MET_stransMass));
+    SP_d bjetsT_leptons_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_lepptons_minDeltaR", "min(#Delta R_{b jets and lep})", m_processName, 10, 0, 5, regionsForVariables, &(e->bjetsT_leptons_minDeltaR));
+    SP_d bjetsT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_1pt", "p_{T}^{1st bjet}", m_processName, 10, 25, 600, regionsForVariables, &(e->bjetsT_1pt));
+    SP_d bjetsT_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_2pt", "p_{T}^{2nd bjet}", m_processName, 10, 25, 500, regionsForVariables, &(e->bjetsT_2pt));//!!need to create in MV 
+    SP_d bjetsT_taus_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_taus_minDeltaR", "min(#Delta R_{b jets and #tau})", m_processName, 10, 0, 5, regionsForVariables, &(e->bjetsT_taus_minDeltaR));
+
+
+
+
     SP_d tausT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1pt", "p_{T}^{1st #tau}", m_processName, 10, 20, 200, regionsForVariables, &(e->tausT_1pt));
     SP_d tausT_1eta_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1eta", "#eta_{#tau}", m_processName, 10, 0, 3, regionsForVariables, &(e->tausT_1eta));
     SP_d tausT_1phi_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1phi", "#phi_{#tau}", m_processName, 10, 0, 3, regionsForVariables, &(e->tausT_1phi));
@@ -137,6 +153,7 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(jets_6btag_class);
 
     histsForRegion_vec.push_back(MET_pt_class);
+
     histsForRegion_vec.push_back(bjetsM_HT_class);
     histsForRegion_vec.push_back(bjetsM_MHT_class);
     histsForRegion_vec.push_back(bjetsM_invariantMass_class);
@@ -149,6 +166,17 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(bjetsM_2MET_stransMass_class);
     histsForRegion_vec.push_back(bjetsM_leptons_minDeltaR_class);
  
+    histsForRegion_vec.push_back(bjetsT_HT_class);
+    histsForRegion_vec.push_back(bjetsT_MHT_class);
+    histsForRegion_vec.push_back(bjetsT_invariantMass_class);
+    histsForRegion_vec.push_back(bjetsT_1pt_class);
+    histsForRegion_vec.push_back(bjetsT_2pt_class);
+    histsForRegion_vec.push_back(bjetsT_minDeltaR_class);
+    histsForRegion_vec.push_back(bjetsT_transMass_class);
+    histsForRegion_vec.push_back(bjetsT_2leptons2_stransMass_class);
+    histsForRegion_vec.push_back(bjetsT_2tau1lep1_stransMass_class);
+    histsForRegion_vec.push_back(bjetsT_2MET_stransMass_class);
+    histsForRegion_vec.push_back(bjetsT_leptons_minDeltaR_class);
 
     histsForRegion_vec.push_back(tausT_1pt_class);
     histsForRegion_vec.push_back(tausT_1eta_class);
