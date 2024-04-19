@@ -42,7 +42,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         tauMVarMaker.makeVariables(e, leptonsMVAT);
 
         // jet
-        jetVarMaker.makeVariables(e);
+        jetVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs());
         //bjet variables
         bjetMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
         bjetLVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);

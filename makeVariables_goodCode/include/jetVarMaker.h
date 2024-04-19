@@ -8,7 +8,7 @@ class JetVarMaker : public ObjVarMaker
 public:
     JetVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~JetVarMaker();
-    void makeVariables(const EventForMV *e);
+    void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
     Double_t getHT();
@@ -23,14 +23,13 @@ private:
     Double_t jets_invariantMass = -99;
     Double_t jets_transMass = -99;
     Double_t jets_minDeltaR = -99;
+    Double_t jets_centrality = -99;
     Double_t jets_bScore = -99;
-    Double_t jets_bScoreMultiply = -99;
     Double_t jets_average_deltaR = -99;
     Double_t jets_4largestBscoreSum = -99;
     Double_t jets_4largestBscoreMulti = -99;
-    Double_t jets_HTDividedByMet = -99;
-    Double_t jets_MetDividedByHT = -99;
-    Double_t jets_MHTDividedByMet = -99;
+    Double_t jets_METDivideHT = -99;
+    Double_t jets_HTDivideMET = -99;
     Double_t jets_sphericity = - 99.;
     Double_t jets_aplanarity = -99.0;
 

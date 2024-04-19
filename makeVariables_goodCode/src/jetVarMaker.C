@@ -14,14 +14,13 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_invariantMass", &jets_invariantMass);
     outTree->Branch(objName + "_transMass", &jets_transMass);
     outTree->Branch(objName + "_minDeltaR", &jets_minDeltaR);
+    outTree->Branch(objName + "_centrality", &jets_centrality);
     outTree->Branch(objName + "_bScore", &jets_bScore);
-    outTree->Branch(objName + "_bScoreMultiply", &jets_bScoreMultiply);
     outTree->Branch(objName + "_average_deltaR", &jets_average_deltaR);
     outTree->Branch(objName + "_4largestBscoreSum", &jets_4largestBscoreSum);
-    outTree->Branch(objName + "_4largestBscoreMulti);", &jets_4largestBscoreMulti);
-    outTree->Branch(objName + "_HTDividedByMet);", &jets_HTDividedByMet);
-    outTree->Branch(objName + "_MetDividedByHT", &jets_MetDividedByHT);
-    outTree->Branch(objName + "_MHTDividedByMet);", &jets_MHTDividedByMet);
+    outTree->Branch(objName + "_4largestBscoreMulti", &jets_4largestBscoreMulti);
+    outTree->Branch(objName + "_HTDivideMET", &jets_HTDivideMET);
+    outTree->Branch(objName + "_METDivideHT", &jets_METDivideHT);
     outTree->Branch(objName + "_sphericity", &jets_sphericity);
     outTree->Branch(objName + "_aplanarity", &jets_aplanarity);
     outTree->Branch(objName + "_1btag", &jets_1btag);
@@ -59,7 +58,6 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_9phi", &jets_9phi);
 
     outTree->Branch(objName + "_leptonsMVAT_minDeltaR);", &jets_leptonsMVAT_minDeltaR);
-    outTree->Branch(objName + "_tausF_minDeltaR", &jets_tausF_minDeltaR);
     outTree->Branch(objName + "_tausT_minDeltaR", &jets_tausT_minDeltaR);
     outTree->Branch(objName + "_tausT_invariantMass", &jets_tausT_invariantMass);
 
@@ -67,7 +65,7 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     std::cout << "\n";
 };
 
-void JetVarMaker::makeVariables(const EventForMV *e)
+void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
@@ -85,8 +83,7 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_invariantMass = InvariantMassCalculator(objsLorentz);
     jets_transMass = TransMassCal(objsLorentz);
     jets_minDeltaR = MinDeltaRSingleCal(objsLorentz);
-    // jets_centrality = jets_HT / jets_invariantMass;
-    // jets_bScoreMultiply = bScoreMultiCal(jets_btags);
+    jets_centrality = jets_HT / jets_invariantMass;
     jets_average_deltaR = AverageDeltaRCal(objsLorentz);
 
     jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);//!!!code needs to be reconstructed 
@@ -94,30 +91,16 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
     jets_rationHT_4toRest = rationHT_4toRestCal(objsLorentz);
 
-    // jets_sphericity = calculateSphericity(objsLorentz);
     // It provides a measure of how much an event is confined to a plane, with higher values indicating events that are more isotropic (spread out in all directions) and lower values suggesting events that are planar or two-dimensional. Aplanarity is derived from the sphericity tensor, similar to the sphericity calculation.
     TVectorD eigenValues = calculateEigenvalues(objsLorentz);
     jets_sphericity = calculateSphericityFromEigenvalues(eigenValues);
     jets_aplanarity = calculateAplanarityFromEigenvalues(eigenValues);
 
-    //!!! todo later
-    // if (*MET_pt_ == 0)
-    // {
-    //     jets_HTDividedByMet = 0;
-    // }
-    // else
-    // {
-    //     jets_HTDividedByMet = jets_HT / *MET_pt_;
-    // }
-    // MetDividedByHT = *MET_pt_ / jets_HT;
-    // jets_MHTDividedByMet = jets_MHT / *MET_pt_;
-    // std::vector<ROOT::Math::PtEtaPhiMVector> = {e->}
+    jets_METDivideHT = *e->MET_pt_ / jets_HT;
+    jets_HTDivideMET = jets_MHT / *e->MET_pt_;
     // jets_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
-    // jets_tausF_minDeltaR = MinDeltaRCal(jets, tausF);
     // jets_tausT_minDeltaR = MinDeltaRCal(jets, tausT);
-    // jets_tausT_invariantMass = InvariantMass2SysCal(jets, tausT);
-
-    //    // aplanarity and sphericity
+    jets_tausT_invariantMass = InvariantMass2SysCal(objsLorentz, taus);
 
     if(muons_num>1 && m_type==0){
         jets_1btag = e->jets_btags.At(0);
@@ -170,14 +153,13 @@ void JetVarMaker::clearBranch()
     jets_invariantMass = -99;
     jets_transMass = -99;
     jets_minDeltaR = -99;
+    jets_centrality = -99.;
     jets_bScore = -99;
-    jets_bScoreMultiply = -99;
     jets_average_deltaR = -99;
     jets_4largestBscoreSum = -99;
     jets_4largestBscoreMulti = -99;
-    jets_HTDividedByMet = -99;
-    jets_MetDividedByHT = -99;
-    jets_MHTDividedByMet = -99;
+    jets_HTDivideMET = -99;
+    jets_METDivideHT = -99;
     jets_sphericity = -99.;
     jets_aplanarity = -99.0;
     jets_1btag = -99.0;
@@ -215,7 +197,6 @@ void JetVarMaker::clearBranch()
     jets_9phi = -99.0;
 
     jets_leptonsMVAT_minDeltaR = -99;
-    jets_tausF_minDeltaR = -99;
     jets_tausT_minDeltaR = -99.0;
     jets_tausT_invariantMass = -99.0;
 }
