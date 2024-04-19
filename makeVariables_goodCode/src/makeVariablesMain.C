@@ -41,14 +41,16 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         tauTTTVarMaker.makeVariables(e, leptonsMVAT);
         tauMVarMaker.makeVariables(e, leptonsMVAT);
 
+        // std::vector<ROOT::Math::PtEtaPhiMVector> taus
         // jet
         jetVarMaker.makeVariables(e);
-        bjetMVarMaker.makeVariables(e);
-        bjetLVarMaker.makeVariables(e);
-        bjetTVarMaker.makeVariables(e);
-        bjetPNMVarMaker.makeVariables(e);
-        bjetPTMVarMaker.makeVariables(e);
-        bjetPTTVarMaker.makeVariables(e);
+        //bjet variables
+        bjetMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
+        bjetLVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
+        bjetTVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
+        bjetPNMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
+        bjetPTMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
+        bjetPTTVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
 
         // baseline selection
         Int_t bjetM_num = m_isRun3? bjetPTMVarMaker.getJet_num(): bjetMVarMaker.getJet_num();

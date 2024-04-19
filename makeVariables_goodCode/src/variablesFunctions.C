@@ -1032,14 +1032,3 @@ Double_t calculateMT2(const ROOT::Math::PtEtaPhiMVector& visible1, const ROOT::M
     return MT2;
 }
 
-
-
-
-// void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std::vector<Double_t> &vec)
-// {
-//     vec.clear();
-//     for (UInt_t i = 0; i < array.GetSize(); i++)
-//     {
-//         vec.push_back(array.At(i));
-//     }
-// };

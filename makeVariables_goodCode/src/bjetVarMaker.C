@@ -13,6 +13,8 @@ BjetVarMaker::BjetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVar
     outTree->Branch(objName + "_transMass", &bjets_transMass);
     outTree->Branch(objName + "_minDeltaR", &bjets_minDeltaR);
 
+    outTree->Branch(objName + "_2leptons2_stransMass", &bjets_2leptons2_stransMass);
+
     std::cout << "Done initilization........\n";
     std::cout << "\n";
 };
@@ -46,7 +48,7 @@ void BjetVarMaker::setupLorentzObjs(const EventForMV *e)
         }
 }
 
-void BjetVarMaker::makeVariables(const EventForMV *e)
+void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &taus)
 {
     ObjVarMaker::reportEntry("BjetVarMaker::makeVariables()");
     clearBranch();
@@ -58,6 +60,14 @@ void BjetVarMaker::makeVariables(const EventForMV *e)
     bjets_invariantMass = InvariantMassCalculator(objsLorentz);
     bjets_transMass = TransMassCal(objsLorentz);
     bjets_minDeltaR = MinDeltaRSingleCal(objsLorentz);
+
+    if(objsLorentz.size()>1 && leptons.size()>1){
+        ROOT::Math::PtEtaPhiMVector bjets2 = objsLorentz.at(0) + objsLorentz.at(1);
+        ROOT::Math::PtEtaPhiMVector leptons2 = leptons.at(0) + leptons.at(1);
+        bjets_2leptons2_stransMass = calculateMT2(bjets2, leptons2, *e->MET_pt_, *e->MET_phi_);
+    }
+    // bjets_2taus1lepton1_stransMass = 
+    // bjets_1taus1_transMass = 
 };
 
 void BjetVarMaker::clearBranch()
@@ -68,6 +78,8 @@ void BjetVarMaker::clearBranch()
     bjets_invariantMass = -99;
     bjets_transMass = -99;
     bjets_minDeltaR = -99.;
+
+    bjets_2leptons2_stransMass = -99.;
 };
 
 Int_t BjetVarMaker::getJet_num()
