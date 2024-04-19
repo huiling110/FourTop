@@ -488,6 +488,51 @@ Int_t chargeMulCalNew(const TTreeReaderArray<Int_t>& taus_charge, const TTreeRea
     return charge;
 };
 
+Double_t calculateSphericity(const std::vector<TLorentzVector>& particles) {
+    // Initialize the momentum tensor
+    TMatrixDSym S_ij(3);
+    Double_t pSum2 = 0.0;
+
+    // Fill the momentum tensor
+    for (const auto& p : particles) {
+        Double_t px = p.Px();
+        Double_t py = p.Py();
+        Double_t pz = p.Pz();
+        Double_t p2 = px*px + py*py + pz*pz;
+        pSum2 += p2;
+
+        S_ij(0,0) += px*px;
+        S_ij(0,1) += px*py;
+        S_ij(0,2) += px*pz;
+        S_ij(1,0) += py*px;
+        S_ij(1,1) += py*py;
+        S_ij(1,2) += py*pz;
+        S_ij(2,0) += pz*px;
+        S_ij(2,1) += pz*py;
+        S_ij(2,2) += pz*pz;
+    }
+
+    if (pSum2 > 0) {
+        // Normalize the momentum tensor
+        S_ij *= (1.0 / pSum2);
+
+        // Find the eigenvalues of the normalized tensor
+        TVectorD eigenValues(3);
+        S_ij.EigenVectors(eigenValues);
+
+        // Sphericity calculation
+        Double_t sphericity = 1.5 * (eigenValues(1) + eigenValues(2)); // λ2 + λ3, since λ1 ≥ λ2 ≥ λ3 by convention
+        return sphericity;
+    }
+
+    return 0.0; // Return 0 if there are no particles or all particles have no momentum
+}
+
+
+
+
+
+
 /*
 void SpheriltyAplanarityCal(const TTreeReaderArray<ROOT::Math::PtEtaPhiMVector> &SelectedJets, Double_t &Spher, Double_t &Apla)
 {

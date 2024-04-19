@@ -42,9 +42,6 @@ private:
     Double_t jets_7btag = -99.0;
     Double_t jets_8btag = -99.0;//???what the fuck? I can not add a variable?
     Double_t jets_9btag = -99.0;
-    Double_t jets_10btag = -99.0;
-    Double_t jets_11btag = -99.0;
-    Double_t jets_12btag = -99.0;
     Double_t jets_2pt = -99.0;
     Double_t jets_2eta = -99.0;
     Double_t jets_2phi = -99.0;
@@ -69,15 +66,6 @@ private:
     Double_t jets_9pt = -99.0;
     Double_t jets_9eta = -99.0;
     Double_t jets_9phi = -99.0;
-    Double_t jets_10pt = -99.0;
-    Double_t jets_10eta = -99.0;
-    Double_t jets_10phi = -99.0;
-    Double_t jets_11pt = -99.0;
-    Double_t jets_11eta = -99.0;
-    Double_t jets_11phi = -99.0;
-    Double_t jets_12pt = -99.0;
-    Double_t jets_12eta = -99.0;
-    Double_t jets_12phi = -99.0;
 
     Double_t jets_leptonsMVAT_minDeltaR = -99;
     Double_t jets_tausF_minDeltaR = -99;

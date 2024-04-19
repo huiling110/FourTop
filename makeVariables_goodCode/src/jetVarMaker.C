@@ -33,9 +33,6 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_7btag", &jets_7btag);
     outTree->Branch(objName + "_8btag", &jets_8btag);
     outTree->Branch(objName + "_9btag", &jets_9btag);
-    outTree->Branch(objName + "_10btag", &jets_10btag);
-    outTree->Branch(objName + "_11btag", &jets_11btag);
-    outTree->Branch(objName + "_12btag", &jets_12btag);
     outTree->Branch(objName + "_2pt", &jets_2pt);
     outTree->Branch(objName + "_2eta", &jets_2eta);
     outTree->Branch(objName + "_2phi", &jets_2phi);
@@ -60,15 +57,6 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_9pt", &jets_9pt);
     outTree->Branch(objName + "_9eta", &jets_9eta);
     outTree->Branch(objName + "_9phi", &jets_9phi);
-    outTree->Branch(objName + "_pt", &jets_10pt);
-    outTree->Branch(objName + "_eta", &jets_10eta);
-    outTree->Branch(objName + "_phi", &jets_10phi);
-    outTree->Branch(objName + "_11pt", &jets_11pt);
-    outTree->Branch(objName + "_11eta", &jets_11eta);
-    outTree->Branch(objName + "_11phi", &jets_11phi);
-    outTree->Branch(objName + "_12pt", &jets_12pt);
-    outTree->Branch(objName + "_12eta", &jets_12eta);
-    outTree->Branch(objName + "_12phi", &jets_12phi);
 
     outTree->Branch(objName + "_leptonsMVAT_minDeltaR);", &jets_leptonsMVAT_minDeltaR);
     outTree->Branch(objName + "_tausF_minDeltaR", &jets_tausF_minDeltaR);
@@ -139,9 +127,6 @@ void JetVarMaker::makeVariables(const EventForMV *e)
     getJetLeadingVars(e, 6, jets_7pt, jets_7eta, jets_7phi, jets_7btag);
     getJetLeadingVars(e, 7, jets_8pt, jets_8eta, jets_8phi, jets_8btag);
     getJetLeadingVars(e, 8, jets_9pt, jets_9eta, jets_9phi, jets_9btag);
-    getJetLeadingVars(e, 9, jets_10pt, jets_10eta, jets_10phi, jets_10btag);
-    getJetLeadingVars(e, 10, jets_11pt, jets_11eta, jets_11phi, jets_11btag);
-    getJetLeadingVars(e, 11, jets_12pt, jets_12eta, jets_12phi, jets_12btag);
 
 }
 
@@ -201,9 +186,6 @@ void JetVarMaker::clearBranch()
     jets_7btag = -99.0;
     jets_8btag = -99.0;
     jets_9btag = -99.0;
-    jets_10btag = -99.0;
-    jets_11btag = -99.0;
-    jets_12btag = -99.0;
     jets_2pt = -99.0;
     jets_2eta = -99.0;
     jets_2phi = -99.0;
@@ -228,15 +210,6 @@ void JetVarMaker::clearBranch()
     jets_9pt = -99.0;
     jets_9eta = -99.0;
     jets_9phi = -99.0;
-    jets_10pt = -99.0;
-    jets_10eta = -99.0;
-    jets_10phi = -99.0;
-    jets_11pt = -99.0;
-    jets_11eta = -99.0;
-    jets_11phi = -99.0;
-    jets_12pt = -99.0;
-    jets_12eta = -99.0;
-    jets_12phi = -99.0;
 
     jets_leptonsMVAT_minDeltaR = -99;
     jets_tausF_minDeltaR = -99;
