@@ -107,18 +107,12 @@ public:
         return a;
     };
     // branches for selection and weight
-    myBranch<Int_t> tausT_num{"tausT_num"};
-    myBranch<Int_t> tausTT_num{"tausTT_num"};
-    myBranch<Int_t> tausM_num{"tausM_num"};
-    myBranch<Int_t> tausF_genTauNum{"tausF_genTauNum"};
-    myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
-
-
     myBranch<Int_t> elesTopMVAT_num{"elesTopMVAT_num"};
     myBranch<Int_t> muonsTopMVAT_num{"muonsTopMVAT_num"};
     myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
     myBranch<Int_t> muonsT_num{"muonsT_num"};
     myBranch<Double_t> muonsT_1pt{"muonsT_1pt"};
+
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
     myBranch<Double_t> PUweight_{"PUweight_"};
@@ -211,11 +205,23 @@ public:
     myBranch<Double_t> bjetsT_2pt{"bjetsT_2pt"};
 
 
+    myBranch<Int_t> tausT_num{"tausT_num"};
+    myBranch<Int_t> tausTT_num{"tausTT_num"};
+    myBranch<Int_t> tausM_num{"tausM_num"};
+    myBranch<Int_t> tausF_genTauNum{"tausF_genTauNum"};
+    myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
 
-    myBranch<Double_t> tausT_1eta{"tausT_1eta"};
-    myBranch<Double_t> tausT_1phi{"tausT_1phi"};
     myBranch<Double_t> tausT_HT{"tausT_HT"};
     myBranch<Double_t> tausT_MHT{"tausT_MHT"};
+    myBranch<Double_t> tausT_1lepton1_deltaR{"tausT_1lepton1_deltaR"};
+    myBranch<Double_t> tausT_1Met_transMass{"tausT_1Met_transMass"};
+    myBranch<Double_t> tausT_1lepton1Met1_stransMass{"tausT_1lepton1Met1_stransMass"};
+    myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
+
+    myBranch<Double_t> tausT_1pt{"tausT_1pt"};
+    myBranch<Double_t> tausT_1eta{"tausT_1eta"};
+    myBranch<Double_t> tausT_1phi{"tausT_1phi"};
+
     myBranch<Double_t> muonsTopMVAT_1pt{"muonsTopMVAT_1pt"};
     myBranch<Double_t> elesTopMVAT_1pt{"elesTopMVAT_1pt"};
 
@@ -240,8 +246,6 @@ public:
     myBranch<Int_t> tausT_1lepton1_charge{"tausT_1lepton1_charge"};
     myBranch<Int_t> tausM_1lepton1_charge{"tausM_1lepton1_charge"};
     myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
-    myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
-    myBranch<Double_t> tausT_1pt{"tausT_1pt"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -419,7 +423,11 @@ private:
         {tausT_1phi.n(), &tausT_1phi},
         {tausT_HT.n(), &tausT_HT},
         {tausT_MHT.n(), &tausT_MHT},
+        {tausT_1lepton1_deltaR.n(), &tausT_1lepton1_deltaR},
+        {tausT_1Met_transMass.n(), &tausT_1Met_transMass},
+        {tausT_1lepton1Met1_stransMass.n(), &tausT_1lepton1Met1_stransMass},
         {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
+
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
 

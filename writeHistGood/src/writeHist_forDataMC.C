@@ -90,6 +90,10 @@ void WH_forDataMC::Init()
     SP_d tausT_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_HT", "HT_{#tau}(GeV)", m_processName, 10, 25, 300, regionsForVariables, &(e->tausT_HT));
     SP_d tausT_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_MHT", "MHT_{#tau}(GeV)", m_processName, 10, 25, 300, regionsForVariables, &(e->tausT_MHT));
     SP_d tausT_leptonsT_invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_leptonsT_invariantMass", "m_{#tau and lep}(GeV)", m_processName, 10, 0, 500, regionsForVariables, &(e->tausT_leptonsT_invariantMass));
+    SP_d tausT_1lepton1_deltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1lepton1_deltaR", "#Delta R_{#tau and lep}", m_processName, 10, 0, 5, regionsForVariables, &(e->tausT_1lepton1_deltaR));
+    SP_d tausT_1Met_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1Met_transMass", "m_{T}^{#tau and MET}", m_processName, 10, 0, 500, regionsForVariables, &(e->tausT_1Met_transMass));
+    SP_d tausT_1lepton1Met1_stransMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1lepton1Met1_stransMass", "m_{T2}^{#tau and lep and MET}", m_processName, 10, 0, 500, regionsForVariables, &(e->tausT_1lepton1Met1_stransMass));
+
     SP_d tausF_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1pt", "p_{T}^{1st fakeble#tau}", m_processName, 10, 20, 200, regionsForVariables, &(e->tausF_1pt));
     SP_d tausTT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("tausTT_1pt", "p_{T}^{1st TT#tau}", m_processName, 10, 20, 200, regionsForVariables, &(e->tausTT_1pt));
 
@@ -184,12 +188,15 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(tausT_HT_class);
     histsForRegion_vec.push_back(tausT_MHT_class);
     histsForRegion_vec.push_back(tausT_leptonsT_invariantMass_class);
+    histsForRegion_vec.push_back(tausT_1lepton1_deltaR_class);
+    histsForRegion_vec.push_back(tausT_1Met_transMass_class);
+    histsForRegion_vec.push_back(tausT_1lepton1Met1_stransMass_class);
     histsForRegion_vec.push_back(tausF_1pt_class);
     histsForRegion_vec.push_back(tausTT_1pt_class);
+
     histsForRegion_vec.push_back(muonsTopMVAT_1t_class);
     histsForRegion_vec.push_back(elesTopMVAT_1pt_class);
     // histsForRegion_vec.push_back();
-
 
     histsForRegion_vec.push_back(bjetsM_num_class);
     histsForRegion_vec.push_back(bjetsT_num_class);
