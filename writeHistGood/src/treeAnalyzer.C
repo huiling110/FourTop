@@ -69,7 +69,6 @@ void treeAnalyzer::Init()
     };
 
 
-    // if(m_channel==0){
     if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
         // binning[] = {0.28, -0.1, -0.08, -0.06, -0.04, -0.02, 0., 0.02, 0.04, 0, 07, 0.1, 0.15, 0, 4};//!!!trials for later

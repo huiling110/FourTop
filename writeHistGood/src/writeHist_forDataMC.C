@@ -11,7 +11,7 @@
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 #include "../include/commenSelectionAndWeight.h"
-#include "../include/histsForRegionsMap_value.h"
+// #include "../include/histsForRegionsMap_value.h"
 
 void WH_forDataMC::Init()
 {
@@ -222,9 +222,12 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(tausM_1lepton1_charge_class);
 
     //try BDT score here
-    Double_t* BDTpointer = &m_BDTScore;
-    std::shared_ptr<histsForRegionsValue> BDTScore_class = std::make_shared<histsForRegionsValue>("BDTScore", "BDT score", m_processName, 4, -0.3, 0.4, regionsForVariables, BDTpointer);
-    histsForRegion_vec.push_back(BDTScore_class);
+    // Double_t* BDTpointer = &m_BDTScore;
+    // std::shared_ptr<histsForRegionsValue> BDTScore_class = std::make_shared<histsForRegionsValue>("BDTScore", "BDT score", m_processName, 4, -0.3, 0.4, regionsForVariables, BDTpointer);
+    // histsForRegion_vec.push_back(BDTScore_class);
+    // if(m_ifBDT){
+
+    // }
 
     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 
@@ -282,6 +285,9 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum &&(e->bjetsPTM_num.v()>=2), "baseline", basicWeight, m_isData);
+
+        //BDT 
+        // m_BDTScore = m_BDTApply.GetBDTScore(e);
 
         // SR
         if (!m_isData)

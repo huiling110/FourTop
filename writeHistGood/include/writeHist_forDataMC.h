@@ -64,7 +64,8 @@ private:
     event *e;
 
     //
-    Double_t m_BDTScore = 0;
+    // Double_t m_BDTScore = 0;
+    // Double_t m_ifBDT = kTRUE;
 
     // hists regions
     histsForRegionsMap<Double_t> jets_HT_class; // calls for default constructor
