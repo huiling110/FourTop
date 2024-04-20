@@ -30,21 +30,11 @@ public:
     histsForRegionsMap(TString variableName = "", TString histTitle = "", TString processName = "", Int_t bin = 0, Double_t binMin = 0.0, Double_t binMax = 0.0) : histForRegionsBase(variableName, histTitle, processName, bin, binMin, binMax) {
         std::cout << "Initializing histsForRegionsMap constructor 0\n";
     };
-    // histsForRegionsMap(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}
-    // {
-    //     std::cout << "Initializing histsForRegionsMap constructor 1\n";
-    //     for (UInt_t i = 0; i < regions.size(); i++)
-    //     {
-    //         // TString iHistName = regions[i] + "_" + m_processName + "_" + m_variableName;
-    //         TString iHistName = m_processName + "_" + regions[i] + "_" + m_variableName;
-    //         TH1D *temp;
-    //         temp = new TH1D(iHistName.Data(), m_histTitle.Data(), m_binNum, m_binMin, m_binMax);
-    //         temp->Sumw2();
-    //         m_histsVector[regions[i]] = temp;
-    //     }
-    // };
-    //for connecting with tree branches
-    // histsForRegionsMap(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions, myBranch<T>* branch ) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}, m_branch{branch}
+
+    histsForRegionsMap(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions) : histForRegionsBase(variableName, histTitle, processName, bin, binMin, binMax, regions){
+        std::cout<<"Initializing histsForRegionsMap constructor 3\n";
+    }
+
     histsForRegionsMap(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions, myBranch<T> *branch) : histForRegionsBase(variableName, histTitle, processName, bin, binMin, binMax, regions), m_branch{branch}
     {
         std::cout << "Initializing histsForRegionsMap constructor 1\n";

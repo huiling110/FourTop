@@ -221,6 +221,9 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(tausT_1lepton1_charge_class);
     histsForRegion_vec.push_back(tausM_1lepton1_charge_class);
 
+    //try BDT score here
+    SP_d BDTScore_class = std::make_shared<histsForRegionsMap<Double_t>>("BDTScore", "BDT score", m_processName, 4, -0.3, 0.4, regionsForVariables);
+
     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 
     std::cout << "Done initializing\n";

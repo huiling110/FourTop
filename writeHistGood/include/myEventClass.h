@@ -112,6 +112,7 @@ public:
     myBranch<Int_t> elesMVAT_num{"elesMVAT_num"};
     myBranch<Int_t> muonsT_num{"muonsT_num"};
     myBranch<Double_t> muonsT_1pt{"muonsT_1pt"};
+    myBranch<Double_t> elesMVAT_1pt{"elesMVAT_1pt"};
 
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
@@ -156,6 +157,7 @@ public:
     myBranch<Double_t> jets_sphericity{"jets_sphericity"}; 
     myBranch<Double_t> jets_aplanarity{"jets_aplanarity"};
     myBranch<Double_t> jets_tausT_invariantMass{"jets_tausT_invariantMass"};
+    myBranch<Double_t> jets_tausT_minDeltaR{"jets_tausT_minDeltaR"};
     myBranch<Double_t> jets_1pt{"jets_1pt"};
     myBranch<Double_t> jets_2pt{"jets_2pt"};
     myBranch<Double_t> jets_3pt{"jets_3pt"};
@@ -169,6 +171,7 @@ public:
     myBranch<Double_t> jets_4btag{"jets_4btag"};
     myBranch<Double_t> jets_5btag{"jets_5btag"};
     myBranch<Double_t> jets_6btag{"jets_6btag"};
+    myBranch<Double_t> jets_7btag{"jets_7btag"};
 
     myBranch<Double_t> MET_pt{"MET_pt"};
 
@@ -213,10 +216,14 @@ public:
 
     myBranch<Double_t> tausT_HT{"tausT_HT"};
     myBranch<Double_t> tausT_MHT{"tausT_MHT"};
+    myBranch<Double_t> tausT_invariantMass{"tausT_invariantMass"};
     myBranch<Double_t> tausT_1lepton1_deltaR{"tausT_1lepton1_deltaR"};
     myBranch<Double_t> tausT_1Met_transMass{"tausT_1Met_transMass"};
     myBranch<Double_t> tausT_1lepton1Met1_stransMass{"tausT_1lepton1Met1_stransMass"};
     myBranch<Double_t> tausT_leptonsT_invariantMass{"tausT_leptonsT_invariantMass"};
+    myBranch<Double_t> tausT_leptonsTMVA_minDeltaR{"tausT_leptonsTMVA_minDeltaR"};
+    myBranch<Double_t> tausT_leptonsT_transMass{"tausT_leptonsT_transMass"};
+    myBranch<Int_t> tausT_1charge{"tausT_1charge"};
 
     myBranch<Double_t> tausT_1pt{"tausT_1pt"};
     myBranch<Double_t> tausT_1eta{"tausT_1eta"};
@@ -332,6 +339,8 @@ private:
         {elesMVAT_num.n(), &elesMVAT_num},
         {muonsT_num.n(), &muonsT_num},
         {muonsT_1pt.n(), &muonsT_1pt},
+        {elesMVAT_1pt.n(), &elesMVAT_1pt},
+
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {EVENT_genWeight.n(), &EVENT_genWeight},
         {EVENT_prefireWeight.n(), &EVENT_prefireWeight},
@@ -376,6 +385,7 @@ private:
     {jets_sphericity.n(), &jets_sphericity}, 
     {jets_aplanarity.n(), &jets_aplanarity},
     {jets_tausT_invariantMass.n(), &jets_tausT_invariantMass},
+    {jets_tausT_minDeltaR.n(), &jets_tausT_minDeltaR},
     {jets_1pt.n(), &jets_1pt},
     {jets_2pt.n(), &jets_2pt},
     {jets_3pt.n(), &jets_3pt},
@@ -389,6 +399,7 @@ private:
     {jets_4btag.n(), &jets_4btag},
     {jets_5btag.n(), &jets_5btag},
     {jets_6btag.n(), &jets_6btag},
+    {jets_7btag.n(), &jets_7btag},
 
         {MET_pt.n(), &MET_pt},
 
@@ -423,10 +434,14 @@ private:
         {tausT_1phi.n(), &tausT_1phi},
         {tausT_HT.n(), &tausT_HT},
         {tausT_MHT.n(), &tausT_MHT},
+        {tausT_invariantMass.n(), &tausT_invariantMass},
         {tausT_1lepton1_deltaR.n(), &tausT_1lepton1_deltaR},
         {tausT_1Met_transMass.n(), &tausT_1Met_transMass},
         {tausT_1lepton1Met1_stransMass.n(), &tausT_1lepton1Met1_stransMass},
         {tausT_leptonsT_invariantMass.n(), &tausT_leptonsT_invariantMass},
+        {tausT_leptonsTMVA_minDeltaR.n(), &tausT_leptonsTMVA_minDeltaR},
+        {tausT_leptonsT_transMass.n(), &tausT_leptonsT_transMass},
+        {tausT_1charge.n(), &tausT_1charge},
 
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},

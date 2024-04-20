@@ -141,7 +141,8 @@ void treeAnalyzer::LoopTree()
             {"1tau0l", 1},
         };
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, channelMap.at(m_channel)==0 );//!!!caution, for 1tau1l b-tag WP correction
-        Double_t basicWeight = e->EVENT_genWeight.v();//!!!for run 3
+        // Double_t basicWeight = e->EVENT_genWeight.v();//!!!for run 3
+        Double_t basicWeight = e->EVENT_genWeight.v() *  e->EVENT_prefireWeight.v() * e->PUweight_.v() ;
 
         Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
         // if(m_channel==1 ){
@@ -159,7 +160,7 @@ void treeAnalyzer::LoopTree()
         for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
         {
             Float_t ivar;
-            // std::cout<<"ivar: "<<it->first<<"\n";
+            std::cout<<"ivar: "<<it->first<<"\n";
             std::variant<Int_t, Double_t, Bool_t> branch = e->getByName(it->first);
             if (std::holds_alternative<Int_t>(branch))
             {
@@ -188,7 +189,6 @@ void treeAnalyzer::LoopTree()
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
         // Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();//!!! for 1tau0l b_score, have to use btagShape
 
-        // Double_t basicWeight = e->EVENT_genWeight.v();
         // std::cout << "basicWeight = " << basicWeight << "\n";
 
         // // filling hists

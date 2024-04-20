@@ -48,7 +48,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -85,7 +86,7 @@ def main():
     # version = 'v1FR_application_bjets2_bWPWeight'
     # version = 'v1FR_application_bjets2_bShapeWeight'
    
-    version = 'v0_HLTSFMeasure'
+    # version = 'v0_HLTSFMeasure'
     
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
@@ -96,7 +97,7 @@ def main():
     # version = 'v0dataMC_noCorrection'
     # version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
     # version = 'v2dataMC_pileupTauIDSF'
-    # version = 'v2dataMC_pileupSF'
+    version = 'v2dataMC_pileupSF'
     # version = 'v3dataMC_pileupTauIDBtagWPSF'
     # version = 'v4dataMC_pileupBtagWPSF'
     # version = 'v4dataMC_pileupBtagWPSF_tausTT'
