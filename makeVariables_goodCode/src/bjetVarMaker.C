@@ -18,6 +18,8 @@ BjetVarMaker::BjetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVar
     outTree->Branch(objName + "_2MET_stransMass", &bjets_2MET_stransMass);
     outTree->Branch(objName + "_leptons_minDeltaR", &bjets_leptons_minDeltaR);
     outTree->Branch(objName + "_taus_minDeltaR", &bjets_taus_minDeltaR);
+    outTree->Branch(objName + "_2pt", &bjets_2pt);
+    outTree->Branch(objName + "_3pt", &bjets_3pt);
 
     std::cout << "Done initilization........\n";
     std::cout << "\n";
@@ -80,6 +82,9 @@ void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::Pt
 
     bjets_leptons_minDeltaR = MinDeltaRCal(objsLorentz, leptons);
     bjets_taus_minDeltaR = MinDeltaRCal(objsLorentz, taus);
+
+    bjets_2pt = objsLorentz.size()>1? objsLorentz.at(1).Pt(): -99.;
+    bjets_3pt = objsLorentz.size()>2? objsLorentz.at(2).Pt(): -99.;
 };
 
 void BjetVarMaker::clearBranch()
@@ -95,6 +100,8 @@ void BjetVarMaker::clearBranch()
     bjets_2MET_stransMass = -99.;
     bjets_leptons_minDeltaR = -99.;
     bjets_taus_minDeltaR = -99.;
+    bjets_2pt = -99.;
+    bjets_3pt = -99.;
 };
 
 Int_t BjetVarMaker::getJet_num()

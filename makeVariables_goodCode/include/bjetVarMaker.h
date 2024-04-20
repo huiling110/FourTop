@@ -25,6 +25,8 @@ private:
     Double_t bjets_leptons_minDeltaR = -99.;
     Double_t bjets_taus_minDeltaR = -99.;
 
+    Double_t bjets_2pt = -99.;
+    Double_t bjets_3pt = -99.;
 };
 
 
