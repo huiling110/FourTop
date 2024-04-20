@@ -8,10 +8,10 @@
 #include <iostream>
 
 #include "../include/writeHist_forDataMC.h"
-// #include "../SFfileMap.h"
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 #include "../include/commenSelectionAndWeight.h"
+#include "../include/histsForRegionsMap_value.h"
 
 void WH_forDataMC::Init()
 {
@@ -222,7 +222,9 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(tausM_1lepton1_charge_class);
 
     //try BDT score here
-    SP_d BDTScore_class = std::make_shared<histsForRegionsMap<Double_t>>("BDTScore", "BDT score", m_processName, 4, -0.3, 0.4, regionsForVariables);
+    Double_t* BDTpointer = &m_BDTScore;
+    std::shared_ptr<histsForRegionsValue> BDTScore_class = std::make_shared<histsForRegionsValue>("BDTScore", "BDT score", m_processName, 4, -0.3, 0.4, regionsForVariables, BDTpointer);
+    histsForRegion_vec.push_back(BDTScore_class);
 
     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 

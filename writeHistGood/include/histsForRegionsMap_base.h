@@ -39,6 +39,7 @@ public:
         std::cout << "Done initializing histForRegionsBase constructor 1\n";
     };
 
+
     // virtual ~histForRegionsBase(){};
     virtual ~histForRegionsBase()=default;//generate a virtual default destructor
 

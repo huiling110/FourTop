@@ -63,6 +63,9 @@ private:
     TFile *m_outFile;
     event *e;
 
+    //
+    Double_t m_BDTScore = 0;
+
     // hists regions
     histsForRegionsMap<Double_t> jets_HT_class; // calls for default constructor
     // std::vector<histsForRegionsMap>

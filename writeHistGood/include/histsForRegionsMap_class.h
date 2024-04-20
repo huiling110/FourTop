@@ -16,13 +16,6 @@ template <typename T>
 class histsForRegionsMap :public histForRegionsBase
 {
 private:
-//     TString m_variableName;
-//     TString m_histTitle;
-//     TString m_processName;
-//     Int_t m_binNum;
-//     Double_t m_binMin;
-//     Double_t m_binMax;
-//     std::map<TString, TH1D *> m_histsVector;
     myBranch<T>* m_branch=nullptr;
 
 public:
@@ -92,32 +85,6 @@ virtual void fillHistVec(TString iRegion, Double_t weight, Bool_t ifFill, Bool_t
     }
 }
 
-// void print()
-// {
-//     for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)
-//     {
-//         std::cout << it->first << " : \n";
-//         it->second->Print();
-//     }
-// }
-
-// void setDir(TFile *file)
-// {
-//     for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)
-//     {
-//         it->second->SetDirectory(file);
-//     }
-// }
-
-// void scale(Double_t scale)
-// {
-//     for (auto it = m_histsVector.begin(); it != m_histsVector.end(); ++it)
-//     {
-//         it->second->Scale(scale);
-//     }
-// }
 };
-
-// #include "histsForRegionsMap_class.C"
 
 #endif
