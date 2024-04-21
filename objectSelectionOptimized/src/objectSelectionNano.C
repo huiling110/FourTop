@@ -109,9 +109,9 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
             continue;
         }
-        if(!OS::ifEventPass(preSelection, jetSel.getHT()>400., m_cutflow, 6)){//!testin, for HLT to run faster later
-            continue;
-        }
+        // if(!OS::ifEventPass(preSelection, jetSel.getHT()>300., m_cutflow, 6)){//!testin, for HLT to run faster later
+        //     continue;
+        // }
 
 
         CF_pre->Fill(0., genWeight);

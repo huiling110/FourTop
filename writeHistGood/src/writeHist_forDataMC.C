@@ -304,7 +304,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau0lSRTest", basicWeight, m_isData);
             //testing of 1tau0l SR definition
             Bool_t is1tau2lSRTest = SR1tau1lSel(e, 5, m_isRun3);
-            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau2lSRTest", basicWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau2lSRTest, "1tau2lSRTest", basicWeight, m_isData);
         }
 
         // 1tau0l CR
