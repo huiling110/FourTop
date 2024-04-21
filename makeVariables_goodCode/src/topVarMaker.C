@@ -64,10 +64,23 @@ TopVarMaker::TopVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     std::cout<<"Done initilization........\n";
 }
 
-void TopVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &jets, std::vector<ROOT::Math::PtEtaPhiMVector> &bjets, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &taus)
+void TopVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &jets, const std::vector<ROOT::Math::PtEtaPhiMVector> &bjets, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &taus)
 {
     ObjVarMaker::reportEntry("TopVarMaker::makeVariables()");
     
     std::vector<LorentzVector> tops_hardronic = reconstructHadronicTops(jets, bjets);
     // std::vector<LorentzVector> tops_leptonic = reconstructLeptonicTops(bjets, leptons, e->MET);
+
+    objsLorentz = tops_hardronic;
+    ObjVarMaker::basicVariables();
+
+
+
 };
+
+
+TopVarMaker::~TopVarMaker()
+{
+    // std::cout<<"Destroying TopVarMaker class..................................\n";
+    // std::cout<<"Done destroying TopVarMaker class................................\n";
+}

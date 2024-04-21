@@ -51,6 +51,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         bjetPTMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
         bjetPTTVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), leptonsMVAT);
 
+        topVarMaker.makeVariables(e, jetVarMaker.getLorentzObjs(), bjetMVarMaker.getLorentzObjs(), leptonsMVAT, tauVarMaker.getLorentzObjs());
+
         // baseline selection
         Int_t bjetM_num = m_isRun3? bjetPTMVarMaker.getJet_num(): bjetMVarMaker.getJet_num();
         if (baselineSel)

@@ -20,6 +20,7 @@
 #include "copyBranches.h"
 #include "weightVarMaker.h"
 #include "createHists.h"
+#include "topVarMaker.h"
 #include "../../myLibrary/commenFunction.h"
 
 class MakeVariablesMain
@@ -90,17 +91,14 @@ private:
     TauVarMaker tauMVarMaker{m_outTree, "tausM", 5};
 
     JetVarMaker jetVarMaker{m_outTree, "jets", 0};
-    // JetVarMaker jetTVarMaker{m_outTree, "jetsT", 1};
-    // JetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 2};
-    // JetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 3};
-    // JetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 4};
-    // JetVarMaker bjetPNMVarMaker{m_outTree, "bjetsPNM", 5};
     BjetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 0};
     BjetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 1};
     BjetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 2};
     BjetVarMaker bjetPNMVarMaker{m_outTree, "bjetsPNM", 3};
     BjetVarMaker bjetPTMVarMaker{m_outTree, "bjetsPTM", 4};
     BjetVarMaker bjetPTTVarMaker{m_outTree, "bjetsPTT", 5};
+
+    TopVarMaker topVarMaker{m_outTree, "topsH", 0};
 
     CopyBranches copyBranches{m_outTree};
     // CreateHist createHists{m_output};

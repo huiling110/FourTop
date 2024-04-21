@@ -7,7 +7,7 @@ class TopVarMaker : public ObjVarMaker
 public:
     TopVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~TopVarMaker();
-    void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &jets, std::vector<ROOT::Math::PtEtaPhiMVector> &bjets, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &taus);
+    void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &jets, const std::vector<ROOT::Math::PtEtaPhiMVector> &bjets, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &taus);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
 
