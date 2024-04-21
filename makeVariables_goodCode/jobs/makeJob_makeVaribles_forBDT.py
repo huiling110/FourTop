@@ -33,8 +33,8 @@ def main():
     # inVersion = 'v73NoHLTTauFHT400'
     # inVersion = 'v74AddMETPhi'
     inVersion = 'v75AddTauTTTTNoHTCut'
-    outVersion = 'v0baselineHT350'
-    # outVersion = 'v2cut1tau1l'
+    # outVersion = 'v0baselineHT350'
+    outVersion = 'v2cut1tau1l'
     
     #2022
     # year = '2022postEE'
