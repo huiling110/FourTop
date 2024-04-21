@@ -18,7 +18,8 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, 
         {3, "T"}, //Medium WP 
         {4, "TT"}, //tight tauVsJet ID
         {5, "TTT"},
-        {6, "M"} //Loose
+        {6, "M"} ,//Loose
+        {7, "TTTT"},
     };
 
     outTree->Branch("taus" + tauWPMap[tauWP] + "_pt", &taus_pt);
@@ -132,7 +133,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
             if (itau_decayMode == 5 || itau_decayMode == 6)
                 continue;
         }
-        if (m_tauWP == 3 || m_tauWP ==4 || m_tauWP ==5 || m_tauWP ==6)
+        if (m_tauWP == 3 || m_tauWP ==4 || m_tauWP ==5 || m_tauWP ==6 || m_tauWP==7)
         { // tight tau
             if (itau_decayMode == 5 || itau_decayMode == 6)
                 continue;
@@ -149,6 +150,9 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
                     break;
                 case 6:
                     isVSjetM = (m_isRun3) ? (tauID_vsJet >= 4) : (tauID_vsJet & (1 << 3)); //
+                    break;
+                case 7:
+                    isVSjetM = (m_isRun3) ? (tauID_vsJet >= 8) : (tauID_vsJet & (1 << 7));
                     break;
             }
             isVSeVVVLoose = (m_isRun3) ? (tauID_vsEle >= 2) : (tauID_vsEle & (1 << 0));

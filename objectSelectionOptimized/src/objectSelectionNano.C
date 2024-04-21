@@ -67,6 +67,7 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         tauSelTT.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
         tauSelTTT.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
         tauSelM.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
+        tauSelTTTT.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
 
         // const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         // const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();

@@ -141,8 +141,6 @@ int tmvaBDT_training(
         }
     }
     std::cout << "signal and bg tree added \n";
-    // dataloader->SetSignalWeightExpression(g_weight.GetTitle());
-    // dataloader->SetBackgroundWeightExpression(g_weight.GetTitle());
     dataloader->SetSignalWeightExpression(g_weight);
     dataloader->SetBackgroundWeightExpression(g_weight);
 
