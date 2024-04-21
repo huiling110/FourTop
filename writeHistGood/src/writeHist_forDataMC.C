@@ -18,7 +18,7 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lRSL", "1tau0lSRTest"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lRSL", "1tau0lSRTest", "1tau2lSRTest"};
 
     using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
     using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
@@ -302,6 +302,9 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             //testing of 1tau0l SR definition
             Bool_t is1tau0lSRTest = SR1tau1lSel(e, 3, m_isRun3);
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau0lSRTest", basicWeight, m_isData);
+            //testing of 1tau0l SR definition
+            Bool_t is1tau2lSRTest = SR1tau1lSel(e, 5, m_isRun3);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau2lSRTest", basicWeight, m_isData);
         }
 
         // 1tau0l CR
