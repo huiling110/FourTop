@@ -85,6 +85,17 @@ public:
                                       tausTTT_jetPt(reader, "tausTTT_jetPt"),
                                       tausTTT_jetEta(reader, "tausTTT_jetEta"),
 
+                                        tausTTTT_pt(reader, "tausTTTT_pt"),
+                                        tausTTTT_eta(reader, "tausTTTT_eta"),
+                                        tausTTTT_phi(reader, "tausTTTT_phi"),
+                                        tausTTTT_mass(reader, "tausTTTT_mass"),
+                                        tausTTTT_genPartFlav(reader, "tausTTTT_genPartFlav"),
+                                        tausTTTT_decayMode(reader, "tausTTTT_decayMode"),
+                                        tausTTTT_charge(reader, "tausTTTT_charge"),
+                                        tausTTTT_jetPt(reader, "tausTTTT_jetPt"),
+                                        tausTTTT_jetEta(reader, "tausTTTT_jetEta"),
+
+
                                       tausM_pt(reader, "tausM_pt"),
                                       tausM_eta(reader, "tausM_eta"),
                                       tausM_phi(reader, "tausM_phi"),
@@ -254,6 +265,16 @@ public:
     TTreeReaderArray<Int_t> tausTTT_charge;
     TTreeReaderArray<Double_t> tausTTT_jetPt;
     TTreeReaderArray<Double_t> tausTTT_jetEta;
+
+    TTreeReaderArray<Double_t> tausTTTT_pt;
+    TTreeReaderArray<Double_t> tausTTTT_eta;
+    TTreeReaderArray<Double_t> tausTTTT_phi;
+    TTreeReaderArray<Double_t> tausTTTT_mass;
+    TTreeReaderArray<UChar_t> tausTTTT_genPartFlav;
+    TTreeReaderArray<Int_t> tausTTTT_decayMode;
+    TTreeReaderArray<Int_t> tausTTTT_charge;
+    TTreeReaderArray<Double_t> tausTTTT_jetPt;
+    TTreeReaderArray<Double_t> tausTTTT_jetEta;
 
     TTreeReaderArray<Double_t> tausM_pt;
     TTreeReaderArray<Double_t> tausM_eta;

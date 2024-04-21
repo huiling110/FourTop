@@ -74,6 +74,9 @@ void TauVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     case 5:
         tauVariables(e->tausM_jetPt, e->tausM_jetEta, e->tausM_genPartFlav, e->tausM_decayMode, e->tausM_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
+    case 6:
+        tauVariables(e->tausTTTT_jetPt, e->tausTTTT_jetEta, e->tausTTTT_genPartFlav, e->tausTTTT_decayMode, e->tausTTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        break;
     default:
         break;
     }
@@ -138,6 +141,9 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
         break;
     case 5:
         getLorentzVec(e->tausM_pt, e->tausM_eta, e->tausM_phi, e->tausM_mass, objsLorentz);
+        break;
+    case 6:
+        getLorentzVec(e->tausTTTT_pt, e->tausTTTT_eta, e->tausTTTT_phi, e->tausTTTT_mass, objsLorentz);
         break;
     default:
         std::cout<<"!!!tau type not wrong!<<\n";
