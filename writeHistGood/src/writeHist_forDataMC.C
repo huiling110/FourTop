@@ -18,7 +18,7 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lRSL", "1tau1lCRComb"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lRSL", "1tau0lSRTest"};
 
     using SP_d = std::shared_ptr<histsForRegionsMap<Double_t>>;
     using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
@@ -101,7 +101,7 @@ void WH_forDataMC::Init()
     SP_d elesTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_1pt", "p_{T}^{e}(GeV)", m_processName, 10, 0, 140, regionsForVariables, &(e->elesTopMVAT_1pt));
 
 
-    SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 8, 4.5, 12.5, regionsForVariables, &(e->jets_num));
+    SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 9, 4.5, 13.5, regionsForVariables, &(e->jets_num));
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
     SP_i bjetsT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsT_num", "n^{Tb-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsT_num));
     SP_i bjetsPTM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsPTM_num", "n^{b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsPTM_num));
@@ -111,6 +111,7 @@ void WH_forDataMC::Init()
 
     SP_i tausT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_num", "n^{T#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausT_num));
     SP_i tausTT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_num", "n^{TT#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausTT_num));
+    SP_i tausTTT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTTT_num", "n^{TTT#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausTTT_num));
     SP_i tausF_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_num", "n^{F#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausF_num));
     SP_i tausM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("tausM_num", "n^{M#tau}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->tausM_num));
     SP_i tausT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1genFlavour", "gen flavour^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1genFlavour));
@@ -206,6 +207,7 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(PV_npvsGood_class);
     histsForRegion_vec.push_back(tausT_num_class);
     histsForRegion_vec.push_back(tausTT_num_class);
+    histsForRegion_vec.push_back(tausTTT_num_class);
     histsForRegion_vec.push_back(tausF_num_class);
     histsForRegion_vec.push_back(tausM_num_class);
     histsForRegion_vec.push_back(tausT_1genFlavour_class);
@@ -286,9 +288,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum &&(e->bjetsPTM_num.v()>=2), "baseline", basicWeight, m_isData);
 
-        //BDT 
-        // m_BDTScore = m_BDTApply.GetBDTScore(e);
-
         // SR
         if (!m_isData)
         {
@@ -297,8 +296,12 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
 
-        Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3);
-        WH::histRegionVectFill(histsForRegion_vec, is1tau1lSRL, "1tau1lRSL", basicWeight, m_isData);
+            Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau1lSRL, "1tau1lRSL", basicWeight, m_isData);
+
+            //testing of 1tau0l SR definition
+            Bool_t is1tau0lSRTest = SR1tau1lSel(e, 3, m_isRun3);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau0lSRTest", basicWeight, m_isData);
         }
 
         // 1tau0l CR
@@ -315,9 +318,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, is1tau1lCR0, "1tau1lCR1", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau1lCR2, "1tau1lCR2", basicWeight, m_isData);
 
-        //!new
-        Bool_t is1tau1lCRComb = SR1tau1lSel(e, 3, m_isRun3);
-        WH::histRegionVectFill(histsForRegion_vec, is1tau1lCRComb, "1tau1lCRComb", basicWeight, m_isData);
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";

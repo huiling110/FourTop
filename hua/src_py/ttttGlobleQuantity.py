@@ -22,7 +22,7 @@ histoGramPerSample = {
     'ttbar_1l': 'tt',
     'ttbar_2l': 'tt',
     'qcd_50to100':'qcd',
-    'qcd_100to200':'qcd',
+    # 'qcd_100to200':'qcd',//!!!to be updated
     'qcd_200to300':'qcd',
     'qcd_300to500':'qcd',
     'qcd_500to700':'qcd',

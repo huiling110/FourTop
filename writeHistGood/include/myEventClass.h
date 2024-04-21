@@ -210,6 +210,7 @@ public:
 
     myBranch<Int_t> tausT_num{"tausT_num"};
     myBranch<Int_t> tausTT_num{"tausTT_num"};
+    myBranch<Int_t> tausTTT_num{"tausTTT_num"};
     myBranch<Int_t> tausM_num{"tausM_num"};
     myBranch<Int_t> tausF_genTauNum{"tausF_genTauNum"};
     myBranch<Int_t> tausT_genTauNum{"tausT_genTauNum"};
@@ -326,6 +327,7 @@ private:
     std::map<TString, std::variant<myBranch<Int_t> *, myBranch<Double_t> *, myBranch<Bool_t> *>> m_variableMap = {
         {tausT_num.n(), &tausT_num},
         {tausTT_num.n(), &tausTT_num},
+        {tausTTT_num.n(), &tausTTT_num},
         {tausM_num.n(), &tausM_num},
         {tausF_genTauNum.n(), &tausF_genTauNum},
         {tausT_genTauNum.n(), &tausT_genTauNum},

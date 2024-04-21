@@ -87,8 +87,9 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
     case 2: // 1tau1lCR1//!updating
         isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum <= 2;
         break;
-    case 3: //!!! 1tau1lCRComb, new
-        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() == 5 && bjetsMNum<3;
+    case 3: //!!! 1tau0l testing
+        // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 9 && bjetsMNum>=3;
+        isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum>=3;
         break;
     case 4: // 1tau1lCR2
         isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() == 5 && bjetsMNum >= 1;
