@@ -229,6 +229,51 @@ void WH_fakeRate::Init()
     printf("Reading FR file 1prong: %s \n", FRFile->GetName());
     printf("Reading FR file 3prong: %s \n", FRFile_3prong->GetName());
 
+
+    //regions for measuring FR
+    std::vector<TString> regionsEtaDivided = {
+        "1tau0lCRLTau_Eta1", 
+        "1tau0lCRLTau_Eta2",
+        "1tau0lCRLTau_Eta3",
+        "1tau0lCRLTauGen_Eta1", 
+        "1tau0lCRLTauGen_Eta2",
+        "1tau0lCRLTauGen_Eta3",
+        "1tau0lCR_Eta1", // 6
+        "1tau0lCR_Eta2",
+        "1tau0lCR_Eta3",
+        "1tau0lCRGen_Eta1", // 9
+        "1tau0lCRGen_Eta2",
+        "1tau0lCRGen_Eta3",
+        // FR measurment in MR
+        "1tau0lMRLTau_Eta1", // 20
+        "1tau0lMRLTau_Eta2",
+        "1tau0lMRLTau_Eta3",    // 22
+        "1tau0lMRLTauGen_Eta1", // 23
+        "1tau0lMRLTauGen_Eta2", // 24
+        "1tau0lMRLTauGen_Eta3",
+        "1tau0lMR_Eta1", // 26
+        "1tau0lMR_Eta2",
+        "1tau0lMR_Eta3",    // 28
+        "1tau0lMRGen_Eta1", //
+        "1tau0lMRGen_Eta2", // 30
+        "1tau0lMRGen_Eta3", //
+        // for measuring FR in VR
+        "1tau0lVRLTau_Eta1", // 44
+        "1tau0lVRLTau_Eta2",
+        "1tau0lVRLTau_Eta3", // 46
+        "1tau0lVRLTauGen_Eta1",
+        "1tau0lVRLTauGen_Eta2", // 48
+        "1tau0lVRLTauGen_Eta3",
+        "1tau0lVR_Eta1", // 50
+        "1tau0lVR_Eta2",
+        "1tau0lVR_Eta3", // 52
+        "1tau0lVRGen_Eta1",
+        "1tau0lVRGen_Eta2", // 54
+        "1tau0lVRGen_Eta3",
+    };
+    tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
+
+
     std::cout << "Initialization done\n\n";
 }
 
