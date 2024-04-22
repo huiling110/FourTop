@@ -170,7 +170,6 @@ void WH_fakeRate::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // FR weighted
-    //???make this not vector index but clear name for regions
     std::vector<TString> regionsForFRWeighting = {
         // regions nessary for plotting data/MC
         "1tau0lCR", // 0
@@ -260,10 +259,6 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         if (!(lepNum==0)){
             continue;
         }
-        //!testing
-        // if (!(e->bjetsM_num.v()>=3)){
-        //     continue;
-        // }
 
         // event weight
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!
