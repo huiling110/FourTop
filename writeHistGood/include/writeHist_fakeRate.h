@@ -72,6 +72,8 @@ private:
     TH2D *FR_hist_3prong;
 
     //FR measurement
+    // const Bool_t m_ifMeasure = kFALSE;
+    const Bool_t m_ifMeasure = kTRUE;
     histsForRegionsMap<Double_t> tausF_1jetPt_class;
 
 

@@ -228,6 +228,7 @@ public:
     myBranch<Double_t> tausT_1pt{"tausT_1pt"};
     myBranch<Double_t> tausT_1eta{"tausT_1eta"};
     myBranch<Double_t> tausT_1phi{"tausT_1phi"};
+    myBranch<Int_t> tausT_1genFlavour{"tausT_1genFlavour"};
 
     myBranch<Double_t> tausTT_HT{"tausTT_HT"};
     myBranch<Double_t> tausTT_MHT{"tausTT_MHT"};
@@ -239,11 +240,16 @@ public:
     myBranch<Double_t> tausTT_leptonsTMVA_minDeltaR{"tausTT_leptonsTMVA_minDeltaR"};
     myBranch<Double_t> tausTT_leptonsT_transMass{"tausTT_leptonsT_transMass"};
     myBranch<Int_t> tausTT_1charge{"tausTT_1charge"};
+    myBranch<Int_t> tausTT_1genFlavour{"tausTT_1genFlavour"};
+    myBranch<Int_t> tausTT_1decayMode{"tausTT_1decayMode"};
+    myBranch<Int_t> tausTT_1lepton1_charge{"tausTT_1lepton1_charge"};
     myBranch<Double_t> tausTT_1pt{"tausTT_1pt"};
     myBranch<Double_t> tausTT_1eta{"tausTT_1eta"};
     myBranch<Double_t> tausTT_1phi{"tausTT_1phi"};
 
 
+    myBranch<Int_t> tausTTT_1genFlavour{"tausTTT_1genFlavour"};
+    myBranch<Int_t> tausTTT_1lepton1_charge{"tausTTT_1lepton1_charge"};
 
     myBranch<Double_t> muonsTopMVAT_1pt{"muonsTopMVAT_1pt"};
     myBranch<Double_t> elesTopMVAT_1pt{"elesTopMVAT_1pt"};
@@ -255,16 +261,13 @@ public:
     myBranch<Int_t> tausF_num{"tausF_num"};
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
     myBranch<Double_t> tausF_1pt{"tausF_1pt"};
-    myBranch<Int_t> tausT_1genFlavour{"tausT_1genFlavour"};
     myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
-    myBranch<Int_t> tausTT_1genFlavour{"tausTT_1genFlavour"};
-    myBranch<Int_t> tausTTT_1genFlavour{"tausTTT_1genFlavour"};
+    myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
+
+
+
     myBranch<Int_t> tausM_1genFlavour{"tausM_1genFlavour"};
     myBranch<Int_t> tausT_1decayMode{"tausT_1decayMode"};
-    myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
-    myBranch<Int_t> tausTT_1decayMode{"tausTT_1decayMode"};
-    myBranch<Int_t> tausTT_1lepton1_charge{"tausTT_1lepton1_charge"};
-    myBranch<Int_t> tausTTT_1lepton1_charge{"tausTTT_1lepton1_charge"};
     myBranch<Int_t> tausT_1lepton1_charge{"tausT_1lepton1_charge"};
     myBranch<Int_t> tausM_1lepton1_charge{"tausM_1lepton1_charge"};
     myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
