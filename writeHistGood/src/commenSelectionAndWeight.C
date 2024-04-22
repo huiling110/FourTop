@@ -82,8 +82,9 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
     case 0: // 1tau1lSR
         isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 7 && bjetsMNum >= 2;
         break;
-    case 1: // 1tau0lSR
-        isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 2;
+    case 1: //!NEW 1tau0lSR
+        // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 2;
+        isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 3;
         break;
     case 2: // 1tau1lCR1//!updating
         isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum <= 2;
@@ -101,14 +102,17 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
     case 6: // 1tau0lCR
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 0;
         break;
-    case 7: // 1tau0lVR
-        isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 1;
+    case 7: // ! NEW 1tau0lMR
+        // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 1;
+        isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 2;
         break;
-    case 8: // 1tau0lCRc
-        isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum >= 2;
+    case 8: //!new 1tau0lVR
+        // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum >= 2;
+        isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum >= 3;
         break;
-    case 9: // 1tau0lCRb
-        isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 1;
+    case 9: // 1tau0lCRb//!new 1tau0lCR
+        // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 1;
+        isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 2;
         break;
     case 10: // 1tau0lCRa
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 0;

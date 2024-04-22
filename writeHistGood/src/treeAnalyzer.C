@@ -75,12 +75,14 @@ void treeAnalyzer::Init()
         // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
         // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
-        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//testing
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//testing
 
         // book MVA reader
-        TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
+        // TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
+        TString variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv"; //! testing
         WH::readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
-        // std::cout << " " << variablesForReader.size() << " " << variablesOriginAll.size() << "\n";
         if (variablesName.size() == variablesForReader.size())
         {
             for (UInt_t i = 0; i < variablesName.size(); i++)
@@ -95,7 +97,8 @@ void treeAnalyzer::Init()
         // for map, the variables will be reordered according to their keys, not safe to add with map
 
         TString methodName = "BDT" + TString(" method");
-        TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");
+        // TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");//
+        TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";//!testing
         reader->BookMVA(methodName, weightfile);
     // }else if(m_channel==1){
     }else if(m_channel=="1tau0l"){
@@ -143,23 +146,24 @@ void treeAnalyzer::LoopTree()
         // Double_t basicWeight = e->EVENT_genWeight.v();//!!!for run 3
         Double_t basicWeight = e->EVENT_genWeight.v() *  e->EVENT_prefireWeight.v() * e->PUweight_.v() ;
 
-        Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
-        // if(m_channel==1 ){
-        if(channelMap.at(m_channel)==1 ){
-            channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
-        }
-
+        // Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
+        // if(channelMap.at(m_channel)==1 ){
+        //     channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
+        // }
+        // Bool_t channelSel = e->tausTT_1lepton1_charge.v() == 1;//!testing
+        Bool_t channelSel = e->tausTT_1lepton1_charge.v() == -1;//!testing
         if (!(channelSel))
         {
             continue;
         }
+        Bool_t SR1tau1l = kTRUE;
         cutFlowHist->Fill(2);
 
         // convert branch value to float for reader
         for (auto it = varForReaderMap.begin(); it != varForReaderMap.end(); ++it)
         {
             Float_t ivar;
-            std::cout<<"ivar: "<<it->first<<"\n";
+            // std::cout<<"ivar: "<<it->first<<"\n";
             std::variant<Int_t, Double_t, Bool_t> branch = e->getByName(it->first);
             if (std::holds_alternative<Int_t>(branch))
             {
@@ -177,12 +181,9 @@ void treeAnalyzer::LoopTree()
              bdtScore = reader->EvaluateMVA("BDT method");
         }else if(channelMap.at(m_channel)==1){
              bdtScore = e->jets_bScore.v();
-            //  bdtScore = e->bjetsM_HT.v();
-            // bdtScore = e->bjetsM_invariantMass.v();
         }
         // std::cout << "bdtScore=" << bdtScore << "\n";
 
-        Bool_t SR1tau1l = channelSel;
         //!!!have to output weight; make weight an input
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!caution, for 1tau1l b-tag WP correction
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();

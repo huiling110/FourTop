@@ -72,14 +72,16 @@ int tmvaBDT_training(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau1l_v64PreAndHLTSel/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/",
     TString outDir = "output/",
     Bool_t isTest = true,
     // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
-    TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/plotting/branch_names.csv",
+    // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/plotting/branch_names.csv",
+    TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
     // const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
-    const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_") //for btag WP
+    const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_") 
 {
     std::cout<<"event weight="<<g_weight<<"\n";
     std::cout << "inputDir=" << inputDir << "\n";
@@ -90,7 +92,6 @@ int tmvaBDT_training(
     tokens->Delete();
     std::cout << "csvName=" << csvListName << "\n";
 
-    // TString outfile = channel + csvListName;
     TString outfileName = outDir + csvListName + ".root";
     TFile *outputFile = TFile::Open(outfileName, "RECREATE");
 
@@ -99,13 +100,11 @@ int tmvaBDT_training(
     TMVA::Tools::Instance();
     (TMVA::gConfig().GetVariablePlotting()).fNbins1D = 30;
     TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 30;
-    // (TMVA::gConfig().GetIONames()).fWeightFileDir = outDir + "_weight/";
     (TMVA::gConfig().GetIONames()).fWeightFileDir =  "weight/";
     TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; // If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
 
     // read input variables from csv
     std::vector<TString> variableList;
-    // readVariableList(variableListCsv, variableList);
     TTTT::getVarFromFile(variableListCsv, variableList);
     for (UInt_t i = 0; i < variableList.size(); i++)
     {
@@ -162,17 +161,40 @@ int tmvaBDT_training(
     factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDT",
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
                             "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30");
-    // factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDTD",
-                            // "!H:!V:NTrees=400:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=20:VarTransform=Decorrelate");
+    // if (Use["BDTB"]) // Bagging
+      factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTB",
+                        //    "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=20" );//default
+                           "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=30" );
+ 
+//    if (Use["BDTD"]) // Decorrelation + Adaptive Boost
+    //   factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTD",
+                        //    "!H:!V:NTrees=400:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:SeparationType=GiniIndex:nCuts=20:VarTransform=Decorrelate" );//?strange running time bug
+
+    //!DNN not working yet
+      // General layout.
+    //   TString layoutString ("Layout=TANH|128,TANH|128,TANH|128,LINEAR");
+    //   // Define Training strategy. One could define multiple strategy string separated by the "|" delimiter
+    //   TString trainingStrategyString = ("TrainingStrategy=LearningRate=1e-2,Momentum=0.9,"
+    //                                     "ConvergenceSteps=20,BatchSize=100,TestRepetitions=1,"
+    //                                     "WeightDecay=1e-4,Regularization=None,"
+    //                                     "DropConfig=0.0+0.5+0.5+0.5");
+    //   // General Options.
+    //   TString dnnOptions ("!H:V:ErrorStrategy=CROSSENTROPY:VarTransform=N:"
+    //                       "WeightInitialization=XAVIERUNIFORM");
+    //   dnnOptions.Append (":"); dnnOptions.Append (layoutString);
+    //   dnnOptions.Append (":"); dnnOptions.Append (trainingStrategyString);
+    //    // Multi-core CPU implementation.
+    // TString cpuOptions = dnnOptions + ":Architecture=CPU";
+    // factory->BookMethod(dataloader, TMVA::Types::kDL, "DNN_CPU", cpuOptions);
+
+
+
 
     factory->TrainAllMethods();
-
     // Evaluate all MVAs using the set of test events
     factory->TestAllMethods();
-
     // Evaluate and compare performance of all configured MVAs
     factory->EvaluateAllMethods();
-
     // Save the output
     outputFile->Close();
     std::cout << "==> Wrote root file: " << outputFile->GetName() << std::endl;

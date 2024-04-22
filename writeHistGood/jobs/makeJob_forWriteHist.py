@@ -51,7 +51,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v74AddMETPhi/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut//'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut//'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -100,7 +101,7 @@ def main():
     # version = 'v3dataMC_pileupBtagHLTSFNewTTBR'
     # version = 'v2dataMC_pileupTauIDSF'
     # version = 'v0dataMC1tau2l_pileupSF'
-    version = 'v0dataMC1tau1l_pileupSF_HT350'
+    # version = 'v0dataMC1tau1l_pileupSF_HT350'
     # version = 'v0dataMC_pileupSF_jet7'
     # version = 'v0dataMC_pileupSF_jet9bjet3'
     # version = 'v0dataMC_pileupSF_jet8bjet3TauTT'
@@ -121,11 +122,13 @@ def main():
     # version = 'v3dataMC_looseSRJet6TauTBjet3_NoHLTSF'
     # version = 'v3dataMC_looseSRJet6TauTBjet3_allOldSF'
     # version = 'v4dataMC_looseSRJet6TauT_pileupSF'
-    channel = 0
     
         
     #1tau1l
-    # channel = '1tau1l'
+    channel = '1tau1l'
+    # version = 'V0Basictraining'
+    # version = 'V0Basictraining_tauLepCharge1'
+    version = 'V0Basictraining_tauLepChargeMinus'
     # version = 'v0NoSystematic'
     # version = 'v0BasicSystematic'
     # version = 'v0BasicSystematic_20bins'
@@ -197,8 +200,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

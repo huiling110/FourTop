@@ -225,10 +225,25 @@ public:
     myBranch<Double_t> tausT_leptonsTMVA_minDeltaR{"tausT_leptonsTMVA_minDeltaR"};
     myBranch<Double_t> tausT_leptonsT_transMass{"tausT_leptonsT_transMass"};
     myBranch<Int_t> tausT_1charge{"tausT_1charge"};
-
     myBranch<Double_t> tausT_1pt{"tausT_1pt"};
     myBranch<Double_t> tausT_1eta{"tausT_1eta"};
     myBranch<Double_t> tausT_1phi{"tausT_1phi"};
+
+    myBranch<Double_t> tausTT_HT{"tausTT_HT"};
+    myBranch<Double_t> tausTT_MHT{"tausTT_MHT"};
+    myBranch<Double_t> tausTT_invariantMass{"tausTT_invariantMass"};
+    myBranch<Double_t> tausTT_1lepton1_deltaR{"tausTT_1lepton1_deltaR"};
+    myBranch<Double_t> tausTT_1Met_transMass{"tausTT_1Met_transMass"};
+    myBranch<Double_t> tausTT_1lepton1Met1_stransMass{"tausTT_1lepton1Met1_stransMass"};
+    myBranch<Double_t> tausTT_leptonsT_invariantMass{"tausTT_leptonsT_invariantMass"};
+    myBranch<Double_t> tausTT_leptonsTMVA_minDeltaR{"tausTT_leptonsTMVA_minDeltaR"};
+    myBranch<Double_t> tausTT_leptonsT_transMass{"tausTT_leptonsT_transMass"};
+    myBranch<Int_t> tausTT_1charge{"tausTT_1charge"};
+    myBranch<Double_t> tausTT_1pt{"tausTT_1pt"};
+    myBranch<Double_t> tausTT_1eta{"tausTT_1eta"};
+    myBranch<Double_t> tausTT_1phi{"tausTT_1phi"};
+
+
 
     myBranch<Double_t> muonsTopMVAT_1pt{"muonsTopMVAT_1pt"};
     myBranch<Double_t> elesTopMVAT_1pt{"elesTopMVAT_1pt"};
@@ -240,7 +255,6 @@ public:
     myBranch<Int_t> tausF_num{"tausF_num"};
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
     myBranch<Double_t> tausF_1pt{"tausF_1pt"};
-    myBranch<Double_t> tausTT_1pt{"tausTT_1pt"};
     myBranch<Int_t> tausT_1genFlavour{"tausT_1genFlavour"};
     myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
     myBranch<Int_t> tausTT_1genFlavour{"tausTT_1genFlavour"};
@@ -445,6 +459,23 @@ private:
         {tausT_leptonsT_transMass.n(), &tausT_leptonsT_transMass},
         {tausT_1charge.n(), &tausT_1charge},
 
+        {tausTT_1pt.n(), &tausTT_1pt},
+        {tausTT_1eta.n(), &tausTT_1eta},
+        {tausTT_1phi.n(), &tausTT_1phi},
+        {tausTT_HT.n(), &tausTT_HT},
+        {tausTT_MHT.n(), &tausTT_MHT},
+        {tausTT_invariantMass.n(), &tausTT_invariantMass},
+        {tausTT_1lepton1_deltaR.n(), &tausTT_1lepton1_deltaR},
+        {tausTT_1Met_transMass.n(), &tausTT_1Met_transMass},
+        {tausTT_1lepton1Met1_stransMass.n(), &tausTT_1lepton1Met1_stransMass},
+        {tausTT_leptonsT_invariantMass.n(), &tausTT_leptonsT_invariantMass},
+        {tausTT_leptonsTMVA_minDeltaR.n(), &tausTT_leptonsTMVA_minDeltaR},
+        {tausTT_leptonsT_transMass.n(), &tausTT_leptonsT_transMass},
+        {tausTT_1charge.n(), &tausTT_1charge},
+
+
+
+
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
 
@@ -461,8 +492,7 @@ private:
         {tausT_1lepton1_charge.n(), &tausT_1lepton1_charge},
         {tausM_1lepton1_charge.n(), &tausM_1lepton1_charge},
         {tausF_1pt.n(), &tausF_1pt},
-        {tausT_1pt.n(), &tausT_1pt},
-        {tausTT_1pt.n(), &tausTT_1pt},
+
         {tausT_1genFlavour.n(), &tausT_1genFlavour},
         {tausF_1genFlavour.n(), &tausF_1genFlavour},
         {tausTT_1genFlavour.n(), &tausTT_1genFlavour},
