@@ -223,13 +223,6 @@ void WH_forDataMC::Init()
     histsForRegion_vec.push_back(tausT_1lepton1_charge_class);
     histsForRegion_vec.push_back(tausM_1lepton1_charge_class);
 
-    //try BDT score here
-    // Double_t* BDTpointer = &m_BDTScore;
-    // std::shared_ptr<histsForRegionsValue> BDTScore_class = std::make_shared<histsForRegionsValue>("BDTScore", "BDT score", m_processName, 4, -0.3, 0.4, regionsForVariables, BDTpointer);
-    // histsForRegion_vec.push_back(BDTScore_class);
-    // if(m_ifBDT){
-
-    // }
 
     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 
@@ -260,7 +253,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         //!!!Testing corrections
         // Double_t basicWeight = e->EVENT_genWeight.v();
-        Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v();
+        Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ;
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauTT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
@@ -308,12 +301,12 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         }
 
         // 1tau0l CR
-        Bool_t is1tau0lVR = SR1tau1lSel(e, 7, m_isRun3);
-        Bool_t is1tau0lCRc = SR1tau1lSel(e, 8, m_isRun3);
-        Bool_t is1tau0lCRb = SR1tau1lSel(e, 9, m_isRun3);
-        WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lMR", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lVR", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCR", basicWeight, m_isData);
+        Bool_t is1tau0lMR = SR1tau1lSel(e, 7, m_isRun3);
+        Bool_t is1tau0lVR = SR1tau1lSel(e, 8, m_isRun3);
+        Bool_t is1tau0lCR = SR1tau1lSel(e, 9, m_isRun3);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR, "1tau0lMR", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", basicWeight, m_isData);
 
         // 1tau1lCR
         Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2, m_isRun3); // CR1 in slides
