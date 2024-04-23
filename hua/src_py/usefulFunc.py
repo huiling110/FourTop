@@ -347,7 +347,7 @@ def getEff(h_de, h_nu):
     eff.SetName(h_de.GetName())
     return eff
     
-def plotEffTEff(h_nu, h_de, plotName, era, legendName, ifFixMax=True, rightTitle='Efficiency'):
+def plotEffTEff(h_nu, h_de, plotName, era, legendName, yRange=[0, 1.2], rightTitle='Efficiency'):
     '''
     to do: add the plotting of denominator and numerator too
     '''
@@ -366,8 +366,9 @@ def plotEffTEff(h_nu, h_de, plotName, era, legendName, ifFixMax=True, rightTitle
     eff.SetTitle(h_de.GetTitle())
     eff.SetName(h_de.GetName())
     
-    eff.GetYaxis().SetRangeUser(0, 1.2)
-    eff.GetYaxis().SetTitle('HLT efficiency')
+    # eff.GetYaxis().SetRangeUser(0, 1.2)
+    eff.GetYaxis().SetRangeUser(yRange[0], yRange[1])
+    eff.GetYaxis().SetTitle(rightTitle)
     eff.GetXaxis().SetTitle(h_de.GetTitle())
     
     eff.SetMarkerSize(0.8)

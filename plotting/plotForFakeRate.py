@@ -4,13 +4,10 @@ from math import sqrt
 import numpy as np
 import ROOT
 import usefulFunc as uf
-from ttttGlobleQuantity import summedProcessList
+# from ttttGlobleQuantity import summedProcessList
 
 from setTDRStyle import addCMSTextToCan, setTDRStyle
 from writeCSVforEY import  histDateMinusGenBG
-
-
-
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_2prong/'
@@ -30,10 +27,6 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/variableHists_v0FR_measure1prong/'
     
    
-    ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
-    variableDic = {
-        'tausF_1jetPt': ptBins,
-    }
     
     etaBins = np.array([0, 0.8, 1.5, 2.3])
     
@@ -57,8 +50,28 @@ def plotFR(inputDirDic, era):
     regionList_eta1 = addEta(regionList, '_Eta1')
     variable = ['tausF_1jetPt']
     processList = ['jetHT', 'tt', 'ttX', 'singleTop', 'WJets']
-    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList_eta1, processList, variable, era, False)
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList_eta1, processList, variable, era, False)#sumProcessPerVar[ivar][region][sumPro]
 
+    h_TTau = dataMinusGenBG(sumProcessPerVar['tausF_1jetPt'], '1tau0lMR_Eta1', '1tau0lMRGen_Eta1')
+    h_TTau.Print()
+    h_FTau = dataMinusGenBG(sumProcessPerVar['tausF_1jetPt'], regionList_eta1[2], regionList_eta1[3]) 
+    h_FTau.Print()
+    ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
+    h_TTau_rebin = h_TTau.Rebin(len(ptBins)-1, 'h_TTau_rebin', ptBins)
+    h_FTau_rebin = h_FTau.Rebin(len(ptBins)-1, 'h_FTau_rebin', ptBins)
+   
+    plotDir = inputDirDic['mc'] + 'results/'
+    uf.checkMakeDir( plotDir )
+    plotName = plotDir + 'FR_1prong'
+    # FR = uf.plotEffTEff( h_TTau, h_FTau, plotName, era, 'tau fake rate', [0., 0.3], 'Fake rate')
+    FR = uf.plotEffTEff( h_TTau_rebin, h_FTau_rebin, plotName, era, 'tau fake rate', [0., 0.3], 'Fake rate')
+    
+    
+# def dataMinusGenBG(sumProcessPerVar):
+def dataMinusGenBG(sumProcessIVar, regionData, regionBG):
+    data = sumProcessIVar[regionData]['jetHT'].Clone()
+    bg = uf.addBGHist(sumProcessIVar, regionBG)
+    return data-bg
 
 
 
