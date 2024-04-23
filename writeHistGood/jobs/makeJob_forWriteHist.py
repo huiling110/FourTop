@@ -90,7 +90,8 @@ def main():
    
     #dataMC
     # version = 'v0dataMC_noCorrection'
-    version = 'v0dataMC_basicWeight'
+    # version = 'v0dataMC_basicWeight'
+    version = 'v2dataMC_basicWeight_1tau1lBjet2'
     # version = 'v0dataMC_basicWeight_new1tau0l' #pileup+prefiring
     # version = 'v0dataMC1tau2l_pileupSF'
     # version = 'v0dataMC1tau1l_pileupSF_HT350'

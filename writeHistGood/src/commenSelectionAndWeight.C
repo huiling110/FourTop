@@ -121,8 +121,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
     case 11://!!!1tau1lSRTest
         // isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
         // isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
-        // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
-        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 3;
+        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
+        // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 3;
         // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
         // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
         // isPass = e->tausTT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
