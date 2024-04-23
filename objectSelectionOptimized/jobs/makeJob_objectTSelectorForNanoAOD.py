@@ -45,7 +45,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v73NoHLTTauFHT400/'
 # jobVersionName = 'v74AddMETPhi/'
 # jobVersionName = 'v75AddTauTTTT/'
-jobVersionName = 'v75AddTauTTTTNoHTCut/'
+# jobVersionName = 'v75AddTauTTTTNoHTCut/'
+jobVersionName = 'v75OverlapRemovalFTau/'
 
 #run3
 # jobVersionName = 'v0Testing/'

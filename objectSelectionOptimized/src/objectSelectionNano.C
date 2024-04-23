@@ -69,10 +69,10 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         tauSelM.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
         tauSelTTTT.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
 
-        // const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
-        // const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
-        const std::vector<Double_t> tausFEtaVec = tauSelTT.getEtaVec();//!!!testing to overlap removal with tight taus
-        const std::vector<Double_t> tausFPhiVec = tauSelTT.getPhiVec();
+        const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
+        const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
+        // const std::vector<Double_t> tausFEtaVec = tauSelTT.getEtaVec();//!!!testing to overlap removal with tight taus
+        // const std::vector<Double_t> tausFPhiVec = tauSelTT.getPhiVec();
         m_tausTotal += tauSel.getSize();
         m_tausFTotal += tauSelF.getSize();
         m_tausLTotal += tauSelL.getSize();
@@ -109,9 +109,9 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
             continue;
         }
-        // if(!OS::ifEventPass(preSelection, jetSel.getHT()>300., m_cutflow, 6)){//!testin, for HLT to run faster later
-        //     continue;
-        // }
+        if(!OS::ifEventPass(preSelection, jetSel.getHT()>350., m_cutflow, 6)){//!testin, for HLT to run faster later
+            continue;
+        }
 
 
         CF_pre->Fill(0., genWeight);
