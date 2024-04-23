@@ -287,14 +287,13 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         }
         // std::cout << "tausF_num=" << e->tausF_num.v() << "\n";
         // {
-        // if(!(e->tausF_num.v()==1  )){
-            // continue;
-        // }
+        if(!(e->tausF_num.v()==1  )){
+            continue;
+        }
         Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
         // if (!(lepNum==0)){
         //     continue;
         // }
-        if (!(e->tausF_num.v() == 1 && (lepNum == 0))) continue;//!!!shouldn't ask for tausF_num==1 because 1tau0lSR doesn't require this
 
         // event weight
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!
@@ -359,7 +358,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta2", basicWeight, is1tau0lVR &&  isEta2, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta3", basicWeight, is1tau0lVR &&  isEta3, m_isData);
             }else{
-                std::cout<<"isEta2="<<isEta2<<" isTauLNumGen="<<isTauLNumGen<<" is1tau0lMRLTau="<<is1tau0lMRLTau<<"\n";
+                // std::cout<<"isEta2="<<isEta2<<" isTauLNumGen="<<isTauLNumGen<<" is1tau0lMRLTau="<<is1tau0lMRLTau<<"\n";
                 // std::cout << "eta=" << tausF_1jetEtaAbs << "\n";
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta1", basicWeight, is1tau0lMRLTau && isEta1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta2", basicWeight, is1tau0lMRLTau &&  isEta2 && isTauLNumGen, m_isData);

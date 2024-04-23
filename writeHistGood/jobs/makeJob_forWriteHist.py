@@ -53,7 +53,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v74AddMETPhi/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut//'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75OverlapRemovalFTau/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -78,12 +79,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/'
 
     #!fakerate
-    version = 'v0FR_measure1prong'
+    # version = 'v0FR_measure1prong'
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
-   
-    # version = 'v0_HLTSFMeasure'
-    
+       
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
     # version = 'v0_btagEffMeasure'
@@ -91,6 +90,7 @@ def main():
    
     #dataMC
     # version = 'v0dataMC_noCorrection'
+    version = 'v0dataMC_basicWeight'
     # version = 'v0dataMC_basicWeight_new1tau0l' #pileup+prefiring
     # version = 'v0dataMC1tau2l_pileupSF'
     # version = 'v0dataMC1tau1l_pileupSF_HT350'

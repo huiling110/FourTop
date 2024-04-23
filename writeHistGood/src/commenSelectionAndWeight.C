@@ -8,8 +8,8 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3)
     if (!isRun3){
         // pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
         // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 400.;//!testing
-        pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 400.;//!testing
-        // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 350.;//!testing
+        // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 400.;//1tau0l !testing
+        pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 350.;//1tau1l!testing
     }else{
         // std::cout << "not run 3\n";
         // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
@@ -94,8 +94,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
         // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 9 && bjetsMNum>=3;
         isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum>=3;
         break;
-    case 4: // 1tau1lCR2
-        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() == 5 && bjetsMNum >= 1;
+    case 4: // 1tau1lCR2//!testing
+        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() <= 6 && bjetsMNum >= 3;
         break;
     case 5: // !1tau2lSRTesting
         isPass = tausTNum == 1 && lepNum == 2 && e->jets_num.v() >=5 && bjetsMNum >=2 ;

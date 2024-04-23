@@ -24,7 +24,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/variableHists_v0FR_measure1prong/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/variableHists_v0FR_measure1prong/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/'
     
    
     
@@ -57,15 +58,15 @@ def plotFR(inputDirDic, era):
     FR_eta1_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta1', 'FR_1prongEta1_CR')
     FR_eta2_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta2', 'FR_1prongEta2_CR')
     FR_eta3_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta3', 'FR_1prongEta3_CR')
-    uf.plotOverlay([FR_eta1_CR, FR_eta2_CR, FR_eta3_CR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CR_1prong', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.1])
+    uf.plotOverlay([FR_eta1_CR, FR_eta2_CR, FR_eta3_CR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CR_1prong', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.2])
     
     # FR_eta1_bjetImpact = [FR_eta1_VR, FR_eta1_CR]
     # overlayName = inputDirDic['mc'] + 'results/overlayFR_bjet_1prongEta1'
     # plotOverlayFR(FR_eta1_bjetImpact, era, overlayName)
     
-    uf.plotOverlay([FR_eta1, FR_eta1_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N^{jet}<8, N^{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.1])
-    uf.plotOverlay([FR_eta2, FR_eta2_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N^{jet}<8, N^{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.1])
-    uf.plotOverlay([FR_eta3, FR_eta3_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N^{jet}<8, N^{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.1])
+    uf.plotOverlay([FR_eta1, FR_eta1_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta1', 'AP', [0.3, 0.6, 0.8, 0.8], [0, 0.18])
+    uf.plotOverlay([FR_eta2, FR_eta2_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta2', 'AP', [0.3, 0.6, 0.8, 0.8], [0, 0.18])
+    uf.plotOverlay([FR_eta3, FR_eta3_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta3', 'AP', [0.3, 0.6, 0.8, 0.8], [0, 0.18])
     
 
 def plotOverlayFR(overlayHists,era, plotName):
