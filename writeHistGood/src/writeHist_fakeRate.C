@@ -332,8 +332,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 continue;
             }
 
-            // Double_t tausF_1jetEtaAbs = TMath::Abs(e->tausF_1eta.v());
-            // std::cout << "eta=" << e->tausF_1eta.v() << "\n";
+            // Double_t tausF_1jetEtaAbs = TMath::Abs(e->tausF_1eta.v());//function strange
             Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
             Bool_t isEta1 = 0 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 0.8;
             Bool_t isEta2 = 0.8 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 1.5;

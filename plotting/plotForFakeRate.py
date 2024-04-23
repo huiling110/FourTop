@@ -25,8 +25,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0FR_measureVR_1prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0FR_measureVR_1prong_Add/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/variableHists_v0FR_measure1prong/'
     
    
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
@@ -46,9 +47,26 @@ def main():
     #measure FR in CR
     # FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
     # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
+    plotFR(inputDirDic, era)
     
     # plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era)
     # plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era, False)
+    
+def plotFR(inputDirDic, era):
+    regionList = ['1tau0lMR', '1tau0lMRGen', '1tau0lMRLTau', '1tau0lMRLTauGen']
+    regionList_eta1 = addEta(regionList, '_Eta1')
+    variable = ['tausF_1jetPt']
+    processList = ['jetHT', 'tt', 'ttX', 'singleTop', 'WJets']
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList_eta1, processList, variable, era, False)
+
+
+
+
+def addEta(regionList, eta):
+    regionList_eta = []
+    for i in regionList:
+        regionList_eta.append(i+eta)
+    return regionList_eta
    
 def plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era, isJet=True): 
     FR_EtaListDic = {}
