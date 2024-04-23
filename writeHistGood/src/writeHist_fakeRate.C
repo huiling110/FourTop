@@ -328,7 +328,13 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
 
         if(m_ifMeasure){
-            Double_t tausF_1jetEtaAbs = TMath::Abs(e->tausF_1eta.v());
+            if (!(e->tausF_prongNum.v() == 1)){
+                continue;
+            }
+
+            // Double_t tausF_1jetEtaAbs = TMath::Abs(e->tausF_1eta.v());
+            // std::cout << "eta=" << e->tausF_1eta.v() << "\n";
+            Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
             Bool_t isEta1 = 0 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 0.8;
             Bool_t isEta2 = 0.8 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 1.5;
             Bool_t isEta3 = 1.5 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 2.3; //!2.5 for run 3
@@ -336,17 +342,27 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTau_Eta1", basicWeight, is1tau0lMRLTau &&  isEta1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTau_Eta2", basicWeight, is1tau0lMRLTau &&  isEta2, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTau_Eta3", basicWeight, is1tau0lMRLTau &&  isEta3, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMR_Eta1", basicWeight, is1tau0lMR &&  isEta1, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMR_Eta2", basicWeight, is1tau0lMR &&  isEta2, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMR_Eta3", basicWeight, is1tau0lMR &&  isEta3, m_isData);
                 //VR
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTau_Eta1", basicWeight, is1tau0lVRLTau &&  isEta1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTau_Eta2", basicWeight, is1tau0lVRLTau &&  isEta2, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTau_Eta3", basicWeight, is1tau0lVRLTau &&  isEta3, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lVR_Eta1", basicWeight, is1tau0lVR &&  isEta1, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lVR_Eta2", basicWeight, is1tau0lVR &&  isEta2, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lVR_Eta3", basicWeight, is1tau0lVR &&  isEta3, m_isData);
                 //CR
                 tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta1", basicWeight, is1tau0lVRLTau &&  isEta1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta2", basicWeight, is1tau0lVRLTau &&  isEta2, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta3", basicWeight, is1tau0lVRLTau &&  isEta3, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta1", basicWeight, is1tau0lVR &&  isEta1, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta2", basicWeight, is1tau0lVR &&  isEta2, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta3", basicWeight, is1tau0lVR &&  isEta3, m_isData);
             }else{
-                // std::cout<<"isEta2="<<isEta2<<" isTauLNumGen="<<isTauLNumGen<<" is1tau0lMRLTau="<<is1tau0lMRLTau<<"\n";
-                tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta1", basicWeight, is1tau0lMRLTau &&  isEta1 && isTauLNumGen, m_isData);
+                std::cout<<"isEta2="<<isEta2<<" isTauLNumGen="<<isTauLNumGen<<" is1tau0lMRLTau="<<is1tau0lMRLTau<<"\n";
+                // std::cout << "eta=" << tausF_1jetEtaAbs << "\n";
+                tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta1", basicWeight, is1tau0lMRLTau && isEta1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta2", basicWeight, is1tau0lMRLTau &&  isEta2 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta3", basicWeight, is1tau0lMRLTau &&  isEta3 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRGen_Eta1", basicWeight, is1tau0lMR && isEta1 && isTauTNumGen, m_isData);
@@ -425,6 +441,7 @@ void WH_fakeRate::Terminate()
         std::cout << "m_processName=" << m_processName << " lumi=" << TTTT::lumiMap.at(m_era) << " crossSection=" << TTTT::crossSectionMap.at(m_processName) << "\n";
         // WH::histRegionsVectScale(histsForRegion_vec, processScale);
         tausF_1jetPt_class.scale(processScale);
+        tausF_1jetPt_class.print();
     };
     // for (UInt_t i = 0; i < histsForRegion_vec.size(); i++)
     // {

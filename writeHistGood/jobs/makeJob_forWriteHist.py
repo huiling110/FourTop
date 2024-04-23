@@ -78,17 +78,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/'
 
     #!fakerate
-    # version = 'v0FR_measureVR_1prong'
+    version = 'v0FR_measure1prong'
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
-    # version = 'v1FR_application_correctWeight'
-    # version = 'v1FR_application_bjets2_bShapeWeight'
-    # version = 'v1FR_application_bjets3_bShapeWeight'
-    # version = 'v1FR_application_correctWeight_bjets3'
-    # version = 'v1FR_application_MCBtagShape'
-    # version = 'v1FR_application_bjets3_bWPWeight
-    # version = 'v1FR_application_bjets2_bWPWeight'
-    # version = 'v1FR_application_bjets2_bShapeWeight'
    
     # version = 'v0_HLTSFMeasure'
     
@@ -99,7 +91,7 @@ def main():
    
     #dataMC
     # version = 'v0dataMC_noCorrection'
-    version = 'v0dataMC_basicWeight_new1tau0l' #pileup+prefiring
+    # version = 'v0dataMC_basicWeight_new1tau0l' #pileup+prefiring
     # version = 'v0dataMC1tau2l_pileupSF'
     # version = 'v0dataMC1tau1l_pileupSF_HT350'
     # version = 'v0dataMC_pileupSF_jet7'
@@ -134,9 +126,6 @@ def main():
     # version = 'v0BasicSystematic_20bins'
     # version = 'v0theorecticalHistsAdd'
     # version = 'v1JERUp_rerun'
-    # version = 'v1JERDown_rerun'
-    # version = 'v1TESDown_rerun'
-    # version = 'v1TESUp_rerun'
     # version = 'v1JESDown_rerun'
     # version = 'v1JESUp_rerun'
     # version = 'v2traingWithBtag'

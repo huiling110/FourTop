@@ -62,11 +62,11 @@ void run_treeAnalyzer(
     // TString process = "JetMET2022G",
     // TString process = "TTtoLNu2Q",
     // TString process = "TTto2L2Nu",
-    // TString process = "tttt",
     // TString process = "TTTT",
 
+    TString process = "tttt",
     // TString process = "jetHT_2018a",
-    TString process = "ttbar_0l",
+    // TString process = "ttbar_0l",
     // TString process = "ttbar_1l",
     // TString process = "JetMet2022D",
     TString histVersion = "v0_test",
@@ -86,7 +86,7 @@ void run_treeAnalyzer(
     UInt_t entry = 0;
     if (isTest)
     {
-        entry = 10000;
+        entry = 50000;
     }
     writeHist.LoopTree(entry); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();

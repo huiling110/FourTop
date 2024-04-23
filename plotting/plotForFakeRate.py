@@ -31,9 +31,7 @@ def main():
    
     ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
     variableDic = {
-        # 'tausL_1pt': ptBins,
         'tausF_1jetPt': ptBins,
-        # 'tausF_1jetEtaAbs' : etaBins 
     }
     
     etaBins = np.array([0, 0.8, 1.5, 2.3])
@@ -44,14 +42,13 @@ def main():
     era = uf.getEraFromDir(inputDir)
         
     # isVR = True
-    isVR = False
-    
+    # isVR = False
     #measure FR in CR
-    FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
-    writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
+    # FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
+    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
     
-    plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era)
-    plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era, False)
+    # plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era)
+    # plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era, False)
    
 def plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era, isJet=True): 
     FR_EtaListDic = {}
