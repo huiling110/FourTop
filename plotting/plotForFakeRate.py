@@ -35,11 +35,6 @@ def main():
     plotDir = inputDirDic['mc'] + 'results/'
     era = uf.getEraFromDir(inputDir)
         
-    # isVR = True
-    # isVR = False
-    #measure FR in CR
-    # FR_ptInEtaList, inoUse = getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR, True, era, 'VR' )
-    # writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins )
     plotFR(inputDirDic, era)
     
     # plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era)
@@ -100,7 +95,6 @@ def plotFRPerEta(inputDirDic, regionList, era, eta, plotName):
     return FR
     
     
-# def dataMinusGenBG(sumProcessPerVar):
 def dataMinusGenBG(sumProcessIVar, regionData, regionBG):
     data = sumProcessIVar[regionData]['jetHT'].Clone()
     bg = uf.addBGHist(sumProcessIVar, regionBG)
