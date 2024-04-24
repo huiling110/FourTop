@@ -34,9 +34,10 @@ def main():
     # inVersion = 'v74AddMETPhi'
     # inVersion = 'v75AddTauTTTTNoHTCut'
     # inVersion = 'v75OverlapRemovalFTau'
-    inVersion = 'V75NoHLTNoTauBjet2'
-    # outVersion = 'v0baselineHT350'
-    outVersion = 'v0baseline6jet2Bjet'
+    # inVersion = 'V75NoHLTNoTauBjet2'
+    inVersion = 'V75NoHLTNoTauBjet2Jet6'
+    outVersion = 'v0baselineHT350'
+    # outVersion = 'v0baseline6jet2Bjet'
     # outVersion = 'v2cut1tau1l'
     
     #2022
@@ -73,7 +74,7 @@ def main():
     justMC = False
     
     
-    print('jobVersion:', inVersion+'_'+outVersion) 
+    print('jobVersion:', outVersion + '_'+ inVersion) 
     #all the parameters you need to change is in this part , better not change the rest of the code.
     inOutDirMap = getInOutDic( year, inVersion, outVersion, justMC )
 
