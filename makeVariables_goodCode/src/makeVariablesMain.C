@@ -20,8 +20,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         //report every 10%
         if (entryCount % (numEntries / 10) == 0)
         {
-            // std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\r" << std::flush;
-            std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\n";
+            std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\r" << std::flush;
+            // std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\n";
         }
 
         muVarMaker.makeVariables(e);
@@ -60,7 +60,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         {
             // if (!(jetVarMaker.getHT() > 550. && jetVarMaker.getJet_6pt() > 40. && jetVarMaker.getJet_num() >=6 && bjetM_num >= 1))
             // if (!(jetVarMaker.getHT() > 400. && jetVarMaker.getJet_num() >=5 && bjetM_num >= 1)) //!!!testing
-            if (!(jetVarMaker.getHT() > 350. && jetVarMaker.getJet_num() >=5 && bjetM_num >= 1)) //!!!testing
+            // if (!(jetVarMaker.getHT() > 350. && jetVarMaker.getJet_num() >=5 && bjetM_num >= 1)) //!!!testing
+            if (!(jetVarMaker.getHT() > 350. && jetVarMaker.getJet_num() >=6 && bjetM_num >= 2)) //!for HLT 
             // if (!(jetVarMaker.getHT() > 550 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 )) //!!!for btag-efficiency measurement
             {
                 continue;
