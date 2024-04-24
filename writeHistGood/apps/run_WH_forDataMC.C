@@ -34,7 +34,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v74AddMETPhi/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut//mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75OverlapRemovalFTau/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75OverlapRemovalFTau/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_V75NoHLTNoTauBjet2/mc/",
 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v0for2022baseline/data/",
@@ -77,8 +78,8 @@ void run_treeAnalyzer(
     TStopwatch t;
     t.Start();
 
-    WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
-    // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
+    // WH_forDataMC writeHist(inputDir, process, histVersion, isTest);
+    WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
     // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
     // WH_HLTeff writeHist(inputDir, process, histVersion, isTest);

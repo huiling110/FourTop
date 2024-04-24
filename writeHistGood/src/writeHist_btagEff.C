@@ -68,16 +68,17 @@ void WriteHist_btagEff::LoopTree(UInt_t entry)
         m_tree->GetEntry(i);
 
         // Bool_t pass = e->jets_num.v() >= 6  && e->jets_HT.v() > 500. && e->jets_6pt.v() > 40. && e->tausT_num.v()>=0;
-        Bool_t pass = e->jets_num.v() >= 6  && e->jets_HT.v() > 550. && e->jets_6pt.v() > 40. && e->tausT_num.v()>=0;
+        // Bool_t pass = e->jets_num.v() >= 6  && e->jets_HT.v() > 550. && e->jets_6pt.v() > 40. && e->tausT_num.v()>=0;
+        Bool_t pass = e->jets_num.v() >= 5  && e->jets_HT.v() > 350. && e->tausT_num.v()>=0; //new
 
         // if (!(baselineSelection(e)))
         if (!(pass))
         {
             continue;
         }
-        // Double_t eventWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v();
         // Double_t eventWeight = e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v()*e->tauT_IDSF_weight_new.v();//!!run2, shouldn't add HLT_weight!
-        Double_t eventWeight = e->PUweight_.v() ;//!!run2, shouldn't add HLT_weight!
+        // Double_t eventWeight = e->PUweight_.v() ;//!!run2, shouldn't add HLT_weight!
+        Double_t eventWeight = e->PUweight_.v()*e->EVENT_prefireWeight.v()* e->tauT_IDSF_weight_new.v() ;//!!run2, shouldn't add HLT_weight!
 
         for (UInt_t i = 0; i < e->jets_pt_->size(); i++)
         {
