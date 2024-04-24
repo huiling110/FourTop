@@ -33,7 +33,8 @@ def main():
     # inVersion = 'v73NoHLTTauFHT400'
     # inVersion = 'v74AddMETPhi'
     # inVersion = 'v75AddTauTTTTNoHTCut'
-    inVersion = 'v75OverlapRemovalFTau'
+    # inVersion = 'v75OverlapRemovalFTau'
+    inVersion = 'V75NoHLTNoTauBjet2'
     outVersion = 'v0baselineHT350'
     # outVersion = 'v2cut1tau1l'
     
