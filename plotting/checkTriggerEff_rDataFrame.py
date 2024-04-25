@@ -1,11 +1,26 @@
 import ROOT
 
 # Create an RDataFrame for the dataset
-input = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/output/2022preEE/tree_1.root'
+# input = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/output/2022preEE/tree_1.root'
+input = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/output/2018/outTree_0.root'
+
+
+
 df = ROOT.RDataFrame('tree', input)
 
 def checkDileptonTri(df):
+    tau12lCut = df.Filter('tausT_pt.size()==1 && muonsTopMVAT_pt.size()+elesTopMVAT_pt.size()==2')
+    dileptonTri = 'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ || HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ || HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ || HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_'
+    dileptonTri = tau12lCut.Filter(dileptonTri)
+    dileptonCount = dileptonTri.Count().GetValue()
+    tau12lCutCount = tau12lCut.Count()
     
+    hardronicTrigger = 'HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ || HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_'
+    hardronicTriggerSel = tau12lCut.Filter(hardronicTrigger)
+    hardronicTriggerSelCount = hardronicTriggerSel.Count()
+    
+    print('1tau2l=', tau12lCutCount.GetValue(), ' dileptonTri|1tau2l=', dileptonCount, ' triggerEff=', dileptonCount/tau12lCutCount.GetValue())
+    print('1tau2l=', tau12lCutCount.GetValue(), ' hardronicTriggerSel=', hardronicTriggerSelCount.GetValue(), ' triggerEff=', hardronicTriggerSelCount.GetValue()/tau12lCutCount.GetValue())
 
 def checkHardronicTrigger(df):
     #offline cut
@@ -83,5 +98,9 @@ def checkHardronicTrigger(df):
     df.Report().Print()
     print('done\n')
 
+
+if __name__=='__main__':
+    checkDileptonTri(df)
+    
 
 

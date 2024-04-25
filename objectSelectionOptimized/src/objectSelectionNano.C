@@ -109,9 +109,9 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
             continue;
         }
         // if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
-        // if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>1, m_cutflow, 5))){//!testing, for HLT
+        if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>1, m_cutflow, 5))){//!testing, for HLT
         //     continue;
-        // }//!No b-tag ,for b-tag efficiency measurement!
+        }//!No b-tag ,for b-tag efficiency measurement!
         if(!OS::ifEventPass(preSelection, jetSel.getHT()>350., m_cutflow, 6)){//!testin, for HLT to run faster later
             continue;
         }
