@@ -47,7 +47,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v75AddTauTTTT/'
 # jobVersionName = 'v75AddTauTTTTNoHTCut/'
 # jobVersionName = 'v75OverlapRemovalFTau/'
-jobVersionName = 'V75NoHLTNoTauBjet2Jet6/'
+# jobVersionName = 'V75NoHLTNoTauBjet2Jet6/'
+jobVersionName = 'v75NotHLTNoBJetTauT/' #for b-tag efficiency 
 
 #run3
 # jobVersionName = 'v0Testing/'

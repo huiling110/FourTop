@@ -98,7 +98,8 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         systWeightCal.Select(e, m_isData);
 
         // if(!(OS::ifEventPass(iftauSel, tauSelM.getSize()>0, m_cutflow, 3))){
-        if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0, m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
+        if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){
+        // if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0, m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
             continue;
         }
 
@@ -108,9 +109,9 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
             continue;
         }
         // if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
-        if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>1, m_cutflow, 5))){//!testing, for HLT
-            continue;
-        }
+        // if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>1, m_cutflow, 5))){//!testing, for HLT
+        //     continue;
+        // }//!No b-tag ,for b-tag efficiency measurement!
         if(!OS::ifEventPass(preSelection, jetSel.getHT()>350., m_cutflow, 6)){//!testin, for HLT to run faster later
             continue;
         }
