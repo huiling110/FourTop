@@ -140,7 +140,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         }
 
         Bool_t is1muon = kTRUE;
-        Bool_t ifHLT = HLTSel(e, m_era);
+        Bool_t ifHLT = HLTSel(e, m_era);//!!!
         Int_t bjetsNum = m_isRun3? e->bjetsPTM_num.v(): e->bjetsM_num.v();
         const Bool_t is1b = (bjetsNum == 1);
         const Bool_t is2b = (bjetsNum == 2);
@@ -161,7 +161,6 @@ void WH_HLTeff::LoopTree(UInt_t entry)
                 std::cout << "HLT selection for 2018\n";
             }
             is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
-            // is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
         }
         else if (m_era.CompareTo("2017") == 0)
         {
