@@ -253,7 +253,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         //!!!Testing corrections
         // Double_t basicWeight = e->EVENT_genWeight.v();
-        Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
+        // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
+        Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v()* e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v() ; 
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauTT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();

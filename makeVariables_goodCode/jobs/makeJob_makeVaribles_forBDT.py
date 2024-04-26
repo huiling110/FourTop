@@ -41,7 +41,8 @@ def main():
     # outVersion = 'v0baselineBtagUpdatedHT350'
     # outVersion = 'v0baselineHLTWeightUpdated'
     # outVersion = 'v0baseline6jet2Bjet'
-    outVersion = 'v2tau1l1CutHT4006jetpt30'
+    # outVersion = 'v2tau1l1CutHT4006jetpt30'
+    outVersion = 'v3baselineNewHT400Jet5Bjet2'
     
     #2022
     # year = '2022postEE'
