@@ -9,7 +9,8 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3)
         // pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
         // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 400.;//!testing
         // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 400.;//1tau0l !testing
-        pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 350.;//1tau1l!testing
+        // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 350.;//1tau1l!testing
+        pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 350.;//1tau1l!testing
     }else{
         // std::cout << "not run 3\n";
         // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
@@ -36,8 +37,8 @@ Bool_t HLTSel(event *e, const TString m_era){
         }
         else if (m_era.CompareTo("2018") == 0)
         {
-            ifHLT = e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() == 1 || e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2.v() == 1 || e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5.v() == 1 || e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59.v() == 1 || e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94.v() == 1 || e->HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5.v() == 1;
-            // ifPass = HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 || HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5 ;
+            ifHLT = e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() || e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2.v() || e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5.v() || e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59.v() || e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94.v()|| e->HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5.v() ;
+            // ifHLT = e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5.v() || e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2.v()  || e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5.v() || e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59.v() || e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94.v() ;
         }
         else if (m_era.CompareTo("2017") == 0)
         {
@@ -118,8 +119,10 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
     case 11://!!!1tau1lSRTest
         // isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
         // isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
-        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
-        // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 3;
+        // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
+        // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 3 && e->jets_HT.v()>400.;
+        // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 3 && e->jets_HT.v()>400. && e->jets_6pt.v()>30.;
+        isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 3 && e->jets_HT.v()>350. && e->jets_6pt.v()>30.;
         // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;
         // isPass = e->tausT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 6 && bjetsMNum >= 2;
         // isPass = e->tausTT_num.v() == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum >= 2;

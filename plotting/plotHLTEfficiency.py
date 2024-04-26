@@ -29,7 +29,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64noHLTSel/mc/variableHists_v0_HLTSFMeasure_6thJet40HT550BinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3NotHLTPre/mc/variableHists_v0_HLTSFMeasureAddNoMu/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/mc/variableHists_v0_HLTSFMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/mc/variableHists_v0_HLTSFMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/mc/variableHists_v0_HLTSFMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdated_V75NoHLTNoTauBjet2Jet6/mc/variableHists_v0HLT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdatedHT350_v75NoHLTTauFHT300Bjet2Jet5/mc/variableHists_v0HLT/'
    
     
     isRun3 = uf.isRun3(inputDir)
@@ -41,20 +44,21 @@ def main():
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic, '', isRun3)
     # plotEfficiencyHLT(inputDirDic, '1b', isRun3)
-    plotEfficiencyHLT(inputDirDic, '2b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
     # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
     
     #plotSF
-    # plotSF(inputDirDic, False, isRun3)
+    plotSF(inputDirDic, False, isRun3)
     
     
    
 def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
     variableList = ['jetsHTAnd6pt']
     # regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b', 'baseline1b', 'baselineAndHLT1b', 'baseline2b', 'baselineAndHLT2b', 'baseline3b', 'baselineAndHLT3b' ]
-    regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
+    # regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
+    regionList = [ 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
     
-    if isRun3:
+    if not isRun3:
         sumProList = ['tt', 'singleMu']
     else:
         sumProList = ['TT', 'singleMu']
@@ -65,9 +69,10 @@ def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
   
-    bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
+    # bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
+    bRegions = [ 'baseline1Muon2b', 'baseline1Muon3b']
     regionTitleDic = {
-        'baseline1Muon1b': 'b jets number = 1',
+        # 'baseline1Muon1b': 'b jets number = 1',
         'baseline1Muon2b': 'b jets number = 2',
         'baseline1Muon3b': '2 < b jets number < 8',
     }
@@ -95,7 +100,8 @@ def getEffHist(sumProcessPerVar, regionDe, regionNu, process, plotDir, canTitle)
     # dataEff1b.SetName(dataEff1b.GetName()+'_effMCtrue')
     dataEff1b.SetName(dataEff1b.GetName()+'_eff')
         
-    pB.plot2D(dataEff1b, plotDir+dataEff1b.GetName(), canTitle, True, [0.65, 1.35])
+    # pB.plot2D(dataEff1b, plotDir+dataEff1b.GetName(), canTitle, True, [0.65, 1.35])
+    pB.plot2D(dataEff1b, plotDir+dataEff1b.GetName(), canTitle, True, [0.3, 1.0])
     
     return dataEff1b
     
@@ -108,10 +114,10 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle, ifOnlyDraw=False):
     nu.Sumw2()
     ratio = de.Clone()
     ratio.Divide(nu)
-    # ratioName = ratio.GetName().split('_')[0]+'_SF'
     ratioName = 'singleMu_SF'
     ratio.SetName(ratioName)
-    pB.plot2D(ratio, plotName, canTitle, True, [0.65, 1.35])
+    # pB.plot2D(ratio, plotName, canTitle, True, [0.65, 1.35])
+    pB.plot2D(ratio, plotName, canTitle, True, [0.5, 1.35])
     
     SFfileName = plotName + '.root'
     if not ifOnlyDraw:
@@ -125,10 +131,9 @@ def plotEfficiencyHLT(inputDirDic, bjet = '', isRun3 = False):
         regionList[i] = regionList[i]+bjet
     
     variableDic = {
-        # 'jets_HT': np.array( [400., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
-        'jets_HT': np.array( [350., 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
+        'jets_HT': np.array( [350., 400., 420, 450, 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
         'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
-        'jets_6pt': np.array([25., 55., 70., 85., 115, 150]),
+        'jets_6pt': np.array([25., 30, 35, 40, 45, 55., 70., 85., 115, 150]),
         'jets_num': np.array([ 5.5, 6.5, 7.5, 8.5, 9.5,12.5]),
         'jets_1pt': np.array([25., 55,  85, 145, 175, 235, 295, 355, 415, 490, 625]),
     }

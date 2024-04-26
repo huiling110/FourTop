@@ -57,7 +57,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75OverlapRemovalFTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_V75NoHLTNoTauBjet2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75NotHLTNoBJetTauT/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdated_V75NoHLTNoTauBjet2Jet6/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdated_V75NoHLTNoTauBjet2Jet6/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdatedHT350_v75NoHLTTauFHT300Bjet2Jet5/'
+
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -97,7 +99,9 @@ def main():
     # version = 'v0dataMC_noCorrection'
     # version = 'v0dataMC_basicWeight'
     # version = 'v2dataMC_basicWeight_1tau1lBjet2'
-    # version = 'v0dataMC_basicWeight_new1tau0l' #pileup+prefiring
+    # version = 'v3dataMC_basicWeight_1tau1lBjet3Jet6HT400'
+    # version = 'v3dataMC_basicWeight_1tau1lBjet3Jet6HT400Jet6pt30'
+    # version = 'v3dataMC_basicWeight_1tau1lBjet3Jet6HT350Jet6pt30'
     # version = 'v0dataMC1tau2l_pileupSF'
     # version = 'v0dataMC1tau1l_pileupSF_HT350'
     # version = 'v0dataMC_pileupSF_jet7'

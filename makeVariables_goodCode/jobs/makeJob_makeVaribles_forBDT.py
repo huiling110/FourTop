@@ -35,10 +35,11 @@ def main():
     # inVersion = 'v75AddTauTTTTNoHTCut'
     # inVersion = 'v75OverlapRemovalFTau'
     # inVersion = 'V75NoHLTNoTauBjet2'
-    inVersion = 'V75NoHLTNoTauBjet2Jet6'
+    # inVersion = 'V75NoHLTNoTauBjet2Jet6'
+    inVersion = 'v75NoHLTTauFHT300Bjet2Jet5'
     # inVersion = 'v75NotHLTNoBJetTauT'
     # outVersion = 'v0baseline'
-    outVersion = 'v0baselineBtagUpdated'
+    outVersion = 'v0baselineBtagUpdatedHT350'
     # outVersion = 'v0baseline6jet2Bjet'
     # outVersion = 'v2cut1tau1l'
     
