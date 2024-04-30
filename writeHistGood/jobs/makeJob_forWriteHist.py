@@ -132,7 +132,7 @@ def main():
     channel = '1tau1l'
     # version = 'V0Basictraining'
     # version = 'V0Basictraining_tauLepChargeSS'
-    version = 'V0Basictraining_tauTLepChargeSS'
+    # version = 'V0Basictraining_tauTLepChargeSS'
     # version = 'V0Basictraining_tauLepChargeOS'
     # version = 'v0NoSystematic'
     # version = 'v0BasicSystematic'
