@@ -28,6 +28,7 @@ public:
     std::vector<Double_t> &getPhiVec();
     Int_t getSize();
     Double_t getHT();
+    Double_t get6thPt();
     Bool_t jetVetoMap(Double_t eta, Double_t phi);
 
 private:

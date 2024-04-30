@@ -510,6 +510,10 @@ Double_t JetSel::getHT(){
     return HT;
 };
 
+Double_t JetSel::get6thPt(){
+    return jets_pt.size()>5?jets_pt[5]:-99;
+}
+
 Bool_t JetSel::jetVetoMap(Double_t eta, Double_t phi){
 //    https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
     if(!m_isRun3){

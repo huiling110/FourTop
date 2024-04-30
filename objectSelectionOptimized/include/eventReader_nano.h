@@ -88,7 +88,6 @@ public:
                                         // Tau_idDeepTau2018v2p5VSe(reader, "Tau_idDeepTau2018v2p5VSe"),
                                         // Tau_idDeepTau2018v2p5VSmu(reader, "Tau_idDeepTau2018v2p5VSmu"),
                                         Tau_decayMode(reader, "Tau_decayMode"),
-                                        // Tau_genPartFlav(reader, "Tau_genPartFlav"),
                                         Tau_jetIdx(reader, "Tau_jetIdx"),
                                         Tau_charge(reader, "Tau_charge"),
                                         Tau_neutralIso(reader, "Tau_neutralIso"),
@@ -156,7 +155,7 @@ public:
         OS::readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
         OS::readPointer(genWeight, reader, "genWeight");
         OS::readPointerArray(Tau_genPartFlav, reader, "Tau_genPartFlav");
-        // OS::readPointerArray(Jet_hadronFlavour, reader, "Jet_hadronFlavour");
+        OS::readPointer(nGenVisTau, reader, "nGenVisTau");
 
         // other branch not consistent between run2 and run3
         OS::readPointerArray(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
@@ -264,6 +263,7 @@ public:
     //https://lhapdf.hepforge.org/pdfsets
 
     TTreeReaderArray<UChar_t> *Tau_genPartFlav = nullptr;
+    TTreeReaderValue<UInt_t> *nGenVisTau = nullptr;
 
     // METFilters
     TTreeReaderValue<Bool_t> Flag_goodVertices;

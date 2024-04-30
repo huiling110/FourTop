@@ -18,9 +18,10 @@ void plotAll(
     // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau1l_v64PreAndHLTSel/mc/BDTTrain/varibleList_16.csv.root",
     // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/BDTTrain/branch_names.csv.root",
     // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/BDTTrain/v1_noTauTT/inputList_noTauTT.csv.root",
-    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/BDTTrain/v0/inputList_tauTT.csv.root",
+    // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/BDTTrain/v0/inputList_tauTT.csv.root",
+    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/BDTTrain/v0/inputList_tauTT.csv.root",
+    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/BDTTrain/v0/results/",
     Bool_t plotSigOnly = false
-
 )
 {
   cout << "=== execute: variables()" << endl;
@@ -38,7 +39,7 @@ void plotAll(
   significance_usingPDF(fin);
 
   cout << "=== execute: efficiencies()" << endl;
-  efficiencies(fin);
+  efficiencies(fin, outDir);
   //
   // cout << "=== execute: ztransform()" << endl;
   // mutransform( fin );

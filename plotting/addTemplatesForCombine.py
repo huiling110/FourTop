@@ -64,7 +64,6 @@ def main():
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine'+channel+'.root'
-    # templateFile = outDir + 'templatesForCombine'+channel+'_test.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
    
     if not isRun3:

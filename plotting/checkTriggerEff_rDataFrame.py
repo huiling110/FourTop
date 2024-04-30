@@ -8,6 +8,24 @@ input = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelect
 
 df = ROOT.RDataFrame('tree', input)
 
+def checkTrig1tau1l(df):
+    tauT1Cut =  df.Filter('tausT_pt.size()==1')
+    tau1l1Cut = tauT1Cut.Filter('muonsTopMVAT_pt.size()+elesTopMVAT_pt.size()==1')
+    tau1l1CutCount = tau1l1Cut.Count()
+    
+    tauTCut = df.Filter('tausT_pt.size()>0')
+    
+    
+    harTrigger = 'HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ || HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_'
+    harTriggerCut = tau1l1Cut.Filter(harTrigger)
+    
+    
+    print('initial=', df.Count().GetValue(), '1tau1l=', tau1l1CutCount.GetValue(), 'BR=', tau1l1CutCount.GetValue()/df.Count().GetValue())
+    print('initial=', df.Count().GetValue(), '>=1tauT=', tauTCut.Count().GetValue(), 'BR=', tauTCut.Count().GetValue()/df.Count().GetValue())
+    
+    
+
+
 def checkDileptonTri(df):
     tau12lCut = df.Filter('tausT_pt.size()==1 && muonsTopMVAT_pt.size()+elesTopMVAT_pt.size()==2')
     dileptonTri = 'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ || HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ || HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ || HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_'
@@ -100,7 +118,8 @@ def checkHardronicTrigger(df):
 
 
 if __name__=='__main__':
-    checkDileptonTri(df)
+    # checkDileptonTri(df)
+    checkTrig1tau1l(df)
     
 
 

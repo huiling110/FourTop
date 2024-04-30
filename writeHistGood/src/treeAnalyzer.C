@@ -98,14 +98,14 @@ void treeAnalyzer::Init()
 
         TString methodName = "BDT" + TString(" method");
         // TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");//
-        TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";//!testing
+        // TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";//!testing
+        TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
         reader->BookMVA(methodName, weightfile);
+        std::cout<<"training input: "<<weightfile<<"\n";
     // }else if(m_channel==1){
     }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
         SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
-        // SR1tau1lSys = histForRegionsBase("bjetsM_HT", "HT^{b-jet}", m_processName, 10, 0, 900, sysRegions); //!testing
-        // SR1tau1lSys = histForRegionsBase("bjetsM_invariantMass", "m^{b jets}", m_processName, 10, 0, 1200, sysRegions );
 
     }else{
         std::cout << "WARNING!! channel not spefified\n";
@@ -151,7 +151,8 @@ void treeAnalyzer::LoopTree()
         //     channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
         // }
         // Bool_t channelSel = e->tausTT_1lepton1_charge.v() == 1;//!testing
-        Bool_t channelSel = e->tausTT_1lepton1_charge.v() == -1;//!testing
+        Bool_t channelSel = e->tausT_1lepton1_charge.v() == 1;//!testing
+        // Bool_t channelSel = e->tausTT_1lepton1_charge.v() == -1;//!testing
         if (!(channelSel))
         {
             continue;
@@ -183,13 +184,6 @@ void treeAnalyzer::LoopTree()
              bdtScore = e->jets_bScore.v();
         }
         // std::cout << "bdtScore=" << bdtScore << "\n";
-
-        //!!!have to output weight; make weight an input
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!caution, for 1tau1l b-tag WP correction
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagWPMedium_weight.v();
-        // Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();//!!! for 1tau0l b_score, have to use btagShape
-
-        // std::cout << "basicWeight = " << basicWeight << "\n";
 
         // // filling hists
         SR1tau1lSys.fillHistVec(m_channel+"SR", bdtScore, basicWeight, SR1tau1l, m_isData);

@@ -162,9 +162,9 @@ int tmvaBDT_training(
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
                             "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30");
     // if (Use["BDTB"]) // Bagging
-      factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTB",
+    //   factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTB",
                         //    "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=20" );//default
-                           "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=30" );
+                        //    "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=30" );
  
 //    if (Use["BDTD"]) // Decorrelation + Adaptive Boost
     //   factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTD",
