@@ -60,7 +60,7 @@ void WH_HLTeff::Init()
     SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 40, 25, 625, regionsForVariables, &(e->jets_1pt));
     // SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 22, 25, 150, regionsForVariables, &(e->jets_6pt));
     SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 30, 25, 175, regionsForVariables, &(e->jets_6pt));
-    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 100, 350, 2850, regionsForVariables, &(e->jets_HT));
+    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 100, 400, 2800, regionsForVariables, &(e->jets_HT));
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
     // if(!m_isRun3){
     //     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 7, 0.5, 7.5, regionsForVariables,  &(e->bjetsM_num));
@@ -103,8 +103,10 @@ void WH_HLTeff::Init()
     // Double_t xbins[] = {500, 700, 1200,  2500}; // HT
  
     //BinG
-    Double_t ybins[] = {25., 30, 35., 40, 45., 50.,  150};                                   // 6th jet pt
-    Double_t xbins[] = {350, 500, 700, 1200,  2500}; // HT
+    // Double_t ybins[] = {25., 30, 35., 40, 45., 50.,  150};                                   // 6th jet pt
+    // Double_t xbins[] = {350, 500, 700, 1200,  2500}; // HT
+    Double_t ybins[] = {30, 35., 40, 45., 50.,  150};                                   // 6th jet pt
+    Double_t xbins[] = {400, 500, 700, 1200,  2500}; // HT
 
     b1HT6pt_de = new TH2D(m_processName + "_baseline1Muon1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b1HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
