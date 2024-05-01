@@ -1052,6 +1052,10 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
 Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D *triggerHist1b, TH2D *triggerHist2b, TH2D *triggerHist3b, Bool_t isdata, UInt_t sys)
 {
     Double_t weight = 1.;
+    //deal with events with <6 jets
+    if(jets_6pt<0){
+        jets_6pt = 33.;
+    }
     if (!isdata)
     {
         if (bjets_num == 1)
