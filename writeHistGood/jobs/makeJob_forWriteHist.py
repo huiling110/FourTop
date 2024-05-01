@@ -61,8 +61,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdatedHT350_v75NoHLTTauFHT300Bjet2Jet5/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdatedHT350_v75NoHLTTauFHT300Bjet2Jet5/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v75NoHLTNoTauHT400Jet6pt30/'
-
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v75NoHLTNoTauHT400Jet6pt30/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineNewHLTWeight_v75OverlapRemovalFTau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -101,6 +102,8 @@ def main():
     #dataMC
     # version = 'v0dataMC_noCorrection'
     # version = 'v0dataMC_basicWeight'
+    # version = 'v0dataMC_basicWeight_HT450Jet6pt32'
+    # version = 'v0dataMC_basicWeight_HT450Jet6pt32TauM'
     # version = 'v2dataMC_basicWeight_1tau1lBjet2'
     # version = 'v3dataMC_basicWeight_1tau1lBjet3Jet6HT400'
     # version = 'v3dataMC_basicWeight_1tau1lBjet3Jet6HT400Jet6pt30'

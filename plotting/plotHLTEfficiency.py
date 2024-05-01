@@ -33,7 +33,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v73NoHLTTauFHT400/mc/variableHists_v0_HLTSFMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdated_V75NoHLTNoTauBjet2Jet6/mc/variableHists_v0HLT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdatedHT350_v75NoHLTTauFHT300Bjet2Jet5/mc/variableHists_v0HLT/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v0HLT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v0HLT/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v0HLT/'
    
     
     isRun3 = uf.isRun3(inputDir)
@@ -46,10 +47,10 @@ def main():
     # plotEfficiencyHLT(inputDirDic, '', isRun3)
     # plotEfficiencyHLT(inputDirDic, '1b', isRun3)
     # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
-    # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
+    plotEfficiencyHLT(inputDirDic, '3b', isRun3)
     
     #plotSF
-    plotSF(inputDirDic, False, isRun3)
+    # plotSF(inputDirDic, False, isRun3)
     
     
    
