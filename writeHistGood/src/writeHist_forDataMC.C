@@ -39,7 +39,7 @@ void WH_forDataMC::Init()
     SP_d jets_tausT_invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_tausT_invariantMass", "m^{#tau and jet}", m_processName, 10, 0, 1000, regionsForVariables, &(e->jets_tausT_invariantMass));
 
     SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 40, 25, 700, regionsForVariables, &(e->jets_1pt));
-    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 30, 25, 175, regionsForVariables, &(e->jets_6pt));
+    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 20, 25, 175, regionsForVariables, &(e->jets_6pt));
     SP_d jets_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2pt", "p_{T}^{2nd jet}(GeV)", m_processName, 40, 25, 600, regionsForVariables, &(e->jets_2pt));
     SP_d jets_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3pt", "p_{T}^{3th jet}(GeV)", m_processName, 40, 25, 140, regionsForVariables, &(e->jets_3pt));
     SP_d jets_4pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4pt", "p_{T}^{4th jet}(GeV)", m_processName, 40, 25, 300, regionsForVariables, &(e->jets_4pt));
@@ -253,6 +253,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         //!!!Testing corrections
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);
+        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v()* e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v() ; 
@@ -264,7 +265,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->eleMVAT_IDSF_weight.v(); //!!! run 3 
         // std::cout << "HLT_weight=" << e->HLT_weight.v() << "\n";
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v()* e->HLT_weight.v(); //!!!without HLT weight
         // std::cout << "basicWeight=" << basicWeight << "\n";
         // experimenting
         // Double_t basicWeight = 1.0;
