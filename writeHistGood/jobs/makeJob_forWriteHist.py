@@ -103,7 +103,9 @@ def main():
     #dataMC
     # version = 'v0dataMC_noCorrection'
     # version = 'v0dataMC_allCorrection'
-    version = 'v1dataMC_allCorrectionButHLT'
+    # version = 'v3dataMC_allCorrection_Test1tau0l'
+    version = 'v3dataMC_allCorrection_Test1tau0lHT550'
+    # version = 'v1dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_basicWeight'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32TauM'
@@ -116,9 +118,7 @@ def main():
     #1tau1l
     channel = '1tau1l'
     # version = 'V0Basictraining'
-    # version = 'V0Basictraining_tauLepChargeSS'
-    # version = 'V0Basictraining_tauTLepChargeSS'
-    # version = 'V0Basictraining_tauLepChargeOS'
+    # version = 'V0Basictraining_bin3'
     # version = 'v0NoSystematic'
     # version = 'v0BasicSystematic'
     # version = 'v0BasicSystematic_20bins'

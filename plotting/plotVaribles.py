@@ -61,17 +61,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/mc/variableHists_v0BasicSystematic_20bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/variableHists_v1dataMC_noHLTSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/mc/variableHists_v0dataMC_looseSR_pileupSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/mc/variableHists_v1dataMC_looseSRJet6_pileupSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/mc/variableHists_v2dataMC_looseSRJet6TauT_pileupSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/mc/variableHists_v3dataMC_looseSRJet6TauTBjet3_pileupSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/mc/variableHists_v3dataMC_looseSRJet6TauTBjet3_allOldSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0NoSel_v70BetterHLT/mc/variableHists_v4dataMC_looseSRJet6TauT_pileupSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/variableHists_v2dataMC_pileupSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v74AddMETPhi/mc/variableHists_v0dataMC_pileupSF/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v74AddMETPhi/mc/variableHists_v0dataMC_pileupSF_jet9bjet3/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v74AddMETPhi/mc/variableHists_v0dataMC_pileupSF_jet8bjet3TauTT/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v74AddMETPhi/mc/variableHists_v0dataMC1tau2l_pileupSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/variableHists_v0dataMC1tau1l_pileupSF_HT350/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/variableHists_V0Basictraining/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/variableHists_V0Basictraining_tauLepChargeMinus/'
@@ -84,8 +74,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining_tauLepChargeOS/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining_tauTLepChargeSS/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineNewHLTWeight_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_basicWeight_HT450Jet6pt32TauM/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v1dataMC_allCorrectionButHLT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining_bin3/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_Test1tau0lHT550/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v1dataMC_pileupSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v2dataMC_pileupBtagSF/'
@@ -121,8 +114,8 @@ def main():
 
     # for 1tau1l
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt']
-    variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_4pt', 'jets_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausM_num', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge', 'tausT_1lepton1_charge', 'tausM_1lepton1_charge', 'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour']#1tau1l SR
-    # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num',  'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausT_1genFlavour', 'tausTT_1genFlavour', 'tausTTT_1genFlavour']#1tau0l region 
+    # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_4pt', 'jets_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausM_num', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge', 'tausT_1lepton1_charge', 'tausM_1lepton1_charge', 'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour']#1tau1l SR
+    variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num',  'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausT_1genFlavour', 'tausTT_1genFlavour', 'tausTTT_1genFlavour']#1tau0l region 
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num', 'bjetsPTM_num', 'bjetsPTT_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausM_num', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge', 'tausT_1lepton1_charge', 'tausM_1lepton1_charge', 'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour']
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag', 'PV_npvsGood']
@@ -132,11 +125,11 @@ def main():
     # variabless = ['jets_HT', 'jets_MHT', 'jets_invariantMass', 'jets_transMass', 'jets_average_deltaR', 'jets_minDeltaR', 'jets_centrality', 'jets_bScore', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'jets_HTDivideMET', 'jets_']
     # regionList = ['1tau1lCR1', '1tau1lCR2']
     # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
-    regionList = ['1tau1lSR']
+    # regionList = ['1tau1lSR']
     # regionList = ['1tau0lSR']
     # regionList = ['1tau1lSRTest']
     # regionList = ['1tau1lSRTest', '1tau1lCR2']
-    # regionList = ['1tau0lSRTest']
+    regionList = ['1tau0lSRTest']
     # regionList = ['1tau2lSRTest']
     # variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
@@ -162,18 +155,9 @@ def main():
     # regionList = appendSYSRegions( ifFR_sys, regionList) 
 
     inputDirDic = uf.getInputDicNew( inputDir)
-    #sumProcessPerVar[var][region][sumedProcess] = hist
-    #sumProcessPerVarSys[var][region][sumedProcess][isysVariation] = hist
-    # sumProcessPerVar = {}
-    # sumProcessPerVarSys = {}
-    # for ivar in variables:
-    #     sumProcessPerVar[ivar], sumProcessPerVarSys[ivar] = uf.getSummedHists( inputDirDic, regionList, ivar , False, era, False, isRun3)       
-    # print( sumProcessPerVar )
-    # print( sumProcessPerVarSys )
-    # print('\n')
     
-    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
-    # sumProList = ['jetHT','qcd','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
+    # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
+    sumProList = ['jetHT','qcd','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
     # sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
     # sumProList = ['jetHT','tt',  'qcd', 'tttt'] # run3 1tau1l for now 
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
@@ -185,6 +169,7 @@ def main():
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100 ) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 1000 ) 
+            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True) 
 
 
 
@@ -287,7 +272,7 @@ def checkHists( histsDict ):
         histsDict[ikey].Print()
 
 
-def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 1000, ifStackSignal = False):
+def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 1000, ifStackSignal = False, ifLogy=False):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -355,6 +340,10 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     
     #text above the plot
     st.addCMSTextToPad(canvy, era)
+    
+    if ifLogy:
+        upPad.SetLogy(1)
+        name = name + '_logy'
     
     canvy.Update()
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
@@ -425,7 +414,6 @@ def setUpStack(stack, sumMax, signalMax):
     stack.GetYaxis().SetTitle('Events')
     stack.GetYaxis().SetTitleOffset(1.2)
     stack.GetYaxis().SetTitleSize(0.05)
-    # stack.GetYaxis().SetLabelSize(0.033)
    
    
    

@@ -5,7 +5,8 @@
 #include "TIterator.h"
 #include "TKey.h"
 
-void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TString variablenum = "", TString fileDir = "")
+// void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TString variablenum = "", TString fileDir = "")
+void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TString fileDir = "")
 {
 	// input:   - Input file (result from TMVA),
 	//          - type = 1 --> plot efficiency(B) versus eff(S)
@@ -64,7 +65,9 @@ void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TStr
 		ytit = "Background rejection";
 	if (type == 3)
 		ytit = "1/(Background eff.)";
-	TString ftit = ytit + " versus " + xtit + "(" + variablenum + " variables)";
+	// TString ftit = ytit + " versus " + xtit + "(" + variablenum + " variables)";
+	TString ftit = ytit + " versus " + xtit + " variables)";
+
 
 	TString hNameRef = "effBvsS";
 	if (type == 2)
@@ -218,7 +221,7 @@ void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TStr
 	c->Update();
 
 	// TString fname = fileDir + "results/" + hNameRef + "_" + variablenum;
-	TString fname = fileDir +  + hNameRef + "_" + variablenum;
+	TString fname = fileDir +  + hNameRef ;
 	if (TString(BinDir->GetName()).Contains("multicut"))
 	{
 		TString fprepend(BinDir->GetName());
@@ -233,8 +236,10 @@ void plot_efficiencies(TFile *file, Int_t type = 2, TDirectory *BinDir = 0, TStr
 
 void efficiencies(
 	// TString fin = "TMVA.root",
-	TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/1tau1lvaribleList_11.root",
-    TString outDir = "./output/",
+	// TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v3extra1tau1lCut_v41addVertexSelection/1tau1l_v0/1tau1lvaribleList_11.root",
+    // TString outDir = "./output/",
+    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/BDTTrain/v1AllCorrection/inputList_tauTT.csv.root",
+    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/BDTTrain/v1AllCorrection/results/",
 	Int_t type = 2, Bool_t useTMVAStyle = kTRUE)
 {
 	// argument: type = 1 --> plot efficiency(B) versus eff(S)
@@ -273,13 +278,13 @@ void efficiencies(
 	}
 
 	// get input variable number
-	TString variableNum = fin(fin.Index("varibleList") + 12, fin.Index(".root") - fin.Index("varibleList") - 12);
-	std::cout << "plotting ROC for variablse: " << variableNum << "\n";
+	// TString variableNum = fin(fin.Index("varibleList") + 12, fin.Index(".root") - fin.Index("varibleList") - 12);
+	// std::cout << "plotting ROC for variablse: " << variableNum << "\n";
 	// TString fileDir = fin(0, fin.Index("1tau1lvaribleList"));
 	// std::cout << fileDir << "\n";
 
 	file->cd("dataset");
-	plot_efficiencies(file, type, gDirectory, variableNum, outDir);
+	plot_efficiencies(file, type, gDirectory, outDir);
 
 	return;
 }

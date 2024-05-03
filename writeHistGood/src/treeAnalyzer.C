@@ -78,10 +78,12 @@ void treeAnalyzer::Init()
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//testing
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//testing
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 6, -0.3, 0.4, sysRegions);//testing
 
         // book MVA reader
         // TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
-        TString variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv"; //! testing
+        // TString variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv"; //! testing
+        TString variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_noBtagShape.csv"; //! testing
         WH::readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
         if (variablesName.size() == variablesForReader.size())
         {
@@ -99,10 +101,11 @@ void treeAnalyzer::Init()
         TString methodName = "BDT" + TString(" method");
         // TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");//
         // TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";//!testing
-        TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
+        // TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/
+        // TMVAClassification_BDT.weights.xml";
+        TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/BDTTrain/v2NoBtag/dataset/weight/TMVAClassification_BDT.weights.xml";
         reader->BookMVA(methodName, weightfile);
         std::cout<<"training input: "<<weightfile<<"\n";
-    // }else if(m_channel==1){
     }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
         SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
@@ -143,15 +146,17 @@ void treeAnalyzer::LoopTree()
             {"1tau0l", 1},
         };
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, channelMap.at(m_channel)==0 );//!!!caution, for 1tau1l b-tag WP correction
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!caution, for 1tau1l b-tag WP correction
         // Double_t basicWeight = e->EVENT_genWeight.v();//!!!for run 3
-        Double_t basicWeight = e->EVENT_genWeight.v() *  e->EVENT_prefireWeight.v() * e->PUweight_.v() ;
+        // Double_t basicWeight = e->EVENT_genWeight.v() *  e->EVENT_prefireWeight.v() * e->PUweight_.v() ;
 
         // Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
+        Bool_t channelSel = SR1tau1lSel(e, 0, m_isRun3);
         // if(channelMap.at(m_channel)==1 ){
         //     channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
         // }
         // Bool_t channelSel = e->tausTT_1lepton1_charge.v() == 1;//!testing
-        Bool_t channelSel = e->tausT_1lepton1_charge.v() == 1;//!testing
+        // Bool_t channelSel = e->tausT_1lepton1_charge.v() == 1;//!testing
         // Bool_t channelSel = e->tausTT_1lepton1_charge.v() == -1;//!testing
         if (!(channelSel))
         {
