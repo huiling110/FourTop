@@ -89,7 +89,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/'
 
     #!fakerate
-    # version = 'v0FR_measure1prong'
+    version = 'v0FR_measure1prong'
     # version = 'v0FR_measureVR_3prong'
     # version = 'v1FR_application'
        
@@ -104,7 +104,7 @@ def main():
     # version = 'v0dataMC_noCorrection'
     # version = 'v0dataMC_allCorrection'
     # version = 'v3dataMC_allCorrection_Test1tau0l'
-    version = 'v3dataMC_allCorrection_Test1tau0lHT550'
+    # version = 'v3dataMC_allCorrection_Test1tau0lHT550'
     # version = 'v1dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_basicWeight'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32'

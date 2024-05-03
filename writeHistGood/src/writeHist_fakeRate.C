@@ -315,10 +315,10 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Int_t jetsNum = e->jets_num.v();
         Int_t bjetsNum = e->bjetsM_num.v();
         // 1tau0lMR
-        Bool_t is1tau0lMR = tausTNum == 1 && lepNum == 0 && jetsNum >= 8 && bjetsNum == 2; 
-        Bool_t is1tau0lMRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum == 2;
-        // Bool_t is1tau0lVRLTauNotT = isTauLNum && e->tausT_num.v() == 0 && lepNum == 0 && e->jets_num.v() >= 8 && e->bjetsM_num.v() == 1;
-        // Bool_t is1tau0lVRLTauNotTGen = is1tau0lVRLTauNotT && isTauLNumGen;
+        // Bool_t is1tau0lMR = tausTNum == 1 && lepNum == 0 && jetsNum >= 8 && bjetsNum == 2; 
+        // Bool_t is1tau0lMRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum == 2;
+        Bool_t is1tau0lMR = tausTNum == 1  && jetsNum >= 8 && bjetsNum == 2; 
+        Bool_t is1tau0lMRLTau = isTauLNum && jetsNum >= 8 && bjetsNum == 2;
         //1tau0lVR
         Bool_t is1tau0lVR = tausTNum==1 && lepNum == 0 && jetsNum < 8 && bjetsNum >=3;
         Bool_t is1tau0lVRLTau = isTauLNum && lepNum == 0 && jetsNum < 8 && bjetsNum >=3;
@@ -328,7 +328,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
 
         if(m_ifMeasure){
-            if (!(e->tausF_prongNum.v() == 1)){
+            if (!(e->tausF_prongNum.v() == 1)){//!!!
                 continue;
             }
 
@@ -352,15 +352,13 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lVR_Eta2", basicWeight, is1tau0lVR &&  isEta2, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVR_Eta3", basicWeight, is1tau0lVR &&  isEta3, m_isData);
                 //CR
-                tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta1", basicWeight, is1tau0lVRLTau &&  isEta1, m_isData);
-                tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta2", basicWeight, is1tau0lVRLTau &&  isEta2, m_isData);
-                tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta3", basicWeight, is1tau0lVRLTau &&  isEta3, m_isData);
-                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta1", basicWeight, is1tau0lVR &&  isEta1, m_isData);
-                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta2", basicWeight, is1tau0lVR &&  isEta2, m_isData);
-                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta3", basicWeight, is1tau0lVR &&  isEta3, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta1", basicWeight, is1tau0lCRLTau &&  isEta1, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta2", basicWeight, is1tau0lCRLTau &&  isEta2, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCRLTau_Eta3", basicWeight, is1tau0lCRLTau &&  isEta3, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta1", basicWeight, is1tau0lCR &&  isEta1, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta2", basicWeight, is1tau0lCR &&  isEta2, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta3", basicWeight, is1tau0lCR &&  isEta3, m_isData);
             }else{
-                // std::cout<<"isEta2="<<isEta2<<" isTauLNumGen="<<isTauLNumGen<<" is1tau0lMRLTau="<<is1tau0lMRLTau<<"\n";
-                // std::cout << "eta=" << tausF_1jetEtaAbs << "\n";
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta1", basicWeight, is1tau0lMRLTau && isEta1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta2", basicWeight, is1tau0lMRLTau &&  isEta2 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta3", basicWeight, is1tau0lMRLTau &&  isEta3 && isTauLNumGen, m_isData);
