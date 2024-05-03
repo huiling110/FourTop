@@ -44,7 +44,8 @@ def main():
     # outVersion = 'v2tau1l1CutHT4006jetpt30'
     # outVersion = 'v0baselineHT450Jet6pt32'
     # outVersion = 'v0baselineHT450'
-    outVersion = 'v0baselineHT450Cut1tau1l'
+    # outVersion = 'v0baselineHT450Cut1tau1l'
+    outVersion = 'v2baselineHT450Cut1tau0l'
     
     #2022
     # year = '2022postEE'
