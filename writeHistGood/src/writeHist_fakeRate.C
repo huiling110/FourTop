@@ -296,9 +296,9 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         // }
 
         // event weight
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData);//!!!
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();//!!!!have to use this if bScore is the templates
-        Double_t basicWeight = e->EVENT_genWeight.v() *e->EVENT_prefireWeight.v() * e->PUweight_.v(); 
+        // Double_t basicWeight = e->EVENT_genWeight.v() *e->EVENT_prefireWeight.v() * e->PUweight_.v(); 
 
         // Double_t FRWeight_up, FRWeight_down;
         // Double_t FRWeight = 1.0;
@@ -310,7 +310,8 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Bool_t isTauLNum = (e->tausF_num.v() == 1);
         Bool_t isTauLNumGen = (e->tausF_genTauNum.v() == 1);
         Bool_t isTauTNumGen = (e->tausT_genTauNum.v() == 1);
-        Int_t tausTNum = e->tausTT_num.v();
+        // Int_t tausTNum = e->tausTT_num.v();//!
+        Int_t tausTNum = e->tausT_num.v();//!!
         Int_t jetsNum = e->jets_num.v();
         Int_t bjetsNum = e->bjetsM_num.v();
         // 1tau0lMR
