@@ -191,68 +191,6 @@ void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForR
 void WH_fakeRate::Init()
 {
     std::cout << "Start to initilation....................................................\n";
-/*
-    // FR weighted
-    std::vector<TString> regionsForFRWeighting = {
-        // regions nessary for plotting data/MC
-        "1tau0lCR", // 0
-        "1tau0lCRGen",
-        "1tau0lCRNotGen", // 2
-        // for FakeRate weighting
-        "1tau0lVRLTauNotT_Weighted",    // 3
-        "1tau0lCRLTauNotT_Weighted",    // 4
-        "1tau0lVRLTauNotTGen_Weighted", // 5
-        "1tau0lCRLTauNotTGen_Weighted", // 6
-        //
-        "1tau0lVR", // 7
-        "1tau0lVRGen",
-        "1tau0lVRNotGen",
-        //
-        "1tau0lSR", // 10
-        "1tau0lSRGen",
-        "1tau0lSRNotGen",
-        "1tau0lSRLTauNotT_Weighted",    // 13
-        "1tau0lSRLTauNotTGen_Weighted", // 14
-        //
-        "1tau0lCRc", // 27
-        "1tau0lCRcGen",
-        "1tau0lCRcLTauNotT_Weighted",    // 29
-        "1tau0lCRcLTauNotTGen_Weighted", // 30
-        // CRb
-        "1tau0lCRb", // 27
-        "1tau0lCRbGen",
-        "1tau0lCRbLTauNotT_Weighted",    // 29
-        "1tau0lCRbLTauNotTGen_Weighted", // 30
-        // FR uncertainty variation
-        "1tau0lVRLTauNotT_Weighted_up",       // 19
-        "1tau0lVRLTauNotT_Weighted_down",     //
-        "1tau0lVRLTauNotTGen_Weighted_up",    //
-        "1tau0lVRLTauNotTGen_Weighted_down",  //
-        "1tau0lSRLTauNotT_Weighted_up",       // 23
-        "1tau0lSRLTauNotT_Weighted_down",     // 24
-        "1tau0lSRLTauNotTGen_Weighted_up",    // 25
-        "1tau0lSRLTauNotTGen_Weighted_down",  // 26
-        "1tau0lCRcLTauNotT_Weighted_up",      // 15
-        "1tau0lCRcLTauNotT_Weighted_down",    // 16
-        "1tau0lCRcLTauNotTGen_Weighted_up",   //
-        "1tau0lCRcLTauNotTGen_Weighted_down", //
-        "1tau0lCRbLTauNotT_Weighted_up",      // 15
-        "1tau0lCRbLTauNotT_Weighted_down",    // 16
-        "1tau0lCRbLTauNotTGen_Weighted_up",   //
-        "1tau0lCRbLTauNotTGen_Weighted_down", //
-
-    };
-    pushBackHiscVec(histsForRegion_vec, regionsForFRWeighting, m_processName, e);
-
-    // get FR hists
-    TFile *FRFile = new TFile(WH::FRfileMap.at(m_era).at(0).Data(), "READ");
-    FR_hist = (TH2D *)FRFile->Get("fakeRate2D");
-    TFile *FRFile_3prong = new TFile(WH::FRfileMap.at(m_era).at(1).Data(), "READ");
-    FR_hist_3prong = (TH2D *)FRFile_3prong->Get("fakeRate2D");
-    printf("Reading FR file 1prong: %s \n", FRFile->GetName());
-    printf("Reading FR file 3prong: %s \n", FRFile_3prong->GetName());
-
-*/
     //regions for measuring FR
     if(m_ifMeasure){
 
@@ -379,14 +317,14 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
         Bool_t is1tau0lSRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum >=3;
 
-        Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
+        // Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
+        Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v()); //!tausF_1jetEtaAbs should be more accurate!:w
         if(m_ifMeasure){
-            // if (!(e->tausF_prongNum.v() == 1)){//!!!
-            if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
+            if (!(e->tausF_prongNum.v() == 1)){//!!!
+            // if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
                 continue;
             }
 
-            // Double_t tausF_1jetEtaAbs = TMath::Abs(e->tausF_1eta.v());//function strange
             Bool_t isEta1 = 0 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 0.8;
             Bool_t isEta2 = 0.8 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 1.5;
             Bool_t isEta3 = 1.5 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 2.3; //!2.5 for run 3

@@ -86,8 +86,8 @@ private:
 
 
     //FR measurement
-    const Bool_t m_ifMeasure = kFALSE;
-    // const Bool_t m_ifMeasure = kTRUE;
+    // const Bool_t m_ifMeasure = kFALSE;
+    const Bool_t m_ifMeasure = kTRUE;
     histsForRegionsMap<Double_t> tausF_1jetPt_class;//for FR measurement
     std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec;//for FR application
 
