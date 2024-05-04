@@ -135,7 +135,8 @@ def main():
     plotName = 'dataVsMC_v2'
   
     #1tau0l
-    variables = ['tausT_1pt']
+    # variables = ['tausT_1pt']
+    variables = ['jets_num']
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
     # variables = ['jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num', ] #1tau0l
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
@@ -169,11 +170,14 @@ def main():
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 1000 ) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True) 
 
-    if ifFTau: 
-       plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3)
+    plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau)
        
-def plotFakeTau(inputDirDic, variables, regions, plotName, era, isRun3): 
+def plotFakeTau(inputDirDic, variables, regions, plotName, era, isRun3, ifFTau=False):
+    if not ifFTau:
+        print('not plotting for faketau\n')
+        return 
     print('\n plot fake tau')
+    
     sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
     sumPro = uf.getSumHist(inputDirDic, regions, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
     for ivar in variables:
@@ -305,7 +309,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     ifBlind = True if 'SR' in region else False #!!!
     dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, ifBlind, False, ifStackSignal)
 
-    setUpStack(stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale) 
+    setUpStack(canvy, stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale) 
     #error bar for MC stack    
     systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )#add sytematic uncertainty
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)#systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
@@ -401,7 +405,7 @@ def getHistToData( dataHist, sumHist):
     sumHistoData.SetTitle("")
     return sumHistoData
    
-def setUpStack(stack, sumMax, signalMax): 
+def setUpStack(canvy, stack, sumMax, signalMax): 
     #set y axix maxi
     if sumMax > signalMax:
         maxi = 1.7* sumMax
@@ -416,6 +420,9 @@ def setUpStack(stack, sumMax, signalMax):
     stack.GetYaxis().SetTitle('Events')
     stack.GetYaxis().SetTitleOffset(1.2)
     stack.GetYaxis().SetTitleSize(0.05)
+    
+    canvy.Modified()
+    canvy.Update()
    
    
    
@@ -504,13 +511,6 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False)
         #     systsUp.Add(tempUp) #adding various processes, 
         #     systsDown.Add(tempDown)
             
-    #add bgs for stack, has to do it with legendOrder because dict is not ordered
-    # for ipro in legendOrder:
-    #     if not ipro in nominal.keys():
-    #         print( 'this prcess not get: ', ipro )
-    #         legendOrder.remove(ipro)
-    # for entry in legendOrder:
-    #     stack.Add(nominal[entry])
     legendOrder.reverse()
     
     #scale tttt
