@@ -60,6 +60,8 @@ public:
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
 
         e = new event(m_tree);
+        std::cout<<"m_ifMeasure="<<m_ifMeasure<<"\n";
+        std::cout << "done initializing\n\n";
     };
     ~WH_fakeRate();
 

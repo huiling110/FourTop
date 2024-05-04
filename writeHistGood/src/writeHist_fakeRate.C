@@ -318,9 +318,10 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Bool_t is1tau0lSRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum >=3;
 
         // Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
-        Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v()); //!tausF_1jetEtaAbs should be more accurate!:w
+        Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1jetEtaAbs.v()); //!tausF_1jetEtaAbs should be more accurate!:w
         if(m_ifMeasure){
             if (!(e->tausF_prongNum.v() == 1)){//!!!
+            // if (e->tausF_prongNum.v() == 1){//!!!
             // if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
                 continue;
             }

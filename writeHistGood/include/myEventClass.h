@@ -258,7 +258,7 @@ public:
     myBranch<Int_t> tausF_prongNum{"tausF_prongNum"};
     myBranch<Double_t> tausF_1jetPt{"tausF_1jetPt"};
     myBranch<Double_t> tausF_1eta{"tausF_1eta"};
-    myBranch<Double_t> tausF_1jetEta{"tausF_1jetEta"};
+    myBranch<Double_t> tausF_1jetEtaAbs{"tausF_1jetEtaAbs"};
     myBranch<Int_t> tausF_num{"tausF_num"};
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
     myBranch<Double_t> tausF_1pt{"tausF_1pt"};
@@ -488,7 +488,7 @@ private:
         {tausF_prongNum.n(), &tausF_prongNum},
         {tausF_1jetPt.n(), &tausF_1jetPt},
         {tausF_1eta.n(), &tausF_1eta},
-        {tausF_1jetEta.n(), &tausF_1jetEta},
+        {tausF_1jetEtaAbs.n(), &tausF_1jetEtaAbs},
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
         {tausT_1decayMode.n(), &tausT_1decayMode},
