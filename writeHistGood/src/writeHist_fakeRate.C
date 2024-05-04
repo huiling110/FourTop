@@ -375,15 +375,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         // event weight
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!
         // Double_t basicWeight = e->EVENT_genWeight.v() *e->EVENT_prefireWeight.v() * e->PUweight_.v(); 
-
         
-        // Double_t FRWeight_up, FRWeight_down;
-        // Double_t FRWeight = 1.0;
-        // if( e->tausF_prongNum.v() ==1 || e->tausF_prongNum.v()==2 || e->tausF_prongNum.v()==3){
-        //     FRWeight = calFRWeight(e->tausF_1jetPt.v(), e->tausF_1eta.v(), e->tausF_prongNum.v(), FR_hist, FR_hist_3prong, FRWeight_up, FRWeight_down);
-        // }
-        // std::cout << "FRWeight=" << FRWeight << "\n";
-
         Bool_t isTauLNum = (e->tausF_num.v() == 1);
         Bool_t isTauLNumGen = (e->tausF_genTauNum.v() == 1);
         Bool_t isTauTNumGen = (e->tausT_genTauNum.v() == 1);
@@ -401,7 +393,8 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         //1tau0lCR
         Bool_t is1tau0lCR = tausTNum==1 && lepNum == 0 && jetsNum < 8 && bjetsNum ==2;
         Bool_t is1tau0lCRLTau = isTauLNum && lepNum == 0 && jetsNum < 8 && bjetsNum ==2;
-
+        //1tau0lSR
+        Bool_t is1tau0lSRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum >=3;
 
         Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
         if(m_ifMeasure){
@@ -461,57 +454,28 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             Double_t FRWeight, FRWeight_up, FRWeight_down; 
             Int_t tauProng = e->tausF_prongNum.v()==2? 3: e->tausF_prongNum.v();
             Bool_t ifFR = getFRandError(m_graphs, tausF_1jetEtaAbs, tauProng, e->tausF_1jetPt.v(), FRWeight, FRWeight_up, FRWeight_down);
-            std::cout<<"FRWeight="<<FRWeight<<" FRWeight_up="<<FRWeight_up<<" FRWeight_down="<<FRWeight_down<<"\n";
+            // std::cout<<"FRWeight="<<FRWeight<<" FRWeight_up="<<FRWeight_up<<" FRWeight_down="<<FRWeight_down<<"\n";
             if(!ifFR){
                 std::cout<<"!!!FR not get<<\n";
                 std::cout<<"eta="<<tausF_1jetEtaAbs<<" prong="<<tauProng<<" pt="<<e->tausF_1jetPt.v()<<"\n";
             }
-
-
+            Bool_t notTauT = e->tausT_num.v() == 0;
+            Bool_t genTau = e->tausT_genTauNum.v() == 1;
+            if(m_isData){
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lMRLTau && notTauT &&lepNum == 0, "1tau0lMRLTauNotT_Weighted", FRWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRLTau && notTauT &&lepNum == 0, "1tau0lCRLTauNotT_Weighted", FRWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTau && notTauT &&lepNum == 0, "1tau0lVRLTauNotT_Weighted", FRWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTau && notTauT &&lepNum == 0, "1tau0lSRLTauNotT_Weighted", FRWeight, m_isData);
+            }else{
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lMRLTau && notTauT && genTau&&lepNum == 0, "1tau0lMRLTauNotTGen_Weighted", basicWeight*FRWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRLTau && notTauT && genTau&&lepNum == 0, "1tau0lCRLTauNotTGen_Weighted", basicWeight*FRWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTau && notTauT && genTau&&lepNum == 0, "1tau0lVRLTauNotTGen_Weighted", basicWeight*FRWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTau && notTauT && genTau&&lepNum == 0, "1tau0lSRLTauNotTGen_Weighted", basicWeight*FRWeight, m_isData);
+            }
         }
 
 
 
-    //     WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
-    //     WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
-    //     WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRc, "1tau0lCRc", basicWeight, m_isData);
-    //     WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRb, "1tau0lCRb", basicWeight, m_isData);
-
-    //     if (!m_isData)
-    //     {
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR && isTauTNumGen, "1tau0lSRGen", basicWeight, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR && isTauTNumGen, "1tau0lVRGen", basicWeight, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRc && isTauTNumGen, "1tau0lCRcGen", basicWeight, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRb && isTauTNumGen, "1tau0lCRbGen", basicWeight, m_isData);
-
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotTGen, "1tau0lVRLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotTGen, "1tau0lSRLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTauNotTGen, "1tau0lCRcLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted", basicWeight * FRWeight, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted_up", basicWeight * FRWeight_up, m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTauNotTGen, "1tau0lCRbLTauNotTGen_Weighted_down", basicWeight * FRWeight_down, m_isData);
-    //     }
-    //     else
-    //     {
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted", FRWeight, !m_isData);           // to fill weight for data
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_up", FRWeight_up, !m_isData);     // to fill weight for data
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTauNotT, "1tau0lVRLTauNotT_Weighted_down", FRWeight_down, !m_isData); // to fill weight for data
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted", FRWeight, !m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted_up", FRWeight_up, !m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTauNotT, "1tau0lSRLTauNotT_Weighted_down", FRWeight_down, !m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted", FRWeight, !m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted_up", FRWeight_up, !m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRcLTau && noTauT, "1tau0lCRcLTauNotT_Weighted_down", FRWeight_down, !m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted", FRWeight, !m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_down", FRWeight_down, !m_isData);
-    //         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRbLTau && noTauT, "1tau0lCRbLTauNotT_Weighted_up", FRWeight_up, !m_isData);
-    //     }
     }
     std::cout << "end of event loop\n\n";
 }
@@ -527,15 +491,17 @@ void WH_fakeRate::Terminate()
         // WH::histRegionsVectScale(histsForRegion_vec, processScale);
         tausF_1jetPt_class.scale(processScale);
         tausF_1jetPt_class.print();
+
+        WH::histRegionsVectScale(histsForRegion_vec, processScale);
     };
-    // for (UInt_t i = 0; i < histsForRegion_vec.size(); i++)
-    // {
-    //     if (i > 0)
-    //     {
-    //         continue;
-    //     }
-    //     histsForRegion_vec.at(i)->print();
-    // }
+    for (UInt_t i = 0; i < histsForRegion_vec.size(); i++)
+    {
+        if (i > 0)
+        {
+            continue;
+        }
+        histsForRegion_vec.at(i)->print();
+    }
 
     m_outFile->Write();
     std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
