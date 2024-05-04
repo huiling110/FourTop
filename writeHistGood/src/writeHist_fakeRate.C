@@ -8,29 +8,6 @@
 
 #include <vector>
 
-// Function to find the FR and its errors for a specific pt, eta, and tau prong
-// Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh) {
-    // Find the correct graph based on eta and tau prong
-    // for (const auto& graph : graphs) {
-        // if (graph.isInEtaRange(eta) && graph.tauProng == tauProng) {
-            // int n = graph.graph->GetN();
-            // Double_t x, y;
-            // for (int i = 0; i < n; ++i) {
-            //     graph.graph->GetPoint(i, x, y);
-            //     if (pt >= x - graph.graph->GetErrorXlow(i) && pt <= x + graph.graph->GetErrorXhigh(i)) {
-            //         fr = y;
-            //         errLow = graph.graph->GetErrorYlow(i);
-            //         errHigh = graph.graph->GetErrorYhigh(i);
-            //         return kTRUE;
-            //     }
-            // }
-            // break;
-        // }
-
-    // }
-    // return kFALSE;
-// }
-
 Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh) {
     for (const auto& graph : graphs) {
         if (graph.isInEtaRange(eta) && graph.tauProng == tauProng) {
@@ -461,7 +438,9 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             Int_t tauProng = e->tausF_prongNum.v()==2? 3: e->tausF_prongNum.v();
             Bool_t ifFR = getFRandError(m_graphs, tausF_1jetEtaAbs, tauProng, e->tausF_1jetPt.v(), FRWeight, FRWeight_up, FRWeight_down);
             // std::cout<<"FRWeight="<<FRWeight<<" FRWeight_up="<<FRWeight_up<<" FRWeight_down="<<FRWeight_down<<"\n";
-            if(!ifFR){
+            FRWeight = FRWeight / 1 - FRWeight;
+            if (!ifFR)
+            {
                 std::cout<<"!!!FR not get<<\n";
                 std::cout<<"eta="<<tausF_1jetEtaAbs<<" prong="<<tauProng<<" pt="<<e->tausF_1jetPt.v()<<"\n";
             }
