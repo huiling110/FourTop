@@ -6,6 +6,31 @@
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 
+#include <vector>
+
+// Function to find the FR and its errors for a specific pt, eta, and tau prong
+Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh) {
+    // Find the correct graph based on eta and tau prong
+    for (const auto& graph : graphs) {
+        if (graph.isInEtaRange(eta) && graph.tauProng == tauProng) {
+            int n = graph.graph->GetN();
+            Double_t x, y;
+            for (int i = 0; i < n; ++i) {
+                graph.graph->GetPoint(i, x, y);
+                if (pt >= x - graph.graph->GetErrorXlow(i) && pt <= x + graph.graph->GetErrorXhigh(i)) {
+                    fr = y;
+                    errLow = graph.graph->GetErrorYlow(i);
+                    errHigh = graph.graph->GetErrorYhigh(i);
+                    return kTRUE;
+                }
+            }
+            break;
+        }
+    }
+    return kFALSE;
+}
+
+
 Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const Int_t taus_1prongNum, TH2D *FR_TH2D_1prong, TH2D *FR_TH2D_3prong, Double_t &FRWeight_up, Double_t &FRWeight_down)
 {
     // might need error handling for this
@@ -37,24 +62,6 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const In
         FR_sigma = 0.1;
     }
 
-    // Int_t binxNum = FR_TH2D->GetNbinsX();
-    // Int_t binyNum = FR_TH2D->GetNbinsY();
-    // Double_t FR = FR_TH2D->GetBinContent(binxNum, binyNum);
-    // Double_t FR_sigma = FR_TH2D->GetBinError(binxNum, binyNum);
-    // if (taus_1pt > 20.0 && taus_1pt <= 300.0)
-    // {
-
-    //     Int_t binx = FR_TH2D->GetXaxis()->FindBin(taus_1pt);
-    //     Int_t biny = FR_TH2D->GetYaxis()->FindBin(std::abs(taus_1eta)); // FineBin: If x is underflow or overflow, attempt to extend the axis if TAxis::kCanExtend is true. Otherwise, return 0 or fNbins+1.
-    //     FR = FR_TH2D->GetBinContent(binx, biny);                        // not clear for underflow or overflow bin which binContent retrieves from ROOT documentation
-    //     FR_sigma = FR_TH2D->GetBinError(binx, biny);
-    //     //???need better error handling
-    //     // if (FR < 0.000001)
-    //     // {
-    //     // std::cout << "taupt=" << taus_1pt << "; tauEta=" << taus_1eta << "\n";
-    //     // std::exit(1);
-    //     // }
-    // }
     Double_t FRWeight = FR / (1 - FR);
     FRWeight_up = FRWeight + FR_sigma / std::pow((1 - FR), 2);
     FRWeight_down = FRWeight - FR_sigma / std::pow((1 - FR), 2);
@@ -280,6 +287,15 @@ void WH_fakeRate::Init()
         };
         WH::initializeHistVec( regionsForApplyingFR, histsForRegion_vec, m_processName, e);
         WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
+
+        //get FR
+        TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/results/fakeRateInPtEta.root", "READ"); 
+        // Assuming these graphs are already created and stored in the ROOT file
+        m_graphs.emplace_back(0.0, 0.8, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta1")));
+        m_graphs.emplace_back(0.8, 1.5, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta2")));
+        m_graphs.emplace_back(1.5, 2.3, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta3")));
+        // graphs.emplace_back(0.0, 1.0, 3, dynamic_cast<TGraphAsymmErrors*>(file->Get("graph_eta1_3prong")));
+        // graphs.emplace_back(1.0, 2.5, 3, dynamic_cast<TGraphAsymmErrors*>(file->Get("graph_eta2_3prong")));
     }
 
      std::cout<< "Initialization done\n\n";
@@ -308,9 +324,9 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
         // event weight
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();//!!!!have to use this if bScore is the templates
         // Double_t basicWeight = e->EVENT_genWeight.v() *e->EVENT_prefireWeight.v() * e->PUweight_.v(); 
 
+        
         // Double_t FRWeight_up, FRWeight_down;
         // Double_t FRWeight = 1.0;
         // if( e->tausF_prongNum.v() ==1 || e->tausF_prongNum.v()==2 || e->tausF_prongNum.v()==3){
@@ -337,6 +353,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Bool_t is1tau0lCRLTau = isTauLNum && lepNum == 0 && jetsNum < 8 && bjetsNum ==2;
 
 
+        Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
         if(m_ifMeasure){
             // if (!(e->tausF_prongNum.v() == 1)){//!!!
             if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
@@ -344,7 +361,6 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             }
 
             // Double_t tausF_1jetEtaAbs = TMath::Abs(e->tausF_1eta.v());//function strange
-            Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
             Bool_t isEta1 = 0 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 0.8;
             Bool_t isEta2 = 0.8 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 1.5;
             Bool_t isEta3 = 1.5 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 2.3; //!2.5 for run 3
@@ -392,7 +408,9 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lCRGen_Eta3", basicWeight, is1tau0lCR && isEta3 && isTauTNumGen, m_isData);
             }
         }else{//FR application 
-
+            Double_t FRWeight, FRWeight_up, FRWeight_down; 
+            getFRandError(m_graphs, tausF_1jetEtaAbs, e->tausF_num.v(), e->tausF_1jetPt.v(), FRWeight, FRWeight_up, FRWeight_down);
+            std::cout<<"FRWeight="<<FRWeight<<" FRWeight_up="<<FRWeight_up<<" FRWeight_down="<<FRWeight_down<<"\n";
 
 
         }

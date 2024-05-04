@@ -5,6 +5,7 @@
 #include <vector>
 #include <variant>
 #include <memory>
+#include <TGraphAsymmErrors.h>
 
 #include "TString.h"
 #include "TFile.h"
@@ -17,6 +18,22 @@
 #include "../../myLibrary/commenFunction.h"
 
 #include "myEventClass.h"
+
+// Define a struct to hold the graph, its eta boundaries, and tau prong
+struct EtaProngGraph {
+    Double_t etaMin;
+    Double_t etaMax;
+    int tauProng;
+    TGraphAsymmErrors* graph;
+    
+    EtaProngGraph(Double_t min, Double_t max, int prong, TGraphAsymmErrors* g)
+        : etaMin(min), etaMax(max), tauProng(prong), graph(g) {}
+    
+    // Check if an eta value falls within this graph's eta range
+    Bool_t isInEtaRange(Double_t eta) const {
+        return eta >= etaMin && eta < etaMax;
+    }
+};
 
 class WH_fakeRate
 {
@@ -73,6 +90,8 @@ private:
     // const Bool_t m_ifMeasure = kTRUE;
     histsForRegionsMap<Double_t> tausF_1jetPt_class;//for FR measurement
     std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec;//for FR application
+
+    std::vector<EtaProngGraph> m_graphs;
 
 
 
