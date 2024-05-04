@@ -16,6 +16,8 @@
 namespace WH{
 
 Double_t getGenSum(TString inputFile);
+void initializeHistVec(const std::vector<TString>& regions, std::vector<std::shared_ptr<histForRegionsBase>>& histsForRegion_vec , TString m_processName, event* e );
+
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::map<TString, Float_t> &varForReaderMap, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll);
 
 void histRegionVectFill(std::vector<std::shared_ptr<histForRegionsBase>> &histForRegion_vec, Bool_t isRegion, TString region, Double_t weight, Bool_t isData);

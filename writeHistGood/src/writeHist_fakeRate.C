@@ -265,10 +265,10 @@ void WH_fakeRate::Init()
     tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
     tausF_1jetPt_class.setDir(m_outFile);
 
-    ptBinning[] = {20, 30, 40, 50, 60, 70, 90, 120, 200, 1e6};
-    etaBin[] = {0, 0.8, 1.5, 2.3};
-    FR_hist = new TH2D("FR_ptEta", "FR_ptEta", 9, ptBinning, 3, etaBin); 
-    FR_hist->SetDirectory(0);
+    // ptBinning[] = {20, 30, 40, 50, 60, 70, 90, 120, 200, 1e6};
+    // etaBin[] = {0, 0.8, 1.5, 2.3};
+    // FR_hist = new TH2D("FR_ptEta", "FR_ptEta", 9, ptBinning, 3, etaBin); 
+    // FR_hist->SetDirectory(0);
 
      std::cout
               << "Initialization done\n\n";
