@@ -326,12 +326,16 @@ void WH_fakeRate::Init()
         std::vector<TString> regionsForApplyingFR = {
             "1tau0lMRLTauNotT_Weighted",  
             "1tau0lMRLTauNotTGen_Weighted",
+            "1tau0lMRGen",
             "1tau0lVRLTauNotT_Weighted",
             "1tau0lVRLTauNotTGen_Weighted",
+            "1tau0lVRGen",
             "1tau0lCRLTauNotT_Weighted",
             "1tau0lCRLTauNotTGen_Weighted",
+            "1tau0lCRGen",
             "1tau0lSRLTauNotT_Weighted",
             "1tau0lSRLTauNotTGen_Weighted",
+            "1tau0lSRGen",
         };
         WH::initializeHistVec( regionsForApplyingFR, histsForRegion_vec, m_processName, e);
         WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
@@ -394,6 +398,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Bool_t is1tau0lCR = tausTNum==1 && lepNum == 0 && jetsNum < 8 && bjetsNum ==2;
         Bool_t is1tau0lCRLTau = isTauLNum && lepNum == 0 && jetsNum < 8 && bjetsNum ==2;
         //1tau0lSR
+        Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
         Bool_t is1tau0lSRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum >=3;
 
         Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
@@ -462,18 +467,25 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             Bool_t notTauT = e->tausT_num.v() == 0;
             Bool_t genTau = e->tausT_genTauNum.v() == 1;
             if(m_isData){
-                WH::histRegionVectFill(histsForRegion_vec, is1tau0lMRLTau && notTauT &&lepNum == 0, "1tau0lMRLTauNotT_Weighted", FRWeight, m_isData);
-                WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRLTau && notTauT &&lepNum == 0, "1tau0lCRLTauNotT_Weighted", FRWeight, m_isData);
-                WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTau && notTauT &&lepNum == 0, "1tau0lVRLTauNotT_Weighted", FRWeight, m_isData);
-                WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTau && notTauT &&lepNum == 0, "1tau0lSRLTauNotT_Weighted", FRWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lMRLTau && notTauT &&lepNum == 0, "1tau0lMRLTauNotT_Weighted", FRWeight, !m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRLTau && notTauT &&lepNum == 0, "1tau0lCRLTauNotT_Weighted", FRWeight, !m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTau && notTauT &&lepNum == 0, "1tau0lVRLTauNotT_Weighted", FRWeight, !m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTau && notTauT &&lepNum == 0, "1tau0lSRLTauNotT_Weighted", FRWeight, !m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR, "1tau0lMR", basicWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", basicWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             }else{
                 WH::histRegionVectFill(histsForRegion_vec, is1tau0lMRLTau && notTauT && genTau&&lepNum == 0, "1tau0lMRLTauNotTGen_Weighted", basicWeight*FRWeight, m_isData);
                 WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRLTau && notTauT && genTau&&lepNum == 0, "1tau0lCRLTauNotTGen_Weighted", basicWeight*FRWeight, m_isData);
                 WH::histRegionVectFill(histsForRegion_vec, is1tau0lVRLTau && notTauT && genTau&&lepNum == 0, "1tau0lVRLTauNotTGen_Weighted", basicWeight*FRWeight, m_isData);
                 WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRLTau && notTauT && genTau&&lepNum == 0, "1tau0lSRLTauNotTGen_Weighted", basicWeight*FRWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR&&lepNum==0 && genTau, "1tau0lMRGen", basicWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR && genTau, "1tau0lVRGen", basicWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR && genTau, "1tau0lCRGen", basicWeight, m_isData);
+                WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR && genTau, "1tau0lSRGen", basicWeight, m_isData);
             }
         }
-
 
 
     }

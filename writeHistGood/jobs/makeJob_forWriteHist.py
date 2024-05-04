@@ -90,8 +90,8 @@ def main():
 
     #!fakerate
     # version = 'v0FR_measure1prong'
-    version = 'v0FR_measure3prong'
-    # version = 'v1FR_application'
+    # version = 'v0FR_measure3prong'
+    version = 'v1FR_application'
        
     #b-tag measurement 
     # version = 'v1_btagRMeasure'

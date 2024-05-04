@@ -1,13 +1,11 @@
 
 import math
-import os
 from array import array
 import numpy as np
 
 import usefulFunc as uf
 from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from ROOT import *
-import writeCSVforEY as wc
 import setTDRStyle as st
 
 
@@ -129,11 +127,12 @@ def main():
     # regionList = ['1tau0lSR']
     # regionList = ['1tau1lSRTest']
     # regionList = ['1tau1lSRTest', '1tau1lCR2']
-    regionList = ['1tau0lSRTest']
+    # regionList = ['1tau0lSRTest']
     # regionList = ['1tau2lSRTest']
     # variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
-    ifFR_sys = False
+    regionList = ['1tau0lMR']
+    ifFTau = True
     plotName = 'dataVsMC_v2'
   
     #1tau0l
@@ -176,29 +175,6 @@ def main():
 
 
 
-def writeTemplatesForCombine(sumProcessPerVar,sumProcessPerVaySys, inputDir, region, channel='1tau0l') :
-    outDir = inputDir + channel + '_templatesForCombine/'
-    uf.checkMakeDir( outDir )
-    outFile = TFile( outDir+'templates.root', 'RECREATE')
-    for ivar in sumProcessPerVar.keys():
-        dataHist = TH1D('data_obs_'+ivar, 'data_obs', sumProcessPerVar[ivar][region]['tttt'].GetNbinsX(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmin(), sumProcessPerVar[ivar][region]['tttt'].GetXaxis().GetXmax() )
-        dataHist.Reset()
-        dataHist.Sumw2()
-        for ipro in sumProcessPerVar[ivar][region].keys():
-            itempName = ipro + '_' + ivar 
-            ihist = sumProcessPerVar[ivar][region][ipro].Clone(itempName)
-            ihist.Write()
-            if (not ipro=='tttt')  and (not ipro=='qcd'):
-                dataHist.Add(ihist)
-                print('add data:', ihist)
-                
-                for isys in sumProcessPerVaySys[ivar][region][ipro].keys():
-                    ihistSys = sumProcessPerVaySys[ivar][region][ipro][isys].Clone(itempName+'_'+isys)
-                    ihistSys.Write()
-        dataHist.Write()
-    print('writen templates for combine here', outFile.GetName())
-    print('\n')
-    outFile.Close()    
   
 
  
