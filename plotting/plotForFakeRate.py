@@ -26,45 +26,60 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/variableHists_v0FR_measure1prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure3prong/'
     
    
     
   
     inputDirDic = uf.getDirDic(inputDir)
     era = uf.getEraFromDir(inputDir)
-    plotFR(inputDirDic, era)
+    # plotFR(inputDirDic, era, '1prong')
+    plotFR(inputDirDic, era, '3prong')
     
-    # plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era)
-    # plotOverlay_FR(inputDirDic, variableDic, etaBins,isVR, era, False)
     
-def plotFR(inputDirDic, era):
-    # regionList = ['1tau0lMR', '1tau0lMRGen', '1tau0lMRLTau', '1tau0lMRLTauGen']
-    # FR_eta1 = plotFRPerEta( inputDirDic, regionList, era, '_Eta1', 'FR_1prongEta1')
-    # FR_eta2 = plotFRPerEta( inputDirDic, regionList, era, '_Eta2', 'FR_1prongEta2')
-    # FR_eta3 = plotFRPerEta( inputDirDic, regionList, era, '_Eta3', 'FR_1prongEta3')
-    # uf.plotOverlay([FR_eta1, FR_eta2, FR_eta3],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MR_1prong', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
+def plotFR(inputDirDic, era,  tauProng='1prong'):
+    regionList = ['1tau0lMR', '1tau0lMRGen', '1tau0lMRLTau', '1tau0lMRLTauGen']
+    FR_eta1 = plotFRPerEta( inputDirDic, regionList, era, '_Eta1', 'FR_' + tauProng + 'Eta1')
+    FR_eta2 = plotFRPerEta( inputDirDic, regionList, era, '_Eta2', 'FR_' + tauProng + 'Eta2')
+    FR_eta3 = plotFRPerEta( inputDirDic, regionList, era, '_Eta3', 'FR_' + tauProng + 'Eta3')
+    uf.plotOverlay([FR_eta1, FR_eta2, FR_eta3],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MR_' + tauProng + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
+    
+    writeFRToFileNew([FR_eta1, FR_eta2, FR_eta3], inputDirDic)
     
     # regionListVR = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTau', '1tau0lVRLTauGen']
-    # FR_eta1_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta1', 'FR_1prongEta1_VR')
-    # FR_eta2_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta2', 'FR_1prongEta2_VR')
-    # FR_eta3_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta3', 'FR_1prongEta3_VR')
-    # uf.plotOverlay([FR_eta1_VR, FR_eta2_VR, FR_eta3_VR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_VR_1prong', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
+    # FR_eta1_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta1', 'FR_' + tauProng + 'Eta1_VR')
+    # FR_eta2_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta2', 'FR_' + tauProng + 'Eta2_VR')
+    # FR_eta3_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta3', 'FR_' + tauProng + 'Eta3_VR')
+    # uf.plotOverlay([FR_eta1_VR, FR_eta2_VR, FR_eta3_VR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_VR_' + tauProng + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
     
-    regionListCR = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTau', '1tau0lCRLTauGen']
-    FR_eta1_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta1', 'FR_1prongEta1_CR')
-    FR_eta2_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta2', 'FR_1prongEta2_CR')
-    FR_eta3_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta3', 'FR_1prongEta3_CR')
-    uf.plotOverlay([FR_eta1_CR, FR_eta2_CR, FR_eta3_CR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CR_1prong', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
+    # regionListCR = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTau', '1tau0lCRLTauGen']
+    # FR_eta1_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta1', 'FR_' + tauProng + 'Eta1_CR')
+    # FR_eta2_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta2', 'FR_' + tauProng + 'Eta2_CR')
+    # FR_eta3_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta3', 'FR_' + tauProng + 'Eta3_CR')
+    # uf.plotOverlay([FR_eta1_CR, FR_eta2_CR, FR_eta3_CR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CR_' + tauProng + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
     
     
-    # uf.plotOverlay([FR_eta1, FR_eta1_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta1', 'AP', [0.3, 0.6, 0.8, 0.8], [0, 0.3])
-    # uf.plotOverlay([FR_eta2, FR_eta2_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta2', 'AP', [0.3, 0.6, 0.8, 0.8], [0, 0.3])
-    # uf.plotOverlay([FR_eta3, FR_eta3_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_1prongEta3', 'AP', [0.3, 0.6, 0.8, 0.8], [0, 0.3])
+    # uf.plotOverlay([FR_eta1, FR_eta1_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_eta2, FR_eta2_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_eta3, FR_eta3_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
     
+    # uf.plotOverlay([FR_eta1, FR_eta1_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_eta2, FR_eta2_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_eta3, FR_eta3_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    
+    # uf.plotOverlay([FR_eta1_CR, FR_eta1_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_eta2_CR, FR_eta2_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_eta3_CR, FR_eta3_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+   
+def writeFRToFileNew(FR_ptInEtaList, inputDirDic):
+    outFile = ROOT.TFile( inputDirDic['mc'] + 'results/fakeRateInPtEta.root', "RECREATE")
+    for i in range(len(FR_ptInEtaList)):
+        FR_ptInEtaList[i].SetName('fakeRate_Eta'+str(i+1))
+        FR_ptInEtaList[i].Write()
+    outFile.Write()
+    print('fake rate file here: ', outFile.GetName())
+    outFile.Close() 
 
-def plotOverlayFR(overlayHists,era, plotName):
-    uf.plotOverlay(overlayHists, ['VR', 'CR'], era, 'FR', plotName, 'AP',[0.4, 0.3, 0.9, 0.5], [0, 0.1])
     
     
     
@@ -206,12 +221,14 @@ def plotFROverlay(FRInRegionList, legendList,  era, yTitle,  plotName, ifUncerBa
     
         
 
-def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins):
-    # etaBins = np.array([0, 0.8,1.6,2.4])
-    # etaBins = np.array([0, 1.5,2.4])
+def writeFRToFile( FR_ptInEtaList, inputDirDic):
+    etaBins = [0, 0.8, 1.5, 2.3]
+    # ptBins = FR_ptInEtaList[0].GetXaxis().GetXbins().GetArray()
+    n_bins_x = FR_ptInEtaList[0].GetNbinsX()
+    ptBins = [FR_ptInEtaList[0].GetXaxis().GetBinLowEdge(i) for i in range(1, n_bins_x + 2)] # # +2 to include the upper edge of the last bin
+    print('ptBins:', ptBins)
     
-    # outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG.root'
-    outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta_sumGenBG_newBin.root'
+    outFileName = inputDirDic['mc'] + 'results/fakeRateInPtEta.root'
     outFile = ROOT.TFile( outFileName, "RECREATE") 
     fakeRate2D = ROOT.TH2D('fakeRate2D', 'fake rate in pt eta',  len(ptBins)-1, ptBins, len(etaBins)-1, etaBins )
     for ixbin in range(len(ptBins)-1):
@@ -220,6 +237,24 @@ def writeFRToFile( FR_ptInEtaList, inputDirDic, ptBins, etaBins):
             iFRerror =  FR_ptInEtaList[iybin].GetBinError(ixbin+1)
             fakeRate2D.SetBinContent(ixbin+1, iybin+1, iFR)
             fakeRate2D.SetBinError(ixbin+1, iybin+1, iFRerror)
+            
+
+    # Assuming all histograms have the same binning along the x-axis
+    # n_bins_x = hist_list[0].GetNbinsX()
+    # x_bin_edges = [hist_list[0].GetXaxis().GetBinLowEdge(i) for i in range(1, n_bins_x + 2)]  # +2 to include the upper edge of the last bin
+    
+    # # Create the TH2D histogram
+    # n_bins_y = len(hist_list)
+    # th2d = ROOT.TH2D(name, title, n_bins_x, x_bin_edges[0], x_bin_edges[-1], n_bins_y, 0.5, n_bins_y + 0.5)
+    
+    # # Fill the TH2D histogram
+    # for i, hist in enumerate(hist_list, start=1):
+    #     for j in range(1, n_bins_x + 1):
+    #         bin_content = hist.GetBinContent(j)
+    #         th2d.SetBinContent(j, i, bin_content)
+            
+    # return th2d            
+
     
     outFile.Write()
     outFile.Close()
@@ -390,78 +425,6 @@ def getHistForFakeRate( var, sumProcessPerVar, etaRegion ):
 
 
 
-#!!!making it more generic 
-#!!!in usefulFunc
-def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', ifFixMax=True, rightTitle='efficiency'):
-    # setTDRStyle()#???not sure why no content line
-    # can = ROOT.TCanvas('efficiency', 'efficiency', 800, 600)
-    can = ROOT.TCanvas('efficiency', 'efficiency', 1000, 800)
-    ROOT.gStyle.SetOptStat(ROOT.kFALSE)
-    ROOT.gStyle.SetOptTitle(0)
-
-    # h_dinominator.SetLineColor(ROOT.kOrange)
-    h_dinominator.GetYaxis().SetRangeUser(h_numeritor.GetMinimum()*0.9, h_dinominator.GetMaximum()*1.5)
-    h_dinominator.GetYaxis().SetTitle('Events')
-    h_dinominator.GetYaxis().SetTitleSize(0.05)
-    h_dinominator.GetYaxis().SetLabelSize(0.03)
-    h_dinominator.GetYaxis().SetTitleOffset(1.1)
-    # h_dinominator.GetXaxis().SetTitle('pt of tau mother jet')
-    h_dinominator.GetXaxis().SetTitle(h_dinominator.GetTitle())
-    h_dinominator.GetXaxis().SetTitleSize(0.05)
-    h_dinominator.SetLineWidth(3)
-    h_dinominator.SetLineColorAlpha(ROOT.kOrange+1, 0.8)
-    # h_dinominator.SetLineStyle(2)
-    
-    h_dinominator.Draw()
-    # h_numeritor.SetLineColor(ROOT.kMagenta-4)
-    # h_numeritor.SetLineColor(ROOT.kBlue)
-    h_numeritor.SetLineColorAlpha(ROOT.kGreen, 0.5)
-    h_numeritor.SetLineWidth(3)
-    # h_numeritor.SetLineStyle(8)
-    h_numeritor.Draw('same')
-    can.Update()
-
-    h_efficiency = h_eff.Clone()
-    if ifFixMax:
-        rightmax = .35
-        # rightmax = .2
-    else:
-        rightmax = 1.7*h_efficiency.GetMaximum();
-    scale = ROOT.gPad.GetUymax()/rightmax;
-    h_efficiency.SetLineColor(ROOT.kRed)
-    h_efficiency.SetLineWidth(4)
-    # h_efficiency.SetMarkerStyle(3)
-    h_efficiency.SetLineStyle(1)
-    h_efficiency.Scale(scale) #!!!need to consider this scaling effect on uncertainty
-    h_efficiency.Draw("same")
-    
-    #print
-    # for i in range(1,h_efficiency.GetNbinsX()+1):
-    #     print( i, 'bin: ', h_dinominator.GetBinContent(), h_dinominator.GetBinError(), h_numeritor.GetBinContent(), h_numeritor.GetBinContent())
-    
-    axis = ROOT.TGaxis(ROOT.gPad.GetUxmax(),ROOT.gPad.GetUymin(), ROOT.gPad.GetUxmax(), ROOT.gPad.GetUymax(),0,rightmax,510,"+L")
-    # axis.SetRangeUser(0, rightmax*1.4)
-    axis.SetLineColor(ROOT.kRed)
-    axis.SetLabelColor(ROOT.kRed)
-    # axis.SetTitle('fake rate')
-    # axis.SetTitle('efficiency')
-    axis.SetTitle(rightTitle)
-    axis.SetTitleSize(0.05)
-    axis.SetTitleColor(ROOT.kRed)
-    # axis.SetRangeUser(0, 0.4)
-    axis.Draw()
-
-
-    # legend = ROOT.TLegend(0.4,0.7,0.9,0.9)
-    legend = ROOT.TLegend(0.35,0.68,0.9,0.9)
-    legend.AddEntry(h_dinominator, "denominator: "+ h_dinominator.GetName())
-    legend.AddEntry(h_numeritor, "numeritor: "+ h_numeritor.GetName())
-    legend.AddEntry(h_efficiency, h_efficiency.GetName())
-    legend.Draw()
-    
-    # addCMSTextToCan(can, 0.21, 0.33, 0.91, era)     
-
-    can.SaveAs(plotName)
 
 
 

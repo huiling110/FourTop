@@ -265,7 +265,13 @@ void WH_fakeRate::Init()
     tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
     tausF_1jetPt_class.setDir(m_outFile);
 
-    std::cout << "Initialization done\n\n";
+    ptBinning[] = {20, 30, 40, 50, 60, 70, 90, 120, 200, 1e6};
+    etaBin[] = {0, 0.8, 1.5, 2.3};
+    FR_hist = new TH2D("FR_ptEta", "FR_ptEta", 9, ptBinning, 3, etaBin); 
+    FR_hist->SetDirectory(0);
+
+     std::cout
+              << "Initialization done\n\n";
 }
 
 void WH_fakeRate::LoopTree(UInt_t entry)
@@ -285,15 +291,9 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         {
             continue;
         }
-        // std::cout << "tausF_num=" << e->tausF_num.v() << "\n";
-        // {
         if(!(e->tausF_num.v()==1  )){
             continue;
         }
-        Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
-        // if (!(lepNum==0)){
-        //     continue;
-        // }
 
         // event weight
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!
@@ -314,9 +314,8 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Int_t tausTNum = e->tausT_num.v();//!!
         Int_t jetsNum = e->jets_num.v();
         Int_t bjetsNum = e->bjetsM_num.v();
+        Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
         // 1tau0lMR
-        // Bool_t is1tau0lMR = tausTNum == 1 && lepNum == 0 && jetsNum >= 8 && bjetsNum == 2; 
-        // Bool_t is1tau0lMRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum == 2;
         Bool_t is1tau0lMR = tausTNum == 1  && jetsNum >= 8 && bjetsNum == 2; 
         Bool_t is1tau0lMRLTau = isTauLNum && jetsNum >= 8 && bjetsNum == 2;
         //1tau0lVR
@@ -328,7 +327,8 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
 
         if(m_ifMeasure){
-            if (!(e->tausF_prongNum.v() == 1)){//!!!
+            // if (!(e->tausF_prongNum.v() == 1)){//!!!
+            if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
                 continue;
             }
 

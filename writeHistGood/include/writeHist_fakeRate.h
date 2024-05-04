@@ -68,6 +68,7 @@ private:
     // std::vector<histsForRegionsMap>
     std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec;
 
+    
     TH2D *FR_hist;
     TH2D *FR_hist_3prong;
 
