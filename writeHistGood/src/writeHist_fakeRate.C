@@ -372,7 +372,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        if (!(baselineSelection(e)))
+        if (!(baselineSelection(e, m_isRun3)))
         {
             continue;
         }
@@ -486,7 +486,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR && genTau, "1tau0lSRGen", basicWeight, m_isData);
                 WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);//!blinded in SR
             }
-            WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR, "1tau0lMR", basicWeight, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR&&lepNum==0, "1tau0lMR", basicWeight, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", basicWeight, m_isData);
         }

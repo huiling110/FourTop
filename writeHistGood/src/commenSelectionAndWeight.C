@@ -106,16 +106,16 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 0;
         break;
     case 7: // ! NEW 1tau0lMR
-        // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 1;
-        isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 2;
+        isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 2;
+        // isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 2;
         break;
     case 8: //!new 1tau0lVR
-        // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum >= 2;
-        isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum >= 3;
+        isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum >= 3;
+        // isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum >= 3;
         break;
-    case 9: // 1tau0lCRb//!new 1tau0lCR
-        // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 1;
-        isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 2;
+    case 9: //!new 1tau0lCR
+        isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 2;
+        // isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 2;
         break;
     case 10: // 1tau0lCRa
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() < 8 && bjetsMNum == 0;
