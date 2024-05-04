@@ -9,22 +9,70 @@
 #include <vector>
 
 // Function to find the FR and its errors for a specific pt, eta, and tau prong
-Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh) {
+// Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh) {
     // Find the correct graph based on eta and tau prong
+    // for (const auto& graph : graphs) {
+        // if (graph.isInEtaRange(eta) && graph.tauProng == tauProng) {
+            // int n = graph.graph->GetN();
+            // Double_t x, y;
+            // for (int i = 0; i < n; ++i) {
+            //     graph.graph->GetPoint(i, x, y);
+            //     if (pt >= x - graph.graph->GetErrorXlow(i) && pt <= x + graph.graph->GetErrorXhigh(i)) {
+            //         fr = y;
+            //         errLow = graph.graph->GetErrorYlow(i);
+            //         errHigh = graph.graph->GetErrorYhigh(i);
+            //         return kTRUE;
+            //     }
+            // }
+            // break;
+        // }
+
+    // }
+    // return kFALSE;
+// }
+
+Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh) {
     for (const auto& graph : graphs) {
         if (graph.isInEtaRange(eta) && graph.tauProng == tauProng) {
             int n = graph.graph->GetN();
             Double_t x, y;
-            for (int i = 0; i < n; ++i) {
-                graph.graph->GetPoint(i, x, y);
-                if (pt >= x - graph.graph->GetErrorXlow(i) && pt <= x + graph.graph->GetErrorXhigh(i)) {
-                    fr = y;
-                    errLow = graph.graph->GetErrorYlow(i);
-                    errHigh = graph.graph->GetErrorYhigh(i);
-                    return kTRUE;
+            graph.graph->GetPoint(0, x, y); // Get the first point
+            Double_t minX = x - graph.graph->GetErrorXlow(0);
+            graph.graph->GetPoint(n-1, x, y); // Get the last point
+            Double_t maxX = x + graph.graph->GetErrorXhigh(n-1);
+
+            int index = -1; // Index of the point to use
+
+            // Check if pt is out of range
+            if (pt < minX) {
+                // Use the first bin
+                index = 0;
+            } else if (pt > maxX) {
+                // Use the last bin
+                index = n - 1;
+            } else {
+                // pt is within range, find the correct bin
+                for (int i = 0; i < n; ++i) {
+                    graph.graph->GetPoint(i, x, y);
+                    if (pt >= x - graph.graph->GetErrorXlow(i) && pt <= x + graph.graph->GetErrorXhigh(i)) {
+                        index = i; // Correct bin found
+                        break;
+                    }
                 }
             }
-            break;
+
+            if (index != -1) {
+                // Retrieve the FR and its errors for the determined bin
+                graph.graph->GetPoint(index, x, y);
+                fr = y;
+                errLow = graph.graph->GetErrorYlow(index);
+                errHigh = graph.graph->GetErrorYhigh(index);
+                return kTRUE;
+            } else {
+                // This else part is technically not needed as index will always be set
+                // but is kept for logical completeness and future-proofing.
+                return kFALSE;
+            }
         }
     }
     return kFALSE;
@@ -290,12 +338,14 @@ void WH_fakeRate::Init()
 
         //get FR
         TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/results/fakeRateInPtEta.root", "READ"); 
+        TFile* file3Prong=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure3prong/results/fakeRateInPtEta.root", "READ"); 
         // Assuming these graphs are already created and stored in the ROOT file
         m_graphs.emplace_back(0.0, 0.8, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta1")));
         m_graphs.emplace_back(0.8, 1.5, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta2")));
         m_graphs.emplace_back(1.5, 2.3, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta3")));
-        // graphs.emplace_back(0.0, 1.0, 3, dynamic_cast<TGraphAsymmErrors*>(file->Get("graph_eta1_3prong")));
-        // graphs.emplace_back(1.0, 2.5, 3, dynamic_cast<TGraphAsymmErrors*>(file->Get("graph_eta2_3prong")));
+        m_graphs.emplace_back(0.0, 0.8, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta1")));
+        m_graphs.emplace_back(0.8, 1.5, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta2")));
+        m_graphs.emplace_back(1.5, 2.3, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta3")));
     }
 
      std::cout<< "Initialization done\n\n";
@@ -409,8 +459,13 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             }
         }else{//FR application 
             Double_t FRWeight, FRWeight_up, FRWeight_down; 
-            getFRandError(m_graphs, tausF_1jetEtaAbs, e->tausF_num.v(), e->tausF_1jetPt.v(), FRWeight, FRWeight_up, FRWeight_down);
+            Int_t tauProng = e->tausF_prongNum.v()==2? 3: e->tausF_prongNum.v();
+            Bool_t ifFR = getFRandError(m_graphs, tausF_1jetEtaAbs, tauProng, e->tausF_1jetPt.v(), FRWeight, FRWeight_up, FRWeight_down);
             std::cout<<"FRWeight="<<FRWeight<<" FRWeight_up="<<FRWeight_up<<" FRWeight_down="<<FRWeight_down<<"\n";
+            if(!ifFR){
+                std::cout<<"!!!FR not get<<\n";
+                std::cout<<"eta="<<tausF_1jetEtaAbs<<" prong="<<tauProng<<" pt="<<e->tausF_1jetPt.v()<<"\n";
+            }
 
 
         }
