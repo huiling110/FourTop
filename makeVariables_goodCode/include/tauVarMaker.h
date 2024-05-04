@@ -31,6 +31,7 @@ private:
     Int_t taus_leptonsTopMVA_chargeMulti = -99;
     Int_t taus_prongNum = -99;
     Int_t taus_1decayMode = -99;
+    Int_t taus_1prongNum = -99;
     Int_t taus_1lepton1_charge = -99;
     Double_t taus_1jetPt = -99;
     Double_t taus_1jetEtaAbs = -99;

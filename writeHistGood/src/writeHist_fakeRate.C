@@ -319,7 +319,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Bool_t is1tau0lSRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum >=3;
 
         // Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
-        Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1jetEtaAbs.v()); //!tausF_1jetEtaAbs should be more accurate!:w
+        Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1jetEtaAbs.v()); //!tausF_1jetEtaAbs should be more accurate!
         if(m_ifMeasure){
             // if (!(e->tausF_prongNum.v() == 1)){//!!!
             if (e->tausF_prongNum.v() == 1){//!!! group all tau prong=!1 into one
@@ -329,7 +329,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
             Bool_t isEta1 = 0 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 0.8;
             Bool_t isEta2 = 0.8 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 1.5;
-            Bool_t isEta3 = 1.5 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 2.3; //!2.5 for run 3
+            Bool_t isEta3 = 1.5 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 2.4; //!consider the jet eta cut instead of tau eta
             if(m_isData){
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTau_Eta1", basicWeight, is1tau0lMRLTau &&  isEta1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTau_Eta2", basicWeight, is1tau0lMRLTau &&  isEta2, m_isData);
