@@ -465,7 +465,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 std::cout<<"eta="<<tausF_1jetEtaAbs<<" prong="<<tauProng<<" pt="<<e->tausF_1jetPt.v()<<"\n";
             }
             Bool_t notTauT = e->tausT_num.v() == 0;
-            Bool_t genTau = e->tausT_genTauNum.v() == 1;
+            Bool_t genTau = e->tausF_genTauNum.v() == 1;
             if(m_isData){
                 WH::histRegionVectFill(histsForRegion_vec, is1tau0lMRLTau && notTauT &&lepNum == 0, "1tau0lMRLTauNotT_Weighted", FRWeight, !m_isData);
                 WH::histRegionVectFill(histsForRegion_vec, is1tau0lCRLTau && notTauT &&lepNum == 0, "1tau0lCRLTauNotT_Weighted", FRWeight, !m_isData);
