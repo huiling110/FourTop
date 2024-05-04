@@ -26,15 +26,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/variableHists_v0FR_measure1prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measureNot1prong_jetEta/'
     
    
     
   
     inputDirDic = uf.getDirDic(inputDir)
     era = uf.getEraFromDir(inputDir)
-    plotFR(inputDirDic, era, '1prong')
-    # plotFR(inputDirDic, era, '3prong')
+    # plotFR(inputDirDic, era, '1prong')
+    plotFR(inputDirDic, era, '3prong')
     
     
 def plotFR(inputDirDic, era,  tauProng='1prong'):
@@ -46,30 +48,30 @@ def plotFR(inputDirDic, era,  tauProng='1prong'):
     
     writeFRToFileNew([FR_eta1, FR_eta2, FR_eta3], inputDirDic)
     
-    # regionListVR = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTau', '1tau0lVRLTauGen']
-    # FR_eta1_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta1', 'FR_' + tauProng + 'Eta1_VR')
-    # FR_eta2_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta2', 'FR_' + tauProng + 'Eta2_VR')
-    # FR_eta3_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta3', 'FR_' + tauProng + 'Eta3_VR')
-    # uf.plotOverlay([FR_eta1_VR, FR_eta2_VR, FR_eta3_VR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_VR_' + tauProng + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
+    regionListVR = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTau', '1tau0lVRLTauGen']
+    FR_eta1_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta1', 'FR_' + tauProng + 'Eta1_VR')
+    FR_eta2_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta2', 'FR_' + tauProng + 'Eta2_VR')
+    FR_eta3_VR = plotFRPerEta( inputDirDic, regionListVR, era, '_Eta3', 'FR_' + tauProng + 'Eta3_VR')
+    uf.plotOverlay([FR_eta1_VR, FR_eta2_VR, FR_eta3_VR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_VR_' + tauProng + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
     
-    # regionListCR = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTau', '1tau0lCRLTauGen']
-    # FR_eta1_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta1', 'FR_' + tauProng + 'Eta1_CR')
-    # FR_eta2_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta2', 'FR_' + tauProng + 'Eta2_CR')
-    # FR_eta3_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta3', 'FR_' + tauProng + 'Eta3_CR')
-    # uf.plotOverlay([FR_eta1_CR, FR_eta2_CR, FR_eta3_CR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CR_' + tauProng + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
+    regionListCR = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTau', '1tau0lCRLTauGen']
+    FR_eta1_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta1', 'FR_' + tauProng + 'Eta1_CR')
+    FR_eta2_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta2', 'FR_' + tauProng + 'Eta2_CR')
+    FR_eta3_CR = plotFRPerEta( inputDirDic, regionListCR, era, '_Eta3', 'FR_' + tauProng + 'Eta3_CR')
+    uf.plotOverlay([FR_eta1_CR, FR_eta2_CR, FR_eta3_CR],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CR_' + tauProng + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
     
     
-    # uf.plotOverlay([FR_eta1, FR_eta1_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    # uf.plotOverlay([FR_eta2, FR_eta2_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    # uf.plotOverlay([FR_eta3, FR_eta3_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta1, FR_eta1_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta2, FR_eta2_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta3, FR_eta3_VR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
     
-    # uf.plotOverlay([FR_eta1, FR_eta1_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    # uf.plotOverlay([FR_eta2, FR_eta2_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    # uf.plotOverlay([FR_eta3, FR_eta3_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta1, FR_eta1_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta2, FR_eta2_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta3, FR_eta3_CR], ['MR: N_{jet}>=8, N_{b-jet}=2', 'CR: N_{jet}<8, N_{b-jet}=2'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
     
-    # uf.plotOverlay([FR_eta1_CR, FR_eta1_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    # uf.plotOverlay([FR_eta2_CR, FR_eta2_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    # uf.plotOverlay([FR_eta3_CR, FR_eta3_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta1_CR, FR_eta1_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta2_CR, FR_eta2_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta3_CR, FR_eta3_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
    
 def writeFRToFileNew(FR_ptInEtaList, inputDirDic):
     outFile = ROOT.TFile( inputDirDic['mc'] + 'results/fakeRateInPtEta.root', "RECREATE")

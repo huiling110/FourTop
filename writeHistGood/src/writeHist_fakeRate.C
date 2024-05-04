@@ -260,13 +260,14 @@ void WH_fakeRate::Init()
         WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 
         //get FR
-        TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/results/fakeRateInPtEta.root", "READ"); 
-        TFile* file3Prong=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure3prong/results/fakeRateInPtEta.root", "READ"); 
+        TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
+        TFile* file3Prong=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measureNot1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
+        std::cout<<"FR files used: "<<file->GetName()<<"\n"<<file3Prong->GetName()<<"\n";
         // Assuming these graphs are already created and stored in the ROOT file
         m_graphs.emplace_back(0.0, 0.8, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta1")));
         m_graphs.emplace_back(0.8, 1.5, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta2")));
         m_graphs.emplace_back(1.5, 2.3, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta3")));
-        m_graphs.emplace_back(0.0, 0.8, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta1")));
+        m_graphs.emplace_back(0.0, 0.8, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta1"))); //!3 is not 3 but not 1
         m_graphs.emplace_back(0.8, 1.5, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta2")));
         m_graphs.emplace_back(1.5, 2.3, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta3")));
     }
@@ -320,8 +321,8 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         // Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1eta.v());
         Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1jetEtaAbs.v()); //!tausF_1jetEtaAbs should be more accurate!:w
         if(m_ifMeasure){
-            if (!(e->tausF_prongNum.v() == 1)){//!!!
-            // if (e->tausF_prongNum.v() == 1){//!!!
+            // if (!(e->tausF_prongNum.v() == 1)){//!!!
+            if (e->tausF_prongNum.v() == 1){//!!! group all tau prong=!1 into one
             // if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
                 continue;
             }
@@ -379,7 +380,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             // std::cout<<"FRWeight="<<FRWeight<<" FRWeight_up="<<FRWeight_up<<" FRWeight_down="<<FRWeight_down<<"\n";
             // std::cout << "tauProng=" << tauProng << "\n";
             FRWeight = FRWeight / (1. - FRWeight);
-            std::cout << "FRWeight=" << FRWeight << "\n";
+            // std::cout << "FRWeight=" << FRWeight << "\n";
             if (!ifFR)
             {
                 std::cout<<"!!!FR not get<<\n";

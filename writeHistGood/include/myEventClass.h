@@ -229,6 +229,7 @@ public:
     myBranch<Double_t> tausT_1eta{"tausT_1eta"};
     myBranch<Double_t> tausT_1phi{"tausT_1phi"};
     myBranch<Int_t> tausT_1genFlavour{"tausT_1genFlavour"};
+    myBranch<Int_t> tausT_prongNum{"tausT_prongNum"};
 
     myBranch<Double_t> tausTT_HT{"tausTT_HT"};
     myBranch<Double_t> tausTT_MHT{"tausTT_MHT"};
@@ -500,6 +501,7 @@ private:
         {tausF_1pt.n(), &tausF_1pt},
 
         {tausT_1genFlavour.n(), &tausT_1genFlavour},
+        {tausT_prongNum.n(), &tausT_prongNum},
         {tausF_1genFlavour.n(), &tausF_1genFlavour},
         {tausTT_1genFlavour.n(), &tausTT_1genFlavour},
         {tausTTT_1genFlavour.n(), &tausTTT_1genFlavour},
