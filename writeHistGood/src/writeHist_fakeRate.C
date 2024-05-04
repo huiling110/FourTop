@@ -222,7 +222,9 @@ void WH_fakeRate::Init()
 
 */
     //regions for measuring FR
-    std::vector<TString> regionsEtaDivided = {
+    if(m_ifMeasure){
+
+        std::vector<TString> regionsEtaDivided = {
         "1tau0lCRLTau_Eta1", 
         "1tau0lCRLTau_Eta2",
         "1tau0lCRLTau_Eta3",
@@ -261,17 +263,26 @@ void WH_fakeRate::Init()
         "1tau0lVRGen_Eta1",
         "1tau0lVRGen_Eta2", // 54
         "1tau0lVRGen_Eta3",
-    };
-    tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
-    tausF_1jetPt_class.setDir(m_outFile);
+        };
+        tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
+        tausF_1jetPt_class.setDir(m_outFile);
 
-    // ptBinning[] = {20, 30, 40, 50, 60, 70, 90, 120, 200, 1e6};
-    // etaBin[] = {0, 0.8, 1.5, 2.3};
-    // FR_hist = new TH2D("FR_ptEta", "FR_ptEta", 9, ptBinning, 3, etaBin); 
-    // FR_hist->SetDirectory(0);
+    }else{
+        std::vector<TString> regionsForApplyingFR = {
+            "1tau0lMRLTauNotT_Weighted",  
+            "1tau0lMRLTauNotTGen_Weighted",
+            "1tau0lVRLTauNotT_Weighted",
+            "1tau0lVRLTauNotTGen_Weighted",
+            "1tau0lCRLTauNotT_Weighted",
+            "1tau0lCRLTauNotTGen_Weighted",
+            "1tau0lSRLTauNotT_Weighted",
+            "1tau0lSRLTauNotTGen_Weighted",
+        };
+        WH::initializeHistVec( regionsForApplyingFR, histsForRegion_vec, m_processName, e);
+        WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
+    }
 
-     std::cout
-              << "Initialization done\n\n";
+     std::cout<< "Initialization done\n\n";
 }
 
 void WH_fakeRate::LoopTree(UInt_t entry)
@@ -380,6 +391,10 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lCRGen_Eta2", basicWeight, is1tau0lCR && isEta2 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCRGen_Eta3", basicWeight, is1tau0lCR && isEta3 && isTauTNumGen, m_isData);
             }
+        }else{//FR application 
+
+
+
         }
 
 
