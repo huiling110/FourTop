@@ -45,7 +45,8 @@ def main():
     # outVersion = 'v0baselineHT450Jet6pt32'
     # outVersion = 'v0baselineHT450'
     # outVersion = 'v0baselineHT450Cut1tau1l'
-    outVersion = 'v2baselineHT450Cut1tau0l'
+    # outVersion = 'v2baselineHT450Cut1tau0l'
+    outVersion = 'v0baselineHT450AddTauProng'
     
     #2022
     # year = '2022postEE'
