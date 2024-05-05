@@ -133,8 +133,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_i tausTTT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTTT_1lepton1_charge", "charge^{TTT#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausTTT_1lepton1_charge));
     SP_i tausT_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1lepton1_charge", "charge^{T#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausT_1lepton1_charge));
     SP_i tausM_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausM_1lepton1_charge", "charge^{M#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausM_1lepton1_charge));
-    SP_i tausF_prongNum_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1prong", "n^{F#tau prong}", m_processName, 10, 0, 10, regionsForVariables, &(e->tausF_prongNum));
-    SP_i tausT_prongNum_class = std::make_shared<histsForRegionsMap<Int_t>>("taust_1prong", "n^{T#tau prong}", m_processName, 10, 0, 10, regionsForVariables, &(e->tausT_prongNum));
+    SP_i tausF_1prongNum_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1prongNum", "n^{F#tau prong}", m_processName, 10, 0, 10, regionsForVariables, &(e->tausF_1prongNum));
 
     histsForRegion_vec.push_back(jets_bScore_class);
     histsForRegion_vec.push_back(jets_num_class);
@@ -234,8 +233,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(tausTTT_1lepton1_charge_class);
     histsForRegion_vec.push_back(tausT_1lepton1_charge_class);
     histsForRegion_vec.push_back(tausM_1lepton1_charge_class);
-    histsForRegion_vec.push_back(tausF_prongNum_class);
-    histsForRegion_vec.push_back(tausT_prongNum_class);
+    histsForRegion_vec.push_back(tausF_1prongNum_class);
 }
 
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::map<TString, Float_t> &varForReaderMap, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)

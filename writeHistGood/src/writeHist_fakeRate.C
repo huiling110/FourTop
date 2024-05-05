@@ -292,6 +292,9 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         {
             continue;
         }
+        if(!e->tausF_num.v()==1){//!maybe critcal for the FR application, ensure no tauF=2 events
+            continue;
+        }
 
         // event weight
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!

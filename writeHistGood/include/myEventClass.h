@@ -265,6 +265,7 @@ public:
     myBranch<Double_t> tausF_1pt{"tausF_1pt"};
     myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
     myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
+    myBranch<Int_t> tausF_1prongNum{"tausF_1prongNum"};
 
 
 
@@ -492,6 +493,8 @@ private:
         {tausF_1jetEtaAbs.n(), &tausF_1jetEtaAbs},
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
+        {tausF_1prongNum.n(), &tausF_1prongNum},
+
         {tausT_1decayMode.n(), &tausT_1decayMode},
         {tausTT_1decayMode.n(), &tausTT_1decayMode},
         {tausTT_1lepton1_charge.n(), &tausTT_1lepton1_charge},
