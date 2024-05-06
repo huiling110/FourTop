@@ -82,6 +82,10 @@ private:
     Double_t HLT_weight_stats_up = 1.0;
     Double_t HLT_weight_stats_down = 1.0;
 
+    Double_t FR_weight = 1.0;
+    Double_t FR_weight_up = 1.0;
+    Double_t FR_weight_down = 1.0;
+
     Double_t pdfWeight_up_ = 1.0;
     Double_t pdfWeight_down_ = 1.0;
     Double_t pdfWeightAlphaS_up_ = 1.0;
@@ -114,7 +118,7 @@ private:
     TH2D* triggerHist2b;
     TH2D* triggerHist3b;
 
-    std::vector<EtaProngGraph> m_graphs;
+    std::vector<TTTT::EtaProngGraph> m_graphs;
 
 };
 
