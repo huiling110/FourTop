@@ -63,6 +63,37 @@ crossSectionMap = {
     "TTTT": 0.0158,
 }
 
+genSumDic = {
+    'ttW': 2.76869,
+    'qcd_2000toInf': 5.37471,
+    'qcd_200to300': 5.73366,
+    'st_tW_top': 2.58137,
+    'WJetsToLNu_HT-200To400': 5.82256,
+    'WJetsToLNu_HT-400To600': 7.44403,
+    'WJetsToLNu_HT-1200To2500': 6.48152,
+    'qcd_1000to1500': 1.43948,
+    'WJetsToLNu_HT-2500ToInf': 2.09765,
+    'qcd_300to500': 6.16097,
+    'qcd_50to100': 3.85994,
+    'tttt': 106025.0,
+    'qcd_1500to2000': 1.04118,
+    'ttbar_0l': 1.0491,
+    'ttbar_2l': 1.04576,
+    'ttH_nonbb': 9.2812,
+    'WJetsToLNu_HT-600To800': 7.71876,
+    'st_tW_antitop': 2.51902,
+    'st_tZq': 924059.0,
+    'ttH_bb': 9.45172,
+    'ww': 1.56791,
+    'zz': 3.526,
+    'ttG': 2.78495,
+    'qcd_700to1000': 4.85068,
+    'wz': 7.94,
+    'qcd_500to700': 4.91848,
+    'ttbar_1l': 1.43354,
+    'WJetsToLNu_HT-800To1200': 7.30619,
+    'ttZ': 3.27938,
+}
 
 
 # summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'WJets', 'data' ]
