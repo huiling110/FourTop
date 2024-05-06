@@ -13,18 +13,17 @@ def main():
     
     tauF = 'tausF_num==1'
     notausT = 'tausT_num==0'
-    tauT = 'tausT_num==1'
+    tauT = 'tausT_num!=0'
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    tauF_data,  tauT_data = createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    # tauF_data,  tauT_data = createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
     tauFGen_mc, tauTGen_mc =  createMCGenTree(inputDirDic, era, cut1tau0l, tauF, notausT)
-   
-    addFRWeightColumn(tauF_data)
+  
+    
      
     # createFRMap(tauF_data, tauT_data, tauFGen_mc, tauTGen_mc)
 
-def addFRWeightColumn(tauF_data):
     
 
     
@@ -66,6 +65,7 @@ def countFR(tauF_data):
     
     
 def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT): 
+    #!MC needs to be properly scaled
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
     allMCFiles = []
     for iMC in MCSum:
@@ -79,6 +79,10 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
     tauF_mc = basicCut.Filter(tauF)
     tauT_mc = tauF_mc.Filter(tauT)
     
+    proWeight = {
+        'tt':
+    }
+    
     return tauF_mc, tauT_mc
     
 def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = []): 
@@ -89,6 +93,9 @@ def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = 
     basicCut = dataDF.Filter(cut1tau0l)
     tauF_data = basicCut.Filter(tauF)
     tauT_data = tauF_data.Filter(tauT)
+    
+    tauT_data.Define('FR_weight_new', '-FR_weight')
+    tauF_data.Define('FR_weight_new', 'FR_weight')
     
     # outDir = inputDirDic['mc']+ 'fakeTau/'
     # uf.checkMakeDir(outDir)
