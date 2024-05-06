@@ -67,8 +67,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         }
         if(tau1e1Sel){
             // if(!(jetVarMaker.getJet_num()>=7 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){
-            // if(!(jetVarMaker.getJet_num()>= 6 && jetVarMaker.getJet_6pt()>32. && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l
-            if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0 )){ //!1tau0l
+            // if(!(jetVarMaker.getJet_num()>= 6 && jetVarMaker.getJet_6pt()>32. && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
+            if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0 ) && jetVarMaker.getJet_6pt()>32.){ //!1tau0lSR
                 continue;
             }
         }

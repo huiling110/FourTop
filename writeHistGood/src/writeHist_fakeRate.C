@@ -292,7 +292,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         {
             continue;
         }
-        if(!e->tausF_num.v()==1){//!maybe critcal for the FR application, ensure no tauF=2 events
+        if(!(e->tausF_num.v()==1)){//!maybe critcal for the FR application, ensure no tauF=2 events
             continue;
         }
 
@@ -378,7 +378,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             }
         }else{//FR application 
             Double_t FRWeight, FRWeight_up, FRWeight_down; 
-            Int_t tauProng = !(e->tausF_prongNum.v()==1)? 3 : e->tausF_prongNum.v(); //!!!seems lots of tausF has taus Prong 4 or 6
+            Int_t tauProng = !(e->tausF_prongNum.v()==1)? 3 : e->tausF_prongNum.v(); //
             tausF_1jetEtaAbs = tausF_1jetEtaAbs >= 2.3 ? 2.2 : tausF_1jetEtaAbs; //!
             Bool_t ifFR = getFRandError(m_graphs, tausF_1jetEtaAbs, tauProng, e->tausF_1jetPt.v(), FRWeight, FRWeight_up, FRWeight_down);
             // std::cout<<"FRWeight="<<FRWeight<<" FRWeight_up="<<FRWeight_up<<" FRWeight_down="<<FRWeight_down<<"\n";
