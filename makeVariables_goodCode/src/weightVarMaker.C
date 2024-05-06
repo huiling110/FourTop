@@ -7,7 +7,7 @@
 #include "../include/inputMap_MV.h"
 #include "../../myLibrary/commenFunction.h"
 
-WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const Bool_t isRun3): m_era{era}, m_isData{isData}, m_isRun3{isRun3}
+WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const Bool_t isRun3, const TString processName): m_era{era}, m_isData{isData}, m_isRun3{isRun3}, m_processName{processName}
 {
     std::cout << "Initializing WeightVarMaker.....\n";
     std::cout<<"m_era="<<m_era<<" m_isData="<<m_isData<<" m_isRun3="<<m_isRun3<<"\n";
@@ -72,6 +72,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
     outTree->Branch("HLT_weight_stats_down", &HLT_weight_stats_down);
     outTree->Branch("FR_weight", &FR_weight);
+
+    outTree->Branch("global_weight", &global_weight);
 
     //theory weight
     outTree->Branch("pdfWeight_up_", &pdfWeight_up_);
@@ -180,7 +182,9 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
         m_graphs.emplace_back(0.8, 1.5, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta2")));
         m_graphs.emplace_back(1.5, 2.7, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta3")));
 
-
+    if(!m_isData){
+        global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_processName);
+    }
 
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
@@ -278,8 +282,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     }
     // std::cout<<"FR_weight="<<FR_weight<<" FR_weight_up="<<FR_weight_up<<" FR_weight_down="<<FR_weight_down<<"\n";
     FR_weight = FR_weight / (1. - FR_weight);
-    FR_weight = ifFR? FR_weight : -99; 
-
+    FR_weight = ifFR? FR_weight : -99;
 
 };
 

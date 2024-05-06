@@ -104,7 +104,7 @@ private:
     CopyBranches copyBranches{m_outTree};
     // CreateHist createHists{m_output};
     CreateHist createHist; //cannot initialize here because m_output not properly initialzided yet
-    WeightVarMaker weightVarMaker{m_outTree, m_era, m_isData, m_isRun3};
+    WeightVarMaker weightVarMaker{m_outTree, m_era, m_isData, m_isRun3, m_processName};
 };
 
 #endif

@@ -4,12 +4,19 @@ import sys
 
 import pandas as pd
 import ROOT
-# from ttttGlobleQuantity import (histoGramPerSample, lumiMap, summedProcessList,
-                                # samplesCrossSection)
+
+
                                 
 import ttttGlobleQuantity as gq                                
 import setTDRStyle as st
 
+def getSubProScale(subPro, era):
+    lumi = gq.lumiMap[era]
+    cross = gq.crossSectionMap[subPro]
+    genSum = gq.genSumDic[subPro]
+    # print(subPro, ': ', 'genSum= ', genSum, ' lumi=', lumi, ' cross=', cross)
+    return lumi*cross/genSum
+    
 
 def checkMakeDir( folder,ifDelete=False) :
     if not os.path.exists( folder ):

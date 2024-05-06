@@ -7,11 +7,12 @@
 
 #include "eventReader_forMV.h"
 #include "../../myLibrary/commenFunction.h"
+#include "../../src_cpp/lumiAndCrossSection.h"
 
 class WeightVarMaker
 {
 public:
-    WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const Bool_t isRun3=kFALSE);
+    WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const Bool_t isRun3=kFALSE, const TString processName = "tttt");
     ~WeightVarMaker();
     // void makeVariables(EventForMV *e);
     void makeVariables(EventForMV *e, const Double_t jets_HT, const Double_t jets_6pt, const Int_t bjetM_num);
@@ -19,7 +20,13 @@ public:
     void reportEntry(TString className);
 
 private:
+    TString m_era;
+    const Bool_t m_isData;
+    const Bool_t m_isRun3 = kFALSE;
+    const TString m_processName;
+
     ULong64_t m_entry = 0;
+
     // output branches
     Double_t EVENT_prefireWeight;
     Double_t EVENT_prefireWeight_up;
@@ -86,6 +93,8 @@ private:
     Double_t FR_weight_up = 1.0;
     Double_t FR_weight_down = 1.0;
 
+    Double_t global_weight = 1.0;
+
     Double_t pdfWeight_up_ = 1.0;
     Double_t pdfWeight_down_ = 1.0;
     Double_t pdfWeightAlphaS_up_ = 1.0;
@@ -97,9 +106,6 @@ private:
     Double_t scaleWeightFa_up_ =1.;
     Double_t scaleWeightFa_down_ =1.;
 
-    TString m_era;
-    const Bool_t m_isData;
-    const Bool_t m_isRun3 = kFALSE;
     TH2D *eleIDSF_topMVA;
     TH2D *muIDSF_topMVA;
 

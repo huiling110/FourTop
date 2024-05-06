@@ -4,7 +4,8 @@ import ROOT
 import pandas as pd
 
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/mc/'
     
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
@@ -18,7 +19,8 @@ def main():
     
     
     # tauF_data,  tauT_data = createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    tauFGen_mc, tauTGen_mc =  createMCGenTree(inputDirDic, era, cut1tau0l, tauF, notausT)
+    # tauFGen_mc, tauTGen_mc =  createMCGenTree(inputDirDic, era, cut1tau0l, tauF, notausT)
+    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, notausT)
   
     
      
@@ -67,23 +69,39 @@ def countFR(tauF_data):
 def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT): 
     #!MC needs to be properly scaled
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
-    allMCFiles = []
+    allMC = []
     for iMC in MCSum:
-        allMCFiles += getAllSubPro(era, iMC, False)
-    allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMCFiles]
+        allMC += getAllSubPro(era, iMC, False)
+    allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
     print(allMCFiles)
     
-    mcDF = ROOT.RDataFrame('newtree', allMCFiles)
-    cut1tau0l = cut1tau0l+'&&tausF_genTauNum==1'
+    subProScaleDic = {}
+    for iSub in allMC: 
+        isubProWeight = uf.getSubProScale(iSub, era)  
+        subProScaleDic[iSub] = isubProWeight
+    print(subProScaleDic)
+   
+    
+    for ifile in allMCFiles: 
+        itauF, itauT = processSubPro(allMCFiles[0], subProScaleDic, cut1tau0l, tauF, tauT)    
+   
+    
+    # return tauF_mc, tauT_mc
+
+def processSubPro(ifile, subProScaleDic, cut1tau0l, tauF, tauT):
+    mcDF = ROOT.RDataFrame('newtree', ifile)
     basicCut = mcDF.Filter(cut1tau0l)
     tauF_mc = basicCut.Filter(tauF)
     tauT_mc = tauF_mc.Filter(tauT)
     
-    proWeight = {
-        'tt':
-    }
+    subPro = ifile.split('/')[-1].split('.')[0]
+    subProWeight = subProScaleDic[subPro]
+    tauF_mc.Define('FR_weight_final', f"FR_weight*(-{subProWeight})") 
+    tauT_mc.Define('FR_weight_final', f"FR_weight*{subProWeight}")
     
     return tauF_mc, tauT_mc
+    
+
     
 def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = []): 
     allDataFiles = getAllSubPro(era, 'jetHT') 
