@@ -19,6 +19,7 @@
 
 #include "myEventClass.h"
 
+//!copied to tauFRWeightCal.h
 // Define a struct to hold the graph, its eta boundaries, and tau prong
 struct EtaProngGraph {
     Double_t etaMin;

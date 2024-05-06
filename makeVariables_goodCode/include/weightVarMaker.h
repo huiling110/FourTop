@@ -6,7 +6,7 @@
 #include "correction.h"
 
 #include "eventReader_forMV.h"
-
+#include "../../myLibrary/commenFunction.h"
 
 class WeightVarMaker
 {
@@ -114,6 +114,7 @@ private:
     TH2D* triggerHist2b;
     TH2D* triggerHist3b;
 
+    std::vector<EtaProngGraph> m_graphs;
 
 };
 

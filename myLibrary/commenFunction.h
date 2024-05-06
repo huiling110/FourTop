@@ -1,7 +1,6 @@
 #ifndef COMMENFUNCTION_H
 #define COMMENFUNCTION_H
 
-// #include "correction.h"
 
 #include <TString.h>
 #include <TH1D.h>
@@ -9,6 +8,7 @@
 #include <TFile.h>
 #include <iostream>
 #include <vector>
+#include <TGraphAsymmErrors.h>
 
 namespace TTTT{
 
@@ -58,6 +58,26 @@ void copyVecToVec(const std::vector<T> &inVec, std::vector<T> &outVec  ){
     }
 }
 
-// void printTag(std::unique_ptr<correction::CorrectionSet> cset);
+
+
+
+// Define a struct to hold the graph, its eta boundaries, and tau prong
+struct EtaProngGraph {
+    Double_t etaMin;
+    Double_t etaMax;
+    int tauProng;
+    TGraphAsymmErrors* graph;
+    
+    EtaProngGraph(Double_t min, Double_t max, int prong, TGraphAsymmErrors* g)
+        : etaMin(min), etaMax(max), tauProng(prong), graph(g) {}
+    
+    // Check if an eta value falls within this graph's eta range
+    Bool_t isInEtaRange(Double_t eta) const {
+        return eta >= etaMin && eta < etaMax;
+    }
+};
+Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh);
+
+
 };
 #endif

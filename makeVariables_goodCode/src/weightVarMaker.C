@@ -71,6 +71,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("HLT_weight", &HLT_weight);
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
     outTree->Branch("HLT_weight_stats_down", &HLT_weight_stats_down);
+    outTree->Branch("FR_weight", &FR_weight);
 
     //theory weight
     outTree->Branch("pdfWeight_up_", &pdfWeight_up_);
@@ -253,6 +254,8 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
     HLT_weight_stats_up = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 1);
     HLT_weight_stats_down = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 2);
+
+    // FR_weight =  
 
 
 };
