@@ -49,9 +49,13 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             continue;
         }
         Bool_t isFakeTau = m_processName.Contains("fakeTau");
-        if(m_ifFakeTau && !isFakeTau ){
-            if (e->tausT_genTauNum.v() == 1)
-            continue;
+        if(m_ifFakeTau ){
+            if(!(e->tausF_num.v()==1)){
+                continue;
+            }
+            if(!isFakeTau && !m_isData){
+                if (!(e->tausT_genTauNum.v() == 1)) continue;
+            }
         }
 
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);

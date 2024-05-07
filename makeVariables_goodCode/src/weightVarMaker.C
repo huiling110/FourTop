@@ -279,8 +279,14 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     Bool_t ifFR = kFALSE;
     if(e->tausF_jetPt.GetSize()>0){
         Int_t tauProng =  e->tausF_decayMode.At(0)/5 + 1 ;
+        // std::cout<<"tauProng="<<tauProng<<"\n";
         tauProng = tauProng==1? 1 : 3;
-        ifFR = TTTT::getFRandError(m_graphs, e->tausF_jetEta.At(0), tauProng, e->tausF_jetPt.At(0), FR_weight, FR_weight_up, FR_weight_down);
+        ifFR = TTTT::getFRandError(m_graphs, std::abs(e->tausF_jetEta.At(0)), tauProng, e->tausF_jetPt.At(0), FR_weight, FR_weight_up, FR_weight_down);
+        if (!ifFR)
+            {
+                std::cout<<"!!!FR not get<<\n";
+                std::cout<<"eta="<<e->tausF_jetEta.At(0)<<" prong="<<tauProng<<" pt="<<e->tausF_jetPt.At(0)<<"\n";
+            }
     }
     // std::cout<<"FR_weight="<<FR_weight<<" FR_weight_up="<<FR_weight_up<<" FR_weight_down="<<FR_weight_down<<"\n";
     FR_weight = FR_weight / (1. - FR_weight);
