@@ -78,6 +78,11 @@ public:
         m_tree->SetBranchAddress("jets_btagsPT_", &jets_btagsPT_);
         m_tree->SetBranchAddress("jets_flavour_", &jets_flavour_);
 
+        if(m_tree->GetListOfBranches()->FindObject("FR_weight_final")){
+            m_tree->SetBranchStatus("FR_weight_final", 1);
+            m_tree->SetBranchAddress("FR_weight_final", &FR_weight_final);
+        }
+
 
         std::cout << "Done initializing event class \n";
     };
@@ -342,6 +347,8 @@ public:
     std::vector<Double_t>* jets_btagsPT_=nullptr;
     std::vector<Double_t>* jets_flavour_=nullptr;
 
+    //for fakeTau
+    Double_t FR_weight_final;
 
 private:
     TTree *m_tree;

@@ -4,7 +4,6 @@ from array import array
 import numpy as np
 
 import usefulFunc as uf
-from plotForFakeRate import getFRAndARNotTList, getFTFromLNotTData
 from ROOT import *
 import setTDRStyle as st
 
@@ -269,23 +268,6 @@ def checkRegionGen(regionList):
 #     return regionList 
  
  
-def getShapeFromData( inputDirDic, var, isVR=False):
-    # ptBins = np.array( [20.0, 40.0, 60.0, 80.0, 120.0,  250.0] )
-    # variableDic = {
-    #     'tausL_1pt': ptBins,
-    # }
-    ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
-    variableDic = {
-        'tausF_1jetPt': ptBins,
-    }
-    FR_ptInEtaList, tauPtEtaListAR = getFRAndARNotTList( inputDirDic, variableDic, isVR, False)
-    
-    ifPtBin = True
-    if 'eta' in var:
-        ifPtBin = False
-    fakeTauFromData = getFTFromLNotTData(FR_ptInEtaList, tauPtEtaListAR, ifPtBin)
-    
-    return fakeTauFromData
         
 def checkHists( histsDict ):
     for ikey in histsDict.keys():
