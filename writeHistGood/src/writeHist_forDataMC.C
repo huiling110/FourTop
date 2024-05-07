@@ -48,9 +48,13 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         {
             continue;
         }
+        if(m_ifFakeTau && !(m_processName.Contains("fakeTau")) ){
+            if (e->tausT_genTauNum.v() == 1)
+            continue;
+        }
 
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);
-        Double_t basicWeight = m_processName.Contains("faketau") ? 1.0 : baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!
+        Double_t basicWeight = m_processName.Contains("fakeTau") ? 1.0 : baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
@@ -113,7 +117,7 @@ void WH_forDataMC::Terminate()
     if (!m_isData)
     {
         //???Problme of summing same process with extra extension!!!
-        if (!m_processName.Contains("faketau")){ //no scaling for faketau 
+        if (!m_processName.Contains("fakeTau")){ //no scaling for faketau 
             Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
             TString processName = WH::getProcessName(m_processName, m_isRun3);
             std::cout<<"newProcessName="<<processName<<"\n";

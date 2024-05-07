@@ -21,7 +21,7 @@
 class WH_forDataMC
 {
 public:
-    WH_forDataMC(const TString inputDir, const TString process, TString outVersion = "v0", Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process},  m_isTest{isTest}
+    WH_forDataMC(const TString inputDir, const TString process, const Bool_t ifFakeTau = kFALSE, TString outVersion = "v0", Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_ifFakeTau{ifFakeTau},  m_isTest{isTest} 
     {
         m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
@@ -38,6 +38,7 @@ public:
         m_isData = TTTT::getIsData(m_inputDir);
         m_isRun3 = TTTT::isRun3(m_era);
         std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest <<"  m_isRun3="<<m_isRun3<< "\n";
+        std::cout << "m_ifFakeTau="<<m_ifFakeTau<<"\n";
 
         std::cout << "m_processName: " << m_processName  << "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
@@ -53,6 +54,7 @@ public:
 private:
     TString m_inputDir;
     TString m_processName;
+    const Bool_t m_ifFakeTau;
     Bool_t m_isTest = kTRUE;
     TTree *m_tree;
     TFile *m_file;
