@@ -132,6 +132,11 @@ histoGramPerSample = {
     "WJetsToLNu_HT-800To1200": "WJets",
     "WJetsToLNu_HT-1200To2500": "WJets",
     "WJetsToLNu_HT-2500ToInf": "WJets",
+    
+    "fakeTau_tauF": "fakeTau",
+    "fakeTau_tauT": "fakeTau",
+    "fakeTau_tauFGen": "fakeTau",
+    "fakeTau_tauTGen": "fakeTau",
 
     #data
     'jetHT_2016F': 'jetHT',

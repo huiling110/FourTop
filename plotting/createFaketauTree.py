@@ -10,30 +10,102 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     
-    cut1tau0l = 'jets_num>=8 && bjetsM_num>=3 && (elesTopMVAT_num+muonsTopMVAT_num==0) && jets_HT>450 && jets_6pt>32'
+    # cut1tau0l = 'jets_num>=8 && bjetsM_num>=3 && (elesTopMVAT_num+muonsTopMVAT_num==0) && jets_HT>450 && jets_6pt>32'
+    cut1tau0l = 'tausF_num==1' #!no channel specific selection
     
     tauF = 'tausF_num==1'
-    notausT = 'tausT_num==0'
     tauT = 'tausT_num!=0'
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    # tauF_data,  tauT_data = createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    # tauFGen_mc, tauTGen_mc =  createMCGenTree(inputDirDic, era, cut1tau0l, tauF, notausT)
-    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, notausT)
+    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
     
+    
+    print('fakeTau_tauTGen.root done: ', inputDirDic['mc'])
      
-    # createFRMap(tauF_data, tauT_data, tauFGen_mc, tauTGen_mc)
 
     
 
     
-def createFRMap(tauF_data, tauT_data, tauFGen_mc, tauTGen_mc):
-    tauF_data_pd = countFR(tauF_data)
-    # tauFGen_mc_pd = countFR(tauFGen_mc)
    
    
+    
+    
+def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT): 
+    #!MC needs to be properly scaled
+    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
+    allMC = []
+    for iMC in MCSum:
+        allMC += getAllSubPro(era, iMC, False)
+    allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
+    print(allMCFiles)
+    
+    mcDF = ROOT.RDataFrame('newtree', allMCFiles) 
+    basicCut = mcDF.Filter(cut1tau0l+'&& tausF_genTauNum==1')
+    tauF_mc = basicCut.Filter(tauF)
+    tauT_mc = tauF_mc.Filter(tauT) 
+    
+    tauF_mc = tauF_mc.Define('FR_weight_final', 'FR_weight*global_weight')#!want to include all the other weights too
+    tauT_mc = tauT_mc.Define('FR_weight_final', 'FR_weight*global_weight')
+    
+    tauF_mc.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauFGen.root')
+    print(inputDirDic['mc']+ 'fakeTau_tauFGen.root' + ' done')
+    tauT_mc.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauTGen.root')
+    print(inputDirDic['mc']+ 'fakeTau_tauTGen.root' + ' done')
+   
+     
+    
+   
+    
+    return tauF_mc, tauT_mc
+
+def processSubPro(ifile, subProScaleDic, cut1tau0l, tauF, tauT):
+    mcDF = ROOT.RDataFrame('newtree', ifile)
+    basicCut = mcDF.Filter(cut1tau0l)
+    tauF_mc = basicCut.Filter(tauF)
+    tauT_mc = tauF_mc.Filter(tauT)
+    
+    subPro = ifile.split('/')[-1].split('.')[0]
+    subProWeight = subProScaleDic[subPro]
+    tauF_mc.Define('FR_weight_final', f"FR_weight*(-{subProWeight})") 
+    tauT_mc.Define('FR_weight_final', f"FR_weight*{subProWeight}")
+    
+    return tauF_mc, tauT_mc
+    
+
+    
+def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = []): 
+    allDataFiles = getAllSubPro(era, 'jetHT') 
+    allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
+    print(allDataFiles)
+    dataDF = ROOT.RDataFrame('newtree', allDataFiles) 
+    basicCut = dataDF.Filter(cut1tau0l)
+    tauF_data = basicCut.Filter(tauF)
+    tauT_data = tauF_data.Filter(tauT)
+    
+    tauF_data = tauF_data.Define('FR_weight_final', "FR_weight")
+    tauT_data = tauT_data.Define('FR_weight_final', '-1.* FR_weight')
+    # print(tauF_data.GetColumnNames())
+    # print(tauT_data.GetColumnNames())
+    tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF.root')
+    print(inputDirDic['data']+ 'fakeTau_tauF.root' + ' done')
+    tauT_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauT.root')
+    print(inputDirDic['data']+ 'fakeTau_tauT.root' + ' done')
+   
+    print('\n')
+    return tauF_data, tauT_data
+    
+    
+def getAllSubPro(era, sumPro, isData=True):
+    all = gq.histoGramPerSample
+    if isData:
+        return [key for key, value in all.items() if (value == sumPro and era in key)]
+    else:
+        return [key for key, value in all.items() if (value == sumPro)]
+    
+    
 def countFR(tauF_data):    
     df_pd = tauF_data.AsNumpy()
     pd_tauF = pd.DataFrame(df_pd) 
@@ -60,78 +132,9 @@ def countFR(tauF_data):
      
     # print(pd_tauF)
     pd.set_option('display.max_rows', 50)
-    # print(pd_tauF[['tausF_1jetEtaAbs', 'tausF_1jetPt', 'TauF_eta_region', 'TauF_jetPt_region', 'tausF_prongNum', 'FRCount']])
     print(pd_tauF.head(30)[['tausF_1jetEtaAbs', 'tausF_1jetPt', 'TauF_eta_region', 'TauF_jetPt_region', 'tausF_prongNum', 'FRCount', 'combination_code']])
     
     return pd_tauF
-    
-    
-def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT): 
-    #!MC needs to be properly scaled
-    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
-    allMC = []
-    for iMC in MCSum:
-        allMC += getAllSubPro(era, iMC, False)
-    allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
-    print(allMCFiles)
-    
-    subProScaleDic = {}
-    for iSub in allMC: 
-        isubProWeight = uf.getSubProScale(iSub, era)  
-        subProScaleDic[iSub] = isubProWeight
-    print(subProScaleDic)
-   
-    
-    for ifile in allMCFiles: 
-        itauF, itauT = processSubPro(allMCFiles[0], subProScaleDic, cut1tau0l, tauF, tauT)    
-   
-    
-    # return tauF_mc, tauT_mc
-
-def processSubPro(ifile, subProScaleDic, cut1tau0l, tauF, tauT):
-    mcDF = ROOT.RDataFrame('newtree', ifile)
-    basicCut = mcDF.Filter(cut1tau0l)
-    tauF_mc = basicCut.Filter(tauF)
-    tauT_mc = tauF_mc.Filter(tauT)
-    
-    subPro = ifile.split('/')[-1].split('.')[0]
-    subProWeight = subProScaleDic[subPro]
-    tauF_mc.Define('FR_weight_final', f"FR_weight*(-{subProWeight})") 
-    tauT_mc.Define('FR_weight_final', f"FR_weight*{subProWeight}")
-    
-    return tauF_mc, tauT_mc
-    
-
-    
-def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = []): 
-    allDataFiles = getAllSubPro(era, 'jetHT') 
-    allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
-    print(allDataFiles)
-    dataDF = ROOT.RDataFrame('newtree', allDataFiles) 
-    basicCut = dataDF.Filter(cut1tau0l)
-    tauF_data = basicCut.Filter(tauF)
-    tauT_data = tauF_data.Filter(tauT)
-    
-    tauT_data.Define('FR_weight_new', '-FR_weight')
-    tauF_data.Define('FR_weight_new', 'FR_weight')
-    
-    # outDir = inputDirDic['mc']+ 'fakeTau/'
-    # uf.checkMakeDir(outDir)
-    # all_branches =  dataDF.GetColumnNames()
-    # branches_to_include = [branch for branch in all_branches if branch not in branchesToExclude]
-    # tauF_data.Snapshot('newtree', outDir+'tausF1tau0lSR.root', branches_to_include)
-    # tauT_data.Snapshot('newtree', outDir+'tausFT1tau0lSR.root', branches_to_include)
-    return tauF_data, tauT_data
-    
-    
-def getAllSubPro(era, sumPro, isData=True):
-    all = gq.histoGramPerSample
-    if isData:
-        return [key for key, value in all.items() if (value == sumPro and era in key)]
-    else:
-        return [key for key, value in all.items() if (value == sumPro)]
-    
-    
    
 if __name__=='__main__':
     main()

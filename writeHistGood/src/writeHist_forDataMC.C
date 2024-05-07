@@ -50,7 +50,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         }
 
         //!!!Testing corrections
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);
+        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);
+        Double_t basicWeight = m_processName.Contain("faketau") ? 1.0 : baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
@@ -64,9 +65,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // std::cout << "HLT_weight=" << e->HLT_weight.v() << "\n";
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // std::cout << "basicWeight=" << basicWeight << "\n";
-        // experimenting
 
-        // Bool_t ifbaseline = baselineSelection(e, m_isRun3);
 
         Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum &&(e->bjetsPTM_num.v()>=2), "baseline", basicWeight, m_isData);
@@ -115,21 +114,22 @@ void WH_forDataMC::Terminate()
     if (!m_isData)
     {
         //???Problme of summing same process with extra extension!!!
-        //for now merge input tree of same process before running this code
-        Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
-        TString processName = WH::getProcessName(m_processName, m_isRun3);
-        std::cout<<"newProcessName="<<processName<<"\n";
+        if (!m_processName.Contains("faketau")){ //no scaling for faketau 
+            Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
+            TString processName = WH::getProcessName(m_processName, m_isRun3);
+            std::cout<<"newProcessName="<<processName<<"\n";
 
-        //
-        if(std::find(WH::processWithExt.begin(), WH::processWithExt.end(), processName) != WH::processWithExt.end()){
-            genWeightSum = TTTT::getGenSum(m_inputDir + processName + "1.root") + TTTT::getGenSum(m_inputDir+processName+".root");
+            //
+            if(std::find(WH::processWithExt.begin(), WH::processWithExt.end(), processName) != WH::processWithExt.end()){
+                genWeightSum = TTTT::getGenSum(m_inputDir + processName + "1.root") + TTTT::getGenSum(m_inputDir+processName+".root");
+            }
+            std::cout << "genWeightSum=" << genWeightSum << "\n";
+
+            Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at( processName)) / genWeightSum);
+            std::cout<<"processScale="<<processScale<<"\n";
+            std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processName)<<"\n";
+            WH::histRegionsVectScale(histsForRegion_vec, processScale);
         }
-        std::cout << "genWeightSum=" << genWeightSum << "\n";
-
-        Double_t processScale = ((TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at( processName)) / genWeightSum);
-        std::cout<<"processScale="<<processScale<<"\n";
-        std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processName)<<"\n";
-        WH::histRegionsVectScale(histsForRegion_vec, processScale);
     };
     for(UInt_t i=0; i<histsForRegion_vec.size(); i++){
         if(i>0){
