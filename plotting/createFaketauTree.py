@@ -18,12 +18,11 @@ def main():
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
     
     
-    print('fakeTau_tauTGen.root done: ', inputDirDic['mc'])
      
 
     
@@ -47,8 +46,8 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
     tauF_mc = basicCut.Filter(tauF)
     tauT_mc = tauF_mc.Filter(tauT) 
     
-    tauF_mc = tauF_mc.Define('FR_weight_final', 'FR_weight*global_weight')#!want to include all the other weights too
-    tauT_mc = tauT_mc.Define('FR_weight_final', 'FR_weight*global_weight')
+    tauF_mc = tauF_mc.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagWPMedium_weight')
+    tauT_mc = tauT_mc.Define('FR_weight_final', 'FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagWPMedium_weight')
     
     tauF_mc.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauFGen.root')
     print(inputDirDic['mc']+ 'fakeTau_tauFGen.root' + ' done')
@@ -90,9 +89,9 @@ def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = 
     # print(tauF_data.GetColumnNames())
     # print(tauT_data.GetColumnNames())
     tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF.root')
-    print(inputDirDic['data']+ 'fakeTau_tauF.root' + ' done')
+    print(inputDirDic['mc']+ 'fakeTau_tauF.root' + ' done')
     tauT_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauT.root')
-    print(inputDirDic['data']+ 'fakeTau_tauT.root' + ' done')
+    print(inputDirDic['mc']+ 'fakeTau_tauT.root' + ' done')
    
     print('\n')
     return tauF_data, tauT_data

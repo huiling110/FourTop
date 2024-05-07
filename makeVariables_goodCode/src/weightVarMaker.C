@@ -184,6 +184,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
 
     if(!m_isData){
         global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_processName);
+        std::cout<<"global_weight="<<global_weight<<"\n";
+        std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<TTTT::genSumDic.at(m_processName)<<"\n";
     }
 
     std::cout << "Done initializing ............\n";

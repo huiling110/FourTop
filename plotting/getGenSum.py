@@ -8,7 +8,8 @@ def extract_gen_weight_sum(directory):
     gen_weight_sums = {}
     
     # Regex pattern to match the line and extract the number
-    pattern = re.compile(r'genWeightSumInitial: (\d+(\.\d+)?)')
+    # pattern = re.compile(r'genWeightSumInitial: (\d+(\.\d+)?)')
+    pattern = re.compile(r'genWeightSumInitial: (\d+(\.\d+)?([eE][+-]?\d+)?)')
     
     # Iterate through all files in the directory
     for filename in os.listdir(directory):
