@@ -282,7 +282,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     }
     // std::cout<<"FR_weight="<<FR_weight<<" FR_weight_up="<<FR_weight_up<<" FR_weight_down="<<FR_weight_down<<"\n";
     FR_weight = FR_weight / (1. - FR_weight);
-    FR_weight = ifFR? FR_weight : -99;
+    // std::cout<<"tausF_num="<<e->tausF_pt.GetSize()<<" FR_weight="<<FR_weight<<" FR_weight_up="<<FR_weight_up<<" FR_weight_down="<<FR_weight_down<<"\n";
 
 };
 

@@ -58,7 +58,7 @@ Bool_t HLTSel(event *e, const TString m_era){
     return ifHLT;
 }
 
-Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
+Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTau )
 {
     Int_t lepNum= 0;
     Int_t bjetsMNum = 0;
@@ -67,7 +67,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3 )
     {
         lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
         bjetsMNum = e->bjetsM_num.v();
-        tausTNum = e->tausT_num.v();
+        // tausTNum = e->tausT_num.v();
+        tausTNum = isFakeTau ? e->tausF_num.v() : e->tausT_num.v();
     }
     else
     {

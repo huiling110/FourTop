@@ -89,7 +89,7 @@ private:
     Double_t HLT_weight_stats_up = 1.0;
     Double_t HLT_weight_stats_down = 1.0;
 
-    Double_t FR_weight = 1.0;
+    Double_t FR_weight = 0.1;
     Double_t FR_weight_up = 1.0;
     Double_t FR_weight_down = 1.0;
 

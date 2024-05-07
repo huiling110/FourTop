@@ -48,7 +48,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         {
             continue;
         }
-        if(m_ifFakeTau && !(m_processName.Contains("fakeTau")) ){
+        Bool_t isFakeTau = m_processName.Contains("fakeTau");
+        if(m_ifFakeTau && !isFakeTau ){
             if (e->tausT_genTauNum.v() == 1)
             continue;
         }
@@ -76,33 +77,33 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // SR
         if (!m_isData)
         {
-            Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
-            Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3);
+            Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3, isFakeTau);
+            Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3, isFakeTau);
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
 
-            Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3);
+            Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3, isFakeTau);
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSRL, "1tau1lSRTest", basicWeight, m_isData);
 
             //testing of 1tau0l SR definition
-            Bool_t is1tau0lSRTest = SR1tau1lSel(e, 3, m_isRun3);
+            Bool_t is1tau0lSRTest = SR1tau1lSel(e, 3, m_isRun3, isFakeTau);
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau0lSRTest", basicWeight, m_isData);
             //testing of 1tau0l SR definition
-            Bool_t is1tau2lSRTest = SR1tau1lSel(e, 5, m_isRun3);
+            Bool_t is1tau2lSRTest = SR1tau1lSel(e, 5, m_isRun3, isFakeTau);
             WH::histRegionVectFill(histsForRegion_vec, is1tau2lSRTest, "1tau2lSRTest", basicWeight, m_isData);
         }
 
         // 1tau0l CR
-        Bool_t is1tau0lMR = SR1tau1lSel(e, 7, m_isRun3);
-        Bool_t is1tau0lVR = SR1tau1lSel(e, 8, m_isRun3);
-        Bool_t is1tau0lCR = SR1tau1lSel(e, 9, m_isRun3);
+        Bool_t is1tau0lMR = SR1tau1lSel(e, 7, m_isRun3, isFakeTau);
+        Bool_t is1tau0lVR = SR1tau1lSel(e, 8, m_isRun3, isFakeTau);
+        Bool_t is1tau0lCR = SR1tau1lSel(e, 9, m_isRun3, isFakeTau);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR, "1tau0lMR", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", basicWeight, m_isData);
 
         // 1tau1lCR
-        Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2, m_isRun3); // CR1 in slides
-        Bool_t is1tau1lCR2 = SR1tau1lSel(e, 4, m_isRun3);
+        Bool_t is1tau1lCR0 = SR1tau1lSel(e, 2, m_isRun3, isFakeTau); // CR1 in slides
+        Bool_t is1tau1lCR2 = SR1tau1lSel(e, 4, m_isRun3, isFakeTau);
         WH::histRegionVectFill(histsForRegion_vec, is1tau1lCR0, "1tau1lCR1", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau1lCR2, "1tau1lCR2", basicWeight, m_isData);
 
