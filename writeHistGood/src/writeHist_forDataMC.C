@@ -49,9 +49,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             continue;
         }
 
-        //!!!Testing corrections
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);
-        Double_t basicWeight = m_processName.Contain("faketau") ? 1.0 : baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);
+        Double_t basicWeight = m_processName.Contains("faketau") ? 1.0 : baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
