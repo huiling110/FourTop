@@ -48,7 +48,8 @@ def main():
     # outVersion = 'v2baselineHT450Cut1tau0l'
     # outVersion = 'v0baselineHT450AddTauProng'
     # outVersion = 'v1cut1tau1lSR'
-    outVersion = 'v3baselineAddFRWeight'
+    # outVersion = 'v3baselineAddFRWeight'
+    outVersion = 'v4cut1tau0l'
     
     #2022
     # year = '2022postEE'
