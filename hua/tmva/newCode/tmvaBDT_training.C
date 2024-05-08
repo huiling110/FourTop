@@ -77,7 +77,8 @@ int tmvaBDT_training(
     TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
     // const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
-    const TString g_weight = "EVENT_genWeight*global_weight *EVENT_prefireWeight *PUweight_") 
+    // const TString g_weight = "EVENT_genWeight*global_weight *EVENT_prefireWeight *PUweight_") 
+    const TString g_weight = "event_allWeight") 
 {
     std::cout<<"event weight="<<g_weight<<"\n";
     std::cout << "inputDir=" << inputDir << "\n";

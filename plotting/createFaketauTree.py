@@ -35,7 +35,7 @@ def makeOtherMCGen(inputDirDic, era):
             ifile = inputDirDic['mc']+ isubPro + '.root'
             iDF = ROOT.RDataFrame('newtree', ifile)
             cut = iDF.Filter('tausT_genTauNum==1')
-            cut = cut.Define('event_allWeight', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new* btagShape_weight * btagShapeR')
+            cut = cut.Define('event_allWeight', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new* btagShape_weight * btagShapeR')#!1tau0l
             
             cut.Snapshot('newtree', inputDirDic['mc']+ isubPro + 'temp.root')
             os.remove(ifile)
@@ -65,6 +65,9 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
     
     tauF_mc = tauF_mc.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagWPMedium_weight')
     tauT_mc = tauT_mc.Define('FR_weight_final', 'FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagWPMedium_weight')
+    
+    tauF_mc = tauF_mc.Define('event_allWeight', 'FR_weight_final')#for later BDT training
+    tauT_mc = tauT_mc.Define('event_allWeight', 'FR_weight_final')
     
     tauF_mc.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauFGen.root')
     print(inputDirDic['mc']+ 'fakeTau_tauFGen.root' + ' done')
@@ -103,6 +106,8 @@ def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = 
     
     tauF_data = tauF_data.Define('FR_weight_final', "FR_weight")
     tauT_data = tauT_data.Define('FR_weight_final', '-1.* FR_weight')
+    tauF_data = tauF_data.Define('event_allWeight', 'FR_weight_final')#for later BDT training
+    tauT_data = tauT_data.Define('event_allWeight', 'FR_weight_final')
     # print(tauF_data.GetColumnNames())
     # print(tauT_data.GetColumnNames())
     tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF.root')
