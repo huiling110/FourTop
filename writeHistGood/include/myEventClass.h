@@ -170,6 +170,8 @@ public:
     myBranch<Double_t> jets_5pt{"jets_5pt"};
     myBranch<Double_t> jets_6pt{"jets_6pt"};
     myBranch<Double_t> jets_7pt{"jets_7pt"};
+    myBranch<Double_t> jets_8pt{"jets_8pt"};
+    myBranch<Double_t> jets_9pt{"jets_9pt"};
     myBranch<Double_t> jets_1btag{"jets_1btag"};
     myBranch<Double_t> jets_2btag{"jets_2btag"};
     myBranch<Double_t> jets_3btag{"jets_3btag"};
@@ -195,9 +197,11 @@ public:
     myBranch<Double_t> bjetsM_2tau1lep1_stransMass{"bjetsM_2tau1lep1_stransMass"};
     myBranch<Double_t> bjetsM_2MET_stransMass{"bjetsM_2MET_stransMass"};
     myBranch<Double_t> bjetsM_leptons_minDeltaR{"bjetsM_leptons_minDeltaR"};
-    myBranch<Double_t> bjetsM_taus_minDeltaR{"bjetsM_taus_minDeltaR"};
+    myBranch<Double_t> bjetsM_tausT_minDeltaR{"bjetsM_tausT_minDeltaR"};
+    myBranch<Double_t> bjetsM_tausF_minDeltaR{"bjetsM_tausF_minDeltaR"};
     myBranch<Double_t> bjetsM_1pt{"bjetsM_1pt"};
     myBranch<Double_t> bjetsM_2pt{"bjetsM_2pt"};
+    myBranch<Double_t> bjetsM_3pt{"bjetsM_3pt"};
 
     myBranch<Double_t> bjetsT_invariantMass{"bjetsT_invariantMass"};
     myBranch<Double_t> bjetsT_HT{"bjetsT_HT"};
@@ -205,12 +209,14 @@ public:
     myBranch<Double_t> bjetsT_transMass{"bjetsT_transMass"};
     myBranch<Double_t> bjetsT_minDeltaR{"bjetsT_minDeltaR"};
     myBranch<Double_t> bjetsT_2leptons2_stransMass{"bjetsT_2leptons2_stransMass"};
-    myBranch<Double_t> bjetsT_2tau1lep1_stransMass{"bjetsT_2tau1lep1_stransMass"};
+    myBranch<Double_t> bjetsM_2tauT1lep1_stransMass{"bjetsM_2tauT1lep1_stransMass"};
     myBranch<Double_t> bjetsT_2MET_stransMass{"bjetsT_2MET_stransMass"};
     myBranch<Double_t> bjetsT_leptons_minDeltaR{"bjetsT_leptons_minDeltaR"};
-    myBranch<Double_t> bjetsT_taus_minDeltaR{"bjetsT_taus_minDeltaR"};
+    myBranch<Double_t> bjetsT_tausT_minDeltaR{"bjetsT_tausT_minDeltaR"};
+    myBranch<Double_t> bjetsT_tausF_minDeltaR{"bjetsT_tausF_minDeltaR"};
     myBranch<Double_t> bjetsT_1pt{"bjetsT_1pt"};
     myBranch<Double_t> bjetsT_2pt{"bjetsT_2pt"};
+    myBranch<Double_t> bjetsT_3pt{"bjetsT_3pt"};
 
 
     myBranch<Int_t> tausT_num{"tausT_num"};
@@ -423,6 +429,8 @@ private:
     {jets_5pt.n(), &jets_5pt},
     {jets_6pt.n(), &jets_6pt},
     {jets_7pt.n(), &jets_7pt},
+    {jets_8pt.n(), &jets_8pt},
+    {jets_9pt.n(), &jets_9pt},
     {jets_1btag.n(), &jets_1btag},
     {jets_2btag.n(), &jets_2btag},
     {jets_3btag.n(), &jets_3btag},
@@ -442,9 +450,11 @@ private:
         {bjetsM_2tau1lep1_stransMass.n(), &bjetsM_2tau1lep1_stransMass},
         {bjetsM_2MET_stransMass.n(), &bjetsM_2MET_stransMass},
         {bjetsM_leptons_minDeltaR.n(), &bjetsM_leptons_minDeltaR},
-        {bjetsM_taus_minDeltaR.n(), &bjetsM_taus_minDeltaR},
+        {bjetsM_tausT_minDeltaR.n(), &bjetsM_tausT_minDeltaR},
+        {bjetsM_tausF_minDeltaR.n(), &bjetsM_tausF_minDeltaR},
         {bjetsM_1pt.n(), &bjetsM_1pt},
         {bjetsM_2pt.n(), &bjetsM_2pt},
+        {bjetsM_3pt.n(), &bjetsM_3pt},
 
         {bjetsT_invariantMass.n(), &bjetsT_invariantMass},
         {bjetsT_HT.n(), &bjetsT_HT},
@@ -452,12 +462,14 @@ private:
         {bjetsT_transMass.n(), &bjetsT_transMass},
         {bjetsT_minDeltaR.n(), &bjetsT_minDeltaR},
         {bjetsT_2leptons2_stransMass.n(), &bjetsT_2leptons2_stransMass},
-        {bjetsT_2tau1lep1_stransMass.n(), &bjetsT_2tau1lep1_stransMass},
+        {bjetsM_2tauT1lep1_stransMass.n(), &bjetsM_2tauT1lep1_stransMass},
         {bjetsT_2MET_stransMass.n(), &bjetsT_2MET_stransMass},
         {bjetsT_leptons_minDeltaR.n(), &bjetsT_leptons_minDeltaR},
-        {bjetsT_taus_minDeltaR.n(), &bjetsT_taus_minDeltaR},
+        {bjetsT_tausT_minDeltaR.n(), &bjetsT_tausT_minDeltaR},
+        {bjetsT_tausF_minDeltaR.n(), &bjetsT_tausF_minDeltaR},
         {bjetsT_1pt.n(), &bjetsT_1pt},
         {bjetsT_2pt.n(), &bjetsT_2pt},
+        {bjetsT_3pt.n(), &bjetsT_3pt},
 
         {tausT_1pt.n(), &tausT_1pt},
         {tausT_1eta.n(), &tausT_1eta},

@@ -143,20 +143,18 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(1);
 
-        std::map<TString, Int_t> channelMap = {//!!!this coding is bullshit
-            {"1tau1l", 0},
-            {"1tau0l", 1},
-        };
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, channelMap.at(m_channel)==0 );//!!!caution, for 1tau1l b-tag WP correction
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!caution, for 1tau1l b-tag WP correction
-        // Double_t basicWeight = e->EVENT_genWeight.v();//!!!for run 3
-        // Double_t basicWeight = e->EVENT_genWeight.v() *  e->EVENT_prefireWeight.v() * e->PUweight_.v() ;
-
-        // Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
-        Bool_t channelSel = SR1tau1lSel(e, 0, m_isRun3);
-        if(channelMap.at(m_channel)==1 ){
-            channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
+        Bool_t isFakeTau = m_processName.Contains("fakeTau");
+        // Bool_t channelSel = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3);
+        if(WH::channelMap.at(m_channel)==1 ){ //1tau0l
+            // channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
+            if(!(e->tausF_num.v()==1)){
+                continue;
+            }
+            if(!isFakeTau && !m_isData){
+                if (!(e->tausT_genTauNum.v() == 1)) continue;
+            }
         }
+        Bool_t channelSel = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, isFakeTau);
         if (!(channelSel))
         {
             continue;
@@ -181,14 +179,18 @@ void treeAnalyzer::LoopTree()
             varForReaderMap[it->first] = ivar;
         }
 
-        Double_t bdtScore = -99;
-        if(channelMap.at(m_channel)==0){
-             bdtScore = reader->EvaluateMVA("BDT method");
-        }else if(channelMap.at(m_channel)==1){
-             bdtScore = e->jets_bScore.v();
-        }
+        Double_t bdtScore = reader->EvaluateMVA("BDT method");
+        // if(WH::channelMap.at(m_channel)==0){
+        // }else if(WH::channelMap.at(m_channel)==1){
+            //  bdtScore = e->jets_bScore.v();
+        // }
         // std::cout << "bdtScore=" << bdtScore << "\n";
 
+        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel)==0 );//!!!caution, for 1tau1l b-tag WP correction
+        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!caution, for 1tau1l b-tag WP correction
+        // Double_t basicWeight = e->EVENT_genWeight.v();//!!!for run 3
+        // Double_t basicWeight = e->EVENT_genWeight.v() *  e->EVENT_prefireWeight.v() * e->PUweight_.v() ;
+        Double_t basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!
         // // filling hists
         SR1tau1lSys.fillHistVec(m_channel+"SR", bdtScore, basicWeight, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
@@ -263,9 +265,12 @@ void treeAnalyzer::Terminate()
 
     if (!m_isData)
     {
+        if(!m_processName.Contains("fakeTau")){
+
         Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
         const Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
         SR1tau1lSys.scale(processScale);
+        }
     };
     SR1tau1lSys.print();
 

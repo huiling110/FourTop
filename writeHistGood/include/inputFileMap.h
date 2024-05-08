@@ -10,6 +10,10 @@
 namespace WH
 {
 
+inline const        std::map<TString, Int_t> channelMap = {//!!!this coding is bullshit
+            {"1tau1l", 0},
+            {"1tau0l", 1},
+        };
 
 inline const std::map<TString, TString> triggerSF_map = {
     {"2016", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3baslineNoHLTMuonTriggerAdded_v52noHLTButPreSelection/mc/variableHists_v8add2DHist/results/baseline1Muon1b_triggerSF.root"},

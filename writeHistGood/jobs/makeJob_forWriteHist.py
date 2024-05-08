@@ -66,7 +66,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -108,7 +109,7 @@ def main():
     #dataMC
     # version = 'v0dataMC_noCorrection'
     # version = 'v0dataMC_allCorrection'
-    version = 'v5dataMC_allCorrection_UsingFakeTau'
+    # version = 'v5dataMC_allCorrection_UsingFakeTau'
     # version = 'v4dataMC_allCorrection_1tau0lRegionUpdated'
     # version = 'v1dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_basicWeight'
@@ -121,7 +122,7 @@ def main():
     
         
     #1tau1l
-    channel = '1tau1l'
+    # channel = '1tau1l'
     # version = 'V0Basictraining'
     # version = 'V0Basictraining_bin3'
     # version = 'v0NoSystematic'
@@ -139,7 +140,8 @@ def main():
     # version = 'v5forBtagWPShape_shape'#for btagWP or shape
     
     #1tau0l systematic
-    # channel = '1tau0l'
+    channel = '1tau0l'
+    version = 'v0BDT'
     # version = 'v0systematic1tau0l_bScore' 
     # version = 'v0systematic1tau0lBjet3_bScore' 
     # version = 'v0systematic1tau0lBjet3_bHT' 
@@ -192,8 +194,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
