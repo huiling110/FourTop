@@ -2,6 +2,7 @@ import usefulFunc as uf
 import ttttGlobleQuantity as gq
 import ROOT
 import pandas as pd
+import os
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/mc/'
@@ -19,10 +20,10 @@ def main():
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
-    # makeOtherMCGen(inputDirDic, era) 
+    makeOtherMCGen(inputDirDic, era) 
     
      
 def makeOtherMCGen(inputDirDic, era):
@@ -33,7 +34,13 @@ def makeOtherMCGen(inputDirDic, era):
         for isubPro in isubPros:
             ifile = inputDirDic['mc']+ isubPro + '.root'
             iDF = ROOT.RDataFrame('newtree', ifile)
-            cut = iDF.Filter('tausT_genNum==1')
+            cut = iDF.Filter('tausT_genTauNum==1')
+            cut = cut.Define('event_allWeight', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new* btagShape_weight * btagShapeR')
+            
+            cut.Snapshot('newtree', inputDirDic['mc']+ isubPro + 'temp.root')
+            os.remove(ifile)
+            os.rename(inputDirDic['mc']+ isubPro + 'temp.root', ifile)
+            print('cut on tauTgen done on file: ', ifile, '\n')
         
     
 

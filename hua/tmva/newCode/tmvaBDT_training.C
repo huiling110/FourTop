@@ -44,6 +44,11 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
     "WJetsToLNu_HT-1200To2500",
     "WJetsToLNu_HT-2500ToInf",
 
+    "fakeTau_tauF",
+    "fakeTau_tauT",
+    "fakeTau_tauFGen",
+    "fakeTau_tauTGen",
+
 
     };
 
@@ -72,7 +77,7 @@ int tmvaBDT_training(
     TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
     // const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
-    const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_") 
+    const TString g_weight = "EVENT_genWeight*global_weight *EVENT_prefireWeight *PUweight_") 
 {
     std::cout<<"event weight="<<g_weight<<"\n";
     std::cout << "inputDir=" << inputDir << "\n";
@@ -119,11 +124,13 @@ int tmvaBDT_training(
         if(processVec.at(i).getTree()->GetEntries()<=0) continue;
         if(i==0){
             std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
-            dataloader->AddSignalTree(processVec.at(i).getTree(), processVec.at(i).getScale());
+            // dataloader->AddSignalTree(processVec.at(i).getTree(), processVec.at(i).getScale());
+            dataloader->AddSignalTree(processVec.at(i).getTree()); //!use global_weight
         }
         else{
             std::cout << "add bg tree: " << processVec.at(i).getName() << "\n";
-            dataloader->AddBackgroundTree(processVec.at(i).getTree(), processVec.at(i).getScale());
+            // dataloader->AddBackgroundTree(processVec.at(i).getTree(), processVec.at(i).getScale());
+            dataloader->AddBackgroundTree(processVec.at(i).getTree());
             if(!isTest){
                 allBg = allBg + processVec.at(i).getTree()->GetEntries();
             }
@@ -132,6 +139,7 @@ int tmvaBDT_training(
     std::cout << "signal and bg tree added \n";
     dataloader->SetSignalWeightExpression(g_weight);
     dataloader->SetBackgroundWeightExpression(g_weight);
+    dataloader->SetBackgroundWeightExpression("FR_weight_final", "fakeTau_tauF");
 
 
     //training setup
