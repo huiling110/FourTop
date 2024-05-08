@@ -54,7 +54,11 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
 
     processVec.clear();
     for(UInt_t i=0; i<allProcesses.size(); i++){
-        Process iPro{inputDir+allProcesses.at(i)+".root"};
+        TString ifile = inputDir+allProcesses.at(i)+".root";
+        if(!allProcesses.at(i).Contains("fakeTau")){
+            ifile = inputDir+allProcesses.at(i)+"_tauGen.root";
+        }
+        Process iPro{ifile};
         processVec.push_back(iPro);
     }
 
@@ -77,9 +81,10 @@ int tmvaBDT_training(
     TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
     // const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
-    // const TString g_weight = "EVENT_genWeight*global_weight *EVENT_prefireWeight *PUweight_") 
-    const TString g_weight = "event_allWeight") 
+    const TString g_weight = "event_allWeight_1tau0l") 
 {
+
+
     std::cout<<"event weight="<<g_weight<<"\n";
     std::cout << "inputDir=" << inputDir << "\n";
 
@@ -140,7 +145,6 @@ int tmvaBDT_training(
     std::cout << "signal and bg tree added \n";
     dataloader->SetSignalWeightExpression(g_weight);
     dataloader->SetBackgroundWeightExpression(g_weight);
-    dataloader->SetBackgroundWeightExpression("FR_weight_final", "fakeTau_tauF");
 
 
     //training setup

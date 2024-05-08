@@ -21,9 +21,9 @@ def main():
     
     
     # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
-    makeOtherMCGen(inputDirDic, era) 
+    # makeOtherMCGen(inputDirDic, era) #for eazier BDT training later
     
      
 def makeOtherMCGen(inputDirDic, era):
@@ -35,12 +35,12 @@ def makeOtherMCGen(inputDirDic, era):
             ifile = inputDirDic['mc']+ isubPro + '.root'
             iDF = ROOT.RDataFrame('newtree', ifile)
             cut = iDF.Filter('tausT_genTauNum==1')
-            cut = cut.Define('event_allWeight', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new* btagShape_weight * btagShapeR')#!1tau0l
+            cut = cut.Define('event_allWeight_1tau0l', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new* btagShape_weight * btagShapeR')#!1tau0l
             
-            cut.Snapshot('newtree', inputDirDic['mc']+ isubPro + 'temp.root')
-            os.remove(ifile)
-            os.rename(inputDirDic['mc']+ isubPro + 'temp.root', ifile)
-            print('cut on tauTgen done on file: ', ifile, '\n')
+            cut.Snapshot('newtree', inputDirDic['mc']+ isubPro + '_tauGen.root')
+            # os.remove(ifile)
+            # os.rename(inputDirDic['mc']+ isubPro + 'temp.root', ifile)
+            print('cut on tauTgen done on file: ',  inputDirDic['mc']+ isubPro + '_tauGen.root', '\n')
         
     
 
@@ -66,32 +66,16 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
     tauF_mc = tauF_mc.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagWPMedium_weight')
     tauT_mc = tauT_mc.Define('FR_weight_final', 'FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagWPMedium_weight')
     
-    tauF_mc = tauF_mc.Define('event_allWeight', 'FR_weight_final')#for later BDT training
-    tauT_mc = tauT_mc.Define('event_allWeight', 'FR_weight_final')
+    tauF_mc = tauF_mc.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
+    tauT_mc = tauT_mc.Define('event_allWeight_1tau0l', 'FR_weight_final')
     
     tauF_mc.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauFGen.root')
     print(inputDirDic['mc']+ 'fakeTau_tauFGen.root' + ' done')
     tauT_mc.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauTGen.root')
     print(inputDirDic['mc']+ 'fakeTau_tauTGen.root' + ' done')
    
-     
     
-   
-    
-    return tauF_mc, tauT_mc
 
-def processSubPro(ifile, subProScaleDic, cut1tau0l, tauF, tauT):
-    mcDF = ROOT.RDataFrame('newtree', ifile)
-    basicCut = mcDF.Filter(cut1tau0l)
-    tauF_mc = basicCut.Filter(tauF)
-    tauT_mc = tauF_mc.Filter(tauT)
-    
-    subPro = ifile.split('/')[-1].split('.')[0]
-    subProWeight = subProScaleDic[subPro]
-    tauF_mc.Define('FR_weight_final', f"FR_weight*(-{subProWeight})") 
-    tauT_mc.Define('FR_weight_final', f"FR_weight*{subProWeight}")
-    
-    return tauF_mc, tauT_mc
     
 
     
@@ -106,17 +90,15 @@ def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = 
     
     tauF_data = tauF_data.Define('FR_weight_final', "FR_weight")
     tauT_data = tauT_data.Define('FR_weight_final', '-1.* FR_weight')
-    tauF_data = tauF_data.Define('event_allWeight', 'FR_weight_final')#for later BDT training
-    tauT_data = tauT_data.Define('event_allWeight', 'FR_weight_final')
+    tauF_data = tauF_data.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
+    tauT_data = tauT_data.Define('event_allWeight_1tau0l', 'FR_weight_final')
     # print(tauF_data.GetColumnNames())
     # print(tauT_data.GetColumnNames())
     tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF.root')
     print(inputDirDic['mc']+ 'fakeTau_tauF.root' + ' done')
     tauT_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauT.root')
     print(inputDirDic['mc']+ 'fakeTau_tauT.root' + ' done')
-   
     print('\n')
-    return tauF_data, tauT_data
     
     
 def getAllSubPro(era, sumPro, isData=True):
