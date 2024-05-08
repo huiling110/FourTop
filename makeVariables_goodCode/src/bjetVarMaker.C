@@ -14,10 +14,12 @@ BjetVarMaker::BjetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVar
     outTree->Branch(objName + "_minDeltaR", &bjets_minDeltaR);
 
     outTree->Branch(objName + "_2leptons2_stransMass", &bjets_2leptons2_stransMass);
-    outTree->Branch(objName + "_2tau1lep1_stransMass", &bjets_2tau1lep1_stransMass);
+    outTree->Branch(objName + "_2tauT1lep1_stransMass", &bjets_2tauT1lep1_stransMass);
+    outTree->Branch(objName + "_2tauF1lep1_stransMass", &bjets_2tauF1lep1_stransMass);
     outTree->Branch(objName + "_2MET_stransMass", &bjets_2MET_stransMass);
     outTree->Branch(objName + "_leptons_minDeltaR", &bjets_leptons_minDeltaR);
-    outTree->Branch(objName + "_taus_minDeltaR", &bjets_taus_minDeltaR);
+    outTree->Branch(objName + "_tausT_minDeltaR", &bjets_tausT_minDeltaR);
+    outTree->Branch(objName + "_tausF_minDeltaR", &bjets_tausF_minDeltaR);
     outTree->Branch(objName + "_2pt", &bjets_2pt);
     outTree->Branch(objName + "_3pt", &bjets_3pt);
 
@@ -54,7 +56,7 @@ void BjetVarMaker::setupLorentzObjs(const EventForMV *e)
         }
 }
 
-void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &taus)
+void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausT, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausF)
 {
     ObjVarMaker::reportEntry("BjetVarMaker::makeVariables()");
     clearBranch();
@@ -73,15 +75,20 @@ void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::Pt
             ROOT::Math::PtEtaPhiMVector leptons2 = leptons.at(0) + leptons.at(1);
             bjets_2leptons2_stransMass = calculateMT2(bjets2, leptons2, *e->MET_pt_, *e->MET_phi_);
         }
-        if(taus.size()>1 && leptons.size()>0){
-            ROOT::Math::PtEtaPhiMVector tauLep = taus.at(0) + leptons.at(0);
-            bjets_2tau1lep1_stransMass = calculateMT2(bjets2, tauLep, *e->MET_pt_, *e->MET_phi_);
+        if(tausT.size()>1 && leptons.size()>0){
+            ROOT::Math::PtEtaPhiMVector tauLep = tausT.at(0) + leptons.at(0);
+            bjets_2tauT1lep1_stransMass = calculateMT2(bjets2, tauLep, *e->MET_pt_, *e->MET_phi_);
+        }
+        if(tausF.size()>1 && leptons.size()>0){
+            ROOT::Math::PtEtaPhiMVector tauLep = tausF.at(0) + leptons.at(0);
+            bjets_2tauF1lep1_stransMass = calculateMT2(bjets2, tauLep, *e->MET_pt_, *e->MET_phi_);
         }
         bjets_2MET_stransMass = calculateMT2(objsLorentz.at(0), objsLorentz.at(1), *e->MET_pt_, *e->MET_phi_);
     }
 
     bjets_leptons_minDeltaR = MinDeltaRCal(objsLorentz, leptons);
-    bjets_taus_minDeltaR = MinDeltaRCal(objsLorentz, taus);
+    bjets_tausT_minDeltaR = MinDeltaRCal(objsLorentz, tausT);
+    bjets_tausF_minDeltaR = MinDeltaRCal(objsLorentz, tausF);
 
     bjets_2pt = objsLorentz.size()>1? objsLorentz.at(1).Pt(): -99.;
     bjets_3pt = objsLorentz.size()>2? objsLorentz.at(2).Pt(): -99.;
@@ -97,9 +104,12 @@ void BjetVarMaker::clearBranch()
     bjets_minDeltaR = -99.;
 
     bjets_2leptons2_stransMass = -99.;
+    bjets_2tauT1lep1_stransMass = -99.;
+    bjets_2tauF1lep1_stransMass = -99.;
     bjets_2MET_stransMass = -99.;
     bjets_leptons_minDeltaR = -99.;
-    bjets_taus_minDeltaR = -99.;
+    bjets_tausT_minDeltaR = -99.;
+    bjets_tausF_minDeltaR = -99.;
     bjets_2pt = -99.;
     bjets_3pt = -99.;
 };
