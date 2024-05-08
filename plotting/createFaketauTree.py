@@ -5,7 +5,8 @@ import pandas as pd
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/'
     
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
@@ -21,10 +22,19 @@ def main():
     createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
     createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
-    
+    # makeOtherMCGen(inputDirDic, era) 
     
      
-
+def makeOtherMCGen(inputDirDic, era):
+    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
+    for iPro in MCSum:
+        isubPros = getAllSubPro(era, iPro, False)
+        print(isubPros)
+        for isubPro in isubPros:
+            ifile = inputDirDic['mc']+ isubPro + '.root'
+            iDF = ROOT.RDataFrame('newtree', ifile)
+            cut = iDF.Filter('tausT_genNum==1')
+        
     
 
     

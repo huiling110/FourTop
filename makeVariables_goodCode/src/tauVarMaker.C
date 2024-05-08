@@ -156,4 +156,8 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
 
 };
 
+Int_t TauVarMaker::getTauGenNum(){
+    return taus_genTauNum;
+}
+
 TauVarMaker::~TauVarMaker(){};

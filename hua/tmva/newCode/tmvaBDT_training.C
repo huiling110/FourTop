@@ -27,25 +27,11 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
     "ttbar_0l",
     "ttbar_2l",
     "ttbar_1l",
-    // "qcd_50to100",
-    // "qcd_100to200",
-    // "qcd_200to300",
-    // "qcd_300to500",
-    // "qcd_500to700",
-    // "qcd_700to1000",
-    // "qcd_1000to1500",
-    // "qcd_1500to2000",
-    // "qcd_2000toInf",
-
     "ttG",
     "ttZ",  
     "ttW",
     "ttH_bb", 
     "ttH_nonbb", 
-
-    // "wz",
-    // "ww",
-    // "zz",
 
     "st_tZq",
     "st_tW_antitop",
@@ -57,6 +43,8 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
     "WJetsToLNu_HT-800To1200",
     "WJetsToLNu_HT-1200To2500",
     "WJetsToLNu_HT-2500ToInf",
+
+
     };
 
     processVec.clear();
@@ -75,7 +63,7 @@ int tmvaBDT_training(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau0lSR_v75OverlapRemovalFTau/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/",
     TString outDir = "output/",
     Bool_t isTest = true,
     // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
