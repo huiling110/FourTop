@@ -29,9 +29,9 @@ def main():
     # varList = varDir + 'variableList_16.csv'
     
     #1tau0l
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau0lSR_v75OverlapRemovalFTau/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/'
     varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv'
-    g_weight = "EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagWPMedium_weight" 
+    g_weight = "event_allWeight_1tau0l" 
     outVersion = 'v0'
     
     # g_weight = "EVENT_genWeight*PUweight_*EVENT_prefireWeight" 

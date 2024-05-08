@@ -68,51 +68,53 @@ void treeAnalyzer::Init()
         "QCDscale_Fa_" + m_era + "Down",
     };
 
-
+    // book MVA reader
+    // TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
+    // TString variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv"; //! testing
+    TString variableList; 
+    TString weightfile;
     if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
-        // binning[] = {0.28, -0.1, -0.08, -0.06, -0.04, -0.02, 0., 0.02, 0.04, 0, 07, 0.1, 0.15, 0, 4};//!!!trials for later
-        // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
-        // SR1tau1lSys = histsForRegionsMap("BDT", "BDT score", m_processName, 30, -0.28, 0.4, sysRegions);
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 20, -0.28, 0.4, sysRegions);
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//testing
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//testing
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 6, -0.3, 0.4, sysRegions);//testing
 
-        // book MVA reader
-        // TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
-        // TString variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv"; //! testing
-        TString variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_noBtagShape.csv"; //! testing
-        WH::readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
-        if (variablesName.size() == variablesForReader.size())
-        {
-            for (UInt_t i = 0; i < variablesName.size(); i++)
-            {
-                reader->AddVariable(variablesName[i], &varForReaderMap[variablesName[i]]);
-            }
-        }
-        else
-        {
-            std::cout << "BAD!!! variableName vector not same size of varForReaderMap\n ";
-        }
-        // for map, the variables will be reordered according to their keys, not safe to add with map
 
-        TString methodName = "BDT" + TString(" method");
+        variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_noBtagShape.csv"; //! testing
         // TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");//
         // TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";//!testing
         // TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/
         // TMVAClassification_BDT.weights.xml";
-        TString weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/BDTTrain/v2NoBtag/dataset/weight/TMVAClassification_BDT.weights.xml";
-        reader->BookMVA(methodName, weightfile);
+        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/BDTTrain/v2NoBtag/dataset/weight/TMVAClassification_BDT.weights.xml";
         std::cout<<"training input: "<<weightfile<<"\n";
     }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
-        SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
+        // SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.4, 0.4, sysRegions);//1tau0l 
+
+        variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
+        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
+
 
     }else{
         std::cout << "WARNING!! channel not spefified\n";
     }
+
+    WH::readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
+    if (variablesName.size() == variablesForReader.size())
+    {
+        for (UInt_t i = 0; i < variablesName.size(); i++)
+        {
+            reader->AddVariable(variablesName[i], &varForReaderMap[variablesName[i]]);
+        }
+    }
+    else
+    {
+        std::cout << "BAD!!! variableName vector not same size of varForReaderMap\n ";
+    }
+    // for map, the variables will be reordered according to their keys, not safe to add with map
+
+    TString methodName = "BDT" + TString(" method");
+    reader->BookMVA(methodName, weightfile);
 
     SR1tau1lSys.setDir(m_outFile);
 
@@ -126,7 +128,7 @@ void treeAnalyzer::LoopTree()
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 50000;
+        allEvent = 5000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -152,12 +154,9 @@ void treeAnalyzer::LoopTree()
 
         // Bool_t channelSel = SR1tau1lSel(e, channelMap.at(m_channel), m_isRun3);
         Bool_t channelSel = SR1tau1lSel(e, 0, m_isRun3);
-        // if(channelMap.at(m_channel)==1 ){
-        //     channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
-        // }
-        // Bool_t channelSel = e->tausTT_1lepton1_charge.v() == 1;//!testing
-        // Bool_t channelSel = e->tausT_1lepton1_charge.v() == 1;//!testing
-        // Bool_t channelSel = e->tausTT_1lepton1_charge.v() == -1;//!testing
+        if(channelMap.at(m_channel)==1 ){
+            channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
+        }
         if (!(channelSel))
         {
             continue;
