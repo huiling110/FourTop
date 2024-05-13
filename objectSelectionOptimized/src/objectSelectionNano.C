@@ -40,7 +40,6 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
 
         // HLT selection and HLT branch filling
         Bool_t passHLT = HLTselection.Select(e,  ifHLT);
-        // Bool_t passTauTri = HLTselection.SelectTauTri(e, ifHLT);
         Bool_t passLepTri = HLTselection.SelectLepTri(e);
         // if(!(OS::ifEventPass(ifHLT, passHLT, m_cutflow, 2))){
         if(!(OS::ifEventPass(ifHLT, passLepTri, m_cutflow, 2))){//!for 1tau2l
