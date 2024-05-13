@@ -51,6 +51,7 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
     HLT_IsoMu24_ = **e->HLT_IsoMu24;
     HLT_IsoMu27_ = **e->HLT_IsoMu27;
     HLT_Ele32_WPTight_Gsf_ = **e->HLT_Ele32_WPTight_Gsf;
+
     Bool_t ifPass = kFALSE;
     // the HLT branch pointer null pointer is not exist in a file
     if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)
@@ -129,18 +130,14 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
                 }
                 else if (*e->run < 317509)
                 {
-                    // ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 || **e->HLT_PFJet500;
                     HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5;
                     HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2;
-                    // ifPass = HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ || HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_;
                     ifPass = HLT_PFHT430_SixPFJet40_PFBTagDeepCSV_1p5_ || HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2_ || HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
                 }
                 else
                 {
-                    // ifPass = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59 || **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94 || **e->HLT_PFJet500;
                     HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ = **e->HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59;
                     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ = **e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94;
-                    // ifPass = HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_;
                     ifPass = HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ || HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_;
                 }
             }
@@ -183,6 +180,13 @@ Bool_t HLTSelector::SelectTauTri(const eventForNano *e, const Bool_t ifHLTSel)
 
     return ifPass;
 }
+
+Bool_t HLTSelector::SelectLepTri(const eventForNano* e){
+    Bool_t ifPass =  **e->HLT_IsoMu27 || **e->HLT_Ele32_WPTight_Gsf|| **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 || **e->HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ || **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ || **e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+    return ifPass;
+}
+
+
 
 void HLTSelector::clearBranch()
 {

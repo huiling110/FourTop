@@ -27,8 +27,8 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2022/",
     // TString singleFileName = "0182c6a5-2284-4d01-9af9-b31cf5d0cd07.root",
     TString outputDir = "./output/",
-    // Int_t eventNum = 1000)
-Int_t eventNum = 20000)
+    Int_t eventNum = 1000)
+// Int_t eventNum = 20000)
 // Int_t eventNum = 0)
 {
     TStopwatch t;
@@ -53,10 +53,10 @@ Int_t eventNum = 20000)
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES);
 
-    const Bool_t tauSel = kFALSE;
-    // const Bool_t tauSel = kTRUE;
-    const Bool_t HLTSel = kFALSE;
-    // const Bool_t HLTSel = kTRUE;
+    // const Bool_t tauSel = kFALSE;
+    const Bool_t tauSel = kTRUE;
+    // const Bool_t HLTSel = kFALSE;
+    const Bool_t HLTSel = kTRUE;
     // os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
     os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
 
