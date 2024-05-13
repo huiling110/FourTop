@@ -126,3 +126,8 @@ std::vector<Double_t> &MuTopMVASel::getPhiVec()
 {
     return muonsTopMVAT_phi;
 };
+
+Int_t MuTopMVASel::getSize()
+{
+    return muonsTopMVAT_pt.size();
+};

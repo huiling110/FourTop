@@ -16,6 +16,7 @@ public:
     void Select(const eventForNano *e);
     std::vector<Double_t>& getEtaVec();
     std::vector<Double_t>& getPhiVec();
+    Int_t getSize();
 
     void clearBranch();
 

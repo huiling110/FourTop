@@ -154,3 +154,8 @@ std::vector<Double_t> &EleTopMVASel::getPhiVec()
 {
     return elesTopMVAT_phi;
 };
+
+Int_t EleTopMVASel::getSize()
+{
+    return elesTopMVAT_pt.size();
+};
