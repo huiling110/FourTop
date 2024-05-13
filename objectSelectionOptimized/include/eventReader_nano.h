@@ -141,6 +141,7 @@ public:
         //
         OS::readPointer(HLT_IsoMu24, reader, "HLT_IsoMu24");
         OS::readPointer(HLT_IsoMu27, reader, "HLT_IsoMu27");
+        OS::readPointer(HLT_Ele32_WPTight_Gsf, reader, "HLT_Ele32_WPTight_Gsf");
 
         OS::readPointer(HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1, reader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1");
         OS::readPointer(HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1, reader, "HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1");
@@ -243,7 +244,8 @@ public:
     TTreeReaderValue<Bool_t> *HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5 = nullptr;
     //
     TTreeReaderValue<Bool_t> *HLT_IsoMu24 = nullptr;
-    TTreeReaderValue<Bool_t> *HLT_IsoMu27 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_IsoMu27 = nullptr; //only 2017
+    TTreeReaderValue<Bool_t> *HLT_Ele32_WPTight_Gsf = nullptr;
 
     //tau triggers
     TTreeReaderValue<Bool_t> *HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1 = nullptr;

@@ -32,6 +32,7 @@ HLTSelector::HLTSelector(TTree *outTree, const TString era, const Bool_t isData,
 
     outTree->Branch("HLT_IsoMu24_", &HLT_IsoMu24_);
     outTree->Branch("HLT_IsoMu27_", &HLT_IsoMu27_);
+    outTree->Branch("HLT_Ele32_WPTight_Gsf_", &HLT_Ele32_WPTight_Gsf_);
 
     outTree->Branch("HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_);
     outTree->Branch("HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_", &HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_);
@@ -49,6 +50,7 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
     clearBranch();
     HLT_IsoMu24_ = **e->HLT_IsoMu24;
     HLT_IsoMu27_ = **e->HLT_IsoMu27;
+    HLT_Ele32_WPTight_Gsf_ = **e->HLT_Ele32_WPTight_Gsf;
     Bool_t ifPass = kFALSE;
     // the HLT branch pointer null pointer is not exist in a file
     if (m_era.CompareTo("2016preVFP") == 0 || m_era.CompareTo("2016postVFP") == 0)

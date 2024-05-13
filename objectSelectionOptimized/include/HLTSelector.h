@@ -49,6 +49,7 @@ private:
     //
     Bool_t HLT_IsoMu24_ = kFALSE;
     Bool_t HLT_IsoMu27_ = kFALSE;
+    Bool_t HLT_Ele32_WPTight_Gsf_ = kFALSE;
 
     //hadronic triggers
     Bool_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_ = kFALSE;

@@ -20,10 +20,10 @@ def main():
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
     # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
-    # makeOtherMCGen(inputDirDic, era) #for eazier BDT training later
+    makeOtherMCGen(inputDirDic, era) #for eazier BDT training later
     
      
 def makeOtherMCGen(inputDirDic, era):
@@ -34,7 +34,8 @@ def makeOtherMCGen(inputDirDic, era):
         for isubPro in isubPros:
             ifile = inputDirDic['mc']+ isubPro + '.root'
             iDF = ROOT.RDataFrame('newtree', ifile)
-            cut = iDF.Filter('tausT_genTauNum==1')
+            # cut = iDF.Filter('tausT_genTauNum==1')
+            cut = iDF.Filter('tausT_genTauNum==1&&tausT_num==1')
             cut = cut.Define('event_allWeight_1tau0l', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new* btagShape_weight * btagShapeR')#!1tau0l
             
             cut.Snapshot('newtree', inputDirDic['mc']+ isubPro + '_tauGen.root')

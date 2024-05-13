@@ -67,7 +67,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineNewHLTWeight_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_basicWeight_HT450Jet6pt32TauM/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v1dataMC_allCorrectionButHLT/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining_bin3/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_Test1tau0lHT550/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v1FR_application_jetEta/'
@@ -119,18 +119,18 @@ def main():
     # variabless = ['jets_HT', 'jets_MHT', 'jets_invariantMass', 'jets_transMass', 'jets_average_deltaR', 'jets_minDeltaR', 'jets_centrality', 'jets_bScore', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'jets_HTDivideMET', 'jets_']
     # regionList = ['1tau1lCR1', '1tau1lCR2']
     # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
-    # regionList = ['1tau1lSR']
-    # regionList = ['1tau0lSR']
+    regionList = ['1tau1lSR']
     # regionList = ['1tau1lSRTest']
     # regionList = ['1tau1lSRTest', '1tau1lCR2']
     # regionList = ['1tau0lSRTest']
     # regionList = ['1tau2lSRTest']
-    # variables = ['BDT']
+    variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     plotName = 'dataVsMC_v2'
+    ifFTau = False
   
     #1tau0l
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_3bins/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_3bins/'
     # variables = ['tausT_1pt']
     # variables = ['jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT', 'jets_bScore', 'jets_4largestBscoreSum']
     # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num']
@@ -142,10 +142,10 @@ def main():
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted'] # new VR
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCR']
-    regionList = ['1tau0lSR']
-    variables = ['BDT']
+    # regionList = ['1tau0lSR']
+    # variables = ['BDT']
     # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
-    ifFTau = True #if use fakeTau bg and other bg with genTau requirement
+    # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     # plotName = 'dataVsMC_fakeTauFromData'
 
     
@@ -160,12 +160,12 @@ def main():
     # plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau) # for using fakeTau 2 hists application 
    
 def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False):
-    # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
-    sumProList = ['jetHT','qcd','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
+    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
+    # sumProList = ['jetHT','qcd','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
     # sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
     # sumProList = ['jetHT','tt',  'qcd', 'tttt'] # run3 1tau1l for now 
     if ifFakeTau:
-        sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'fakeTau']
+        sumProList = ['jetHT', 'fakeTau', 'tt', 'ttX', 'singleTop', 'WJets', 'tttt']
         plotName = plotName + 'fakeTau'
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
 
@@ -173,13 +173,10 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     uf.checkMakeDir( plotDir)
     for variable in variables:
         for iRegion in regionList:       
-            sumProcessPerVar[variable][iRegion]['fakeTau'].Print()
-            # c1 = TCanvas('c1', 'c1', 800, 800)
-            # c1.SaveAs(plotDir+variable+'_'+iRegion+'_fakeTau.png')
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 400 ) 
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10) 
+            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 1000 ) 
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True) 
     
    
        
@@ -299,11 +296,18 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     downPad.Draw()
     
     upPad.cd() #???cd() pad causing stack to be not accessble???
+    if ifLogy:
+        upPad.SetLogy(1)
+        name = name + '_logy'
 
     ifBlind = True if 'SR' in region else False #!!!
     dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, ifBlind, False, ifStackSignal)
 
-    setUpStack(canvy, stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale) 
+    setUpStack(canvy, stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale, ifLogy) 
+    stack.Draw("hist")
+    upPad.Update()
+    upPad.Draw()
+    
     #error bar for MC stack    
     systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )#add sytematic uncertainty
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)#systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
@@ -313,9 +317,9 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
         dataHist.SetLineWidth(1)
         dataHist.SetMarkerSize(1.5)
         dataHist.Draw("e0 same")
-        
+    
+    # if not ifLogy:    
     signal.Scale(signalScale)
-    # signal.SetLineColor(kMagenta)
     signal.SetLineColor(kBlue)
     signal.SetLineStyle(kSolid)
     signal.SetLineWidth(3)
@@ -341,9 +345,6 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     #text above the plot
     st.addCMSTextToPad(canvy, era)
     
-    if ifLogy:
-        upPad.SetLogy(1)
-        name = name + '_logy'
     
     canvy.Update()
     canvy.SaveAs(outDir+"{}_{}_{}.png".format(region,name, savePost))
@@ -399,7 +400,7 @@ def getHistToData( dataHist, sumHist):
     sumHistoData.SetTitle("")
     return sumHistoData
    
-def setUpStack(canvy, stack, sumMax, signalMax): 
+def setUpStack(canvy, stack, sumMax, signalMax, ifLogy=False): 
     #set y axix maxi
     if sumMax > signalMax:
         maxi = 1.7* sumMax
@@ -408,6 +409,8 @@ def setUpStack(canvy, stack, sumMax, signalMax):
     if maxi<=0 :
         # print(name, ' variable empty\n')
         return
+    if ifLogy:
+        maxi = 10*maxi
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
