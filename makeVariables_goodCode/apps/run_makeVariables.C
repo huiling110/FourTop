@@ -55,11 +55,11 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v10addBjetPTT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v11overlapRemovalTausT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v13BetterHLTSel/mc/",
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
     // TString inputDir = "TTTT",
     // TString inputDir = "TTto2L2Nu",
     // TString inputDir = "TTtoLNu2Q",
-    // TString inputDir = "ttbar_0l",
+    TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
     // TString inputDir = "jetHT_2017f",
     // TString inputDir = "JetMET2022D",
@@ -88,8 +88,8 @@ void run_objectSelection(
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
     // Bool_t baseline = kFALSE;
-    // mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
-    mv.EventLoop(baseline, kFALSE, numEntries);
+    mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
+    // mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();

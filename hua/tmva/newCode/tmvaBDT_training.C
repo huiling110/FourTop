@@ -20,7 +20,7 @@
 #include "processClass.h"
 #include "../../../myLibrary/commenFunction.h"
 
-void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
+void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const TString channel = "1tau2l")
 {
     std::vector<TString> allProcesses = {
     "tttt", 
@@ -55,9 +55,16 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec)
     processVec.clear();
     for(UInt_t i=0; i<allProcesses.size(); i++){
         TString ifile = inputDir+allProcesses.at(i)+".root";
-        if(!allProcesses.at(i).Contains("fakeTau")){
-            ifile = inputDir+allProcesses.at(i)+"_tauGen.root";
+        if(channel=="1tau0l"){
+            if(!allProcesses.at(i).Contains("fakeTau")){
+                ifile = inputDir+allProcesses.at(i)+"_tauGen.root";
+            }
+        }else{
+            if(allProcesses.at(i).Contains("fakeTau")){
+                continue;
+            }
         }
+
         Process iPro{ifile};
         processVec.push_back(iPro);
     }
@@ -72,16 +79,21 @@ int tmvaBDT_training(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/",
     TString outDir = "output/",
     Bool_t isTest = true,
     // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
     // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/plotting/branch_names.csv",
     // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv",
-    TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
+    // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
+    TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
-    // const TString g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
-    const TString g_weight = "event_allWeight_1tau0l") 
+    // const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
+    const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ",
+    const TString channel = "1tau2l"
+    ) //for btag WP
+    // const TString g_weight = "event_allWeight_1tau0l") 
 {
 
 
@@ -125,17 +137,15 @@ int tmvaBDT_training(
     // add signal and bg trees
     Long64_t allBg = 2000;
     std::vector<Process> processVec;
-    getProcessesVec(inputDir, processVec);
+    getProcessesVec(inputDir, processVec, channel);
     for (UInt_t i=0;i<processVec.size(); i++){
         if(processVec.at(i).getTree()->GetEntries()<=0) continue;
         if(i==0){
             std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
-            // dataloader->AddSignalTree(processVec.at(i).getTree(), processVec.at(i).getScale());
             dataloader->AddSignalTree(processVec.at(i).getTree()); //!use global_weight
         }
         else{
             std::cout << "add bg tree: " << processVec.at(i).getName() << "\n";
-            // dataloader->AddBackgroundTree(processVec.at(i).getTree(), processVec.at(i).getScale());
             dataloader->AddBackgroundTree(processVec.at(i).getTree());
             if(!isTest){
                 allBg = allBg + processVec.at(i).getTree()->GetEntries();

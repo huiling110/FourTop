@@ -17,12 +17,10 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if(entryCount==1){
             std::cout << "baselineSel=" << baselineSel << "  tau1e1Sel=" << tau1e1Sel << "\n";
         }
-        //report every 10%
-        if (entryCount % (numEntries / 10) == 0)
-        {
-            std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\r" << std::flush;
-            // std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\n";
-        }
+        // if (entryCount % (numEntries / 10) == 0)//!causing running time issue in jobs
+        // {
+        //     std::cout << "Processing: " << (100 * entryCount / numEntries) << "%\r" << std::flush;
+        // }
 
         muVarMaker.makeVariables(e);
         muTopTVarMaker.makeVariables(e);
@@ -69,7 +67,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if(tau1e1Sel){
             // if(!(jetVarMaker.getJet_num()>=7 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){
             // if(!(jetVarMaker.getJet_num()>= 6 && jetVarMaker.getJet_6pt()>32. && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
-            if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauFVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0  && jetVarMaker.getJet_6pt()>32.)){ //!1tau0lSR, can not add tauF cut, for fake tau estimation later
+            // if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauFVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0  && jetVarMaker.getJet_6pt()>32.)){ //!1tau0lSR, can not add tauF cut, for fake tau estimation later
+            if(!(jetVarMaker.getJet_num()>= 4 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==2 )){ //!1tau2lSR
                 continue;
                 // if(!m_isData && tauVarMaker.getTauGenNum()==1){ //for MC other than fakeTau 
                 //     continue;

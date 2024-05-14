@@ -67,12 +67,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineNewHLTWeight_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_basicWeight_HT450Jet6pt32TauM/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v1dataMC_allCorrectionButHLT/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining_bin3/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_Test1tau0lHT550/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v1FR_application_jetEta/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/mc/variableHists_v1FR_application_jetEtaTauF1/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/mc/variableHists_v5dataMC_allCorrection_UsingFakeTau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/mc/variableHists_v1dataMC_allCorrectionButHLT/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v1dataMC_pileupSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v2dataMC_pileupBtagSF/'
@@ -106,11 +107,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/mc/variableHists_v4_looseBaselineBtag2TTauHT500_pileupSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/mc/variableHists_v5_looseBaselineBtag2TTauHT500Jet6_pileupSF/'
 
-    # for 1tau1l
+    # variables = ['jets_num']
+    variables = ['jets_4pt']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt']
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_4pt', 'jets_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausM_num', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge', 'tausT_1lepton1_charge', 'tausM_1lepton1_charge', 'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour']#1tau1l SR
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num',  'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausT_1genFlavour', 'tausTT_1genFlavour', 'tausTTT_1genFlavour']#1tau0l region 
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num', 'bjetsPTM_num', 'bjetsPTT_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausM_num', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge', 'tausT_1lepton1_charge', 'tausM_1lepton1_charge', 'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour']
+    # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num', 'bjetsPTM_num', 'bjetsPTT_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausM_num',  'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausT_leptons_charge']#1tau2l
     # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag', 'PV_npvsGood']
     # variables = [ 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'bjetsPTM_num', 'bjetsPTT_num'] #for 1tau1l BDT input
@@ -119,12 +122,12 @@ def main():
     # variabless = ['jets_HT', 'jets_MHT', 'jets_invariantMass', 'jets_transMass', 'jets_average_deltaR', 'jets_minDeltaR', 'jets_centrality', 'jets_bScore', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'jets_HTDivideMET', 'jets_']
     # regionList = ['1tau1lCR1', '1tau1lCR2']
     # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
-    regionList = ['1tau1lSR']
+    # regionList = ['1tau1lSR']
     # regionList = ['1tau1lSRTest']
     # regionList = ['1tau1lSRTest', '1tau1lCR2']
     # regionList = ['1tau0lSRTest']
-    # regionList = ['1tau2lSRTest']
-    variables = ['BDT']
+    regionList = ['1tau2lSRTest']
+    # variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     plotName = 'dataVsMC_v2'
     ifFTau = False
@@ -173,10 +176,10 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     uf.checkMakeDir( plotDir)
     for variable in variables:
         for iRegion in regionList:       
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 400 ) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100 ) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 1000 ) 
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True) 
+            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True) 
     
    
        
@@ -365,7 +368,7 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
             if dataHist:
                 leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
         elif ipro == 'tttt':
-            signalEntry = 'tttt*{}[{:.1f}]'.format(signalScale, getIntegral(nominal['tttt']))
+            signalEntry = 'tttt*{}[{:.1f}*{}]'.format(signalScale, getIntegral(nominal['tttt']), signalScale)
             leggy.AddEntry( signal, signalEntry, 'l')
         else:
             legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
