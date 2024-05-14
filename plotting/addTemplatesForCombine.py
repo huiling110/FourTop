@@ -4,11 +4,11 @@ import math
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
 
-channelDic = {
-    '1tau0l': 'jets_bScore',
-    # '1tau0l': 'bjetsM_invariantMass',
-    '1tau1l': 'BDT',
-}
+# channelDic = {
+#     '1tau0l': 'jets_bScore',
+#     # '1tau0l': 'bjetsM_invariantMass',
+#     '1tau1l': 'BDT',
+# }
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1sysVariation1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v1sysVariation1tau1l_30bins/'
@@ -46,13 +46,15 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0l/' #1tau1l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v67TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0l/' #1tau1l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/mc/variableHists_v0theorecticalHistsAdd1tau0lNew/' #1tau0l
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining_bin3/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining_bin3/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/mc/variableHists_v0BDT1tau2l/'
     
     #run3 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
     # channel = '1tau0l' # 1tau0l
-    channel = '1tau1l' 
+    # channel = '1tau1l' 
+    channel = '1tau2l'
    
    
    
@@ -72,6 +74,9 @@ def main():
     else:
         allSubList = gq.Run3Samples.keys()
     allSubPro = list(allSubList)
+    if not channel=='1tau0l':
+        allSubPro = [item for item in allSubPro if 'fakeTau' not in item]
+        
     print(allSubPro)
 
     summedHistDicAllSys = {}
@@ -85,8 +90,7 @@ def main():
         addFakeTauSys(outFile, channel, summedHistDicAllSys, era)
         print(summedHistDicAllSys)
     
-    # fakeData = addDataHist(summedHistDicAllSys['SR_' + channelDic[channel]], outFile, channel)
-    fakeData = addDataHist(summedHistDicAllSys[channel+'SR_' + channelDic[channel]], outFile, channel)
+    fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel)
     
     
     #only 1tau1l for now 
@@ -195,11 +199,12 @@ def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     templatesWithFT = fakeTauDic[era]
     print('using fakeTau file: ', templatesWithFT)
     FTFile = ROOT.TFile(templatesWithFT, 'READ')
-    variable = channelDic[channel]
+    # variable = channelDic[channel]
+    variable = 'BDT'
     # fakeTau = FTFile.Get('fakeTau_jets_bScore')
-    fakeTau = FTFile.Get('fakeTau_'+channelDic[channel])
-    fakeTau_up = FTFile.Get('fakeTau_'+channelDic[channel]+'_FR_up')
-    fakeTau_down = FTFile.Get('fakeTau_'+channelDic[channel]+'_FR_down')
+    fakeTau = FTFile.Get('fakeTau_' +variable)
+    fakeTau_up = FTFile.Get('fakeTau_' +variable+'_FR_up')
+    fakeTau_down = FTFile.Get('fakeTau_' +variable+'_FR_down')
     fakeTau_up.SetName('fakeTau_CMS_tttt_FR_shape_stats_'+era+'Up_' + channelDic[channel])
     fakeTau_down.SetName('fakeTau_CMS_tttt_FR_shape_stats_'+ era+'Down_'+channelDic[channel])
     fakeTau.SetName('fakeTau_1tau0lSR_'+variable)
@@ -208,7 +213,7 @@ def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     fakeTau_down.SetDirectory(outFile)
     if channel=='1tau0l':
         # summedHistDicAllSys['SR_' + channelDic[channel]] ['faketau']= fakeTau
-        summedHistDicAllSys['1tau0lSR_' + channelDic[channel]] ['faketau']= fakeTau
+        summedHistDicAllSys['1tau0lSR_' + +variable] ['faketau']= fakeTau
     
 
     
@@ -218,7 +223,7 @@ def addDataHist(summedHistSR, outFile, channel):
     fakeData.Reset()
     fakeData.SetDirectory(outFile)
     # fakeData.SetName('data_obs_SR_'+channelDic[channel])
-    fakeData.SetName('data_obs_'+channel+'SR_'+channelDic[channel])
+    fakeData.SetName('data_obs_'+channel+'SR_BDT')
     for ipro in summedHistSR.keys():
         if ipro=='qcd': continue
         print('add fakeData: ',ipro)

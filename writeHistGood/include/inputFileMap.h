@@ -10,9 +10,10 @@
 namespace WH
 {
 
-inline const        std::map<TString, Int_t> channelMap = {//!!!this coding is bullshit
+inline const   std::map<TString, Int_t> channelMap = {//!!!this coding is bullshit
             {"1tau1l", 0},
             {"1tau0l", 1},
+            {"1tau2l", 2},
         };
 
 inline const std::map<TString, TString> triggerSF_map = {

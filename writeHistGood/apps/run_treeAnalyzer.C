@@ -30,9 +30,10 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2tau1l1CutHT4006jetpt30_v75OverlapRemovalFTau/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/",
-    // TString process = "tttt",
-    TString process = "fakeTau_tauF",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/mc/",
+    TString process = "tttt",
+    // TString process = "fakeTau_tauF",
     // TString process = "TTTT",
     // TString process = "ttbar_0l",
     // TString process = "ttbar_1l",
@@ -43,7 +44,8 @@ void run_treeAnalyzer(
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l
     // TString channel = "1tau1l",//0: 1tau1l
-    TString channel = "1tau0l",//0: 1tau1l
+    // TString channel = "1tau0l",//0: 1tau1l
+    TString channel = "1tau2l",//
     Bool_t isTest = kTRUE)
     // Bool_t isTest = kFALSE)
 {

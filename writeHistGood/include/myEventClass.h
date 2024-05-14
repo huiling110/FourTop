@@ -194,7 +194,8 @@ public:
     myBranch<Double_t> bjetsM_transMass{"bjetsM_transMass"};
     myBranch<Double_t> bjetsM_minDeltaR{"bjetsM_minDeltaR"};
     myBranch<Double_t> bjetsM_2leptons2_stransMass{"bjetsM_2leptons2_stransMass"};
-    myBranch<Double_t> bjetsM_2tau1lep1_stransMass{"bjetsM_2tau1lep1_stransMass"};
+    myBranch<Double_t> bjetsM_2tauT1lep1_stransMass{"bjetsM_2tauT1lep1_stransMass"};
+    myBranch<Double_t> bjetsM_2tauF1lep1_stransMass{"bjetsM_2tauF1lep1_stransMass"};
     myBranch<Double_t> bjetsM_2MET_stransMass{"bjetsM_2MET_stransMass"};
     myBranch<Double_t> bjetsM_leptons_minDeltaR{"bjetsM_leptons_minDeltaR"};
     myBranch<Double_t> bjetsM_tausT_minDeltaR{"bjetsM_tausT_minDeltaR"};
@@ -209,7 +210,8 @@ public:
     myBranch<Double_t> bjetsT_transMass{"bjetsT_transMass"};
     myBranch<Double_t> bjetsT_minDeltaR{"bjetsT_minDeltaR"};
     myBranch<Double_t> bjetsT_2leptons2_stransMass{"bjetsT_2leptons2_stransMass"};
-    myBranch<Double_t> bjetsM_2tauT1lep1_stransMass{"bjetsM_2tauT1lep1_stransMass"};
+    myBranch<Double_t> bjetsT_2tauT1lep1_stransMass{"bjetsT_2tauT1lep1_stransMass"};
+    myBranch<Double_t> bjetsT_2tauF1lep1_stransMass{"bjetsT_2tauF1lep1_stransMass"};
     myBranch<Double_t> bjetsT_2MET_stransMass{"bjetsT_2MET_stransMass"};
     myBranch<Double_t> bjetsT_leptons_minDeltaR{"bjetsT_leptons_minDeltaR"};
     myBranch<Double_t> bjetsT_tausT_minDeltaR{"bjetsT_tausT_minDeltaR"};
@@ -448,7 +450,8 @@ private:
         {bjetsM_transMass.n(), &bjetsM_transMass},
         {bjetsM_minDeltaR.n(), &bjetsM_minDeltaR},
         {bjetsM_2leptons2_stransMass.n(), &bjetsM_2leptons2_stransMass},
-        {bjetsM_2tau1lep1_stransMass.n(), &bjetsM_2tau1lep1_stransMass},
+        {bjetsM_2tauT1lep1_stransMass.n(), &bjetsM_2tauT1lep1_stransMass},
+        {bjetsM_2tauF1lep1_stransMass.n(), &bjetsM_2tauF1lep1_stransMass},
         {bjetsM_2MET_stransMass.n(), &bjetsM_2MET_stransMass},
         {bjetsM_leptons_minDeltaR.n(), &bjetsM_leptons_minDeltaR},
         {bjetsM_tausT_minDeltaR.n(), &bjetsM_tausT_minDeltaR},
@@ -463,7 +466,8 @@ private:
         {bjetsT_transMass.n(), &bjetsT_transMass},
         {bjetsT_minDeltaR.n(), &bjetsT_minDeltaR},
         {bjetsT_2leptons2_stransMass.n(), &bjetsT_2leptons2_stransMass},
-        {bjetsM_2tauT1lep1_stransMass.n(), &bjetsM_2tauT1lep1_stransMass},
+        {bjetsT_2tauT1lep1_stransMass.n(), &bjetsT_2tauT1lep1_stransMass},
+        {bjetsT_2tauF1lep1_stransMass.n(), &bjetsT_2tauF1lep1_stransMass},
         {bjetsT_2MET_stransMass.n(), &bjetsT_2MET_stransMass},
         {bjetsT_leptons_minDeltaR.n(), &bjetsT_leptons_minDeltaR},
         {bjetsT_tausT_minDeltaR.n(), &bjetsT_tausT_minDeltaR},

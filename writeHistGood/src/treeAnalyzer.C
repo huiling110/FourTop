@@ -93,8 +93,11 @@ void treeAnalyzer::Init()
 
         variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
         weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
-
-
+    }else if(m_channel=="1tau2l"){
+        std::cout<<"1tau2l\n";
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau2l
+        variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv";
+        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
     }else{
         std::cout << "WARNING!! channel not spefified\n";
     }
@@ -137,16 +140,14 @@ void treeAnalyzer::LoopTree()
         m_tree->GetEntry(i);
         cutFlowHist->Fill(0);
 
-        if (!(baselineSelection(e, m_isRun3)))
+        if (!(baselineSelection(e, m_isRun3, WH::channelMap.at(m_channel)==2)))
         {
             continue;
         }
         cutFlowHist->Fill(1);
 
         Bool_t isFakeTau = m_processName.Contains("fakeTau");
-        // Bool_t channelSel = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3);
-        if(WH::channelMap.at(m_channel)==1 ){ //1tau0l
-            // channelSel = channelSel && (e->tausT_genTauNum.v() == 1); 
+        if(m_channel=="1tau0l"){
             if(!(e->tausF_num.v()==1)){
                 continue;
             }
@@ -154,12 +155,7 @@ void treeAnalyzer::LoopTree()
                 if (!(e->tausT_genTauNum.v() == 1)) continue;
             }
         }
-        Bool_t channelSel = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, isFakeTau);
-        if (!(channelSel))
-        {
-            continue;
-        }
-        Bool_t SR1tau1l = kTRUE;
+        Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, isFakeTau );
         cutFlowHist->Fill(2);
 
         // convert branch value to float for reader
@@ -180,18 +176,18 @@ void treeAnalyzer::LoopTree()
         }
 
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
-        // if(WH::channelMap.at(m_channel)==0){
-        // }else if(WH::channelMap.at(m_channel)==1){
-            //  bdtScore = e->jets_bScore.v();
-        // }
         // std::cout << "bdtScore=" << bdtScore << "\n";
 
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel)==0 );//!!!caution, for 1tau1l b-tag WP correction
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!caution, for 1tau1l b-tag WP correction
-        // Double_t basicWeight = e->EVENT_genWeight.v();//!!!for run 3
-        // Double_t basicWeight = e->EVENT_genWeight.v() *  e->EVENT_prefireWeight.v() * e->PUweight_.v() ;
-        Double_t basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!
-        // // filling hists
+        Double_t basicWeight = 1.0;
+        basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel));//!
+        sysRegionsFill(bdtScore, basicWeight, SR1tau1l);
+
+    }
+    std::cout << "end of event loop\n";
+    std::cout << "\n";
+};
+
+void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l){
         SR1tau1lSys.fillHistVec(m_channel+"SR", bdtScore, basicWeight, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Up", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(), SR1tau1l, m_isData);
@@ -231,18 +227,17 @@ void treeAnalyzer::LoopTree()
         SR1tau1lSys.fillHistVec("CMS_eff_bWPM_" + m_era + "Up", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_eff_bWPM_" + m_era + "Down", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_down.v(), SR1tau1l, m_isData);
 
-
         //!!!temparory workaround, need to fix the HLT_weight==0 in MV step
-        if (e->HLT_weight.v() == 0)
-        {
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, 1, SR1tau1l, m_isData);
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, 1, SR1tau1l, m_isData);
-        }
-        else
-        {
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
-            SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
-        }
+        // if (e->HLT_weight.v() == 0)
+        // {
+        //     SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, 1, SR1tau1l, m_isData);
+        //     SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, 1, SR1tau1l, m_isData);
+        // }
+        // else
+        // {
+        SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
+        // }
 
         //theorectical uncertainties
         SR1tau1lSys.fillHistVec("pdf_" + m_era + "Up", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
@@ -254,10 +249,8 @@ void treeAnalyzer::LoopTree()
         SR1tau1lSys.fillHistVec("QCDscale_Fa_" + m_era + "Up", bdtScore, basicWeight* e->scaleWeightFa_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("QCDscale_Fa_" + m_era + "Down", bdtScore, basicWeight* e->scaleWeightFa_down_.v(), SR1tau1l, m_isData);
 
-    }
-    std::cout << "end of event loop\n";
-    std::cout << "\n";
-};
+}
+
 
 void treeAnalyzer::Terminate()
 {

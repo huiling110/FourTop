@@ -48,8 +48,7 @@ public:
 
     void Init();
     void LoopTree();
-    // void readBranch();
-    // Bool_t eventCut(event);
+    void sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l);
     void Terminate();
 
 private:
