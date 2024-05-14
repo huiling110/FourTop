@@ -12,7 +12,8 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3)
         // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 350.;//1tau1l!testing
         // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 400. && event->jets_6pt.v()>30.;//1tau1l!testing
         // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 400. && event->jets_6pt.v()>35.;//1tau1l!testing
-        pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 450. && event->jets_6pt.v()>32.;//!this is it
+        // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 450. && event->jets_6pt.v()>32.;//!this is it
+        pass = event->jets_num.v() >= 4 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 200. ;//!test for 1tau2l
     }else{
         // std::cout << "not run 3\n";
         // pass = event->jets_num.v() >= 6 && event->bjetsPTM_num.v() >= 1 && event->jets_HT.v() > 550. && event->jets_6pt.v() > 40.;
@@ -88,8 +89,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 3;
         // isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 3;
         break;
-    case 2: // 1tau1lCR1//!updating
-        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum == 2;
+    case 2: // !1tau2lSR
+        isPass = tausTNum == 1 && lepNum == 2 && e->jets_num.v() >= 4 && bjetsMNum >= 2;
         break;
     case 3: //!!! 1tau0l testing
         // isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 9 && bjetsMNum>=3;
@@ -98,9 +99,9 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
         isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum>=3 && e->jets_HT.v()>550;
         break;
     case 4: // 1tau1lCR2//!testing
-        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() <= 6 && bjetsMNum >= 3;
+        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 5 && bjetsMNum == 2;
         break;
-    case 5: // !1tau2lSRTesting
+    case 5: // !1tau1lCR1
         isPass = tausTNum == 1 && lepNum == 2 && e->jets_num.v() >=5 && bjetsMNum >=2 ;
         break;
     case 6: // 1tau0lCR
@@ -137,37 +138,50 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     return isPass;
 }
 
-Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isData, Bool_t is1tau1l )
+Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isData, Int_t channel )
 {
     Double_t basicWeight = 1.0;
-    if(!isData){
-        if (!isRun3)
+    if(isData){
+        return basicWeight;
+    }
+    if (!isRun3)
+    {
+        // Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
+        // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
+        Double_t btagWeight = 1.0;
+        Double_t HLTWeight = 1.0;
+        TString btagName = "";
+        switch (channel)
         {
-            // Double_t basicWeight = EVENT_prefireWeight * EVENT_genWeight * PUweight_ * HLT_weight * tauT_IDSF_weight_new * elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR;
-            // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v() * e->btagShape_weight.v() * e->btagShapeR.v();
-            Double_t btagWeight = 1.0;
-            TString btagName = "";
-            if (is1tau1l)
-            {
-                btagWeight = e->btagWPMedium_weight.v();
-                btagName = e->btagWPMedium_weight.n();
-            }   
-            else
-            {
-                btagWeight = e->btagShape_weight.v() * e->btagShapeR.v();
-                btagName = e->btagShape_weight.n() + "*" + e->btagShapeR.n();
-            }
-            // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v();
-            basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* btagWeight;
-            if(entry==0){
-                // std::cout<<"event weight: "<<e->EVENT_genWeight.n() <<"*"<< e->EVENT_prefireWeight.n() <<"*"<< e->PUweight_.n() <<"*"<< e->HLT_weight.n() <<"*"<< e->tauT_IDSF_weight_new.n() <<"*"<< e->elesTopMVAT_weight.n() <<"*"<< e->musTopMVAT_weight.n()<<"*"<< e->btagWPMedium_weight.n()<<"\n";
-                std::cout<<"event weight: "<<e->EVENT_genWeight.n() <<"*"<< e->EVENT_prefireWeight.n() <<"*"<< e->PUweight_.n() <<"*"<< e->HLT_weight.n() <<"*"<< e->tauT_IDSF_weight_new.n() <<"*"<< e->elesTopMVAT_weight.n() <<"*"<< e->musTopMVAT_weight.n()<<"*"<< btagName<<"\n";
-            }
+        case 0: // 1tau1lSR
+            HLTWeight = e->HLT_weight.v();
+            btagWeight = e->btagWPMedium_weight.v();
+            btagName = e->btagWPMedium_weight.n();
+            break;
+        case 1: //1tau0l 
+            HLTWeight = e->HLT_weight.v();
+            btagWeight = e->btagShape_weight.v() * e->btagShapeR.v();
+            btagName = e->btagShape_weight.n() + "*" + e->btagShapeR.n();
+            break;
+        case 2: //1tau2l
+            HLTWeight = 1.0;//!for now
+            btagWeight = e->btagWPMedium_weight.v();
+            btagName = e->btagWPMedium_weight.n();
+            break; 
+        default:
+            std::cout<<"channel wrong!\n";
+            break;
         }
-        else
-        {
-            basicWeight = e->EVENT_genWeight.v();
+
+        // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v();
+        basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * HLTWeight * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* btagWeight;
+        if(entry==10){
+            std::cout<<"event weight: "<<e->EVENT_genWeight.n() <<"*"<< e->EVENT_prefireWeight.n() <<"*"<< e->PUweight_.n() <<"*"<< e->HLT_weight.n() <<"*"<< e->tauT_IDSF_weight_new.n() <<"*"<< e->elesTopMVAT_weight.n() <<"*"<< e->musTopMVAT_weight.n()<<"*"<< btagName<<"\n";
         }
+    }
+    else
+    {
+        basicWeight = e->EVENT_genWeight.v();
     }
     return basicWeight;
 }
