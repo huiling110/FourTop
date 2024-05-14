@@ -475,15 +475,18 @@ Int_t chargeMulCal(const TTreeReaderArray<Int_t> &tausT_charge, const TTreeReade
 };
 
 Int_t chargeMulCalNew(const TTreeReaderArray<Int_t>& taus_charge, const TTreeReaderArray<Int_t>& muons_charge, const TTreeReaderArray<Int_t> &eles_charge){
-    Int_t charge = -99;
-    if(taus_charge.GetSize() > 0 && ((eles_charge.GetSize()+muons_charge.GetSize())==1 )){
-        charge = taus_charge.At(0);
-        if(muons_charge.GetSize() == 1){
-            charge = charge * muons_charge.At(0);
-        }else
-        {
-            charge = charge * eles_charge.At(0);
-        }
+    Int_t charge = 1;
+    if(taus_charge.GetSize() == 0 && muons_charge.GetSize() == 0 && eles_charge.GetSize() == 0){
+        return -99;
+    }
+    for(UInt_t i = 0; i < taus_charge.GetSize(); i++){
+        charge = taus_charge.At(i);
+    }
+    for(UInt_t j = 0; j < muons_charge.GetSize(); j++){
+        charge = charge * muons_charge.At(j);
+    }
+    for(UInt_t k = 0; k < eles_charge.GetSize(); k++){
+        charge = charge * eles_charge.At(k);
     }
     return charge;
 };

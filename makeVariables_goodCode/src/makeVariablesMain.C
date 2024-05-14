@@ -59,7 +59,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if (baselineSel)
         {
             // if (!(jetVarMaker.getHT() > 550. && jetVarMaker.getJet_6pt() > 40. && jetVarMaker.getJet_num() >=6 && bjetM_num >= 1))
-            if (!(jetVarMaker.getHT() > 450. && jetVarMaker.getJet_num() >=5 && bjetM_num >= 2)) //!!!testing
+            // if (!(jetVarMaker.getHT() > 450. && jetVarMaker.getJet_num() >=5 && bjetM_num >= 2)) //!!!testing
+            if (!(jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=4 && bjetM_num >= 2)) //!1tau2l
             // if (!(jetVarMaker.getHT() > 550 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 )) //!!!for btag-efficiency measurement
             {
                 continue;

@@ -20,6 +20,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_1decayMode", &taus_1decayMode);
     outTree->Branch(objName + "_1prongNum", &taus_1prongNum);
     outTree->Branch(objName + "_1lepton1_charge", &taus_1lepton1_charge);
+    outTree->Branch(objName + "_leptons_charge", &taus_leptons_charge);
     outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
     outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
     outTree->Branch(objName + "_1charge", &taus_1charge);
@@ -93,7 +94,7 @@ void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, cons
         taus_1genFlavour = tau_genPartFlav.At(0);
         taus_1decayMode = tau_decayMode.At(0);
         taus_1prongNum = (tau_decayMode.At(0)/5) + 1;
-        // taus_1lepton1_charge = chargeMulCalNew(tau_charge, e->elesMVAT_charge, e->muonsT_charge);
+        taus_leptons_charge = chargeMulCalNew(tau_charge, ele_charge, muon_charge);
         taus_1lepton1_charge = chargeMulCalNew(tau_charge, ele_charge, muon_charge);
     }
 
@@ -116,6 +117,7 @@ void TauVarMaker::clearBranch()
     taus_1decayMode = -99;
     taus_1prongNum = -99;
     taus_1lepton1_charge = -99;
+    taus_leptons_charge = -99;
 
     taus_1lepton1_deltaR = -99;
     taus_1Met_transMass = -99;
