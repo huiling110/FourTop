@@ -74,7 +74,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/mc/variableHists_v1FR_application_jetEtaTauF1/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/mc/variableHists_v5dataMC_allCorrection_UsingFakeTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/mc/variableHists_v1dataMC_allCorrectionButHLT/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/mc/variableHists_v0BDT1tau2l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/mc/variableHists_v0BDT1tau2l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining/'#1tau1l
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v1dataMC_pileupSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v2dataMC_pileupBtagSF/'
@@ -123,11 +124,11 @@ def main():
     # variabless = ['jets_HT', 'jets_MHT', 'jets_invariantMass', 'jets_transMass', 'jets_average_deltaR', 'jets_minDeltaR', 'jets_centrality', 'jets_bScore', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'jets_HTDivideMET', 'jets_']
     # regionList = ['1tau1lCR1', '1tau1lCR2']
     # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
-    # regionList = ['1tau1lSR']
+    regionList = ['1tau1lSR']
     # regionList = ['1tau1lSRTest']
     # regionList = ['1tau1lSRTest', '1tau1lCR2']
     # regionList = ['1tau0lSRTest']
-    regionList = ['1tau2lSR']
+    # regionList = ['1tau2lSR']
     variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     plotName = 'dataVsMC_v2'

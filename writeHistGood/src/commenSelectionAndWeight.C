@@ -8,7 +8,8 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3, Bool_t is1tau2l)
     if (!isRun3){
         // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 400. && event->jets_6pt.v()>35.;//1tau1l!testing
         if(!is1tau2l){
-            pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 450. && event->jets_6pt.v()>32.;//!this is it
+            // pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 450. && event->jets_6pt.v()>32.;//!this is it
+            pass = event->jets_num.v() >= 5 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 450. && event->jets_6pt.v()>34.;//!this is it
         }else{
             pass = event->jets_num.v() >= 4 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 200. ;//!test for 1tau2l
         }

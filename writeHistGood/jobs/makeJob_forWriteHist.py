@@ -68,7 +68,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -123,13 +124,9 @@ def main():
     
         
     #1tau1l
-    # channel = '1tau1l'
-    # version = 'V0Basictraining'
-    # version = 'V0Basictraining_bin3'
-    # version = 'v0NoSystematic'
+    channel = '1tau1l'
+    version = 'v0Basictraining'
     # version = 'v0BasicSystematic'
-    # version = 'v0BasicSystematic_20bins'
-    # version = 'v0theorecticalHistsAdd'
     # version = 'v1JERUp_rerun'
     # version = 'v1JESDown_rerun'
     # version = 'v1JESUp_rerun'
@@ -150,8 +147,8 @@ def main():
     # version = 'v0systematic1tau0l_bMass' 
     # version = 'v0theorecticalHistsAdd1tau0l'
     
-    channel = '1tau2l'
-    version = 'v0BDT1tau2l'
+    # channel = '1tau2l'
+    # version = 'v0BDT1tau2l'
     
     #run3
     # version = 'v0allRegions'
