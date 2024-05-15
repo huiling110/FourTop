@@ -22,6 +22,8 @@ void treeAnalyzer::Init()
     // regions for hists
     std::vector<TString> sysRegions = {
         m_channel + "SR",
+        "1tau1lCR1",
+        "1tau1lCR2",
         "CMS_pileup_" + m_era + "Up",
         "CMS_pileup_" + m_era + "Down",
         "CMS_prefiring_" + m_era + "Up",
@@ -81,6 +83,7 @@ void treeAnalyzer::Init()
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.2, 0.4, sysRegions);//testing
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.4, 0.4, sysRegions);//testing
 
+        // CR1Sys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.25, 0.4, sysRegions);
 
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_noBtagShape.csv"; //! testing
         // TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");//
@@ -162,6 +165,8 @@ void treeAnalyzer::LoopTree()
             }
         }
         Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, isFakeTau );
+        Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, isFakeTau);
+        Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, isFakeTau);
         cutFlowHist->Fill(2);
 
         // convert branch value to float for reader
@@ -186,15 +191,18 @@ void treeAnalyzer::LoopTree()
 
         Double_t basicWeight = 1.0;
         basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel));//!
-        sysRegionsFill(bdtScore, basicWeight, SR1tau1l);
+        sysRegionsFill(bdtScore, basicWeight, SR1tau1l, CR11tau1l, CR21tau1l);
 
     }
     std::cout << "end of event loop\n";
     std::cout << "\n";
 };
 
-void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l){
+void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, Bool_t CR11tau1l, Bool_t CR21tau1l){
         SR1tau1lSys.fillHistVec(m_channel+"SR", bdtScore, basicWeight, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("1tau1lCR1", bdtScore, basicWeight, CR11tau1l, m_isData);
+        SR1tau1lSys.fillHistVec("1tau1lCR2", bdtScore, basicWeight, CR21tau1l, m_isData);
+
         SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_prefiring_" + m_era + "Up", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_pileup_" + m_era + "Down", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_down_.v(), SR1tau1l, m_isData);

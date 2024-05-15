@@ -48,7 +48,7 @@ public:
 
     void Init();
     void LoopTree();
-    void sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l);
+    void sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, Bool_t CR11tau1l, Bool_t CR21tau1l);
     void Terminate();
 
 private:

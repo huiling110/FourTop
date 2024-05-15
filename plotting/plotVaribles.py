@@ -78,7 +78,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining/'#1tau1l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l_bin3/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l_bin2/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v1dataMC_pileupSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v2dataMC_pileupBtagSF/'
@@ -364,6 +364,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     print('\n')
 
 def printSBLastBin(sumHist, signal, canvas):
+    canvas.cd()
     latex = TLatex()
     latex.SetTextSize(0.03)
     latex.SetTextAlign(22)  # 
@@ -371,10 +372,10 @@ def printSBLastBin(sumHist, signal, canvas):
     sig = signal.GetBinContent(signal.GetNbinsX())
     bg = sumHist.GetBinContent(sumHist.GetNbinsX())
     
-    latex.DrawLatex(signal.GetBinCenter(signal.GetNbinsX()), sig+bg+0.05, f"S={sig}, B={bg}")
+    latex.DrawLatex(signal.GetBinCenter(signal.GetNbinsX()), sig+bg+0.05, f"S={sig:.2f}, B={bg-sig:.2f}")
     
-    canvas.Draw()
     canvas.Update()
+    canvas.Draw()
 
  
 def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False):
