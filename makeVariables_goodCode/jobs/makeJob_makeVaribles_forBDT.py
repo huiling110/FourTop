@@ -35,13 +35,14 @@ def main():
     # inVersion = 'v75AddTauTTTTNoHTCut'
     inVersion = 'v75OverlapRemovalFTau'
     # inVersion = 'v76For1tau2l'
-    outVersion = 'v0baselineHardro'
+    # outVersion = 'v0baselineHardro'
     # outVersion = 'v0baselineHT450Cut1tau1l'
     # outVersion = 'v2baselineHT450Cut1tau0l'
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v3baselineAddFRWeight'
     # outVersion = 'v4cut1tau0l'
     # outVersion = 'v4cut1tau2l'
+    outVersion = 'v5cut1tau1lSR'
     
     #2022
     # year = '2022postEE'
