@@ -75,12 +75,10 @@ void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::Pt
             ROOT::Math::PtEtaPhiMVector leptons2 = leptons.at(0) + leptons.at(1);
             bjets_2leptons2_stransMass = calculateMT2(bjets2, leptons2, *e->MET_pt_, *e->MET_phi_);
         }
-        // if(tausT.size()>1 && leptons.size()>0){
         if(tausT.size()>0 && leptons.size()>0){
             ROOT::Math::PtEtaPhiMVector tauLep = tausT.at(0) + leptons.at(0);
             bjets_2tauT1lep1_stransMass = calculateMT2(bjets2, tauLep, *e->MET_pt_, *e->MET_phi_);
         }
-        // if(tausF.size()>1 && leptons.size()>0){
         if(tausF.size()>0 && leptons.size()>0){
             ROOT::Math::PtEtaPhiMVector tauLep = tausF.at(0) + leptons.at(0);
             bjets_2tauF1lep1_stransMass = calculateMT2(bjets2, tauLep, *e->MET_pt_, *e->MET_phi_);
