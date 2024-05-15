@@ -316,6 +316,8 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     upPad.Update()
     upPad.Draw()
     
+    printSBLastBin(sumHist, signal, upPad)
+     
     #error bar for MC stack    
     systsUp, systsDown = addStatisticUncer( sumHist, systsUp, systsDown )#add sytematic uncertainty
     assymErrorPlot = getErrorPlot(sumHist,systsUp,systsDown)#systsUp and systsDown are the total bin up and down uncertainty, not n+-uncertainty
@@ -361,6 +363,18 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     print( 'done plotting data/mc plot for {}\n'.format(name))
     print('\n')
 
+def printSBLastBin(sumHist, signal, canvas):
+    latex = TLatex()
+    latex.SetTextSize(0.03)
+    latex.SetTextAlign(22)  # 
+    
+    sig = signal.GetBinContent(signal.GetNbinsX())
+    bg = sumHist.GetBinContent(sumHist.GetNbinsX())
+    
+    latex.DrawLatex(signal.GetBinCenter(signal.GetNbinsX()), sig+bg+0.05, f"S={sig}, B={bg}")
+    
+    canvas.Draw()
+    canvas.Update()
 
  
 def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False):
@@ -423,7 +437,8 @@ def setUpStack(canvy, stack, sumMax, signalMax, ifLogy=False):
     if ifLogy:
         maxi = 10*maxi
     stack.SetMaximum(maxi) #Set the minimum / maximum value for the Y axis (1-D histograms) or Z axis (2-D histograms)  By default the maximum / minimum value used in drawing is the maximum / minimum value of the histogram
-    stack.SetMinimum(0.5)
+    if ifLogy:
+        stack.SetMinimum(0.5)
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle('Events')
