@@ -125,7 +125,8 @@ def main():
         
     #1tau1l
     channel = '1tau1l'
-    version = 'v0Basictraining'
+    # version = 'v0Basictraining1tau1l'
+    version = 'v0Basictraining1tau1l_bin3'
     # version = 'v0BasicSystematic'
     # version = 'v1JERUp_rerun'
     # version = 'v1JESDown_rerun'
