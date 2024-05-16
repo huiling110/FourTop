@@ -192,7 +192,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout << "\n";
 };
 
-void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const Double_t jets_6pt, const Int_t bjetsM_num)
+void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t bjetsM_num)
 {
     reportEntry("WeightVarMaker::makeVariables()");
     // clearBranch();
@@ -272,6 +272,10 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT, const 
     btagWPMedium_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "up", m_isRun3) ;
     btagWPMedium_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "down", m_isRun3) ;
 
+    if(e->jets_pt.GetSize()==5){//!
+        jets_6pt = e->jets_pt.At(4);
+        // std::cout<<"jets_6pt="<<jets_6pt<<"\n";
+    }
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
     HLT_weight_stats_up = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 1);
     HLT_weight_stats_down = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 2);

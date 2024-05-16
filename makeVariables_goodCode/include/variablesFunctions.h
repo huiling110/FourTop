@@ -111,7 +111,7 @@ Double_t getBtagEff(TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Double_t 
 Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys);
 
 Double_t calBtagR(Int_t jets_number, TH1D *btagRHist);
-Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D *triggerHist1b, TH2D *triggerHist2b, TH2D *triggerHist3b, Bool_t isdata, UInt_t sys);
+Double_t HLTWeightCal(Double_t jets_HT, const Double_t jets_6pt, Int_t bjets_num, TH2D *triggerHist1b, TH2D *triggerHist2b, TH2D *triggerHist3b, Bool_t isdata, UInt_t sys);
 
 void copy_TTreeReaderArray_toVector(const TTreeReaderArray<Double_t> &array, std::vector<Double_t> &vec);
 

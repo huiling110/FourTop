@@ -1034,6 +1034,12 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
     Int_t ybins = hist->GetYaxis()->GetNbins();
     Double_t ymin = hist->GetYaxis()->GetBinLowEdge(1);
     Double_t ymax = hist->GetYaxis()->GetBinUpEdge(ybins);
+
+    x = std::min(x, xmax-0.01);
+    x = std::max(x, xmin+0.01);
+    y = std::min(y, ymax-0.01);
+    y = std::max(y, ymin+0.01);
+
     if (x >= xmin && x < xmax && y >= ymin && y < ymax)
     {
         Int_t binx = hist->GetXaxis()->FindBin(x);
@@ -1052,13 +1058,13 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
     return sf;
 }
 
-Double_t HLTWeightCal(Double_t jets_HT, Double_t jets_6pt, Int_t bjets_num, TH2D *triggerHist1b, TH2D *triggerHist2b, TH2D *triggerHist3b, Bool_t isdata, UInt_t sys)
+Double_t HLTWeightCal(Double_t jets_HT, const Double_t jets_6pt, Int_t bjets_num, TH2D *triggerHist1b, TH2D *triggerHist2b, TH2D *triggerHist3b, Bool_t isdata, UInt_t sys)
 {
     Double_t weight = 1.;
     //deal with events with <6 jets
-    if(jets_6pt<0){
-        jets_6pt = 33.;
-    }
+    // if(jets_6pt<0){
+    //     jets_6pt = 33.;
+    // }
     if (!isdata)
     {
         if (bjets_num == 1)
