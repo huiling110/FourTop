@@ -110,7 +110,7 @@ def main():
    
     #dataMC
     # version = 'v0dataMC_noCorrection'
-    # version = 'v0dataMC_allCorrection'
+    version = 'v0dataMC_allCorrection'
     # version = 'v5dataMC_allCorrection_UsingFakeTau'
     # version = 'v4dataMC_allCorrection_1tau0lRegionUpdated'
     # version = 'v1dataMC_allCorrectionButHLT'
@@ -126,7 +126,8 @@ def main():
     #1tau1l
     channel = '1tau1l'
     # version = 'v0Basictraining1tau1l'
-    version = 'v0Basictraining1tau1l_bin3'
+    # version = 'v0Basictraining1tau1l_bin3'
+    # version = 'v0Basictraining1tau1l_bin3CR'
     # version = 'v0BasicSystematic'
     # version = 'v1JERUp_rerun'
     # version = 'v1JESDown_rerun'
@@ -196,8 +197,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
