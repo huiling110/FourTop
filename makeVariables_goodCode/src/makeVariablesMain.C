@@ -57,8 +57,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if (baselineSel)
         {
             // if (!(jetVarMaker.getHT() > 550. && jetVarMaker.getJet_6pt() > 40. && jetVarMaker.getJet_num() >=6 && bjetM_num >= 1))
-            if (!(jetVarMaker.getHT() > 450. && jetVarMaker.getJet_num() >=5 && bjetM_num >= 2 && jetVarMaker.getJet_6pt()>34.)) //!1tau1l and 1tau0l baseline selection
-            // if (!(jetVarMaker.getHT() > 450. && jetVarMaker.getJet_num() >=5 && bjetM_num >= 2 && jetVarMaker.getJet_6pt()>32.)) //!1tau1l and 1tau0l baseline selection
+            if (!(jetVarMaker.getHT() > 450. && jetVarMaker.getJet_num() >=5 && bjetM_num >= 2 )) //!1tau1l and 1tau0l baseline selection
             // if (!(jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=4 && bjetM_num >= 2)) //!1tau2l basleline selection
             // if (!(jetVarMaker.getHT() > 550 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 )) //!!!for btag-efficiency measurement
             {
@@ -67,7 +66,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         }
         if(tau1e1Sel){
             // if(!(jetVarMaker.getJet_num()>=7 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){
-            if(!(jetVarMaker.getJet_num()>= 6 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
+            if(!(jetVarMaker.getJet_num()>= 6 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1&& jetVarMaker.getJet_6pt()>34. )){//!1tau1l SR
             // if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauFVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0  && jetVarMaker.getJet_6pt()>32.)){ //!1tau0lSR, can not add tauF cut, for fake tau estimation later
             // if(!(jetVarMaker.getJet_num()>= 4 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==2 )){ //!1tau2lSR
                 continue;
