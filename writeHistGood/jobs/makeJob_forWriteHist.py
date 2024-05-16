@@ -70,6 +70,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTriSF_v75OverlapRemovalFTau/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -107,13 +108,13 @@ def main():
     
     #HLT 
     # version = 'v0HLT'
-    version = 'v1HLT_6thjetPt34'
+    # version = 'v1HLT_6thjetPt34'
+    version = 'v2HLT_6thjetPt34BinK'
    
     #dataMC
     # version = 'v0dataMC_noCorrection'
     # version = 'v0dataMC_allCorrection'
     # version = 'v5dataMC_allCorrection_UsingFakeTau'
-    # version = 'v4dataMC_allCorrection_1tau0lRegionUpdated'
     # version = 'v1dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_basicWeight'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32'

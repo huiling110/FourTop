@@ -109,8 +109,12 @@ void WH_HLTeff::Init()
     // Double_t xbins[] = {400, 500, 700, 1200,  2500}; // HT
     // Double_t ybins[] = {32, 36., 40, 45., 50.,  150};                                   // 6th jet pt
     // Double_t xbins[] = {450, 500, 700, 1200,  2500}; // HT
-    Double_t ybins[] = {34, 36., 38, 40, 45., 50.,  150};                                   // 6th jet pt
+    // Double_t ybins[] = {34, 36., 38, 40, 45., 50.,  150};                                   // 6th jet pt
+    // Double_t xbins[] = {450, 500, 600, 700, 1200,  2500}; // BinH
     Double_t xbins[] = {450, 500, 700, 1200,  2500}; // HT
+    // Double_t ybins[] = {34, 36., 38, 40, 45., 50., 60, 80,  200}; //BinI                                
+    // Double_t ybins[] = {34,  38, 40, 45., 50., 60, 80,  200}; //BinJ                                
+    Double_t ybins[] = {34,  38, 40, 45., 50., 60,  200}; //BinK                                
 
     b1HT6pt_de = new TH2D(m_processName + "_baseline1Muon1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b1HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);

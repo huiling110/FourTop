@@ -45,7 +45,8 @@ namespace MV
         // {"2018", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineBtagUpdated_V75NoHLTNoTauBjet2Jet6/mc/variableHists_v0HLT/results/baseline1Muon1b_triggerSF_v0.root"},
         // {"2018", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v0HLT/results/baseline1Muon1b_triggerSF_v0.root"},
         // {"2018", " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v0HLT/results/baseline1Muon1b_triggerSF_v0.root"},
-        {"2018", " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v1HLT_6thjetPt34/results/baseline1Muon1b_triggerSF_v0.root"},
+        // {"2018", " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v1HLT_6thjetPt34/results/baseline1Muon1b_triggerSF_v0.root"},
+        {"2018", " /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v2HLT_6thjetPt34BinK/results/baseline1Muon1b_triggerSF_v0.root"},
     };
 
     inline const std::map<TString, std::array<TString, 3>> json_map = {
