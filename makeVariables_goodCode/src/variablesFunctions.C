@@ -1067,7 +1067,8 @@ Double_t HLTWeightCal(Double_t jets_HT, const Double_t jets_6pt, Int_t bjets_num
     // }
     if (!isdata)
     {
-        if (bjets_num == 1)
+        // if (bjets_num == 1)
+        if (bjets_num > 3)
         {
             weight = get2DSF(jets_HT, jets_6pt, triggerHist1b, sys);
         }
@@ -1075,7 +1076,8 @@ Double_t HLTWeightCal(Double_t jets_HT, const Double_t jets_6pt, Int_t bjets_num
         {
             weight = get2DSF(jets_HT, jets_6pt, triggerHist2b, sys);
         }
-        else if (bjets_num > 2 and bjets_num < 8)
+        // else if (bjets_num > 2 and bjets_num < 8)
+        else if (bjets_num ==3)
         {
             weight = get2DSF(jets_HT, jets_6pt, triggerHist3b, sys);
         }

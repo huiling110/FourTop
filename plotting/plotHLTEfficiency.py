@@ -36,7 +36,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v0HLT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v0HLT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v1HLT_6thjetPt34/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v2HLT_6thjetPt34BinO/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v3HLT_4bRegionBinZ/'
    
     
     isRun3 = uf.isRun3(inputDir)
@@ -59,8 +59,9 @@ def main():
 def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
     variableList = ['jetsHTAnd6pt']
     # regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b', 'baseline1b', 'baselineAndHLT1b', 'baseline2b', 'baselineAndHLT2b', 'baseline3b', 'baselineAndHLT3b' ]
-    # regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
-    regionList = [ 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
+    # regionList = ['baseline1Muon1b', 'baseline1MuonAndHLT1b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]#!1b=4b
+    regionList = ['baseline1Muon4b', 'baseline1MuonAndHLT4b', 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]#!1b=4b
+    # regionList = [ 'baseline1Muon2b', 'baseline1MuonAndHLT2b','baseline1Muon3b', 'baseline1MuonAndHLT3b' ]
     
     if not isRun3:
         sumProList = ['tt', 'singleMu']
@@ -73,12 +74,13 @@ def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
   
-    # bRegions = ['baseline1Muon1b', 'baseline1Muon2b', 'baseline1Muon3b']
-    bRegions = [ 'baseline1Muon2b', 'baseline1Muon3b']
+    bRegions = ['baseline1Muon4b', 'baseline1Muon2b', 'baseline1Muon3b']
+    # bRegions = [ 'baseline1Muon2b', 'baseline1Muon3b']
     regionTitleDic = {
-        # 'baseline1Muon1b': 'b jets number = 1',
+        'baseline1Muon4b': 'b jets number > 3',
         'baseline1Muon2b': 'b jets number = 2',
-        'baseline1Muon3b': '2 < b jets number < 8',
+        # 'baseline1Muon3b': '2 < b jets number < 8',
+        'baseline1Muon3b': 'b jets number = 3',
     }
     
     for ibR in bRegions:
