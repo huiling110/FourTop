@@ -64,16 +64,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
 
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
-        // Double_t basicWeight = e->EVENT_genWeight.v();
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
-        // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v()* e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v() ; 
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v();
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->PUweight_.v() * e->tauTT_IDSF_weight_new.v() * e->btagWPMedium_weight.v();
-        // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v();
-        // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() * e->btagWPMedium_weight.v() * e->HLT_weight.v();
-        // Double_t basicWeight = e->EVENT_genWeight.v() * e->eleMVAT_IDSF_weight.v(); //!!! run 3 
-        // std::cout << "HLT_weight=" << e->HLT_weight.v() << "\n";
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // std::cout << "basicWeight=" << basicWeight << "\n";
 
