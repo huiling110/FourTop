@@ -119,16 +119,17 @@ void WH_HLTeff::Init()
     // Double_t xbins[] = {450, 500, 550, 700, 1000,  2500}; //BinM
     Double_t ybins[] = {34,  38, 42 , 50., 60,  200}; //BinN                                
     Double_t xbins[] = {450, 490, 530, 700, 1000,  2500}; //BinN
+    // Double_t ybins[] = {34,  38, 42 , 48,  52, 60,  200}; //BinO                                
 
-    b1HT6pt_de = new TH2D(m_processName + "_baseline1Muon1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b1HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6pt_de = new TH2D(m_processName + "_baseline1Muon4b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT4b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b2HT6pt_de = new TH2D(m_processName + "_baseline1Muon2b" + "_jetsHTAnd6pt", "H(GeV)Tpt_{6th jet}t", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b2HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT2b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_de = new TH2D(m_processName + "_baseline1Muon3b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6pt_nu = new TH2D(m_processName + "_baseline1MuonAndHLT3b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     //noMuon
-    b1HT6ptNoMu_de = new TH2D(m_processName + "_baseline1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
-    b1HT6ptNoMu_nu = new TH2D(m_processName + "_baselineAndHLT1b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6ptNoMu_de = new TH2D(m_processName + "_baseline4b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
+    b1HT6ptNoMu_nu = new TH2D(m_processName + "_baselineAndHLT4b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b2HT6ptNoMu_de = new TH2D(m_processName + "_baseline2b" + "_jetsHTAnd6pt", "H(GeV)Tpt_{6th jet}t", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b2HT6ptNoMu_nu = new TH2D(m_processName + "_baselineAndHLT2b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
     b3HT6ptNoMu_de = new TH2D(m_processName + "_baseline3b" + "_jetsHTAnd6pt", "HT(GeV):p_{T}^{6th jet}", sizeof(xbins) / sizeof(Double_t) - 1, xbins, sizeof(ybins) / sizeof(Double_t) - 1, ybins);
@@ -157,9 +158,10 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         Bool_t is1muon = kTRUE;
         Bool_t ifHLT = HLTSel(e, m_era);//!!!
         Int_t bjetsNum = m_isRun3? e->bjetsPTM_num.v(): e->bjetsM_num.v();
-        const Bool_t is1b = (bjetsNum == 1);
+        const Bool_t is4b = (bjetsNum > 3); //!change to >=4b
         const Bool_t is2b = (bjetsNum == 2);
-        const Bool_t is3b = (bjetsNum > 2);
+        // const Bool_t is3b = (bjetsNum > 2);
+        const Bool_t is3b = (bjetsNum == 3);
 
         if (m_era.CompareTo("2016") == 0)
         {
@@ -209,10 +211,10 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, baseline , "baseline", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT, "baselineAndHLT", basicWeight, m_isData);
         //seperate by b-jets
-        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is1b, "baseline1Muon1b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is1b, "baseline1MuonAndHLT1b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && is1b , "baseline1b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is1b, "baselineAndHLT1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is4b, "baseline1Muon1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is4b, "baseline1MuonAndHLT1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is4b , "baseline1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is4b, "baselineAndHLT1b", basicWeight, m_isData);
         //2b
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is2b, "baseline1Muon2b", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is2b, "baseline1MuonAndHLT2b", basicWeight, m_isData);
@@ -228,7 +230,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         // if (baseline && is1muon)
         if (baseline)
         {
-            if (is1b)
+            if (is4b)
             {
                 WH::fillDeNu(ifHLT, b1HT6ptNoMu_de, b1HT6ptNoMu_nu, e->jets_HT.v(), e->jets_6pt.v(), basicWeight, m_isData);
                 if(is1muon){
