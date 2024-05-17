@@ -110,7 +110,8 @@ def main():
     # version = 'v1HLT_6thjetPt34'
     # version = 'v2HLT_6thjetPt34BinK'
     # version = 'v2HLT_6thjetPt34BinN'
-    version = 'v3HLT_4bRegionBinZ'
+    # version = 'v3HLT_4bRegionBinZ'
+    version = 'v4HLT_4bDifBinningDifB'
    
     #dataMC
     # version = 'v0dataMC_allCorrection'

@@ -52,12 +52,12 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v10addBjetPTT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v11overlapRemovalTausT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v13BetterHLTSel/mc/",
-    // TString inputDir = "tttt",
+    TString inputDir = "tttt",
     // TString inputDir = "TTTT",
     // TString inputDir = "TTto2L2Nu",
     // TString inputDir = "TTtoLNu2Q",
     // TString inputDir = "ttbar_0l",
-    TString inputDir = "ttbar_1l",
+    // TString inputDir = "ttbar_1l",
     // TString inputDir = "jetHT_2017f",
     // TString inputDir = "JetMET2022D",
     // TString inputDir = "ttbar_1l",
@@ -68,8 +68,8 @@ void run_objectSelection(
     // TString inputDir = "output",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
-    // Int_t numEntries = 1000)
-    Int_t numEntries = 10000)
+    Int_t numEntries = 1000)
+    // Int_t numEntries = 10000)
     // Int_t numEntries = 0)
 {
     TStopwatch t;
