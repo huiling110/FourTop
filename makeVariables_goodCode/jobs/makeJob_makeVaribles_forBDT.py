@@ -37,7 +37,7 @@ def main():
     # inVersion = 'v76For1tau2l'
     # outVersion = 'v0baselineHardro'
     # outVersion = 'v1baselineHardroNewTriSFBinN'
-    outVersion = 'v1baselineHardroNewTri4BBinX'
+    outVersion = 'v1baselineHardroNewTri4BBinA'
     # outVersion = 'v0baselineHT450Cut1tau1l'
     # outVersion = 'v2baselineHT450Cut1tau0l'
     # outVersion = 'v1cut1tau1lSR'

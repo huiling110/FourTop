@@ -161,14 +161,11 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout<<"\n";
 
     // trigger
-    TString trigger1b = MV::triggerSF_map.at(m_era);//!1b is actually 4b
-    triggerHist1b = TTTT::getHistogramFromFile<TH2D>(trigger1b, "singleMu_SF");
-    TString triggerSFName2b = trigger1b.ReplaceAll("4b_triggerSF", "2b_triggerSF");
-    triggerHist2b = TTTT::getHistogramFromFile<TH2D>(triggerSFName2b, "singleMu_SF");
-    TString triggerSFName3b = triggerSFName2b.ReplaceAll("2b_triggerSF", "3b_triggerSF");
-    triggerHist3b = TTTT::getHistogramFromFile<TH2D>(triggerSFName3b, "singleMu_SF");
-    std::cout << "getting 4b trigger SF file: " << trigger1b << "\n";
-
+    TString triggerSFdir = MV::triggerSF_map.at(m_era);
+    triggerHist1b = TTTT::getHistogramFromFile<TH2D>(triggerSFdir +"baseline1Muon4b_triggerSF_v0.root", "singleMu_SF");
+    triggerHist2b = TTTT::getHistogramFromFile<TH2D>(triggerSFdir +"baseline1Muon2b_triggerSF_v0.root", "singleMu_SF");
+    triggerHist3b = TTTT::getHistogramFromFile<TH2D>(triggerSFdir +"baseline1Muon3b_triggerSF_v0.root", "singleMu_SF");
+    std::cout<<"trigger SF: "<<triggerSFdir<<"\n\n";
 
     //get FR
     TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
