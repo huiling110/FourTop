@@ -50,10 +50,10 @@ def main():
     # plotEfficiencyHLT(inputDirDic, '', isRun3)
     # plotEfficiencyHLT(inputDirDic, '1b', isRun3)
     # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
-    # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
+    plotEfficiencyHLT(inputDirDic, '3b', isRun3)
     
     #plotSF
-    plotSF(inputDirDic, False, isRun3)
+    # plotSF(inputDirDic, False, isRun3)
     
     
    

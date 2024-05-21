@@ -59,7 +59,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             }
         }
 
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
         // Double_t basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
         Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
 
