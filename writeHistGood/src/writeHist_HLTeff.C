@@ -124,9 +124,11 @@ void WH_HLTeff::Init()
 
     //different binning for different b jet multiplicity
     Double_t xbins[] = {450, 490, 530, 700, 1000,  2500}; //2b
-    Double_t ybins[] = {34,  38, 42 , 50., 60,  200}; //2b                              
+    // Double_t ybins[] = {34,  38, 42 , 50., 60,  200}; //2b                              
+    Double_t ybins[] = {34,  38, 42, 46, 50,  60,  200}; //2b; BinX                              
     Double_t xbins3b[] = {450, 500, 550,  900,  2500}; //3b
-    Double_t ybins3b[] = {34,  39, 44, 60,  200}; //3b                              
+    // Double_t ybins3b[] = {34,  39, 44, 60,  200}; //3b                              
+    Double_t ybins3b[] = {34,  38, 42, 46, 50,  60,  200}; //3b; BinX                              
     Double_t xbins4b[] = {450, 500,  800,  2500}; //4b
     Double_t ybins4b[] = {34,  40, 48,  200}; //4b                         
 
