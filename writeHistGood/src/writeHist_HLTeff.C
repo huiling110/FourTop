@@ -59,8 +59,9 @@ void WH_HLTeff::Init()
     using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
     SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 40, 25, 625, regionsForVariables, &(e->jets_1pt));
     // SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 22, 25, 150, regionsForVariables, &(e->jets_6pt));
-    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 30, 25, 175, regionsForVariables, &(e->jets_6pt));
-    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 100, 400, 2800, regionsForVariables, &(e->jets_HT));
+    SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 150, 25, 175, regionsForVariables, &(e->jets_6pt));
+    // SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 100, 400, 2800, regionsForVariables, &(e->jets_HT));
+    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 240, 400, 2800, regionsForVariables, &(e->jets_HT));
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 8, 4.5, 12.5, regionsForVariables, &(e->jets_num));
     // if(!m_isRun3){
     //     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 7, 0.5, 7.5, regionsForVariables,  &(e->bjetsM_num));
@@ -223,7 +224,6 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         if (!m_isData)
         {
             if(!m_isRun3){
-                // basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->musTopMVAT_weight.v()) * (e->btagWPMedium_weight.v());
                 basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->btagWPMedium_weight.v()) * e->musTopMVAT_weight.v() * e->elesTopMVAT_weight.v();
             }else{
                 basicWeight = (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->btagWPMedium_weight.v());
