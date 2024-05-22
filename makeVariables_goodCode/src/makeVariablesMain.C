@@ -58,11 +58,17 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         {
             // if (!(jetVarMaker.getHT() > 550. && jetVarMaker.getJet_6pt() > 40. && jetVarMaker.getJet_num() >=6 && bjetM_num >= 1))
             // if (!(jetVarMaker.getHT() > 450. && jetVarMaker.getJet_num() >=6 && bjetM_num >= 2 )) //!1tau1l and 1tau0l baseline selection
-            if (!(jetVarMaker.getHT() > 450. && jetVarMaker.getJet_num() >=6 && bjetM_num >= 2 && jetVarMaker.getJet_6pt()>34.)) //!for HLT
+            // if (!(jetVarMaker.getHT() > 450. && jetVarMaker.getJet_num() >=6 && bjetM_num >= 2 && jetVarMaker.getJet_6pt()>34.)) //!for HLT
             // if (!(jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=4 && bjetM_num >= 2)) //!1tau2l basleline selection
             // if (!(jetVarMaker.getHT() > 550 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 )) //!!!for btag-efficiency measurement
+            if(!(jetVarMaker.getJet_num()>= 6 && bjetM_num>=2 && jetVarMaker.getJet_6pt()>38. && jetVarMaker.getHT()>480.))
             {
                 continue;
+            }
+            if(bjetM_num<4){//!
+                if(!(jetVarMaker.getHT()>500. && jetVarMaker.getJet_6pt()>40.)){
+                    continue;
+                }
             }
         }
         if(tau1e1Sel){

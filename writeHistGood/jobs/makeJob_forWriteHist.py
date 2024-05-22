@@ -109,7 +109,9 @@ def main():
     
     #HLT 
     # version = 'v0HLT_HT480Jet6pt37'
-    version = 'v0HLT_HT500Jet6pt38'
+    # version = 'v0HLT_HT500Jet6pt38'
+    # version = 'v1HLT_varyingCutOnBjet'
+    version = 'v1HLT_varyingCutOnBjetBinD'
     # version = 'v1HLT_6thjetPt34'
     # version = 'v4HLT_4bDifBinningDifB'
     # version = 'v4HLT_4bDifBinningDifBBinC'

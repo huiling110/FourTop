@@ -38,7 +38,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v1HLT_6thjetPt34/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v4HLT_4bDifBinningDifB/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v4HLT_4bDifBinningDifBBinC/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/mc/variableHists_v0HLT_HT480Jet6pt37/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/mc/variableHists_v0HLT_HT480Jet6pt37/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/mc/variableHists_v1HLT_varyingCutOnBjetBinD/'
    
     
     isRun3 = uf.isRun3(inputDir)
@@ -49,12 +50,12 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic, '', isRun3)
-    plotEfficiencyHLT(inputDirDic, '1b', isRun3)
-    plotEfficiencyHLT(inputDirDic, '2b', isRun3)
-    plotEfficiencyHLT(inputDirDic, '3b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '1b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
     
     #plotSF
-    # plotSF(inputDirDic, False, isRun3)
+    plotSF(inputDirDic, False, isRun3)
     
     
    
