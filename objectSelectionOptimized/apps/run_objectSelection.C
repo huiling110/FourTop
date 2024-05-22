@@ -53,10 +53,10 @@ void run_objectSelection(
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES);
 
-    // const Bool_t tauSel = kFALSE;
-    const Bool_t tauSel = kTRUE;
-    // const Bool_t HLTSel = kFALSE;
-    const Bool_t HLTSel = kTRUE;
+    const Bool_t tauSel = kFALSE; //for HLT
+    // const Bool_t tauSel = kTRUE;
+    const Bool_t HLTSel = kFALSE;
+    // const Bool_t HLTSel = kTRUE;
     os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
     // os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
 

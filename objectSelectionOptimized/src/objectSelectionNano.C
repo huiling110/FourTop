@@ -41,8 +41,8 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         // HLT selection and HLT branch filling
         Bool_t passHLT = HLTselection.Select(e,  ifHLT);
         Bool_t passLepTri = HLTselection.SelectLepTri(e);
-        // if(!(OS::ifEventPass(ifHLT, passHLT, m_cutflow, 2))){
-        if(!(OS::ifEventPass(ifHLT, passLepTri, m_cutflow, 2))){//!for 1tau2l
+        if(!(OS::ifEventPass(ifHLT, passHLT, m_cutflow, 2))){
+        // if(!(OS::ifEventPass(ifHLT, passLepTri, m_cutflow, 2))){//!for 1tau2l
             continue;
         }
 
@@ -105,17 +105,17 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         }
 
         // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
-        // if(!(OS::ifEventPass(preSelection, jetSel.getSize()>5, m_cutflow, 4))){////!testing, for HLT
-        if(!(OS::ifEventPass(preSelection, jetSel.getSize()>3, m_cutflow, 4))){//!for 1tau2l
+        if(!(OS::ifEventPass(preSelection, jetSel.getSize()>5, m_cutflow, 4))){// for HLT
+        // if(!(OS::ifEventPass(preSelection, jetSel.getSize()>3, m_cutflow, 4))){//!for 1tau2l
             continue;
         }
         // if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
         if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>1, m_cutflow, 5))){//!testing, for HLT
             continue;
         }//!No b-tag ,for b-tag efficiency measurement!
-        // if(!OS::ifEventPass(preSelection, jetSel.getHT()>400.&& jetSel.get6thPt()>30., m_cutflow, 6)){//!testin, for HLT to run faster later
+        if(!OS::ifEventPass(preSelection, jetSel.getHT()>450.&& jetSel.get6thPt()>35., m_cutflow, 6)){//!testin, for HLT to run faster later
         // if(!OS::ifEventPass(preSelection, jetSel.getHT()>400., m_cutflow, 6)){//!testin, for HLT to run faster later
-        if(!OS::ifEventPass(preSelection, jetSel.getHT()>200. && (eleTopMVATSel.getSize()+muTopMVATSel.getSize())==2, m_cutflow, 6)){//!1tau2l
+        // if(!OS::ifEventPass(preSelection, jetSel.getHT()>200. && (eleTopMVATSel.getSize()+muTopMVATSel.getSize())==2, m_cutflow, 6)){//!1tau2l
             continue;
         }
 

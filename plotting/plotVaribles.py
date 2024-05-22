@@ -82,7 +82,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTriSF_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTriSF_v75OverlapRemovalFTau/mc/variableHists_v1dataMC_allCorrectionButHLT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTriSFBinN_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTri4BBinA_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTri4BBinC_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTri4BBinC_v75OverlapRemovalFTau/mc/variableHists_v1dataMC_allCorrectionButHLT/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v1dataMC_pileupSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v2dataMC_pileupBtagSF/'
@@ -129,7 +130,8 @@ def main():
     # variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'tausTT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausF_1genFlavour', 'tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_1eta', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge']
     
     # variabless = ['jets_HT', 'jets_MHT', 'jets_invariantMass', 'jets_transMass', 'jets_average_deltaR', 'jets_minDeltaR', 'jets_centrality', 'jets_bScore', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'jets_HTDivideMET', 'jets_']
-    regionList = ['1tau1lCR1', '1tau1lCR2']
+    regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lCR3']
+    # regionList = ['1tau1lCR3']
     # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
     # regionList = ['1tau1lSR']
     # regionList = ['1tau1lSRTest']
