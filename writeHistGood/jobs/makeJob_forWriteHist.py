@@ -119,9 +119,10 @@ def main():
    
     #dataMC
     # version = 'v0dataMC_allCorrection'
+    # version = 'v2dataMC_allCorrectionMoreVar'
     # version = 'v0dataMC_allCorrectionBinD'
     # version = 'v5dataMC_allCorrection_UsingFakeTau'
-    version = 'v1dataMC_allCorrectionButHLT'
+    # version = 'v1dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_basicWeight'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32TauM'
@@ -133,15 +134,10 @@ def main():
         
     #1tau1l
     channel = '1tau1l'
-    # version = 'v0Basictraining1tau1l'
+    version = 'v0Basictraining1tau1l'
     # version = 'v0Basictraining1tau1l_bin3'
     # version = 'v0Basictraining1tau1l_bin3CR'
     # version = 'v0BasicSystematic'
-    # version = 'v1JERUp_rerun'
-    # version = 'v1JESDown_rerun'
-    # version = 'v1JESUp_rerun'
-    # version = 'v2traingWithBtag'
-    # version = 'v3withBjetT'
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
     # version = 'v1traingWithBtagWP' e
     # version = 'v4forBtagWPShape_WP'#for btagWP or shape
@@ -205,8 +201,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

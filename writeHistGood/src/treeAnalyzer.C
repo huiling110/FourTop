@@ -72,7 +72,6 @@ void treeAnalyzer::Init()
 
     // book MVA reader
     // TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
-    // TString variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv"; //! testing
     TString variableList; 
     TString weightfile;
     if(m_channel=="1tau1l"){
@@ -82,8 +81,6 @@ void treeAnalyzer::Init()
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.25, 0.4, sysRegions);//bin3
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.2, 0.4, sysRegions);//testing
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.4, 0.4, sysRegions);//testing
-
-        // CR1Sys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.25, 0.4, sysRegions);
 
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_noBtagShape.csv"; //! testing
         // TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");//
@@ -187,7 +184,6 @@ void treeAnalyzer::LoopTree()
         }
 
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
-        // std::cout << "bdtScore=" << bdtScore << "\n";
 
         Double_t basicWeight = 1.0;
         basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel));//!
