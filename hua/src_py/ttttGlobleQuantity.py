@@ -137,6 +137,10 @@ histoGramPerSample = {
     "fakeTau_tauT": "fakeTau",
     "fakeTau_tauFGen": "fakeTau",
     "fakeTau_tauTGen": "fakeTau",
+    
+    "VLL_EE_M600": "VLLm600",
+    "VLL_EN_M600": "VLLm600",
+    "VLL_NN_M600": "VLLm600",
 
     #data
     'jetHT_2016F': 'jetHT',
