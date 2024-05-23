@@ -37,7 +37,11 @@ public:
         if(m_isRun3){
             chain1->Add(inputDir + "tree*.root");
         }else{
-            chain1->Add(inputDir + "outTree*.root");
+            if(m_processName.Contains("VLL")){
+                chain1->Add(inputDir + "NanoAODv9*.root");
+            }else{
+                chain1->Add(inputDir + "outTree*.root");
+            }
         }
         std::cout << "all entries in chain: " << chain1->GetEntries() << "\n";
         std::cout << "all trees in chain: " << chain1->GetNtrees() << "\n";

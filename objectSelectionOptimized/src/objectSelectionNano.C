@@ -72,8 +72,6 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
 
         const std::vector<Double_t> tausFEtaVec = tauSelF.getEtaVec();
         const std::vector<Double_t> tausFPhiVec = tauSelF.getPhiVec();
-        // const std::vector<Double_t> tausFEtaVec = tauSelTT.getEtaVec();//!!!testing to overlap removal with tight taus
-        // const std::vector<Double_t> tausFPhiVec = tauSelTT.getPhiVec();
         m_tausTotal += tauSel.getSize();
         m_tausFTotal += tauSelF.getSize();
         m_tausLTotal += tauSelL.getSize();
