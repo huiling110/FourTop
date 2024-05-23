@@ -31,6 +31,7 @@ public:
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
         std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "  m_isRun3=" << m_isRun3 << "\n";
+        std::cout << "m_processName=" << m_processName << "\n";
 
         std::cout<<"inputDir="<<inputDir<<"\n";
         TChain *chain1 = new TChain("tree");

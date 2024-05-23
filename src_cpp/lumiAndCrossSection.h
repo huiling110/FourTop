@@ -186,6 +186,9 @@ inline const std::map<TString, double> genSumDic = {
         {"ttbar_1l", 143354000000.0},
         {"WJetsToLNu_HT-800To1200", 7306190.0},
         {"ttZ", 32793800.0},
+        {"VLL_EE_M600", 10000},//! to be updated
+        {"VLL_EN_M600", 10000},//! to be updated
+        {"VLL_NN_M600", 10000},//! to be updated
     };
 
 

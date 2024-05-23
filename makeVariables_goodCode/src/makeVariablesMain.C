@@ -109,7 +109,11 @@ void MakeVariablesMain::Terminate()
         TChain chain2("Runs");
         if (!m_isRun3)
         {
-            chain2.Add(m_inputDir + "outTree*.root");
+            if(m_processName.Contains("VLL")){
+                chain2.Add(m_inputDir + "NanoAODv9*.root");
+            }else{
+                chain2.Add(m_inputDir + "outTree*.root");
+            }
         }
         else
         {
