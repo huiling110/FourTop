@@ -71,7 +71,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTriSFBinN_v75OverlapRemovalFTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroNewTri4BBinC_v75OverlapRemovalFTau/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/' #!HLT
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/' #!HLT
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -111,15 +112,16 @@ def main():
     # version = 'v0HLT_HT480Jet6pt37'
     # version = 'v0HLT_HT500Jet6pt38'
     # version = 'v1HLT_varyingCutOnBjet'
-    version = 'v1HLT_varyingCutOnBjetBinD'
+    # version = 'v1HLT_varyingCutOnBjetBinD'
     # version = 'v1HLT_6thjetPt34'
     # version = 'v4HLT_4bDifBinningDifB'
     # version = 'v4HLT_4bDifBinningDifBBinC'
    
     #dataMC
     # version = 'v0dataMC_allCorrection'
+    # version = 'v0dataMC_allCorrectionBinD'
     # version = 'v5dataMC_allCorrection_UsingFakeTau'
-    # version = 'v1dataMC_allCorrectionButHLT'
+    version = 'v1dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_basicWeight'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32TauM'

@@ -59,15 +59,14 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             }
         }
 
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0);//!for 1tau1l; btag WP correction
         // Double_t basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
         Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
 
-        Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
+        // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // std::cout << "basicWeight=" << basicWeight << "\n";
-
 
         Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum &&(e->bjetsPTM_num.v()>=2), "baseline", basicWeight, m_isData);
@@ -80,7 +79,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
 
-
             //testing of 1tau0l SR definition
             Bool_t is1tau0lSRTest = SR1tau1lSel(e, 3, m_isRun3, isFakeTau);
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau0lSRTest", basicWeight, m_isData);
@@ -88,9 +86,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             Bool_t is1tau2lSRTest = SR1tau1lSel(e, 2, m_isRun3, isFakeTau);
             WH::histRegionVectFill(histsForRegion_vec, is1tau2lSRTest, "1tau2lSRTest", eventWeight_1tau2l, m_isData);
         }
-            Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3, isFakeTau);
-            // WH::histRegionVectFill(histsForRegion_vec, is1tau1lSRL, "1tau1lSRTest", basicWeight, m_isData);
-            WH::histRegionVectFill(histsForRegion_vec, is1tau1lSRL, "1tau1lCR3", basicWeight, m_isData);
+        Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3, isFakeTau);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau1lSRL, "1tau1lCR3", basicWeight, m_isData);
 
         // 1tau0l CR
         Bool_t is1tau0lMR = SR1tau1lSel(e, 7, m_isRun3, isFakeTau);

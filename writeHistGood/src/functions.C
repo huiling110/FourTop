@@ -43,14 +43,15 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d jets_sphericity_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_sphericity", "sphericity", m_processName, 10, 0, 1, regionsForVariables, &(e->jets_sphericity));
     SP_d jets_aplanarity_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_aplanarity", "aplanarity", m_processName, 10, 0, 0.5, regionsForVariables, &(e->jets_aplanarity));
     SP_d jets_tausT_invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_tausT_invariantMass", "m^{#tau and jet}", m_processName, 10, 0, 1000, regionsForVariables, &(e->jets_tausT_invariantMass));
+    SP_d jets_centrality_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_centrality", "centrality", m_processName, 10, 0, 1.3, regionsForVariables, &(e->jets_centrality));
 
     SP_d jets_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1pt", "p_{T}^{1st jet}(GeV)", m_processName, 40, 25, 700, regionsForVariables, &(e->jets_1pt));
     SP_d jets_6pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6pt", "p_{T}^{6th jet}(GeV)", m_processName, 20, 25, 175, regionsForVariables, &(e->jets_6pt));
     SP_d jets_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2pt", "p_{T}^{2nd jet}(GeV)", m_processName, 40, 25, 600, regionsForVariables, &(e->jets_2pt));
-    SP_d jets_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3pt", "p_{T}^{3th jet}(GeV)", m_processName, 40, 25, 140, regionsForVariables, &(e->jets_3pt));
-    SP_d jets_4pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4pt", "p_{T}^{4th jet}(GeV)", m_processName, 40, 25, 300, regionsForVariables, &(e->jets_4pt));
-    SP_d jets_5pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5pt", "p_{T}^{5th jet}(GeV)", m_processName, 40, 25, 160, regionsForVariables, &(e->jets_5pt));
-    SP_d jets_7pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_7pt", "p_{T}^{7th jet}(GeV)", m_processName, 40, 25, 145, regionsForVariables, &(e->jets_7pt));
+    SP_d jets_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_3pt", "p_{T}^{3th jet}(GeV)", m_processName, 40, 10, 140, regionsForVariables, &(e->jets_3pt));
+    SP_d jets_4pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4pt", "p_{T}^{4th jet}(GeV)", m_processName, 40, 10, 300, regionsForVariables, &(e->jets_4pt));
+    SP_d jets_5pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5pt", "p_{T}^{5th jet}(GeV)", m_processName, 40, 10, 160, regionsForVariables, &(e->jets_5pt));
+    SP_d jets_7pt_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_7pt", "p_{T}^{7th jet}(GeV)", m_processName, 40, 10, 145, regionsForVariables, &(e->jets_7pt));
 
     SP_d jets_1btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_1btag", "btag^{1st jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_1btag));
     SP_d jets_2btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_2btag", "btag^{2nd jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_2btag));
@@ -58,7 +59,6 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d jets_4btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_4btag", "btag^{4th jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_4btag));
     SP_d jets_5btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_5btag", "btag^{5th jet}",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_5btag));
     SP_d jets_6btag_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_6btag", "6th jet btag",m_processName, 40, 0, 1, regionsForVariables, &(e->jets_6btag));
-
     SP_d MET_pt_class = std::make_shared<histsForRegionsMap<Double_t>>("MET_pt", "MET", m_processName, 10, 0, 500, regionsForVariables, &(e->MET_pt));
 
     SP_d bjetsM_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_HT", "HT^{b jets}", m_processName, 10, 25, 700, regionsForVariables, &(e->bjetsM_HT));
@@ -71,8 +71,10 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d bjetsM_2MET_stransMass_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_2MET_stransMass", "m_{T2}^{MET and 2 b jets}", m_processName, 10, 0, 1000, regionsForVariables, &(e->bjetsM_2MET_stransMass));
     SP_d bjetsM_leptons_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_lepptons_minDeltaR", "min(#Delta R_{b jets and lep})", m_processName, 10, 0, 5, regionsForVariables, &(e->bjetsM_leptons_minDeltaR));
     SP_d bjetsM_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_1pt", "p_{T}^{1st bjet}", m_processName, 10, 25, 600, regionsForVariables, &(e->bjetsM_1pt));
-    SP_d bjetsM_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_2pt", "p_{T}^{2nd bjet}", m_processName, 10, 25, 500, regionsForVariables, &(e->bjetsM_2pt));//!!need to create in MV 
+    SP_d bjetsM_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_2pt", "p_{T}^{2nd bjet}", m_processName, 10, 25, 500, regionsForVariables, &(e->bjetsM_2pt)); 
+    SP_d bjetsM_3pt_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_2pt", "p_{T}^{2nd bjet}", m_processName, 10, 25, 500, regionsForVariables, &(e->bjetsM_3pt)); 
     SP_d bjetsM_tausF_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_tausF_minDeltaR", "min(#Delta R_{b jets and F#tau})", m_processName, 10, 0, 5, regionsForVariables, &(e->bjetsM_tausF_minDeltaR));
+    SP_d bjetsM_tausT_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsM_tausT_minDeltaR", "min(#Delta R_{b jets and T#tau})", m_processName, 10, 0, 5, regionsForVariables, &(e->bjetsM_tausT_minDeltaR));
 
     SP_d bjetsT_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_HT", "HT^{b jets}", m_processName, 10, 25, 700, regionsForVariables, &(e->bjetsT_HT));
     SP_d bjetsT_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("bjetsT_MHT", "MHT^{b jets}", m_processName, 10, 25, 700, regionsForVariables, &(e->bjetsT_HT));
@@ -157,6 +159,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(jets_sphericity_class);
     histsForRegion_vec.push_back(jets_aplanarity_class);
     histsForRegion_vec.push_back(jets_tausT_invariantMass_class);
+    histsForRegion_vec.push_back(jets_centrality_class);
 
 
     histsForRegion_vec.push_back(jets_1btag_class);
@@ -173,12 +176,15 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(bjetsM_invariantMass_class);
     histsForRegion_vec.push_back(bjetsM_1pt_class);
     histsForRegion_vec.push_back(bjetsM_2pt_class);
+    histsForRegion_vec.push_back(bjetsM_3pt_class);
     histsForRegion_vec.push_back(bjetsM_minDeltaR_class);
     histsForRegion_vec.push_back(bjetsM_transMass_class);
     histsForRegion_vec.push_back(bjetsM_2leptons2_stransMass_class);
     histsForRegion_vec.push_back(bjetsM_2tau1lep1_stransMass_class);
     histsForRegion_vec.push_back(bjetsM_2MET_stransMass_class);
     histsForRegion_vec.push_back(bjetsM_leptons_minDeltaR_class);
+    histsForRegion_vec.push_back(bjetsM_tausF_minDeltaR_class);
+    histsForRegion_vec.push_back(bjetsM_tausT_minDeltaR_class);
  
     histsForRegion_vec.push_back(bjetsT_HT_class);
     histsForRegion_vec.push_back(bjetsT_MHT_class);
