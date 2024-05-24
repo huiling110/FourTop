@@ -64,9 +64,12 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     { "VLL_EE_M550" , 0.004918},
     { "VLL_EN_M550" , 0.01745},
     { "VLL_NN_M550" , 0.004728},
-    { "VLL_EE_M600" , 0.004918},
-    { "VLL_EN_M600" , 0.01745},
-    { "VLL_NN_M600" , 0.004728},
+    // { "VLL_EE_M600" , 0.004918},
+    { "VLL_EE_M600" , 0.002079},//!
+    // { "VLL_EN_M600" , 0.01745},
+    { "VLL_EN_M600" , 0.003743*1.98},//!1.98 for EN production
+    // { "VLL_NN_M600" , 0.004728},
+    { "VLL_NN_M600" , 0.0004964*3.96},//! 3.96 for NN production
     { "VLL_EE_M650" , 0.004918},
     { "VLL_EN_M650" , 0.01745},
     { "VLL_NN_M650" , 0.004728},
@@ -186,9 +189,9 @@ inline const std::map<TString, double> genSumDic = {
         {"ttbar_1l", 143354000000.0},
         {"WJetsToLNu_HT-800To1200", 7306190.0},
         {"ttZ", 32793800.0},
-        {"VLL_EE_M600", 10000},//! to be updated
-        {"VLL_EN_M600", 10000},//! to be updated
-        {"VLL_NN_M600", 10000},//! to be updated
+        {"VLL_EE_M600", 201.1},//! to be updated
+        {"VLL_EN_M600", 364.92},//! to be updated
+        {"VLL_NN_M600", 47.6476},//! to be updated
     };
 
 
