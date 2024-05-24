@@ -106,7 +106,7 @@ int tmvaBDT_training(
 {
     std::cout<<"event weight="<<g_weight<<"\n";
     std::cout << "inputDir=" << inputDir << "\n";
-    std::cout<<"channel="<<channel<<"\n\n";
+    std::cout<<"channel="<<channel<<" ifVLL="<<ifVLL<<"\n\n";
 
     TObjArray *tokens = variableListCsv.Tokenize("/");
     TString csvListName = ((TObjString *)tokens->Last())->GetString();
@@ -143,6 +143,7 @@ int tmvaBDT_training(
 
     // add signal and bg trees
     Long64_t allBg = 2000;
+    Long64_t allSignal = 2000;
     std::vector<Process> processVec;
     getProcessesVec(inputDir, processVec, channel, ifVLL);
     for (UInt_t i=0;i<processVec.size(); i++){
@@ -174,18 +175,14 @@ int tmvaBDT_training(
             std::cout << "signal tree: " << processVec.at(i).getName() << "\n";
             std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddSignalTree(processVec.at(i).getTree()); //!use global_weight
+            if(!isTest){
+                allSignal = allSignal + processVec.at(i).getTree()->GetEntries();
+            }
         }
     }
     std::cout << "signal and bg tree added \n";
     dataloader->SetSignalWeightExpression(g_weight);
     dataloader->SetBackgroundWeightExpression(g_weight);
-
-
-    //training setup
-    Long64_t allSignal = 2000;
-    if(!isTest){
-        allSignal= processVec.at(0).getTree()->GetEntries();
-    }
     std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";
 
 

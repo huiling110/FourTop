@@ -119,7 +119,7 @@ def main():
     # version = 'v4HLT_4bDifBinningDifBBinC'
    
     #dataMC
-    version = 'v0dataMC_allCorrection'
+    # version = 'v0dataMC_allCorrection'
     # version = 'v2dataMC_allCorrectionMoreVar'
     # version = 'v0dataMC_allCorrectionBinD'
     # version = 'v5dataMC_allCorrection_UsingFakeTau'
@@ -136,6 +136,7 @@ def main():
     #1tau1l
     channel = '1tau1l'
     # version = 'v0Basictraining1tau1l'
+    version = 'v0Basictraining1tau1l_VLL'
     # version = 'v0Basictraining1tau1l_bin3'
     # version = 'v0Basictraining1tau1l_bin3CR'
     # version = 'v0BasicSystematic'
@@ -202,8 +203,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

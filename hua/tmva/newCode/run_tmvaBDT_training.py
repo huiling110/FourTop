@@ -40,19 +40,21 @@ def main():
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_tauTT.csv'
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_noBtagShape.csv'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5cut1tau1lSR_v75OverlapRemovalFTau/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3cut1tau1lSR6thJetpt34_v75OverlapRemovalFTau/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3cut1tau1lSR6thJetpt34_v75OverlapRemovalFTau/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLSample/mc/'
     varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l.csv'
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_btag.csv'
     g_weight = 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight'
     channel = '1tau1l'
+    ifVLL = 1
     
     #1tau2l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/'
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv'
     # g_weight = 'global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight'
-    # outVersion = 'v0'
+    outVersion = 'v0allVar'
     # outVersion = 'v1withBtag'
-    outVersion = 'v3TrainingB'
+    # outVersion = 'v3TrainingB'
     
     
     outDir = inputDir + 'BDTTrain/' 
@@ -60,7 +62,7 @@ def main():
     outDir = outDir + outVersion + '/'
     uf.checkMakeDir(outDir)
     
-    command = './my_program {} {} 0 {} {} {}'.format(inputDir, outDir, varList, g_weight, channel) 
+    command = './my_program {} {} 0 {} {} {} {}'.format(inputDir, outDir, varList, g_weight, channel, ifVLL) 
     logFile = outDir + 'training.log'
     print(command)
     try:
