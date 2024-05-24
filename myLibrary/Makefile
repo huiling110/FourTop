@@ -1,5 +1,3 @@
-
-
 CC := g++
 
 # Compiler flags
@@ -14,7 +12,8 @@ LIBS = $(ROOTLIBS)
 SOURCES := commenFunction.C
 
 # Object files
-OBJECTS := $(SOURCES:.cpp=.o)
+# OBJECTS := $(SOURCES:.cpp=.o)
+OBJECTS := $(SOURCES:.C=.o)
 
 # Output library name
 LIBRARY := libcommenFunction.so

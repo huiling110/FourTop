@@ -20,10 +20,14 @@
 #include "processClass.h"
 #include "../../../myLibrary/commenFunction.h"
 
-void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const TString channel = "1tau2l")
+void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const TString channel = "1tau2l", const Bool_t ifVLL=kFALSE)
 {
+    // TString signal = ifVLL ? "VLLm600" : "tttt";
     std::vector<TString> allProcesses = {
-    "tttt", 
+        "tttt",
+        "VLL_EE_M600",
+        "VLL_EN_M600",
+        "VLL_NN_M600",
     "ttbar_0l",
     "ttbar_2l",
     "ttbar_1l",
@@ -48,7 +52,6 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
     "fakeTau_tauT",
     "fakeTau_tauFGen",
     "fakeTau_tauTGen",
-
 
     };
 
@@ -95,15 +98,14 @@ int tmvaBDT_training(
     // const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
     const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight ",
     // const TString channel = "1tau2l"
-    const TString channel = "1tau1l"
+    const TString channel = "1tau1l",
+    const Bool_t ifVLL=kTRUE
     ) //for btag WP
     // const TString g_weight = "event_allWeight_1tau0l") 
 {
-
-
     std::cout<<"event weight="<<g_weight<<"\n";
     std::cout << "inputDir=" << inputDir << "\n";
-
+    std::cout<<"channel="<<channel<<"\n\n";
 
     TObjArray *tokens = variableListCsv.Tokenize("/");
     TString csvListName = ((TObjString *)tokens->Last())->GetString();
@@ -141,19 +143,36 @@ int tmvaBDT_training(
     // add signal and bg trees
     Long64_t allBg = 2000;
     std::vector<Process> processVec;
-    getProcessesVec(inputDir, processVec, channel);
+    getProcessesVec(inputDir, processVec, channel, ifVLL);
     for (UInt_t i=0;i<processVec.size(); i++){
         if(processVec.at(i).getTree()->GetEntries()<=0) continue;
-        if(i==0){
-            std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
-            dataloader->AddSignalTree(processVec.at(i).getTree()); //!use global_weight
-        }
-        else{
-            std::cout << "add bg tree: " << processVec.at(i).getName() << "\n";
+        // if(i==0){
+        //     std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
+        //     dataloader->AddSignalTree(processVec.at(i).getTree()); //!use global_weight
+        // }
+        // else{
+        //     std::cout << "add bg tree: " << processVec.at(i).getName() << "\n";
+        //     dataloader->AddBackgroundTree(processVec.at(i).getTree());
+        //     if(!isTest){
+        //         allBg = allBg + processVec.at(i).getTree()->GetEntries();
+        //     }
+        // }
+        if(processVec.at(i).isbg()){
+            std::cout << "bg tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddBackgroundTree(processVec.at(i).getTree());
             if(!isTest){
                 allBg = allBg + processVec.at(i).getTree()->GetEntries();
             }
+        }
+        else{
+            if(ifVLL){
+                if(processVec.at(i).getName().Contains("tttt")) continue;
+            }else{
+                if(processVec.at(i).getName().Contains("VLL")) continue;
+            }
+            std::cout << "signal tree: " << processVec.at(i).getName() << "\n";
+            std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
+            dataloader->AddSignalTree(processVec.at(i).getTree()); //!use global_weight
         }
     }
     std::cout << "signal and bg tree added \n";

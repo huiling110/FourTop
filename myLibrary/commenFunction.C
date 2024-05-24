@@ -104,6 +104,14 @@ namespace TTTT
         return era;
     }
 
+   Bool_t isBG(TString processName){
+       Bool_t isbg = kTRUE;
+       if(processName.Contains("tttt") || processName.Contains("VLL")){
+              isbg = kFALSE;
+       }
+       return isbg;
+   } 
+
     Bool_t isRun3(TString era)
     {
         Bool_t isRun3 = kFALSE;
