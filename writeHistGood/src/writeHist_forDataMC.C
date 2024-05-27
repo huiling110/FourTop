@@ -43,7 +43,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        // const Bool_t ifBaseline = baselineSelection(e, m_isRun3);
         const Bool_t ifBaseline = baselineSelection(e, m_isRun3, kFALSE); //!for 1tau1l and 1tau0l
         if (!ifBaseline)
         {
@@ -59,10 +58,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             }
         }
 
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0);//!for 1tau1l; btag WP correction
-        // Double_t basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
+        Double_t basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
         Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
-        Double_t eventWeight_1tau0l = baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0, btag shape correction
+        // Double_t eventWeight_1tau0l = baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0, btag shape correction
+        Double_t eventWeight_1tau0l = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
 
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight

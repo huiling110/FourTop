@@ -18,9 +18,6 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4baselineBtagRUpdated_v57ovelapWithTausF/mc/variableHists_v0BDT_SR30Bins/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6baseline_v56NoHLTButPre/mc/variableHists_v0BDT_SR30Bins/'
     
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v0Testing/mc/variableHists_v0allRegions/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v0allRegions/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022/v0NewMV_v1newCrab/mc/variableHists_v1dataMC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewMV_v59newOScode/mc/variableHists_v1dataMC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5newBtagEff_v60fixeJetBtagBug/mc/variableHists_v5OldBtagR/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v6updatedBtagR_v60fixeJetBtagBug/mc/variableHists_v7newBtagRApp/'
@@ -90,6 +87,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_newBaselineBtagShape1tau0l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_newBaselineBtagShape1tau0lFaketau/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v3dataMC_pileupBtagHLTSFNewTTBR/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baselineBtagWeightFix_v3HLTPre/mc/variableHists_v0dataMC_noCorrectionNewTTBR/'
@@ -126,41 +125,38 @@ def main():
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num',  'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausT_1genFlavour', 'tausTT_1genFlavour', 'tausTTT_1genFlavour']#1tau0l region 
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num', 'bjetsPTM_num', 'bjetsPTT_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausM_num', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge', 'tausT_1lepton1_charge', 'tausM_1lepton1_charge', 'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour']
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num', 'bjetsPTM_num', 'bjetsPTT_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausM_num',  'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausT_leptons_charge']#1tau2l
-    # variables = ['jets_6pt', 'jets_num', 'bjetsM_num', 'jets_HT']
     # variables = [ 'jets_HT', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', "jets_7pt", 'jets_num',  "jets_bScore", "jets_rationHT_4toRest", "jets_transMass", "jets_average_deltaR", 'jets_1btag', 'jets_2btag', 'jets_3btag', 'jets_4btag', 'jets_5btag', 'jets_6btag', 'PV_npvsGood']
     # variables = [ 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'bjetsPTM_num', 'bjetsPTT_num'] #for 1tau1l BDT input
     # variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'tausTT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausF_1genFlavour', 'tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_1eta', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge']
     
-    # variabless = ['jets_HT', 'jets_MHT', 'jets_invariantMass', 'jets_transMass', 'jets_average_deltaR', 'jets_minDeltaR', 'jets_centrality', 'jets_bScore', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'jets_HTDivideMET', 'jets_']
     # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
     # regionList = ['1tau1lSR']
     # regionList = ['1tau0lSRTest']
     # regionList = ['1tau2lSR']
     # variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
-    # plotName = 'dataVsMC_v2'
+    plotName = 'dataVsMC_v2'
     # ifFTau = False
     # ifVLL = True
     ifVLL = False
+    is1tau0l = True
   
     #1tau0l
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_3bins/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_3bins/'
     # variables = ['tausT_1pt']
     # variables = ['jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT', 'jets_bScore', 'jets_4largestBscoreSum']
-    # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num']
+    variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num']#!fake rate validation
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRNotGen']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted'] # new MR
     # regionList = ['1tau0lCRb', '1tau0lCRbGen', '1tau0lCRbLTauNotT_Weighted', '1tau0lCRbLTauNotTGen_Weighted'] # new CR
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted'] # new VR
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCR']
-    regionList = ['1tau0lSR']
-    variables = ['BDT']
-    # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
+    # regionList = ['1tau0lSR']
+    # variables = ['BDT']
+    regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
-    plotName = 'dataVsMC_fakeTauFromData'
 
     
     era = uf.getEraFromDir(inputDir)
@@ -169,11 +165,11 @@ def main():
     inputDirDic = uf.getInputDicNew( inputDir)
     uf.checkMakeDir( inputDirDic['mc']+'results/')
     
-    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL)
+    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL, is1tau0l)
 
     # plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau) # for using fakeTau 2 hists application 
    
-def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL=False):
+def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL=False, is1tau0l=False):
     sigPro = 'tttt' if not ifVLL else 'VLLm600'
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
     sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', sigPro] #1tau1l
@@ -181,6 +177,8 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     # sumProList = ['jetHT','qcd','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
     # sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
     # sumProList = ['jetHT','tt',  'qcd', 'tttt'] # run3 1tau1l for now 
+    if is1tau0l:
+        sumProList.append('qcd')
     if ifFakeTau:
         sumProList = ['jetHT', 'fakeTau', 'tt', 'ttX', 'singleTop', 'WJets', 'tttt']
         plotName = plotName + 'fakeTau'
@@ -190,11 +188,11 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     uf.checkMakeDir( plotDir)
     for variable in variables:
         for iRegion in regionList:       
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100 ) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100 ) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 50, False, False, False, ifVLL) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 1000 ) 
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True) 
+            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True, ifVLL) 
     
    

@@ -26,7 +26,7 @@ public:
     };
     histForRegionsBase(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions) : m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}, m_binNum{bin}, m_binMin{binMin}, m_binMax{binMax}
     {
-        std::cout << "Initializing histForRegionsBase constructor 1\n";
+        // std::cout << "Initializing histForRegionsBase constructor 1\n";
         for (UInt_t i = 0; i < regions.size(); i++)
         {
             TString iHistName = m_processName + "_" + regions[i] + "_" + m_variableName;
@@ -35,7 +35,7 @@ public:
             temp->Sumw2();
             m_histsVector[regions[i]] = temp;
         }
-        std::cout << "Done initializing histForRegionsBase constructor 1\n";
+        // std::cout << "Done initializing histForRegionsBase constructor 1\n";
     };
 
 
