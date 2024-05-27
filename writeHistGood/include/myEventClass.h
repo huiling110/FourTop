@@ -81,6 +81,10 @@ public:
         if(m_tree->GetListOfBranches()->FindObject("FR_weight_final")){
             m_tree->SetBranchStatus("FR_weight_final", 1);
             m_tree->SetBranchAddress("FR_weight_final", &FR_weight_final);
+            m_tree->SetBranchStatus("FR_weight_final_up", 1);
+            m_tree->SetBranchAddress("FR_weight_final_up", &FR_weight_final_up);
+            m_tree->SetBranchStatus("FR_weight_final_down", 1);
+            m_tree->SetBranchAddress("FR_weight_final_down", &FR_weight_final_down);
         }
 
 
