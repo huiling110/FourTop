@@ -7,7 +7,8 @@ import os
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/'
     
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
@@ -20,10 +21,10 @@ def main():
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
-    makeOtherMCGen(inputDirDic, era) #for eazier BDT training later
+    # makeOtherMCGen(inputDirDic, era) #for eazier BDT training later
     
      
 def makeOtherMCGen(inputDirDic, era):

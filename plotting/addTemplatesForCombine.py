@@ -49,7 +49,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_V0Basictraining_bin3/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l_bin3/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/'
     
     #run3 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
@@ -57,6 +58,7 @@ def main():
     # channel = '1tau0l' # 1tau0l
     channel = '1tau1l' 
     # channel = '1tau2l'
+    ifVLL = True
    
    
    
@@ -92,7 +94,7 @@ def main():
         addFakeTauSys(outFile, channel, summedHistDicAllSys, era)
         print(summedHistDicAllSys)
     
-    fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel)
+    fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel, ifVLL)
     
     
     #only 1tau1l for now 
@@ -125,7 +127,6 @@ def main():
 def getSysHist(summedHistDicAllSys, allSubPro,inputDir, outFile, isRun3=False):
     #loop through all subProcess
     for isub in allSubPro:
-        # if 'jetHT' in isub or 'singleMu' in isub or 'JetMet' in isub: continue
         if 'jetHT' in isub or 'singleMu' in isub or 'JetMET' in isub or 'JetHT' in isub or 'Muon' in isub: continue
         print(isub)
         ifile = inputDir + isub + '.root'
@@ -219,7 +220,7 @@ def addFakeTauSys(outFile, channel, summedHistDicAllSys, era='2018'):
     
 
     
-def addDataHist(summedHistSR, outFile, channel):
+def addDataHist(summedHistSR, outFile, channel, ifVLL=False):
     print('adding fake data hist from signal+bg MC......')
     fakeData = summedHistSR[ list(summedHistSR.keys())[0]].Clone()
     fakeData.Reset()
@@ -227,6 +228,7 @@ def addDataHist(summedHistSR, outFile, channel):
     fakeData.SetName('data_obs_'+channel+'SR_BDT')
     for ipro in summedHistSR.keys():
         if ipro=='qcd': continue
+        if ifVLL and 'tttt' in ipro: continue
         print('add fakeData: ',ipro)
         fakeData.Add(summedHistSR[ipro])
 
