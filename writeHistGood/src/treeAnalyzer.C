@@ -94,7 +94,8 @@ void treeAnalyzer::Init()
     }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
         // SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
-        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau0l 
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau0l 
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//1tau0l 
 
         variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
         weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";

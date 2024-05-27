@@ -50,15 +50,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v76For1tau2l/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l_bin3/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_4bins/'#!1tau0l BDT
     
     #run3 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
-    # channel = '1tau0l' # 1tau0l
-    channel = '1tau1l' 
+    channel = '1tau0l' # 1tau0l
+    # channel = '1tau1l' 
     # channel = '1tau2l'
-    ifVLL = True
+    # ifVLL = True
+    ifVLL = False
    
    
    
@@ -72,29 +74,33 @@ def main():
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine'+channel+'.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
+  
    
-    if not isRun3:
-        allSubList = gq.histoGramPerSample.keys()
-    else:
-        allSubList = gq.Run3Samples.keys()
-    allSubPro = list(allSubList)
+    # if not isRun3:
+    #     allSubList = gq.histoGramPerSample.keys()
+    # else:
+    #     allSubList = gq.Run3Samples.keys()
+    # allSubPro = list(allSubList)
+    proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets']
+    allSubPro = uf.getAllSubPro(proList, isRun3)
+    
+    
     if not channel=='1tau0l':
         allSubPro = [item for item in allSubPro if 'fakeTau' not in item]
         
     print(allSubPro)
 
     summedHistDicAllSys = {}
-    #summedHistDicAllSys[sys][sumPro]
-    getSumSys(summedHistDicAllSys, inputDir) 
+    # getSumSys(summedHistDicAllSys, inputDir) #summedHistDicAllSys[sys][sumPro]
     
    
-    getSysHist(summedHistDicAllSys, allSubPro, inputDir, outFile, isRun3)
+    # getSysHist(summedHistDicAllSys, allSubPro, inputDir, outFile, isRun3)
  
-    if channel=='1tau0l':
-        addFakeTauSys(outFile, channel, summedHistDicAllSys, era)
-        print(summedHistDicAllSys)
+    # if channel=='1tau0l':
+    #     addFakeTauSys(outFile, channel, summedHistDicAllSys, era)#!to be updated
+    #     print(summedHistDicAllSys)
     
-    fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel, ifVLL)
+    # fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel, ifVLL)
     
     
     #only 1tau1l for now 

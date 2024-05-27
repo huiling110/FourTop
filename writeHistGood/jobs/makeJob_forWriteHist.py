@@ -120,7 +120,7 @@ def main():
     #dataMC
     # version = 'v0dataMC_allCorrection'
     # version = 'v3dataMC_allCorrection_newBaselineBtagShape1tau0l'
-    version = 'v3dataMC_allCorrection_newBaselineBtagShape1tau0lFaketau'
+    # version = 'v3dataMC_allCorrection_newBaselineBtagShape1tau0lFaketau'
     # version = 'v2dataMC_allCorrectionMoreVar'
     # version = 'v5dataMC_allCorrection_UsingFakeTau'
     # version = 'v1dataMC_allCorrectionButHLT'
@@ -134,11 +134,9 @@ def main():
     
         
     #1tau1l
-    channel = '1tau1l'
+    # channel = '1tau1l'
     # version = 'v0Basictraining1tau1l'
     # version = 'v0Basictraining1tau1l_VLL'
-    # version = 'v0Basictraining1tau1l_bin3'
-    # version = 'v0Basictraining1tau1l_bin3CR'
     # version = 'v0BasicSystematic'
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
     # version = 'v1traingWithBtagWP' e
@@ -146,14 +144,8 @@ def main():
     # version = 'v5forBtagWPShape_shape'#for btagWP or shape
     
     #1tau0l systematic
-    # channel = '1tau0l'
-    # version = 'v0BDT1tau0l_3bins'
-    # version = 'v0systematic1tau0l_bScore' 
-    # version = 'v0systematic1tau0lBjet3_bScore' 
-    # version = 'v0systematic1tau0lBjet3_bHT' 
-    # version = 'v0systematic1tau0lBjet3_bMass' 
-    # version = 'v0systematic1tau0l_bMass' 
-    # version = 'v0theorecticalHistsAdd1tau0l'
+    channel = '1tau0l'
+    version = 'v0BDT1tau0l_4bins'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
@@ -203,8 +195,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

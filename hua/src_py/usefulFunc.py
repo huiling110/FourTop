@@ -680,3 +680,12 @@ def checkIfInputDic(entry, isRun3):
         if  entryName in gq.Run3Samples.keys(): 
             ifInDic = True
     return ifInDic
+
+
+def getAllSubPro(proList, isRun3):
+    allSubPro = []
+    dic = gq.histoGramPerSample if not isRun3 else gq.Run3Samples
+    for isub, isum in dic.items():
+        if isum in proList:
+            allSubPro.append(isub)
+    return allSubPro
