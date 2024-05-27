@@ -72,6 +72,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
     outTree->Branch("HLT_weight_stats_down", &HLT_weight_stats_down);
     outTree->Branch("FR_weight", &FR_weight);
+    outTree->Branch("FR_weight_up", &FR_weight_up);
+    outTree->Branch("FR_weight_down", &FR_weight_down);
 
     outTree->Branch("global_weight", &global_weight);
 
@@ -192,8 +194,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
 void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t bjetsM_num)
 {
     reportEntry("WeightVarMaker::makeVariables()");
-    // clearBranch();
-    //!!! to be done
+    clearBranch();
+
     EVENT_prefireWeight = *e->EVENT_prefireWeight_;
     EVENT_prefireWeight_up = *e->EVENT_prefireWeight_up_;
     EVENT_prefireWeight_down = *e->EVENT_prefireWeight_down_;
@@ -275,22 +277,30 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
 
     Bool_t ifFR = kFALSE;
     if(e->tausF_jetPt.GetSize()>0){
+        Double_t errUp, errDown;
         Int_t tauProng =  e->tausF_decayMode.At(0)/5 + 1 ;
         // std::cout<<"tauProng="<<tauProng<<"\n";
         tauProng = tauProng==1? 1 : 3;
-        ifFR = TTTT::getFRandError(m_graphs, std::abs(e->tausF_jetEta.At(0)), tauProng, e->tausF_jetPt.At(0), FR_weight, FR_weight_up, FR_weight_down);
+        // ifFR = TTTT::getFRandError(m_graphs, std::abs(e->tausF_jetEta.At(0)), tauProng, e->tausF_jetPt.At(0), FR_weight, FR_weight_up, FR_weight_down);
+        ifFR = TTTT::getFRandError(m_graphs, std::abs(e->tausF_jetEta.At(0)), tauProng, e->tausF_jetPt.At(0), FR_weight, errUp, errDown);
         if (!ifFR)
             {
                 std::cout<<"!!!FR not get<<\n";
                 std::cout<<"eta="<<e->tausF_jetEta.At(0)<<" prong="<<tauProng<<" pt="<<e->tausF_jetPt.At(0)<<"\n";
             }
+        FR_weight = FR_weight / (1. - FR_weight);
+        FR_weight_up = (FR_weight+errUp)/(1. - (FR_weight+errUp));
+        FR_weight_down = (FR_weight-errDown)/(1. - (FR_weight-errDown));
     }
-    FR_weight = FR_weight / (1. - FR_weight);
 
 };
 
 void WeightVarMaker::clearBranch()
 { //??? derived class should also have a clearBranch()
+
+    FR_weight = -99;
+    FR_weight_up = -99;
+    FR_weight_down = -99;
 };
 
 void WeightVarMaker::reportEntry(TString className){

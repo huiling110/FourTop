@@ -51,7 +51,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l_bin3/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_4bins/'#!1tau0l BDT
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_3bins/'#!1tau0l BDT
     
     #run3 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
@@ -76,31 +76,20 @@ def main():
     outFile = ROOT.TFile(templateFile, 'RECREATE')
   
    
-    # if not isRun3:
-    #     allSubList = gq.histoGramPerSample.keys()
-    # else:
-    #     allSubList = gq.Run3Samples.keys()
-    # allSubPro = list(allSubList)
-    proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets']
+    proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
     allSubPro = uf.getAllSubPro(proList, isRun3)
-    
-    
-    if not channel=='1tau0l':
-        allSubPro = [item for item in allSubPro if 'fakeTau' not in item]
-        
     print(allSubPro)
 
     summedHistDicAllSys = {}
-    # getSumSys(summedHistDicAllSys, inputDir) #summedHistDicAllSys[sys][sumPro]
+    getSumSys(summedHistDicAllSys, inputDir) #summedHistDicAllSys[sys][sumPro]
     
-   
-    # getSysHist(summedHistDicAllSys, allSubPro, inputDir, outFile, isRun3)
+    getSysHist(summedHistDicAllSys, allSubPro, inputDir, outFile, isRun3)
  
     # if channel=='1tau0l':
     #     addFakeTauSys(outFile, channel, summedHistDicAllSys, era)#!to be updated
     #     print(summedHistDicAllSys)
     
-    # fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel, ifVLL)
+    fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel, ifVLL)
     
     
     #only 1tau1l for now 
