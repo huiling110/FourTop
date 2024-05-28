@@ -363,6 +363,8 @@ public:
 
     //for fakeTau
     Double_t FR_weight_final;
+    Double_t FR_weight_final_up;
+    Double_t FR_weight_final_down;
 
 private:
     TTree *m_tree;
