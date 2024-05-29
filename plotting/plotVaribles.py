@@ -172,18 +172,13 @@ def main():
     # plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau) # for using fakeTau 2 hists application 
    
 def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL=False, is1tau0l=False):
-    sigPro = 'tttt' if not ifVLL else 'VLLm600'
+    # sigPro = 'tttt' if not ifVLL else 'VLLm600'
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
-    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', sigPro] #1tau1l
+    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'VLLm600'] #1tau1l
     # sumProList = ['jetHT','qcd','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
     # sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
     # sumProList = ['jetHT','tt',  'qcd', 'tttt'] # run3 1tau1l for now 
-    # if is1tau0l:
-    #     sumProList.append('qcd')
-    # if ifFakeTau:
-    #     sumProList = ['jetHT', 'fakeTau', 'tt', 'ttX', 'singleTop', 'WJets', 'tttt']
-   
     if is1tau0l:
         if ifFakeTau:
             sumProList.append('fakeTau')
@@ -191,10 +186,8 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         else:
             sumProList.append('qcd')
     if ifVLL:
-        sumProList.append('tttt')
-        
-        
-        
+        sumProList.append('VLLm600')
+    
         
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
 
@@ -372,7 +365,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     assymErrorPlotRatio.Draw("e2 same")
 
     #legend
-    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy)
+    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL)
     leggy.Draw()
     
     #text above the plot
@@ -402,7 +395,7 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     canvas.Draw()
 
  
-def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False):
+def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL=False):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     canvy.cd()
     leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
@@ -411,12 +404,11 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
         if ipro == 'jetHT' :
             if dataHist:
                 leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
-        # elif ipro == 'tttt':
         elif ipro == 'tttt' or ipro=='VLLm600':
             sigPro = 'tttt' if ipro == 'tttt' else 'VLLm600'
-            # signalEntry = 'tttt*{}[{:.1f}*{}]'.format(signalScale, getIntegral(nominal['tttt']), signalScale)
-            signalEntry = '{}*{}[{:.1f}*{}]'.format(sigPro,signalScale, getIntegral(nominal[sigPro]), signalScale)
-            leggy.AddEntry( signal, signalEntry, 'l')
+            if (ifVLL and  not ipro == 'tttt'): 
+                signalEntry = '{}*{}[{:.1f}*{}]'.format(sigPro,signalScale, getIntegral(nominal[sigPro]), signalScale)
+                leggy.AddEntry( signal, signalEntry, 'l')
             if ifLogy:
                 legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
                 leggy.AddEntry(nominal[ipro], legText,"f")
