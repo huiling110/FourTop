@@ -689,3 +689,21 @@ def getAllSubPro(proList, isRun3):
         if isum in proList:
             allSubPro.append(isub)
     return allSubPro
+
+def isBG(sumPro, ifVLL=False):
+    #protype 1: signal; 2: background; 3: data
+    proType = 0
+    if 'jetHT' in sumPro or 'singleMu' in sumPro:
+        proType = 3
+    elif 'tttt' in sumPro:
+        proType = 1 if not ifVLL else 2
+    elif 'VLL' in sumPro:
+        proType = 1
+    else: 
+        proType = 2
+        
+    return proType
+        
+        
+    
+    

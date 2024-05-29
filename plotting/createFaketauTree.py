@@ -22,7 +22,7 @@ def main():
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
     createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
     # makeOtherMCGen(inputDirDic, era) #for eazier BDT training later

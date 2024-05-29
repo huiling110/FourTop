@@ -86,9 +86,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v2dataMC_allCorrectionMoreVar/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0dataMC_allCorrection/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/'#BDT VLL
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_newBaselineBtagShape1tau0l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_newBaselineBtagShape1tau0lFaketau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_newBaselineBtagShape1tau0lFaketau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_4bins/'#!1tau0l BDT
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v3dataMC_pileupBtagHLTSFNewTTBR/'
@@ -131,20 +131,22 @@ def main():
     # variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'tausTT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausF_1genFlavour', 'tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_1eta', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge']
     
     # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
-    # regionList = ['1tau1lSR']
+    regionList = ['1tau1lSR']
     # regionList = ['1tau0lSRTest']
     # regionList = ['1tau2lSR']
-    # variables = ['BDT']
+    variables = ['BDT']
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
-    plotName = 'dataVsMC_v2'
-    # ifFTau = False
-    # ifVLL = True
-    ifVLL = False
-    is1tau0l = True
+    plotName = 'dataVsMC_v3'
+    ifFTau = False
+    ifVLL = True
+    # ifVLL = False
+    # is1tau0l = True
+    is1tau0l = False
+
   
     #1tau0l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_3bins/'
-    variables = [  'jets_MHT', 'jets_centrality', 'MET_pt', 'jets_aplanarity',  'jets_4largestBscoreSum', 'jets_bScore', 'jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT',  'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2MET_stransMass' ] #!1tau0l BDT inputs
+    # variables = [  'jets_MHT', 'jets_centrality', 'MET_pt', 'jets_aplanarity',  'jets_4largestBscoreSum', 'jets_bScore', 'jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT',  'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2MET_stransMass' ] #!1tau0l BDT inputs
     # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num']#!fake rate validation
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
@@ -155,8 +157,8 @@ def main():
     # regionList = ['1tau0lCR']
     # regionList = ['1tau0lSR']
     # variables = ['BDT']
-    regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
-    ifFTau = True #if use fakeTau bg and other bg with genTau requirement
+    # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
+    # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
 
     
     era = uf.getEraFromDir(inputDir)
@@ -177,21 +179,33 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     # sumProList = ['jetHT','qcd','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
     # sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
     # sumProList = ['jetHT','tt',  'qcd', 'tttt'] # run3 1tau1l for now 
+    # if is1tau0l:
+    #     sumProList.append('qcd')
+    # if ifFakeTau:
+    #     sumProList = ['jetHT', 'fakeTau', 'tt', 'ttX', 'singleTop', 'WJets', 'tttt']
+   
     if is1tau0l:
-        sumProList.append('qcd')
-    if ifFakeTau:
-        sumProList = ['jetHT', 'fakeTau', 'tt', 'ttX', 'singleTop', 'WJets', 'tttt']
-        plotName = plotName + 'fakeTau'
+        if ifFakeTau:
+            sumProList.append('fakeTau')
+            plotName = plotName + 'fakeTau'
+        else:
+            sumProList.append('qcd')
+    if ifVLL:
+        sumProList.append('tttt')
+        
+        
+        
+        
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
 
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
     for variable in variables:
         for iRegion in regionList:       
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 500 ) 
+            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 500 ) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 50, False, False, False, ifVLL) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True) 
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True, ifVLL) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True, ifVLL) 
     
    
        
@@ -531,18 +545,25 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False,
                 dataHist.SetLineColor(kBlack)
                 dataHist.SetTitleSize(0.0)
             continue
-        if i == 'singleMu':
-            continue
-        # if i == 'tttt' and (not ifStackSignal):
-        if (i == 'tttt' or i=='VLLm600') and (not ifStackSignal):
-            continue
+        # if i == 'singleMu':
+        #     continue
+        # # if i == 'tttt' and (not ifStackSignal):
+        # # if (i == 'tttt' or i=='VLLm600') and (not ifStackSignal):
+        # if (i == 'tttt' and not ifVLL) and (not ifStackSignal):
+        #     continue
+        # if (i == 'VLLm600') and not ifStackSignal:
+        #     continue
+        # if not uf.isBG(i, ifVLL)==2: continue
+        if uf.isBG(i, ifVLL)==3: continue
+        if uf.isBG(i, ifVLL)==1 and (not ifStackSignal): continue
+        
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(kBlack)
         nominal[i].SetLineWidth(1)
         nominal[i].GetXaxis().SetTitleSize(0.01)
         nominal[i].GetXaxis().SetLabelSize(0.0)
         nominal[i].GetYaxis().SetTitle('Events')
-        sumHist.Add(nominal[i]) #sumHist is all bg
+        sumHist.Add(nominal[i]) #!sumHist is all bg
         stack.Add(nominal[i])
         # if doSystmatic and  systHists[i]:
         #     print('cal sys for: ', i)
