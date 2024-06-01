@@ -90,6 +90,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_newBaselineBtagShape1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3dataMC_allCorrection_newBaselineBtagShape1tau0lFaketau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_4bins/'#!1tau0l BDT
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/mc/variableHists_v0Basictraining1tau1l_VLLm800/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v3dataMC_pileupBtagHLTSFNewTTBR/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baselineBtagWeightFix_v3HLTPre/mc/variableHists_v0dataMC_noCorrectionNewTTBR/'
@@ -138,7 +139,8 @@ def main():
     # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     plotName = 'dataVsMC_v3'
     ifFTau = False
-    ifVLL = True
+    # ifVLL = 'VLLm800'
+    ifVLL = 'VLLm600'
     # ifVLL = False
     # is1tau0l = True
     is1tau0l = False
@@ -171,7 +173,7 @@ def main():
 
     # plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau) # for using fakeTau 2 hists application 
    
-def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL=False, is1tau0l=False):
+def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='', is1tau0l=False):
     # sigPro = 'tttt' if not ifVLL else 'VLLm600'
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
     sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
@@ -186,7 +188,9 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         else:
             sumProList.append('qcd')
     if ifVLL:
-        sumProList.append('VLLm600')
+        # sumProList.append('VLLm600')
+        # sumProList.append('VLLm800')
+        sumProList.append(ifVLL)
     
         
     sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
@@ -395,7 +399,7 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     canvas.Draw()
 
  
-def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL=False):
+def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL=''):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     canvy.cd()
     leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
@@ -404,8 +408,10 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
         if ipro == 'jetHT' :
             if dataHist:
                 leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
-        elif ipro == 'tttt' or ipro=='VLLm600':
-            sigPro = 'tttt' if ipro == 'tttt' else 'VLLm600'
+        # elif ipro == 'tttt' or ipro=='VLLm600':
+        elif ipro == 'tttt' or 'VLL' in ipro:
+            # sigPro = 'tttt' if ipro == 'tttt' else 'VLLm600'
+            sigPro = 'tttt' if ipro == 'tttt' else ifVLL
             if (ifVLL and  not ipro == 'tttt'): 
                 signalEntry = '{}*{}[{:.1f}*{}]'.format(sigPro,signalScale, getIntegral(nominal[sigPro]), signalScale)
                 leggy.AddEntry( signal, signalEntry, 'l')
@@ -501,12 +507,15 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False, ifVLL = False):
+# def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False, ifVLL = False):
+def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False, ifVLL = ''):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {
         'tttt':kBlue,
-        'VLLm600':kMagenta,
+        'VLLm600':TColor.GetColor("#D10363"),
+        # 'VLLm600':kMagenta,
+        'VLLm800': TColor.GetColor("#D10363"),
         'tt': TColor.GetColor("#f03b20"),
         'qcd': TColor.GetColor("#ffeda0"),
         'ttX': TColor.GetColor("#fc9272"),
@@ -566,13 +575,16 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False,
     legendOrder.reverse()
     
     #scale tttt
-    if 'tttt' in nominal.keys() or 'VLLm600' in nominal.keys():
+    # if 'tttt' in nominal.keys() or 'VLLm600' in nominal.keys():
+    if 'tttt' in nominal.keys() or ifVLL:
         if not ifVLL:
             signal = nominal['tttt'].Clone()
             signal.SetLineColor(colourPerSample['tttt'])
         else:
-            signal = nominal['VLLm600'].Clone()
-            signal.SetLineColor(colourPerSample['VLLm600'])
+            # signal = nominal['VLLm600'].Clone()
+            # signal.SetLineColor(colourPerSample['VLLm600'])
+            signal = nominal[ifVLL].Clone()
+            signal.SetLineColor(colourPerSample[ifVLL])
     else:
         signal = nominal['tt'].Clone()
         signal.Reset()

@@ -73,7 +73,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/' #!HLT
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLSample/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLSample/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/'
@@ -135,9 +136,10 @@ def main():
     
         
     #1tau1l
-    # channel = '1tau1l'
+    channel = '1tau1l'
     # version = 'v0Basictraining1tau1l'
     # version = 'v0Basictraining1tau1l_VLL'
+    version = 'v0Basictraining1tau1l_VLLm800'
     # version = 'v0BasicSystematic'
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
     # version = 'v1traingWithBtagWP' e
@@ -145,8 +147,8 @@ def main():
     # version = 'v5forBtagWPShape_shape'#for btagWP or shape
     
     #1tau0l systematic
-    channel = '1tau0l'
-    version = 'v0BDT1tau0l_3bins'
+    # channel = '1tau0l'
+    # version = 'v0BDT1tau0l_3bins'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
