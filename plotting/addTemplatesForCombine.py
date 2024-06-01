@@ -52,15 +52,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0Basictraining1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_3bins/'#!1tau0l BDT
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLSample/mc/variableHists_v0BDT1tau0l_3bins/' 
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLSample/mc/variableHists_v0BDT1tau0l_3bins/' 
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/mc/variableHists_v0Basictraining1tau1l_VLLm700_DifBin/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/mc/variableHists_v0Basictraining1tau1l_VLLm800/'
     #run3 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/' 
-    channel = '1tau0l' # 1tau0l
-    # channel = '1tau1l' 
+    # channel = '1tau0l' # 1tau0l
+    channel = '1tau1l' 
     # channel = '1tau2l'
-    # ifVLL = True
-    ifVLL = False
+    ifVLL = True
+    # ifVLL = False
    
    
    
@@ -76,7 +78,9 @@ def main():
     outFile = ROOT.TFile(templateFile, 'RECREATE')
   
    
-    proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
+    # proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
+    # proList = ['tttt', 'tt', 'ttX', 'singleTop', 'WJets', 'VLLm700'] #!1tau0l
+    proList = ['tttt', 'tt', 'ttX', 'singleTop', 'WJets', 'VLLm800'] #!1tau0l
     allSubPro = uf.getAllSubPro(proList, isRun3)
     print(allSubPro)
 
@@ -223,7 +227,8 @@ def addDataHist(summedHistSR, outFile, channel, ifVLL=False):
     fakeData.SetName('data_obs_'+channel+'SR_BDT')
     for ipro in summedHistSR.keys():
         if ipro=='qcd': continue
-        if ifVLL and 'tttt' in ipro: continue
+        # if ifVLL and 'tttt' in ipro: continue
+        if not uf.isBG(ipro, ifVLL)==2: continue
         print('add fakeData: ',ipro)
         fakeData.Add(summedHistSR[ipro])
 

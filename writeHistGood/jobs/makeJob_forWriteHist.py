@@ -139,7 +139,9 @@ def main():
     channel = '1tau1l'
     # version = 'v0Basictraining1tau1l'
     # version = 'v0Basictraining1tau1l_VLL'
-    version = 'v0Basictraining1tau1l_VLLm800'
+    # version = 'v0Basictraining1tau1l_VLLm800'
+    # version = 'v0Basictraining1tau1l_VLLm700'
+    version = 'v0Basictraining1tau1l_VLLm700_DifBin2'
     # version = 'v0BasicSystematic'
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
     # version = 'v1traingWithBtagWP' e
