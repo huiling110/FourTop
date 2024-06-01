@@ -54,7 +54,8 @@ def main():
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv'
     # g_weight = 'global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight'
     # outVersion = 'v0allVar'
-    outVersion = 'v1VLLM800'
+    # outVersion = 'v1VLLM800'
+    outVersion = 'v1VLLM700'
     # outVersion = 'v1withBtag'
     # outVersion = 'v3TrainingB'
     

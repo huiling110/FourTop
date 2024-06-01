@@ -28,9 +28,12 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
         // "VLL_EE_M600",
         // "VLL_EN_M600",
         // "VLL_NN_M600",
-        "VLL_EE_M800",
-        "VLL_EN_M800",
-        "VLL_NN_M800",
+        // "VLL_EE_M800",
+        // "VLL_EN_M800",
+        // "VLL_NN_M800",
+        "VLL_EE_M700",
+        "VLL_EN_M700",
+        "VLL_NN_M700",
     "ttbar_0l",
     "ttbar_2l",
     "ttbar_1l",
@@ -152,18 +155,7 @@ int tmvaBDT_training(
     getProcessesVec(inputDir, processVec, channel, ifVLL);
     for (UInt_t i=0;i<processVec.size(); i++){
         if(processVec.at(i).getTree()->GetEntries()<=0) continue;
-        // if(i==0){
-        //     std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
-        //     dataloader->AddSignalTree(processVec.at(i).getTree()); //!use global_weight
-        // }
-        // else{
-        //     std::cout << "add bg tree: " << processVec.at(i).getName() << "\n";
-        //     dataloader->AddBackgroundTree(processVec.at(i).getTree());
-        //     if(!isTest){
-        //         allBg = allBg + processVec.at(i).getTree()->GetEntries();
-        //     }
-        // }
-        if(processVec.at(i).isbg()){
+        if(processVec.at(i).isbg(ifVLL)){
             std::cout << "bg tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddBackgroundTree(processVec.at(i).getTree());
             if(!isTest){
@@ -188,7 +180,6 @@ int tmvaBDT_training(
     dataloader->SetSignalWeightExpression(g_weight);
     dataloader->SetBackgroundWeightExpression(g_weight);
     std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";
-
 
     // std::string trainingSetup = "nTrain_Signal=" + std::to_string(allSignal * 0.6) + ":nTrain_Background=" + std::to_string(allBg * 0.6) + ":nTest_Signal=0:nTest_Background=0:SplitMode=Random:NormMode=EqualNumEvents:!V";
     std::string trainingSetup = "nTrain_Signal=" + std::to_string(allSignal * 0.6) + ":nTrain_Background=" + std::to_string(allBg * 0.6) + ":nTest_Signal=" + std::to_string(allSignal * 0.4)+":nTest_Background=" + std::to_string(allBg * 0.4) + ":SplitMode=Random:NormMode=EqualNumEvents:!V";
@@ -226,7 +217,6 @@ int tmvaBDT_training(
     //    // Multi-core CPU implementation.
     // TString cpuOptions = dnnOptions + ":Architecture=CPU";
     // factory->BookMethod(dataloader, TMVA::Types::kDL, "DNN_CPU", cpuOptions);
-
 
 
 

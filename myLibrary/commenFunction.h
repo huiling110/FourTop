@@ -17,7 +17,7 @@ namespace TTTT{
 Bool_t getIsData(TString inputDir);
 TString getEra(TString inputDir);
 TString getEra2(TString inputDir);
-Bool_t isBG(TString processName);
+Bool_t isBG(TString processName, Bool_t ifVLL=kFALSE);
 
 Bool_t isRun3(TString era);
 void fillHist(TH1D *&hist, Double_t value, Double_t weight, Bool_t isData);
