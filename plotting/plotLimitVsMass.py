@@ -78,7 +78,7 @@ def main():
     y_max = 0.1
     # graph_2sigma.SetMinimum(y_min * 0.8)  # Add some padding to the minimum
     # graph_2sigma.SetMaximum(y_max * 1.2)  
-    graph_2sigma.GetYaxis().SetRangeUser(y_min, y_max)
+    graph_2sigma.GetYaxis().SetRangeUser(y_min, y_max*5)
     
 
     # Draw the 1 sigma band
@@ -101,7 +101,7 @@ def main():
     # Set titles and labels
     graph_2sigma.SetTitle("Limits as a function of mass points;Mass [GeV];95% CL Limit")
     graph_2sigma.GetXaxis().SetTitle("VLL mass [GeV]")
-    graph_2sigma.GetYaxis().SetTitle("95% CL Limit on Cross Section [pb]")
+    graph_2sigma.GetYaxis().SetTitle("95% CL limit on #sigma [pb]")
     
     # Draw the theoretical cross section line
     graph_theory.SetLineColor(ROOT.kRed)
@@ -116,11 +116,13 @@ def main():
 
 
     # Add a legend
-    legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+    # legend = st.getMyLegend(0.6, 0.6, 0.9, 0.9)
+    legend = st.getMyLegend(0.4, 0.7, 0.9, 0.9)
     legend.AddEntry(graph_observed, "Observed", "P")
     legend.AddEntry(graph_expected, "Expected", "L")
-    legend.AddEntry(graph_1sigma, "Expected ± 1σ", "F")
-    legend.AddEntry(graph_2sigma, "Expected ± 2σ", "F")
+    legend.AddEntry(graph_1sigma, "Expected #pm 1 #sigma", "F")
+    legend.AddEntry(graph_2sigma, "Expected #pm 2 #sigma", "F")
+    legend.AddEntry(graph_theory, "Theoretical prediction", "L")
     legend.Draw()
 
     era = uf.getEraFromDir(inputFile[600])
