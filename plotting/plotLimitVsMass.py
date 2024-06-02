@@ -105,7 +105,7 @@ def main():
     
     # Draw the theoretical cross section line
     graph_theory.SetLineColor(ROOT.kRed)
-    graph_theory.SetLineWidth(2)
+    graph_theory.SetLineWidth(3)
     graph_theory.SetLineStyle(1)
     graph_theory.Draw("L same")
     
