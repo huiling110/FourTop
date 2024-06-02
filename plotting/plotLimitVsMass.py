@@ -1,5 +1,7 @@
 import ROOT
 import ttttGlobleQuantity as gq
+import setTDRStyle as st
+import usefulFunc as uf
 
 def main():
     inputFile = {
@@ -7,9 +9,9 @@ def main():
         700: '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/mc/variableHists_v0Basictraining1tau1l_VLLm700_DifBin/combine/datacard_mainSys/combineResults/higgsCombine_datacard_1tau1lSys.AsymptoticLimits.mH120.root',
         800: '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/mc/variableHists_v0Basictraining1tau1l_VLLm800/combine/datacard_mainSys/combineResults/higgsCombine_datacard_1tau1lSys.AsymptoticLimits.mH120.root',
     }
+    
+    # outDir = 
    
-    
-    
     # Initialize lists to store the limits
     mass_points = []
     observed_limits = []
@@ -59,12 +61,16 @@ def main():
 
         
 
+    mySty =  st.setMyStyle()
+    mySty.cd()
     # Create a canvas to draw the graphs
-    canvas = ROOT.TCanvas("canvas", "Limits as a function of mass points", 800, 600)
+    # canvas = ROOT.TCanvas("canvas", "Limits as a function of mass points", 800, 600)
+    canvas = ROOT.TCanvas("canvas", "Limits as a function of mass points", 1000, 1000)
     canvas.SetLogy()
 
     # Draw the 2 sigma band
-    graph_2sigma.SetFillColor(ROOT.kYellow)
+    # graph_2sigma.SetFillColor(ROOT.kYellow)
+    graph_2sigma.SetFillColor(ROOT.TColor.GetColor("#FFDB00"))
     graph_2sigma.Draw("A3")
     
     # if y_min < float('inf') and y_max > float('-inf'):
@@ -76,7 +82,8 @@ def main():
     
 
     # Draw the 1 sigma band
-    graph_1sigma.SetFillColor(ROOT.kGreen)
+    # graph_1sigma.SetFillColor(ROOT.kGreen)
+    graph_1sigma.SetFillColor(ROOT.TColor.GetColor("#90D26D"))
     graph_1sigma.Draw("3 same")
 
     # Draw the expected limits
@@ -116,7 +123,8 @@ def main():
     legend.AddEntry(graph_2sigma, "Expected ± 2σ", "F")
     legend.Draw()
 
-    # Save the plot
+    era = uf.getEraFromDir(inputFile[600])
+    st.addCMSTextToPad(canvas, era)
 
     # Keep the canvas open
     canvas.Update()
