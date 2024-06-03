@@ -80,11 +80,13 @@ void treeAnalyzer::Init()
     TString weightfile;
     if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
+        std::vector<Double_t> bins = {-0.25, -0.1, -0.05, 0, 0.05, 0.1, 0.18, 0.4 }; //1tau1l testing
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins, sysRegions);//bin3
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//testing
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//testing
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.25, 0.4, sysRegions);//bin3
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.3, sysRegions);//VLL
-        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.5, 0.3, sysRegions);//VLLm700
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.5, 0.3, sysRegions);//VLLm700
 
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_noBtagShape.csv"; //! testing
         // TString weightfile = WH::BDTTrainingMap.at(m_era).at(1) + "TMVAClassification" + TString("_") + "BDT" + TString(".weights.xml");//

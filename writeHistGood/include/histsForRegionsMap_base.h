@@ -38,6 +38,18 @@ public:
         // std::cout << "Done initializing histForRegionsBase constructor 1\n";
     };
 
+    histForRegionsBase(TString variableName, TString histTitle, TString processName, const std::vector<Double_t>& bins, const std::vector<TString> &regions): m_variableName{variableName}, m_histTitle{histTitle}, m_processName{processName}
+    {
+        for (UInt_t i = 0; i < regions.size(); i++)
+        {
+            TString iHistName = m_processName + "_" + regions[i] + "_" + m_variableName;
+            TH1D *temp;
+            temp = new TH1D(iHistName.Data(), m_histTitle.Data(), bins.size()-1, bins.data());
+            temp->Sumw2();
+            m_histsVector[regions[i]] = temp;
+        }
+    };
+
 
     // virtual ~histForRegionsBase(){};
     virtual ~histForRegionsBase()=default;//generate a virtual default destructor
