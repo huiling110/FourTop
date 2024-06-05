@@ -16,7 +16,8 @@ process.GlobalTag.globaltag = '106X_dataRun2_v32'
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring(
         # 'file:input_nanoaod.root'  # Replace with your input NanoAOD file
-        'root://cms-xrd-global.cern.ch//store/data/Run2017F/BTagCSV/NANOAOD/UL2017_MiniAODv2_NanoAODv9-v1/1210000/1586633B-9F9B-804A-8030-48685D834D98.root',
+        # 'root://cms-xrd-global.cern.ch//store/data/Run2017F/BTagCSV/NANOAOD/UL2017_MiniAODv2_NanoAODv9-v1/1210000/1586633B-9F9B-804A-8030-48685D834D98.root',
+        'root://xrootd-cms.infn.it//store/data/Run2017B/BTagCSV/NANOAOD/UL2017_MiniAODv2_NanoAODv9-v1/270000/CC6BC2DE-CA64-BB41-B3D0-F47EB7C67FC9.root',
     )
 )
 
