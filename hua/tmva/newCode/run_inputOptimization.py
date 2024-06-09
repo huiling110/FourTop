@@ -1,12 +1,21 @@
 import ROOT
 import re
+import os 
+
+import usefulFunc as uf
+
+
 def main():
     
     generateVarList()
+    # submitTrainingJobs()
+    # plotAUC()
 
 def generateVarList():
-    inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
-    inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
+    # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
+    # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
+    inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
+    inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
 
     variables = get_variable_separations(inputLog)
     variables = {var: sep for var, sep in variables.items() if sep >= 0.001}
@@ -15,9 +24,14 @@ def generateVarList():
     for i, sep in variables.items():
         print(i, sep)
 
-    varList = list(variables.keys())
-    vListList = createNextVariableList_correlation(varList, inputRoot)
+    outDir = os.path.dirname(inputRoot)
+    vListDir = outDir + '/variableList/'
+    uf.checkMakeDir(vListDir)
+    vListList = createNextVariableList_correlation(variables, inputRoot)
     writeListListToFile( vListList, vListDir)
+
+
+
 
 def createNextVariableList_correlation( vlist, TMVAroot):
     #only stores variable in vlist
@@ -41,7 +55,8 @@ def createNextVariableList_correlation( vlist, TMVAroot):
             #  print(ibinY)
             xBinLabel = h2.GetXaxis().GetBinLabel(ibinX)
             yBinLabel = h2.GetYaxis().GetBinLabel(ibinY)
-            if xBinLabel in vlist and yBinLabel in vlist:
+            # if xBinLabel in vlist and yBinLabel in vlist:
+            if xBinLabel in vlist.keys() and yBinLabel in vlist.keys():
                 icorrelation = abs( h2.GetBinContent( ibinX, ibinY) )
                 correlation_list.append( [xBinLabel, yBinLabel, icorrelation] )
             ibinY+=1
@@ -54,7 +69,7 @@ def createNextVariableList_correlation( vlist, TMVAroot):
     print('\n')
 
     #for simplisity, not taking multiple same correlation into account for now
-    tempList = vlist
+    tempList = list(vlist.keys())
     listLenth = len(vlist)
     variableListList = []
     for correlationPair in correlation_list:
@@ -65,16 +80,13 @@ def createNextVariableList_correlation( vlist, TMVAroot):
         secondVariable = correlationPair[1]
         #  print( 'tempList: ', len(tempList), tempList)
         if firstVariable in tempList and secondVariable in tempList:
-            #  print( firstVariable,' index = ', vlist.index( firstVariable), secondVariable,' index = ', vlist.index( secondVariable ))
-            if vlist.index( firstVariable) > vlist.index( secondVariable ):
+            # if vlist.index( firstVariable) > vlist.index( secondVariable ):
+            if vlist[ firstVariable ] < vlist[ secondVariable ]:
                 tempList.remove( firstVariable)
                 #  print( 'removed: ', secondVariable )
             else:
                 tempList.remove( secondVariable)
                 #  print( 'removed: ', firstVariable )
-        #  elif :
-    #  print( 'variableListList: ', len(variableListList), variableListList)
-    #  print( 'variableListList: ', variableListList[0])
     return variableListList 
 
 def takeThird( elem ):
