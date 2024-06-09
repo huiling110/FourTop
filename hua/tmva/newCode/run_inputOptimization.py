@@ -73,8 +73,13 @@ def plot_auc_vs_num_variables(input_dir):
 
     graph.SetTitle("AUC as a Function of Number of Input Variables;Number of Input Variables;AUC")
     graph.SetMarkerStyle(20)
-    graph.SetMarkerColor(ROOT.kBlue)
-    graph.SetLineColor(ROOT.kBlue)
+
+    graph.SetMarkerColor(ROOT.TColor.GetColor("#f03b20"))
+    graph.SetLineColor(ROOT.TColor.GetColor("#f03b20"))
+    graph.GetXaxis().SetLabelSize(0.03)
+    graph.GetYaxis().SetLabelSize(0.03)
+    graph.GetXaxis().SetTitleSize(0.05)
+    graph.GetYaxis().SetTitleSize(0.05)
 
     style = st.setMyStyle()
     style.cd()
@@ -83,8 +88,12 @@ def plot_auc_vs_num_variables(input_dir):
     graph.Draw("APL")
     canvas.Update()
 
+    outDir = input_dir + '/results/'
+    uf.checkMakeDir(outDir)
+    era = uf.getEraFromDir(outDir)
+    st.addCMSTextToPad(canvas, era)
     # Save the plot as a PNG file
-    canvas.SaveAs("auc_vs_num_variables.png")
+    canvas.SaveAs( outDir + "auc_vs_num_variables.png")
 
 def submitTrainingJobs(vListDir, inputRoot):
     jobDir = vListDir + 'jobs/'
