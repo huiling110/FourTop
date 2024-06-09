@@ -1,6 +1,7 @@
 import ROOT
 import re
-import os 
+import os
+import array 
 
 import usefulFunc as uf
 
@@ -8,11 +9,79 @@ import usefulFunc as uf
 def main():
     inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
     inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
-    
-    vListDir = generateVarList(inputRoot, inputLog)
-    submitTrainingJobs(vListDir, inputRoot)
-    # plotAUC()
 
+    outDir = os.path.dirname(inputRoot)
+    
+    # vListDir = generateVarList(inputRoot, inputLog)
+    # submitTrainingJobs(vListDir, inputRoot)
+
+    plot_auc_vs_num_variables(outDir+ '/variableList/' +'BDTTrain/')
+
+
+def get_auc_and_num_variables(root_file):
+    file = ROOT.TFile.Open(root_file)
+    if not file or file.IsZombie():
+        print(f"Error opening file: {root_file}")
+        return None, None
+
+    # Assuming the ROC curve is stored in a TGraph or similar object
+    roc_curve = file.Get("dataset/Method_BDT/BDT/MVA_BDT_rejBvsS")
+    if not roc_curve:
+        print(f"Could not find ROC curve in file: {root_file}")
+        file.Close()
+        return None, None
+
+    # Calculate the AUC
+    # auc = roc_curve.Integral() / roc_curve.GetN()
+    auc = roc_curve.Integral() /  roc_curve.GetNbinsX()
+
+    # Assuming the number of input variables is stored in a specific location in the file
+    # This may need to be adjusted based on the actual structure of your ROOT files
+    input_variables = file.Get("dataset/TrainTree")
+    if not input_variables:
+        print(f"Could not find input variables in file: {root_file}")
+        file.Close()
+        return None, None
+
+    num_variables = input_variables.GetListOfBranches().GetEntries()
+
+    file.Close()
+    return auc, num_variables
+
+def plot_auc_vs_num_variables(input_dir):
+    aucs = []
+    num_vars = []
+
+    # Loop over all ROOT files in the input directory
+    for root_file in os.listdir(input_dir):
+        if root_file.endswith(".root"):
+            full_path = os.path.join(input_dir, root_file)
+            auc, num_variables = get_auc_and_num_variables(full_path)
+            if auc is not None and num_variables is not None:
+                aucs.append(auc)
+                num_vars.append(num_variables)
+
+     # Combine the AUCs and num_vars into tuples and sort them
+    combined = list(zip(num_vars, aucs))
+    combined_sorted = sorted(combined)
+    # Unpack the sorted tuples back into separate lists
+    num_vars_sorted, aucs_sorted = zip(*combined_sorted)
+    num_vars_array = array.array('d', num_vars_sorted)
+    aucs_array = array.array('d', aucs_sorted)
+    graph = ROOT.TGraph(len(num_vars), num_vars_array, aucs_array)
+
+    graph.SetTitle("AUC as a Function of Number of Input Variables;Number of Input Variables;AUC")
+    graph.SetMarkerStyle(20)
+    graph.SetMarkerColor(ROOT.kBlue)
+    graph.SetLineColor(ROOT.kBlue)
+
+    # Create a canvas and draw the graph
+    canvas = ROOT.TCanvas("canvas", "AUC vs. Number of Input Variables", 800, 600)
+    graph.Draw("APL")
+    canvas.Update()
+
+    # Save the plot as a PNG file
+    canvas.SaveAs("auc_vs_num_variables.png")
 
 def submitTrainingJobs(vListDir, inputRoot):
     jobDir = vListDir + 'jobs/'
