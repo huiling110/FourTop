@@ -20,7 +20,7 @@
 #include "processClass.h"
 #include "../../../myLibrary/commenFunction.h"
 
-void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const TString channel = "1tau2l", const Bool_t ifVLL=kFALSE)
+void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const TString channel = "1tau2l", const TString ifVLL=kFALSE)
 {
     // TString signal = ifVLL ? "VLLm600" : "tttt";
     std::vector<TString> allProcesses = {
@@ -31,9 +31,9 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
         // "VLL_EE_M800",
         // "VLL_EN_M800",
         // "VLL_NN_M800",
-        "VLL_EE_M700",
-        "VLL_EN_M700",
-        "VLL_NN_M700",
+        // "VLL_EE_M700",
+        // "VLL_EN_M700",
+        // "VLL_NN_M700",
     "ttbar_0l",
     "ttbar_2l",
     "ttbar_1l",
@@ -60,6 +60,10 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
     "fakeTau_tauTGen",
 
     };
+
+    if(!ifVLL.IsNull()){
+        allProcesses.push_back(ifVLL);
+    }
 
     processVec.clear();
     for(UInt_t i=0; i<allProcesses.size(); i++){
@@ -107,7 +111,8 @@ int tmvaBDT_training(
     const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight ",
     // const TString channel = "1tau2l"
     const TString channel = "1tau1l",
-    const Bool_t ifVLL=kTRUE
+    // const Bool_t ifVLL=kTRUE
+    const TString ifVLL = ""
     ) //for btag WP
     // const TString g_weight = "event_allWeight_1tau0l") 
 {
@@ -155,7 +160,7 @@ int tmvaBDT_training(
     getProcessesVec(inputDir, processVec, channel, ifVLL);
     for (UInt_t i=0;i<processVec.size(); i++){
         if(processVec.at(i).getTree()->GetEntries()<=0) continue;
-        if(processVec.at(i).isbg(ifVLL)){
+        if(processVec.at(i).isbg(!ifVLL.IsNull())){
             std::cout << "bg tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddBackgroundTree(processVec.at(i).getTree());
             if(!isTest){
@@ -163,13 +168,7 @@ int tmvaBDT_training(
             }
         }
         else{
-            if(ifVLL){
-                if(processVec.at(i).getName().Contains("tttt")) continue;
-            }else{
-                if(processVec.at(i).getName().Contains("VLL")) continue;
-            }
             std::cout << "signal tree: " << processVec.at(i).getName() << "\n";
-            std::cout << "add signal tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddSignalTree(processVec.at(i).getTree()); //!use global_weight
             if(!isTest){
                 allSignal = allSignal + processVec.at(i).getTree()->GetEntries();
@@ -177,6 +176,8 @@ int tmvaBDT_training(
         }
     }
     std::cout << "signal and bg tree added \n";
+
+
     dataloader->SetSignalWeightExpression(g_weight);
     dataloader->SetBackgroundWeightExpression(g_weight);
     std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";

@@ -47,15 +47,16 @@ def main():
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_btag.csv'
     g_weight = 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight'
     channel = '1tau1l'
-    ifVLL = 1
+    # ifVLL = 1
+    ifVLL = ''
     
     #1tau2l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/'
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv'
     # g_weight = 'global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight'
-    # outVersion = 'v0allVar'
+    outVersion = 'v0allVar'
     # outVersion = 'v1VLLM800'
-    outVersion = 'v1VLLM700'
+    # outVersion = 'v1VLLM700'
     # outVersion = 'v1withBtag'
     # outVersion = 'v3TrainingB'
     
@@ -77,11 +78,6 @@ def main():
     except subprocess.CalledProcessError as e:
         print("Error:", e)
     
-    # jobDir = './'
-    # exeDir = current_file_path = __file__
-# Get the directory of the current file
-    # current_dir = os.path.dirname(__file__)
-    # makeJobsSub(current_dir, command, jobDir)
     
 def makeJobsSub(exeDir, command, jobDir):
     jobSubFile = jobDir + 'BDTtrain.sh'

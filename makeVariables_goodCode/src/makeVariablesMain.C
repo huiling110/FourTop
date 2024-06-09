@@ -73,7 +73,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if(tau1e1Sel){
             // if(!(jetVarMaker.getJet_num()>=7 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){
             // if(!(jetVarMaker.getJet_num()>= 6 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1&& jetVarMaker.getJet_6pt()>34. )){//!1tau1l SR
-            if(!(jetVarMaker.getJet_num()>= 7 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
+            // if(!(jetVarMaker.getJet_num()>= 7 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
+            if(!(jetVarMaker.getJet_num()>= 7 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR loosed for more tt events
             // if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauFVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0  && jetVarMaker.getJet_6pt()>32.)){ //!1tau0lSR, can not add tauF cut, for fake tau estimation later
             // if(!(jetVarMaker.getJet_num()>= 4 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==2 )){ //!1tau2lSR
                 continue;
