@@ -4,6 +4,7 @@ import os
 import array 
 
 import usefulFunc as uf
+import setTDRStyle as st 
 
 
 def main():
@@ -75,6 +76,8 @@ def plot_auc_vs_num_variables(input_dir):
     graph.SetMarkerColor(ROOT.kBlue)
     graph.SetLineColor(ROOT.kBlue)
 
+    style = st.setMyStyle()
+    style.cd()
     # Create a canvas and draw the graph
     canvas = ROOT.TCanvas("canvas", "AUC vs. Number of Input Variables", 800, 600)
     graph.Draw("APL")
