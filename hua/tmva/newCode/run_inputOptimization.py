@@ -6,16 +6,58 @@ import usefulFunc as uf
 
 
 def main():
-    
-    generateVarList()
-    # submitTrainingJobs()
-    # plotAUC()
-
-def generateVarList():
-    # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
-    # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
     inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
     inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
+    
+    vListDir = generateVarList(inputRoot, inputLog)
+    submitTrainingJobs(vListDir, inputRoot)
+    # plotAUC()
+
+
+def submitTrainingJobs(vListDir, inputRoot):
+    jobDir = vListDir + 'jobs/'
+    uf.checkMakeDir(jobDir)
+    exeDir = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/'
+    subScript = jobDir + 'submitJobs.sh'
+
+    inputDir = inputRoot.split('/mc/')[0] + '/mc/'
+    outDir = vListDir + 'BDTTrain/'
+    uf.checkMakeDir(outDir)
+    g_weight = 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight'
+    channel = '1tau1l'
+    ifVLL = ''
+
+    logDir = outDir + 'log/'
+    uf.checkMakeDir(logDir)
+    with open(subScript, 'w') as sub_script:
+        sub_script.write('#!/bin/bash\n')
+        for iList in os.listdir(vListDir):
+            if not iList.endswith('.csv'): continue
+            iListPath = vListDir + iList
+            command = './my_program {} {} 0 {} {} {} {}'.format(inputDir, outDir, iListPath, g_weight, channel, ifVLL)
+            makeIjob(command, exeDir, jobDir + iList + '.sh')
+
+            sub_script.write('hep_sub {} -o {} -e {}\n'.format(jobDir + iList + '.sh', logDir+iList+'.log', logDir+iList+'.err'))
+
+    os.system('chmod 777 {}'.format(subScript))
+    print('subjobs: ', subScript)
+
+    # uf.submitJobs(subScript) 
+    os.system('bash {}'.format(subScript))
+
+
+def makeIjob(run, exeDir, jobName):
+    with open(jobName, 'w') as job_script:
+        job_script.write("#!/bin/bash\n")
+        job_script.write("cd {}\n".format(exeDir))
+        job_script.write(run)
+    os.system('chmod 777 {}'.format(jobName))
+    print('done writing job: ', jobName)
+
+
+def generateVarList(inputRoot, inputLog):
+    # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
+    # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
 
     variables = get_variable_separations(inputLog)
     variables = {var: sep for var, sep in variables.items() if sep >= 0.001}
@@ -29,6 +71,8 @@ def generateVarList():
     uf.checkMakeDir(vListDir)
     vListList = createNextVariableList_correlation(variables, inputRoot)
     writeListListToFile( vListList, vListDir)
+
+    return vListDir
 
 
 

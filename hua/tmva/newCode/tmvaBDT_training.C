@@ -134,7 +134,8 @@ int tmvaBDT_training(
     // (TMVA::gConfig().GetVariablePlotting()).fNbins1D = 30;
     // TMVA::gConfig().GetVariablePlotting().fNbinsMVAoutput = 30;
     (TMVA::gConfig().GetIONames()).fWeightFileDir =  "weight/";
-    TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; // If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
+    // TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir; // If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
+    TMVA::gConfig().GetIONames().fWeightFileDirPrefix = outDir+ csvListName; // If a non-nul prefix is set in TMVA::gConfig().GetIONames().fWeightFileDirPrefix the weights will be stored in weightfile_prefix/dataset_name/weight_file_name
 
     // read input variables from csv
     std::vector<TString> variableList;
