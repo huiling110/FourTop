@@ -187,6 +187,12 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
     Int_t ybins = hist->GetYaxis()->GetNbins();
     Double_t ymin = hist->GetYaxis()->GetBinLowEdge(1);
     Double_t ymax = hist->GetYaxis()->GetBinUpEdge(ybins);
+
+    x = std::min(x, xmax-0.01);
+    x = std::max(x, xmin+0.01);
+    y = std::min(y, ymax-0.01);
+    y = std::max(y, ymin+0.01);
+
     if (x >= xmin && x < xmax && y >= ymin && y < ymax)
     {
         Int_t binx = hist->GetXaxis()->FindBin(x);
@@ -201,13 +207,9 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
         {
             sf = sf - err;
         }
-        if(sys==5){
-            sf = err;
-        }
     }
     return sf;
 }
-
 
 void getVarFromFile(TString variableListCsv, std::vector<TString> &variablesName)
 {

@@ -67,6 +67,9 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("btagWPMedium_weight", &btagWPMedium_weight);
     outTree->Branch("btagWPMedium_weight_up", &btagWPMedium_weight_up);
     outTree->Branch("btagWPMedium_weight_down", &btagWPMedium_weight_down);
+    outTree->Branch("btagWPMT_weight", &btagWPMT_weight);
+    outTree->Branch("btagWPMT_weight_up", &btagWPMT_weight_up);
+    outTree->Branch("btagWPMT_weight_down", &btagWPMT_weight_down);
 
     outTree->Branch("HLT_weight", &HLT_weight);
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
@@ -144,8 +147,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     btagEffHist_l->Print();
 
     btagTEffHist_b = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_B.root", "jets_ptEta_genB");
-    btagTEffHist_c = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_C.root", "jets_ptEta_genB");
-    btagTEffHist_l = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_L.root", "jets_ptEta_genB");
+    btagTEffHist_c = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_C.root", "jets_ptEta_genC");
+    btagTEffHist_l = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_L.root", "jets_ptEta_genL");
 
     std::cout<<"\n";
 
@@ -254,9 +257,13 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
 
     //btag WorkingPoint
-    btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "central", m_isRun3);
-    btagWPMedium_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "up", m_isRun3) ;
-    btagWPMedium_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, m_isData, m_era, "down", m_isRun3) ;
+    btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
+    btagWPMedium_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3) ;
+    btagWPMedium_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3) ;
+    btagWPMT_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3, kTRUE);
+    btagWPMT_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3, kTRUE);
+    btagWPMT_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3, kTRUE);
+
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
     HLT_weight_stats_up = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 1);
@@ -290,6 +297,8 @@ void WeightVarMaker::clearBranch()
     FR_weight = -99;
     FR_weight_up = -99;
     FR_weight_down = -99;
+
+    
 };
 
 void WeightVarMaker::reportEntry(TString className){

@@ -926,7 +926,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     return sf;
 }
 
-Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3, const Bool_t ifBTagT)
+Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, TH2D *btagTEff_b, TH2D *btagTEff_c, TH2D *btagTEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3, const Bool_t ifBTagT)
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
     Double_t sf = 1.0;
@@ -944,6 +944,7 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
     for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
     {
         Double_t ijetSF = 1.0;
+        Double_t ijetSFT = 1.0;
         Double_t ijetFlav = jets_flavour.At(j);
         Double_t ijetEta = std::abs(jets_eta.At(j));
         Double_t ijetPt = jets_pt.At(j);
@@ -958,15 +959,16 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
         {
             // b and c
             ijetSF = corr_deepJet->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+            ijetSFT = corr_deepJet->evaluate({sys, "T", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
         }
         else
         {
             ijetSF = corr_deepJet_light->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+            ijetSFT = corr_deepJet_light->evaluate({sys, "T", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
         }
 
         Bool_t ifBtagged = kFALSE;
         Bool_t ifBtaggedT = kFALSE;
-        // if (!isRun3){
         if (ijetBtag>btagMWP){
             ifBtagged = kTRUE;
         }
@@ -975,10 +977,10 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
         }
 
         Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
+        Double_t btagEffT = getBtagEff(btagTEff_b, btagTEff_c, btagTEff_l, ijetPt, ijetEta, ijetFlav, 0);
         if(!ifBTagT){
             if (ifBtagged)
             {
-                // sf = sf * ijetSF;
                 p_mc = p_mc * btagEff;
                 p_data = p_data * ijetSF * btagEff;
             }
@@ -987,7 +989,22 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
                 p_mc = p_mc * (1. - btagEff);
                 p_data = p_data * (1. - ijetSF * btagEff);
             }
+        }else{
+            if(ifBtaggedT){
+                p_mc = p_mc * btagEffT;
+                p_data = p_data * ijetSF * btagEffT;
+            }
+            else if (ifBtagged)
+            {
+                p_mc = p_mc * (btagEff - btagEffT);
+                p_data = p_data * (ijetSF * btagEff - ijetSFT * btagEffT);
+            }else{
+                p_mc = p_mc * (1. - btagEff);
+                p_data = p_data * (1. - ijetSF * btagEff);
+            }
         }
+        // std::cout<<"jetFlav="<<ijetFlav<<" jetPt="<<ijetPt<<" jetEta="<<ijetEta<<" jetBtag="<<ijetBtag<<" btagEff="<<btagEff<<" btagEffT="<<btagEffT<<" ijetSF="<<ijetSF<<" ijetSFT="<<ijetSFT<<" p_mc="<<p_mc<<" p_data="<<p_data<<"\n";
+
     }
     sf = p_data / p_mc;
     return sf;
@@ -995,22 +1012,17 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
 
 Double_t getBtagEff(TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor, Int_t sys)
 {
-    // std::map<std::string, Int_t> sysMap = {
-    //     {"central", 0},
-    //     {"up", 1},
-    //     {"down", 2},
-    // };
     Double_t btagEff = 1.0;
     switch (jetFlavor)
     {
     case 4: // c
-        btagEff = get2DSF(jetPt, jetEta, btagEff_c, 0);
+        btagEff = TTTT::get2DSF(jetPt, jetEta, btagEff_c, 0);
         break;
     case 5: // b
-        btagEff = get2DSF(jetPt, jetEta, btagEff_b, 0);
+        btagEff = TTTT::get2DSF(jetPt, jetEta, btagEff_b, 0);
         break;
-    default: // b
-        btagEff = get2DSF(jetPt, jetEta, btagEff_l, 0);
+    default: // l
+        btagEff = TTTT::get2DSF(jetPt, jetEta, btagEff_l, 0);
         break;
     }
     return btagEff;
@@ -1027,39 +1039,6 @@ Double_t calBtagR(Int_t jets_number, TH1D *btagRHist)
     return r;
 }
 
-//!!!put in myLibrary
-Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
-{ // sys =0: normal; sys=1: up; sys=2: down
-    Double_t sf = 1.0;
-    Int_t xbins = hist->GetXaxis()->GetNbins();
-    Double_t xmin = hist->GetXaxis()->GetBinLowEdge(1);
-    Double_t xmax = hist->GetXaxis()->GetBinUpEdge(xbins);
-    Int_t ybins = hist->GetYaxis()->GetNbins();
-    Double_t ymin = hist->GetYaxis()->GetBinLowEdge(1);
-    Double_t ymax = hist->GetYaxis()->GetBinUpEdge(ybins);
-
-    x = std::min(x, xmax-0.01);
-    x = std::max(x, xmin+0.01);
-    y = std::min(y, ymax-0.01);
-    y = std::max(y, ymin+0.01);
-
-    if (x >= xmin && x < xmax && y >= ymin && y < ymax)
-    {
-        Int_t binx = hist->GetXaxis()->FindBin(x);
-        Int_t biny = hist->GetYaxis()->FindBin(y);
-        sf = hist->GetBinContent(binx, biny);
-        Double_t err = hist->GetBinError(binx, biny);
-        if (sys == 1)
-        {
-            sf = sf + err;
-        }
-        if (sys == 2)
-        {
-            sf = sf - err;
-        }
-    }
-    return sf;
-}
 
 Double_t HLTWeightCal(Double_t jets_HT, const Double_t jets_6pt, Int_t bjets_num, TH2D *triggerHist1b, TH2D *triggerHist2b, TH2D *triggerHist3b, Bool_t isdata, UInt_t sys)
 {
@@ -1073,15 +1052,15 @@ Double_t HLTWeightCal(Double_t jets_HT, const Double_t jets_6pt, Int_t bjets_num
         // if (bjets_num == 1)
         if (bjets_num > 3)
         {
-            weight = get2DSF(jets_HT, jets_6pt, triggerHist1b, sys);
+            weight = TTTT::get2DSF(jets_HT, jets_6pt, triggerHist1b, sys);
         }
         else if (bjets_num == 2)
         {
-            weight = get2DSF(jets_HT, jets_6pt, triggerHist2b, sys);
+            weight = TTTT::get2DSF(jets_HT, jets_6pt, triggerHist2b, sys);
         }
         else if (bjets_num ==3)
         {
-            weight = get2DSF(jets_HT, jets_6pt, triggerHist3b, sys);
+            weight = TTTT::get2DSF(jets_HT, jets_6pt, triggerHist3b, sys);
         }
     }
     return weight;

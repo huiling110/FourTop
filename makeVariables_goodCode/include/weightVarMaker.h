@@ -84,6 +84,9 @@ private:
     Double_t btagWPMedium_weight = 1.0;
     Double_t btagWPMedium_weight_up = 1.0;
     Double_t btagWPMedium_weight_down = 1.0;
+    Double_t btagWPMT_weight = 1.0;
+    Double_t btagWPMT_weight_up = 1.0;
+    Double_t btagWPMT_weight_down = 1.0;
 
     Double_t HLT_weight = 1.0;
     Double_t HLT_weight_stats_up = 1.0;
