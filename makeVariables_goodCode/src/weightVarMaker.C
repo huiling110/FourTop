@@ -116,15 +116,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     cset_muonMPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(1)).Data()); 
     cset_muonHPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(2)).Data()); 
     std::cout << "\n";
-    // for (auto &corr : *cset_muonLPt)  
-    // {
-    //     printf("Correction: %s\n", corr.first.c_str());
-    // }
-    // std::cout << "\n";
-    // for (auto &corr : *cset_muonMPt)
-    // {
-    //     printf("Correction: %s\n", corr.first.c_str());
-    // }
     // for (auto &corr : *cset_muonHPt)  
     // {
     //     printf("Correction: %s\n", corr.first.c_str());
@@ -137,18 +128,9 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout << "btagSF_json=" << btagSF_json << "\n";
     cset = correction::CorrectionSet::from_file(tauSF_json.Data());//for tau
     cset_btag = correction::CorrectionSet::from_file(btagSF_json.Data());
-    // for (auto &corr : *cset)  
-    // {
-    //     printf("Correction: %s\n", corr.first.c_str());
-    // }
-    // for (auto &corr : *cset_btag)
-    // {
-    //     printf("Correction: %s\n", corr.first.c_str());
-    // }
     // btagR files
     btagRHist = TTTT::getHistogramFromFile<TH1D>(MV::btagR_map.at(m_era), "btagR");
     std::cout << "b tag R file used: " << MV::btagR_map.at(m_era) << "\n";
-
     //btag WP efficieny files
     btagEffHist_b = TTTT::getHistogramFromFile<TH2D>(MV::btagWPEff_map.at(m_era), "jets_ptEta_genB");
     std::cout << "b tag WP file used: " << MV::btagWPEff_map.at(m_era) << "\n";

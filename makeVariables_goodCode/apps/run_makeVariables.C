@@ -73,7 +73,7 @@ void run_objectSelection(
     // TString inputDir = "output",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
-    Int_t numEntries = 1000)
+    Int_t numEntries = 3000)
     // Int_t numEntries = 10000)
     // Int_t numEntries = 0)
 {
@@ -90,8 +90,8 @@ void run_objectSelection(
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
     // Bool_t baseline = kFALSE;
-    mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
-    // mv.EventLoop(baseline, kFALSE, numEntries);
+    // mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
+    mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();

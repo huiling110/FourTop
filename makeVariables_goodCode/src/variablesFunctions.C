@@ -930,63 +930,68 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
     Double_t sf = 1.0;
-    if (!isData)
+    if(isData){
+        return 1.0;
+    }
+    std::string btagWPTag = isRun3 ? "robustParticleTransformer_comb" : "deepJet_comb";
+    std::string btagWPLTag = isRun3 ? "robustParticleTransformer_light" : "deepJet_incl";
+    auto corr_deepJet = cset_btag->at(btagWPTag);       // b and c jet
+    auto corr_deepJet_light = cset_btag->at(btagWPLTag);       // b and c jet
+    Double_t p_mc = 1.0;
+    Double_t p_data = 1.0;
+    for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
     {
-        std::string btagWPTag = isRun3 ? "robustParticleTransformer_comb" : "deepJet_comb";
-        std::string btagWPLTag = isRun3 ? "robustParticleTransformer_light" : "deepJet_incl";
-        auto corr_deepJet = cset_btag->at(btagWPTag);       // b and c jet
-        auto corr_deepJet_light = cset_btag->at(btagWPLTag);       // b and c jet
-        // auto corr_deepJet_light = cset_btag->at("robustParticleTransformer_incl"); // for light jet
-        for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
+        Double_t ijetSF = 1.0;
+        Double_t ijetFlav = jets_flavour.At(j);
+        Double_t ijetEta = std::abs(jets_eta.At(j));
+        Double_t ijetPt = jets_pt.At(j);
+        Double_t ijetBtag = jets_btag.At(j);
+
+        if(ijetBtag<0. || ijetBtag>1.){
+            std::cout<<"!!!Warning: btag value out of range: "<<ijetBtag<<"\n";
+            return 1.0;
+        }
+
+        if (ijetFlav == 4 || ijetFlav == 5)
         {
-            Double_t ijetSF = 1.0;
-            Double_t ijetFlav = jets_flavour.At(j);
-            Double_t ijetEta = std::abs(jets_eta.At(j));
-            Double_t ijetPt = jets_pt.At(j);
-            Double_t ijetBtag = jets_btag.At(j);
+            // b and c
+            ijetSF = corr_deepJet->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+        }
+        else
+        {
+            ijetSF = corr_deepJet_light->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
+        }
 
-
-            if(ijetBtag<0. || ijetBtag>1.){
-                std::cout<<"!!!Warning: btag value out of range: "<<ijetBtag<<"\n";
-                return 1.0;
+        // sf = eff_tagged*(1-SF*eff_nottagged)/(1-eff_nottagged)
+        Bool_t ifBtagged = kFALSE;
+        if (!isRun3){
+            if (ijetBtag>TTTT::DeepJetM.at(era)){
+                ifBtagged = kTRUE;
             }
-
-            if (ijetFlav == 4 || ijetFlav == 5)
-            {
-                // b and c
-                ijetSF = corr_deepJet->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
-            }
-            else
-            {
-                ijetSF = corr_deepJet_light->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
-            }
-
-            // sf = eff_tagged*(1-SF*eff_nottagged)/(1-eff_nottagged)
-            Bool_t ifBtagged = kFALSE;
-            if (!isRun3){
-                if (ijetBtag>TTTT::DeepJetM.at(era)){
-                    ifBtagged = kTRUE;
-                }
-            }else{
-                if(ijetBtag>TTTT::particleNetBMT.at(era).at(0)){
-                    ifBtagged = kTRUE;
-                }
-            }
-            Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
-            if (ifBtagged)
-            {
-                sf = sf * ijetSF;
-            }
-            else
-            {
-                if ((1. - btagEff) > std::numeric_limits<double>::epsilon())
-                {
-                    sf = sf * (1. - ijetSF * btagEff) / (1. - btagEff);
-                }
+        }else{
+            if(ijetBtag>TTTT::particleNetBMT.at(era).at(0)){
+                ifBtagged = kTRUE;
             }
         }
+
+        Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
+        if (ifBtagged)
+        {
+            // sf = sf * ijetSF;
+            p_mc = p_mc * btagEff;
+            p_data = p_data * ijetSF * btagEff;
+        }
+        else
+        {
+            p_mc = p_mc * (1. - btagEff);
+            p_data = p_data * (1. - ijetSF * btagEff);
+            // if ((1. - btagEff) > std::numeric_limits<double>::epsilon())
+            // {
+            //     sf = sf * (1. - ijetSF * btagEff) / (1. - btagEff);
+            // }
+        }
     }
-    // std::cout << "btagSF = " << sf << "\n";
+    sf = p_data / p_mc;
     return sf;
 }
 
