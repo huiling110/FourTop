@@ -105,7 +105,7 @@ def main():
         
     #1tau1l
     channel = '1tau1l'
-    version = 'v3Basictraining1tau1l_varieBinB'
+    # version = 'v3Basictraining1tau1l_varieBinB'
     # version = 'v0Basictraining1tau1l_VLL'
     # version = 'v0Basictraining1tau1l_VLLm800'
     # version = 'v0Basictraining1tau1l_VLLm700'
@@ -168,8 +168,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

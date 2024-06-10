@@ -18,16 +18,17 @@ def main():
     # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/TTto2L2Nu.root'
     # inputDirFile ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure_histNameChange/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75NotHLTNoBJetTauT/mc/variableHists_v0_btagEffMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75NotHLTNoBJetTauT/mc/variableHists_v0_btagEffMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75NotHLTNoBJetTauT/mc/variableHists_v0_btagEffMeasureT/'
     
     era = uf.getEraFromDir(inputDir)
     print('era=', era)
     isRun3 = uf.isRun3(inputDir)
    
     
-    # plotBEffFromFile(inputDir, era, isRun3, 'B' )
-    # plotBEffFromFile(inputDir, era, isRun3, 'C' )
-    # plotBEffFromFile(inputDir, era, isRun3, 'L' )
+    plotBEffFromFile(inputDir, era, isRun3, 'B' )
+    plotBEffFromFile(inputDir, era, isRun3, 'C' )
+    plotBEffFromFile(inputDir, era, isRun3, 'L' )
     
     # plotOverLayForBtagEff(inputDir, 'Eta1', era, isRun3)
     # plotOverLayForBtagEff(inputDir, 'Eta2', era, isRun3)
@@ -147,13 +148,7 @@ def plot2D(hist2D, plotName, canTitle, ifPlotEven=False, yrange=[]):
     hist2DPlot.SetTitle(histTitle)
     
    
-# def plotOverLayForBtagEff(inputDirFileList, eta='Eta1',era='2017'):   
 def plotOverLayForBtagEff(inputDir, eta='Eta1',era='2017', isRun3=False):   
-    
-    # eff_b_eta1 = getEffFromFile(inputDir,  ['b_jets_pt'+eta+'_de', 'b_jets_pt'+eta+'_nu'])
-    # eff_c_eta1 = getEffFromFile(inputDir,  ['c_jets_pt'+eta+'_de', 'c_jets_pt'+eta+'_nu'])
-    # eff_l_eta1 = getEffFromFile(inputDir,  ['l_jets_pt'+eta+'_de', 'l_jets_pt'+eta+'_nu'])
-    
     #get efficiecy for TT instead of TT4Q
     sumPro = ['tt']
     regionList = ['b_'+eta+'_de', 'b_'+eta+'_nu', 'c_'+eta+'_de', 'c_'+eta+'_nu', 'l_'+eta+'_de', 'l_'+eta+'_nu']
