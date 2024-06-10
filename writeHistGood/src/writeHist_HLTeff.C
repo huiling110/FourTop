@@ -201,7 +201,8 @@ void WH_HLTeff::LoopTree(UInt_t entry)
             {
                 std::cout << "HLT selection for 2016\n";
             }
-            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;                                   // 2016
+            // is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;                                   // 2016
+            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 30.;                                   // 2016
         }
         else if (m_era.CompareTo("2018") == 0)
         {
@@ -209,7 +210,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
             {
                 std::cout << "HLT selection for 2018\n";
             }
-            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
+            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 30.;
         }
         else if (m_era.CompareTo("2017") == 0)
         {
@@ -217,9 +218,9 @@ void WH_HLTeff::LoopTree(UInt_t entry)
             {
                 std::cout << "HLT selection for 2017\n";
             }
-            is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;
+            is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 30.;
         }else if(m_era.Contains("2022")){
-            is1muon = e->HLT_IsoMu24.v() && e->muonsT_num.v() == 1 && e->muonsT_1pt.v() >= 30.;
+            is1muon = e->HLT_IsoMu24.v() && e->muonsT_num.v() >= 1 && e->muonsT_1pt.v() >= 30.;
         }
         else
         {

@@ -154,6 +154,25 @@ inline const std::map<TString, double> DeepJetT = {
     {"2022postEE", 0.73},
 };
 
+inline const std::map<TString, double> DeepJetL = {
+    // std::map of loose WPs for DeepJet
+    {"2016postVFP", 0.0480},
+    {"2016preVFP", 0.0508},
+    {"2017", 0.0532},
+    {"2018", 0.0490},
+    {"2022", 0.0490},
+    {"2022preEE", 0.0490},
+    {"2022postEE", 0.0490},
+};
+
+inline const std::map<TString, double> DeepCSVL = {
+    // std::map of loose WPs for DeepCSV
+    {"2016postVFP", 0.1918},
+    {"2016preVFP", 0.2027},
+    {"2017", 0.1355},
+    {"2018", 0.1208},
+
+};
 
 inline const std::map<TString, std::array<Double_t, 2>> particleNetBMT = {
     // https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer22/

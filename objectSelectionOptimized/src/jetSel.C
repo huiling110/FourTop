@@ -1,4 +1,5 @@
 #include "../include/jetSel.h"
+#include "../../src_cpp/lumiAndCrossSection.h"
 #include <map>
 
 JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys, const UChar_t JERSys) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}, m_JERSys{JERSys}
@@ -110,15 +111,15 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
         if (m_jetType == 11)
         {
-            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetL[m_era]))
+            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetL.at(m_era)))
                 continue;
         }else if (m_jetType == 12)
         {
-            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetM[m_era]))
+            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetM.at(m_era)))
                 continue;
         }else if (m_jetType == 13 )
         {
-            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetT[m_era]))
+            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetT.at(m_era)))
                 continue;
         }else if(m_jetType == 15 && m_isRun3){
             if (!(e->Jet_btagPNetB->At(j) > particleNetBMT.at(m_era).at(0)))
