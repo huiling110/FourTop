@@ -142,6 +142,11 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     btagEffHist_b->Print();
     btagEffHist_c->Print();
     btagEffHist_l->Print();
+
+    btagTEffHist_b = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_B.root", "jets_ptEta_genB");
+    btagTEffHist_c = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_C.root", "jets_ptEta_genB");
+    btagTEffHist_l = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_L.root", "jets_ptEta_genB");
+
     std::cout<<"\n";
 
     // trigger

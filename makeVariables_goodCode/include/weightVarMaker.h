@@ -119,6 +119,10 @@ private:
     TH2D *btagEffHist_b;
     TH2D *btagEffHist_c;
     TH2D *btagEffHist_l;
+    TH2D *btagTEffHist_b;
+    TH2D *btagTEffHist_c;
+    TH2D *btagTEffHist_l;
+    
 
     TH2D* triggerHist1b;
     TH2D* triggerHist2b;
