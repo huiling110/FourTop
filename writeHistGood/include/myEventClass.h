@@ -136,6 +136,9 @@ public:
     myBranch<Double_t> btagWPMedium_weight{"btagWPMedium_weight"};
     myBranch<Double_t> btagWPMedium_weight_up{"btagWPMedium_weight_up"};
     myBranch<Double_t> btagWPMedium_weight_down{"btagWPMedium_weight_down"};
+    myBranch<Double_t> btagWPMT_weight{"btagWPMT_weight"};
+    myBranch<Double_t> btagWPMT_weight_up{"btagWPMT_weight_up"};
+    myBranch<Double_t> btagWPMT_weight_down{"btagWPMT_weight_down"};
     myBranch<Double_t> eleMVAT_IDSF_weight{"eleMVAT_IDSF_weight"};
     //
     myBranch<Double_t> pdfWeight_up_{"pdfWeight_up_"};
