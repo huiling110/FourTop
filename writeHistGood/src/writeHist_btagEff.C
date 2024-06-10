@@ -92,7 +92,8 @@ void WriteHist_btagEff::LoopTree(UInt_t entry)
             Bool_t ifPassBtagM = kFALSE;
             if (!m_isRun3)
             {
-                ifPassBtagM = e->jets_btags_->at(i) > TTTT::DeepJetM.at(m_era);
+                // ifPassBtagM = e->jets_btags_->at(i) > TTTT::DeepJetM.at(m_era);//!!!
+                ifPassBtagM = e->jets_btags_->at(i) > TTTT::DeepJetT.at(m_era);//!!!
             }
             else
             {

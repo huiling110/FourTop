@@ -3,6 +3,7 @@ import subprocess
 
 import usefulFunc as uf
 
+T2DirPre = 'root://cceos.ihep.ac.cn:1094//eos/ihep//cms/store/user/hhua/'
 
 def main():
     #set up voms first
@@ -14,7 +15,7 @@ def main():
     # T2Dir = '/cms/store/user/hhua/crabNanoPost_2022PostEE_v2/'
     # T2Dir = '/cms/store/user/hhua/crabNanoPost_2022preEE_v3/mc/'
     # T2Dir = '/cms/store/user/hhua/crabNanoPost_data_v3/mc/'
-    T2Dir = '/cms/store/user/hhua/crabNanoPost_2022postEE_v3/mc/'
+    # T2Dir = '/cms/store/user/hhua/crabNanoPost_2022postEE_v3/mc/'
     # outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/TTto2L2Nu/'
     # outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/TTto4Q/'
     outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/'
@@ -59,16 +60,18 @@ def main():
      
     
     # outDir = outDir+ 'crabNanoPost_2022preEE_v3/'
-    notFinishedList = [
+    # notFinishedList = [
         # 'QCD_PT-30to50_TuneCP5_13p6TeV_pythia8', 
         # 'QCD_PT-3200_TuneCP5_13p6TeV_pythia8',
-        'QCD_PT-80to120_TuneCP5_13p6TeV_pythia8',
+        # 'QCD_PT-80to120_TuneCP5_13p6TeV_pythia8',
         # 'QCD_PT-800to1000_TuneCP5_13p6TeV_pythia8',
         # 'TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8',
         # 'TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8',
-        'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8', #!!!only one left
-    ]
-    # deleteT2Dir(T2Dir, notFinishedList, False)
+        # 'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8', #!!!only one left
+    # ]
+    # T2Dir = 'crabNanoPost_2022postEE_v3/'
+    T2Dir = 'crabNanoPost_2022preEE_v3/'
+    deleteT2Dir(T2Dir, False)
     # copyT2ToT3(T2Dir, outDir, notFinishedList, True)
     
    
@@ -76,13 +79,14 @@ def main():
     # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/data/' #!!!need in previous nanoAOD tool step make data MC outDir consistent!
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/data/' 
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/mc/' 
-    T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
-    mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
+    # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
+    # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
     # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
-    sortT3Dir( T3Dir, mvDir, True)
+    # sortT3Dir( T3Dir, mvDir, True)
     # sortT3Dir( T3Dir, mvDir, False)
-    
+
+
 def sortT3Dir( initDir, outDir, isData=False):
     for ipro in os.listdir(initDir):
         if 'crab_' not in ipro:
@@ -136,17 +140,21 @@ def copyT2ToT3(T2Dir, T3Dir, copyList, ifDelete=False):
     # uf.runCommand(command)
     # print('copy done \n\n')
     
-def deleteT2Dir(T2Dir, exceptDir, ifDryRun=True):
-    subDirs = getDirList(T2Dir)
-    print('subDirs: ', subDirs)
-    for iDir in subDirs:
-        if iDir in exceptDir:
-            print('skip ', iDir)
-            continue
-        else:
-            print('delete ', iDir)
-            command = 'gfal-rm -r root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir +'mc/'+ iDir
-            uf.runCommand(command, ifDryRun)
+# def deleteT2Dir(T2Dir, exceptDir, ifDryRun=True):
+#     subDirs = getDirList(T2Dir)
+#     print('subDirs: ', subDirs)
+#     for iDir in subDirs:
+#         if iDir in exceptDir:
+#             print('skip ', iDir)
+#             continue
+#         else:
+#             print('delete ', iDir)
+#             # command = 'gfal-rm -r root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir +'mc/'+ iDir
+#             command = 'gfal-rm -r {} {}'
+#             uf.runCommand(command, ifDryRun)
+def deleteT2Dir(T2Dir, ifDryRun=True):
+    command = 'gfal-rm -r {}{}'.format(T2DirPre, T2Dir)
+    uf.runCommand(command, ifDryRun)
     
 def getDirList(T2Dir):
     # command = 'gfal-ls root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir + 'mc/'
