@@ -926,7 +926,7 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     return sf;
 }
 
-Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3)
+Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3, const Bool_t ifBTagT)
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
     Double_t sf = 1.0;
@@ -939,6 +939,8 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
     auto corr_deepJet_light = cset_btag->at(btagWPLTag);       // b and c jet
     Double_t p_mc = 1.0;
     Double_t p_data = 1.0;
+    Double_t btagMWP = isRun3 ? TTTT::particleNetBMT.at(era).at(0) : TTTT::DeepJetM.at(era);
+    Double_t btagTWP = isRun3 ? TTTT::particleNetBMT.at(era).at(1) : TTTT::DeepJetT.at(era);
     for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
     {
         Double_t ijetSF = 1.0;
@@ -962,33 +964,29 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
             ijetSF = corr_deepJet_light->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
         }
 
-        // sf = eff_tagged*(1-SF*eff_nottagged)/(1-eff_nottagged)
         Bool_t ifBtagged = kFALSE;
-        if (!isRun3){
-            if (ijetBtag>TTTT::DeepJetM.at(era)){
-                ifBtagged = kTRUE;
-            }
-        }else{
-            if(ijetBtag>TTTT::particleNetBMT.at(era).at(0)){
-                ifBtagged = kTRUE;
-            }
+        Bool_t ifBtaggedT = kFALSE;
+        // if (!isRun3){
+        if (ijetBtag>btagMWP){
+            ifBtagged = kTRUE;
+        }
+        if (ijetBtag>btagTWP){
+            ifBtaggedT = kTRUE;
         }
 
         Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
-        if (ifBtagged)
-        {
-            // sf = sf * ijetSF;
-            p_mc = p_mc * btagEff;
-            p_data = p_data * ijetSF * btagEff;
-        }
-        else
-        {
-            p_mc = p_mc * (1. - btagEff);
-            p_data = p_data * (1. - ijetSF * btagEff);
-            // if ((1. - btagEff) > std::numeric_limits<double>::epsilon())
-            // {
-            //     sf = sf * (1. - ijetSF * btagEff) / (1. - btagEff);
-            // }
+        if(!ifBTagT){
+            if (ifBtagged)
+            {
+                // sf = sf * ijetSF;
+                p_mc = p_mc * btagEff;
+                p_data = p_data * ijetSF * btagEff;
+            }
+            else
+            {
+                p_mc = p_mc * (1. - btagEff);
+                p_data = p_data * (1. - ijetSF * btagEff);
+            }
         }
     }
     sf = p_data / p_mc;

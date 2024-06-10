@@ -105,28 +105,6 @@ std::map<TString, double> DeepJetL = {
     {"2022postEE", 0.0490},
 };
 
-std::map<TString, double> DeepJetM = {
-    // std::map of medium WPs for DeepJet
-    {"2016postVFP", 0.2489},
-    {"2016preVFP", 0.2598},
-    {"2017", 0.3040},
-    {"2018", 0.2783},
-    {"2022", 0.2783},
-    {"2022preEE", 0.3086},
-    {"2022postEE", 0.3196},
-};
-
-std::map<TString, double> DeepJetT = {
-    // std::map of tight WPs for DeepJet
-    {"2016postVFP", 0.6377},
-    {"2016preVFP", 0.6502},
-    {"2017", 0.7476},
-    {"2018", 0.7100},
-    {"2022", 0.7100},
-    {"2022preEE", 0.7183},
-    {"2022postEE", 0.73},
-};
-
 
 std::map<TString, double> DeepCSVL = {
     // std::map of loose WPs for DeepCSV

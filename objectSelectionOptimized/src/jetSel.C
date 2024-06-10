@@ -110,15 +110,15 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         // https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation2016Legacy
         if (m_jetType == 11)
         {
-            if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetL[m_era]))
+            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetL[m_era]))
                 continue;
         }else if (m_jetType == 12)
         {
-            if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetM[m_era]))
+            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetM[m_era]))
                 continue;
         }else if (m_jetType == 13 )
         {
-            if (!(e->Jet_btagDeepFlavB.At(j) > DeepJetT[m_era]))
+            if (!(e->Jet_btagDeepFlavB.At(j) > TTTT::DeepJetT[m_era]))
                 continue;
         }else if(m_jetType == 15 && m_isRun3){
             if (!(e->Jet_btagPNetB->At(j) > particleNetBMT.at(m_era).at(0)))
