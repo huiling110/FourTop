@@ -36,22 +36,25 @@ void WH_HLTeff::Init()
     std::vector<TString>
         regionsForVariables = {
             "baseline1Muon",
-            "baseline1MuonAndHLT",
+            "baseline1Muon_HLT",
             "baseline",       // for MC true efficiency
-            "baselineAndHLT", // for MC true efficiency
+            "baseline_HLT", // for MC true efficiency
             //1b
             "baseline1Muon1b",
-            "baseline1MuonAndHLT1b",
+            "baseline1Muon1b_HLT",
             "baseline1b",       // for MC true efficiency
-            "baselineAndHLT1b", // for MC true efficiency
+            "baselineAnd1b_HLT", // for MC true efficiency
             "baseline1Muon2b",
-            "baseline1MuonAndHLT2b",
+            "baseline1Muon2b_HLT",
             "baseline2b",       // for MC true efficiency
-            "baselineAndHLT2b", // for MC true efficiency
+            "baseline2b_HLT", // for MC true efficiency
             "baseline1Muon3b",
-            "baseline1MuonAndHLT3b",
-            "baseline3b",       // for MC true efficiency
-            "baselineAndHLT3b", // for MC true efficiency
+            "baseline1Muon3b_HLT",
+            "baseline3b",       
+            "baseline3b_HLT",
+            //testing no offline muon 
+            "baseline3bNoMuOffline",
+            "baseline3bNoMuOffline_HLT", 
         };
 
 
@@ -73,67 +76,6 @@ void WH_HLTeff::Init()
     histsForRegion_vec.push_back(jets_num_class);
     histsForRegion_vec.push_back(bjetsM_num_class);
 
-    // 2D for SF
-    // Double_t xbins[] = {500, 550, 600, 750, 800, 900, 1000, 1200, 1400, 1800, 2500}; // HT
-    // Double_t ybins[] = {40, 55, 70, 85, 115, 145};                                   // 6th jet pt
-    // Double_t xbins[] = {500, 550, 650, 800, 950, 1200,  2500}; // HT
-    // Double_t xbins[] = {500, 600, 700, 950, 1200,  2500}; // HT
-    // Double_t ybins[] = {40, 55, 75, 100, 150};                                   // 6th jet pt
-    // Double_t ybins[] = {40, 60, 90, 150};                                   // 6th jet pt
-    //BinA
-    // Double_t ybins[] = {40, 45., 80,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
-    //BinB
-    // Double_t ybins[] = {40, 45., 60, 80,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
-    //BinC
-    // Double_t ybins[] = {40, 45., 55, 80,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
-    //BinD
-    // Double_t ybins[] = {40, 45., 55,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
-    //BinE
-    // Double_t ybins[] = {40, 45., 50.,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {500, 600, 800, 1200,  2500}; // HT
-    //BinF
-    // Double_t ybins[] = {40, 45., 50.,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {500, 700, 1200,  2500}; // HT
- 
-    //BinG
-    // Double_t ybins[] = {25., 30, 35., 40, 45., 50.,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {350, 500, 700, 1200,  2500}; // HT
-    // Double_t ybins[] = {30, 35., 40, 45., 50.,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {400, 500, 700, 1200,  2500}; // HT
-    // Double_t ybins[] = {32, 36., 40, 45., 50.,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {450, 500, 700, 1200,  2500}; // HT
-    // Double_t ybins[] = {34, 36., 38, 40, 45., 50.,  150};                                   // 6th jet pt
-    // Double_t xbins[] = {450, 500, 600, 700, 1200,  2500}; // BinH
-    // Double_t xbins[] = {450, 500, 700, 1200,  2500}; // HT
-    // Double_t ybins[] = {34, 36., 38, 40, 45., 50., 60, 80,  200}; //BinI                                
-    // Double_t ybins[] = {34,  38, 40, 45., 50., 60, 80,  200}; //BinJ                                
-    // Double_t ybins[] = {34,  38, 40, 45., 50., 60,  200}; //BinK                                
-    // Double_t xbins[] = {450, 500, 550, 650, 750, 1000,  2500}; //BinL
-    // Double_t xbins[] = {450, 500, 550, 700, 1000,  2500}; //BinM
-    // Double_t ybins[] = {34,  38, 42 , 50., 60,  200}; //BinN                                
-    // Double_t xbins[] = {450, 490, 530, 700, 1000,  2500}; //BinN
-    // Double_t xbins[] = {450, 500, 550,  900,  2500}; //BinZ
-    // Double_t ybins[] = {34,  40, 48,  200}; //BinZ                           
-
-    //different binning for different b jet multiplicity
-    // Double_t xbins[] = {450, 490, 530, 700, 1000,  2500}; //2b
-    // Double_t ybins[] = {34,  38, 42, 46, 50,  60,  200}; //2b; BinX                              
-    // Double_t xbins3b[] = {450, 490, 530, 700, 1000,  2500}; //3b BinA
-    // Double_t ybins3b[] = {34,  38, 42,  50,   200}; //3b; BinA                              
-    // Double_t xbins4b[] = {450, 500,  800,  2500}; //4b
-    // Double_t ybins4b[] = {34,  40, 48,  200}; //4b                         
-
-    //BinB
-    // Double_t xbins[] = {450, 480, 510, 550, 600, 900,  2500}; //3b
-    // Double_t ybins[] = {34,  37, 40, 45, 50,  60,  200}; //2b                              
-    // Double_t xbins3b[] = {450, 480, 510, 550, 600, 900,  2500}; //3b
-    // Double_t ybins3b[] = {34,  37, 40, 45, 50,  200};                              
-    // Double_t xbins4b[] = {450, 500,  800,  2500}; //4b
-    // Double_t ybins4b[] = {34,  40, 48,  200}; //4b                         
 
     //BinD 
     Double_t xbins[] = { 500, 540, 600, 900,  2500}; //3b
@@ -182,46 +124,14 @@ void WH_HLTeff::LoopTree(UInt_t entry)
             continue;
         }
 
-        Bool_t is1muon = kTRUE;
         Bool_t ifHLT = HLTSel(e, m_era);//!!!
         Int_t bjetsNum = m_isRun3? e->bjetsPTM_num.v(): e->bjetsM_num.v();
         const Bool_t is4b = (bjetsNum > 3); //!change to >=4b
         const Bool_t is2b = (bjetsNum == 2);
-        // const Bool_t is3b = (bjetsNum > 2);
         const Bool_t is3b = (bjetsNum == 3);
-
-        if (m_era.CompareTo("2016") == 0)
-        {
-            if (i == 0)
-            {
-                std::cout << "HLT selection for 2016\n";
-            }
-            // is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() == 1 && e->muonsTopMVAT_1pt.v() >= 30.;                                   // 2016
-            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 30.;                                   // 2016
-        }
-        else if (m_era.CompareTo("2018") == 0)
-        {
-            if (i == 0)
-            {
-                std::cout << "HLT selection for 2018\n";
-            }
-            is1muon = e->HLT_IsoMu24.v() == 1 && e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 30.;
-        }
-        else if (m_era.CompareTo("2017") == 0)
-        {
-            if (i == 0)
-            {
-                std::cout << "HLT selection for 2017\n";
-            }
-            is1muon = e->HLT_IsoMu27.v() == 1 && e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 30.;
-        }else if(m_era.Contains("2022")){
-            is1muon = e->HLT_IsoMu24.v() && e->muonsT_num.v() >= 1 && e->muonsT_1pt.v() >= 30.;
-        }
-        else
-        {
-            std::cout << "!!! no HLT selection\n";
-        }
-
+        const Bool_t isMuonOff = e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 26. ;
+        const Bool_t isMuonHLT = m_era.CompareTo("2017")==0? e->HLT_IsoMu27.v(): e->HLT_IsoMu24.v();
+        Bool_t is1muon = isMuonOff && isMuonHLT;
 
         Double_t basicWeight = 1.0;
         if (!m_isData)
@@ -234,24 +144,24 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         }
 
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon, "baseline1Muon", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT, "baseline1MuonAndHLT", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT, "baseline1Muon_HLT", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline , "baseline", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT, "baselineAndHLT", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT, "baseline_HLT", basicWeight, m_isData);
         //seperate by b-jets
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is4b, "baseline1Muon1b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is4b, "baseline1MuonAndHLT1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is4b, "baseline1Muon1b_HLT", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline && is4b , "baseline1b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is4b, "baselineAndHLT1b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is4b, "baselineAnd1b_HLT", basicWeight, m_isData);
         //2b
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is2b, "baseline1Muon2b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is2b, "baseline1MuonAndHLT2b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is2b, "baseline1Muon2b_HLT", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline && is2b , "baseline2b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is2b, "baselineAndHLT2b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is2b, "baseline2b_HLT", basicWeight, m_isData);
         //>=3bs
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is3b, "baseline1Muon3b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is3b, "baseline1MuonAndHLT3b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is3b, "baseline1Muon3b_HLT", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline && is3b , "baseline3b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is3b, "baselineAndHLT3b", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is3b, "baseline3b_HLT", basicWeight, m_isData);
 
         // 2D
         // if (baseline && is1muon)
