@@ -1,6 +1,9 @@
 
 import os
 import ROOT
+import subprocess
+import json
+import usefulFunc as uf
 #check IHEP local nanoAOD data file with that of GRID
 
 def main():
@@ -12,20 +15,34 @@ def main():
     # fileNum = getNumFiles(nanoDir)
     # print(nanoDir)
     # print('fileNum=: ', fileNum)
-    total = get_total_events(nanoDir)
-    print(f"Total events: {total}")
+    # total = get_total_events(nanoDir)
+    # print(f"Total events: {total}")
 
     checkDASEntry()
 
-def getNumFiles(nanoDir):
-    files = os.listdir(nanoDir)
-    #get the number of files end with ',root'
-    numFiles = 0
-    if files:
-        for file in files:
-            if file.endswith('.root'):
-                numFiles += 1
-    return numFiles
+
+
+
+def get_dataset_names(query):
+    """Get dataset names matching the query."""
+    query = f"dataset dataset={query}"
+    command = ['dasgoclient', '--query', query]
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    print(result.stdout)
+    datasets = result.stdout.strip().split('\n')
+    return datasets 
+
+
+def checkDASEntry(dataset = 'SingleMuon'):
+    data2018Post = '/Run2018*02Dec2019*-v*/NANOAOD'
+    data = '/SingleMuon'
+    # datasets = 
+    # data = '/SingleMuon/Run2018A-Nano02Dec2019-v1/NANOAOD'
+    # command = f'dasgoclient -query="summary dataset={data+data2018Post}"'
+    # command = f'dasgoclient -query="summary dataset={data}"'
+    # uf.runCommand(command)
+    datasets = get_dataset_names(data+data2018Post)
+    print(datasets)
 
 def get_root_files(directory):
     """Get a list of all ROOT files in the given directory."""

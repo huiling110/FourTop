@@ -39,7 +39,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v4HLT_4bDifBinningDifB/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Jet6pt32_v75NoHLTNoTauHT400Jet6pt30/mc/variableHists_v4HLT_4bDifBinningDifBBinC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/mc/variableHists_v0HLT_HT480Jet6pt37/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/mc/variableHists_v1HLT_varyingCutOnBjetBinD/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/mc/variableHists_v1HLT_varyingCutOnBjetBinD/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v77ForHLT/mc/variableHists_v0HLTMeasure/'
    
     
     isRun3 = uf.isRun3(inputDir)
@@ -52,10 +53,10 @@ def main():
     # plotEfficiencyHLT(inputDirDic, '', isRun3)
     # plotEfficiencyHLT(inputDirDic, '1b', isRun3)
     # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
-    # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
+    plotEfficiencyHLT(inputDirDic, '3b', isRun3)
     
     #plotSF
-    plotSF(inputDirDic, False, isRun3)
+    # plotSF(inputDirDic, False, isRun3)
     
     
    
@@ -135,13 +136,10 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle, ifOnlyDraw=False):
     
     
 def plotEfficiencyHLT(inputDirDic, bjet = '', isRun3 = False):
-    regionList = ['baseline1Muon', 'baseline1MuonAndHLT', 'baseline', 'baselineAndHLT']
-    for i in range(len(regionList)):
-        regionList[i] = regionList[i]+bjet
+    # regionList = ['baseline1Muon', 'baseline1Muon_HLT', 'baseline', 'baseline_HLT']
+    regionList = ['baseline1Muon{}'.format{bjet}, 'baseline1Muon{}_HLT'.format{bjet}, 'baseline{}'.format{bjet}, 'baseline{}_HLT'.format{bjet}]
     
     variableDic = {
-        # 'jets_HT': np.array( [350., 400., 420, 450, 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
-        # 'jets_HT': np.array( [400., 420, 450, 550, 600, 650, 750, 850, 950, 1050, 1250, 1450, 1650, 1950, 2500] ),
         'jets_HT': np.array( [400., 448, 520, 640, 760, 1000,  1240,  1600, 2800] ),
         'bjetsM_num': np.array([ 0.5, 1.5, 2.5, 3.5, 5.5, 7.5]),
         'jets_6pt': np.array([30, 35, 40, 45, 55., 70., 85., 115, 150]),
@@ -158,10 +156,14 @@ def plotEfficiencyHLT(inputDirDic, bjet = '', isRun3 = False):
     uf.checkMakeDir(plotDir)
     
     for ivar in variableDic.keys():
-        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTrueEff'+bjet, 'tt', plotDir, 3)
-        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttOrthEff'+bjet, 'tt', plotDir, 3)
-        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataOrthEff'+bjet, 'data', plotDir, ifData=1)
-        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttTrueEff'+bjet, 'tttt',plotDir, 2)
+        # eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTrueEff'+bjet, 'tt', plotDir, 3)
+        # eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttOrthEff'+bjet, 'tt', plotDir, 3)
+        # eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataOrthEff'+bjet, 'data', plotDir, ifData=1)
+        # eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttTrueEff'+bjet, 'tttt',plotDir, 2)
+        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baseline{}_HLT'.format{bjet}, sumProcessPerVar, 'ttTrueEff'+bjet, 'tt', plotDir, 3)
+        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1Muon{}_HLT'.format{bjet}, sumProcessPerVar,  'ttOrthEff'+bjet, 'tt', plotDir, 3)
+        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1Muon{}_HLT'.format{bjet}, sumProcessPerVar, 'dataOrthEff'+bjet, 'data', plotDir, ifData=1)
+        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baseline{}_HLT'.format{bjet}, sumProcessPerVar, 'ttttTrueEff'+bjet, 'tttt',plotDir, 2)
     
         overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
         # overlayList = [eff_dataRef,eff_ttTruth, eff_ttRef]
