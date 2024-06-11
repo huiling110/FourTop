@@ -44,6 +44,33 @@ def checkDASEntry(dataset = 'SingleMuon'):
     datasets = get_dataset_names(data+data2018Post)
     print(datasets)
 
+    for idata in datasets:
+        query = f"summary dataset={idata}"
+        command = ['dasgoclient', '--query', query, '--format', 'json']
+        # print(command)
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        
+        if result.returncode != 0:
+            print(f"Error running dasgoclient for dataset {idata}: {result.stderr}")
+            return None
+
+        try:
+            summary = json.loads(result.stdout)
+            # print(f"Summary for dataset {idata}: {summary}")
+            if 'summary' in summary['data'][0] and summary['data'][0]['summary']:
+                events =  summary['data'][0]['summary'][0]['nevents']
+            else:
+                print(f"No event information found for dataset {dataset}")
+                return None
+
+        except json.JSONDecodeError as e:
+            print(f"Error parsing JSON output for idata {idata}: {e}")
+            return None
+
+        print(f"Dataset {idata} has {events} events")
+
+        
+
 def get_root_files(directory):
     """Get a list of all ROOT files in the given directory."""
     return [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.root')]
