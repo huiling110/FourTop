@@ -137,7 +137,8 @@ def plotSFSingle(de_2D, nu_2D, plotName, canTitle, ifOnlyDraw=False):
     
 def plotEfficiencyHLT(inputDirDic, bjet = '', isRun3 = False):
     # regionList = ['baseline1Muon', 'baseline1Muon_HLT', 'baseline', 'baseline_HLT']
-    regionList = ['baseline1Muon{}'.format{bjet}, 'baseline1Muon{}_HLT'.format{bjet}, 'baseline{}'.format{bjet}, 'baseline{}_HLT'.format{bjet}]
+    # regionList = [f"baseline1Muon{bjet}", f"baseline1Muon{bjet}_HLT", f"baseline{bjet}", f"baseline{bjet}_HLT"]
+    regionList = [f"baseline1Muon{bjet}", f"baseline1Muon{bjet}_HLT", f"baseline{bjet}", f"baseline{bjet}_HLT", f"baselineMuTri{bjet}", f"baselineMuTri{bjet}_HLT"]
     
     variableDic = {
         'jets_HT': np.array( [400., 448, 520, 640, 760, 1000,  1240,  1600, 2800] ),
@@ -156,20 +157,15 @@ def plotEfficiencyHLT(inputDirDic, bjet = '', isRun3 = False):
     uf.checkMakeDir(plotDir)
     
     for ivar in variableDic.keys():
-        # eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttTrueEff'+bjet, 'tt', plotDir, 3)
-        # eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar,  'ttOrthEff'+bjet, 'tt', plotDir, 3)
-        # eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1MuonAndHLT'+bjet, sumProcessPerVar, 'dataOrthEff'+bjet, 'data', plotDir, ifData=1)
-        # eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baselineAndHLT'+bjet, sumProcessPerVar, 'ttttTrueEff'+bjet, 'tttt',plotDir, 2)
-        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baseline{}_HLT'.format{bjet}, sumProcessPerVar, 'ttTrueEff'+bjet, 'tt', plotDir, 3)
-        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1Muon{}_HLT'.format{bjet}, sumProcessPerVar,  'ttOrthEff'+bjet, 'tt', plotDir, 3)
-        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], 'baseline1Muon'+bjet, 'baseline1Muon{}_HLT'.format{bjet}, sumProcessPerVar, 'dataOrthEff'+bjet, 'data', plotDir, ifData=1)
-        eff_tttt = plotEffHLT(ivar, variableDic[ivar], 'baseline'+bjet, 'baseline{}_HLT'.format{bjet}, sumProcessPerVar, 'ttttTrueEff'+bjet, 'tttt',plotDir, 2)
+        eff_ttTruth = plotEffHLT(ivar, variableDic[ivar], f"baseline{bjet}", f"baseline{bjet}_HLT", sumProcessPerVar, f"ttTrueEff{bjet}", 'tt', plotDir, 'tt')
+        eff_ttRef = plotEffHLT(ivar, variableDic[ivar], f"baseline1Muon{bjet}", f"baseline1Muon{bjet}_HLT", sumProcessPerVar,  f"ttOrthEff{bjet}", 'tt', plotDir, 'tt')
+        eff_dataRef = plotEffHLT(ivar, variableDic[ivar], f"baseline1Muon{bjet}", f"baseline1Muon{bjet}_HLT", sumProcessPerVar, f"dataOrthEff{bjet}", 'data', plotDir, 'singleMu')
+        eff_tttt = plotEffHLT(ivar, variableDic[ivar], f"baseline{bjet}", f"baseline{bjet}_HLT", sumProcessPerVar, f"ttttTrueEff{bjet}", 'tttt',plotDir, 'tttt')
     
         overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
         # overlayList = [eff_dataRef,eff_ttTruth, eff_ttRef]
         legendList = [ 'tt: true', 'tt: orthogonal', 'data: orthogonal' ]
         overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'_v0' 
-        # uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.3, 0.3, 0.9, 0.5],  [0.8, 1.05])
         uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.4, 0.3, 0.9, 0.5],  [0, 1.2])
     
   
@@ -220,29 +216,27 @@ def group_third_layer(dictionary, grouping_dict): ##!!!seems not working
     
 
 
-def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotName, legendName, plotDir, ifData=0): 
-    if  ifData==0:
-        print('plot for all bg')
-        MCTrueth_de = uf.addBGHist(sumProcessPerVar[variable], regionDe, includeQCD=True)
-        MCTrueth_nu = uf.addBGHist(sumProcessPerVar[variable], regionNu, includeQCD=True)
-    elif ifData==1:
-        print('plot for data')
-        MCTrueth_de = sumProcessPerVar[variable][regionDe]['singleMu'].Clone()
-        MCTrueth_nu = sumProcessPerVar[variable][regionNu]['singleMu'].Clone()
-        # MCTrueth_de.SetName(regionDe)
-        # MCTrueth_nu.SetName(regionNu)
-    elif ifData==2:
-        print('plot for tttt')
-        MCTrueth_de = sumProcessPerVar[variable][regionDe]['tttt'].Clone()
-        MCTrueth_nu = sumProcessPerVar[variable][regionNu]['tttt'].Clone()
-        # MCTrueth_de.SetName(regionDe)
-        # MCTrueth_nu.SetName(regionNu)
-    elif ifData==3:
-        print('plot for tt')
-        MCTrueth_de = sumProcessPerVar[variable][regionDe]['tt'].Clone()
-        MCTrueth_nu = sumProcessPerVar[variable][regionNu]['tt'].Clone()
-        # MCTrueth_de.SetName(regionDe)
-        # MCTrueth_nu.SetName(regionNu)
+# def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotName, legendName, plotDir, ifData=0): 
+def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotName, legendName, plotDir, sumPro): 
+    # if  ifData==0:
+    #     print('plot for all bg')
+    #     MCTrueth_de = uf.addBGHist(sumProcessPerVar[variable], regionDe, includeQCD=True)
+    #     MCTrueth_nu = uf.addBGHist(sumProcessPerVar[variable], regionNu, includeQCD=True)
+    # elif ifData==1:
+    #     print('plot for data')
+    #     MCTrueth_de = sumProcessPerVar[variable][regionDe]['singleMu'].Clone()
+    #     MCTrueth_nu = sumProcessPerVar[variable][regionNu]['singleMu'].Clone()
+    # elif ifData==2:
+    #     print('plot for tttt')
+    #     MCTrueth_de = sumProcessPerVar[variable][regionDe]['tttt'].Clone()
+    #     MCTrueth_nu = sumProcessPerVar[variable][regionNu]['tttt'].Clone()
+    # elif ifData==3:
+    #     print('plot for tt')
+    #     MCTrueth_de = sumProcessPerVar[variable][regionDe]['tt'].Clone()
+    #     MCTrueth_nu = sumProcessPerVar[variable][regionNu]['tt'].Clone()
+
+    MCTrueth_de = sumProcessPerVar[variable][regionDe][sumPro].Clone()
+    MCTrueth_nu = sumProcessPerVar[variable][regionNu][sumPro].Clone()
         
     if len( binning ) >0:
         binLowEges = binning

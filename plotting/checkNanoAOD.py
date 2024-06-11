@@ -10,7 +10,8 @@ def main():
     # nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022E/'
     # nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022F/'
     # nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022G/'
-    nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/singleMu_2018a/'
+    # nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/singleMu_2018a/'
+    nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/data/'
     
     # fileNum = getNumFiles(nanoDir)
     # print(nanoDir)
@@ -18,9 +19,20 @@ def main():
     # total = get_total_events(nanoDir)
     # print(f"Total events: {total}")
 
-    checkDASEntry()
+    # checkT3Entry(nanoDir, 'singleMu')
+    # checkT3Entry(nanoDir, 'jetHT')
 
+    # checkDASEntry()# SingleMuon all matches
+    checkDASEntry('/JetHT')# JetHT A B C matches 
 
+def checkT3Entry(directory, sample=''):
+    for isample in os.listdir(directory):
+        if sample and (not sample in isample): continue
+        sampleDir = os.path.join(directory, isample)
+        if not os.path.isdir(sampleDir):
+            continue
+        total = get_total_events(sampleDir)
+        print(f"Sample {isample} has {total} events")
 
 
 def get_dataset_names(query):
@@ -33,15 +45,10 @@ def get_dataset_names(query):
     return datasets 
 
 
-def checkDASEntry(dataset = 'SingleMuon'):
-    data2018Post = '/Run2018*02Dec2019*-v*/NANOAOD'
-    data = '/SingleMuon'
-    # datasets = 
-    # data = '/SingleMuon/Run2018A-Nano02Dec2019-v1/NANOAOD'
-    # command = f'dasgoclient -query="summary dataset={data+data2018Post}"'
-    # command = f'dasgoclient -query="summary dataset={data}"'
-    # uf.runCommand(command)
-    datasets = get_dataset_names(data+data2018Post)
+def checkDASEntry(dataset = '/SingleMuon'):
+    # data2018Post = '/Run2018*02Dec2019*-v*/NANOAOD'
+    data2018Post = '/*UL2018_MiniAODv2_NanoAODv9_v*/NANOAOD'
+    datasets = get_dataset_names(dataset+data2018Post)
     print(datasets)
 
     for idata in datasets:
