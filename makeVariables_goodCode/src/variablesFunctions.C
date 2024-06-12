@@ -1004,16 +1004,16 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
                 p_data = p_data * (1. - ijetSF * btagEff);
             }
         }
-        if(std::abs(p_mc)<1e-6){
-            std::cout<<"jetFlav="<<ijetFlav<<" jetPt="<<ijetPt<<" jetEta="<<ijetEta<<" jetBtag="<<ijetBtag<<" btagEff="<<btagEff<<" btagEffT="<<btagEffT<<" ijetSF="<<ijetSF<<" ijetSFT="<<ijetSFT<<" p_mc="<<p_mc<<" p_data="<<p_data<<"\n";
-        }
+        // if(std::abs(p_mc)<1e-6){
+        //     std::cout<<"jetFlav="<<ijetFlav<<" jetPt="<<ijetPt<<" jetEta="<<ijetEta<<" jetBtag="<<ijetBtag<<" btagEff="<<btagEff<<" btagEffT="<<btagEffT<<" ijetSF="<<ijetSF<<" ijetSFT="<<ijetSFT<<" p_mc="<<p_mc<<" p_data="<<p_data<<"\n";
+        // }
 
     }
-    // sf = std::abs(p_mc)<1e-6? 1: (p_data / p_mc);
-    sf = (p_data / p_mc);
-    if(std::isinf(sf)){
-        std::cout<<"p_mc"<<p_mc<<" p_data"<<p_data<<"\n";
-    }
+    sf = std::abs(p_mc)<1e-8? 1: (p_data / p_mc);
+    // sf = (p_data / p_mc);
+    // if(std::isinf(sf)){
+    //     std::cout<<"p_mc"<<p_mc<<" p_data"<<p_data<<"\n";
+    // }
     return sf;
 }
 

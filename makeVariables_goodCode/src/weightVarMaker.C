@@ -263,7 +263,6 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagWPMT_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3, kTRUE);
     btagWPMT_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3, kTRUE);
     btagWPMT_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3, kTRUE);
-
     if(std::isnan(btagWPMT_weight) || std::isinf(btagWPMT_weight)){
         std::cout<<"btagWPMT_weight="<<btagWPMT_weight<<"\n";
     }
