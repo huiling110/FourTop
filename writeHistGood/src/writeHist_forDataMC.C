@@ -63,6 +63,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // Double_t eventWeight_1tau0l = baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0, btag shape correction
         Double_t eventWeight_1tau0l = isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
 
+        if(std::isinf(e->btagWPMT_weight.v()) || std::isnan(e->btagWPMT_weight.v())){
+            std::cout<<"btagWPMT_weight="<<e->btagWPMT_weight.v()<<"\n";
+        }
+
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
         // std::cout << "basicWeight=" << basicWeight << "\n";

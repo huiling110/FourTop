@@ -8,7 +8,6 @@
 
 namespace TTTT
 {
-
     Bool_t getIsData(TString inputDir)
     {
         Bool_t isData;
@@ -208,6 +207,11 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
             sf = sf - err;
         }
     }
+    // if(std::abs(sf-1.)<1e-6){
+    std::cout << "x=" << x << " y=" << y << " sf=" << sf << "\n";
+    std::cout<<"xmin="<<xmin<<" xmax="<<xmax<<" ymin="<<ymin<<" ymax="<<ymax<<"\n";
+    // }
+    
     return sf;
 }
 

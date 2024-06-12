@@ -134,6 +134,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     // btagR files
     btagRHist = TTTT::getHistogramFromFile<TH1D>(MV::btagR_map.at(m_era), "btagR");
     std::cout << "b tag R file used: " << MV::btagR_map.at(m_era) << "\n";
+
     //btag WP efficieny files
     btagEffHist_b = TTTT::getHistogramFromFile<TH2D>(MV::btagWPEff_map.at(m_era), "jets_ptEta_genB");
     std::cout << "b tag WP file used: " << MV::btagWPEff_map.at(m_era) << "\n";
@@ -149,7 +150,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     btagTEffHist_b = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_B.root", "jets_ptEta_genB");
     btagTEffHist_c = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_C.root", "jets_ptEta_genC");
     btagTEffHist_l = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_L.root", "jets_ptEta_genL");
-
     std::cout<<"\n";
 
     // trigger
@@ -264,8 +264,8 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagWPMT_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3, kTRUE);
     btagWPMT_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3, kTRUE);
 
-    if(std::isnan(btagWPMT_weight)){
-        std::cout<<"btagWPMT_weight is nan\n";
+    if(std::isnan(btagWPMT_weight) || std::isinf(btagWPMT_weight)){
+        std::cout<<"btagWPMT_weight="<<btagWPMT_weight<<"\n";
     }
 
 
