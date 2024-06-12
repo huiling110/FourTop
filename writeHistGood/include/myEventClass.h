@@ -404,6 +404,9 @@ private:
         {btagWPMedium_weight.n(), &btagWPMedium_weight},
         {btagWPMedium_weight_up.n(), &btagWPMedium_weight_up},
         {btagWPMedium_weight_down.n(), &btagWPMedium_weight_down},
+        {btagWPMT_weight.n(), &btagWPMT_weight},
+        {btagWPMT_weight_up.n(), &btagWPMT_weight_up},
+        {btagWPMT_weight_down.n(), &btagWPMT_weight_down},
         {eleMVAT_IDSF_weight.n(), &eleMVAT_IDSF_weight},
 
         {pdfWeight_up_.n(), &pdfWeight_up_},

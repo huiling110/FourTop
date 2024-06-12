@@ -58,10 +58,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             }
         }
 
-        Double_t basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
+        Double_t basicWeight = isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
         Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
         // Double_t eventWeight_1tau0l = baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0, btag shape correction
-        Double_t eventWeight_1tau0l = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
+        Double_t eventWeight_1tau0l = isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
 
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMedium_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
@@ -75,7 +75,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         {
             Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3, isFakeTau);
             Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3, isFakeTau);
-            // WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", basicWeight, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", eventWeight_1tau0l, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
 
@@ -93,9 +92,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         Bool_t is1tau0lMR = SR1tau1lSel(e, 7, m_isRun3, isFakeTau);
         Bool_t is1tau0lVR = SR1tau1lSel(e, 8, m_isRun3, isFakeTau);
         Bool_t is1tau0lCR = SR1tau1lSel(e, 9, m_isRun3, isFakeTau);
-        // WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR, "1tau0lMR", basicWeight, m_isData);
-        // WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", basicWeight, m_isData);
-        // WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR, "1tau0lMR", eventWeight_1tau0l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", eventWeight_1tau0l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", eventWeight_1tau0l, m_isData);

@@ -1006,7 +1006,7 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
         // std::cout<<"jetFlav="<<ijetFlav<<" jetPt="<<ijetPt<<" jetEta="<<ijetEta<<" jetBtag="<<ijetBtag<<" btagEff="<<btagEff<<" btagEffT="<<btagEffT<<" ijetSF="<<ijetSF<<" ijetSFT="<<ijetSFT<<" p_mc="<<p_mc<<" p_data="<<p_data<<"\n";
 
     }
-    sf = p_data / p_mc;
+    sf = std::abs(p_mc)<1e-6? 1: (p_data / p_mc);
     return sf;
 }
 

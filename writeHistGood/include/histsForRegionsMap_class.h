@@ -30,7 +30,7 @@ public:
 
     histsForRegionsMap(TString variableName, TString histTitle, TString processName, Int_t bin, Double_t binMin, Double_t binMax, const std::vector<TString> &regions, myBranch<T> *branch) : histForRegionsBase(variableName, histTitle, processName, bin, binMin, binMax, regions), m_branch{branch}
     {
-        std::cout << "Initializing histsForRegionsMap constructor 1\n";
+        // std::cout << "Initializing histsForRegionsMap constructor 1\n";
         // for (UInt_t i = 0; i < regions.size(); i++)
         // {
         //     TString iHistName = m_processName + "_" + regions[i] + "_" + m_variableName;
@@ -39,7 +39,7 @@ public:
         //     temp->Sumw2();
         //     m_histsVector[regions[i]] = temp;
         // }
-        std::cout << "m_branch=" << m_branch->n() << "\n";
+        // std::cout << "m_branch=" << m_branch->n() << "\n";
     };
 
     virtual ~histsForRegionsMap(){

@@ -51,9 +51,9 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic, '', isRun3)
-    # plotEfficiencyHLT(inputDirDic, '1b', isRun3)
     # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
-    plotEfficiencyHLT(inputDirDic, '3b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
+    plotEfficiencyHLT(inputDirDic, '4b', isRun3)
     
     #plotSF
     # plotSF(inputDirDic, False, isRun3)
@@ -163,11 +163,14 @@ def plotEfficiencyHLT(inputDirDic, bjet = '', isRun3 = False):
         eff_tttt = plotEffHLT(ivar, variableDic[ivar], f"baseline{bjet}", f"baseline{bjet}_HLT", sumProcessPerVar, f"ttttTrueEff{bjet}", 'tttt',plotDir, 'tttt')
     
         overlayList = [eff_ttTruth, eff_ttRef, eff_dataRef]
-        # overlayList = [eff_dataRef,eff_ttTruth, eff_ttRef]
         legendList = [ 'tt: true', 'tt: orthogonal', 'data: orthogonal' ]
         overlayName = plotDir + 'HLTefficiencyOverlay_' + ivar  + bjet+'_v0' 
         uf.plotOverlay(overlayList, legendList, era, 'HLT efficiency',  overlayName, 'AP', [0.4, 0.3, 0.9, 0.5],  [0, 1.2])
-    
+
+        eff_ttMuTri = plotEffHLT(ivar, variableDic[ivar], f"baselineMuTri{bjet}", f"baselineMuTri{bjet}_HLT", sumProcessPerVar, f"ttMuTriTrueEff{bjet}", 'tt', plotDir, 'tt')
+        overlayList2 = [eff_ttTruth, eff_ttRef, eff_ttMuTri]
+        legendList2 = [ 'tt: true', 'tt: muTri+muOffline', 'tt: muTri']   
+        uf.plotOverlay(overlayList2, legendList2, era, 'HLT efficiency',  overlayName+'_muTri', 'AP', [0.4, 0.3, 0.9, 0.5],  [0, 1.2])
   
    
 def group_third_layer(dictionary, grouping_dict): ##!!!seems not working
@@ -216,25 +219,7 @@ def group_third_layer(dictionary, grouping_dict): ##!!!seems not working
     
 
 
-# def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotName, legendName, plotDir, ifData=0): 
 def plotEffHLT(variable, binning,  regionDe, regionNu, sumProcessPerVar, plotName, legendName, plotDir, sumPro): 
-    # if  ifData==0:
-    #     print('plot for all bg')
-    #     MCTrueth_de = uf.addBGHist(sumProcessPerVar[variable], regionDe, includeQCD=True)
-    #     MCTrueth_nu = uf.addBGHist(sumProcessPerVar[variable], regionNu, includeQCD=True)
-    # elif ifData==1:
-    #     print('plot for data')
-    #     MCTrueth_de = sumProcessPerVar[variable][regionDe]['singleMu'].Clone()
-    #     MCTrueth_nu = sumProcessPerVar[variable][regionNu]['singleMu'].Clone()
-    # elif ifData==2:
-    #     print('plot for tttt')
-    #     MCTrueth_de = sumProcessPerVar[variable][regionDe]['tttt'].Clone()
-    #     MCTrueth_nu = sumProcessPerVar[variable][regionNu]['tttt'].Clone()
-    # elif ifData==3:
-    #     print('plot for tt')
-    #     MCTrueth_de = sumProcessPerVar[variable][regionDe]['tt'].Clone()
-    #     MCTrueth_nu = sumProcessPerVar[variable][regionNu]['tt'].Clone()
-
     MCTrueth_de = sumProcessPerVar[variable][regionDe][sumPro].Clone()
     MCTrueth_nu = sumProcessPerVar[variable][regionNu][sumPro].Clone()
         
