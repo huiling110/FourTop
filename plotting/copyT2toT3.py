@@ -18,68 +18,20 @@ def main():
     # T2Dir = '/cms/store/user/hhua/crabNanoPost_2022postEE_v3/mc/'
     # outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/TTto2L2Nu/'
     # outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/TTto4Q/'
-    outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/'
+    # outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/'
+    T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/'
     
-    # for ipro in os.listdir(T2Dir):
-    #     print(ipro)
-    #     iT2Dir = T2Dir + ipro + 'crab*/*/0000/'
-    #     ioutDir = outDir + ipro.find('_')
-        
-    # outDir = outDir+ 'crabNanoPost_2022PostEE_v2/'
-    outDir = outDir+ 'crabNanoPost_2022postEE_v3/'
-    finishedPros = [
-    #    'TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8',
-    #    'QCD_PT-50to80_TuneCP5_13p6TeV_pythia8', 
-    #    'QCD_PT-80to120_TuneCP5_13p6TeV_pythia8', 
-    #    'QCD_PT-300to470_TuneCP5_13p6TeV_pythia8', 
-    #    'QCD_PT-470to600_TuneCP5_13p6TeV_pythia8',
-    #    'QCD_PT-600to800_TuneCP5_13p6TeV_pythia8', 
-    #    'QCD_PT-800to1000_TuneCP5_13p6TeV_pythia8', 
-    #    'QCD_PT-1000to1400_TuneCP5_13p6TeV_pythia8'
-    #    'QCD_PT-1400to1800_TuneCP5_13p6TeV_pythia8',
-    #    'QCD_PT-1800to2400_TuneCP5_13p6TeV_pythia8', 
-    #    'QCD_PT-2400to3200_TuneCP5_13p6TeV_pythia8',
-    #    'QCD_PT-3200_TuneCP5_13p6TeV_pythia8',
-        # 'TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8', 
-        # 'QCD_PT-120to170_TuneCP5_13p6TeV_pythia8',
-        # 'QCD_PT-170to300_TuneCP5_13p6TeV_pythia8',
-        'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8',
-        'TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8',
-    ]
-    # copyT2ToT3(T2Dir, outDir, finishedPros, True)
-   
-    #for data
-    # outDir = outDir + 'crabNanoPost_2022preEE_v3/data/'
-    finishedData = [
-        # 'JetHT',  #'JetHT1', #B, C#!!!copied
-        # 'JetMET', #'JetMET1', 'JetMET2', 'JetMET3', 'JetMET4', #C, D, E, F,G #!!!copied
-        # 'SingleMuon', # 'SingleMuon1', #B,C#!!!copied
-        'Muon'# 'Muon1', 'Muon2', 'Muon3'#!!!copied
-    ]
-    # copyT2ToT3(T2Dir, outDir, finishedData, True) 
-     
-    
-    # outDir = outDir+ 'crabNanoPost_2022preEE_v3/'
-    # notFinishedList = [
-        # 'QCD_PT-30to50_TuneCP5_13p6TeV_pythia8', 
-        # 'QCD_PT-3200_TuneCP5_13p6TeV_pythia8',
-        # 'QCD_PT-80to120_TuneCP5_13p6TeV_pythia8',
-        # 'QCD_PT-800to1000_TuneCP5_13p6TeV_pythia8',
-        # 'TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8',
-        # 'TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8',
-        # 'TTto4Q_TuneCP5_13p6TeV_powheg-pythia8', #!!!only one left
-    # ]
     # T2Dir = 'crabNanoPost_2022postEE_v3/'
-    T2Dir = 'crabNanoPost_2022preEE_v3/'
-    deleteT2Dir(T2Dir, False)
+    # T2Dir = 'crabNanoPost_2022preEE_v3/'
+    # deleteT2Dir(T2Dir, False)
+
+    T2Dir = 'crabNanoPost_run2_v3/'
+    outDir = T3Dir + '/2017/BtagCSV/'
+    uf.checkMakeDir(outDir)
     # copyT2ToT3(T2Dir, outDir, notFinishedList, True)
+    copyT2ToT3(T2Dir, outDir, [], True)
     
    
-    # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/data/JetMET/'
-    # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/data/' #!!!need in previous nanoAOD tool step make data MC outDir consistent!
-    # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/data/' 
-    # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022PostEE/2022postEE/mc/' 
-    # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
     # T3Dir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022preEE_v3/data/'
@@ -118,19 +70,21 @@ def getProName(iDir, isData=False):
         name = iproName
     return name  
         
-def copyT2ToT3(T2Dir, T3Dir, copyList, ifDelete=False):
+# def copyT2ToT3(T2Dir, T3Dir, copyList, ifDelete=False):
+def copyT2ToT3(T2Dir, T3Dir, ignoreList, ifDelete=False):
     pros = getDirList(T2Dir)
     print('pros: ', pros)
     for ipro in pros:
-        if ipro in copyList:
-            print('copy ', ipro, '.......')
-            copyCommand = 'gfal-copy -r -t 99999 root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir + ipro + ' '+ T3Dir
-            uf.runCommand(copyCommand)
-            print('copy done \n\n')
-            if ifDelete:
-                print('delete ', ipro, '.......')
-                deleteCommand = 'gfal-rm -r root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir + ipro
-                uf.runCommand(deleteCommand)
+        if ipro in ignoreList: continue
+        print('copy ', ipro, '.......')
+        # copyCommand = 'gfal-copy -r -t 99999 root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir + ipro + ' '+ T3Dir
+        copyCommand = 'gfal-copy -r -t 99999 {}{}{} {}'.format(T2DirPre, T2Dir, ipro, T3Dir)
+        uf.runCommand(copyCommand)
+        print('copy done \n\n')
+        if ifDelete:
+            print('delete ', ipro, '.......')
+            deleteCommand = 'gfal-rm -r root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir + ipro
+            uf.runCommand(deleteCommand)
         else:
             print('skip ', ipro) 
         print('done ', ipro, ' \n\n')
@@ -157,8 +111,7 @@ def deleteT2Dir(T2Dir, ifDryRun=True):
     uf.runCommand(command, ifDryRun)
     
 def getDirList(T2Dir):
-    # command = 'gfal-ls root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir + 'mc/'
-    command = 'gfal-ls root://cceos.ihep.ac.cn:1094//eos/ihep/' + T2Dir
+    command = 'gfal-ls {}{}'.format(T2DirPre, T2Dir)
     sub = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
     subDirs = sub.stdout.decode('utf-8').split('\n')
     #delete empty string

@@ -49,7 +49,6 @@ void TauVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     taus_MHT = MHTcalculator(objsLorentz); // 900;return the pt sum of,vetctor sum
     taus_HT = HTcalculator(objsLorentz);
     taus_invariantMass = InvariantMassCalculator(objsLorentz);
-    // taus_minDeltaR = MinDeltaRSingleCal(objsLorentz);//!!!
     taus_leptonsT_invariantMass = InvariantMass2SysCal(objsLorentz, leptonsMVAT);
 
     taus_1lepton1_deltaR = deltaR_Leading(objsLorentz, leptonsMVAT);

@@ -144,7 +144,7 @@ Double_t rationHT_4toRestCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &Sel
 
 Double_t InvariantMassCalculator(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets)
 {
-    ROOT::Math::PtEtaPhiMVector jet_sum = {0, 0, 0, 0};
+    ROOT::Math::PtEtaPhiMVector jet_sum{0, 0, 0, 0};
     for (UInt_t j = 0; j < SelectedJets.size(); ++j)
     {
         jet_sum = jet_sum + SelectedJets[j];

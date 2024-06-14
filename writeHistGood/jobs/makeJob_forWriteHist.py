@@ -84,11 +84,11 @@ def main():
     # version = 'v1HLT_6thjetPt34'
     # version = 'v4HLT_4bDifBinningDifB'
     # version = 'v4HLT_4bDifBinningDifBBinC'
-    version = 'v0HLTMeasure'
+    # version = 'v0HLTMeasure'
    
     #dataMC
     # version = 'v0dataMC_allCorrection'
-    # version = 'v0dataMC_allCorrectionBtagMT'
+    version = 'v0dataMC_allCorrectionBtagMT'
     # version = 'v0dataMC_basicWeight'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32'
     # version = 'v0dataMC_basicWeight_HT450Jet6pt32TauM'
