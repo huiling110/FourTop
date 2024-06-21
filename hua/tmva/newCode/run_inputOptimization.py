@@ -8,15 +8,21 @@ import setTDRStyle as st
 
 
 def main():
-    inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
-    inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
+    # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
+    # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
+
+    # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau0l.csv.root'
+    # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
+    inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1allVar/inputList_1tau0l.csv.root'
+    inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1allVar/training.log'
 
     outDir = os.path.dirname(inputRoot)
     
-    # vListDir = generateVarList(inputRoot, inputLog)
+    vListDir = generateVarList(inputRoot, inputLog)
     # submitTrainingJobs(vListDir, inputRoot)
 
-    plot_auc_vs_num_variables(outDir+ '/variableList/' +'BDTTrain/')
+    # plot_auc_vs_num_variables(outDir+ '/variableList/' +'BDTTrain/')
+    # plot_auc_vs_num_variables(outDir+ '/variableListv0/' +'BDTTrain/')
 
 
 def get_auc_and_num_variables(root_file):
@@ -136,19 +142,18 @@ def makeIjob(run, exeDir, jobName):
     print('done writing job: ', jobName)
 
 
-def generateVarList(inputRoot, inputLog):
-    # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
-    # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
-
+def generateVarList(inputRoot, inputLog, varListVer = 'v0'):
+#it can happen that variables removed first all of high correlation variables, leading the variable with more information comes later
     variables = get_variable_separations(inputLog)
     variables = {var: sep for var, sep in variables.items() if sep >= 0.001}
     variables = {var: sep for var, sep in variables.items() if not 'tausTT' in var}
+    variables = {var: sep for var, sep in variables.items() if not 'decayMode' in var}
 
     for i, sep in variables.items():
         print(i, sep)
 
     outDir = os.path.dirname(inputRoot)
-    vListDir = outDir + '/variableList/'
+    vListDir = outDir + f'/variableList{varListVer}/'
     uf.checkMakeDir(vListDir)
     vListList = createNextVariableList_correlation(variables, inputRoot)
     writeListListToFile( vListList, vListDir)
@@ -187,10 +192,11 @@ def createNextVariableList_correlation( vlist, TMVAroot):
             ibinY+=1
         ibinX+=1
 
-    #  print( 'correlaition list: ', correlation_list)
     correlation_list.sort( key=takeThird, reverse = True )
+    # for ilist in correlation_list:
+        # print( ilist )
     print('\n')
-    print( 'list after sorting: ', correlation_list)
+    # print( 'list after sorting: ', correlation_list)
     print('\n')
 
     #for simplisity, not taking multiple same correlation into account for now
@@ -203,15 +209,14 @@ def createNextVariableList_correlation( vlist, TMVAroot):
             listLenth = listLenth-1
         firstVariable = correlationPair[0]
         secondVariable = correlationPair[1]
-        #  print( 'tempList: ', len(tempList), tempList)
         if firstVariable in tempList and secondVariable in tempList:
             # if vlist.index( firstVariable) > vlist.index( secondVariable ):
             if vlist[ firstVariable ] < vlist[ secondVariable ]:
                 tempList.remove( firstVariable)
-                #  print( 'removed: ', secondVariable )
+                print( 'removed: ', firstVariable )
             else:
                 tempList.remove( secondVariable)
-                #  print( 'removed: ', firstVariable )
+                print( 'removed: ', secondVariable )
     return variableListList 
 
 def takeThird( elem ):

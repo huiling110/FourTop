@@ -23,13 +23,13 @@ def main():
     
     # T2Dir = 'crabNanoPost_2022postEE_v3/'
     # T2Dir = 'crabNanoPost_2022preEE_v3/'
-    # deleteT2Dir(T2Dir, False)
 
     T2Dir = 'crabNanoPost_run2_v3/'
     outDir = T3Dir + '/2017/BtagCSV/'
     uf.checkMakeDir(outDir)
     # copyT2ToT3(T2Dir, outDir, notFinishedList, True)
-    copyT2ToT3(T2Dir, outDir, [], True)
+    # copyT2ToT3(T2Dir, outDir, [], True)
+    deleteT2Dir(T2Dir, False)
     
    
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'
