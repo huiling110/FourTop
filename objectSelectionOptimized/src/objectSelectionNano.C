@@ -96,23 +96,20 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         //systematic Weight cal
         systWeightCal.Select(e, m_isData);
 
-        // if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){
-        // if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){
-        if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0, m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
+        if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){ //!for b-tag efficiency measurement
+        // if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0, m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
             continue;
         }
 
-        // if (!(jetSel.getSize() > 5 && tauSel.getSize() > 0)) //!!!for b-tag efficiency measurement
         if(!(OS::ifEventPass(preSelection, jetSel.getSize()>5, m_cutflow, 4))){
         // if(!(OS::ifEventPass(preSelection, jetSel.getSize()>3, m_cutflow, 4))){//!for 1tau2l
             continue;
         }
         // if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>0, m_cutflow, 5))){
-        if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>1, m_cutflow, 5))){//!testing, for HLT
-            continue;
-        }//!No b-tag ,for b-tag efficiency measurement!
-        if(!OS::ifEventPass(preSelection, jetSel.getHT()>480.&& jetSel.get6thPt()>38., m_cutflow, 6)){//!testin, for HLT to run faster later
-        // if(!OS::ifEventPass(preSelection, jetSel.getHT()>400., m_cutflow, 6)){//!testin, for HLT to run faster later
+        // if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>1, m_cutflow, 5))){//!testing, for HLT
+            // continue;
+        // }//!No b-tag ,for b-tag efficiency measurement!
+        if(!OS::ifEventPass(preSelection, jetSel.getHT()>480.&& jetSel.get6thPt()>38., m_cutflow, 6)){//!baseline for 1tau1l and 1tau0l
         // if(!OS::ifEventPass(preSelection, jetSel.getHT()>200. && (eleTopMVATSel.getSize()+muTopMVATSel.getSize())==2, m_cutflow, 6)){//!1tau2l
             continue;
         }
