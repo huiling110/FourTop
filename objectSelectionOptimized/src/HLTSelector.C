@@ -27,6 +27,7 @@ HLTSelector::HLTSelector(TTree *outTree, const TString era, const Bool_t isData,
     outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_", &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_);
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_);
     outTree->Branch("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_", &HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_);
+    outTree->Branch("HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_", &HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_);
     outTree->Branch("HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_", &HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_);
     outTree->Branch("HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_", &HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_);
 
@@ -51,6 +52,7 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
     HLT_IsoMu24_ = **e->HLT_IsoMu24;
     HLT_IsoMu27_ = **e->HLT_IsoMu27;
     HLT_Ele32_WPTight_Gsf_ = **e->HLT_Ele32_WPTight_Gsf;
+    HLT_PFJet500_ = **e->HLT_PFJet500;
 
     Bool_t ifPass = kFALSE;
     // the HLT branch pointer null pointer is not exist in a file
@@ -65,19 +67,20 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
     else if (m_era.CompareTo("2017") == 0)
     {
         // std::cout<<"HLT 2017\n"; 
-        HLT_PFJet500_ = **e->HLT_PFJet500;
         if (!m_isData)
         {
             ifPass = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFJet500;
             HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
             HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
+            HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
         }
         else
         {
-            if ((*e->run) >= 297050 && (*e->run) <= 306460)
+            // if ((*e->run) >= 297050 && (*e->run) <= 306460)
+            if ((*e->run) >= 297046 && (*e->run) <= 306460)
             {
                 // 2017 data
-                if (*e->run < 299329)
+                if (*e->run <= 299329)
                 {
                     ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFJet500;
                     HLT_PFHT430_SixJet40_BTagCSV_p080_ = **e->HLT_PFHT430_SixJet40_BTagCSV_p080;
@@ -88,6 +91,7 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
                     ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFJet500;
                     HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
                     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
+                    HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
                 }
             }
             else
@@ -98,7 +102,6 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
     }
     else if (m_era.CompareTo("2018") == 0)
     {
-        HLT_PFJet500_ = **e->HLT_PFJet500;
         HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_ = **e->HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5;
 
         HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ = **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8;
@@ -210,6 +213,7 @@ void HLTSelector::clearBranch()
     HLT_PFHT430_SixJet40_BTagCSV_p080_ = kFALSE;
     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = kFALSE;    // run<299329
     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = kFALSE; // run<=306460 2017 end
+    HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = kFALSE;
 
 
 };
