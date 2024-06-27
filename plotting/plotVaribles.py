@@ -88,7 +88,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/mc/variableHists_v0Basictraining1tau1l_VLLm800/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/mc/variableHists_v0Basictraining1tau1l_VLLm700_DifBin/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3Basictraining1tau1l_varieBinB/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/variableHists_v0dataMC_allCorrectionBtagMT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/variableHists_v0dataMC_allCorrectionBtagMT/'#1tau1l
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v3dataMC_pileupBtagHLTSFNewTTBR/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baselineBtagWeightFix_v3HLTPre/mc/variableHists_v0dataMC_noCorrectionNewTTBR/'
@@ -129,11 +130,13 @@ def main():
     # variables = [ 'bjetsM_HT', 'bjetsM_MHT', 'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2pt', 'bjetsM_num', 'bjetsM_1pt', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'bjetsPTM_num', 'bjetsPTT_num'] #for 1tau1l BDT input
     # variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'tausTT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausF_1genFlavour', 'tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_1eta', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge']
 
-    input1tau1l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/variableList/varibleList_30.csv'
-    variables = read_csv_as_lines(input1tau1l)
+    # input1tau1l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/variableList/varibleList_30.csv'
+    input1tau0l = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv'
+    # variables = read_csv_as_lines(input1tau1l)
+    variables = read_csv_as_lines(input1tau0l)
     print(variables)
     
-    regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
+    # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
     # regionList = ['1tau1lSR']
     # regionList = ['1tau0lSRTest']
     # regionList = ['1tau2lSR']
@@ -144,8 +147,8 @@ def main():
     ifVLL = ''
     # ifVLL = 'VLLm800'
     # ifVLL = 'VLLm700'
-    # is1tau0l = True
-    is1tau0l = False
+    is1tau0l = True
+    # is1tau0l = False
 
   
     #1tau0l
@@ -161,8 +164,8 @@ def main():
     # regionList = ['1tau0lCR']
     # regionList = ['1tau0lSR']
     # variables = ['BDT']
-    # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
-    # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
+    regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
+    ifFTau = True #if use fakeTau bg and other bg with genTau requirement
 
     
     era = uf.getEraFromDir(inputDir)
@@ -202,7 +205,8 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     # sumProList = ['jetHT','tt',  'qcd', 'tttt'] # run3 1tau1l for now 
     if is1tau0l:
         if ifFakeTau:
-            sumProList.append('fakeTau')
+            # sumProList.append('fakeTau')
+            sumProList.insert(1, 'fakeTau')
             plotName = plotName + 'fakeTau'
         else:
             sumProList.append('qcd')
@@ -219,7 +223,8 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     for variable in variables:
         for iRegion in regionList:       
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 500 ) 
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 50, False, False, False, ifVLL) 
+            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 50, False, False, False, ifVLL) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, False, False, False, ifVLL) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True, ifVLL) 
     

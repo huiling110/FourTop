@@ -32,10 +32,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/'
     # varList = '/workfs2/cms/huahuil/4topCode/v2cut1tau0lSRTauF_v76WithVLLAllMass/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv'
-    varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv'
+    # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv'
+    varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv' #!final list for 1tau0l
     g_weight = "event_allWeight_1tau0l" 
     channel = '1tau0l'
     # outVersion = 'v0'
+    outVersion = 'v1final26Var'
     
     #1tau1l 
     # g_weight = "EVENT_genWeight*PUweight_*EVENT_prefireWeight" 
@@ -59,7 +61,7 @@ def main():
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv'
     # g_weight = 'global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight'
     # outVersion = 'v0allVar'
-    outVersion = 'v1allVar'
+    # outVersion = 'v1allVar'
     # outVersion = 'v1VLLM800'
     # outVersion = 'v1VLLM700'
     # outVersion = 'v1withBtag'

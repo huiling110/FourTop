@@ -3,7 +3,8 @@ import subprocess
 
 import usefulFunc as uf
 
-T2DirPre = 'root://cceos.ihep.ac.cn:1094//eos/ihep//cms/store/user/hhua/'
+# T2DirPre = 'root://cceos.ihep.ac.cn:1094//eos/ihep//cms/store/user/hhua/'
+T2DirPre = 'root://cceos.ihep.ac.cn:9000//eos/ihep//cms/store/user/hhua/'
 
 def main():
     #set up voms first
@@ -24,12 +25,14 @@ def main():
     # T2Dir = 'crabNanoPost_2022postEE_v3/'
     # T2Dir = 'crabNanoPost_2022preEE_v3/'
 
-    T2Dir = 'crabNanoPost_run2_v3/'
-    outDir = T3Dir + '/2017/BtagCSV/'
+    # T2Dir = 'crabNanoPost_run2_v3/'
+    T2Dir = 'ttExtra2018v0/'
+    # outDir = T3Dir + '/2017/BtagCSV/'
+    outDir = T3Dir + '/2018/mc/tt'
     uf.checkMakeDir(outDir)
     # copyT2ToT3(T2Dir, outDir, notFinishedList, True)
-    # copyT2ToT3(T2Dir, outDir, [], True)
-    deleteT2Dir(T2Dir, False)
+    copyT2ToT3(T2Dir, outDir, [], False)
+    # deleteT2Dir(T2Dir, False)
     
    
     # mvDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/'

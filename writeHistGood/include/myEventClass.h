@@ -187,6 +187,7 @@ public:
     myBranch<Double_t> jets_5btag{"jets_5btag"};
     myBranch<Double_t> jets_6btag{"jets_6btag"};
     myBranch<Double_t> jets_7btag{"jets_7btag"};
+    myBranch<Double_t> jets_8btag{"jets_8btag"};
 
     myBranch<Double_t> MET_pt{"MET_pt"};
 
@@ -289,8 +290,8 @@ public:
     myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
     myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
     myBranch<Int_t> tausF_1prongNum{"tausF_1prongNum"};
-
-
+    myBranch<Double_t> tausF_1Met_transMass{"tausF_1Met_transMass"};
+    myBranch<Double_t> tausF_invariantMass{"tausF_invariantMass"};
 
     myBranch<Int_t> tausM_1genFlavour{"tausM_1genFlavour"};
     myBranch<Int_t> tausT_1decayMode{"tausT_1decayMode"};
@@ -454,6 +455,7 @@ private:
     {jets_5btag.n(), &jets_5btag},
     {jets_6btag.n(), &jets_6btag},
     {jets_7btag.n(), &jets_7btag},
+    {jets_8btag.n(), &jets_8btag},
 
         {MET_pt.n(), &MET_pt},
 
@@ -533,6 +535,8 @@ private:
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
         {tausF_1prongNum.n(), &tausF_1prongNum},
+        {tausF_1Met_transMass.n(), &tausF_1Met_transMass},
+        {tausF_invariantMass.n(), &tausF_invariantMass},
 
         {tausT_1decayMode.n(), &tausT_1decayMode},
         {tausTT_1decayMode.n(), &tausTT_1decayMode},
