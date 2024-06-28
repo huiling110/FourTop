@@ -31,7 +31,8 @@ def main():
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v57ovelapWithTausF/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v65TheoryWeightAdded/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v71NoHLTNoTau/'
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v70BetterHLT/'
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v70BetterHLT/'
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77ForHLT/'
     era = uf.getEraFromDir(obDir)
     # checkOSJobs(obDir, era)
     checkLogOB(obDir)
