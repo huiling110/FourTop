@@ -13,7 +13,7 @@ std::map<TString, std::array<TString, 4>> corr_SF_map{
 };
 std::map<TString, std::array<TString, 5>> json_map = {
     {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json", "LUM/2016preVFP_UL/puWeights.json", "JME/2016preVFP_UL/jetvetomaps.json"}},
-    {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json", "LUM/2016postVFP_UL/puWeights.json", "JME/2016postVFP_UL/jetvetomaps.json""JME/2016postVFP_UL/jetvetomaps.json"}},
+    {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json", "LUM/2016postVFP_UL/puWeights.json", "JME/2016postVFP_UL/jetvetomaps.json"}},
     {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json", "BTV/2017_UL/btagging.json", "LUM/2017_UL/puWeights.json", "JME/2017_UL/jetvetomaps.json"}},
     {"2018", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json", "LUM/2018_UL/puWeights.json", "JME/2018_UL/jetvetomaps.json"}},
     {"2022preEE", {"JME/2022_Summer22/jet_jerc.json", "../newRun3/TAU/2022_preEE/tau_DeepTau2018v2p5_2022_preEE.json", "BTV/2018_UL/btagging.json", "LUM/2022_Summer22/puWeights.json", "JME/2022_Summer22/jetvetomaps.json"}},//!!! to be updated!!!
@@ -54,7 +54,7 @@ std::map<TString, std::array<TString, 3>> eleScaleSmear = {
     {"2022preEE", {"../newRun3/eleScale/2022Re-recoBCD/electronSS.json", "2022Re-recoBCD_ScaleJSON", "2022Re-recoBCD_SmearingJSON"}},
     {"2022postEE", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
     {"2016preVFP", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
-    {"2016preVFP", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
+    {"2016postVFP", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
     {"2017", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
     {"2018", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
 };
