@@ -69,9 +69,9 @@ void WriteHist_btagEff::LoopTree(UInt_t entry)
 
         // Bool_t pass = e->jets_num.v() >= 6  && e->jets_HT.v() > 500. && e->jets_6pt.v() > 40. && e->tausT_num.v()>=0;
         // Bool_t pass = e->jets_num.v() >= 6  && e->jets_HT.v() > 550. && e->jets_6pt.v() > 40. && e->tausT_num.v()>=0;
-        Bool_t pass = e->jets_num.v() >= 5  && e->jets_HT.v() > 350. && e->tausT_num.v()>=0; //new
+        // Bool_t pass = e->jets_num.v() >= 5  && e->jets_HT.v() > 350. && e->tausT_num.v()>=0; //new
+        Bool_t pass = baselineSelection(e, m_isRun3, kFALSE);
 
-        // if (!(baselineSelection(e)))
         if (!(pass))
         {
             continue;
@@ -92,8 +92,8 @@ void WriteHist_btagEff::LoopTree(UInt_t entry)
             Bool_t ifPassBtagM = kFALSE;
             if (!m_isRun3)
             {
-                // ifPassBtagM = e->jets_btags_->at(i) > TTTT::DeepJetM.at(m_era);//!!!
-                ifPassBtagM = e->jets_btags_->at(i) > TTTT::DeepJetT.at(m_era);//!!!
+                ifPassBtagM = e->jets_btags_->at(i) > TTTT::DeepJetM.at(m_era);//!!!
+                // ifPassBtagM = e->jets_btags_->at(i) > TTTT::DeepJetT.at(m_era);//!!!
             }
             else
             {
