@@ -21,7 +21,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75NotHLTNoBJetTauT/mc/variableHists_v0_btagEffMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75NotHLTNoBJetTauT/mc/variableHists_v0_btagEffMeasureT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77forBtagMeasurement/mc/variableHists_v0_btagEffMeasure/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77forBtagMeasurement/mc/variableHists_v0_btagEffMeasureT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77forBtagMeasurement/mc/variableHists_v0_btagEffMeasureT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v77forBtagMeasurement/mc/variableHists_v0_btagEffMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v77forBtagMeasurement/mc/variableHists_v0_btagEffMeasureT/'
     
     era = uf.getEraFromDir(inputDir)
     print('era=', era)
@@ -32,9 +34,9 @@ def main():
     plotOverLayForBtagEff(inputDir, 'Eta1', era, isRun3)
     plotOverLayForBtagEff(inputDir, 'Eta2', era, isRun3)
 
-    # plotBEffFromFile(inputDir, era, isRun3, 'B' )
-    # plotBEffFromFile(inputDir, era, isRun3, 'C' )
-    # plotBEffFromFile(inputDir, era, isRun3, 'L' )
+    plotBEffFromFile(inputDir, era, isRun3, 'B' )
+    plotBEffFromFile(inputDir, era, isRun3, 'C' )
+    plotBEffFromFile(inputDir, era, isRun3, 'L' )
 
 
 
