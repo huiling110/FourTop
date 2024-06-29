@@ -35,7 +35,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v76WithVLLSample/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v76WithVLLAllMass/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77ForHLT/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77forBtagMeasurement/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77forBtagMeasurement/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v77forBtagMeasurement/mc/",
 
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v10addBjetPTT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022preEE/v11overlapRemovalTausT/mc/",

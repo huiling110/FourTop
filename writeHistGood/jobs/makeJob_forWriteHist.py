@@ -70,8 +70,8 @@ def main():
        
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
-    version = 'v0_btagEffMeasure'
-    # version = 'v0_btagEffMeasureT'
+    # version = 'v0_btagEffMeasure'
+    version = 'v0_btagEffMeasureT'
     
     #HLT 
     # version = 'v1HLT_varyingCutOnBjetBinD'

@@ -20,19 +20,24 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0NoBtagSel_v3NoHLTNoBtagButTauSel/mc/variableHists_v0_btagEffMeasure_histNameChange/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75NotHLTNoBJetTauT/mc/variableHists_v0_btagEffMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75NotHLTNoBJetTauT/mc/variableHists_v0_btagEffMeasureT/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77forBtagMeasurement/mc/variableHists_v0_btagEffMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77forBtagMeasurement/mc/variableHists_v0_btagEffMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77forBtagMeasurement/mc/variableHists_v0_btagEffMeasureT/'
     
     era = uf.getEraFromDir(inputDir)
     print('era=', era)
     isRun3 = uf.isRun3(inputDir)
    
     
-    # plotBEffFromFile(inputDir, era, isRun3, 'B' )
-    # plotBEffFromFile(inputDir, era, isRun3, 'C' )
-    # plotBEffFromFile(inputDir, era, isRun3, 'L' )
     
     plotOverLayForBtagEff(inputDir, 'Eta1', era, isRun3)
     plotOverLayForBtagEff(inputDir, 'Eta2', era, isRun3)
+
+    # plotBEffFromFile(inputDir, era, isRun3, 'B' )
+    # plotBEffFromFile(inputDir, era, isRun3, 'C' )
+    # plotBEffFromFile(inputDir, era, isRun3, 'L' )
+
+
+
 
 def plotBEffFromFile(inputDir, era, isRun3, gen='B'):    
     # hist2d_b = getEffFromFile(inputDirFile, ['jets_ptEta_gen'+gen, 'jets_ptEta_gen'+gen+'_nu'])
