@@ -11,9 +11,9 @@ import usefulFunc as uf
 
 def main():
     # year = '2022'
-    year = '2016'
+    # year = '2016'
     # year = '2018'
-    # year = '2017'
+    year = '2017'
     # inVersion = 'v61fixesLepRemovalBug'
     # inVersion = 'v62addTauJetVars'
     # inVersion = 'v63smallFixJER'
@@ -37,8 +37,8 @@ def main():
     # inVersion = 'v76WithVLLSample'
     # inVersion = 'v76WithVLLAllMass'
     # inVersion = 'v76For1tau2l'
-    # inVersion = 'v77ForHLT'
-    inVersion = 'v77forBtagMeasurement'
+    inVersion = 'v77ForHLT'
+    # inVersion = 'v77forBtagMeasurement'
     outVersion = 'v0baselineHardro'
     # outVersion = 'v0baselineHardro_newTriSFBinD'
     # outVersion = 'v2baselineHardro_FRweightSys'
