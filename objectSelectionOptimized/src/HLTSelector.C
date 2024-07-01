@@ -68,7 +68,8 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
         // std::cout<<"HLT 2017\n"; 
         if (!m_isData)
         {
-            ifPass = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFJet500;
+            // ifPass = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFJet500;
+            ifPass = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
             HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
             HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
             HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
@@ -81,13 +82,15 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
                 // 2017 data
                 if (*e->run <= 299329)
                 {
-                    ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFJet500;
+                    // ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFJet500;
+                    ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
                     HLT_PFHT430_SixJet40_BTagCSV_p080_ = **e->HLT_PFHT430_SixJet40_BTagCSV_p080;
                     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
                 }
                 else
                 {
-                    ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFJet500;
+                    // ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFJet500;
+                    ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
                     HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
                     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
                     HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
