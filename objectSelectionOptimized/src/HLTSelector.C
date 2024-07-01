@@ -51,7 +51,6 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
     clearBranch();
     HLT_IsoMu24_ = **e->HLT_IsoMu24;
     HLT_IsoMu27_ = **e->HLT_IsoMu27;
-    HLT_Ele32_WPTight_Gsf_ = **e->HLT_Ele32_WPTight_Gsf;
     HLT_PFJet500_ = **e->HLT_PFJet500;
 
     Bool_t ifPass = kFALSE;
@@ -108,6 +107,7 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
         HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = **e->HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
         HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
         HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = **e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+        HLT_Ele32_WPTight_Gsf_ = **e->HLT_Ele32_WPTight_Gsf; //!different pt cut for different years
 
         if (!m_isData)
         {
@@ -221,6 +221,8 @@ void HLTSelector::clearBranch()
     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = kFALSE;    // run<299329
     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = kFALSE; // run<=306460 2017 end
     HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = kFALSE;
+
+    HLT_Ele32_WPTight_Gsf_ = kFALSE;
 
 
 };
