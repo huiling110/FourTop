@@ -43,7 +43,7 @@ void WH_HLTeff::Init()
             "baseline1Muon4b",
             "baseline1Muon4b_HLT",
             "baseline4b",       // for MC true efficiency
-            "baselineAnd4b_HLT", // for MC true efficiency
+            "baseline4b_HLT", // for MC true efficiency
             "baseline1Muon2b",
             "baseline1Muon2b_HLT",
             "baseline2b",       // for MC true efficiency
@@ -77,7 +77,6 @@ void WH_HLTeff::Init()
     histsForRegion_vec.push_back(jets_HT_class);
     histsForRegion_vec.push_back(jets_num_class);
     histsForRegion_vec.push_back(bjetsM_num_class);
-
 
     //BinD 
     Double_t xbins[] = { 500, 540, 600, 900,  2500}; //3b
@@ -131,7 +130,10 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         const Bool_t is4b = (bjetsNum > 3); //!change to >=4b
         const Bool_t is2b = (bjetsNum == 2);
         const Bool_t is3b = (bjetsNum == 3);
-        const Bool_t isMuonOff = e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 26. ;
+        Bool_t isMuonOff = e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 26. ;
+        if (m_era.CompareTo("2017")==0){
+            isMuonOff = e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 28. ;
+        }
         const Bool_t isMuonHLT = m_era.CompareTo("2017")==0? e->HLT_IsoMu27.v(): e->HLT_IsoMu24.v();
         Bool_t is1muon = isMuonOff && isMuonHLT;
 
@@ -153,7 +155,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is4b, "baseline1Muon4b", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is4b, "baseline1Muon4b_HLT", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline && is4b , "baseline4b", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is4b, "baselineAnd4b_HLT", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, baseline && ifHLT && is4b, "baseline4b_HLT", basicWeight, m_isData);
         //2b
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && is2b, "baseline1Muon2b", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, baseline && is1muon && ifHLT && is2b, "baseline1Muon2b_HLT", basicWeight, m_isData);

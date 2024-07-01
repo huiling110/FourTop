@@ -140,14 +140,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     btagEffHist_c = TTTT::getHistogramFromFile<TH2D>(MV::btagWPEff_map.at(m_era)+"bEff_C.root", "jets_ptEta_genC");
     btagEffHist_l = TTTT::getHistogramFromFile<TH2D>(MV::btagWPEff_map.at(m_era)+"bEff_L.root", "jets_ptEta_genL");
     std::cout << "b tag WP file used: " << MV::btagWPEff_map.at(m_era) << "\n";
-    // TString btagEff_b = MV::btagWPEff_map.at(m_era);
-    // TString btagEff_c = btagEff_b.ReplaceAll("bEff_B", "bEff_C");
-    // TString btagEff_l = btagEff_b.ReplaceAll("bEff_C", "bEff_L");
-    // btagEffHist_c = TTTT::getHistogramFromFile<TH2D>(btagEff_c, "jets_ptEta_genC");
-    // btagEffHist_l = TTTT::getHistogramFromFile<TH2D>(btagEff_l, "jets_ptEta_genL");
-    // btagEffHist_b->Print();
-    // btagEffHist_c->Print();
-    // btagEffHist_l->Print();
 
     btagTEffHist_b = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_B.root", "jets_ptEta_genB");
     btagTEffHist_c = TTTT::getHistogramFromFile<TH2D>(MV::btagWPTEff_map.at(m_era)+"bEff_C.root", "jets_ptEta_genC");
