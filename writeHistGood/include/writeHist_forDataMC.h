@@ -39,6 +39,8 @@ public:
         m_isRun3 = TTTT::isRun3(m_era);
         std::cout << "m_era=" << m_era << " m_isData=" << m_isData << "  m_isTest=" << m_isTest <<"  m_isRun3="<<m_isRun3<< "\n";
         std::cout << "m_ifFakeTau="<<m_ifFakeTau<<"\n";
+        m_isFakeTau = m_processName.Contains("fakeTau");
+        std::cout<<"m_isFakeTau="<<m_isFakeTau<<"\n";
 
         std::cout << "m_processName: " << m_processName  << "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
@@ -55,6 +57,7 @@ private:
     TString m_inputDir;
     TString m_processName;
     const Bool_t m_ifFakeTau;
+    Bool_t m_isFakeTau;
     Bool_t m_isTest = kTRUE;
     TTree *m_tree;
     TFile *m_file;
@@ -66,9 +69,6 @@ private:
     event *e;
 
     //
-    // Double_t m_BDTScore = 0;
-    // Double_t m_ifBDT = kTRUE;
-
     // hists regions
     histsForRegionsMap<Double_t> jets_HT_class; // calls for default constructor
     // std::vector<histsForRegionsMap>
