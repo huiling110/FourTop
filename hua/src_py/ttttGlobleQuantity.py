@@ -223,6 +223,12 @@ histoGramPerSample = {
     'jetHT_2017d': 'jetHT',
     'jetHT_2017e': 'jetHT',
     'jetHT_2017f': 'jetHT',
+
+    'BTagCSV_2017b': 'jetHT',
+    'BTagCSV_2017c': 'jetHT',
+    'BTagCSV_2017d': 'jetHT',
+    'BTagCSV_2017e': 'jetHT',
+    'BTagCSV_2017f': 'jetHT',
     
     'singleMu_2016F': 'singleMu',
     'singleMu_2016G': 'singleMu',
