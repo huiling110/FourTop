@@ -105,3 +105,7 @@ scramv1 b clean; scramv1 b
 ```
 
 This markdown guide provides a structured approach to conducting the analysis workflow, from setting up the environment to processing data and utilizing the Combine tool. 
+
+
+## Kind reminders 
+# Important to check the job results with ```checkJobResult.pu```, as jobs may fail
