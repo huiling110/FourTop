@@ -48,8 +48,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         {
             continue;
         }
-        // Bool_t isFakeTau = m_processName.Contains("fakeTau");
-        if(m_ifFakeTau ){
+        if(m_ifFakeTau ){//!if fake tau bg, MC should be gen tau
             if(!(e->tausF_num.v()==1)){
                 continue;
             }
@@ -70,9 +69,9 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
         // std::cout << "basicWeight=" << basicWeight << "\n";
 
-        // Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
-        // WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum &&(e->bjetsPTM_num.v()>=2), "baseline", basicWeight, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, kTRUE, "baseline", basicWeight, m_isData);
+        Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum==1 &&, "baseline", basicWeight, m_isData);
+        // WH::histRegionVectFill(histsForRegion_vec, kTRUE, "baseline", basicWeight, m_isData);
 
         // SR
         if (!m_isData)

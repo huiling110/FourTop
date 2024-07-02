@@ -9,14 +9,13 @@
 
 void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/wz/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/singleMu_2017b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017b/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/BTagCSV_2017c/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/BTagCSV_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL_EE_M600/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL_EN_M600/",

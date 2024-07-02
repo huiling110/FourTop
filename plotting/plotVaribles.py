@@ -89,7 +89,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLAllMass/mc/variableHists_v0Basictraining1tau1l_VLLm700_DifBin/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v3Basictraining1tau1l_varieBinB/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/variableHists_v0dataMC_allCorrectionBtagMT/'#1tau1l
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77HadroPresel/mc/variableHists_v0dataMC_allCorrectionBtagMT/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v3HLTPre/mc/variableHists_v3dataMC_pileupBtagHLTSFNewTTBR/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baselineBtagWeightFix_v3HLTPre/mc/variableHists_v0dataMC_noCorrectionNewTTBR/'
@@ -119,7 +120,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/mc/variableHists_v4_looseBaselineBtag2TTauHT500_pileupSF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0NoSel_v13BetterHLTSel/mc/variableHists_v5_looseBaselineBtag2TTauHT500Jet6_pileupSF/'
 
-    # variables = ['jets_num']
+    variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_4pt', 'jets_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausM_num', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge', 'tausT_1lepton1_charge', 'tausM_1lepton1_charge', 'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour']#1tau1l SR, basic variables
     # variables = ['tausT_1lepton1_deltaR', 'jets_sphericity', 'jets_centrality' , 'jets_rationHT_4toRest', 'jets_minDeltaR', 'jets_METDivideHT', 'jets_average_deltaR', 'jets_aplanarity', 'bjetsM_tausT_minDeltaR', 'bjetsM_leptons_minDeltaR', 'bjetsM_minDeltaR', 'bjetsM_2tauT1lep1_stransMass', 'tausT_1lepton1_deltaR', 'tausT_1lepton1Met1_stransMass', 'tausT_1Met_transMass'] #BDT input
@@ -131,24 +132,23 @@ def main():
     # variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'tausTT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausF_1genFlavour', 'tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_1eta', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge']
 
     # input1tau1l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/variableList/varibleList_30.csv'
-    input1tau0l = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv'
+    # input1tau0l = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv'
     # variables = read_csv_as_lines(input1tau1l)
-    variables = read_csv_as_lines(input1tau0l)
-    print(variables)
+    # variables = read_csv_as_lines(input1tau0l)
+    # print(variables)
     
     # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
     # regionList = ['1tau1lSR']
-    # regionList = ['1tau0lSRTest']
     # regionList = ['1tau2lSR']
+    # regionList = ['baseline']
     # variables = ['BDT']
-    # regionList = ['1tau0lSR', '1tau0lMR', '1tau0lVR', '1tau0lCR']
     plotName = 'dataVsMC_v3'
     ifFTau = False
     ifVLL = ''
     # ifVLL = 'VLLm800'
     # ifVLL = 'VLLm700'
-    is1tau0l = True
-    # is1tau0l = False
+    # is1tau0l = True
+    is1tau0l = False
 
   
     #1tau0l
@@ -165,7 +165,7 @@ def main():
     # regionList = ['1tau0lSR']
     # variables = ['BDT']
     regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
-    ifFTau = True #if use fakeTau bg and other bg with genTau requirement
+    # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
 
     
     era = uf.getEraFromDir(inputDir)
