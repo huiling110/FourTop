@@ -1,6 +1,6 @@
 #include "../include/HLTSelector.h"
 
-HLTSelector::HLTSelector(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3): m_era{era}, m_isData{isData}, m_isRun3{isRun3}
+HLTSelector::HLTSelector(TTree *outTree, const TString era, const TString processName, const Bool_t isData, const Bool_t isRun3): m_era{era}, m_processName{processName}, m_isData{isData}, m_isRun3{isRun3}
 {
     std::cout<<"Initializing HLTSelector...........\n";
     std::cout<<"m_era="<<m_era<<" isData="<<m_isData<<" isRun3="<<m_isRun3<<"\n";
@@ -83,7 +83,13 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
                 if (*e->run <= 299329)
                 {
                     // ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFJet500;
-                    ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
+                    // ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
+                    if(m_processName.Contains("BTagCSV")){
+                        ifPass = kFALSE;
+                    }else{
+                        ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
+                    }
+
                     HLT_PFHT430_SixJet40_BTagCSV_p080_ = **e->HLT_PFHT430_SixJet40_BTagCSV_p080;
                     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
                 }
@@ -91,6 +97,12 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
                 {
                     // ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFJet500;
                     ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
+                    if(m_processName.Contains("BTagCSV")){
+                        ifPass = (**e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0) && !(**e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2)  ;
+                    }else{
+                        ifPass = !(**e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0) && (**e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2)  ;
+                    }
+
                     HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
                     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
                     HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;

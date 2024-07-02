@@ -95,7 +95,7 @@ private:
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; 
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3
     // osBase muonSelection{m_outTree};
-    HLTSelector HLTselection{m_outTree, m_era, m_isData, m_isRun3};
+    HLTSelector HLTselection{m_outTree, m_era, m_processName, m_isData, m_isRun3};
     EleTopMVASel eleTopMVATSel{m_outTree, m_era, m_isRun3};
     MuSel muSel{m_outTree, m_era, m_isRun3, 2};//muons Tight for both run 2 and run 3
     // MuSel muSelT{m_outTree, m_era, m_isRun3, 3};

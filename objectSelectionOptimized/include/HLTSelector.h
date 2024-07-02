@@ -6,7 +6,7 @@
 class HLTSelector
 {
 public:
-    HLTSelector(TTree *outTree, const TString era, const Bool_t isData = kFALSE, const  Bool_t isRun3= kFALSE);
+    HLTSelector(TTree *outTree, const TString era, const TString processName, const Bool_t isData = kFALSE, const  Bool_t isRun3= kFALSE);
     ~HLTSelector(){};
 
     Bool_t SelectTauTri(const eventForNano *e, const Bool_t ifHLTSel=kFALSE);
@@ -16,6 +16,7 @@ public:
 
 private:
     const TString m_era;
+    const TString m_processName;
     const Bool_t m_isData;
     const Bool_t m_isRun3;
     // output branches
