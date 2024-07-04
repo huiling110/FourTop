@@ -83,8 +83,8 @@ def main():
     # version = 'v0HLTMeasure'
    
     #dataMC
-    # version = 'v0dataMC_allCorrection'
-    version = 'v0dataMC_allCorrectionBtagMT'
+    version = 'v0dataMC_allCorrectionButHLT'
+    # version = 'v0dataMC_allCorrectionBtagMT'
     # version = 'v0dataMC_basicWeight'
     # version = 'v1dataMC_allCorrectionFakeTau'
     

@@ -52,7 +52,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v76WithVLLSample/'
 # jobVersionName = 'v76WithVLLAllMass/'
 # jobVersionName = 'v77forBtagMeasurement/'
-jobVersionName = 'v77HadroPresel/'
+# jobVersionName = 'v77HadroPresel/'
+jobVersionName = 'v78HadroPresel/'
 
 #run3
 # jobVersionName = 'v0Testing/'
@@ -104,7 +105,7 @@ def main():
     uf.checkMakeDir(jobsDir)
     isRun3 = uf.isRun3(inputDir)
     print( "era: ", era, 'isRun3=', isRun3 )
-
+    print('version: ', jobVersionName)
 
     inputDirMC = inputDir + 'mc/'
     makeJobsInDir( inputDirMC, outputDir , False, '',  eraOut, isRun3 )
