@@ -27,6 +27,8 @@ public:
      HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_(reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_"),
      HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_(reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_"),
      HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_(reader, "HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_"),
+        HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07_(reader, "HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07_"),
+        HLT_PFHT1050_(reader, "HLT_PFHT1050_"),
     //2022
      HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_(reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_"),
      HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_(reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_"),
@@ -208,6 +210,8 @@ public:
     TTreeReaderValue<Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
     TTreeReaderValue<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_;
     TTreeReaderValue<Bool_t> HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_;
+    TTreeReaderValue<Bool_t> HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07_;
+    TTreeReaderValue<Bool_t> HLT_PFHT1050_;
     //2022
     TTreeReaderValue<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
     TTreeReaderValue<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;

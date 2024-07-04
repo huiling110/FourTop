@@ -27,6 +27,8 @@ CopyBranches::CopyBranches(TTree *outTree)
     outTree->Branch("HLT_PFHT380_SixJet32_DoubleBTagCSV_p075", &HLT_PFHT380_SixJet32_DoubleBTagCSV_p075);
     outTree->Branch("HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2", &HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2);
     outTree->Branch("HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0", &HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0);
+    outTree->Branch("HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07", &HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07);
+    outTree->Branch("HLT_PFHT1050", &HLT_PFHT1050);
     // 2022
     outTree->Branch("HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59", &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59);
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94);
@@ -74,6 +76,7 @@ void CopyBranches::makeVariables(EventForMV *e)
     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 = *e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_;
     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = *e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_;
     HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0 = *e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_;
+    HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07 = *e->HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07_;
     //2022
     HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59 = *e->HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59_;
     HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = *e->HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_;
