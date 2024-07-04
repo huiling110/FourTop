@@ -53,7 +53,9 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v76WithVLLAllMass/'
 # jobVersionName = 'v77forBtagMeasurement/'
 # jobVersionName = 'v77HadroPresel/'
-jobVersionName = 'v78HadroPresel/'
+# jobVersionName = 'v78HadroPresel/'
+# jobVersionName = 'v79HadroPresel/'
+jobVersionName = 'v79forHLT/'
 
 #run3
 # jobVersionName = 'v0Testing/'
@@ -82,8 +84,8 @@ jobVersionName = 'v78HadroPresel/'
 def main():
     # era = '2016'
     # era = '2016APV'
-    # era = '2017'
-    era = '2018'
+    era = '2017'
+    # era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # onlyMC = True
