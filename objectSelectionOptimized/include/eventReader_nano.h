@@ -133,6 +133,8 @@ public:
         OS::readPointer(HLT_PFHT380_SixJet32_DoubleBTagCSV_p075, reader, "HLT_PFHT380_SixJet32_DoubleBTagCSV_p075");
         OS::readPointer(HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2, reader, "HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2");
         OS::readPointer(HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0, reader, "HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0");
+        OS::readPointer(HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07, reader, "HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07");
+        OS::readPointer(HLT_PFHT1050, reader, "HLT_PFHT1050");
         // 2022
         OS::readPointer(HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94, reader, "HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94");
         OS::readPointer(HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59, reader, "HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59");
@@ -237,6 +239,8 @@ public:
     // TTreeReaderValue<Bool_t> *HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 = nullptr; // run<=306460 2017 end
     TTreeReaderValue<Bool_t> *HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0 = nullptr; // run>=299368; BtagCSV dataset in 2017
+    TTreeReaderValue<Bool_t> *HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_PFHT1050 = nullptr;
 
     // 2022
     TTreeReaderValue<Bool_t> *HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94 = nullptr;

@@ -28,8 +28,12 @@ HLTSelector::HLTSelector(TTree *outTree, const TString era, const TString proces
     outTree->Branch("HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_", &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94_);
     outTree->Branch("HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_", &HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepJet_4p5_);
     outTree->Branch("HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_", &HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_);
+    outTree->Branch("HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07_", &HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07_);
+    outTree->Branch("HLT_PFHT1050_", &HLT_PFHT1050_);
+
     outTree->Branch("HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_", &HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_);
     outTree->Branch("HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_", &HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_);
+
 
     outTree->Branch("HLT_IsoMu24_", &HLT_IsoMu24_);
     outTree->Branch("HLT_IsoMu27_", &HLT_IsoMu27_);
@@ -66,10 +70,11 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
     else if (m_era.CompareTo("2017") == 0)
     {
         // std::cout<<"HLT 2017\n"; 
+        HLT_PFHT1050_ = **e->HLT_PFHT1050; 
         if (!m_isData)
         {
             // ifPass = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFJet500;
-            ifPass = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
+            ifPass = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0 ||**e->HLT_PFHT1050;
             HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
             HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
             HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
@@ -85,24 +90,25 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
                     // ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFJet500;
                     // ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
                     if(m_processName.Contains("BTagCSV")){
-                        ifPass = kFALSE;
+                        // ifPass = kFALSE;
+                        ifPass = (**e->HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07) && !(**e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFHT1050);
                     }else{
-                        ifPass = **e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
+                        ifPass = (**e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFHT1050) &&(**e->HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07);
+                        // ifPass = (**e->HLT_PFHT430_SixJet40_BTagCSV_p080 || **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075 || **e->HLT_PFHT1050_) ;
                     }
-
                     HLT_PFHT430_SixJet40_BTagCSV_p080_ = **e->HLT_PFHT430_SixJet40_BTagCSV_p080;
                     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = **e->HLT_PFHT380_SixJet32_DoubleBTagCSV_p075;
+                    HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07_ = **e->HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07;
                 }
                 else
                 {
                     // ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFJet500;
-                    ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
+                    // ifPass = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
                     if(m_processName.Contains("BTagCSV")){
-                        ifPass = (**e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0) && !(**e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2)  ;
+                        ifPass = (**e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0) && !(**e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || **e->HLT_PFHT1050) ;
                     }else{
-                        ifPass = !(**e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0) && (**e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2)  ;
+                        ifPass = **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0 || (**e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2|| **e->HLT_PFHT1050)  ;
                     }
-
                     HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5_ = **e->HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5;
                     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = **e->HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2;
                     HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = **e->HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0;
@@ -236,6 +242,8 @@ void HLTSelector::clearBranch()
     HLT_PFHT380_SixJet32_DoubleBTagCSV_p075_ = kFALSE;    // run<299329
     HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2_ = kFALSE; // run<=306460 2017 end
     HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0_ = kFALSE;
+    HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07_ = kFALSE;
+    HLT_PFHT1050_ = kFALSE;
 
     HLT_Ele32_WPTight_Gsf_ = kFALSE;
 

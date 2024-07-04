@@ -7,9 +7,12 @@ import ttttGlobleQuantity as gq
 
 def main():
     # OSdir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v77HadroPresel/'
-    OSdir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/'
+    # OSdir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/'
+    # OSdir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v78HadroPresel/'
+    OSdir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v78HadroPresel/'
 
-    
+
+
     subDic ={}
     for isub in (os.listdir(OSdir+'mc/') + os.listdir(OSdir+'data/')):
         print(isub)
@@ -24,13 +27,16 @@ def main():
     print(sumDic)
 
     writeCSV(sumDic, OSdir)
+    writeCSV(subDic, OSdir, 'cutflow_sub')
 
-def writeCSV(sumDic, OSdir):
+def writeCSV(sumDic, OSdir, name='cutflow', ifsub=False):
     df = histogram_to_dataframe(sumDic)
+    # if ifsub:
+        # df[]
     outDir = OSdir + 'results/'
     uf.checkMakeDir(outDir)
-    df.to_csv(outDir+'cutflow.csv', index=False)
-    print(f"Cutflow CSV written to {outDir+'cutflow.csv'}")
+    df.to_csv(outDir+name+'.csv', index=False)
+    print(f"Cutflow CSV written to {outDir+name+'.csv'}")
 
 def histogram_to_dataframe(hist_dict):
     dic={}
@@ -43,7 +49,8 @@ def histogram_to_dataframe(hist_dict):
             icutflow.append(bin_content)
         dic[subprocess] = icutflow
     
-    df = pd.DataFrame.from_dict(dic, orient='index', columns=['initial', 'METFilter', 'HLT', 'tauF>=1', 'jet>=6', 'bjet>1', 'HT>480&6thjet>38'])
+    # df = pd.DataFrame.from_dict(dic, orient='index', columns=['initial', 'METFilter', 'HLT', 'tauF>=1', 'jet>=6', 'bjet>1', 'HT>480&6thjet>38'])
+    df = pd.DataFrame.from_dict(dic, orient='index', columns=['initial', 'METFilter', 'HLT', 'tauF', 'jet', 'bjet', 'HT'])
     df.reset_index(inplace=True)
     df.rename(columns={'index': 'Process'}, inplace=True)
 

@@ -8,11 +8,11 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/singleMu_2017b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/BTagCSV_2017c/",
@@ -55,12 +55,12 @@ Int_t eventNum = 10000)
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES);
 
-    // const Bool_t tauSel = kFALSE; //for HLT
-    const Bool_t tauSel = kTRUE;
+    const Bool_t tauSel = kFALSE; //for HLT
+    // const Bool_t tauSel = kTRUE;
     // const Bool_t HLTSel = kFALSE;
     const Bool_t HLTSel = kTRUE;
-    os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
-    // os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
+    // os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
+    os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
 
     os.Terminate();
 
