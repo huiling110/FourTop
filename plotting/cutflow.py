@@ -6,7 +6,8 @@ import usefulFunc as uf
 import ttttGlobleQuantity as gq
 
 def main():
-    OSdir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v77HadroPresel/'
+    # OSdir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v77HadroPresel/'
+    OSdir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/'
 
     
     subDic ={}
