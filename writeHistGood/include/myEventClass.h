@@ -353,7 +353,9 @@ public:
     myBranch<Bool_t> HLT_PFHT380_SixJet32_DoubleBTagCSV_p075{"HLT_PFHT380_SixJet32_DoubleBTagCSV_p075"};
     myBranch<Bool_t> HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2{"HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2"};
     myBranch<Bool_t> HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0{"HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0"};
-    //2022
+    myBranch<Bool_t> HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07{"HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07"};
+    myBranch<Bool_t> HLT_PFHT1050{"HLT_PFHT1050"};
+    // 2022
     myBranch<Bool_t> HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59{"HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59"};
     myBranch<Bool_t> HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94{"HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94"};
 
@@ -609,6 +611,8 @@ private:
         {HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59.n(), &HLT_PFHT450_SixPFJet36_PFBTagDeepJet_1p59},
         {HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94.n(), &HLT_PFHT400_SixPFJet32_DoublePFBTagDeepJet_2p94},
         {HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0.n(), &HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0},
+        {HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07.n(), &HLT_HT300PT30_QuadJet_75_60_45_40_TripeCSV_p07},
+        {HLT_PFHT1050.n(), &HLT_PFHT1050},
 
         {PV_npvsGood.n(), &PV_npvsGood},
     };
