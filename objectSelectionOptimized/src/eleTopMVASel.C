@@ -17,7 +17,8 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun
     std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
 
     // set up xgboost booster
-    TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
+    // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
+    TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/";
     TString eleWeight = baseDir+ TopMVALeptonMap[m_era].at(0);
     std::cout << "eleWeight: " << eleWeight << "\n";
     // BoosterHandle booster;

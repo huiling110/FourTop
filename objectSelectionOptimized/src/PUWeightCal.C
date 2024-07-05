@@ -12,7 +12,8 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRu
     if ((!isData) && (!m_isRun3) )
     { // https://twiki.cern.ch/twiki/bin/view/CMS/PileupJSONFileforData#Recommended_cross_section
         //???what's the best way to provide input file path? relative path or abosolute path?
-        TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
+        // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
+        TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/";
         TFile *inputPUFile_data = new TFile((baseDir+pileUpFileMap[era].at(0)).Data(), "READ");
         TFile *inputPUFile_dataUp = new TFile((baseDir+pileUpFileMap[era].at(1)).Data(), "READ");
         TFile *inputPUFile_dataDown = new TFile((baseDir+pileUpFileMap[era].at(2)).Data(), "READ");

@@ -27,7 +27,8 @@ TMVALIBS = -lTMVA
 XGBOOST_LIB=-L/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/ -lxgboost
 XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/rabit/include/
 
-MYLIB = -L/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/myLibrary/ -lcommenFunction
+# MYLIB = -L/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/myLibrary/ -lcommenFunction
+MYLIB = -L/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
 # Directories
 HEADRDIR = .
 SOURCE = src/

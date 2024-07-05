@@ -14,7 +14,8 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era,  const Bool_t isRun3
     // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
 
     // set up xgboost booster
-    TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
+    // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
+    TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/";
     TString muWeight = baseDir + TopMVALeptonMap[era].at(1);
     std::cout << "muWeight: " << muWeight << "\n";
     // BoosterHandle booster;
