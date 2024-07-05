@@ -827,6 +827,7 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
             sf *= sf_vsJet;
             sf *= sf_vsmu;
             sf *= sf_vsele;
+            // std::cout<<"genMatch="<<igenMatch<<" sf_vsJet="<<sf_vsJet<<" sf_vsMu="<<sf_vsmu<<" sf_vsEle="<<sf_vsele<<"\n";
         }
     }
     return sf;

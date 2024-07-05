@@ -132,7 +132,7 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         const Bool_t is3b = (bjetsNum == 3);
         Bool_t isMuonOff = e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 26. ;
         if (m_era.CompareTo("2017")==0){
-            isMuonOff = e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 28. ;
+            isMuonOff = e->muonsTopMVAT_num.v() >= 1 && e->muonsTopMVAT_1pt.v() >= 29. ;
         }
         const Bool_t isMuonHLT = m_era.CompareTo("2017")==0? e->HLT_IsoMu27.v(): e->HLT_IsoMu24.v();
         Bool_t is1muon = isMuonOff && isMuonHLT;
