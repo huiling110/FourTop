@@ -42,16 +42,13 @@ def main():
     # inVersion = 'v77HadroPresel'
     # inVersion = 'v79forHLT'
     inVersion = 'v79HadroPresel'
-    outVersion = 'v0baselineHardro'
-    # outVersion = 'v0baselineHardro_newTriSFBinD'
-    # outVersion = 'v2baselineHardro_FRweightSys'
-    # outVersion = 'v1baselineHardro_btagMTWeight'
+    # outVersion = 'v0baselineHardro'
+    outVersion = 'v1baselineHardro_FRweightSys'
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau0lSRTauF'
     # outVersion = 'v3baselineAddFRWeight'
     # outVersion = 'v4cut1tau0l'
     # outVersion = 'v4cut1tau2l'
-    # outVersion = 'v5cut1tau1lSR'
     
     #2022
     # year = '2022postEE'
