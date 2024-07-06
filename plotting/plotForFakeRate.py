@@ -4,10 +4,9 @@ from math import sqrt
 import numpy as np
 import ROOT
 import usefulFunc as uf
-# from ttttGlobleQuantity import summedProcessList
 
 from setTDRStyle import addCMSTextToCan, setTDRStyle
-from writeCSVforEY import  histDateMinusGenBG
+# from writeCSVforEY import  histDateMinusGenBG
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v3FR_measure_2prong/'
@@ -27,16 +26,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75AddTauTTTTNoHTCut/mc/variableHists_v0FR_measure1prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT350_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measureNot1prong_jetEta/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v79HadroPresel/mc/variableHists_v0FR_measure3prong/'
     
    
     
   
     inputDirDic = uf.getDirDic(inputDir)
     era = uf.getEraFromDir(inputDir)
-    plotFR(inputDirDic, era, '1prong')
-    # plotFR(inputDirDic, era, '3prong')
+    # plotFR(inputDirDic, era, '1prong')
+    plotFR(inputDirDic, era, '3prong')
     
     
 def plotFR(inputDirDic, era,  tauProng='1prong'):
@@ -353,42 +353,42 @@ def getSumProcessVarEta( inputDirDic, ieta, variableDic, isVR=True, ifGetLNotT=T
     
     
     
-def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True, era = '2016', isDataMC=False):
-    print('starting to plot FR for ieta', )
-    h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[1], regionList[0], isDataMC)
-    h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[3], regionList[2], isDataMC)
+# def plotPtInEta(  sumProcessPerVar, inputDirDic, regionList, variableDic, etaRegion , ifPlot = True, era = '2016', isDataMC=False):
+#     print('starting to plot FR for ieta', )
+#     h_CR_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[1], regionList[0], isDataMC)
+#     h_CRLTau_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[3], regionList[2], isDataMC)
 
-    binLowEges = variableDic[list(variableDic.keys())[0]]
-    # h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
-    h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, regionList[1], binLowEges  ) 
-    # h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
-    h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, regionList[3], binLowEges )
-    if len(regionList)>4:
-        h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[4], regionList[5], isDataMC) #tausL_1pt in VRLNotT
-        h_VRLTauNotT_dataSubBG_rebin = h_VRLTauNotT_dataSubBG.Rebin(len(binLowEges)-1, regionList[4], binLowEges)
-    else:
-        h_VRLTauNotT_dataSubBG_rebin = h_CR_dataSubBG_rebin.Clone()
-        h_VRLTauNotT_dataSubBG_rebin.Reset()
+#     binLowEges = variableDic[list(variableDic.keys())[0]]
+#     # h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, 'h_CR_dataSubBG_rebin', binLowEges  ) 
+#     h_CR_dataSubBG_rebin =  h_CR_dataSubBG.Rebin(len(binLowEges)-1, regionList[1], binLowEges  ) 
+#     # h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, 'CRLTau', binLowEges )
+#     h_CRLTau_dataSubBG_rebin = h_CRLTau_dataSubBG.Rebin(len(binLowEges)-1, regionList[3], binLowEges )
+#     if len(regionList)>4:
+#         h_VRLTauNotT_dataSubBG = histDateMinusGenBG(list(variableDic.keys())[0], sumProcessPerVar[list(variableDic.keys())[0]], regionList[4], regionList[5], isDataMC) #tausL_1pt in VRLNotT
+#         h_VRLTauNotT_dataSubBG_rebin = h_VRLTauNotT_dataSubBG.Rebin(len(binLowEges)-1, regionList[4], binLowEges)
+#     else:
+#         h_VRLTauNotT_dataSubBG_rebin = h_CR_dataSubBG_rebin.Clone()
+#         h_VRLTauNotT_dataSubBG_rebin.Reset()
 
-    h_fakeRateCR = h_CR_dataSubBG_rebin.Clone()
-    h_fakeRateCR.Reset()
-    h_fakeRateCR.Sumw2()
-    h_fakeRateCR.Divide(h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin)
-    h_fakeRateCR.SetName('FR_' + regionList[1] )
+#     h_fakeRateCR = h_CR_dataSubBG_rebin.Clone()
+#     h_fakeRateCR.Reset()
+#     h_fakeRateCR.Sumw2()
+#     h_fakeRateCR.Divide(h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin)
+#     h_fakeRateCR.SetName('FR_' + regionList[1] )
     
     
 
-    if ifPlot:
-        plotDir = inputDirDic['mc'] + 'results/' 
-        uf.checkMakeDir( plotDir )
-        if not isDataMC:
-            plotName = plotDir + list(variableDic.keys())[0] +etaRegion+'_'+regionList[1]+ '_FR_sumGenBg_better.png'
-        else:
-            plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better_totalMCAsData.png'
-        plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName, era , True, 'fake rate')
+#     if ifPlot:
+#         plotDir = inputDirDic['mc'] + 'results/' 
+#         uf.checkMakeDir( plotDir )
+#         if not isDataMC:
+#             plotName = plotDir + list(variableDic.keys())[0] +etaRegion+'_'+regionList[1]+ '_FR_sumGenBg_better.png'
+#         else:
+#             plotName = plotDir + list(variableDic.keys())[0] +etaRegion+ '_FR_sumGenBg_better_totalMCAsData.png'
+#         plotEfficiency( h_CR_dataSubBG_rebin, h_CRLTau_dataSubBG_rebin, h_fakeRateCR, plotName, era , True, 'fake rate')
    
-    # h_fakeRateCR.Print() 
-    return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
+#     # h_fakeRateCR.Print() 
+#     return h_fakeRateCR, h_VRLTauNotT_dataSubBG_rebin
     
     
 def getFRAndARNotTList( inputDirDic, variableDic, etaBins, isVR,  ifPlot=True, era='2016', FRMeasureRegion='CR'):

@@ -48,7 +48,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v77forBtagMeasurement/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77ForHLT/' #!HLT
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v77HadroPresel/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v79forHLT/'#!HLT
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v79forHLT/'#!HLT
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v79HadroPresel/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baselineBtagWeightFix_v3HLTPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v4HLTPreNoEnergyScale/'
@@ -67,9 +68,7 @@ def main():
 
     #!fakerate
     # version = 'v0FR_measure1prong'
-    # version = 'v0FR_measure1prong_jetEta'
-    # version = 'v0FR_measureNot1prong_jetEta'
-    # version = 'v0FR_measure3prong'
+    version = 'v0FR_measure3prong'
     # version = 'v1FR_application'
     # version = 'v1FR_application_jetEtaTauF1'
        
@@ -81,7 +80,7 @@ def main():
     #HLT 
     # version = 'v1HLT_varyingCutOnBjetBinD'
     # version = 'v1HLT_6thjetPt34'
-    version = 'v0HLTMeasure'
+    # version = 'v0HLTMeasure'
    
     #dataMC
     # version = 'v0dataMC_allCorrectionButHLT'

@@ -155,8 +155,10 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout<<"trigger SF: "<<triggerSFdir<<"\n\n";
 
     //get FR
-    TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
-    TFile* file3Prong=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measureNot1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
+    // TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
+    // TFile* file3Prong=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measureNot1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
+    TFile* file = new TFile(MV::FR_map.at(m_era).at(0), "READ");
+    TFile* file3Prong = new TFile(MV::FR_map.at(m_era).at(1), "READ");
     std::cout<<"FR files used: "<<file->GetName()<<"\n"<<file3Prong->GetName()<<"\n";
     // Assuming these graphs are already created and stored in the ROOT file
     m_graphs.emplace_back(0.0, 0.8, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta1")));
@@ -271,10 +273,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     if(e->tausF_jetPt.GetSize()>0){
         Double_t errUp, errDown, nominal;
         Int_t tauProng =  e->tausF_decayMode.At(0)/5 + 1 ;
-        // std::cout<<"tauProng="<<tauProng<<"\n";
         tauProng = tauProng==1? 1 : 3;
-        // ifFR = TTTT::getFRandError(m_graphs, std::abs(e->tausF_jetEta.At(0)), tauProng, e->tausF_jetPt.At(0), FR_weight, errUp, errDown);
-        // ifFR = TTTT::getFRandError(m_graphs, std::abs(e->tausF_jetEta.At(0)), tauProng, e->tausF_jetPt.At(0), FR_weight, errDown, errUp);
         ifFR = TTTT::getFRandError(m_graphs, std::abs(e->tausF_jetEta.At(0)), tauProng, e->tausF_jetPt.At(0), nominal, errDown, errUp);
         if (!ifFR)
             {
