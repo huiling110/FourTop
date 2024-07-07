@@ -43,10 +43,10 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79forHLT/data/",
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79HadroPresel/mc/",
 
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
     // TString inputDir = "VLL_EE_M600",
     // TString inputDir = "VLL_EE_M800",
-    // TString inputDir = "ttbar_0l",
+    TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
     // TString inputDir = "jetHT_2017f",
     // TString inputDir = "BTagCSV_2017c",
