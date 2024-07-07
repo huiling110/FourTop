@@ -180,71 +180,107 @@ inline const std::map<TString, std::array<Double_t, 2>> particleNetBMT = {
     {"2022postEE", {0.2605, 0.6915}},
 };
 
-inline const std::map<TString, double> genSumDic = {
-         {"ttW", 27686900.0},
-        {"qcd_2000toInf", 5374710.0},
-        {"qcd_200to300", 57336600.0},
-        {"st_tW_top", 258137000.0},
-        {"WJetsToLNu_HT-200To400", 58225600.0},
-        {"WJetsToLNu_HT-400To600", 7444030.0},
-        {"WJetsToLNu_HT-1200To2500", 6481520.0},
-        {"qcd_1000to1500", 14394800.0},
-        {"WJetsToLNu_HT-2500ToInf", 2097650.0},
-        {"qcd_300to500", 61609700.0},
-        {"qcd_50to100", 38599400.0},
-        {"tttt", 106025.0},
-        {"qcd_1500to2000", 10411800.0},
-        {"ttbar_0l", 104910000000.0},
-        {"ttbar_2l", 10457600000.0},
-        {"ttH_nonbb", 9281200.0},
-        {"WJetsToLNu_HT-600To800", 7718760.0},
-        {"st_tW_antitop", 251902000.0},
-        {"st_tZq", 924059.0},
-        {"ttH_bb", 9451720.0},
-        {"ww", 15679100.0},
-        {"zz", 3526000.0},
-        {"ttG", 27849500.0},
-        {"qcd_700to1000", 48506800.0},
-        {"wz", 7940000.0},
-        {"qcd_500to700", 49184800.0},
-        {"ttbar_1l", 143354000000.0},
-        {"WJetsToLNu_HT-800To1200", 7306190.0},
-        {"ttZ", 32793800.0},
-        {"VLL_EE_M600", 201.1},//! to be updated
-        {"VLL_EN_M600", 364.92},//! to be updated
-        {"VLL_NN_M600", 47.6476},//! to be updated
-
-        {"VLL_EE_M500", 100},//!to be updated
-        {"VLL_EN_M500", 100},//!to be updated
-        {"VLL_NN_M500", 100},//!to be updated
-        {"VLL_EE_M550", 100},//!to be updated
-        {"VLL_EN_M550", 100},//!to be updated
-        {"VLL_NN_M550", 100},//!to be updated
-        {"VLL_EE_M650", 100},//!to be updated
-        {"VLL_EN_M650", 100},//!to be updated
-        {"VLL_NN_M650", 100},//!to be updated
-        {"VLL_EE_M700", 100},//!to be updated
-        {"VLL_EN_M700", 100},//!to be updated
-        {"VLL_NN_M700", 100},//!to be updated
-        {"VLL_EE_M750", 100},//!to be updated
-        {"VLL_EN_M750", 100},//!to be updated
-        {"VLL_NN_M750", 100},//!to be updated
-        {"VLL_EE_M800", 100},//!to be updated
-        {"VLL_EN_M800", 100},//!to be updated
-        {"VLL_NN_M800", 100},//!to be updated
-        {"VLL_EE_M850", 100},//!to be updated
-        {"VLL_EN_M850", 100},//!to be updated
-        {"VLL_NN_M850", 100},//!to be updated
-        {"VLL_EE_M900", 100},//!to be updated
-        {"VLL_EN_M900", 100},//!to be updated
-        {"VLL_NN_M900", 100},//!to be updated
-        {"VLL_EE_M950", 100},//!to be updated
-        {"VLL_EN_M950", 100},//!to be updated
-        {"VLL_NN_M950", 100},//!to be updated
-        {"VLL_EE_M1000", 100},//!to be updated
-        {"VLL_EN_M1000", 100},//!to be updated
-        {"VLL_NN_M1000", 100},//!to be updated
-    };
+// inline const std::map<TString, double> genSumDic = {
+inline const std::map<TString, std::map<TString, double>> genSumDic = {
+        {"2018",{
+            {"ttW", 27686900.0},
+            {"qcd_2000toInf", 5374710.0},
+            {"qcd_200to300", 57336600.0},
+            {"st_tW_top", 258137000.0},
+            {"WJetsToLNu_HT-200To400", 58225600.0},
+            {"WJetsToLNu_HT-400To600", 7444030.0},
+            {"WJetsToLNu_HT-1200To2500", 6481520.0},
+            {"qcd_1000to1500", 14394800.0},
+            {"WJetsToLNu_HT-2500ToInf", 2097650.0},
+            {"qcd_300to500", 61609700.0},
+            {"qcd_50to100", 38599400.0},
+            {"tttt", 106025.0},
+            {"qcd_1500to2000", 10411800.0},
+            {"ttbar_0l", 104910000000.0},
+            {"ttbar_2l", 10457600000.0},
+            {"ttH_nonbb", 9281200.0},
+            {"WJetsToLNu_HT-600To800", 7718760.0},
+            {"st_tW_antitop", 251902000.0},
+            {"st_tZq", 924059.0},
+            {"ttH_bb", 9451720.0},
+            {"ww", 15679100.0},
+            {"zz", 3526000.0},
+            {"ttG", 27849500.0},
+            {"qcd_700to1000", 48506800.0},
+            {"wz", 7940000.0},
+            {"qcd_500to700", 49184800.0},
+            {"ttbar_1l", 143354000000.0},
+            {"WJetsToLNu_HT-800To1200", 7306190.0},
+            {"ttZ", 32793800.0},
+            {"VLL_EE_M600", 201.1},//! to be updated
+            {"VLL_EN_M600", 364.92},//! to be updated
+            {"VLL_NN_M600", 47.6476},//! to be updated
+            {"VLL_EE_M500", 100},//!to be updated
+            {"VLL_EN_M500", 100},//!to be updated
+            {"VLL_NN_M500", 100},//!to be updated
+            {"VLL_EE_M550", 100},//!to be updated
+            {"VLL_EN_M550", 100},//!to be updated
+            {"VLL_NN_M550", 100},//!to be updated
+            {"VLL_EE_M650", 100},//!to be updated
+            {"VLL_EN_M650", 100},//!to be updated
+            {"VLL_NN_M650", 100},//!to be updated
+            {"VLL_EE_M700", 100},//!to be updated
+            {"VLL_EN_M700", 100},//!to be updated
+            {"VLL_NN_M700", 100},//!to be updated
+            {"VLL_EE_M750", 100},//!to be updated
+            {"VLL_EN_M750", 100},//!to be updated
+            {"VLL_NN_M750", 100},//!to be updated
+            {"VLL_EE_M800", 100},//!to be updated
+            {"VLL_EN_M800", 100},//!to be updated
+            {"VLL_NN_M800", 100},//!to be updated
+            {"VLL_EE_M850", 100},//!to be updated
+            {"VLL_EN_M850", 100},//!to be updated
+            {"VLL_NN_M850", 100},//!to be updated
+            {"VLL_EE_M900", 100},//!to be updated
+            {"VLL_EN_M900", 100},//!to be updated
+            {"VLL_NN_M900", 100},//!to be updated
+            {"VLL_EE_M950", 100},//!to be updated
+            {"VLL_EN_M950", 100},//!to be updated
+            {"VLL_NN_M950", 100},//!to be updated
+            {"VLL_EE_M1000", 100},//!to be updated
+            {"VLL_EN_M1000", 100},//!to be updated
+            {"VLL_NN_M1000", 100},//!to be updated
+            }
+        },
+        {"2017",{
+            {"ttW", 27662100.0},
+            {"qcd_2000toInf", 4112570.0},
+            {"qcd_200to300", 42714400.0},
+            {"st_tW_top", 183285000.0},
+            {"WJetsToLNu_HT-200To400", 42282000.0},
+            {"WJetsToLNu_HT-400To600", 5468470.0},
+            {"WJetsToLNu_HT-1200To2500", 4752120.0},
+            {"qcd_1000to1500", 10186700.0},
+            {"WJetsToLNu_HT-2500ToInf", 1185700.0},
+            {"qcd_300to500", 43430000.0},
+            {"qcd_50to100", 26243000.0},
+            {"tttt", 84047.0},
+            {"qcd_1500to2000", 7701880.0},
+            {"ttbar_0l", 73140800000.0},
+            {"ttbar_2l", 7695840000.0},
+            {"ttH_nonbb", 2540300.0},
+            {"WJetsToLNu_HT-600To800", 5545300.0},
+            {"st_tW_antitop", 184446000.0},
+            {"st_tZq", 737624.0},
+            {"ttH_bb", 9041280.0},
+            {"ww", 15634100.0},
+            {"zz", 2706000.0},
+            {"ttG", 22157600.0},
+            {"qcd_700to1000", 32934800.0},
+            {"wz", 7889000.0},
+            {"qcd_500to700", 36194900.0},
+            {"ttbar_1l", 104130000000.0},
+            {"WJetsToLNu_HT-800To1200", 5088480.0},
+            {"ttZ", 31791100.0},
+            //!!!VLL gen sum to be added
+            }
+        },
+};
 
 
 };

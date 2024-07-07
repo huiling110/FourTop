@@ -155,8 +155,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout<<"trigger SF: "<<triggerSFdir<<"\n\n";
 
     //get FR
-    // TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
-    // TFile* file3Prong=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measureNot1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
     TFile* file = new TFile(MV::FR_map.at(m_era).at(0), "READ");
     TFile* file3Prong = new TFile(MV::FR_map.at(m_era).at(1), "READ");
     std::cout<<"FR files used: "<<file->GetName()<<"\n"<<file3Prong->GetName()<<"\n";
@@ -169,9 +167,11 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     m_graphs.emplace_back(1.5, 2.7, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta3")));
 
     if(!m_isData){
-        global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_processName);
+        // global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_processName);//!only BDT training uses this
+        global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_era).at(m_processName);//!only BDT training uses this
         std::cout<<"global_weight="<<global_weight<<"\n";
-        std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<TTTT::genSumDic.at(m_processName)<<"\n";
+        // std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<TTTT::genSumDic.at(m_processName)<<"\n";
+        std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<TTTT::genSumDic.at(m_era).at(m_processName)<<"\n";
     }
 
     std::cout << "Done initializing ............\n";

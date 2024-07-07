@@ -34,7 +34,8 @@ def extract_gen_weight_sum(directory):
     return gen_weight_sums
 
 # Specify the directory to search
-directory = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/log/"
+# directory = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/log/"
+directory = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau/log/'
 gen_weight_sums = extract_gen_weight_sum(directory)
 # print(gen_weight_sums)
 for filename, weight_sum in gen_weight_sums.items():
