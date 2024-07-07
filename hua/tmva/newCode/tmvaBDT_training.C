@@ -22,61 +22,86 @@
 
 void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const TString channel = "1tau2l", const TString ifVLL=kFALSE)
 {
-    // TString signal = ifVLL ? "VLLm600" : "tttt";
-    std::vector<TString> allProcesses = {
-        "tttt",
-        // "VLL_EE_M600", //VLLm600
-        // "VLL_EN_M600",
-        // "VLL_NN_M600",
-        // "VLL_EE_M800",
-        // "VLL_EN_M800",
-        // "VLL_NN_M800",
-        // "VLL_EE_M700",
-        // "VLL_EN_M700",
-        // "VLL_NN_M700",
-    "ttbar_0l",
-    "ttbar_2l",
-    "ttbar_1l",
-    "ttG",
-    "ttZ",  
-    "ttW",
-    "ttH_bb", 
-    "ttH_nonbb", 
+    // std::vector<TString> allProcesses = {
+    std::map<TString, std::vector<TString>> allProcesses = {
+        {"1tau1l", {
+                       "tttt",
+                       // "VLL_EE_M600", //VLLm600
+                       // "VLL_EN_M600",
+                       // "VLL_NN_M600",
+                       // "VLL_EE_M800",
+                       // "VLL_EN_M800",
+                       // "VLL_NN_M800",
+                       // "VLL_EE_M700",
+                       // "VLL_EN_M700",
+                       // "VLL_NN_M700",
+                       "ttbar_0l",
+                       "ttbar_2l",
+                       "ttbar_1l",
+                       "ttG",
+                       "ttZ",
+                       "ttW",
+                       "ttH_bb",
+                       "ttH_nonbb",
 
-    "st_tZq",
-    "st_tW_antitop",
-    "st_tW_top",
+                       "st_tZq",
+                       "st_tW_antitop",
+                       "st_tW_top",
 
-    "WJetsToLNu_HT-200To400",
-    "WJetsToLNu_HT-400To600",
-    "WJetsToLNu_HT-600To800",
-    "WJetsToLNu_HT-800To1200",
-    "WJetsToLNu_HT-1200To2500",
-    "WJetsToLNu_HT-2500ToInf",
+                       "WJetsToLNu_HT-200To400",
+                       "WJetsToLNu_HT-400To600",
+                       "WJetsToLNu_HT-600To800",
+                       "WJetsToLNu_HT-800To1200",
+                       "WJetsToLNu_HT-1200To2500",
+                       "WJetsToLNu_HT-2500ToInf",
+                   }},
+        {"1tau0l_tauGen", {
+                              "tttt_tauGen",
+                              "ttbar_0l_tauGen",
+                              "ttbar_2l_tauGen",
+                              "ttbar_1l_tauGen",
+                              "ttG_tauGen",
+                              "ttZ_tauGen",
+                              "ttW_tauGen",
+                              "ttH_bb_tauGen",
+                              "ttH_nonbb_tauGen",
 
-    "fakeTau_tauF",
-    "fakeTau_tauT",
-    "fakeTau_tauFGen",
-    "fakeTau_tauTGen",
+                              "st_tZq_tauGen",
+                              "st_tW_antitop_tauGen",
+                              "st_tW_top_tauGen",
+
+                              "WJetsToLNu_HT-200To400_tauGen",
+                              "WJetsToLNu_HT-400To600_tauGen",
+                              "WJetsToLNu_HT-600To800_tauGen",
+                              "WJetsToLNu_HT-800To1200_tauGen",
+                              "WJetsToLNu_HT-1200To2500_tauGen",
+                              "WJetsToLNu_HT-2500ToInf_tauGen",
+
+                              "fakeTau_tauF",
+                              "fakeTau_tauT",
+                              "fakeTau_tauFGen",
+                              "fakeTau_tauTGen",
+                          }},
 
     };
 
-    if(!ifVLL.IsNull()){
-        allProcesses.push_back(ifVLL);
-    }
+    // if(!ifVLL.IsNull()){
+    //     allProcesses.push_back(ifVLL);
+    // }
 
     processVec.clear();
-    for(UInt_t i=0; i<allProcesses.size(); i++){
-        TString ifile = inputDir+allProcesses.at(i)+".root";
-        if(channel=="1tau0l"){
-            if(!allProcesses.at(i).Contains("fakeTau")){
-                ifile = inputDir+allProcesses.at(i)+"_tauGen.root";//!important
-            }
-        }else{
-            if(allProcesses.at(i).Contains("fakeTau")){
-                continue;
-            }
-        }
+    // for(UInt_t i=0; i<allProcesses.size(); i++){
+    for(UInt_t i=0; i<allProcesses.at(channel).size(); i++){
+        TString ifile = inputDir+allProcesses.at(channel).at(i)+".root";
+        // if(channel=="1tau0l"){
+        //     if(!allProcesses.at(i).Contains("fakeTau")){
+        //         ifile = inputDir+allProcesses.at(i)+"_tauGen.root";//!important
+        //     }
+        // }else{
+        //     if(allProcesses.at(i).Contains("fakeTau")){
+        //         continue;
+        //     }
+        // }
 
         Process iPro{ifile};
         processVec.push_back(iPro);
@@ -84,15 +109,9 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
 
 }
 
+
 int tmvaBDT_training(
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v4forBDT1tau1lCut_v61fixesLepRemovalBug/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1NewHLTSF1tau1lCut_v64PreAndHLTSel/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0NewHLTSFHT550BinF_v64PreAndHLTSel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau1l_v64PreAndHLTSel/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v74AddMETPhi/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1l_v75AddTauTTTTNoHTCut/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v5cut1tau1lSR_v75OverlapRemovalFTau/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3cut1tau1lSR6thJetpt34_v75OverlapRemovalFTau/mc/",
