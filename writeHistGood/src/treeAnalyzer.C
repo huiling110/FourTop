@@ -22,8 +22,8 @@ void treeAnalyzer::Init()
     // regions for hists
     std::vector<TString> sysRegions = {
         m_channel + "SR",
-        "1tau1lCR1",
-        "1tau1lCR2",
+        // "1tau1lCR1",
+        // "1tau1lCR2",
         "CMS_pileup_" + m_era + "Up",
         "CMS_pileup_" + m_era + "Down",
         "CMS_prefiring_" + m_era + "Up",
@@ -264,18 +264,9 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
             SR1tau1lSys.fillHistVec("CMS_tau_FR_"+m_era + "Down", bdtScore, e->FR_weight_final_down, SR1tau1l, m_isData);
         }
 
-
         //!!!temparory workaround, need to fix the HLT_weight==0 in MV step
-        // if (e->HLT_weight.v() == 0)
-        // {
-        //     SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, 1, SR1tau1l, m_isData);
-        //     SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, 1, SR1tau1l, m_isData);
-        // }
-        // else
-        // {
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec("CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
-        // }
 
         //theorectical uncertainties
         SR1tau1lSys.fillHistVec("pdf_" + m_era + "Up", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
