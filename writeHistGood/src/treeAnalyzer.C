@@ -73,6 +73,7 @@ void treeAnalyzer::Init()
         "QCDscale_Fa_" + m_era + "Up",
         "QCDscale_Fa_" + m_era + "Down",
     };
+    // getChannelSys(sysRegions, "1tau1l", m_era);
 
     // book MVA reader
     // TString variableList = WH::BDTTrainingMap.at(m_era).at(0);
@@ -104,12 +105,15 @@ void treeAnalyzer::Init()
         std::cout<<"training input: "<<weightfile<<"\n";
     }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
-        // SR1tau1lSys = histForRegionsBase("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 5., sysRegions);
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau0l 
-        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//1tau0l 
+        std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.15,  0.19,  0.23,  0.35};
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//1tau0l 
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
 
-        variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
-        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
+        // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
+        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
+        variableList = WH::BDT1tau0l.at(m_era).at(1);
+        weightfile = WH::BDT1tau0l.at(m_era).at(0);
+
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau2l
@@ -118,13 +122,18 @@ void treeAnalyzer::Init()
     }else{
         std::cout << "WARNING!! channel not spefified\n";
     }
+    std::cout<<"weightfile="<<weightfile<<"\n";
 
     WH::readVariableList(variableList, variablesName, variablesForReader, varForReaderMap, variablesOriginAll);
+    std::cout << "out of function\n";
     if (variablesName.size() == variablesForReader.size())
     {
+        std::cout<<"variablesName.size(): "<<variablesName.size()<<"\n";
+        
         for (UInt_t i = 0; i < variablesName.size(); i++)
         {
             reader->AddVariable(variablesName[i], &varForReaderMap[variablesName[i]]);
+            // std::cout<<"reader add variable: "<<variablesName[i]<<"\n";
         }
     }
     else
@@ -133,8 +142,10 @@ void treeAnalyzer::Init()
     }
     // for map, the variables will be reordered according to their keys, not safe to add with map
 
+    std::cout<<"after adding reader\n";
     TString methodName = "BDT" + TString(" method");
     reader->BookMVA(methodName, weightfile);
+    std::cout<<"booked MVA\n";
 
     SR1tau1lSys.setDir(m_outFile);
 
@@ -298,12 +309,11 @@ void treeAnalyzer::Terminate()
     std::cout << "outputFile here: " << m_outFile->GetName() << "\n";
 }
 
+
+
 treeAnalyzer::~treeAnalyzer()
 {
     // code to free any dynamically allocated resources
     m_file->Close();
     m_outFile->Close();
-    // delete m_tree;
-    // delete m_file;
-    // delete m_outFile;
 }
