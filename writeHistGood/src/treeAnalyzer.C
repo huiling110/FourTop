@@ -111,8 +111,8 @@ void treeAnalyzer::Init()
 
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
-        variableList = WH::BDT1tau0l.at(m_era).at(1);
-        weightfile = WH::BDT1tau0l.at(m_era).at(0);
+        variableList = WH::BDT1tau0l.at(m_era).at(0);
+        weightfile = WH::BDT1tau0l.at(m_era).at(1);
 
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";
