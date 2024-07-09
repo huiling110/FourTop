@@ -5,12 +5,6 @@ import usefulFunc as uf
 
 
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JERDown/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESUp/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESDown/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_TESDown/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_TESUp/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JERUp/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JESUp/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v66TheoryWeightAdded/'
@@ -85,27 +79,23 @@ def main():
    
     #dataMC
     # version = 'v0dataMC_allCorrectionButHLT'
-    version = 'v0dataMC_allCorrection'
+    # version = 'v0dataMC_allCorrection'
     # version = 'v0dataMC_basicWeight'
     # version = 'v1dataMC_allCorrectionFakeTau'
     
         
     #1tau1l
-    channel = '1tau1l'
-    # version = 'v3Basictraining1tau1l_varieBinB'
+    # channel = '1tau1l'
     # version = 'v0Basictraining1tau1l_VLL'
     # version = 'v0Basictraining1tau1l_VLLm800'
     # version = 'v0Basictraining1tau1l_VLLm700'
     # version = 'v0Basictraining1tau1l_VLLm700_DifBin2'
     # version = 'v0BasicSystematic'
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
-    # version = 'v1traingWithBtagWP' e
-    # version = 'v4forBtagWPShape_WP'#for btagWP or shape
-    # version = 'v5forBtagWPShape_shape'#for btagWP or shape
     
     #1tau0l systematic
-    # channel = '1tau0l'
-    # version = 'v0BDT1tau0l_3bins'
+    channel = '1tau0l'
+    version = 'v0BDT1tau0l'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
@@ -155,8 +145,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
