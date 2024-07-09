@@ -104,7 +104,9 @@ def main():
     is1tau0l = True
     # is1tau0l = False
     ifLogy = True
-    # ifStackSignal
+    ifStackSignal = False
+    # ifPrintSB = True
+    ifPrintSB = False
 
   
     #1tau0l
@@ -118,9 +120,9 @@ def main():
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted'] # new VR
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCR']
-    regionList = ['1tau0lSR']
+    # regionList = ['1tau0lSR']
     variables = ['BDT']
-    # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
+    regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR']
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
 
     
@@ -130,7 +132,7 @@ def main():
     inputDirDic = uf.getInputDicNew( inputDir)
     uf.checkMakeDir( inputDirDic['mc']+'results/')
     
-    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL, is1tau0l, ifLogy)
+    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL, is1tau0l, ifLogy, ifPrintSB, ifStackSignal)
 
     # plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau) # for using fakeTau 2 hists application 
    
@@ -151,7 +153,7 @@ def read_csv_as_lines(file_path, delimiter=','):
     return lines
 
 
-def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='', is1tau0l=False,  ifLogy=False):
+def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='', is1tau0l=False,  ifLogy=False, ifPrintSB=False, ifStackSignal=False):
     # sigPro = 'tttt' if not ifVLL else 'VLLm600'
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
     sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
@@ -183,7 +185,7 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True, ifVLL) 
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, False, ifLogy, False, ifVLL) 
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, True, ifLogy, False, ifVLL) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL) 
     
    
        
@@ -350,7 +352,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     assymErrorPlotRatio.Draw("e2 same")
 
     #legend
-    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL)
+    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL, ifStackSignal)
     leggy.Draw()
     
     #text above the plot
@@ -372,7 +374,7 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     latex.SetTextAlign(22)  # 
     
     sig = signal.GetBinContent(signal.GetNbinsX())
-    bg = sumHist.GetBinContent(sumHist.GetNbinsX())
+    bg = sumHist.GetBinContent(sumHist.GetNbinsX()) - sig
     
     latex.DrawLatex(signal.GetBinCenter(signal.GetNbinsX()), sig+bg+0.05, f"S={sig:.2f}, B={bg-sig:.2f}")
     
@@ -380,7 +382,7 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     canvas.Draw()
 
  
-def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL=''):
+def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL='', ifStackSignal=False):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     canvy.cd()
     leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
@@ -389,14 +391,12 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
         if ipro == 'jetHT' :
             if dataHist:
                 leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
-        # elif ipro == 'tttt' or ipro=='VLLm600':
-        # elif ipro == 'tttt' or 'VLL' in ipro:
         elif  uf.isBG(ipro, ifVLL)==1:
             sigPro = 'tttt' if ipro == 'tttt' else ifVLL
-            # if (ifVLL and  not ipro == 'tttt'): 
             signalEntry = '{}*{}[{:.1f}*{}]'.format(sigPro,signalScale, getIntegral(nominal[sigPro]), signalScale)
             leggy.AddEntry( signal, signalEntry, 'l')
-            if ifLogy:
+            # if ifLogy:
+            if ifStackSignal:
                 legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
                 leggy.AddEntry(nominal[ipro], legText,"f")
         else:
@@ -488,7 +488,6 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-# def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False, ifVLL = False):
 def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False, ifVLL = ''):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
@@ -528,15 +527,6 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False,
                 dataHist.SetLineColor(kBlack)
                 dataHist.SetTitleSize(0.0)
             continue
-        # if i == 'singleMu':
-        #     continue
-        # # if i == 'tttt' and (not ifStackSignal):
-        # # if (i == 'tttt' or i=='VLLm600') and (not ifStackSignal):
-        # if (i == 'tttt' and not ifVLL) and (not ifStackSignal):
-        #     continue
-        # if (i == 'VLLm600') and not ifStackSignal:
-        #     continue
-        # if not uf.isBG(i, ifVLL)==2: continue
         if uf.isBG(i, ifVLL)==3: continue
         if uf.isBG(i, ifVLL)==1 and (not ifStackSignal): continue
         
