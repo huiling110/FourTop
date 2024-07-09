@@ -75,12 +75,16 @@ void treeAnalyzer::Init()
     // };
     std::vector<TString> sysRegions;
     sysRegions.clear();
-    WH::getChannelSys(sysRegions, "1tau0lSR", m_era);
 
     TString variableList; 
     TString weightfile;
     if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
+
+        WH::getChannelSys(sysRegions, "1tau1lSR", m_era);
+        WH::getChannelSys(sysRegions, "1tau1lCR1", m_era);
+        WH::getChannelSys(sysRegions, "1tau1lCR2", m_era);
+
         // std::vector<Double_t> bins = {-0.25, -0.05, 0, 0.05, 0.1, 0.18, 0.4 }; //1tau1l testing
         // std::vector<Double_t> bins = {-0.25, -0.05, 0, 0.04, 0.08, 0.12, 0.16, 0.18, 0.4 }; //1tau1l Bin B
         std::vector<Double_t> bins = {-0.25, -0.05, 0, 0.04, 0.08, 0.12, 0.17, 0.4 }; //1tau1l Bin B
@@ -105,6 +109,11 @@ void treeAnalyzer::Init()
         std::cout<<"training input: "<<weightfile<<"\n";
     }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
+        WH::getChannelSys(sysRegions, "1tau0lSR", m_era);
+        WH::getChannelSys(sysRegions, "1tau0lCR", m_era);
+        WH::getChannelSys(sysRegions, "1tau0lMR", m_era);
+        WH::getChannelSys(sysRegions, "1tau0lVR", m_era);
+
         std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.15,  0.19,  0.23,  0.35};
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//1tau0l 
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
@@ -116,6 +125,8 @@ void treeAnalyzer::Init()
 
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";
+        WH::getChannelSys(sysRegions, "1tau2lSR", m_era);
+
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau2l
         variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv";
         weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
@@ -168,7 +179,8 @@ void treeAnalyzer::LoopTree()
         m_tree->GetEntry(i);
         cutFlowHist->Fill(0);
 
-        if (!(baselineSelection(e, m_isRun3, WH::channelMap.at(m_channel)==2)))
+        // if (!(baselineSelection(e, m_isRun3, WH::channelMap.at(m_channel)==2)))
+        if (!(baselineSelection(e, m_isRun3, (m_channel=="1tau2l"))))
         {
             continue;
         }
@@ -183,9 +195,6 @@ void treeAnalyzer::LoopTree()
                 if (!(e->tausT_genTauNum.v() == 1)) continue;
             }
         }
-        Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, isFakeTau );
-        Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, isFakeTau);
-        Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, isFakeTau);
         cutFlowHist->Fill(2);
 
         // convert branch value to float for reader
@@ -209,8 +218,24 @@ void treeAnalyzer::LoopTree()
 
         Double_t basicWeight = 1.0;
         basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel));//!
-        // sysRegionsFill(bdtScore, basicWeight, SR1tau1l, CR11tau1l, CR21tau1l);
-        sysRegionsFill(bdtScore, basicWeight, SR1tau1l, "1tau0lSR");
+
+        if(m_channel=="1tau0l"){
+            Bool_t SR1tau0l = SR1tau1lSel(e, 1, m_isRun3, isFakeTau);
+            Bool_t CR1tau0l = SR1tau1lSel(e, 9, m_isRun3, isFakeTau);
+            Bool_t MR1tau0l = SR1tau1lSel(e, 7, m_isRun3, isFakeTau);
+            Bool_t VR1tau0l = SR1tau1lSel(e, 8, m_isRun3, isFakeTau);
+            sysRegionsFill(bdtScore, basicWeight, SR1tau0l, "1tau0lSR");
+            sysRegionsFill(bdtScore, basicWeight, CR1tau0l, "1tau0lCR");
+            sysRegionsFill(bdtScore, basicWeight, MR1tau0l, "1tau0lMR");
+            sysRegionsFill(bdtScore, basicWeight, VR1tau0l, "1tau0lVR");
+        }else if(m_channel=="1tau1l"){
+            Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, isFakeTau );
+            Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, isFakeTau);
+            Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, isFakeTau);
+            sysRegionsFill(bdtScore, basicWeight, SR1tau1l, "1tau1lSR");
+            sysRegionsFill(bdtScore, basicWeight, CR11tau1l, "1tau1lCR1");
+            sysRegionsFill(bdtScore, basicWeight, CR21tau1l, "1tau1lCR2");
+        }
 
     }
     std::cout << "end of event loop\n";
@@ -220,10 +245,7 @@ void treeAnalyzer::LoopTree()
 // void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, Bool_t CR11tau1l, Bool_t CR21tau1l){
 void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region){
 
-        // SR1tau1lSys.fillHistVec(m_channel+"SR", bdtScore, basicWeight, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region, bdtScore, basicWeight, SR1tau1l, m_isData);
-        // SR1tau1lSys.fillHistVec("1tau1lCR1", bdtScore, basicWeight, CR11tau1l, m_isData);
-        // SR1tau1lSys.fillHistVec("1tau1lCR2", bdtScore, basicWeight, CR21tau1l, m_isData);
 
         SR1tau1lSys.fillHistVec(region + "_CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_prefiring_" + m_era + "Up", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(), SR1tau1l, m_isData);
