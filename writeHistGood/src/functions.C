@@ -1,6 +1,5 @@
 #include <fstream>
 #include "../include/functions.h"
-
 namespace WH
 {
 
@@ -377,4 +376,55 @@ TString getProcessName(const TString processName, Bool_t isRun3){
     "QCD_PT-470to600",
     "QCD_PT-600to800",
 };
+
+void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era){
+    sysRegions.push_back(region);
+    sysRegions.push_back(region + "_CMS_pileup_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_pileup_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_prefiring_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_e_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_e_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_m_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_m_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_jes_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_jes_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_hf_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_hf_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_lf_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_lf_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_hfstats1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_hfstats1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_hfstats2_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_hfstats2_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_lfstats1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_lfstats1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_lfstats2_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_lfstats2_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_cferr1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_cferr1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_cferr2_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_cferr2_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
+    sysRegions.push_back(region + "_pdf_" + era + "Up");
+    sysRegions.push_back(region + "_pdf_" + era + "Down");
+    sysRegions.push_back(region + "_pdfAlphaS_" + era + "Up");
+    sysRegions.push_back(region + "_pdfAlphaS_" + era + "Down");
+    sysRegions.push_back(region + "_QCDscale_Re_" + era + "Up");
+    sysRegions.push_back(region + "_QCDscale_Re_" + era + "Down");
+    sysRegions.push_back(region + "_QCDscale_Fa_" + era + "Up");
+    sysRegions.push_back(region + "_QCDscale_Fa_" + era + "Down");
 }
+
+};
