@@ -285,7 +285,7 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era + "Up", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era + "Down", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_down.v(), SR1tau1l, m_isData);
         
-        if( m_processName.Contains(region + "_fakeTau")){
+        if( m_processName.Contains("fakeTau")){
             SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era + "Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);
             SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era + "Down", bdtScore, e->FR_weight_final_down, SR1tau1l, m_isData);
         }
