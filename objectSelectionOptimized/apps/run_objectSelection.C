@@ -8,8 +8,8 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
@@ -58,8 +58,8 @@ void run_objectSelection(
 
     // const Bool_t tauSel = kFALSE; //for HLT
     const Bool_t tauSel = kTRUE;
-    // const Bool_t HLTSel = kFALSE;
-    const Bool_t HLTSel = kTRUE;
+    const Bool_t HLTSel = kFALSE;
+    // const Bool_t HLTSel = kTRUE;
     os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
     // os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
 

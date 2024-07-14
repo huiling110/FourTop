@@ -3,7 +3,8 @@
 # export  PYTHONPATH=/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20_20_UL/src/FourTop/hua/src_py/
 export PYTHONPATH=$PYTHONPATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw-tool-conf/52.0/lib/python2.7/site-packages:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/lib:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw-tool-conf/52.0-58e45b466f32005301749a5b48d2bb69/lib/python2.7/site-packages
 # export PYTHONPATH=$PYTHONPATH:/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20_20_UL/src/FourTop/hua/src_py/
-export PYTHONPATH=$PYTHONPATH:/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/src_py/
+# export PYTHONPATH=$PYTHONPATH:/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/src_py/
+export PYTHONPATH=$PYTHONPATH:/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/src_py/
 export PYTHON3PATH=/cvmfs/cms.cern.ch/share/overrides/python:/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/python:/workfs2/cms/huahuil/4topCode/CMSSW_12_2_4/lib/slc7_amd64_gcc900:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/python:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/lib/slc7_amd64_gcc900:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/coral/CORAL_2_3_21-7f3a02ad5513229377635b0d5f14c5db/slc7_amd64_gcc900/python:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/coral/CORAL_2_3_21-7f3a02ad5513229377635b0d5f14c5db/slc7_amd64_gcc900/lib:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw-tool-conf/52.0-58e45b466f32005301749a5b48d2bb69/lib/python3.9/site-packages
 #
 #for ROOT executebles
@@ -19,7 +20,8 @@ export LD_LIBRARY_PATH=$ROOTSYS/lib/:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/extern
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/lib/  #this means the latets the xgboost lib that doesn't work # but it's essential for python3.9 to work
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/myLibrary/
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/
 
 #for xgboost
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/lib64/

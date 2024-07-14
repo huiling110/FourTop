@@ -64,9 +64,14 @@ def main():
     # runCombineSig( cardDir, True )
     # runCombineSig( cardDir, False )
     # copyCombineResultsToDir( cardDir )
-    
+
+
+    for ifile in os.listdir(cardDir+'workspace/'):
+        if ifile.find('root')>0:
+            print('ifile: ', ifile)
+            runImpact(cardDir+'workspace/'+ifile, cardDir+'combineResults/') 
     # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
-    runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
+    # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau2lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau1l.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau0l.root', cardDir+'combineResults/')
