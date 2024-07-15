@@ -9,10 +9,6 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v61fixesLepRemovalBug/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v62addTauJetVars/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v62addTauJetVars/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v63smallFixJER/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64noHLTSel/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v64PreAndHLTSel/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v64noHLTSel/mc/",
@@ -41,12 +37,13 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/data/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79forHLT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79forHLT/data/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79HadroPresel/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79HadroPresel/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79forHLT/mc/",
 
-    // TString inputDir = "tttt",
+    TString inputDir = "tttt",
     // TString inputDir = "VLL_EE_M600",
     // TString inputDir = "VLL_EE_M800",
-    TString inputDir = "ttbar_0l",
+    // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
     // TString inputDir = "jetHT_2017f",
     // TString inputDir = "BTagCSV_2017c",
@@ -77,8 +74,8 @@ void run_objectSelection(
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
     // Bool_t baseline = kFALSE;
-    mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
-    // mv.EventLoop(baseline, kFALSE, numEntries);
+    // mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
+    mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
