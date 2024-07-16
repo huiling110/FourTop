@@ -531,7 +531,9 @@ def checkIfOtherYear(isub, era, isData):
         return False
     else: 
         for isubEra in gq.dataDict[era]:
-            if isubEra in isub:
+            # if isubEra in isub:
+            iera = isub.split('_')[-1]
+            if iera == isubEra:
                 return False 
         return True
     
