@@ -33,11 +33,8 @@ Bool_t HLTSel(event *e, const TString m_era){
         Bool_t ifHLT = kTRUE;
         if (m_era.Contains("2016") )
         {
-            // if (i == 0)
-            // {
-            //     std::cout << "HLT selection for 2016\n";
-            // }
-            ifHLT = e->HLT_PFHT450_SixJet40_BTagCSV_p056.v() == 1 || e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056.v() == 1 || e->HLT_PFJet450.v() == 1; // 2016
+            // ifHLT = e->HLT_PFHT450_SixJet40_BTagCSV_p056.v() == 1 || e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056.v() == 1 || e->HLT_PFJet450.v() == 1; // 2016
+            ifHLT = e->HLT_PFHT450_SixJet40_BTagCSV_p056.v() || e->HLT_PFHT400_SixJet30_DoubleBTagCSV_p056.v() || e->HLT_PFJet450.v(); // 2016
         }
         else if (m_era.CompareTo("2018") == 0)
         {
