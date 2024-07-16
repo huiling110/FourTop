@@ -1,6 +1,6 @@
 
-PROGRAM = run_treeAnalyzer
-# PROGRAM = run_WH_forDataMC
+# PROGRAM = run_treeAnalyzer
+PROGRAM = run_WH_forDataMC
 
 
 
@@ -29,7 +29,7 @@ ROOTGLIBS = $(shell root-config --glibs)
 
 TMVALIBS = -lTMVA
 
-MYLIB = -L/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
+MYLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
 
 
 # Directories

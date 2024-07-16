@@ -31,7 +31,7 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3, Bool_t is1tau2l)
 Bool_t HLTSel(event *e, const TString m_era){
         // Bool_t is1muon = kTRUE;
         Bool_t ifHLT = kTRUE;
-        if (m_era.CompareTo("2016") == 0)
+        if (m_era.Contains("2016") )
         {
             // if (i == 0)
             // {
