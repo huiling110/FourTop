@@ -59,8 +59,8 @@ Int_t eventNum = 10000)
     // const Bool_t tauSel = kTRUE;
     const Bool_t HLTSel = kFALSE;
     // const Bool_t HLTSel = kTRUE;
-    // os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
-    os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
+    os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
+    // os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
 
     os.Terminate();
 
