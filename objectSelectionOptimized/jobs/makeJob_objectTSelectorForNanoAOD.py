@@ -82,8 +82,8 @@ jobVersionName = 'v79forHLT/'
 #!same version numbers means no change in algrithm but only in selection
 
 def main():
-    # era = '2016'
-    era = '2016APV'
+    era = '2016'
+    # era = '2016APV'
     # era = '2017'
     # era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
