@@ -323,8 +323,8 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
         Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1jetEtaAbs.v()); //!tausF_1jetEtaAbs should be more accurate!
         if(m_ifMeasure){
-            // if (!(e->tausF_prongNum.v() == 1)){//!!!1 prong
-            if (e->tausF_prongNum.v() == 1){//!!! group all tau prong=!1 into one
+            if (!(e->tausF_prongNum.v() == 1)){//!!!1 prong
+            // if (e->tausF_prongNum.v() == 1){//!!! group all tau prong=!1 into one
             // if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
                 continue;
             }
