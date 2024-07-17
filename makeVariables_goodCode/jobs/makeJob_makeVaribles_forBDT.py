@@ -27,9 +27,10 @@ def main():
     # inVersion = 'v77ForHLT'
     # inVersion = 'v77forBtagMeasurement'
     # inVersion = 'v77HadroPresel'
-    inVersion = 'v79forHLT'
-    # inVersion = 'v79HadroPresel'
-    outVersion = 'v0baselineHardro'
+    # inVersion = 'v79forHLT'
+    inVersion = 'v79HadroPresel'
+    # outVersion = 'v0baselineHardro'
+    outVersion = 'v1baselineHardroHLTSF'
     # outVersion = 'v1baselineHardro_FRweightSys'
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau0lSRTauF'
@@ -84,7 +85,7 @@ def main():
 
     for iera in inOutDirMap.keys():
         # if iera=='2016preVFP' : continue
-        if iera=='2016postVFP' : continue#
+        # if iera=='2016postVFP' : continue#
         print('era: ', iera)
         
         for key in inOutDirMap[iera].keys():
