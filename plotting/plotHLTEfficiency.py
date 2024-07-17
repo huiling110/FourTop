@@ -57,13 +57,13 @@ def main():
     print('era=', era)
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
-    plotEfficiencyHLT(inputDirDic, '', isRun3)
-    # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
-    # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
-    # plotEfficiencyHLT(inputDirDic, '4b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '', isRun3)
+    plotEfficiencyHLT(inputDirDic, '2b', isRun3)
+    plotEfficiencyHLT(inputDirDic, '3b', isRun3)
+    plotEfficiencyHLT(inputDirDic, '4b', isRun3)
     
     #plotSF
-    # plotSF(inputDirDic, False, isRun3)
+    plotSF(inputDirDic, False, isRun3)
     
     
    
