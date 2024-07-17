@@ -81,10 +81,15 @@ void WH_HLTeff::Init()
     //BinD 
     Double_t xbins[] = { 500, 540, 600, 900,  2500}; //3b
     Double_t ybins[] = {40, 45, 50,  60,  200}; //2b                              
+    // Double_t xbins3b[] = { 500, 550, 600,  2500}; 
+    // Double_t ybins3b[] = {40, 50,  60,  200};                               
+    // Double_t xbins4b[] = {480, 550,  2500}; //4b
+    // Double_t ybins4b[] = {38,  45,  200}; //4b                         
+    //Bin B 2016
     Double_t xbins3b[] = { 500, 550, 600,  2500}; 
-    Double_t ybins3b[] = {40, 50,  60,  200};                               
-    Double_t xbins4b[] = {480, 550,  2500}; //4b
-    Double_t ybins4b[] = {38,  45,  200}; //4b                         
+    Double_t ybins3b[] = {40, 50,  200};                               
+    Double_t xbins4b[] = {480, 700,  2500}; //4b
+    Double_t ybins4b[] = {38,  200}; //4b                         
 
 
 
