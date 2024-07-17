@@ -65,11 +65,7 @@ def main():
     # runCombineSig( cardDir, False )
     # copyCombineResultsToDir( cardDir )
 
-
-    for ifile in os.listdir(cardDir+'workspace/'):
-        if ifile.find('root')>0:
-            print('ifile: ', ifile)
-            runImpact(cardDir+'workspace/'+ifile, cardDir+'combineResults/') 
+    runImpact(cardDir )
     # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau0lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau2lSys.root', cardDir+'combineResults/')
@@ -78,25 +74,32 @@ def main():
     # runImpact(cardDir+'workspace/datacard.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_1tau0lCom.root', cardDir+'combineResults/')
 
-
+# def runImpact()
     
     
-def runImpact(wf, outFolder):
-    impacDir = outFolder+ 'impactResult/'
-    # uf.checkMakeDir(impacDir)
-    if not os.path.exists(impacDir):
-        os.mkdir(impacDir)
-    step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1  '.format(wf)
-    step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits  '.format(wf)
-    step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json '.format(wf, impacDir)
-    step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(impacDir)
-    mv = 'mv higgsCombine_paramFit*.root impacts.pdf combine_logger.out {}'.format(impacDir)
-    runCommand(step1)
-    runCommand(step2)
-    runCommand(step3)
-    runCommand(step4)
-    runCommand(mv)
-    print('impactPlot here: ', impacDir+'impacts.pdf')
+# def runImpact(wf, outFolder):
+def runImpact(cardDir):
+    for ifile in os.listdir(cardDir+'workspace/'):
+        if ifile.find('root')>0:
+            print('ifile: ', ifile)
+            # runImpact(cardDir+'workspace/'+ifile, cardDir+'combineResults/') 
+            outFolder = cardDir + 'combineResults/'
+            wf = cardDir + 'workspace/' + ifile
+    
+            impacDir = outFolder+ 'impactResult/'
+            if not os.path.exists(impacDir):
+                os.mkdir(impacDir)
+            step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1  '.format(wf)
+            step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits  '.format(wf)
+            step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json '.format(wf, impacDir)
+            step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(impacDir)
+            mv = 'mv higgsCombine_paramFit*.root impacts.pdf combine_logger.out {}'.format(impacDir)
+            runCommand(step1)
+            runCommand(step2)
+            runCommand(step3)
+            runCommand(step4)
+            runCommand(mv)
+            print('impactPlot here: ', impacDir+'impacts.pdf')
 
 def runCommand(com):
     print('run command: ', com)

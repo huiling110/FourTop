@@ -71,7 +71,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum==1, "baseline", basicWeight, m_isData);
-        // WH::histRegionVectFill(histsForRegion_vec, kTRUE, "baseline", basicWeight, m_isData);
 
         // SR
         if (!m_isData)
@@ -82,10 +81,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
 
             //testing of 1tau0l SR definition
-            //1tau1lCR1+CR2
-            Bool_t is1tau0lSRTest = SR1tau1lSel(e, 3, m_isRun3, m_isFakeTau);
-            // WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau0lSRTest", basicWeight, m_isData);
-            WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau1lCR12", basicWeight, m_isData);
             //testing of 1tau0l SR definition
             Bool_t is1tau2lSRTest = SR1tau1lSel(e, 2, m_isRun3, m_isFakeTau);
             WH::histRegionVectFill(histsForRegion_vec, is1tau2lSRTest, "1tau2lSRTest", eventWeight_1tau2l, m_isData);
@@ -106,6 +101,9 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         Bool_t is1tau1lCR2 = SR1tau1lSel(e, 4, m_isRun3, m_isFakeTau);
         WH::histRegionVectFill(histsForRegion_vec, is1tau1lCR1, "1tau1lCR1", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau1lCR2, "1tau1lCR2", basicWeight, m_isData);
+        //1tau1lCR1+CR2
+        Bool_t is1tau0lSRTest = SR1tau1lSel(e, 3, m_isRun3, m_isFakeTau);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau1lCR12", basicWeight, m_isData);
 
     }
     std::cout << "end of event loop\n";
