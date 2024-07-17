@@ -500,14 +500,11 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
     allDic = gq.histoGramPerSample
     if isRun3: 
         allDic = gq.Run3Samples
-    # allSubPro = list(gq.histoGramPerSample.keys() )
-    # allDic =  gq.histoGramPerSample
     allSubPro = list(allDic.keys())
     toGetSubHist = {} 
     for isub in allSubPro:
         isdata = isData(isub)
         if not allDic[isub] in sumProList: continue # not getting
-        # if not era in isub and (isdata): continue #not getting data from other year
         if checkIfOtherYear(isub, era, isdata): continue
         print('getting: ', isub)
         if isdata:
@@ -521,7 +518,6 @@ def getSumHist(inputDirDic, regionList, sumProList, varList, era='2018', isRun3=
     print_dict_structure(toGetSubHist)
     print('\n')
     
-    # sumProHists =  group_third_layer(toGetSubHist, allDic)
     sumProHists =  sumProDic(toGetSubHist, allDic)
     print_dict_structure(sumProHists)
     return sumProHists
@@ -531,8 +527,8 @@ def checkIfOtherYear(isub, era, isData):
         return False
     else: 
         for isubEra in gq.dataDict[era]:
-            # if isubEra in isub:
-            iera = isub.split('_')[-1]
+            parts = isub.split('_')
+            iera = '_'.join(parts[1:])
             if iera == isubEra:
                 return False 
         return True
