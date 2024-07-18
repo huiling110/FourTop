@@ -701,5 +701,13 @@ def isBG(sumPro, ifVLL=False):
     return proType
         
         
+def getAllSubPro(era, sumPro, isData=True):
+    all = gq.histoGramPerSample
+    if isData:
+        # era = '2016' if ('2016' in era) else era
+        # return [key for key, value in all.items() if (value == sumPro and era in key)]
+        return [sumPro + '_'+iera for iera in gq.dataDict[era] ]
+    else:
+        return [key for key, value in all.items() if (value == sumPro)]
     
     
