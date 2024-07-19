@@ -173,20 +173,19 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         # sumProList.append('VLLm800')
         sumProList.append(ifVLL)
     
-        
-    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
-
-    plotDir = inputDirDic['mc']+'results/'
-    uf.checkMakeDir( plotDir)
-    for variable in variables:
-        for iRegion in regionList:       
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 500 ) 
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 50, False, False, False, ifVLL) 
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, False, False, False, ifVLL) 
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True) 
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 10, True, True, True, ifVLL) 
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, False, ifLogy, False, ifVLL) 
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL) 
+    sumProSys = {
+        'tt': ['CMS_pileup', 'CMS_prefiring'],
+        'ttX': ['CMS_pileup', 'CMS_prefiring'],
+        'fakeTau': ['CMS_tau_FR'],
+    }    
+    # sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    #make sumProcessPerVar[ivar][region][sumPro][sys]; sys: 'nominal', 'sys_up', 'sys_down'
+    print(sumProcessPerVar)
+    
+    # for variable in variables:
+    #     for iRegion in regionList:       
+    #         makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL) 
     
    
        
