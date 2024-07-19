@@ -61,13 +61,15 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v79HadroPresel/mc/variableHists_v0dataMC_allCorrectionButHLT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v79HadroPresel/mc/variableHists_v0dataMC_allCorrectionBtagMT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v0BDT1tau0l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v0BDT1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0dataMC_allCorrectionButHLT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0dataMC_allCorrectionButHLT/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/variableHists_v0BDT1tau0l/'#1tau0lBDT
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/variableHists_v0BDT1tau0lBinB/'#1tau0lBDT
     
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
@@ -80,7 +82,7 @@ def main():
     # variables = ['tausT_num', 'tausF_num', 'tausTT_num', 'tausT_1pt', 'tausF_1pt', 'tausTT_1pt', 'tausT_1decayMode', 'tausF_1decayMode', 'tausTT_1decayMode', 'tausT_1genFlavour', 'tausTT_1genFlavour', 'tausF_1genFlavour', 'tausT_leptonsTopMVA_chargeMulti','tausT_leptonsT_invariantMass', 'tausT_1eta', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge']
 
     # input1tau1l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/variableList/varibleList_30.csv'
-    # input1tau0l = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv'
+    # input1tau0l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv'
     # variables = read_csv_as_lines(input1tau1l)
     # variables = read_csv_as_lines(input1tau0l)
     # print(variables)
@@ -90,8 +92,9 @@ def main():
     # regionList = ['1tau1lSR']
     # regionList = ['1tau2lSR']
     # regionList = ['baseline']
-    # variables = ['BDT']
-    plotName = 'dataVsMC_v3'
+    variables = ['BDT']
+    # plotName = 'dataVsMC_v3'
+    plotName = 'dataVsMC_v4'
     # ifFTau = False
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     ifVLL = ''
@@ -99,27 +102,29 @@ def main():
     # ifVLL = 'VLLm700'
     is1tau0l = True
     # is1tau0l = False
-    # ifLogy = True
-    ifLogy = False
-    ifStackSignal = False
+    ifLogy = True
+    # ifLogy = False
+    ifStackSignal = True
+    # ifStackSignal = False
     # ifPrintSB = True
     ifPrintSB = False
+    ifSystematic = False
 
   
     #1tau0l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/variableHists_v0BDT1tau0l_3bins/'
     # variables = [  'jets_MHT', 'jets_centrality', 'MET_pt', 'jets_aplanarity',  'jets_4largestBscoreSum', 'jets_bScore', 'jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT',  'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2MET_stransMass' ] #!1tau0l BDT inputs
-    variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num']#!fake rate validation
+    # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num']#!fake rate validation
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted'] # new MR
     # regionList = ['1tau0lCRb', '1tau0lCRbGen', '1tau0lCRbLTauNotT_Weighted', '1tau0lCRbLTauNotTGen_Weighted'] # new CR
     # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted'] # new VR
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lCR']
+    regionList = ['1tau0lCR']
     # regionList = ['1tau0lSR']
     # variables = ['BDT']
-    regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
+    # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
 
     
     era = uf.getEraFromDir(inputDir)
@@ -128,7 +133,7 @@ def main():
     inputDirDic = uf.getInputDicNew( inputDir)
     uf.checkMakeDir( inputDirDic['mc']+'results/')
     
-    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL, is1tau0l, ifLogy, ifPrintSB, ifStackSignal)
+    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL, is1tau0l, ifLogy, ifPrintSB, ifStackSignal, ifSystematic)
 
     # plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau) # for using fakeTau 2 hists application 
    
@@ -149,7 +154,7 @@ def read_csv_as_lines(file_path, delimiter=','):
     return lines
 
 
-def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='', is1tau0l=False,  ifLogy=False, ifPrintSB=False, ifStackSignal=False):
+def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='', is1tau0l=False,  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifSystematic=False):
     # sigPro = 'tttt' if not ifVLL else 'VLLm600'
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
     sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
@@ -274,7 +279,7 @@ def checkHists( histsDict ):
         histsDict[ikey].Print()
 
 
-def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False):
+def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, ifSystematic=False):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -484,7 +489,7 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal,  legendOrder, ifBlind, doSystmatic, ifStackSignal = False, ifVLL = ''):
+def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = False, ifVLL = ''):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {

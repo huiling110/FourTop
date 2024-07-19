@@ -115,7 +115,8 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau0lVR", m_era);
 
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.15,  0.19,  0.23,  0.35};
-        std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};
+        // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};
+        std::vector<Double_t> bins1tau0l = {-0.35, -0.28, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};//Bin B
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//1tau0l 
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
 
@@ -180,7 +181,6 @@ void treeAnalyzer::LoopTree()
         m_tree->GetEntry(i);
         cutFlowHist->Fill(0);
 
-        // if (!(baselineSelection(e, m_isRun3, WH::channelMap.at(m_channel)==2)))
         if (!(baselineSelection(e, m_isRun3, (m_channel=="1tau2l"))))
         {
             continue;
