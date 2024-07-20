@@ -174,7 +174,7 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         sumProList.append(ifVLL)
     
     sumProSys = {
-        'tt': ['CMS_pileup', 'CMS_prefiring'],
+        'tt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'CMS_btag_shape_jes'],
         'ttX': ['CMS_pileup', 'CMS_prefiring'],
         'fakeTau': ['CMS_tau_FR'],
     }    
@@ -182,11 +182,14 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     # sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
     #make sumProcessPerVar[ivar][region][sumPro][sys]; sys: 'nominal', 'sys_up', 'sys_down'
-    # print(sumProcessPerVar)
-    
-    # for variable in variables:
-    #     for iRegion in regionList:       
-    #         makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL) 
+    print(sumProcessPerVarSys)
+   
+    plotDir = inputDirDic['mc']+'results/'
+    uf.checkMakeDir( plotDir)
+    for variable in variables:
+        for iRegion in regionList:       
+            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion]) 
     
    
        
@@ -271,12 +274,11 @@ def checkHists( histsDict ):
         histsDict[ikey].Print()
 
 
-def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, ifSystematic=False):
+def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
     sysHists: sysHists[iprocess]['prefiring_up']
-    !!!new: nominal[iprocess][sys]
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
@@ -306,7 +308,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
         name = name + '_VLL'
 
     ifBlind = True if 'SR' in region else False #!!!
-    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, ifBlind, False, ifStackSignal, ifVLL)
+    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, ifBlind, False, ifStackSignal, ifVLL, sysHists)
 
     setUpStack(canvy, stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale, ifLogy) 
     stack.Draw("hist")
@@ -482,7 +484,7 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = False, ifVLL = ''):
+def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = False, ifVLL = '', sysHists={}):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {
@@ -533,15 +535,15 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
         sumHist.Add(nominal[i]) #!sumHist is all bg
         stack.Add(nominal[i])
         # if doSystmatic and  systHists[i]:
-        #     print('cal sys for: ', i)
-        #     tempUp,tempDown = getSystVariation(nominal[i],systHists[i] )
-        #     systsUp.Add(tempUp) #adding various processes, 
-        #     systsDown.Add(tempDown)
+        if sysHists:
+            print('cal sys for: ', i)
+            tempUp,tempDown = getSystVariation(nominal[i],sysHists[i] ) # get the qaudrature sum of the systematic uncertainty for each process
+            systsUp.Add(tempUp) #adding various processes, 
+            systsDown.Add(tempDown)
             
     legendOrder.reverse()
     
     #scale tttt
-    # if 'tttt' in nominal.keys() or 'VLLm600' in nominal.keys():
     if 'tttt' in nominal.keys() or ifVLL:
         if not ifVLL:
             signal = nominal['tttt'].Clone()
@@ -610,20 +612,14 @@ def getSystVariation(nominalHist,systHists):
     #systHi is 'up' or 'down' for varias sources
     #so this is to sum the sytstmatic variation for sources of systematic uncertainty
         print( 'doing sytematic calculation for: ',systHi )
-        # if "bTag" in systHi: continue
         syst = systHists[systHi].Clone()
+        print( 'sytHistUp: ', syst.GetName() )
         syst.Add(nominalHist,-1)
-        # syst.Divide(nominalHist)
         for i in range(1,syst.GetXaxis().GetNbins()+1):
-            if "up" in syst.GetName():
-                # print( 'sytHistUp: ', systHistUp.GetBinContent() )
+            if "Up" in syst.GetName():
                 systHistUp.SetBinContent(i,systHistUp.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
             else:
                 systHistDown.SetBinContent(i,systHistDown.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
-    # for i in range(1,systHistUp.GetXaxis().GetNbins()+1):
-        # systHistUp.SetBinContent(i,(math.sqrt(systHistUp.GetBinContent(i)))*nominalHist.GetBinContent(i))
-        # systHistDown.SetBinContent(i,(math.sqrt(systHistDown.GetBinContent(i)))*nominalHist.GetBinContent(i))
-        #no need to divide and multiply
 
     return systHistUp,systHistDown
 
