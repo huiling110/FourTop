@@ -174,7 +174,7 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         sumProList.append(ifVLL)
     
     sumProSys = {
-        'tt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'CMS_btag_shape_jes'],
+        'tt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale'],
         'ttX': ['CMS_pileup', 'CMS_prefiring'],
         'fakeTau': ['CMS_tau_FR'],
     }    
