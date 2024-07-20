@@ -179,9 +179,10 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         'fakeTau': ['CMS_tau_FR'],
     }    
     # sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
-    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    # sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
     #make sumProcessPerVar[ivar][region][sumPro][sys]; sys: 'nominal', 'sys_up', 'sys_down'
-    print(sumProcessPerVar)
+    # print(sumProcessPerVar)
     
     # for variable in variables:
     #     for iRegion in regionList:       
@@ -261,14 +262,6 @@ def checkRegionGen(regionList):
     return hasFakeTau
                 
 
-#moved to 1tau0l plotting
-# def appendSYSRegions( ifFR_sys, regionList) :
-#     if ifFR_sys:
-#         regionList.append(regionList[2]+'_up')
-#         regionList.append(regionList[2]+'_down')
-#         regionList.append(regionList[3]+'_up')
-#         regionList.append(regionList[3]+'_down')
-#     return regionList 
  
  
         
@@ -283,6 +276,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
     sysHists: sysHists[iprocess]['prefiring_up']
+    !!!new: nominal[iprocess][sys]
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
