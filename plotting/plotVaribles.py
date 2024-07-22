@@ -108,7 +108,8 @@ def main():
     # ifStackSignal = False
     # ifPrintSB = True
     ifPrintSB = False
-    ifSystematic = False
+    ifSystematic = True
+    # ifSystematic = False
 
   
     #1tau0l
@@ -154,7 +155,7 @@ def read_csv_as_lines(file_path, delimiter=','):
     return lines
 
 
-def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='', is1tau0l=False,  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifSystematic=False):
+def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='', is1tau0l=False,  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifDoSystmatic=False):
     # sigPro = 'tttt' if not ifVLL else 'VLLm600'
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
     sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
@@ -169,19 +170,12 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         else:
             sumProList.append('qcd')
     if ifVLL:
-        # sumProList.append('VLLm600')
-        # sumProList.append('VLLm800')
         sumProList.append(ifVLL)
     
-    sumProSys = {
-        'tt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale'],
-        'ttX': ['CMS_pileup', 'CMS_prefiring'],
-        'fakeTau': ['CMS_tau_FR'],
-    }    
+    sumProSys = getSysDic(ifDoSystmatic)    
     # sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
     # sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
-    #make sumProcessPerVar[ivar][region][sumPro][sys]; sys: 'nominal', 'sys_up', 'sys_down'
     print(sumProcessPerVarSys)
    
     plotDir = inputDirDic['mc']+'results/'
@@ -191,7 +185,19 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
             # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL) 
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion]) 
     
-   
+def getSysDic(ifSys=False, channel='1tau1l'):
+    if not ifSys:
+        return {}
+    sumProSys = {
+        'tt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+        'ttX': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+        'WJets': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+        'singleTop': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+        'tttt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+        'fakeTau': ['CMS_tau_FR'],
+    }
+    return sumProSys
+       
        
 def plotFakeTau(inputDirDic, variables, regions, plotName, era, isRun3, ifFTau=False):
     if not ifFTau:
@@ -274,7 +280,7 @@ def checkHists( histsDict ):
         histsDict[ikey].Print()
 
 
-def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}):
+def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}, ifSystematic=False):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -348,7 +354,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     assymErrorPlotRatio.Draw("e2 same")
 
     #legend
-    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL, ifStackSignal)
+    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL, ifStackSignal, sysHists)
     leggy.Draw()
     
     #text above the plot
@@ -378,7 +384,7 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     canvas.Draw()
 
  
-def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL='', ifStackSignal=False):
+def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL='', ifStackSignal=False, sysHists={}):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     canvy.cd()
     leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
@@ -398,8 +404,10 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
         else:
             legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
             leggy.AddEntry(nominal[ipro], legText,"f")
-        
-    leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
+    
+    sysLeggy = 'Stat.+ Syst. unc' if sysHists else 'Stat. unc'
+    leggy.AddEntry(assymErrorPlot, sysLeggy,"f")    
+    # leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
     
     leggy.SetNColumns(2) 
     leggy.Draw()
