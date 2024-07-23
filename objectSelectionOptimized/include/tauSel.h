@@ -55,6 +55,8 @@ private:
     std::vector<Double_t> taus_neutralIso;
     std::vector<Double_t> taus_jetPt;
     std::vector<Double_t> taus_jetEta;
+    std::vector<Double_t> taus_jetMass;
+    std::vector<Double_t> taus_jetPhi;
 };
 
 #endif

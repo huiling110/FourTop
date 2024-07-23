@@ -33,6 +33,8 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, 
     outTree->Branch("taus" + tauWPMap[tauWP] + "_neutralIso", &taus_neutralIso);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_jetPt", &taus_jetPt);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_jetEta", &taus_jetEta);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_jetMass", &taus_jetMass);
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_jetPhi", &taus_jetPhi);
 
     std::cout << "Done TauSel initialization......\n\n";
 };
@@ -186,8 +188,10 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         taus_jetIdx.push_back(itau_jetIdx);
         taus_charge.push_back(itau_charge);
         taus_neutralIso.push_back(e->Tau_neutralIso.At(j));
-        taus_jetPt.push_back(e->Jet_pt.At(itau_jetIdx));
+        taus_jetPt.push_back(e->Jet_pt.At(itau_jetIdx)); //! jet pt here not corrected, should be corrected
         taus_jetEta.push_back(e->Jet_eta.At(itau_jetIdx));
+        taus_jetMass.push_back(e->Jet_mass.At(itau_jetIdx));
+        taus_jetPhi.push_back(e->Jet_phi.At(itau_jetIdx));
     }
 };
 
@@ -290,6 +294,8 @@ void TauSel::clearBranch()
     taus_neutralIso.clear();
     taus_jetPt.clear();
     taus_jetEta.clear();
+    taus_jetMass.clear();
+    taus_jetPhi.clear();
 };
 
 std::vector<Double_t> &TauSel::getEtaVec()
