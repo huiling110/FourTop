@@ -10,9 +10,9 @@ import usefulFunc as uf
 #todo add git co after job submission for version control
 
 def main():
-    year = '2016'
+    # year = '2016'
     # year = '2018'
-    # year = '2017'
+    year = '2017'
     # inVersion = 'v67TheoryWeightAdded'
     # inVersion = 'v70BetterHLT'
     # inVersion = 'v71NoHLTNoTau'
@@ -28,10 +28,11 @@ def main():
     # inVersion = 'v77forBtagMeasurement'
     # inVersion = 'v77HadroPresel'
     # inVersion = 'v79forHLT'
-    inVersion = 'v79HadroPresel'
-    # outVersion = 'v0baselineHardro'
+    # inVersion = 'v79HadroPresel'
+    inVersion = 'v80addTauJetVar'
+    outVersion = 'v0baselineHardro'
     # outVersion = 'v1baselineHardroHLTSF'
-    outVersion = 'v1baselineHardro_FRweightSys'
+    # outVersion = 'v1baselineHardro_FRweightSys'
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau0lSRTauF'
     # outVersion = 'v4cut1tau2l'
