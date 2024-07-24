@@ -15,7 +15,9 @@ public:
     TauVarMaker(TTree *outTree, TString objName, Int_t type = 0);
     ~TauVarMaker();
     void makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& leptonsMVAT);
-    void tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge);
+    // void tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge
+    void tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<Double_t>& tau_jetPhi, const TTreeReaderArray<Double_t>& tau_jetMass, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge, Double_t MET_pt, Double_t MET_phi);
+
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
     Int_t getTauGenNum();
@@ -44,6 +46,9 @@ private:
     Double_t taus_1lepton1_deltaR = -99; //delta R of leading and leading lepton
     Double_t taus_1Met_transMass = -99.;
     Double_t taus_1lepton1Met1_stransMass = -99.;
+
+    Double_t taus_jet_invariantMass = -99.;
+    Double_t taus_jet1_Met_transMass = -99.;
 };
 
 #endif

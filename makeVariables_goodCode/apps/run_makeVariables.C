@@ -36,7 +36,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79forHLT/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79forHLT/data/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79HadroPresel/tttt/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v79HadroPresel/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v79HadroPresel/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v80addTauJetVar/mc/",
 
     TString inputDir = "tttt",
     // TString inputDir = "VLL_EE_M600",
@@ -56,8 +57,8 @@ void run_objectSelection(
     // TString inputDir = "output",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
-    // Int_t numEntries = 3000)
-    Int_t numEntries = 10000)
+    Int_t numEntries = 3000)
+    // Int_t numEntries = 10000)
     // Int_t numEntries = 0)
 {
     TStopwatch t;

@@ -67,6 +67,8 @@ public:
                                       tausT_charge(reader, "tausT_charge"),
                                       tausT_jetPt(reader, "tausT_jetPt"),
                                       tausT_jetEta(reader, "tausT_jetEta"),
+                                      tausT_jetPhi(reader, "tausT_jetPhi"),
+                                      tausT_jetMass(reader, "tausT_jetMass"),
 
                                       tausTT_pt(reader, "tausTT_pt"),
                                       tausTT_eta(reader, "tausTT_eta"),
@@ -77,6 +79,8 @@ public:
                                       tausTT_charge(reader, "tausTT_charge"),
                                       tausTT_jetPt(reader, "tausTT_jetPt"),
                                       tausTT_jetEta(reader, "tausTT_jetEta"),
+                                      tausTT_jetPhi(reader, "tausTT_jetPhi"),
+                                      tausTT_jetMass(reader, "tausTT_jetMass"),
 
                                       tausTTT_pt(reader, "tausTTT_pt"),
                                       tausTTT_eta(reader, "tausTTT_eta"),
@@ -87,6 +91,8 @@ public:
                                       tausTTT_charge(reader, "tausTTT_charge"),
                                       tausTTT_jetPt(reader, "tausTTT_jetPt"),
                                       tausTTT_jetEta(reader, "tausTTT_jetEta"),
+                                      tausTTT_jetPhi(reader, "tausTTT_jetPhi"),
+                                      tausTTT_jetMass(reader, "tausTTT_jetMass"),
 
                                         tausTTTT_pt(reader, "tausTTTT_pt"),
                                         tausTTTT_eta(reader, "tausTTTT_eta"),
@@ -97,6 +103,8 @@ public:
                                         tausTTTT_charge(reader, "tausTTTT_charge"),
                                         tausTTTT_jetPt(reader, "tausTTTT_jetPt"),
                                         tausTTTT_jetEta(reader, "tausTTTT_jetEta"),
+                                        tausTTTT_jetPhi(reader, "tausTTTT_jetPhi"),
+                                        tausTTTT_jetMass(reader, "tausTTTT_jetMass"),
 
 
                                       tausM_pt(reader, "tausM_pt"),
@@ -108,6 +116,8 @@ public:
                                       tausM_charge(reader, "tausM_charge"),
                                       tausM_jetPt(reader, "tausM_jetPt"),
                                       tausM_jetEta(reader, "tausM_jetEta"),
+                                        tausM_jetPhi(reader, "tausM_jetPhi"),
+                                        tausM_jetMass(reader, "tausM_jetMass"),
 
                                       tausF_pt(reader, "tausF_pt"),
                                       tausF_eta(reader, "tausF_eta"),
@@ -118,6 +128,8 @@ public:
                                       tausF_charge(reader, "tausF_charge"),
                                       tausF_jetPt(reader, "tausF_jetPt"),
                                       tausF_jetEta(reader, "tausF_jetEta"),
+                                      tausF_jetPhi(reader, "tausF_jetPhi"),
+                                      tausF_jetMass(reader, "tausF_jetMass"),
 
                                       tausL_pt(reader, "tausL_pt"),
                                       tausL_eta(reader, "tausL_eta"),
@@ -128,6 +140,8 @@ public:
                                       tausL_charge(reader, "tausL_charge"),
                                       tausL_jetPt(reader, "tausL_jetPt"),
                                       tausL_jetEta(reader, "tausL_jetEta"),
+                                      tausL_jetPhi(reader, "tausL_jetPhi"),
+                                      tausL_jetMass(reader, "tausL_jetMass"),
 
                                       jets_pt(reader, "jets_pt"),
                                       jets_eta(reader, "jets_eta"),
@@ -250,7 +264,8 @@ public:
     TTreeReaderArray<Int_t> tausT_charge;
     TTreeReaderArray<Double_t> tausT_jetPt;
     TTreeReaderArray<Double_t> tausT_jetEta;
-
+    TTreeReaderArray<Double_t> tausT_jetPhi;
+    TTreeReaderArray<Double_t> tausT_jetMass;
 
     TTreeReaderArray<Double_t> tausTT_pt;
     TTreeReaderArray<Double_t> tausTT_eta;
@@ -261,6 +276,8 @@ public:
     TTreeReaderArray<Int_t> tausTT_charge;
     TTreeReaderArray<Double_t> tausTT_jetPt;
     TTreeReaderArray<Double_t> tausTT_jetEta;
+    TTreeReaderArray<Double_t> tausTT_jetPhi;
+    TTreeReaderArray<Double_t> tausTT_jetMass;
 
     TTreeReaderArray<Double_t> tausTTT_pt;
     TTreeReaderArray<Double_t> tausTTT_eta;
@@ -271,6 +288,8 @@ public:
     TTreeReaderArray<Int_t> tausTTT_charge;
     TTreeReaderArray<Double_t> tausTTT_jetPt;
     TTreeReaderArray<Double_t> tausTTT_jetEta;
+    TTreeReaderArray<Double_t> tausTTT_jetPhi;
+    TTreeReaderArray<Double_t> tausTTT_jetMass;
 
     TTreeReaderArray<Double_t> tausTTTT_pt;
     TTreeReaderArray<Double_t> tausTTTT_eta;
@@ -281,6 +300,8 @@ public:
     TTreeReaderArray<Int_t> tausTTTT_charge;
     TTreeReaderArray<Double_t> tausTTTT_jetPt;
     TTreeReaderArray<Double_t> tausTTTT_jetEta;
+    TTreeReaderArray<Double_t> tausTTTT_jetPhi;
+    TTreeReaderArray<Double_t> tausTTTT_jetMass;
 
     TTreeReaderArray<Double_t> tausM_pt;
     TTreeReaderArray<Double_t> tausM_eta;
@@ -291,6 +312,8 @@ public:
     TTreeReaderArray<Int_t> tausM_charge;
     TTreeReaderArray<Double_t> tausM_jetPt;
     TTreeReaderArray<Double_t> tausM_jetEta;
+    TTreeReaderArray<Double_t> tausM_jetPhi;
+    TTreeReaderArray<Double_t> tausM_jetMass;
 
     TTreeReaderArray<Double_t> tausF_pt;
     TTreeReaderArray<Double_t> tausF_eta;
@@ -301,6 +324,8 @@ public:
     TTreeReaderArray<Int_t> tausF_charge;
     TTreeReaderArray<Double_t> tausF_jetPt;
     TTreeReaderArray<Double_t> tausF_jetEta;
+    TTreeReaderArray<Double_t> tausF_jetPhi;
+    TTreeReaderArray<Double_t> tausF_jetMass;
 
     TTreeReaderArray<Double_t> tausL_pt;
     TTreeReaderArray<Double_t> tausL_eta;
@@ -311,6 +336,8 @@ public:
     TTreeReaderArray<Int_t> tausL_charge;
     TTreeReaderArray<Double_t> tausL_jetPt;
     TTreeReaderArray<Double_t> tausL_jetEta;
+    TTreeReaderArray<Double_t> tausL_jetPhi;
+    TTreeReaderArray<Double_t> tausL_jetMass;
 
     TTreeReaderArray<Double_t> jets_pt;
     TTreeReaderArray<Double_t> jets_eta;

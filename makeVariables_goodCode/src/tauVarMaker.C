@@ -31,6 +31,9 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_1Met_transMass", &taus_1Met_transMass);
     outTree->Branch(objName + "_1lepton1Met1_stransMass", &taus_1lepton1Met1_stransMass);
 
+    outTree->Branch(objName + "_jet_invariantMass", &taus_jet_invariantMass);
+    outTree->Branch(objName + "_jet1_Met_transMass", &taus_jet1_Met_transMass);
+
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
 };
@@ -55,35 +58,43 @@ void TauVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     taus_1Met_transMass = objsLorentz.size() > 0 ? calculateTransverseMass(objsLorentz.at(0), *e->MET_pt_, *e->MET_phi_) : -99.; // to provide information about top decaying into tau and neutrino
     taus_1lepton1Met1_stransMass = (objsLorentz.size()>0 && leptonsMVAT.size()>0 )? calculateMT2(objsLorentz.at(0), leptonsMVAT.at(0), *e->MET_pt_, *e->MET_phi_): -99.;//an event variable used to bound the masses of an unseen pair of particles which are presumed to have decayed semi-invisibly into particles which were seen. 
 
+
     switch (m_type)
     {//!!!todo: better make each object a compact object
     case 0:
-        tauVariables(e->tausT_jetPt, e->tausT_jetEta, e->tausT_genPartFlav, e->tausT_decayMode, e->tausT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        tauVariables(e->tausT_jetPt, e->tausT_jetEta, e->tausT_jetPhi, e->tausT_jetMass, e->tausT_genPartFlav, e->tausT_decayMode, e->tausT_charge, e->elesMVAT_charge, e->muonsT_charge, *e->MET_pt_, *e->MET_phi_);
         break;
     case 1:
-        tauVariables(e->tausF_jetPt, e->tausF_jetEta, e->tausF_genPartFlav, e->tausF_decayMode, e->tausF_charge, e->elesMVAT_charge, e->muonsT_charge);
+        tauVariables(e->tausF_jetPt, e->tausF_jetEta, e->tausF_jetPhi, e->tausF_jetMass, e->tausF_genPartFlav, e->tausF_decayMode, e->tausF_charge, e->elesMVAT_charge, e->muonsT_charge, *e->MET_pt_, *e->MET_phi_);
+        // tauVariables(e->tausF_jetPt, e->tausF_jetEta, e->tausF_genPartFlav, e->tausF_decayMode, e->tausF_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 2:
-        tauVariables(e->tausL_jetPt, e->tausL_jetEta, e->tausL_genPartFlav, e->tausL_decayMode, e->tausL_charge, e->elesMVAT_charge, e->muonsT_charge);
+        tauVariables(e->tausL_jetPt, e->tausL_jetEta, e->tausL_jetPhi, e->tausL_jetMass, e->tausL_genPartFlav, e->tausL_decayMode, e->tausL_charge, e->elesMVAT_charge, e->muonsT_charge, *e->MET_pt_, *e->MET_phi_);
+        // tauVariables(e->tausL_jetPt, e->tausL_jetEta, e->tausL_genPartFlav, e->tausL_decayMode, e->tausL_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 3:
-        tauVariables(e->tausTT_jetPt, e->tausTT_jetEta, e->tausTT_genPartFlav, e->tausTT_decayMode, e->tausTT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        tauVariables(e->tausTT_jetPt, e->tausTT_jetEta, e->tausTT_jetPhi, e->tausTT_jetMass, e->tausTT_genPartFlav, e->tausTT_decayMode, e->tausTT_charge, e->elesMVAT_charge, e->muonsT_charge, *e->MET_pt_, *e->MET_phi_);
+        // tauVariables(e->tausTT_jetPt, e->tausTT_jetEta, e->tausTT_genPartFlav, e->tausTT_decayMode, e->tausTT_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 4:
-        tauVariables(e->tausTTT_jetPt, e->tausTTT_jetEta, e->tausTTT_genPartFlav, e->tausTTT_decayMode, e->tausTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        tauVariables(e->tausTTT_jetPt, e->tausTTT_jetEta, e->tausTTT_jetPhi, e->tausTTT_jetMass, e->tausTTT_genPartFlav, e->tausTTT_decayMode, e->tausTTT_charge, e->elesMVAT_charge, e->muonsT_charge, *e->MET_pt_, *e->MET_phi_);
+        // tauVariables(e->tausTTT_jetPt, e->tausTTT_jetEta, e->tausTTT_genPartFlav, e->tausTTT_decayMode, e->tausTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 5:
-        tauVariables(e->tausM_jetPt, e->tausM_jetEta, e->tausM_genPartFlav, e->tausM_decayMode, e->tausM_charge, e->elesMVAT_charge, e->muonsT_charge);
+        tauVariables(e->tausM_jetPt, e->tausM_jetEta, e->tausM_jetPhi, e->tausM_jetMass, e->tausM_genPartFlav, e->tausM_decayMode, e->tausM_charge, e->elesMVAT_charge, e->muonsT_charge, *e->MET_pt_, *e->MET_phi_);
+        // tauVariables(e->tausM_jetPt, e->tausM_jetEta, e->tausM_genPartFlav, e->tausM_decayMode, e->tausM_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     case 6:
-        tauVariables(e->tausTTTT_jetPt, e->tausTTTT_jetEta, e->tausTTTT_genPartFlav, e->tausTTTT_decayMode, e->tausTTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
+        tauVariables(e->tausTTTT_jetPt, e->tausTTTT_jetEta, e->tausTTTT_jetPhi, e->tausTTTT_jetMass, e->tausTTTT_genPartFlav, e->tausTTTT_decayMode, e->tausTTTT_charge, e->elesMVAT_charge, e->muonsT_charge, *e->MET_pt_, *e->MET_phi_);
+        // tauVariables(e->tausTTTT_jetPt, e->tausTTTT_jetEta, e->tausTTTT_genPartFlav, e->tausTTTT_decayMode, e->tausTTTT_charge, e->elesMVAT_charge, e->muonsT_charge);
         break;
     default:
         break;
     }
 }
 
-void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge){
+// void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge){
+void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, const TTreeReaderArray<Double_t>& tau_jetEta, const TTreeReaderArray<Double_t>& tau_jetPhi, const TTreeReaderArray<Double_t>& tau_jetMass, const TTreeReaderArray<UChar_t>& tau_genPartFlav, const TTreeReaderArray<Int_t>& tau_decayMode, const TTreeReaderArray<Int_t>& tau_charge, const TTreeReaderArray<Int_t>& ele_charge, const TTreeReaderArray<Int_t>& muon_charge, Double_t MET_pt, Double_t MET_phi){
     if (tau_jetPt.GetSize() > 0)
     {
         taus_1jetPt = tau_jetPt.At(0);
@@ -95,6 +106,12 @@ void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, cons
         taus_1prongNum = (tau_decayMode.At(0)/5) + 1;
         taus_leptons_charge = chargeMulCalNew(tau_charge, ele_charge, muon_charge);
         taus_1lepton1_charge = chargeMulCalNew(tau_charge, ele_charge, muon_charge);
+
+
+        std::vector<ROOT::Math::PtEtaPhiMVector> tauJets;
+        getLorentzVec(tau_jetPt, tau_jetEta, tau_jetPhi, tau_jetMass, tauJets);
+        taus_jet_invariantMass = InvariantMassCalculator(tauJets);
+        taus_jet1_Met_transMass = tauJets.size() > 0 ? calculateTransverseMass(tauJets.at(0), MET_pt, MET_phi) : -99.;
     }
 
 } 
@@ -121,6 +138,8 @@ void TauVarMaker::clearBranch()
     taus_1lepton1_deltaR = -99;
     taus_1Met_transMass = -99;
     taus_1lepton1Met1_stransMass = -99.;
+    taus_jet_invariantMass = -99;
+    taus_jet1_Met_transMass = -99.;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)
