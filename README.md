@@ -109,3 +109,9 @@ This markdown guide provides a structured approach to conducting the analysis wo
 
 ## Kind reminders 
 # Important to check the job results with ```checkJobResult.pu```, as jobs may fail
+
+
+## Run 7 in IHEP
+
+# export PATH=/cvmfs/container.ihep.ac.cn/bin:$PATH
+#  hep_container shell CentOS7
