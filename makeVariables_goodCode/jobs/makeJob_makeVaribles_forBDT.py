@@ -30,11 +30,11 @@ def main():
     # inVersion = 'v79forHLT'
     # inVersion = 'v79HadroPresel'
     inVersion = 'v80addTauJetVar'
-    outVersion = 'v0baselineHardro'
+    # outVersion = 'v0baselineHardro'
     # outVersion = 'v1baselineHardroHLTSF'
     # outVersion = 'v1baselineHardro_FRweightSys'
     # outVersion = 'v1cut1tau1lSR'
-    # outVersion = 'v2cut1tau0lSRTauF'
+    outVersion = 'v2cut1tau0lSRTauF'
     # outVersion = 'v4cut1tau2l'
     
     #2022
