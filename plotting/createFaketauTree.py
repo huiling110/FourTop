@@ -21,6 +21,8 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
+   
+   
     
     # cut1tau0l = 'jets_num>=8 && bjetsM_num>=3 && (elesTopMVAT_num+muonsTopMVAT_num==0) && jets_HT>450 && jets_6pt>32'
     cut1tau0l = 'tausF_num==1' #!no channel specific selection
@@ -30,10 +32,10 @@ def main():
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
-    # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
+    makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
     
      
 def makeOtherMCGen(inputDirDic, era):

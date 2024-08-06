@@ -19,60 +19,6 @@ void treeAnalyzer::Init()
     std::cout<<"m_channel: "<<m_channel<<"m_isRun3: "<<m_isRun3<<"\n";
     cutFlowHist->SetDirectory(m_outFile);
 
-    // regions for hists
-    // std::vector<TString> sysRegions = {
-    //     m_channel + "SR",
-    //     // "1tau1lCR1",
-    //     // "1tau1lCR2",
-    //     "CMS_pileup_" + m_era + "Up",
-    //     "CMS_pileup_" + m_era + "Down",
-    //     "CMS_prefiring_" + m_era + "Up",
-    //     "CMS_prefiring_" + m_era + "Down",
-    //     "CMS_eff_t_vsJet_" + m_era + "Up",
-    //     "CMS_eff_t_vsJet_" + m_era + "Down",
-    //     "CMS_eff_t_vsMu_" + m_era + "Up",
-    //     "CMS_eff_t_vsMu_" + m_era + "Down",
-    //     "CMS_eff_t_vsEle_" + m_era + "Up",
-    //     "CMS_eff_t_vsEle_" + m_era + "Down",
-    //     "CMS_tttt_eff_e_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
-    //     "CMS_tttt_eff_e_" + m_era + "Down", // our TOP MVA Lepton SF uncertainty
-    //     "CMS_tttt_eff_m_" + m_era + "Up",   // our TOP MVA Lepton SF uncertainty
-    //     "CMS_tttt_eff_m_" + m_era + "Down", // our TOP MVA Lepton SF uncertainty
-    //     "CMS_btag_shape_jes_" + m_era + "Up",
-    //     "CMS_btag_shape_jes_" + m_era + "Down",
-    //     "CMS_btag_shape_hf_" + m_era + "Up",
-    //     "CMS_btag_shape_hf_" + m_era + "Down",
-    //     "CMS_btag_shape_lf_" + m_era + "Up",
-    //     "CMS_btag_shape_lf_" + m_era + "Down",
-    //     "CMS_btag_shape_hfstats1_" + m_era + "Up",
-    //     "CMS_btag_shape_hfstats1_" + m_era + "Down",
-    //     "CMS_btag_shape_hfstats2_" + m_era + "Up",
-    //     "CMS_btag_shape_hfstats2_" + m_era + "Down",
-    //     "CMS_btag_shape_lfstats1_" + m_era + "Up",
-    //     "CMS_btag_shape_lfstats1_" + m_era + "Down",
-    //     "CMS_btag_shape_lfstats2_" + m_era + "Up",
-    //     "CMS_btag_shape_lfstats2_" + m_era + "Down",
-    //     "CMS_btag_shape_cferr1_" + m_era + "Up",
-    //     "CMS_btag_shape_cferr1_" + m_era + "Down",
-    //     "CMS_btag_shape_cferr2_" + m_era + "Up",
-    //     "CMS_btag_shape_cferr2_" + m_era + "Down",
-    //     "CMS_tttt_eff_hlt_stats_" + m_era + "Up",
-    //     "CMS_tttt_eff_hlt_stats_" + m_era + "Down",
-    //     "CMS_eff_bWPM_" + m_era + "Up",
-    //     "CMS_eff_bWPM_" + m_era + "Down",
-
-    //     "CMS_tau_FR_"+m_era + "Up",
-    //     "CMS_tau_FR_"+m_era + "Down",
-
-    //     "pdf_" + m_era + "Up",
-    //     "pdf_" + m_era + "Down",
-    //     "pdfAlphaS_" + m_era + "Up",
-    //     "pdfAlphaS_" + m_era + "Down",
-    //     "QCDscale_Re_" + m_era + "Up",
-    //     "QCDscale_Re_" + m_era + "Down",
-    //     "QCDscale_Fa_" + m_era + "Up",
-    //     "QCDscale_Fa_" + m_era + "Down",
-    // };
     std::vector<TString> sysRegions;
     sysRegions.clear();
 
@@ -117,7 +63,6 @@ void treeAnalyzer::Init()
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.15,  0.19,  0.23,  0.35};
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};
         std::vector<Double_t> bins1tau0l = {-0.35, -0.28, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};//Bin B
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 4, -0.3, 0.4, sysRegions);//1tau0l 
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
 
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";

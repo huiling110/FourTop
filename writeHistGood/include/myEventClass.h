@@ -292,6 +292,8 @@ public:
     myBranch<Int_t> tausF_1prongNum{"tausF_1prongNum"};
     myBranch<Double_t> tausF_1Met_transMass{"tausF_1Met_transMass"};
     myBranch<Double_t> tausF_invariantMass{"tausF_invariantMass"};
+    myBranch<Double_t> tausF_jet_invariantMass{"tausF_jet_invariantMass"};
+    myBranch<Double_t> tausF_jet1_Met_transMass{"tausF_jet1_Met_transMass"};
 
     myBranch<Int_t> tausM_1genFlavour{"tausM_1genFlavour"};
     myBranch<Int_t> tausT_1decayMode{"tausT_1decayMode"};
@@ -540,6 +542,8 @@ private:
         {tausF_1prongNum.n(), &tausF_1prongNum},
         {tausF_1Met_transMass.n(), &tausF_1Met_transMass},
         {tausF_invariantMass.n(), &tausF_invariantMass},
+        {tausF_jet_invariantMass.n(), &tausF_jet_invariantMass},
+        {tausF_jet1_Met_transMass.n(), &tausF_jet1_Met_transMass},
 
         {tausT_1decayMode.n(), &tausT_1decayMode},
         {tausTT_1decayMode.n(), &tausTT_1decayMode},
