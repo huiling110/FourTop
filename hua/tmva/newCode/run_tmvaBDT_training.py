@@ -35,7 +35,6 @@ def main():
     # varList = '/workfs2/cms/huahuil/4topCode/v2cut1tau0lSRTauF_v76WithVLLAllMass/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv'
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv'
     # varList = '/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv' #!final list for 1tau0l
-    # varList = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_NoMET.csv'#!testing
     varList = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_noTauF.csv'
     g_weight = "event_allWeight_1tau0l" 
     channel = '1tau0l'
