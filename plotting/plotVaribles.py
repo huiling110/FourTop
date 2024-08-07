@@ -74,7 +74,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v0BDT1tau0lBinB/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1BDT1tau0lBinB_noMET/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau_newBin/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1BDT1tau0lBinB_noTauF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1BDT1tau0lBinB_noTauF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1BDTtauFJetVar2017train/'
     
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
@@ -111,8 +112,8 @@ def main():
     # ifStackSignal = False
     # ifPrintSB = True
     ifPrintSB = False
-    # ifSystematic = True
-    ifSystematic = False
+    ifSystematic = True
+    # ifSystematic = False
 
   
     #1tau0l

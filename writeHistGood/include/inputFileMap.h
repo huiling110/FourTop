@@ -70,7 +70,7 @@ inline const std::map<TString, std::array<TString, 2>> BDT1tau0l = {
     {"2016postVFP", {"/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1final26Var/inputList_1tau0l_final26.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
     // {"2017", {"/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_NoMET.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v79HadroPresel/mc/BDTTrain/v2NoMET/inputList_1tau0l_NoMET.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}}, //!testing
     // {"2017", {"/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_noTauF.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v79HadroPresel/mc/BDTTrain/v3NoTauF/inputList_1tau0l_noTauF.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}}, //!testing
-    {"2017", {"/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_finalFinal26.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/BDTTrain/v4finalFinal26Var/inputList_1tau0l_finalFinal26.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}}, //!testing
+    {"2017", {"/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_finalFinal26.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v4finalFinal26Var/inputList_1tau0l_finalFinal26.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}}, //!testing
 };
 
 
