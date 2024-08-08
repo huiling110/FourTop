@@ -11,12 +11,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLSample/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v79HadroPresel/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/'
     
     inputDirDic = uf.getDirDic(inputDir)  
@@ -34,7 +34,7 @@ def main():
     
     
     createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
     
@@ -118,17 +118,15 @@ def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = 
     tauF_data = tauF_data.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
     tauT_data = tauT_data.Define('event_allWeight_1tau0l', 'FR_weight_final')
     
-    # tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF.root')
-    # tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF_test.root')
+    tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF.root')
     print(inputDirDic['mc']+ 'fakeTau_tauF.root' + ' done')
-    # tauT_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauT.root')
-    # tauT_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauT_test.root')
+    tauT_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauT.root')
     print(inputDirDic['mc']+ 'fakeTau_tauT.root' + ' done')
-    print('\n')
     
+    print('initial entries in data: ', dataDF.Count().GetValue())
     print('tauF_data entries: ', tauF_data.Count().GetValue())
     print('tauT_data entries: ', tauT_data.Count().GetValue())
-    print('initial entries in data: ', dataDF.Count().GetValue())
+    print('\n')
     
     
     
