@@ -49,7 +49,7 @@ def main():
     # version = 'v0dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_allCorrection'
     # version = 'v0dataMC_basicWeight'
-    version = 'v1dataMC_allCorrectionFakeTau'
+    # version = 'v1dataMC_allCorrectionFakeTau'
     
         
     #1tau1l
@@ -67,6 +67,7 @@ def main():
     # version = 'v0BDT1tau0lBinB'
     # version = 'v1BDT1tau0lBinB_noTauF'
     # version = 'v1BDTtauFJetVar2017train'
+    version = 'v2BDT25inputs'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
@@ -117,8 +118,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
             # run = f"{exe} {inputDir} {iProcess} {version} {channel} {isTest}"
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

@@ -76,7 +76,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau_newBin/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1BDT1tau0lBinB_noTauF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1BDTtauFJetVar2017train/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT25inputs/'
     
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
@@ -98,7 +99,7 @@ def main():
     # regionList = ['1tau1lCR12']
     # regionList = ['1tau1lSR']
     # regionList = ['1tau2lSR']
-    variables = ['BDT']
+    # variables = ['BDT']
     plotName = 'dataVsMC_v4'
     # ifFTau = False
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
@@ -107,14 +108,14 @@ def main():
     # ifVLL = 'VLLm700'
     is1tau0l = True
     # is1tau0l = False
-    # ifLogy = True
-    ifLogy = False
+    ifLogy = True
+    # ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
     # ifPrintSB = True
     ifPrintSB = False
-    # ifSystematic = True
-    ifSystematic = False #!Only for BDT 
+    ifSystematic = True #!Only for BDT
+    # ifSystematic = False  
 
   
     #1tau0l
@@ -122,7 +123,7 @@ def main():
     # variables = [  'jets_MHT', 'jets_centrality', 'MET_pt', 'jets_aplanarity',  'jets_4largestBscoreSum', 'jets_bScore', 'jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT',  'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2MET_stransMass' ] #!1tau0l BDT inputs
     # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num']#!fake rate validation
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
-    variables = ['tausF_1jetPt', 'tausF_jet_invariantMass', 'tausF_jet1_Met_transMass']
+    # variables = ['tausF_1jetPt', 'tausF_jet_invariantMass', 'tausF_jet1_Met_transMass']
     # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
     # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted'] # new MR
     # regionList = ['1tau0lCRb', '1tau0lCRbGen', '1tau0lCRbLTauNotT_Weighted', '1tau0lCRbLTauNotTGen_Weighted'] # new CR
@@ -130,7 +131,7 @@ def main():
     # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
     # regionList = ['1tau0lCR']
     # regionList = ['1tau0lSR']
-    # variables = ['BDT']
+    variables = ['BDT']
     regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR']
 
     
