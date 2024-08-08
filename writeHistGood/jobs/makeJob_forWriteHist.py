@@ -49,8 +49,7 @@ def main():
     # version = 'v0dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_allCorrection'
     # version = 'v0dataMC_basicWeight'
-    # version = 'v1dataMC_allCorrectionFakeTau'
-    # version = 'v1dataMC_allCorrectionFakeTau_newBin'
+    version = 'v1dataMC_allCorrectionFakeTau'
     
         
     #1tau1l
@@ -67,15 +66,13 @@ def main():
     # version = 'v0BDT1tau0l'
     # version = 'v0BDT1tau0lBinB'
     # version = 'v1BDT1tau0lBinB_noTauF'
-    version = 'v1BDTtauFJetVar2017train'
+    # version = 'v1BDTtauFJetVar2017train'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
-    
-    #run3
-    # version = 'v0allRegions'
-    # version = 'v1dataMC'
-    # version = 'v2SR1tau1l'
+   
+    # exe = './run_WH_forDataMC.out'
+    # exe = './run_treeAnalyzer.out' 
     
    
     justMC = False
@@ -96,6 +93,7 @@ def main():
 
     for i in inputDirDic.keys():
         makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, channel )
+        # makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, exe, channel )
     subAllProcess.close()
 
     uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
@@ -103,6 +101,7 @@ def main():
 
 
 def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , channel):
+# def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , exe='', channel= '1tau0l'):
     jobDir = Jobsubmitpath +'jobSH/'
     outputDir = inputDir + 'variableHists_' + version +'/'
     logDir = outputDir+'log/'
@@ -117,8 +116,9 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = f"{exe} {inputDir} {iProcess} {version} {channel} {isTest}"
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
