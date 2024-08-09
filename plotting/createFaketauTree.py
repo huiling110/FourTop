@@ -18,7 +18,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v80addTauJetVar/mc/'
     
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
@@ -32,10 +33,10 @@ def main():
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
     
-    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
-    # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
+    makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
     
      
 def makeOtherMCGen(inputDirDic, era):

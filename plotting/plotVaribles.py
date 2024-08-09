@@ -152,6 +152,8 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion]) 
     
 def getSysDic(ifSys=False, channel='1tau1l'):
+    #!!!1tau1l and 1tau1l systematics to be added
+    #todo: add funcionality of getting systematics from datacard
     if not ifSys:
         return {}
     sumProSys = {

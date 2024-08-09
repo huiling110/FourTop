@@ -149,7 +149,7 @@ void treeAnalyzer::LoopTree()
             Float_t ivar;
             // std::cout<<"ivar: "<<it->first<<"\n";
             std::variant<Int_t, Double_t, Bool_t> branch = e->getByName(it->first);
-            if (std::holds8alternative<Int_t>(branch))
+            if (std::holds_alternative<Int_t>(branch))
             {
                 ivar = static_cast<Float_t>(std::get<Int_t>(branch));
             }
