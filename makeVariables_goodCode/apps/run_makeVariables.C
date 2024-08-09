@@ -26,8 +26,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79forHLT/data/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79HadroPresel/tttt/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v79HadroPresel/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v80addTauJetVar/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v0baselineHardro_v80addTauJetVar/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v80addTauJetVar/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v80addTauJetVar/mc/",
 
     TString inputDir = "tttt",
     // TString inputDir = "VLL_EE_M600",
@@ -64,14 +64,15 @@ void run_objectSelection(
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
     // Bool_t baseline = kFALSE;
-    mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
-    // mv.EventLoop(baseline, kFALSE, numEntries);
+    // mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
+    mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
     t.Print();
     return;
 }
+
 
 int main(int argc, char const *argv[])
 {
