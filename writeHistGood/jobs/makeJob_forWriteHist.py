@@ -15,7 +15,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardro_FRweightSys_v79HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v80addTauJetVar/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v80addTauJetVar/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/'
     
 
     #!fakerate
@@ -36,7 +37,7 @@ def main():
     # version = 'v0dataMC_allCorrectionButHLT'
     # version = 'v0dataMC_allCorrection'
     # version = 'v0dataMC_basicWeight'
-    # version = 'v1dataMC_allCorrectionFakeTau'
+    version = 'v1dataMC_allCorrectionFakeTau'
     
         
     #1tau1l
@@ -54,7 +55,7 @@ def main():
     # version = 'v0BDT1tau0lBinB'
     # version = 'v1BDTtauFJetVar2017train'
     # version = 'v2BDT25inputs'
-    version = 'v2BDT25inputsWith2018train'
+    # version = 'v2BDT25inputsWith2018train'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
@@ -104,8 +105,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
