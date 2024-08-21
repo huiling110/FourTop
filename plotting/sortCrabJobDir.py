@@ -16,7 +16,8 @@ def mvTTDir(ttlist, outBase):
     for i in ttlist:
         print('i: ', i)
         iproName = i.split('/')[-1]
-        # outName = iproName.split('_')[0] + num  
+        # outName = iproName.split('_')[0] + num 
+        
         preFix = iproName.split('_')[0]
         outName = f'{preFix}{num}'
         print('iproName: ', iproName)
