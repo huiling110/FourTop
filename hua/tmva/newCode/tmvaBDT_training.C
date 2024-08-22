@@ -34,9 +34,12 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
                        // "VLL_EE_M700",
                        // "VLL_EN_M700",
                        // "VLL_NN_M700",
-                       "ttbar_0l",
-                       "ttbar_2l",
-                       "ttbar_1l",
+                    //    "ttbar_0l",
+                    //    "ttbar_2l",
+                    //    "ttbar_1l",
+                    "TTToHadronic",//! only for training
+                    "TTToSemiLeptonic",//!
+                    "TTTo2L2Nu",//!
                        "ttG",
                        "ttZ",
                        "ttW",
@@ -86,7 +89,6 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
 
 
     processVec.clear();
-    // for(UInt_t i=0; i<allProcesses.size(); i++){
     for(UInt_t i=0; i<allProcesses.at(channel).size(); i++){
         TString ifile = inputDir+allProcesses.at(channel).at(i)+".root";
         Process iPro{ifile};
@@ -106,16 +108,13 @@ int tmvaBDT_training(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra/mc/",
     TString outDir = "output/",
     Bool_t isTest = true,
-    // TString variableListCsv = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/TMVAoutput/2017/v8tau1elCut_v60fixeJetBtagBug/1tau1l_v1/variableList/varibleList_16.csv",
-    // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/plotting/branch_names.csv",
-    // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
     // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
-    TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv",
+    // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv",
     // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv",
-    // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l.csv",
+    TString variableListCsv = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final30.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
-    const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ") //for btag WP
-    // const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight ",
+    // const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMedium_weight ", //for btag WP
+    const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight*musTopMVAT_weight*btagWPMedium_weight ",
     // const TString g_weight = "event_allWeight_1tau0l", //1tau0l
     // const TString channel = "1tau2l"
     const TString channel = "1tau1l",
