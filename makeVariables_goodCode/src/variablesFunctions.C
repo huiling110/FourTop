@@ -1110,3 +1110,13 @@ Double_t calculateMT2(const ROOT::Math::PtEtaPhiMVector& visible1, const ROOT::M
     return MT2;
 }
 
+TString removeTrailingNumbers(const TString &str) {
+    // Find the position of the first numeric character from the end
+    int pos = str.Length() - 1;
+    while (pos >= 0 && std::isdigit(str[pos])) {
+        --pos;
+    }
+
+    // Return a new substring without the trailing numeric characters
+    return str(0, pos + 1);
+}

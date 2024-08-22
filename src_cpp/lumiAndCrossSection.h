@@ -32,6 +32,9 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"ttW", 0.611},       // 0.2014 changed to 611
     {"ttH_bb", 0.2897},   // 0.2897
     {"ttH_nonbb", 0.209}, // 0.20
+    {"TTToSemiLeptonic", 365.34},
+    {"TTToHardronic", 377.96},
+    {"TTTo2L2Nu", 88.29},
 
     {"wz", 2.343},
     {"ww", 6.430},
@@ -212,6 +215,9 @@ inline const std::map<TString, std::map<TString, double>> genSumDic = {
             {"ttbar_1l", 143354000000.0},
             {"WJetsToLNu_HT-800To1200", 7306190.0},
             {"ttZ", 32793800.0},
+            {"TTToSemiLeptonic", 1.35336e+12},// only for BDT training in 1tau1l and 1tau2l
+            {"TTToHadronic", 7.16154e+11},
+            {"TTTo2L2Nu", 9.77873e+10},
             {"VLL_EE_M600", 201.1},//! to be updated
             {"VLL_EN_M600", 364.92},//! to be updated
             {"VLL_NN_M600", 47.6476},//! to be updated

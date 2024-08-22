@@ -131,4 +131,6 @@ Double_t calculateMT2(const ROOT::Math::PtEtaPhiMVector &visible1, const ROOT::M
 // return init;
 // }
 
+TString removeTrailingNumbers(const TString &str);
+
 #endif
