@@ -167,11 +167,13 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     m_graphs.emplace_back(1.5, 2.7, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta3")));
 
     if(!m_isData){
-        // global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_processName);//!only BDT training uses this
-        global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_era).at(m_processName);//!only BDT training uses this
-        std::cout<<"global_weight="<<global_weight<<"\n";
-        // std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<TTTT::genSumDic.at(m_processName)<<"\n";
-        std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<TTTT::genSumDic.at(m_era).at(m_processName)<<"\n";
+        if(m_processName.Contains("TTToSemiLeptonic") || m_processName.Contains("TTTo2L2Nu") || m_processName.Contains("TTToHadronic")){
+            global_weight = -99.; //!extra tt samples for BDT in 1tau1l and 1tau2l
+        }else{
+            global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_era).at(m_processName);//!only BDT training uses this
+            std::cout<<"global_weight="<<global_weight<<"\n";
+            std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<TTTT::genSumDic.at(m_era).at(m_processName)<<"\n";
+        }
     }
 
     std::cout << "Done initializing ............\n";

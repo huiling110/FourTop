@@ -28,24 +28,20 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v79HadroPresel/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v80addTauJetVar/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v80addTauJetVar/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v80addTauJetVar/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v80addTauJetVar/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v80addTTExtra/mc/",
 
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
     // TString inputDir = "VLL_EE_M600",
     // TString inputDir = "VLL_EE_M800",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
     // TString inputDir = "jetHT_2017f",
     // TString inputDir = "BTagCSV_2017c",
-    // TString inputDir = "JetMET2022D",
     // TString inputDir = "singleMu_2017b",
-    // TString inputDir = "singleMu_2016F",
     // TString inputDir = "ttbar_1l",
-    // TString inputBase = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/",
     // TString inputDir = "TTto4Q",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/Prompt2022/v0Testing/data/",
-    // TString inputDir = "JetMET_G",
-    // TString inputDir = "output",
+    TString inputDir = "TTToSemiLeptonic10",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
     Int_t numEntries = 3000)
@@ -65,8 +61,8 @@ void run_objectSelection(
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
     // Bool_t baseline = kFALSE;
-    // mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
-    mv.EventLoop(baseline, kFALSE, numEntries);
+    mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
+    // mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
