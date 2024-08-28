@@ -30,7 +30,7 @@ def main():
     # inVersion = 'v79forHLT'
     # inVersion = 'v79HadroPresel'
     # inVersion = 'v80addTauJetVar'
-    inVersion = 'v80addTTExtra'
+    inVersion = 'v80addTTExtra1'
 
     # outVersion = 'v0baselineHardro'
     # outVersion = 'v1baselineHardroHLTSF'
