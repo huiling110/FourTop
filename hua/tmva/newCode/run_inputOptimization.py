@@ -13,16 +13,18 @@ def main():
 
     # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v0allVar/inputList_1tau0l.csv.root'
     # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
-    inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1allVar/inputList_1tau0l.csv.root'
-    inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1allVar/training.log'
+    # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1allVar/inputList_1tau0l.csv.root'
+    # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1allVar/training.log'
+    inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
+    inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v0allVar/training.log'
 
     outDir = os.path.dirname(inputRoot)
     
-    vListDir = generateVarList(inputRoot, inputLog)
+    # vListDir = generateVarList(inputRoot, inputLog)
     # submitTrainingJobs(vListDir, inputRoot)
 
     # plot_auc_vs_num_variables(outDir+ '/variableList/' +'BDTTrain/')
-    # plot_auc_vs_num_variables(outDir+ '/variableListv0/' +'BDTTrain/')
+    plot_auc_vs_num_variables(outDir+ '/variableListv0/' +'BDTTrain/')
 
 
 def get_auc_and_num_variables(root_file):
