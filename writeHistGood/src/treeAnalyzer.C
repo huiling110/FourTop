@@ -16,7 +16,7 @@
 void treeAnalyzer::Init()
 {
     std::cout << "Start to initilation....................................................\n";
-    std::cout<<"m_channel: "<<m_channel<<"m_isRun3: "<<m_isRun3<<"\n";
+    std::cout << "m_channel: " << m_channel << "; m_isRun3: " << m_isRun3 << "\n";
     cutFlowHist->SetDirectory(m_outFile);
 
     std::vector<TString> sysRegions;

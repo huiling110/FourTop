@@ -34,12 +34,12 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
                        // "VLL_EE_M700",
                        // "VLL_EN_M700",
                        // "VLL_NN_M700",
-                    //    "ttbar_0l",
-                    //    "ttbar_2l",
-                    //    "ttbar_1l",
-                    "TTToHadronic",//! only for training
-                    "TTToSemiLeptonic",//!
-                    "TTTo2L2Nu",//!
+                       "ttbar_0l",
+                       "ttbar_2l",
+                       "ttbar_1l",
+                    // "TTToHadronic",//! only for training
+                    // "TTToSemiLeptonic",//!
+                    // "TTTo2L2Nu",//!
                        "ttG",
                        "ttZ",
                        "ttW",

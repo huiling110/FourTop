@@ -33,7 +33,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v79HadroPresel/'
 # jobVersionName = 'v79forHLT/'
 # jobVersionName = 'v80addTauJetVar/'
-jobVersionName = 'v80addTTExtra/'
+# jobVersionName = 'v80addTTExtra/'
+jobVersionName = 'v80addTTExtra1/'
 
 #!same version numbers means no change in algrithm but only in selection
 
@@ -180,8 +181,8 @@ def makeJobsInDir( inputDir, outputDir, jobScriptsFolder, isData, dataSet, era, 
                 
                 logFile = kOutDirLog + smallFile + ".log"
                 errFile = kOutDirLog + smallFile + ".err"
-                # sub_oneProcess.write( "hep_sub " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
-                sub_oneProcess.write( "hep_sub -os CentOS7 " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
+                # sub_oneProcess.write( "hep_sub -os CentOS7 " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
+                sub_oneProcess.write( "hep_sub -os CentOS7 -mem 8000 " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")#!Memory comsuption is too high, need to be understood
 
         os.popen('chmod 777 '+ jobScriptsFolder + sample_k + "/*sh")
         sub_oneProcess.close()
