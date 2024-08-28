@@ -40,8 +40,8 @@ void run_objectSelection(
     // TString inputDir = "BTagCSV_2017c",
     // TString inputDir = "singleMu_2017b",
     // TString inputDir = "ttbar_1l",
-    // TString inputDir = "TTto4Q",
-    TString inputDir = "TTToSemiLeptonic10",
+    // TString inputDir = "TTToSemiLeptonic10",
+    TString inputDir = "TTTo2L2Nu0",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
     Int_t numEntries = 3000)

@@ -69,7 +69,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
 
         Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
-        WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum==1, "baseline", basicWeight, m_isData);
+        // WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum==1, "baseline", basicWeight, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
 
         // SR
         if (!m_isData)

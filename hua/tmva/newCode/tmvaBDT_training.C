@@ -87,7 +87,6 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
 
     };
 
-
     processVec.clear();
     for(UInt_t i=0; i<allProcesses.at(channel).size(); i++){
         TString ifile = inputDir+allProcesses.at(channel).at(i)+".root";

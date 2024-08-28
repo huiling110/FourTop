@@ -33,7 +33,7 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"ttH_bb", 0.2897},   // 0.2897
     {"ttH_nonbb", 0.209}, // 0.20
     {"TTToSemiLeptonic", 365.34},
-    {"TTToHardronic", 377.96},
+    {"TTToHadronic", 377.96},
     {"TTTo2L2Nu", 88.29},
 
     {"wz", 2.343},

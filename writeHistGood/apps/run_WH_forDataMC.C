@@ -41,9 +41,13 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/", 
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/", 
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/", 
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra/mc/", 
 
-    TString process = "tttt",
+    // TString process = "tttt",
+    // TString process = "TTTo2L2Nu",
+    // TString process = "TTToSemiLeptonic",
+    TString process = "TTToHadronic",
     // TString process = "VLL_EN_M600",
     // TString process = "fakeTau_tauF",
     // TString process = "jetHT_2018d",
@@ -52,13 +56,12 @@ void run_treeAnalyzer(
     // TString process = "ttbar_0l",
     // TString process = "ttbar_1l",
     TString histVersion = "v0_test",
-    Bool_t isTest = kTRUE)
-// Bool_t isTest = kFALSE)
+    // Bool_t isTest = kTRUE)
+Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();
 
-    // WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest);//
     WH_forDataMC writeHist(inputDir, process, kTRUE, histVersion, isTest);//!faketau
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
