@@ -34,12 +34,12 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
                        // "VLL_EE_M700",
                        // "VLL_EN_M700",
                        // "VLL_NN_M700",
-                       "ttbar_0l",
-                       "ttbar_2l",
-                       "ttbar_1l",
+                    //    "ttbar_0l",
+                    //    "ttbar_2l",
+                    //    "ttbar_1l",
                     // "TTToHadronic",//! only for training
-                    // "TTToSemiLeptonic",//!
-                    // "TTTo2L2Nu",//!
+                    "TTToSemiLeptonic",//!
+                    "TTTo2L2Nu",//!
                        "ttG",
                        "ttZ",
                        "ttW",
@@ -104,7 +104,7 @@ int tmvaBDT_training(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v79HadroPresel/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v80addTauJetVar/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/",
     TString outDir = "output/",
     Bool_t isTest = true,
     // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
