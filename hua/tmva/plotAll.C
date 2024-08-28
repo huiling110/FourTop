@@ -21,8 +21,10 @@ void plotAll(
     // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v79HadroPresel/mc/BDTTrain/v1final26Var/results/",
     // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/inputList_finalFinal25.csv.root",
     // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/results/",
-    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/inputList_finalFinal25.csv.root",
-    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/results/",
+    // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/inputList_finalFinal25.csv.root",
+    // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/results/",
+    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv.root",
+    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v1finalVar27/results/",
     Bool_t plotSigOnly = false
 )
 {

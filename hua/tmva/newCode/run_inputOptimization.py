@@ -20,11 +20,11 @@ def main():
 
     outDir = os.path.dirname(inputRoot)
     
-    # vListDir = generateVarList(inputRoot, inputLog)
+    vListDir = generateVarList(inputRoot, inputLog)
     # submitTrainingJobs(vListDir, inputRoot)
 
     # plot_auc_vs_num_variables(outDir+ '/variableList/' +'BDTTrain/')
-    plot_auc_vs_num_variables(outDir+ '/variableListv0/' +'BDTTrain/')
+    # plot_auc_vs_num_variables(outDir+ '/variableListv0/' +'BDTTrain/')
 
 
 def get_auc_and_num_variables(root_file):
@@ -221,6 +221,7 @@ def createNextVariableList_correlation( vlist, TMVAroot):
             else:
                 tempList.remove( secondVariable)
                 print( 'removed: ', secondVariable )
+            print( 'creating list lenghth: ', len(tempList) )
     return variableListList 
 
 def takeThird( elem ):
