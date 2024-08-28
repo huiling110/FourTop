@@ -52,7 +52,8 @@ def get_auc_and_num_variables(root_file):
         file.Close()
         return None, None
 
-    num_variables = input_variables.GetListOfBranches().GetEntries()
+    # num_variables = input_variables.GetListOfBranches().GetEntries()
+    num_variables = input_variables.GetListOfBranches().GetEntries()-4 #!remove the weight and event branches
 
     file.Close()
     return auc, num_variables
@@ -66,6 +67,7 @@ def plot_auc_vs_num_variables(input_dir):
         if root_file.endswith(".root"):
             full_path = os.path.join(input_dir, root_file)
             auc, num_variables = get_auc_and_num_variables(full_path)
+            print(f"File: {root_file}, AUC: {auc}, Num. Variables: {num_variables}")
             if auc is not None and num_variables is not None:
                 aucs.append(auc)
                 num_vars.append(num_variables)
