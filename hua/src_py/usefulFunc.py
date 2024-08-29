@@ -1,7 +1,5 @@
 import os
 import subprocess
-import sys
-
 import pandas as pd
 import ROOT
 
@@ -33,8 +31,6 @@ def getGenSumDic( inputCsv, era ):
     # print( genSumDic )
     return genSumDic
 
-# def getProcessScale( processName, era ):
-#     scale = lumiMap[era]*samplesCrossSection[processName]/getGenSumDic()
 
 def sumbitJobs(  jobsh):
     print('staring to submit jobs')

@@ -3,7 +3,6 @@ import subprocess
 
 import usefulFunc as uf
 
-
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v79HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/'
@@ -34,22 +33,24 @@ def main():
     # version = 'v0HLTMeasureBinB'
    
     #dataMC
-    version = 'v0dataMC_allCorrection'
+    # version = 'v0dataMC_allCorrection'
     # version = 'v0dataMC_basicWeight'
     # version = 'v1dataMC_allCorrectionFakeTau'
     
         
     #1tau1l
-    # channel = '1tau1l'
+    channel = '1tau1l'
     # version = 'v0Basictraining1tau1l_VLL'
     # version = 'v0Basictraining1tau1l_VLLm800'
     # version = 'v0Basictraining1tau1l_VLLm700'
     # version = 'v0Basictraining1tau1l_VLLm700_DifBin2'
-    # version = 'v0BasicSystematic'
+    # version = 'v0BDT1tau1l'
+    # version = 'v0BDT1tau1l_binC'
+    version = 'v1BDT1tau1l_evenBin'
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
     
     #1tau0l systematic
-    channel = '1tau0l'
+    # channel = '1tau0l'
     # version = 'v0BDT1tau0l'
     # version = 'v0BDT1tau0lBinB'
     # version = 'v1BDTtauFJetVar2017train'
@@ -104,8 +105,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
