@@ -33,8 +33,9 @@ void treeAnalyzer::Init()
 
         // std::vector<Double_t> bins = {-0.25, -0.05, 0, 0.04, 0.08, 0.12, 0.17, 0.4 }; //1tau1l Bin B
         // std::vector<Double_t> bins = { -0.25, -0.20, -0.15, 0., 0.08, 0.14, 0.4}; // 1tau1l Bin C
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions);//bin3
-        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -2.25, 0.36, sysRegions);//!For optimization binnning
+        std::vector<Double_t> bins1tau1l =  {-0.25, -0.1036, -0.0731, -0.0487, -0.030, -0.012, 0.013, 0.037, 0.06, 0.122, 0.36}; //roughly 15 bg in each bin
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions);//binD
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.36, sysRegions);//!For optimization binnning
 
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/BDTTrain/v2NoBtag/dataset/weight/TMVAClassification_BDT.weights.xml";
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l.csv"; 

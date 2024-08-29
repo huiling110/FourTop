@@ -15,7 +15,7 @@ def main():
     sigHist, bgHist = getSigBgHist(inputDirDic,  era)
     
     # optimizeHists(sigHist, bgHist)
-    best_bin_edges, best_significance = optimize_binning(sigHist, bgHist, 2)
+    best_bin_edges, best_significance = optimize_binning(sigHist, bgHist, 1)
 
     print(f"Optimized bin edges: {best_bin_edges}")
     print(f"Best significance: {best_significance}")
@@ -136,8 +136,8 @@ def optimize_binning(h_signal, h_background, initial_target_bin_content):
 
     # for target_bin_content in range(1, int(h_signal.Integral() / 2), initial_target_bin_content):
     for target_bin_content in range(1, int(h_background.Integral() / 2), initial_target_bin_content):
-        print('target_bin_content=', target_bin_content)
         bin_edges = adaptive_binning(h_background, target_bin_content)
+        # bin_edges = adaptive_binning(h_signal, target_bin_content)
         h_rebinned_signal = rebin_histogram(h_signal, bin_edges)
         h_rebinned_background = rebin_histogram(h_background, bin_edges)
 
@@ -146,8 +146,9 @@ def optimize_binning(h_signal, h_background, initial_target_bin_content):
 
         # significance = calculate_significance(signal, background)
         significance = calculate_asimov_significance(signal, background)
+        print('target_bin_content=', target_bin_content)
         print('significance=', significance)
-        print('bing_edges=', bin_edges)
+        print('bing_edges=', bin_edges, '\n')
         if significance > best_significance:
             best_significance = significance
             best_bin_edges = bin_edges
