@@ -153,24 +153,6 @@ def getProcessScale( processName, era ):
     return scale
 
 
-def addBGHist(sumProcessIVar,  region, includeQCD=False):
-    summedProcessList = list(sumProcessIVar[region].keys())
-    sumHist = sumProcessIVar[region][summedProcessList[0]].Clone()
-    sumHist.Reset()
-    sumHist.Sumw2()
-    sumHist.SetName(region)
-    for ipro in summedProcessList:
-        if not includeQCD:
-            # if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
-            if ipro=='jetHT' or ipro=='singleMu' or ipro=='qcd' or ipro=='tttt': continue
-        else:
-            if ipro=='jetHT' or ipro=='singleMu' or ipro=='tttt': continue
-        sumHist.Add( sumProcessIVar[region][ipro])
-    return sumHist
-
-
-
-
 
 def getSameValues(diction, value):
     subList = []
@@ -179,9 +161,6 @@ def getSameValues(diction, value):
             subList.append(ikey)
     return subList
             
-    
-    
-    
 def getHistFromFile(fileName, histNames):
     file = ROOT.TFile.Open(fileName)
 
@@ -441,7 +420,7 @@ def getAllSubPro(era, sumPro, isData=True):
     
     
 ############################################################################################################
-#plot helper functions
+#!functions to plot histograms
 def plotOverlay(histList, legenList, era, yTitle, plotName, drawOp='', legendPos=[0.65, 0.8, 0.9,0.93], yRange=[]):
     print('start to plot overlay plot')
     mySty =  st.setMyStyle()
@@ -647,3 +626,24 @@ def plotEfficiency(h_numeritor, h_dinominator, h_eff, plotName, era = '2016', if
     # addCMSTextToCan(can, 0.21, 0.33, 0.91, era)     
 
     can.SaveAs(plotName)
+    
+
+  
+############################################################################################################
+#!functions to manipulate histograms
+def addBGHist(sumProcessIVar,  region, includeQCD=False):
+    summedProcessList = list(sumProcessIVar[region].keys())
+    sumHist = sumProcessIVar[region][summedProcessList[0]].Clone()
+    sumHist.Reset()
+    sumHist.Sumw2()
+    sumHist.SetName(region)
+    for ipro in summedProcessList:
+        if not includeQCD:
+            # if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
+            if ipro=='jetHT' or ipro=='singleMu' or ipro=='qcd' or ipro=='tttt': continue
+        else:
+            if ipro=='jetHT' or ipro=='singleMu' or ipro=='tttt': continue
+        sumHist.Add( sumProcessIVar[region][ipro])
+    return sumHist
+    
+    
