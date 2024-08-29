@@ -15,7 +15,7 @@ def main():
     sigHist, bgHist = getSigBgHist(inputDirDic,  era)
     
     # optimizeHists(sigHist, bgHist)
-    best_bin_edges, best_significance = optimize_binning(sigHist, bgHist, 10)
+    best_bin_edges, best_significance = optimize_binning(sigHist, bgHist, 2)
 
     print(f"Optimized bin edges: {best_bin_edges}")
     print(f"Best significance: {best_significance}")
@@ -123,8 +123,9 @@ def calculate_asimov_significance(signal, background):
             significance += 2 * (term1 - term2)
     return np.sqrt(significance)
 
+
 def rebin_histogram(histo, bin_edges):
-    new_histo = ROOT.TH1D(histo.GetName() + "_rebin", histo.GetTitle(), len(bin_edges) - 1, np.array(bin_edges))
+    new_histo = ROOT.TH1D(histo.GetName() + "_rebin", histo.GetTitle(), len(bin_edges) - 1, np.array(bin_edges)).Clone()
     for i in range(1, histo.GetNbinsX() + 1):
         new_histo.Fill(histo.GetBinCenter(i), histo.GetBinContent(i))
     return new_histo
@@ -135,7 +136,7 @@ def optimize_binning(h_signal, h_background, initial_target_bin_content):
 
     # for target_bin_content in range(1, int(h_signal.Integral() / 2), initial_target_bin_content):
     for target_bin_content in range(1, int(h_background.Integral() / 2), initial_target_bin_content):
-        # bin_edges = adaptive_binning(h_signal, h_background, target_bin_content)
+        print('target_bin_content=', target_bin_content)
         bin_edges = adaptive_binning(h_background, target_bin_content)
         h_rebinned_signal = rebin_histogram(h_signal, bin_edges)
         h_rebinned_background = rebin_histogram(h_background, bin_edges)
@@ -145,6 +146,8 @@ def optimize_binning(h_signal, h_background, initial_target_bin_content):
 
         # significance = calculate_significance(signal, background)
         significance = calculate_asimov_significance(signal, background)
+        print('significance=', significance)
+        print('bing_edges=', bin_edges)
         if significance > best_significance:
             best_significance = significance
             best_bin_edges = bin_edges
