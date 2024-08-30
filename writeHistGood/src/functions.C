@@ -421,6 +421,8 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Down");
     sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
     sysRegions.push_back(region + "_pdf_" + era + "Up");
