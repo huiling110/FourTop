@@ -334,7 +334,7 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     sig = signal.GetBinContent(signal.GetNbinsX())
     bg = sumHist.GetBinContent(sumHist.GetNbinsX()) - sig
     
-    latex.DrawLatex(signal.GetBinCenter(signal.GetNbinsX()), sig+bg+0.05, f"S={sig:.2f}, B={bg-sig:.2f}")
+    latex.DrawLatex(signal.GetBinCenter(signal.GetNbinsX()), sig+bg+0.05, f"S={sig:.2f}, B={bg:.2f}")
     
     canvas.Update()
     canvas.Draw()
