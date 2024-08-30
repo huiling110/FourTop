@@ -445,3 +445,8 @@ dataDict = {
     '2016postVFP': ['2016F', '2016G', '2016H'],
     '2016preVFP': ['2016B_v1_v2', '2016B_v2_v2',  '2016C_v2', '2016D_v2', '2016E_v2', '2016F_hipm_v2'],
 }
+
+proChannelDic = {
+    '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'], #! 1tau1l, for now not considering data
+    '1tau0l':  ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
+}

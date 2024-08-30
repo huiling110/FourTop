@@ -41,9 +41,10 @@ def main():
    
     # proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
     # proList = ['tttt', 'tt', 'ttX', 'singleTop', 'WJets', 'VLLm800'] 
-    proList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #! 1tau1l, for now not considering data
+    # proList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #! 1tau1l, for now not considering data
     # allSubPro = uf.getAllSubPro(proList, isRun3)
-    allSubPro = uf.getAllSubPro1(proList, isRun3)
+    # allSubPro = uf.getAllSubPro1(proList, isRun3)
+    allSubPro = uf.getAllSubPro1(gq.proChannelDic[channel], isRun3)
     print('all sub processes: ',allSubPro)
 
     summedHistDicAllSys = {}
@@ -51,10 +52,6 @@ def main():
     
     getSysHist(summedHistDicAllSys, allSubPro, inputDir, outFile, isRun3)
  
-    # if channel=='1tau0l':
-    #     addFakeTauSys(outFile, channel, summedHistDicAllSys, era)#to be updated
-    #     print(summedHistDicAllSys)
-    
     fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel, ifVLL)
     
     
