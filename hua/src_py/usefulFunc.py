@@ -384,13 +384,6 @@ def checkIfInputDic(entry, isRun3):
     return ifInDic
 
 
-def getAllSubPro1(proList, isRun3):
-    allSubPro = []
-    dic = gq.histoGramPerSample if not isRun3 else gq.Run3Samples
-    for isub, isum in dic.items():
-        if isum in proList:
-            allSubPro.append(isub)
-    return allSubPro
 
 def isBG(sumPro, ifVLL=False):
     #protype 1: signal; 2: background; 3: data
@@ -417,6 +410,17 @@ def getAllSubPro(era, sumPro, isData=True):
         # return [key for key, value in all.items() if (value == sumPro)]
     else:
         return [key for key, value in all.items() if (value == sumPro)]
+   
+def getAllSubPro1(proList, isRun3):
+    allSubPro = []
+    dic = gq.histoGramPerSample if not isRun3 else gq.Run3Samples
+    for isub, isum in dic.items():
+        if isum in proList:
+            allSubPro.append(isub)
+    return allSubPro
+   
+   
+   
     
     
 ############################################################################################################

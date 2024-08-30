@@ -18,9 +18,10 @@ def main():
 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v0BDT1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/variableHists_v0BDT1tau0lBinB/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT25inputsWith2018train/'
-    channel = '1tau0l' # 1tau0l
-    # channel = '1tau1l' 
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT25inputsWith2018train/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binD/'
+    # channel = '1tau0l' # 1tau0l
+    channel = '1tau1l' 
     # channel = '1tau2l'
     # ifVLL = True
     ifVLL = False
@@ -29,7 +30,6 @@ def main():
    
     
     isRun3 = uf.isRun3(inputDir)
-    era = uf.getEraFromDir(inputDir)
     print('isRun3=', isRun3)
     
     
@@ -39,12 +39,12 @@ def main():
     outFile = ROOT.TFile(templateFile, 'RECREATE')
   
    
-    proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
+    # proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
     # proList = ['tttt', 'tt', 'ttX', 'singleTop', 'WJets', 'VLLm800'] 
-    # proList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
+    proList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #! 1tau1l, for now not considering data
     # allSubPro = uf.getAllSubPro(proList, isRun3)
     allSubPro = uf.getAllSubPro1(proList, isRun3)
-    print(allSubPro)
+    print('all sub processes: ',allSubPro)
 
     summedHistDicAllSys = {}
     getSumSys(summedHistDicAllSys, inputDir) #summedHistDicAllSys[sys][sumPro]
@@ -58,7 +58,7 @@ def main():
     fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel, ifVLL)
     
     
-    #only 1tau1l for now 
+    #!Energy scale variation; only 1tau1l for now 
     # jerDic = {
     #     # '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/', 'JER'],
     #     '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERUp_rerun/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERDown_rerun/', 'JER'],
@@ -86,7 +86,7 @@ def main():
     outFile.Close()
   
 def getSysHist(summedHistDicAllSys, allSubPro,inputDir, outFile, isRun3=False):
-    #loop through all subProcess
+    print('start to add sys hists to sumPro')
     for isub in allSubPro:
         if 'jetHT' in isub or 'singleMu' in isub or 'JetMET' in isub or 'JetHT' in isub or 'Muon' in isub: continue
         print(isub)
@@ -95,16 +95,16 @@ def getSysHist(summedHistDicAllSys, allSubPro,inputDir, outFile, isRun3=False):
         if iroot.IsZombie():
             print('BAD!!!', ifile, 'not existing\n')
         for isysHist in summedHistDicAllSys.keys():
-            print(isub+isysHist)
+            # print(isub+isysHist)
             iHist = iroot.Get(isub+'_'+isysHist).Clone()
             addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile, isRun3) 
         iroot.Close() 
-    print(summedHistDicAllSys)
+    print('done adding sys hists to sumPro\n\n')
       
    
 def getSumSys(summedHistDicAllSys, inputDir):
+    print('get all sys hists names from tttt.root')
     ttttFile = ROOT.TFile(inputDir+'tttt.root', 'READ' )
-    # ttttFile = ROOT.TFile(inputDir+'TTTT.root', 'READ' )
     for key in ttttFile.GetListOfKeys():
         obj = key.ReadObj()
         histName = obj.GetName()
@@ -115,7 +115,8 @@ def getSumSys(summedHistDicAllSys, inputDir):
         summedHistDicAllSys[sysName] = {}
         obj.Delete()
     ttttFile.Close()
-    print(summedHistDicAllSys)
+    # print(summedHistDicAllSys)
+    print('done getting all sys hists names\n\n')
 
 def addJERSys(outFile, summedHistDicAllSys, allSubPro, jerDic, era = '2018', isRun3=False):
     print('start to add sys hists') 
@@ -204,7 +205,7 @@ def addDataHist(summedHistSR, outFile, channel, ifVLL=False):
     
     
 def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile, isRun3=False):
-    iHist.Sumw2()
+    # iHist.Sumw2()#!already done 
     iHist.SetDirectory(outFile)
     if not isRun3:
         summedName = gq.histoGramPerSample[isub]    
