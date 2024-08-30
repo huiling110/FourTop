@@ -4,6 +4,7 @@ from scipy.optimize import minimize
 
 import usefulFunc as uf
 
+#to do: maybe consider statical uncertainty in data in the significance calculation
 def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1BDT1tau1l_evenBin/'
     
@@ -89,8 +90,8 @@ def optimizeHists(signal, background):
     optimized_bins = result.x
     print('Optimized bins:', optimized_bins)
 
-# def adaptive_binning(h_signal, h_background, target_bin_content):
-def adaptive_binning(h_signal, target_bin_content):
+# def adaptive_binning(h_signal, target_bin_content):
+def adaptive_binning(h_signal, target_bin_content, binWidthRight = 0.01):
     bin_edges = [h_signal.GetXaxis().GetXmin()]
     current_bin_signal = 0
     # current_bin_background = 0
@@ -155,7 +156,13 @@ def optimize_binning(h_signal, h_background, initial_target_bin_content):
 
     return best_bin_edges, best_significance
 
-
+def optimzeBinning(signalHist, bgHist, binWidth=0.001):
+    #get bin range for signalHist 
+    minBin = signalHist.GetMinimum()
+    maxBin = signalHist.GetMaximum()
+    for i in range(minBin, maxBin, binWidth):
+        print(i)
+        # binEdges = adaptiveBinning(signalHist, rightBinWidth)
 
 
 if __name__ == '__main__':

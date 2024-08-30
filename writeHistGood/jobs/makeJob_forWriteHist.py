@@ -47,7 +47,8 @@ def main():
     # version = 'v0BDT1tau1l'
     # version = 'v0BDT1tau1l_binC'
     # version = 'v1BDT1tau1l_evenBin'
-    version = 'v2BDT1tau1l_binD'
+    # version = 'v2BDT1tau1l_binD'
+    version = 'v2BDT1tau1l_binE'
     # version = 'v0trainingWithBtagShape' #for btagWP or shape
     
     #1tau0l systematic
