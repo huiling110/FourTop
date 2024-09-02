@@ -30,13 +30,20 @@ def main():
         for isumPro in sumProHists2018['BDT'][ire].keys():
             # sumProHists2018['BDT'][ire][isumPro].Print()
             combineHists[ire][isumPro] = sumProHists2018['BDT'][ire][isumPro].Clone()
-            combineHists[ire][isumPro].Add(sumProHists2017['BDT'][ire][isumPro])
-            combineHists[ire][isumPro].Add(sumProHists2016preVFP['BDT'][ire][isumPro])
-            combineHists[ire][isumPro].Add(sumProHists2016postVFP['BDT'][ire][isumPro])
+            if not uf.isData(isumPro):
+                combineHists[ire][isumPro].Add(sumProHists2017['BDT'][ire][isumPro])
+                combineHists[ire][isumPro].Add(sumProHists2016preVFP['BDT'][ire][isumPro])
+                combineHists[ire][isumPro].Add(sumProHists2016postVFP['BDT'][ire][isumPro])
+            else:
+                combineHists[ire][isumPro]
+                uf.addDataHist(combineHists[ire][isumPro], sumProHists2017['BDT'][ire][isumPro])
+                uf.addDataHist(combineHists[ire][isumPro], sumProHists2016preVFP['BDT'][ire][isumPro])
+                uf.addDataHist(combineHists[ire][isumPro], sumProHists2016postVFP['BDT'][ire][isumPro])
     
     plotDir = inputDir2018+'results/'
     uf.checkMakeDir(plotDir)
-    plotName = 'combination' 
+    # plotName = 'combination' 
+    plotName = 'combination_fixedDataError' 
     for ire in combineHists.keys():
         pl.makeStackPlotNew(combineHists[ire], sumPros, 'BDT', ire, plotDir, False, plotName, 'Run2', True, 100, True, True, True, False ) 
     

@@ -649,5 +649,26 @@ def addBGHist(sumProcessIVar,  region, includeQCD=False):
             if ipro=='jetHT' or ipro=='singleMu' or ipro=='tttt': continue
         sumHist.Add( sumProcessIVar[region][ipro])
     return sumHist
+
+def addDataHist(h1, h2):
+    #!The uncertainty of data hists should not be calculated with quadronic sum
+    if h1.GetNbinsX() != h2.GetNbinsX():
+        raise ValueError("Histograms must have the same number of bins")
+
+    # Create a new histogram to store the result
+    # h_result = h1.Clone("h_result")
+    # h_result = h1.Clone()
+    # Add bin contents without recalculating errors
+    for i in range(1, h1.GetNbinsX() + 1):
+        bin_content = h1.GetBinContent(i) + h2.GetBinContent(i)
+        bin_error = (h1.GetBinError(i)**2 + h2.GetBinError(i)**2)**0.5
+        # h_result.SetBinContent(i, bin_content)
+        # h_result.SetBinError(i, bin_error)
+        h1.SetBinContent(i, bin_content)
+        h1.SetBinError(i, bin_error)
+
+    # return h_result 
+    
+    
     
     
