@@ -661,7 +661,8 @@ def addDataHist(h1, h2):
     # Add bin contents without recalculating errors
     for i in range(1, h1.GetNbinsX() + 1):
         bin_content = h1.GetBinContent(i) + h2.GetBinContent(i)
-        bin_error = (h1.GetBinError(i)**2 + h2.GetBinError(i)**2)**0.5
+        # bin_error = (h1.GetBinError(i)**2 + h2.GetBinError(i)**2)**0.5
+        bin_error = (bin_content)**0.5
         # h_result.SetBinContent(i, bin_content)
         # h_result.SetBinError(i, bin_error)
         h1.SetBinContent(i, bin_content)
