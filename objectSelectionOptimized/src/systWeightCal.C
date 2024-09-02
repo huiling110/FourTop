@@ -23,6 +23,7 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
 };
 
 void SystWeightCal::Select(eventForNano *e, Bool_t isData){
+    // clearBranch();
     if(!isData){
         //LHE pdf variation weights (w_var / w_nominal) for LHA IDs 306000 - 306102
         // pdf weight from Jan:
