@@ -134,6 +134,8 @@ void objectSelection::Terminate()
         TTree *runs = (TTree *)m_input->Get("Runs");
         runs->SetBranchStatus("*", 0);
         runs->SetBranchStatus("genEventSumw", 1);
+        runs->SetBranchStatus("LHEPdfSumw", 1);//Sum of genEventWeight * LHEPdfWeight[i], divided by genEventSumw
+        runs->SetBranchStatus("LHEScaleSumw", 1);//Sum of genEventWeight * LHEScaleWeight[i], divided by genEventSumw
 
         TTree *runsForOut = runs->CloneTree();
         runsForOut->SetDirectory(m_output);

@@ -23,7 +23,7 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
 };
 
 void SystWeightCal::Select(eventForNano *e, Bool_t isData){
-    // clearBranch();
+    clearBranch();
     if(!isData){
         //LHE pdf variation weights (w_var / w_nominal) for LHA IDs 306000 - 306102
         // pdf weight from Jan:
@@ -61,6 +61,23 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
             scaleWeightRe_down = e->LHEScaleWeight->At(1);
             scaleWeightFa_up = e->LHEScaleWeight->At(5);
             scaleWeightFa_down = e->LHEScaleWeight->At(3);
+            scaleWeight = e->LHEScaleWeight->At(4);
+            //Jan suggested scale the systematic weights by the nominal weight
         }
     }
+};
+
+void SystWeightCal::clearBranch(){
+    pdfWeight=1.;
+    pdfWeight_up=1.;
+    pdfWeight_down=1.;
+    pdfWeightAlphaS_up=1.;
+    pdfWeightAlphaS_down=1.;
+    scaleWeight=1.;
+    scaleWeight_up=1.;
+    scaleWeight_down=1.;
+    scaleWeightRe_up=1.;
+    scaleWeightRe_down=1.;
+    scaleWeightFa_up=1.;
+    scaleWeightFa_down=1.;
 };
