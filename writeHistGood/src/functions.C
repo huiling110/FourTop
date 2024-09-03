@@ -435,6 +435,11 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_QCDscale_Re_" + era + "Down");
     sysRegions.push_back(region + "_QCDscale_Fa_" + era + "Up");
     sysRegions.push_back(region + "_QCDscale_Fa_" + era + "Down");
+
+    sysRegions.push_back(region + "_QCDscale_Re_normalised_" + era + "Up");
+    sysRegions.push_back(region + "_QCDscale_Re_normalised_" + era + "Down");
+    sysRegions.push_back(region + "_QCDscale_Fa_normalised_" + era + "Up");
+    sysRegions.push_back(region + "_QCDscale_Fa_normalised_" + era + "Down");
 }
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
