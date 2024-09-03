@@ -46,7 +46,7 @@ TString getProcessName(const TString processName, Bool_t isRun3);
 extern std::array<TString, 8> processWithExt;
 
 void getChannelSys(std::vector<TString>& sysRegions, TString region="1tau1lSR", TString era="2016");
-
+Double_t calQCDScaleNor(const TString inputFile, UInt_t index);
 }
 
 #endif

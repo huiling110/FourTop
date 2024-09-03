@@ -1,4 +1,6 @@
 #include <fstream>
+#include <TTreeReader.h>
+#include <TTreeReaderArray.h>
 #include "../include/functions.h"
 namespace WH
 {
@@ -433,6 +435,39 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_QCDscale_Re_" + era + "Down");
     sysRegions.push_back(region + "_QCDscale_Fa_" + era + "Up");
     sysRegions.push_back(region + "_QCDscale_Fa_" + era + "Down");
+}
+
+Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
+    //Re_up: 7; Re_down: 1; Fa_up: 5; Fa_down: 3
+    //LHEScaleSumw: sum of genEventWeight * LHESacleWeight[i]/ genEventSumw 
+    //?does the sum of genEventWeight of just one sample or all samples?
+    //I think it's per sample
+    TFile *file = TFile::Open(inputFile);
+    if (!file || file->IsZombie()) {
+        std::cerr << "Error opening file!" << std::endl;
+        return 1;
+    }
+
+    TTreeReader reader("Runs", file); // Replace "tree_name" with the actual name of your TTree
+    TTreeReaderArray<double> LHEScaleSumw(reader, "LHEScaleSumw");
+    TTreeReaderValue<Double_t> genEventSumw(reader, "genEventSumw");
+
+    Double_t sumGen = 0.;
+    Double_t sumGenScale = 0;
+    while (reader.Next())
+    {
+        // for (size_t j = 0; j < LHEScaleSumw.GetSize(); ++j) {
+        //     std::cout << LHEScaleSumw[index] << " ";
+        // }
+        sumGen += *genEventSumw;
+        sumGenScale += LHEScaleSumw[index]*(*genEventSumw);
+    }
+    // std::cout<<"sumGen = "<<sumGen<<" sumGenScale = "<<sumGenScale<<"\n";
+    file->Close();
+    return sumGen/sumGenScale;
+
+
+
 }
 
 };
