@@ -83,6 +83,10 @@ private:
     Double_t m_scaleRe_normDown_SF = 1.0;
     Double_t m_scaleFa_normUp_SF = 1.0;
     Double_t m_scaleFa_normDown_SF = 1.0;
+    Double_t m_pdf_normUp_SF = 1.0;
+    Double_t m_pdf_normDown_SF = 1.0;
+    Double_t m_pdfAlphaS_normUp_SF = 1.0;
+    Double_t m_pdfAlphaS_normDown_SF = 1.0;
 };
 
 #endif      

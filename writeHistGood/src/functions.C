@@ -470,9 +470,42 @@ Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
     // std::cout<<"sumGen = "<<sumGen<<" sumGenScale = "<<sumGenScale<<"\n";
     file->Close();
     return sumGen/sumGenScale;
+}
 
+Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
+    TFile *file = TFile::Open(inputFile);
+    if (!file || file->IsZombie()) {
+        std::cerr << "Error opening file!" << std::endl;
+        return 1;
+    }
 
+    TTreeReader reader("Runs", file); // Replace "tree_name" with the actual name of your TTree
+    TTreeReaderArray<Double_t> LHEPdfSumw(reader, "LHEPdfSumw");//Sum of genEventWeight * LHEPdfWeight[i], divided by genEventSumw
+    TTreeReaderValue<Double_t> genEventSumw(reader, "genEventSumw");
 
+    Double_t sumGen = 0.;
+    Double_t sumGenScale = 0;
+    while (reader.Next())
+    {
+        sumGen += *genEventSumw;
+        switch (index)
+        {
+        case 0://pdf alpha s up, 101: uncertainty up
+            // sumGenScale += (1.+LHEPdfSumw[101])*(*genEventSumw);
+            sumGenScale += (LHEPdfSumw[101])*(*genEventSumw); //!!!It seems here it's the SF rather than uncertainty as in LHEPdfWeight branch
+            // std::cout<<"LHEPdfSumw[101] = "<<LHEPdfSumw[101]<<"\n";
+            break;
+        case 1://pdf alpha s down, 102: uncertainty down
+            sumGenScale += (LHEPdfSumw[102])*(*genEventSumw);
+            break;
+        
+        default:
+            break;
+        }
+    }
+    std::cout<<"sumGen = "<<sumGen<<" sumGenScale = "<<sumGenScale<<"\n";
+    file->Close();
+    return sumGen/sumGenScale;
 }
 
 };
