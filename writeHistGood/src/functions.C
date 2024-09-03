@@ -440,6 +440,10 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_QCDscale_Re_normalised_" + era + "Down");
     sysRegions.push_back(region + "_QCDscale_Fa_normalised_" + era + "Up");
     sysRegions.push_back(region + "_QCDscale_Fa_normalised_" + era + "Down");
+    // sysRegions.push_back(region + "_pdf_normalised_" + era + "Up");
+    // sysRegions.push_back(region + "_pdf_normalised_" + era + "Down");
+    sysRegions.push_back(region + "_pdfAlphaS_normalised_" + era + "Up");
+    sysRegions.push_back(region + "_pdfAlphaS_normalised_" + era + "Down");
 }
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
@@ -497,6 +501,10 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
             break;
         case 1://pdf alpha s down, 102: uncertainty down
             sumGenScale += (LHEPdfSumw[102])*(*genEventSumw);
+            break;
+        case 2: 
+            // pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100); for per event
+            //!might not be possible to get the uncertainty from the sum of genEventWeight 
             break;
         
         default:
