@@ -34,7 +34,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v79forHLT/'
 # jobVersionName = 'v80addTauJetVar/'
 # jobVersionName = 'v80addTTExtra/'
-jobVersionName = 'v80addTTExtra1/'
+# jobVersionName = 'v80addTTExtra1/'
+jobVersionName = 'v81addSysSum/'
 
 #!same version numbers means no change in algrithm but only in selection
 
