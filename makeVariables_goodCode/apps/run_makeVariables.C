@@ -29,9 +29,10 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v80addTauJetVar/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v80addTauJetVar/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v80addTauJetVar/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v80addTTExtra/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v80addTTExtra/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v81addSysSum/mc/",
 
-    // TString inputDir = "tttt",
+    TString inputDir = "tttt",
     // TString inputDir = "VLL_EE_M600",
     // TString inputDir = "VLL_EE_M800",
     // TString inputDir = "ttbar_0l",
@@ -41,7 +42,7 @@ void run_objectSelection(
     // TString inputDir = "singleMu_2017b",
     // TString inputDir = "ttbar_1l",
     // TString inputDir = "TTToSemiLeptonic10",
-    TString inputDir = "TTTo2L2Nu0",
+    // TString inputDir = "TTTo2L2Nu0",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
     Int_t numEntries = 3000)
@@ -61,8 +62,8 @@ void run_objectSelection(
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
     // Bool_t baseline = kFALSE;
-    mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
-    // mv.EventLoop(baseline, kFALSE, numEntries);
+    // mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
+    mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
