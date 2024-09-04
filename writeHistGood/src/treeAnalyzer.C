@@ -112,7 +112,7 @@ void treeAnalyzer::Init()
     std::cout<<"m_scaleFa_normUp_SF="<<m_scaleFa_normUp_SF<<"\n";
     m_pdfAlphaS_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 0);
     m_pdfAlphaS_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 1);
-    std::cout<<"m_pdfAlphaS_normUp_SF="<<m_pdfAlphaS_normUp_SF<<"\n";
+    std::cout<<"m_pdfAlphaS_normUp_SF="<<m_pdfAlphaS_normUp_SF<<"\n";//!could be inf for some samples for example st_tZq
     std::cout<<"m_pdfAlphaS_normDown_SF="<<m_pdfAlphaS_normDown_SF<<"\n";
 
     std::cout << "done initializing\n";

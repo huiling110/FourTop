@@ -511,9 +511,11 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
             break;
         }
     }
-    std::cout<<"sumGen = "<<sumGen<<" sumGenScale = "<<sumGenScale<<"\n";
+    // std::cout<<"sumGen = "<<sumGen<<" sumGenScale = "<<sumGenScale<<"\n";4
+    Double_t scale = std::abs(sumGenScale)>1e-10? sumGen/sumGenScale:1;
+
     file->Close();
-    return sumGen/sumGenScale;
+    return scale;
 }
 
 };
