@@ -49,12 +49,12 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v76WithVLLSample/mc/variableHists_v0Basictraining1tau1l_VLL/combine/datacard_noSys/'
 
         
-    cardToWorkspaces( cardDir )
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
-    copyCombineResultsToDir( cardDir )
+    # cardToWorkspaces( cardDir )
+    # runCombineSig( cardDir, True )
+    # runCombineSig( cardDir, False )
+    # copyCombineResultsToDir( cardDir )
 
-    # runImpact(cardDir )
+    runImpact(cardDir )
     # runImpact(cardDir+'workspace/datacard_1tau1lSys.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau1l.root', cardDir+'combineResults/')
     # runImpact(cardDir+'workspace/datacard_comb_1tau0l.root', cardDir+'combineResults/')
