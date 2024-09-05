@@ -26,9 +26,11 @@ def main():
     # T2Dir = 'crabNanoPost_2022preEE_v3/'
 
     # T2Dir = 'crabNanoPost_run2_v3/'
-    T2Dir = 'ttExtra2018v0/'
+    # T2Dir = 'ttExtra2018v0/'
     # outDir = T3Dir + '/2017/BtagCSV/'
-    outDir = T3Dir + '/2018/mc/tt'
+    # outDir = T3Dir + '/2018/mc/tt'
+    T2Dir = 'MuonEG/' #!all finished
+    outDir = T3Dir + 'MuonEG/'
     uf.checkMakeDir(outDir)
     # copyT2ToT3(T2Dir, outDir, notFinishedList, True)
     copyT2ToT3(T2Dir, outDir, [], False)
@@ -73,7 +75,6 @@ def getProName(iDir, isData=False):
         name = iproName
     return name  
         
-# def copyT2ToT3(T2Dir, T3Dir, copyList, ifDelete=False):
 def copyT2ToT3(T2Dir, T3Dir, ignoreList, ifDelete=False):
     pros = getDirList(T2Dir)
     print('pros: ', pros)

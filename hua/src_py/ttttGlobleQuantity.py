@@ -250,6 +250,23 @@ histoGramPerSample = {
     'singleMu_2017e': 'singleMu',
     'singleMu_2017f': 'singleMu',
     
+    #!how to ovoid overlap of data in 1tau2l? 
+    #may additonal python code to remove the overlap
+    'doubleMu_2018a': 'doubleMu',
+    'doubleMu_2018b': 'doubleMu',
+    'doubleMu_2018c': 'doubleMu',
+    'doubleMu_2018d': 'doubleMu',
+    'MuonEG_2018a': 'muonEG',
+    'MuonEG_2018b': 'muonEG',
+    'MuonEG_2018c': 'muonEG',
+    'MuonEG_2018d': 'muonEG',
+    'eGamma_2018a': 'eGamma',
+    'eGamma_2018b': 'eGamma',
+    'eGamma_2018c': 'eGamma',
+    'eGamma_2018d': 'eGamma',
+    
+    
+    
     #extra tt samples for BDT training 
     'TTTo2L2Nu0': 'ttExtra',
     'TTTo2L2Nu1': 'ttExtra',
