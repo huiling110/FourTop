@@ -31,9 +31,11 @@ def main():
     # inVersion = 'v79HadroPresel'
     # inVersion = 'v80addTauJetVar'
     # inVersion = 'v80addTTExtra1'
-    inVersion = 'v81addSysSum'
+    # inVersion = 'v81addSysSum'
+    inVersion = 'v81for1tau2l_v2'
 
-    outVersion = 'v0baselineHardro'
+    # outVersion = 'v0baselineHardro'
+    outVersion = 'v0baseline1tau2l'
     # outVersion = 'v1baselineHardroHLTSF'
     # outVersion = 'v1baselineHardro_FRweightSys'
     # outVersion = 'v2cut1tau0lSRTauF'
