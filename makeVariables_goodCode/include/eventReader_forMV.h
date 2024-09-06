@@ -178,6 +178,8 @@ public:
                                       bjetsPTT_mass(reader, "bjetsPTT_mass"),
 
                                       PV_npvsGood_(reader, "PV_npvsGood_"),
+                                        run_(reader, "run_"),
+                                        event_(reader, "event_"),
                                       MET_pt_(reader, "MET_pt_"),
                                       MET_phi_(reader, "MET_phi_"),
                                       EVENT_genWeight_(reader, "EVENT_genWeight_"),
@@ -378,6 +380,8 @@ public:
     TTreeReaderArray<Double_t> bjetsPTT_mass;
 
     TTreeReaderValue<Int_t> PV_npvsGood_;
+    TTreeReaderValue<UInt_t> run_;
+    TTreeReaderValue<ULong64_t> event_;
     TTreeReaderValue<Double_t> MET_pt_;
     TTreeReaderValue<Double_t> MET_phi_;
 

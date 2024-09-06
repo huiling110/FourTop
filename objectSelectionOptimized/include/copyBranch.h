@@ -17,6 +17,7 @@ private:
     Bool_t m_isRun3;
     UInt_t run_;
     ULong64_t event_;
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v81addSysSum/mc/",
     Int_t PV_npvsGood_;
     Double_t MET_pt_;
     Double_t MET_phi_;
