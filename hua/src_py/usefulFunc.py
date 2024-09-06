@@ -412,9 +412,28 @@ def getAllSubPro(era, sumPro, isData=True):
     else:
         return [ isum for isub, isum in all.items() if isum in sumPro]
    
-   
-   
-   
+def getSubProDic(era, sumPro) :
+    all = gq.histoGramPerSample
+    allSubs = {}
+    for isub, isum in all.items():
+        isdata = isData(isub)
+        if isdata:
+            subEra = isub.split('_')[-1]
+            if subEra in gq.dataDict[era] and isum in sumPro:
+                # allSubs[sum] = []
+                if isum not in allSubs.keys():
+                    allSubs[isum] = []
+                allSubs[isum].append(isub)
+        else:
+            if isum in sumPro:
+                if isum not in allSubs.keys():
+                    allSubs[isum] = []
+                allSubs[isum].append(isub)
+    return allSubs
+  
+############################################################################################################
+#dictionary manipulation
+ 
     
     
 ############################################################################################################

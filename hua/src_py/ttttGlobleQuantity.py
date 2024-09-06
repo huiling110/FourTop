@@ -326,87 +326,30 @@ histoGramPerSample = {
     'TTToSemiLeptonic19': 'ttExtra',
     'TTToSemiLeptonic20': 'ttExtra',
     'TTToSemiLeptonic21': 'ttExtra',
-    
-    
 }
 
-#! to be removed
-samples = [
-    'tttt', 
-    'ttbar_0l','ttbar_2l', 'ttbar_1l',
-    'qcd_50to100',
-    'qcd_100to200',
-    'qcd_200to300',
-    'qcd_300to500',
-    'qcd_500to700',
-    'qcd_700to1000',
-    'qcd_1000to1500',
-    'qcd_1500to2000',
-    'qcd_2000toInf',
-    "ttG",
-    "ttZ",  
-    "ttW",
-    "ttH_bb", 
-    "ttH_nonbb", 
-    "wz",
-    "ww",
-    "zz",
-    "st_tZq",
-    "st_tW_antitop",
-    "st_tW_top",
-    # "WJetsToLNu",
-    # "WJetsToLNu_HT-100To200",
-    "WJetsToLNu_HT-200To400",
-    "WJetsToLNu_HT-400To600",
-    "WJetsToLNu_HT-600To800",
-    "WJetsToLNu_HT-800To1200",
-    "WJetsToLNu_HT-1200To2500",
-    "WJetsToLNu_HT-2500ToInf",
+#! maybe it's better to keep it in this format?
+subSumProDic ={
+   'tttt': ['tttt'],
+    'tt': ['ttbar_0l', 'ttbar_1l', 'ttbar_2l'],
+    'qcd': ['qcd_50to100', 'qcd_200to300', 'qcd_300to500', 'qcd_500to700', 'qcd_700to1000', 'qcd_1000to1500', 'qcd_1500to2000', 'qcd_2000toInf'],
+    'ttX': ['ttG', 'ttZ', 'ttW', 'ttH_bb', 'ttH_nonbb'],
+    'VV': ['wz', 'ww', 'zz'],
+    'singleTop': ['st_tZq', 'st_tW_antitop', 'st_tW_top'],
+    'WJets': ['WJetsToLNu_HT-200To400', 'WJetsToLNu_HT-400To600', 'WJetsToLNu_HT-600To800', 'WJetsToLNu_HT-800To1200', 'WJetsToLNu_HT-1200To2500', 'WJetsToLNu_HT-2500ToInf'],
+    'fakeTau': ['fakeTau_tauF', 'fakeTau_tauT', 'fakeTau_tauFGen', 'fakeTau_tauTGen'],
+    'VLLm600': ['VLL_EE_M600', 'VLL_EN_M600', 'VLL_NN_M600'],
+    'VLLm650': ['VLL_EE_M650', 'VLL_EN_M650', 'VLL_NN_M650'],
+    'VLLm700': ['VLL_EE_M700', 'VLL_EN_M700', 'VLL_NN_M700'],
+    'VLLm750': ['VLL_EE_M750', 'VLL_EN_M750', 'VLL_NN_M750'],
+    #data
+    'jetHT': ['jetHT_2016F', 'jetHT_2016G', 'jetHT_2016H', 'jetHT_2016B_v1_v2', 'jetHT_2016B_v2_v2', 'jetHT_2016C_v2', 'jetHT_2016D_v2', 'jetHT_2016E_v2', 'jetHT_2016F_hipm_v2', 'jetHT_2018a', 'jetHT_2018b', 'jetHT_2018c', 'jetHT_2018d', 'jetHT_2017b', 'jetHT_2017c', 'jetHT_2017d', 'jetHT_2017e', 'jetHT_2017f', 'BTagCSV_2017b', 'BTagCSV_2017c', 'BTagCSV_2017d', 'BTagCSV_2017e', 'BTagCSV_2017f'],
+    'singleMu': ['singleMu_2016F', 'singleMu_2016G', 'singleMu_2016H', 'singleMu_2016B_v1_v2', 'singleMu_2016B_v2_v2', 'singleMu_2016C_v2', 'singleMu_2016D_v2', 'singleMu_2016E_v2', 'singleMu_2016F_hipm_v2', 'singleMu_2018a', 'singleMu_2018b', 'singleMu_2018c', 'singleMu_2018d', 'singleMu_2017b', 'singleMu_2017c', 'singleMu_2017d', 'singleMu_2017e', 'singleMu_2017f'], 
+    'doubleMu': ['doubleMu_2018a', 'doubleMu_2018b', 'doubleMu_2018c', 'doubleMu_2018d'],
+    'muonEG': ['MuonEG_2018a', 'MuonEG_2018b', 'MuonEG_2018c', 'MuonEG_2018d'],
+    'eGamma': ['eGamma_2018a', 'eGamma_2018b', 'eGamma_2018c', 'eGamma_2018d'],
+}
 
-#2016
-    'jetHT_2016F',
-    'jetHT_2016G',
-    'jetHT_2016H',
-    'jetHT_2016B_v1_v2',
-    'jetHT_2016B_v2_v2',
-    'jetHT_2016C_v2',
-    'jetHT_2016D_v2',
-    'jetHT_2016E_v2',
-    'jetHT_2016F_hipm_v2',
-    #2018
-    'jetHT_2018a',
-    'jetHT_2018b',
-    'jetHT_2018c',
-    'jetHT_2018d',
-    #2017
-    'jetHT_2017b',
-    'jetHT_2017c',
-    'jetHT_2017d',
-    'jetHT_2017e',
-    'jetHT_2017f',
-    
-#2016
-    'singleMu_2016F',
-    'singleMu_2016G',
-    'singleMu_2016H',
-    'singleMu_2016B_v1_v2',
-    'singleMu_2016B_v2_v2',
-    'singleMu_2016C_v2',
-    'singleMu_2016D_v2',
-    'singleMu_2016E_v2',
-    'singleMu_2016F_hipm_v2',
-    #2018
-    'singleMu_2018a',
-    'singleMu_2018b',
-    'singleMu_2018c',
-    'singleMu_2018d',
-    #2017
-    'singleMu_2017b',
-    'singleMu_2017c',
-    'singleMu_2017d',
-    'singleMu_2017e',
-    'singleMu_2017f',
-]
 
 
 
