@@ -402,22 +402,16 @@ def isBG(sumPro, ifVLL=False):
         
 def getAllSubPro(era, sumPro, isData=True):
     all = gq.histoGramPerSample
+    allSubs = []
     if isData:
-        # era = '2016' if ('2016' in era) else era
-        # return [key for key, value in all.items() if (value == sumPro and era in key)]
-        return [sumPro + '_'+iera for iera in gq.dataDict[era] ]
-        # return [key for key, value in all.items() if (value == sumPro and era in key)   ]
-        # return [key for key, value in all.items() if (value == sumPro)]
+        for isub, isum in all.items():
+           subEra = isub.split('_')[-1]
+           if subEra in gq.dataDict[era] and isum in sumPro:
+               allSubs.append(isub) 
+        return allSubs
     else:
-        return [key for key, value in all.items() if (value == sumPro)]
+        return [ isum for isub, isum in all.items() if isum in sumPro]
    
-def getAllSubPro1(proList, isRun3):
-    allSubPro = []
-    dic = gq.histoGramPerSample if not isRun3 else gq.Run3Samples
-    for isub, isum in dic.items():
-        if isum in proList:
-            allSubPro.append(isub)
-    return allSubPro
    
    
    
