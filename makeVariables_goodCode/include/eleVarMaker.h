@@ -11,6 +11,9 @@ public:
     void makeVariables(const EventForMV *e);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e);
+
+private:
+    Double_t lepTopMVA2_invariantMass = -99;
 };
 
 #endif

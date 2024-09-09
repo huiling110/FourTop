@@ -7,6 +7,8 @@ EleVarMaker::EleVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
 {
     std::cout << "Initialzing the derived EleVarMaker........\n";
 
+    outTree->Branch("lepTopMVA2_invariantMass", &lepTopMVA2_invariantMass);
+
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
 };
@@ -20,12 +22,15 @@ void EleVarMaker::makeVariables(const EventForMV *e)
 
     setupLorentzObjs(e); //!!! crucial to overide base class!!!
 
+
+
     ObjVarMaker::basicVariables();
 }
 
 void EleVarMaker::clearBranch()
 {
     ObjVarMaker::clearBranch();
+    lepTopMVA2_invariantMass = -99;
 }
 
 void EleVarMaker::setupLorentzObjs(const EventForMV *e)
