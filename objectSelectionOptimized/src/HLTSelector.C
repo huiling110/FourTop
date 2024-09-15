@@ -43,6 +43,7 @@ HLTSelector::HLTSelector(TTree *outTree, const TString era, const TString proces
     outTree->Branch("HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_", &HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_);
     outTree->Branch("HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_", &HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_);
 
+    outTree->Branch("HLT_if2l", &HLT_if2l);
 
     std::cout<<"Done HLTSelector initializing .............\n";
     std::cout<<"\n";
@@ -211,7 +212,18 @@ Bool_t HLTSelector::SelectLepTri(const eventForNano* e){
         ifPass =   **e->HLT_IsoMu27 || **e->HLT_Ele32_WPTight_Gsf|| **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 || **e->HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ || **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ || **e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
         //HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 not in 2016
         //HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1 not in 2016
+
+        HLT_if2l = ifPass;
+    }else if(m_era == "2017"){
+        ifPass =
+            **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ||
+            **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 || **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 ||**e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ||
+            **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ||
+            **e->HLT_IsoMu27 ||
+            **e->HLT_Ele35_WPTight_Gsf;
+        HLT_if2l = ifPass;
     }
+
     return ifPass;
 }
 
@@ -245,5 +257,6 @@ void HLTSelector::clearBranch()
 
     HLT_Ele32_WPTight_Gsf_ = kFALSE;
 
+    HLT_if2l = kFALSE;
 
 };

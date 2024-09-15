@@ -231,6 +231,31 @@ public:
     TTreeReaderValue<Bool_t> *HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = nullptr;
     TTreeReaderValue<Bool_t> *HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = nullptr;
     TTreeReaderValue<Bool_t> *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = nullptr;
+    //single lepton triggers
+    TTreeReaderValue<Bool_t> *HLT_IsoMu24 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_IsoMu27 = nullptr; //only 2017
+    TTreeReaderValue<Bool_t> *HLT_IsoTkMu24 = nullptr;//extra for 2016
+    TTreeReaderValue<Bool_t> *HLT_Ele32_WPTight_Gsf = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_Ele35_WPTight_Gsf = nullptr;//only 2017
+    TTreeReaderValue<Bool_t> *HLT_Ele27_WPTight_Gsf = nullptr;//only 2016
+    //2017
+    TTreeReaderValue<Bool_t> *HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL = nullptr;
+    TTreeReaderValue<Bool_t> *HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = nullptr;
+    // TTreeReaderValue<Bool_t> *HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = nullptr;
+    //2016
+    // HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL(_DZ)
+    // HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL(_DZ) 
+    // HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_(DZ
+    // HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ
+    // // HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v(24.9 272760 284044
+    // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_
+    // HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL
+    // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_
+    // HLT_IsoMu24 OR HLT_IsoTkMu24
+    // HLT_Ele27_WPTight_Gsf
+
+
 
 
     // 2017
@@ -249,9 +274,6 @@ public:
     TTreeReaderValue<Bool_t> *HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5 = nullptr;
     TTreeReaderValue<Bool_t> *HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5 = nullptr;
     //
-    TTreeReaderValue<Bool_t> *HLT_IsoMu24 = nullptr;
-    TTreeReaderValue<Bool_t> *HLT_IsoMu27 = nullptr; //only 2017
-    TTreeReaderValue<Bool_t> *HLT_Ele32_WPTight_Gsf = nullptr;
 
     //tau triggers
     TTreeReaderValue<Bool_t> *HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1 = nullptr;

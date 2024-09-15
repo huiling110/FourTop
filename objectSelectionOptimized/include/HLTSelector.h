@@ -52,9 +52,34 @@ private:
     Bool_t HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5_ = kFALSE;
     Bool_t HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5_ = kFALSE;
     //
-    Bool_t HLT_IsoMu24_ = kFALSE;
-    Bool_t HLT_IsoMu27_ = kFALSE;
+    Bool_t HLT_IsoMu24_ = kFALSE;//2018 and 2016
+    Bool_t HLT_IsoMu27_ = kFALSE;//2017
     Bool_t HLT_Ele32_WPTight_Gsf_ = kFALSE;
+    Bool_t HLT_Ele35_WPTight_Gsf = kFALSE; //only 2017
+    Bool_t HLT_if2l = kFALSE;
+    //2018
+//     Bool_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ = kFALSE;
+//     Bool_t HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = kFALSE;
+//     Bool_t HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = kFALSE;
+//     Bool_t HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = kFALSE;
+//     //2017
+//     // Bool_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8_ = kFALSE;
+//     Bool_t HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8_ = kFALSE;
+//     Bool_t HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_ = kFALSE;
+//     Bool_t HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_ = kFALSE;
+//     // Bool_t HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_ = kFALSE;
+//     //2016
+//     BoHLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL(_DZ)_ OR HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL(_DZ) OR HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_(DZ) DoubleMuon
+// HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v DoubleEG
+// HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v(24.9 272760 284044) MuonEG
+// HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v MuonEG
+// HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_ MuonEG
+// HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v MuonEG
+// HLT_IsoMu24 OR HLT_IsoTkMu24 SingleMuon
+// HLT_Ele27_WPTight_Gs
+
+
+
 
     //hadronic triggers
     Bool_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_ = kFALSE;
