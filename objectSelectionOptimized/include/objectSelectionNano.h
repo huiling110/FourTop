@@ -29,7 +29,7 @@
 class objectSelection
 {
 public:
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0, const UChar_t JESSys =0,  const UChar_t JERSys=0,const UChar_t TES = 0) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}, m_JESSys{JESSys}, m_JERSys{JERSys}, m_TES{TES}
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0, const UChar_t JESSys =0,  const UChar_t JERSys=0,const UChar_t TES = 0, const Bool_t if1tau2l=kFALSE) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}, m_JESSys{JESSys}, m_JERSys{JERSys}, m_TES{TES}, m_if1tau2l{if1tau2l}
     {
         std::cout << "Initialize objectSelection class..................................\n";
         m_input = new TFile(inputDir + singleFileName, "READ");
@@ -51,6 +51,7 @@ public:
             std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; m_isRun3="<<m_isRun3<<"  m_processName="<<m_processName<< "\n";
             std::cout<<"m_eleScale="<<m_eleScale<<" m_eleSmear="<<m_eleSmear<<"\n";
             std::cout<<"m_JESSys="<<m_JESSys<<" m_JERSys="<<m_JERSys<<"\n";
+            std::cout<<"m_if1tau2l="<<m_if1tau2l<<"\n";
 
             m_cutflow->SetDirectory(m_output);
             CF_initial->SetDirectory(m_output);
@@ -91,6 +92,7 @@ private:
     const UChar_t m_JESSys = 0;
     const UChar_t m_JERSys = 0;
     const UChar_t m_TES = 0;
+    const Bool_t m_if1tau2l = kFALSE;
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; 
     METFilter metFilter{m_era, m_isRun3};                       //!!! for run3

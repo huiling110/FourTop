@@ -10,7 +10,7 @@
 void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/TTToHadronic1/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
@@ -21,15 +21,15 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/BTagCSV_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/doubleMu_2018a/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/MuonEG_2018a/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/MuonEG_2018a/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL_EE_M600/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL_EN_M800/",
     TString singleFileName = "outTree_2.root",
     // TString singleFileName = "NanoAODv9_10.root",
     // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
     TString outputDir = "./output/",
-    // Int_t eventNum = 1000)
-Int_t eventNum = 50000)
+    Int_t eventNum = 1000)
+// Int_t eventNum = 50000)
 // Int_t eventNum = 0)
 {
     TStopwatch t;
@@ -52,8 +52,9 @@ Int_t eventNum = 50000)
     const UChar_t JERSys = 0; //norminal
     // const UChar_t TES = 3; //no correction
     const UChar_t TES = 0; //no correction
+    const Bool_t if1tau2l = kTRUE;
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
-    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES);
+    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES, if1tau2l);
 
     // const Bool_t tauSel = kFALSE; //for HLT
     const Bool_t tauSel = kTRUE;
