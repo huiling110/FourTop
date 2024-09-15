@@ -1,6 +1,9 @@
 #ifndef OBJVARMAKER_H
 #define OBJVARMAKER_H
 
+#include <TTreeReader.h>
+#include <TTreeReaderArray.h>
+#include "TTreeReaderValue.h"
 #include "TLorentzVector.h"
 #include <Math/Vector4D.h>
 #include "eventReader_forMV.h"

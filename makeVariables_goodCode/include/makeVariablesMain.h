@@ -14,6 +14,7 @@
 // #include "muonVarMaker.h"
 #include "objVarMaker.h"
 #include "eleVarMaker.h"
+#include "lepVarMaker.h"
 #include "tauVarMaker.h"
 #include "jetVarMaker.h"
 #include "bjetVarMaker.h"
@@ -88,6 +89,9 @@ private:
     ObjVarMaker muTopTVarMaker{m_outTree, "muonsTopMVAT", 1};
     EleVarMaker eleVarMaker{m_outTree, "elesMVAT", 0};
     EleVarMaker eleTopVarMaker{m_outTree, "elesTopMVAT", 1};
+
+    LepVarMaker lepVarMaker{m_outTree, "lepTopMVAT", 0};
+
     TauVarMaker tauVarMaker{m_outTree, "tausT"};
     TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};
     TauVarMaker tauLVarMaker{m_outTree, "tausL", 2};
