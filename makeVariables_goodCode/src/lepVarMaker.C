@@ -8,6 +8,7 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString objName, const UInt_t type):Obj
     outTree->Branch("lepTopMVAT_2pt", &lepTopMVAT_2pt);
     outTree->Branch("lepTopMVAT_2eta", &lepTopMVAT_2eta);
     outTree->Branch("lepTopMVAT_2phi", &lepTopMVAT_2phi);
+    outTree->Branch("lepTopMVAT_2charge", &lepTopMVAT_2charge);
 
    std::cout<<"Initialization done\n\n";
 }

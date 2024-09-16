@@ -14,6 +14,7 @@ public:
 
 private:
     Double_t lepTopMVAT_2invariantMass;
+    Bool_t lepTopMVAT_2charge;
     Double_t lepTopMVAT_2pt;
     Double_t lepTopMVAT_2eta;
     Double_t lepTopMVAT_2phi;
