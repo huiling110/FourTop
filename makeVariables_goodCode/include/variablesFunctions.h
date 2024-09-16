@@ -97,6 +97,7 @@ Int_t getTauProng(const TTreeReaderArray<Int_t> &tausT_decayMode);
 // Int_t chargeMulCal(TTreeReaderArray<Int_t> &tausT_charge, TTreeReaderArray<Int_t> &Muon_charge_, TTreeReaderArray<Int_t> &muonsT_index, TTreeReaderArray<Int_t> &patElectron_charge_, TTreeReaderArray<Int_t> &eleMVAT_index);
 Int_t chargeMulCal(const TTreeReaderArray<Int_t> &tausT_charge, const TTreeReaderArray<Int_t> &Muon_charge_, const TTreeReaderArray<Int_t> &muonsT_index, const TTreeReaderArray<Int_t> &patElectron_charge_, const TTreeReaderArray<Int_t> &eleMVAT_index);
 Int_t chargeMulCalNew(const TTreeReaderArray<Int_t> &taus_charge, const TTreeReaderArray<Int_t> &muons_charge, const TTreeReaderArray<Int_t> &eles_charge);
+Int_t chargeMulCalNew(const TTreeReaderArray<Int_t> &muons_charge, const TTreeReaderArray<Int_t> &eles_charge);
 
 Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeReaderArray<Double_t> &muons_eta, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData);
 

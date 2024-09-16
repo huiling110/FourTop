@@ -34,6 +34,8 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_jet_invariantMass", &taus_jet_invariantMass);
     outTree->Branch(objName + "_jet1_Met_transMass", &taus_jet1_Met_transMass);
 
+    outTree->Branch("leptons_2charge", &leptons_2charge);
+
 
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
@@ -110,7 +112,7 @@ void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, cons
         taus_jet_invariantMass = InvariantMassCalculator(tauJets);
         taus_jet1_Met_transMass = tauJets.size() > 0 ? calculateTransverseMass(tauJets.at(0), MET_pt, MET_phi) : -99.;
 
-        // leps_2charge = ele_charge.GetSize() + muon_charge.GetSize()==2 ? chargeMulCal(ele_charge, muon_charge, muon_charge, ele_charge, ele_charge) : -99;
+        leptons_2charge = ele_charge.GetSize() + muon_charge.GetSize()==2 ? chargeMulCalNew(ele_charge, muon_charge) : -99;
 
     }
 
@@ -140,6 +142,7 @@ void TauVarMaker::clearBranch()
     taus_1lepton1Met1_stransMass = -99.;
     taus_jet_invariantMass = -99;
     taus_jet1_Met_transMass = -99.;
+    leptons_2charge = -99;
 
     // lepTOPMVAs_2invariantMass = -99;
 }

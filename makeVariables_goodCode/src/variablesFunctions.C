@@ -492,6 +492,20 @@ Int_t chargeMulCalNew(const TTreeReaderArray<Int_t>& taus_charge, const TTreeRea
     return charge;
 };
 
+Int_t chargeMulCalNew(const TTreeReaderArray<Int_t>& muons_charge, const TTreeReaderArray<Int_t> &eles_charge){
+    Int_t charge = 1;
+    if(muons_charge.GetSize() == 0 && eles_charge.GetSize() == 0){
+        return -99;
+    }
+    for(UInt_t j = 0; j < muons_charge.GetSize(); j++){
+        charge = charge * muons_charge.At(j);
+    }
+    for(UInt_t k = 0; k < eles_charge.GetSize(); k++){
+        charge = charge * eles_charge.At(k);
+    }
+    return charge;
+};
+
 Double_t calculateSphericity(const std::vector<ROOT::Math::PtEtaPhiMVector>& particles) {
     // Initialize the momentum tensor
     TMatrixDSym S_ij(3);
