@@ -32,7 +32,7 @@ def main():
     # inVersion = 'v80addTauJetVar'
     # inVersion = 'v80addTTExtra1'
     # inVersion = 'v81addSysSum'
-    inVersion = 'v81for1tau2l_v2'
+    inVersion = 'v82for1tau2l'
 
     # outVersion = 'v0baselineHardro'
     outVersion = 'v0baseline1tau2l'

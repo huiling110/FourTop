@@ -17,7 +17,7 @@ void LepVarMaker::makeVariables(std::vector<ROOT::Math::PtEtaPhiMVector>& lepton
     setupLorentzObjs(leptonsMVAT);
     basicVariables();
 
-    lepTopMVAT_2invariantMass = InvariantMassCalculator(objsLorentz);
+    lepTopMVAT_2invariantMass =  muons_num>1? InvariantMassCalculator(objsLorentz): -99;
     lepTopMVAT_2pt = muons_num > 1 ? objsLorentz[1].Pt() : -99;
     lepTopMVAT_2eta = muons_num > 1 ? objsLorentz[1].Eta() : -99;
     lepTopMVAT_2phi = muons_num > 1 ? objsLorentz[1].Phi() : -99;
