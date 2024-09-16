@@ -6,7 +6,8 @@ import uproot
 import usefulFunc as uf
 
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v81for1tau2l_v2/data/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v81for1tau2l_v2/data/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/data/'
 
     dataPDs = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #for 2018
     

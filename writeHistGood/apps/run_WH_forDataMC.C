@@ -41,8 +41,9 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/", 
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/", 
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra/mc/", 
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/", 
 
     TString process = "tttt",
     // TString process = "TTTo2L2Nu",
@@ -54,10 +55,10 @@ void run_treeAnalyzer(
     // TString process = "singleMu_2016E_v2",
     // TString process = "BTagCSV_2017f",
     // TString process = "ttbar_0l",
-    // TString process = "ttbar_1l",
+    // TString process = "ttbar_2l",
     TString histVersion = "v0_test",
-    // Bool_t isTest = kTRUE)
-Bool_t isTest = kFALSE)
+    Bool_t isTest = kTRUE)
+// Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();
@@ -73,7 +74,7 @@ Bool_t isTest = kFALSE)
     UInt_t entry = 0;
     if (isTest)
     {
-        entry = 5000;
+        entry = 10000;
     }
     writeHist.LoopTree(entry); //!!!maybe provide cut and weight as parameter here
     writeHist.Terminate();

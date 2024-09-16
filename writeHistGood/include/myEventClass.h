@@ -122,6 +122,8 @@ public:
     myBranch<Int_t> muonsT_num{"muonsT_num"};
     myBranch<Double_t> muonsT_1pt{"muonsT_1pt"};
     myBranch<Double_t> elesMVAT_1pt{"elesMVAT_1pt"};
+    myBranch<Double_t> lepTopMVAT_1pt{"lepTopMVAT_1pt"};
+    myBranch<Double_t> lepTopMVAT_2pt{"lepTopMVAT_2pt"};
 
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
@@ -395,6 +397,8 @@ private:
         {muonsT_num.n(), &muonsT_num},
         {muonsT_1pt.n(), &muonsT_1pt},
         {elesMVAT_1pt.n(), &elesMVAT_1pt},
+        {lepTopMVAT_1pt.n(), &lepTopMVAT_1pt},
+        {lepTopMVAT_2pt.n(), &lepTopMVAT_2pt},
 
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {EVENT_genWeight.n(), &EVENT_genWeight},
