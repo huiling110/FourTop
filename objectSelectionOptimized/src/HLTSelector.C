@@ -212,8 +212,6 @@ Bool_t HLTSelector::SelectLepTri(const eventForNano* e){
         ifPass =   **e->HLT_IsoMu27 || **e->HLT_Ele32_WPTight_Gsf|| **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 || **e->HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ || **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ || **e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
         //HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 not in 2016
         //HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1 not in 2016
-
-        HLT_if2l = ifPass;
     }else if(m_era == "2017"){
         ifPass =
             **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ||
@@ -221,8 +219,16 @@ Bool_t HLTSelector::SelectLepTri(const eventForNano* e){
             **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ||
             **e->HLT_IsoMu27 ||
             **e->HLT_Ele35_WPTight_Gsf;
-        HLT_if2l = ifPass;
+    }else if(m_era=="2016preVFP" || m_era=="2016postVFP"){
+        ifPass =
+            **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL || **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || **e->HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL || **e->HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ || **e->HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL || **e->HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ ||**e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ||
+            **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL ||
+            **e->HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ||
+            **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ||
+            **e->HLT_IsoMu24 || **e->HLT_IsoTkMu24 ||
+            **e->HLT_Ele27_WPTight_Gsf;
     }
+    HLT_if2l = ifPass;
 
     return ifPass;
 }

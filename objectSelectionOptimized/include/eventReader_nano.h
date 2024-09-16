@@ -144,7 +144,26 @@ public:
         //
         OS::readPointer(HLT_IsoMu24, reader, "HLT_IsoMu24");
         OS::readPointer(HLT_IsoMu27, reader, "HLT_IsoMu27");
+        OS::readPointer(HLT_IsoTkMu24, reader, "HLT_IsoTkMu24");
         OS::readPointer(HLT_Ele32_WPTight_Gsf, reader, "HLT_Ele32_WPTight_Gsf");
+        OS::readPointer(HLT_Ele35_WPTight_Gsf, reader, "HLT_Ele35_WPTight_Gsf");
+        OS::readPointer(HLT_Ele27_WPTight_Gsf, reader, "HLT_Ele27_WPTight_Gsf");
+
+        OS::readPointer(HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8, reader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8");
+        OS::readPointer(HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL, reader, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL");
+        OS::readPointer(HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ, reader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ");
+        //2016
+        OS::readPointer(HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL, reader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL");
+        OS::readPointer(HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ, reader, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ");
+        OS::readPointer(HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ, reader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ");
+        OS::readPointer(HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL, reader, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL");
+        OS::readPointer(HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ, reader, "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ");
+        OS::readPointer(HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL, reader, "HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL");
+        OS::readPointer(HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL, reader, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL");
+        OS::readPointer(HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL, reader, "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL");
+        OS::readPointer(HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL, reader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL");
+
+
 
         OS::readPointer(HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1, reader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1");
         OS::readPointer(HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1, reader, "HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1");
@@ -244,14 +263,17 @@ public:
     TTreeReaderValue<Bool_t> *HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ = nullptr;
     // TTreeReaderValue<Bool_t> *HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = nullptr;
     //2016
-    // HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL(_DZ)
-    // HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL(_DZ) 
-    // HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_(DZ
-    // HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ
-    // // HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v(24.9 272760 284044
-    // HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_
-    // HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL
-    // HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_
+    TTreeReaderValue<Bool_t>*    HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL = nullptr;
+    TTreeReaderValue<Bool_t>*    HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ = nullptr;
+    TTreeReaderValue<Bool_t>*    HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = nullptr;
+    TTreeReaderValue<Bool_t>*    HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL = nullptr;
+    TTreeReaderValue<Bool_t>*    HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ = nullptr;
+    TTreeReaderValue<Bool_t>*    HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL = nullptr;
+    // TTreeReaderValue<Bool_t>*    // HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ = nullptr;
+    // TTreeReaderValue<Bool_t>*    // // HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v(24.9 272760 284044 = nullptr;
+    TTreeReaderValue<Bool_t>*    HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL = nullptr;
+    TTreeReaderValue<Bool_t>*    HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL = nullptr;
+    TTreeReaderValue<Bool_t>*    HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL = nullptr;
     // HLT_IsoMu24 OR HLT_IsoTkMu24
     // HLT_Ele27_WPTight_Gsf
 
