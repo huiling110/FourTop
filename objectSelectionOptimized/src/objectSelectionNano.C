@@ -101,18 +101,15 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
             continue;
         }
 
-        // if(!(OS::ifEventPass(preSelection, jetSel.getSize()>5, m_cutflow, 4))){
         Bool_t jetCut = m_if1tau2l? jetSel.getSize()>1: jetSel.getSize()>5;
         if(!(OS::ifEventPass(preSelection, jetCut, m_cutflow, 4))){//!for 1tau2l
             continue;
         }
-        // if(!(OS::ifEventPass(preSelection, bjetMSel.getSize()>1, m_cutflow, 5))){//baseline for 1tau1l and 1tau0l
         Bool_t bjetCut = m_if1tau2l? bjetMSel.getSize()>0: bjetMSel.getSize()>1;
         if(!(OS::ifEventPass(preSelection, bjetCut, m_cutflow, 5))){//baseline for 1tau2l
             continue;
         }//!No b-tag ,for b-tag efficiency measurement!
         Bool_t HTCut = m_if1tau2l? jetSel.getHT()>200.: (jetSel.getHT()>480.&& jetSel.get6thPt()>38.);
-        // if(!OS::ifEventPass(preSelection, jetSel.getHT()>200. && (eleTopMVATSel.getSize()+muTopMVATSel.getSize())==2, m_cutflow, 6)){//!1tau2l
         if(!OS::ifEventPass(preSelection, HTCut , m_cutflow, 6)){
             continue;
         }

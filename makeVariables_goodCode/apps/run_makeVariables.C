@@ -33,21 +33,21 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v81addSysSum/mc/",
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v82for1tau2l/mc/",
 
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
     // TString inputDir = "VLL_EE_M600",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
+    TString inputDir = "ttbar_2l",
     // TString inputDir = "jetHT_2017f",
     // TString inputDir = "BTagCSV_2017c",
     // TString inputDir = "singleMu_2018b",
-    // TString inputDir = "ttbar_1l",
     // TString inputDir = "TTToSemiLeptonic10",
     // TString inputDir = "TTTo2L2Nu0",
     // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
-    Int_t numEntries = 3000)
-    // Int_t numEntries = 10000)
+    // Int_t numEntries = 3000)
+    Int_t numEntries = 10000)
     // Int_t numEntries = 0)
 {
     TStopwatch t;

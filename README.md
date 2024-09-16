@@ -115,3 +115,6 @@ This markdown guide provides a structured approach to conducting the analysis wo
 
 # export PATH=/cvmfs/container.ihep.ac.cn/bin:$PATH
 #  hep_container shell CentOS7
+
+##To do 
+[] write new setEnv_new.sh 

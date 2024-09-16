@@ -2,6 +2,7 @@ import ROOT
 import pandas as pd
 # from root_pandas import to_root
 import uproot
+import awkward as ak
 
 import usefulFunc as uf
 
@@ -43,6 +44,17 @@ def main():
     # rdf = ROOT.RDF.MakeNumpyDataFrame(df_unique.to_dict(orient='list'))#not working
     # rdf = ROOT.RDF.MakeNumpyDataFrame(data)
     # rdf.Snapshot("newtree", output_file)
+    # Convert DataFrame to a dictionary of arrays
+
+    # Convert DataFrame to Awkward Array
+    ak_array = ak.from_iter(df_unique.to_dict(orient='list'))
+
+    # Create a new ROOT file and write the DataFrame to it
+    with uproot.recreate("output.root") as file:
+        file["tree"] = {key: ak_array[key] for key in ak_array.fields}
+
+
+
     
     print(f'Output file: {output_file}')
     

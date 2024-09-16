@@ -43,7 +43,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        const Bool_t ifBaseline = baselineSelection(e, m_isRun3, kFALSE); //!for 1tau1l and 1tau0l
+        // const Bool_t ifBaseline = baselineSelection(e, m_isRun3, kFALSE); //!for 1tau1l and 1tau0l
+        const Bool_t ifBaseline = baselineSelection(e, m_isRun3, kTRUE); //!for 1tau2l
         if (!ifBaseline)
         {
             continue;
@@ -68,8 +69,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMT_weight.v(); //!!!without HLT weight
         // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
 
-        Int_t lepNum = e->elesMVAT_num.v() + e->muonsT_num.v() ;
-        // WH::histRegionVectFill(histsForRegion_vec, ifBaseline&&lepNum==1, "baseline", basicWeight, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
 
         // SR
