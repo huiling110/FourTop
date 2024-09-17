@@ -6,33 +6,6 @@ import awkward as ak
 
 import usefulFunc as uf
 
-# Define a function to mark duplicates
-# def mark_duplicates(events):
-#     import numpy as np
-#     _, idx = np.unique(events, return_index=True)
-#     mask = np.ones(len(events), dtype=bool)
-#     mask[idx] = False
-#     return mask
-
-# # Define a function to mark duplicates
-# ROOT.gInterpreter.Declare("""
-# #include <unordered_set>
-# #include <vector>
-# #include <ROOT/RVec.hxx>
-
-# ROOT::VecOps::RVec<bool> mark_duplicates(const ROOT::VecOps::RVec<ULong64_t>& events) {
-#     std::unordered_set<ULong64_t> seen;
-#     ROOT::VecOps::RVec<bool> mask(events.size(), false);
-#     for (size_t i = 0; i < events.size(); ++i) {
-#         if (seen.find(events[i]) == seen.end()) {
-#             seen.insert(events[i]);
-#         } else {
-#             mask[i] = true;
-#         }
-#     }
-#     return mask;
-# }
-# """)
 
 ROOT.gInterpreter.Declare("""
 #include <unordered_set>
@@ -80,6 +53,20 @@ def main():
     # # Filter out the duplicates
     df_filtered = df.Filter("!is_duplicate")
     print('filtered df entries: ', df_filtered.Count().GetValue())
+    column_names = df_filtered.GetColumnNames()
+    print("Columns in the RDataFrame:")
+    for column in column_names:
+        column_type = df_filtered.GetColumnType(column)
+        print(f"{column}: {column_type}")
+    exclude_columns = ['is_duplicate', 'jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btagsPT_', 'jets_flavour_']
+    include_columns = [col for col in column_names if col not in exclude_columns]
+    display = df_filtered.Display(exclude_columns,10)
+    display.Print()
+
+    
+    df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root')#!somehow not working with vector branches?
+    # df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root', include_columns)#!somehow not working with vector branches?
+    print(f'Output file: {inputDir}leptonSum.root')
 
 def getROOTDF(inputDir, dic, dataPD='singleMu'):
     df_singleMu =  ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic[dataPD]])
