@@ -6,6 +6,51 @@ import awkward as ak
 
 import usefulFunc as uf
 
+# Define a function to mark duplicates
+# def mark_duplicates(events):
+#     import numpy as np
+#     _, idx = np.unique(events, return_index=True)
+#     mask = np.ones(len(events), dtype=bool)
+#     mask[idx] = False
+#     return mask
+
+# # Define a function to mark duplicates
+# ROOT.gInterpreter.Declare("""
+# #include <unordered_set>
+# #include <vector>
+# #include <ROOT/RVec.hxx>
+
+# ROOT::VecOps::RVec<bool> mark_duplicates(const ROOT::VecOps::RVec<ULong64_t>& events) {
+#     std::unordered_set<ULong64_t> seen;
+#     ROOT::VecOps::RVec<bool> mask(events.size(), false);
+#     for (size_t i = 0; i < events.size(); ++i) {
+#         if (seen.find(events[i]) == seen.end()) {
+#             seen.insert(events[i]);
+#         } else {
+#             mask[i] = true;
+#         }
+#     }
+#     return mask;
+# }
+# """)
+
+ROOT.gInterpreter.Declare("""
+#include <unordered_set>
+
+std::unordered_set<ULong64_t> seen_events;
+
+bool mark_duplicates(ULong64_t event) {
+    if (seen_events.find(event) == seen_events.end()) {
+        seen_events.insert(event);
+        return false;
+    } else {
+        return true;
+    }
+}
+""")
+
+
+
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v81for1tau2l_v2/data/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/data/'
@@ -20,7 +65,32 @@ def main():
         for i in ilist:
             print(i)
         print('\n')
+        
+    # df_doubleMu = getROOTDF(inputDir, dic, dataPD='doubleMu')
+    # df_muonEG = getROOTDF(inputDir, dic, dataPD='muonEG')
+    # df_eGamma = getROOTDF(inputDir, dic, dataPD='eGamma')
+    # df_singleMu = getROOTDF(inputDir, dic, dataPD='singleMu')
     
+    # df = ROOT.RDF.MakeCsvDataFrame([df_doubleMu, df_muonEG, df_eGamma, df_singleMu]) 
+    df = ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic['doubleMu'] + dic['muonEG'] + dic['eGamma'] + dic['singleMu']])
+    print('combined df entries: ', df.Count().GetValue())
+    
+    # Use Define to create the 'is_duplicate' column
+    df = df.Define("is_duplicate", "mark_duplicates(event)")
+    # # Filter out the duplicates
+    df_filtered = df.Filter("!is_duplicate")
+    print('filtered df entries: ', df_filtered.Count().GetValue())
+
+def getROOTDF(inputDir, dic, dataPD='singleMu'):
+    df_singleMu =  ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic[dataPD]])
+    print(f'{dataPD} entries: ', df_singleMu.Count().GetValue())
+    print('run min= ', df_singleMu.Min("run").GetValue(), 'run max= ', df_singleMu.Max("run").GetValue())
+    return df_singleMu
+    
+    
+
+   
+def filterWithPandas(inputDir, dic):   
     df_singleMu = getPandasDF(inputDir, dic, dataPD='singleMu')
     df_doubleMu = getPandasDF(inputDir, dic, dataPD='doubleMu')
     df_muonEG = getPandasDF(inputDir, dic, dataPD='muonEG')
@@ -47,17 +117,16 @@ def main():
     # Convert DataFrame to a dictionary of arrays
 
     # Convert DataFrame to Awkward Array
-    ak_array = ak.from_iter(df_unique.to_dict(orient='list'))
+    # ak_array = ak.from_iter(df_unique.to_dict(orient='list'))
 
-    # Create a new ROOT file and write the DataFrame to it
-    with uproot.recreate("output.root") as file:
-        file["tree"] = {key: ak_array[key] for key in ak_array.fields}
+    # # Create a new ROOT file and write the DataFrame to it
+    # with uproot.recreate("output.root") as file:
+    #     file["tree"] = {key: ak_array[key] for key in ak_array.fields}
 
-
-
-    
     print(f'Output file: {output_file}')
-    
+   
+   
+ 
      
 def getPandasDF(inputDir, dic, dataPD='singleMu'):
     df_singleMu =  ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic[dataPD]])
@@ -91,9 +160,6 @@ def getPandasDF(inputDir, dic, dataPD='singleMu'):
     print('\n')
     return df_pandas 
     
-    # df_doubleMu =  ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic['doubleMu']])
-    # print('doubleMu entries: ', df_doubleMu.Count().GetValue())
-    # print('run min= ', df_doubleMu.Min("run").GetValue(), 'run max= ', df_doubleMu.Max("run").GetValue())
     
     # df_muonEG =  ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic['muonEG']]) 
     # print('muonEG entries: ', df_muonEG.Count().GetValue())
@@ -102,7 +168,7 @@ def getPandasDF(inputDir, dic, dataPD='singleMu'):
     # df_eGamma =  ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic['eGamma']])
     # print('eGamma entries: ', df_eGamma.Count().GetValue())
     # print('run min= ', df_eGamma.Min("run").GetValue(), 'run max= ', df_eGamma.Max("run").GetValue()) 
-    
+ 
     
    
     
