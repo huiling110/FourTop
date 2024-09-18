@@ -45,28 +45,21 @@ def main():
     df = df.Define("is_duplicate", "mark_duplicates(event)") #!can only go through event loop once! 
     print('is_duplicate type in df: ', df.GetColumnType('is_duplicate'))
     # df.Display(["is_duplicate", "event", "HLT_IsoMu24"], 10).Print()#is_duplicate seems good here
-    # df.Snapshot('newtree', inputDir + 'leptonSumAll.root')#!triggers event loop once
-    # print(f'Output file: {inputDir}leptonSumAll.root\n\n')
+    df.Snapshot('newtree', inputDir + 'leptonSumAll.root')#!triggers event loop once
+    print(f'Output file: {inputDir}leptonSumAll.root\n\n')#!!!have to save it to prevent multiple event loop evaluating mark_duplicates()
     
     
     # # Filter out the duplicates
-    df_filtered = df.Filter("!is_duplicate")
-    # report = df_filtered.Report()
-    # df_filtered = df.Filter("HLT_IsoMu24")#!this branch seems good
-    # df_filtered = df.Filter('is_duplicate', 'filter through duplicate events')#!seems strange filtering behavior happens here
-    # print('filtered df entries: ', df_filtered.Count().GetValue())#! triggers event loop twice
+    df_new = ROOT.RDataFrame('newtree', inputDir+'leptonSumAll.root')
+    df_filtered = df_new.Filter("!is_duplicate")
+    report = df_filtered.Report()
+    print('filtered df entries: ', df_filtered.Count().GetValue())#! triggers event loop twice
     # print('is_duplicate type in df_filtered: ', df_filtered.GetColumnType('is_duplicate'))
     
-    # print('df: ')
-    # df.Display(["is_duplicate", "event", "HLT_IsoMu24"], 10).Print()#!display all entries with is_duplicate true instead of faulse
-    # print('\n\n')
-    
-    # df_filtered.Display(['is_duplicate', 'event', 'HLT_IsoMu24'], 10).Print()
-    # df.Report()
     
     df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root')#!triggers event loop third time
-    # df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root', include_columns)#!somehow not working with vector branches?
     print(f'Output file: {inputDir}leptonSum.root')
+    report.Print()
 
 def getROOTDF(inputDir, dic, dataPD='singleMu'):
     df_singleMu =  ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic[dataPD]])
