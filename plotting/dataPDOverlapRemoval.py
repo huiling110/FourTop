@@ -52,7 +52,6 @@ def main():
     df = df.Define("is_duplicate", "mark_duplicates(event)")
     # # Filter out the duplicates
     df_filtered = df.Filter("!is_duplicate")
-    print('filtered df entries: ', df_filtered.Count().GetValue())
     column_names = df_filtered.GetColumnNames()
     print("Columns in the RDataFrame:")
     for column in column_names:
@@ -62,6 +61,7 @@ def main():
     include_columns = [col for col in column_names if col not in exclude_columns]
     display = df_filtered.Display(exclude_columns,10)
     display.Print()
+    print('filtered df entries: ', df_filtered.Count().GetValue())
 
     
     df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root')#!somehow not working with vector branches?
