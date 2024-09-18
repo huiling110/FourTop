@@ -1,8 +1,6 @@
 import ROOT
 import pandas as pd
 # from root_pandas import to_root
-import uproot
-import awkward as ak
 
 import usefulFunc as uf
 
@@ -12,12 +10,12 @@ ROOT.gInterpreter.Declare("""
 
 std::unordered_set<ULong64_t> seen_events;
 
-bool mark_duplicates(ULong64_t event) {
+Bool_t mark_duplicates(ULong64_t event) {
     if (seen_events.find(event) == seen_events.end()) {
         seen_events.insert(event);
-        return false;
+        return kFALSE;
     } else {
-        return true;
+        return kTRUE;
     }
 }
 """)
@@ -39,31 +37,32 @@ def main():
             print(i)
         print('\n')
         
-    # df_doubleMu = getROOTDF(inputDir, dic, dataPD='doubleMu')
-    # df_muonEG = getROOTDF(inputDir, dic, dataPD='muonEG')
-    # df_eGamma = getROOTDF(inputDir, dic, dataPD='eGamma')
-    # df_singleMu = getROOTDF(inputDir, dic, dataPD='singleMu')
     
-    # df = ROOT.RDF.MakeCsvDataFrame([df_doubleMu, df_muonEG, df_eGamma, df_singleMu]) 
     df = ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic['doubleMu'] + dic['muonEG'] + dic['eGamma'] + dic['singleMu']])
     print('combined df entries: ', df.Count().GetValue())
     
     # Use Define to create the 'is_duplicate' column
     df = df.Define("is_duplicate", "mark_duplicates(event)")
-    # # Filter out the duplicates
-    df_filtered = df.Filter("!is_duplicate")
-    column_names = df_filtered.GetColumnNames()
-    print("Columns in the RDataFrame:")
-    for column in column_names:
-        column_type = df_filtered.GetColumnType(column)
-        print(f"{column}: {column_type}")
-    exclude_columns = ['is_duplicate', 'jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btagsPT_', 'jets_flavour_']
-    include_columns = [col for col in column_names if col not in exclude_columns]
-    display = df_filtered.Display(exclude_columns,10)
-    display.Print()
-    print('filtered df entries: ', df_filtered.Count().GetValue())
-
+    print('is_duplicate type in df: ', df.GetColumnType('is_duplicate'))
+    df.Display("is_duplicate", 100).Print()
+    df.Snapshot('newtree', inputDir + 'leptonSumAll.root')
+    print(f'Output file: {inputDir}leptonSumAll.root\n')
     
+    
+    # # Filter out the duplicates
+    # df_filtered = df.Filter("!is_duplicate")
+    df_filtered = df.Filter("is_duplicate")#!seems strange filtering behavior happens here
+    print('is_duplicate type in df_filtered: ', df_filtered.GetColumnType('is_duplicate'))
+    # column_names = df_filtered.GetColumnNames()
+    # print("Columns in the RDataFrame:")
+    # for column in column_names:
+    #     column_type = df_filtered.GetColumnType(column)
+    #     print(f"{column}: {column_type}")
+    # exclude_columns = ['is_duplicate', 'jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btagsPT_', 'jets_flavour_']
+    # include_columns = [col for col in column_names if col not in exclude_columns]
+    # display = df_filtered.Display(exclude_columns,10)
+    # display.Print()
+    print('filtered df entries: ', df_filtered.Count().GetValue())
     df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root')#!somehow not working with vector branches?
     # df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root', include_columns)#!somehow not working with vector branches?
     print(f'Output file: {inputDir}leptonSum.root')
