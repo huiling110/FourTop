@@ -13,9 +13,9 @@ std::unordered_set<ULong64_t> seen_events;
 Bool_t mark_duplicates(ULong64_t event) {
     if (seen_events.find(event) == seen_events.end()) {
         seen_events.insert(event);
-        return kFALSE;
+        return 0;
     } else {
-        return kTRUE;
+        return 1;
     }
 }
 """)
@@ -42,28 +42,29 @@ def main():
     print('combined df entries: ', df.Count().GetValue())
     
     # Use Define to create the 'is_duplicate' column
-    df = df.Define("is_duplicate", "mark_duplicates(event)")
+    df = df.Define("is_duplicate", "mark_duplicates(event)") #!can only go through event loop once! 
     print('is_duplicate type in df: ', df.GetColumnType('is_duplicate'))
-    df.Display("is_duplicate", 100).Print()
-    df.Snapshot('newtree', inputDir + 'leptonSumAll.root')
-    print(f'Output file: {inputDir}leptonSumAll.root\n')
+    # df.Display(["is_duplicate", "event", "HLT_IsoMu24"], 10).Print()#is_duplicate seems good here
+    # df.Snapshot('newtree', inputDir + 'leptonSumAll.root')#!triggers event loop once
+    # print(f'Output file: {inputDir}leptonSumAll.root\n\n')
     
     
     # # Filter out the duplicates
-    # df_filtered = df.Filter("!is_duplicate")
-    df_filtered = df.Filter("is_duplicate")#!seems strange filtering behavior happens here
-    print('is_duplicate type in df_filtered: ', df_filtered.GetColumnType('is_duplicate'))
-    # column_names = df_filtered.GetColumnNames()
-    # print("Columns in the RDataFrame:")
-    # for column in column_names:
-    #     column_type = df_filtered.GetColumnType(column)
-    #     print(f"{column}: {column_type}")
-    # exclude_columns = ['is_duplicate', 'jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btagsPT_', 'jets_flavour_']
-    # include_columns = [col for col in column_names if col not in exclude_columns]
-    # display = df_filtered.Display(exclude_columns,10)
-    # display.Print()
-    print('filtered df entries: ', df_filtered.Count().GetValue())
-    df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root')#!somehow not working with vector branches?
+    df_filtered = df.Filter("!is_duplicate")
+    # report = df_filtered.Report()
+    # df_filtered = df.Filter("HLT_IsoMu24")#!this branch seems good
+    # df_filtered = df.Filter('is_duplicate', 'filter through duplicate events')#!seems strange filtering behavior happens here
+    # print('filtered df entries: ', df_filtered.Count().GetValue())#! triggers event loop twice
+    # print('is_duplicate type in df_filtered: ', df_filtered.GetColumnType('is_duplicate'))
+    
+    # print('df: ')
+    # df.Display(["is_duplicate", "event", "HLT_IsoMu24"], 10).Print()#!display all entries with is_duplicate true instead of faulse
+    # print('\n\n')
+    
+    # df_filtered.Display(['is_duplicate', 'event', 'HLT_IsoMu24'], 10).Print()
+    # df.Report()
+    
+    df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root')#!triggers event loop third time
     # df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root', include_columns)#!somehow not working with vector branches?
     print(f'Output file: {inputDir}leptonSum.root')
 
