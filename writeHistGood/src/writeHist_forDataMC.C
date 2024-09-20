@@ -79,8 +79,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", eventWeight_1tau0l, m_isData);
             WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
 
-            //testing of 1tau0l SR definition
-            //testing of 1tau0l SR definition
             Bool_t is1tau2lSRTest = SR1tau1lSel(e, 2, m_isRun3, m_isFakeTau);
             WH::histRegionVectFill(histsForRegion_vec, is1tau2lSRTest, "1tau2lSR", eventWeight_1tau2l, m_isData);
         }
@@ -107,7 +105,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         //1tau2l CR3
         Bool_t is1tau2lCR3 = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau);
-        WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3, "1tau1lCR3", eventWeight_1tau2l, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3, "1tau2lCR3", eventWeight_1tau2l, m_isData);
 
     }
     std::cout << "end of event loop\n";
