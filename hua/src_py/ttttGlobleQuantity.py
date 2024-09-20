@@ -271,7 +271,8 @@ histoGramPerSample = {
     'eGamma_2018c': 'eGamma',
     'eGamma_2018d': 'eGamma',
     
-    ''
+    #overlap removed data for 1tau2l
+    'leptonSum': 'leptonSum',
     
     
     

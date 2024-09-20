@@ -62,7 +62,7 @@ def main():
     # version = 'v2BDT25inputs'
     # version = 'v2BDT25inputsWith2018train'
     
-    # channel = '1tau2l'
+    channel = '1tau2l'
     # version = 'v0BDT1tau2l'
    
     # exe = './run_WH_forDataMC.out'
