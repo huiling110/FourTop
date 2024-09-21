@@ -1,7 +1,46 @@
-
-
 import os
 import re
+import ROOT
+
+def getGenSumFromNano():
+    inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/'
+    
+    iinputDir = inputDir+'tttt/'
+    calculate_genSum(iinputDir)
+    
+def calculate_genSum(directory_path):
+    # Initialize the total sum
+    total_genSum = 0.0
+    # Traverse the directory to find all ROOT files
+    for root, _, files in os.walk(directory_path):
+        for file in files:
+            if file.endswith('.root'):
+                file_path = os.path.join(root, file)
+                
+                # Open the ROOT file
+                root_file = ROOT.TFile.Open(file_path)
+                if not root_file or root_file.IsZombie():
+                    print(f"Error opening file: {file_path}")
+                    continue
+                
+                # Extract the genSum (assuming it's stored in a TTree or a TH1)
+                # Adjust the following lines based on how genSum is stored in your ROOT files
+                # Example for TTree:
+                tree = root_file.Get("Runs")  # Replace "tree_name" with your actual tree name
+                if not tree:
+                    print(f"Tree not found in file: {file_path}")
+                    root_file.Close()
+                    continue
+                
+                # Loop over the entries in the tree and sum the genSum
+                for entry in tree:
+                    total_genSum += entry.genEventSumw  # Replace "genSum" with the actual branch name
+                
+                # Close the ROOT file
+                root_file.Close()
+        print('genSum: ', total_genSum)
+    
+    return total_genSum 
 
 def extract_gen_weight_sum(directory):
     # Dictionary to store results
@@ -33,10 +72,15 @@ def extract_gen_weight_sum(directory):
                         
     return gen_weight_sums
 
-# Specify the directory to search
-# directory = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/log/"
-directory = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau/log/'
-gen_weight_sums = extract_gen_weight_sum(directory)
-# print(gen_weight_sums)
-for filename, weight_sum in gen_weight_sums.items():
-    print(f"'{filename}': {weight_sum}")
+def getGenSumFromWH():
+    # Specify the directory to search
+    # directory = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0dataMC_allCorrection/log/"
+    directory = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau/log/'
+    gen_weight_sums = extract_gen_weight_sum(directory)
+    # print(gen_weight_sums)
+    for filename, weight_sum in gen_weight_sums.items():
+        print(f"'{filename}': {weight_sum}")
+
+
+if __name__=='__main__':
+    getGenSumFromNano()

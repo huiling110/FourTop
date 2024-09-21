@@ -94,7 +94,6 @@ crossSectionMap = {
     "TTto2L2Nu": 98.09,
     "TTtoLNu2Q": 405.80,
     "TTTT": 0.0158,
-    
    
     "VLL_EE_M500": 0.004918,
     "VLL_EN_M500": 0.008811 * 1.98,
