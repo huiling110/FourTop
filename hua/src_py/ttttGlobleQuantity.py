@@ -17,17 +17,48 @@ crossSectionMap = {
     "ttbar_0l": 377.96,
     "ttbar_1l": 365.34,
     "ttbar_2l": 88.29,
+    
     "ttG": 4.62,
     "ttZ": 0.783,
     "ttW": 0.611,
     "ttH_bb": 0.2897,
     "ttH_nonbb": 0.209,
-    "wz": 2.343,
-    "ww": 6.430,
-    "zz": 1.016,
+    "ttWW": 0.00698, 
+   
+    #VV cross section to be updated! 
+    "wz": 47.,#2.343, #47
+    "ww": 118.,# 6.430, #118 
+    "zz": 16.5,# 1.016, #16.5
+    
     "st_tZq": 0.07358,
     "st_tW_antitop": 35.85,
     "st_tW_top": 35.85,
+    
+    #GX: ttGamma, ZGamma 
+    'TGJets': 1.02,
+    'ZGToLLG': 55.48,
+    'WGToLNuG': 192 ,
+   
+    #H->ZZ, WW
+    'ggH_bb': ,
+    'ggH_gg',
+    'ggH_tautau',
+    'ggH_WW_2l',
+    'ggH_ZZ_2l': 28.87,
+    'ggH_ZZ_4l': 0.01212,
+    
+    'vbfH_bb': ,
+    'vbfH_nonbb': ,
+    'vbfH_tautau': ,
+    'vbfH_WW_2l': ,
+    # 'VH_nonbb', 
+    
+    
+    
+    
+    "DYJetsToLL_M-10to50": 15810.0,
+    "DYJetsToLL_M-50": 6077.22,
+    
     "qcd_50to100": 2.466e+08,
     "qcd_100to200": 2.801e+07,
     "qcd_200to300": 1.721e+6,
@@ -62,8 +93,6 @@ crossSectionMap = {
     "TTtoLNu2Q": 405.80,
     "TTTT": 0.0158,
     
-    "DYJetsToLL_M-10to50": 18610.0,
-    "DYJetsToLL_M-50": 6077.22,
    
     "VLL_EE_M500": 0.004918,
     "VLL_EN_M500": 0.008811 * 1.98,
@@ -158,6 +187,7 @@ histoGramPerSample = {
     "ttW":"ttX",
     "ttH_bb": "ttX", 
     "ttH_nonbb": "ttX", 
+    
     "wz":"VV",
     "ww":"VV",
     "zz":"VV",
@@ -417,5 +447,5 @@ dataDict = {
 proChannelDic = {
     '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, for now not considering data
     '1tau0l':  ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets', 'jetHT'], #!1tau0l
-    '1tau2l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'leptonSum'], 
+    '1tau2l':  ['tt', 'ttX', 'singleTop', 'WJets',  'VV', 'DY','tttt', 'leptonSum'], 
 }
