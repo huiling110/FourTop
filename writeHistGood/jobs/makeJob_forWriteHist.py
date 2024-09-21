@@ -35,7 +35,8 @@ def main():
     # version = 'v0HLTMeasureBinB'
    
     #dataMC
-    version = 'v0dataMC_allCorrection'
+    # version = 'v0dataMC_allCorrection'
+    version = 'v1dataMC_allbutHLT'
     # version = 'v0dataMC_basicWeight'
     # version = 'v1dataMC_allCorrectionFakeTau'
     

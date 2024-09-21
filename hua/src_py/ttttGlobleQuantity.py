@@ -196,6 +196,10 @@ histoGramPerSample = {
     "wz":"VV",
     "ww":"VV",
     "zz":"VV",
+    'WWW': "VVV",
+    'WWZ': 'VVV',
+    'WZZ': 'VVV',
+    'ZZZ': 'VVV',
     
     "st_tZq":"singleTop",
     "st_tW_antitop":"singleTop",
@@ -468,5 +472,5 @@ dataDict = {
 proChannelDic = {
     '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, for now not considering data
     '1tau0l':  ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets', 'jetHT'], #!1tau0l
-    '1tau2l':  ['tt', 'ttX', 'singleTop', 'WJets',  'VV', 'DY','tttt', 'leptonSum'], 
+    '1tau2l':  ['tt', 'ttX', 'singleTop', 'WJets',  'VV', 'DY','VVV','Higgs', 'XGamma', 'tttt', 'leptonSum'], 
 }
