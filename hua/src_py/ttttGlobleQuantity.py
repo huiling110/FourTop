@@ -58,7 +58,6 @@ crossSectionMap = {
     'vbfH_WW_2l': 0.0859,
     'VH_nonbb': 0.942, 
     
-    
     "DYJetsToLL_M-10to50": 15810.0,
     "DYJetsToLL_M-50": 6077.22,
     
@@ -192,14 +191,31 @@ histoGramPerSample = {
     "ttW":"ttX",
     "ttH_bb": "ttX", 
     "ttH_nonbb": "ttX", 
+    "ttWW": "ttX",
     
     "wz":"VV",
     "ww":"VV",
     "zz":"VV",
+    
     "st_tZq":"singleTop",
     "st_tW_antitop":"singleTop",
     "st_tW_top":"singleTop",
-
+    
+    "TGJets": "XGamma",
+    "ZGToLLG": "XGamma",
+    "WGToLNuG": "XGamma",
+    
+    "ggH_bb": "Higgs",
+    "ggH_tautau": "Higgs",
+    "ggH_WW_2l": "Higgs",
+    "ggH_ZZ_2l": "Higgs",
+    "ggH_ZZ_4l": "Higgs",
+    "ggH_gg": "Higgs",
+    "vbfH_bb": "Higgs",
+    "vbfH_tautau": "Higgs",
+    "vbfH_WW_2l": "Higgs",
+    "VH_nonbb": "Higgs",
+    
     "WJetsToLNu_HT-200To400": "WJets",
     "WJetsToLNu_HT-400To600": "WJets",
     "WJetsToLNu_HT-600To800": "WJets",
