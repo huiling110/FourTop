@@ -31,9 +31,9 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     using SP_i = std::shared_ptr<histsForRegionsMap<Int_t>>;
 
     SP_d jets_rationHT_4toRest_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_rationHT_4toRest", "HT^{4 leaading jets}/HT^{rest of jets}", m_processName, 10, 0, 12, regionsForVariables, &(e->jets_rationHT_4toRest));
-    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 10, 480, 1800, regionsForVariables, &(e->jets_HT));
-    SP_d jets_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_MHT", "MHT(GeV)", m_processName, 20, 350, 1800, regionsForVariables, &(e->jets_MHT));
-    SP_d jets_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_transMass", "m_{T}^{jets}", m_processName, 10, 350, 1800, regionsForVariables, &(e->jets_transMass));
+    SP_d jets_HT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_HT", "HT(GeV)", m_processName, 10, 200, 1800, regionsForVariables, &(e->jets_HT));
+    SP_d jets_MHT_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_MHT", "MHT(GeV)", m_processName, 20, 200, 1800, regionsForVariables, &(e->jets_MHT));
+    SP_d jets_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_transMass", "m_{T}^{jets}", m_processName, 10, 200, 1800, regionsForVariables, &(e->jets_transMass));
     SP_d jets_minDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_minDeltaR", "min(#Delta R_{i,j}(jets))", m_processName, 10, 0, 2, regionsForVariables, &(e->jets_minDeltaR));
     SP_d jets_bScore_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_bScore", "#sum_{i=all jets} score_{i}^{b tag}", m_processName, 10, 0, 4.5, regionsForVariables, &(e->jets_bScore));
     SP_d jets_avaregeDeltaR_class = std::make_shared<histsForRegionsMap<Double_t>>("jets_average_deltaR", "average(#Delta R)^{jets}", m_processName, 10, 1.2, 3.2, regionsForVariables, &(e->jets_average_deltaR));
@@ -121,7 +121,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d elesTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_1pt", "p_{T}^{e}(GeV)", m_processName, 10, 0, 200, regionsForVariables, &(e->elesTopMVAT_1pt));
 
 
-    SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 10, 3.5, 13.5, regionsForVariables, &(e->jets_num));
+    SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 12, 1.5, 13.5, regionsForVariables, &(e->jets_num));
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
     SP_i bjetsT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsT_num", "n^{T b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsT_num));
     SP_i bjetsPTM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsPTM_num", "n^{b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsPTM_num));

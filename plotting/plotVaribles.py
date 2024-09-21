@@ -5,6 +5,7 @@ import csv
 import usefulFunc as uf
 from ROOT import *
 import setTDRStyle as st
+import ttttGlobleQuantity as gq
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
@@ -34,15 +35,14 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE2/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v81addSysSum/mc/variableHists_v2BDT1tau1l_binE2/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v81addSysSum/mc/variableHists_v2BDT1tau1l_binE2/'
 
 
     
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
     # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num',  'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausTTT_num','tausT_1genFlavour', 'tausTT_1genFlavour', 'tausTTT_1genFlavour']#1tau0l region 
-    # variables = ['jets_HT', 'jets_6pt',  'jets_5pt','jets_num', 'bjetsPTM_num', 'bjetsPTT_num', 'bjetsM_num', 'bjetsT_num', 'tausT_num', 'tausTT_num', 'tausM_num', 'tausTT_1lepton1_charge', 'tausTTT_1lepton1_charge', 'tausT_1lepton1_charge', 'tausM_1lepton1_charge', 'tausM_1genFlavour', 'tausT_1genFlavour', 'tausTT_1genFlavour']
-    regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
+    # regionList = ['1tau1lCR1', '1tau1lCR2', '1tau1lSR']
 
     # input1tau1l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/variableList/varibleList_30.csv'
     # input1tau0l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_finalFinal25.csv'
@@ -50,8 +50,7 @@ def main():
     # variables = read_csv_as_lines(input1tau0l)
     # print(variables)
     
-    # regionList = ['1tau2lSR']
-    variables = ['BDT']
+    # variables = ['BDT']
     plotName = 'dataVsMC_v4'
     ifFTau = False
     # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
@@ -60,15 +59,21 @@ def main():
     # ifVLL = 'VLLm700'
     # is1tau0l = True
     is1tau0l = False
-    ifLogy = True
-    # ifLogy = False
+    # ifLogy = True
+    ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    ifPrintSB = True
-    # ifPrintSB = False
-    ifSystematic = True #!Only for BDT
-    # ifSystematic = False  
-    channel = '1tau1l'
+    # ifPrintSB = True
+    ifPrintSB = False
+    # ifSystematic = True #!Only for BDT
+    ifSystematic = False  
+    # channel = '1tau1l'
+    
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v0dataMC_allCorrection/'
+    channel = '1tau2l'
+    variables = ['bjetsM_num']
+    # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num',  'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
+    regionList = ['1tau2lSR', '1tau2lCR3']
 
   
     #1tau0l
@@ -116,19 +121,14 @@ def read_csv_as_lines(file_path, delimiter=','):
 
 
 def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='', is1tau0l=False, channel='1tau1l',  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifDoSystmatic=False):
-    # sigPro = 'tttt' if not ifVLL else 'VLLm600'
     # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
-    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
-    # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'VLLm600'] #1tau1l
-    # sumProList = ['jetHT','qcd','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
-    # sumProList = ['jetHT','tt', 'tttt'] # run3 1tau1l for now 
-    # sumProList = ['jetHT','tt',  'qcd', 'tttt'] # run3 1tau1l for now 
-    if is1tau0l:
-        if ifFakeTau:
-            sumProList.insert(1, 'fakeTau')
-            plotName = plotName + 'fakeTau'
-        else:
-            sumProList.append('qcd')
+    # if is1tau0l:
+    #     if ifFakeTau:
+    #         sumProList.insert(1, 'fakeTau')
+    #         plotName = plotName + 'fakeTau'
+    #     else:
+    #         sumProList.append('qcd')
+    sumProList = gq.proChannelDic[channel]
     if ifVLL:
         sumProList.append(ifVLL)
     
@@ -139,7 +139,6 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     uf.checkMakeDir( plotDir)
     for variable in variables:
         for iRegion in regionList:       
-            # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion]) 
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
     
 def getSysDic(ifSys=False, channel='1tau1l'):
@@ -283,7 +282,8 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
         name = name + '_VLL'
 
     ifBlind = True if 'SR' in region else False #!!!
-    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, ifBlind, False, ifStackSignal, ifVLL, sysHists)
+    is1tau2l = True  if '1tau2l' in region else False
+    dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, ifBlind, False, ifStackSignal, ifVLL, sysHists, is1tau2l)
 
     setUpStack(canvy, stack, sumHist.GetMaximum(), signal.GetMaximum()*signalScale, ifLogy) 
     stack.Draw("hist")
@@ -359,7 +359,8 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
     leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
     # for ipro in nominal.keys():
     for ipro in legendOrder:
-        if ipro == 'jetHT' :
+        # if ipro == 'jetHT' :
+        if uf.isData(ipro):
             if dataHist:
                 leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
         elif  uf.isBG(ipro, ifVLL)==1:
@@ -435,7 +436,8 @@ def setUpStack(canvy, stack, sumMax, signalMax, ifLogy=False):
 def getLegend(nominal,  dataHist, assymErrorPlot, signal, signalScale, legendOrder):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     leggy = TLegend(0.18,0.75,0.89,0.90)
-    if "jetHT" in nominal.keys():
+    # if "jetHT" in nominal.keys():
+    if "jetHT"  in nominal.keys() or ('leptonSum' in nominal.keys()):
         # nominal['jetHT'].SetMarkerSize(2)
         # leggy.AddEntry(nominal['jetHT'],"Data[{:.1f}]".format(getIntegral(nominal['jetHT'])),"ep")
         leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"ep")
@@ -461,7 +463,7 @@ def ifDoSystmatic(systHists):
     print( 'doSystmatic: ', doSystmatic )
     return doSystmatic
     
-def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = False, ifVLL = '', sysHists={}):
+def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = False, ifVLL = '', sysHists={}, if1tau2l=False):
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {
@@ -490,10 +492,10 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
     stack = THStack( 'stack', 'stack' )
     legendOrder.reverse()
     for i in legendOrder:
-        # i is i summed MC
-        if i == 'jetHT':
+        # if i == 'jetHT':
+        if uf.isData(i):
             if not ifBlind:
-                dataHist = nominal["jetHT"].Clone()
+                dataHist = nominal["jetHT"].Clone() if not if1tau2l else nominal['leptonSum'].Clone()
                 dataHist.SetMarkerStyle(20)
                 dataHist.SetMarkerSize(1.2)
                 dataHist.SetMarkerColor(kBlack)

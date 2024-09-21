@@ -332,11 +332,10 @@ def merge_dicts(dict1, dict2):
 
 def isData(subPro):
     isdata = False
-    if ('jetHT' in subPro) or ('singleMu' in subPro) or ('BTagCSV' in subPro):
+    if ('jetHT' in subPro) or ('singleMu' in subPro) or ('BTagCSV' in subPro) or ('lepton' in subPro):
         isdata = True
     if('JetHT' in subPro) or ('Muon' in subPro) or ('JetMET' in subPro):
         isdata = True
-    # print(isdata)
     return isdata
 
 def getYmax(histograms):
