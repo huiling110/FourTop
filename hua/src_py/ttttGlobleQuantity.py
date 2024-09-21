@@ -18,7 +18,7 @@ crossSectionMap = {
     "ttbar_1l": 365.34,
     "ttbar_2l": 88.29,
     
-    "ttG": 4.62,
+    "ttG": 15.89, # 4.62,
     "ttZ": 0.783,
     "ttW": 0.611,
     "ttH_bb": 0.2897,
@@ -30,6 +30,11 @@ crossSectionMap = {
     "ww": 118.,# 6.430, #118 
     "zz": 16.5,# 1.016, #16.5
     
+    "WWW": 0.2086,
+    "WWZ": 0.1651,
+    "WZZ": 0.05565,
+    "ZZZ": 0.01476,
+    
     "st_tZq": 0.07358,
     "st_tW_antitop": 35.85,
     "st_tW_top": 35.85,
@@ -40,20 +45,18 @@ crossSectionMap = {
     'WGToLNuG': 192 ,
    
     #H->ZZ, WW
-    'ggH_bb': ,
-    'ggH_gg',
-    'ggH_tautau',
-    'ggH_WW_2l',
+    'ggH_bb': 28.3,
+    'ggH_tautau': 3.05,
+    'ggH_WW_2l': 1.10,
     'ggH_ZZ_2l': 28.87,
     'ggH_ZZ_4l': 0.01212,
+    'ggH_gg': 0.01,
     
-    'vbfH_bb': ,
-    'vbfH_nonbb': ,
-    'vbfH_tautau': ,
-    'vbfH_WW_2l': ,
-    # 'VH_nonbb', 
-    
-    
+    'vbfH_bb': 2.20,
+    # 'vbfH_nonbb': ,
+    'vbfH_tautau': 0.237,
+    'vbfH_WW_2l': 0.0859,
+    'VH_nonbb': 0.942, 
     
     
     "DYJetsToLL_M-10to50": 15810.0,
@@ -169,9 +172,11 @@ summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'WJets', 'j
 
 histoGramPerSample = { 
     'tttt':'tttt',
+    
     'ttbar_0l':'tt',
     'ttbar_1l': 'tt',
     'ttbar_2l': 'tt',
+    
     'qcd_50to100':'qcd',
     # 'qcd_100to200':'qcd',//!!!to be updated
     'qcd_200to300':'qcd',
