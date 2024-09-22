@@ -5,13 +5,28 @@ import ROOT
 def getGenSumFromNano():
     inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/'
     
-    iinputDir = inputDir+'tttt/'
-    calculate_genSum(iinputDir)
+    # iinputDir = inputDir+'tttt/'
+    dic = {}
+    for ipro in os.listdir(inputDir):
+        if not os.path.isdir(inputDir+ipro):
+            continue 
+        iprocess, genSum = calculate_genSum(inputDir+ipro)
+        dic[iprocess] = genSum
+        
+    #save dic into c++ map file
+    outDir = '../inputFiles/' 
+    with open(inputDir+'genSumMap.h', 'w') as f:
+        f.write('std::map<std::string, double> genSumMap = {\n')
+        for key, value in dic.items():
+            f.write(f'{{"{key}", {value}}},\n')
+        f.write('};\n')
+        print('genSumMap.h is saved')
     
 def calculate_genSum(directory_path):
     # Initialize the total sum
     total_genSum = 0.0
     # Traverse the directory to find all ROOT files
+    process = directory_path.split('/')[-1]
     for root, _, files in os.walk(directory_path):
         for file in files:
             if file.endswith('.root'):
@@ -38,9 +53,9 @@ def calculate_genSum(directory_path):
                 
                 # Close the ROOT file
                 root_file.Close()
-        print('genSum: ', total_genSum)
+    print('process:', process, 'genSum: ', total_genSum)
     
-    return total_genSum 
+    return process, total_genSum 
 
 def extract_gen_weight_sum(directory):
     # Dictionary to store results
