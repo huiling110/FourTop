@@ -33,8 +33,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v81addSysSum/mc/",
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v82for1tau2l/mc/",
 
-    TString inputDir = "tttt",
-    // TString inputDir = "ZGToLLG",
+    // TString inputDir = "tttt",
+    TString inputDir = "ZGToLLG",
     // TString inputDir = "VLL_EE_M600",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
