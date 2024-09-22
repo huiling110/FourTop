@@ -9,18 +9,20 @@ def getGenSumFromNano():
     dic = {}
     for ipro in os.listdir(inputDir):
         if not os.path.isdir(inputDir+ipro):
-            continue 
+            continue
+        if not ipro == 'tttt': continue 
         iprocess, genSum = calculate_genSum(inputDir+ipro)
         dic[iprocess] = genSum
         
     #save dic into c++ map file
-    outDir = '../inputFiles/' 
-    with open(inputDir+'genSumMap.h', 'w') as f:
+    outfile = '../inputFiles/genSumMap2018.h' 
+    # with open(inputDir+'genSumMap.h', 'w') as f:
+    with open(outfile, 'w') as f:
         f.write('std::map<std::string, double> genSumMap = {\n')
         for key, value in dic.items():
             f.write(f'{{"{key}", {value}}},\n')
         f.write('};\n')
-        print('genSumMap.h is saved')
+        print(f'{outfile} is saved')
     
 def calculate_genSum(directory_path):
     # Initialize the total sum

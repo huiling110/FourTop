@@ -6,6 +6,7 @@
 #include "../include/variablesFunctions.h"
 #include "../include/inputMap_MV.h"
 #include "../../myLibrary/commenFunction.h"
+#include "../../inputFiles/genSumMap.h"//use this for accessing genSum for each process instead
 
 WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const Bool_t isRun3, const TString processName): m_era{era}, m_isData{isData}, m_isRun3{isRun3}, m_processName{processName}
 {
@@ -174,11 +175,13 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
         if(m_processName.Contains("TTToSemiLeptonic") || m_processName.Contains("TTTo2L2Nu") || m_processName.Contains("TTToHadronic")){//!TT extra processes have to be added to use later
             TString processTem = removeTrailingNumbers(m_processName);
             std::cout<<"processTem="<<processTem<<"\n";
-            global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(processTem) / TTTT::genSumDic.at(m_era).at(processTem);
-            std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processTem)<<" genSum="<<TTTT::genSumDic.at(m_era).at(processTem)<<"\n";
+            // global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(processTem) / TTTT::genSumDic.at(m_era).at(processTem);
+            global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(processTem) / GENSUM::genSumMap.at(m_era).at(processTem);
+            std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processTem)<<" genSum="<<GENSUM::genSumMap.at(m_era).at(processTem)<<"\n";
         }else{
-            global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_era).at(m_processName);//!only BDT training uses this
-            std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<TTTT::genSumDic.at(m_era).at(m_processName)<<"\n";
+            // global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_era).at(m_processName);//!only BDT training uses this
+            global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / GENSUM::genSumMap.at(m_era).at(m_processName);//!only BDT training uses this
+            std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<GENSUM::genSumMap.at(m_era).at(m_processName)<<"\n";
         }
         std::cout<<"global_weight="<<global_weight<<"\n";
     }
