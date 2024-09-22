@@ -24,24 +24,55 @@ inline const std::map<TString, Double_t> lumiMap = {
 inline const std::map<TString, Double_t> crossSectionMap = {
     // {"tttt", 0.01197}, //!!!0.01337 from https://www.arxiv.org/abs/2212.03259
     {"tttt", 0.01337 }, //!!!0.01337 from https://www.arxiv.org/abs/2212.03259
+
     {"ttbar_0l", 377.96},
     {"ttbar_1l", 365.34},
     {"ttbar_2l", 88.29},//TT intotal 833.9pb
-    {"ttG", 4.62},        // 3.773
+
+    // {"ttG", 4.62},        // 
+    {"ttG", 15.89},        // 
     {"ttZ", 0.783},       // 0.6559
     {"ttW", 0.611},       // 0.2014 changed to 611
     {"ttH_bb", 0.2897},   // 0.2897
     {"ttH_nonbb", 0.209}, // 0.20
-    {"TTToSemiLeptonic", 365.34},
-    {"TTToHadronic", 377.96},
-    {"TTTo2L2Nu", 88.29},
+    {"ttWW", 0.00698},
 
-    {"wz", 2.343},
-    {"ww", 6.430},
-    {"zz", 1.016}, // ZZ
+    //VV cross section updated
+    {"wz", 47.},
+    {"ww", 118.},
+    {"zz", 16.5}, // ZZ
+    {"WWW", 0.2086},
+    {"WWZ", 0.1651},
+    {"WZZ", 0.05565},
+    {"ZZZ", 0.01476},
+
     {"st_tZq", 0.07358},
     {"st_tW_antitop", 35.85}, // 38.06
     {"st_tW_top", 35.85},     // 38.09
+
+    // GX: ttGamma, ZGamma
+        {"TGJets", 1.02},
+        {"ZGToLLG", 55.48},
+        {"WGToLNuG", 192.0},
+
+        // H->ZZ, WW
+        {"ggH_bb", 28.3},
+        {"ggH_tautau", 3.05},
+        {"ggH_WW_2l", 1.10},
+        {"ggH_ZZ_2l", 28.87},
+        {"ggH_ZZ_4l", 0.01212},
+        {"ggH_gg", 0.01},
+
+        {"vbfH_bb", 2.20},
+        // {"vbfH_nonbb", }, // This entry is commented out in Python, so it's omitted here
+        {"vbfH_tautau", 0.237},
+        {"vbfH_WW_2l", 0.0859},
+        {"VH_nonbb", 0.942},
+
+        {"DYJetsToLL_M-10to50", 15810.0},
+        {"DYJetsToLL_M-50", 6077.22},
+
+
 
     {"qcd_50to100", 2.466e+08},    // 50-100  //2.466e+08 +- 2.190e+05 pb
     {"qcd_100to200", 2.801e+07},   // 100to200  //2.801e+07 +- 2.608e+04 pb
@@ -59,6 +90,9 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"WJetsToLNu_HT-800To1200", 5.77},
     {"WJetsToLNu_HT-1200To2500", 1.023},
     {"WJetsToLNu_HT-2500ToInf", 0.0248},
+    {"TTToSemiLeptonic", 365.34},
+    {"TTToHadronic", 377.96},
+    {"TTTo2L2Nu", 88.29},
 
 //from Charis: https://gitlab.cern.ch/ckoraka/vll-analysis/-/blob/master/vll/utils/crossSections.py //!not accurate
 //https://docs.google.com/document/d/1yeQKEOXKdy_lsZMbwp2EbNz1h2-1TSjeGvCdiSQiQww/edit 
