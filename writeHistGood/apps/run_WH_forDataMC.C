@@ -47,7 +47,7 @@ void run_treeAnalyzer(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noTauCut_v82for1tau2l/mc/", 
 
     TString process = "tttt",
-    // TString process = "WWW",
+    // TString process = "WZTo3LNu",
     // TString process = "TTTo2L2Nu",
     // TString process = "TTToSemiLeptonic",
     // TString process = "TTToHadronic",

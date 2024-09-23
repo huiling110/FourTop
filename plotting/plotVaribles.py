@@ -70,11 +70,13 @@ def main():
     # channel = '1tau1l'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v0dataMC_allCorrection/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v1dataMC_allbutHLT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v1dataMC_allbutHLT/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noTauCut_v82for1tau2l/mc/variableHists_v1dataMC_allbutHLT/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noTauCut_v82for1tau2l/mc/variableHists_v0dataMC_genWeight/'
     channel = '1tau2l'
     # variables = ['bjetsM_num']
-    variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num',  'tausT_1decayMode', 'tausT_1pt', 'tausT_1genFlavour']
-    regionList = ['1tau2lSR', '1tau2lCR3']
+    variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_4pt', 'bjetsM_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' ]
+    regionList = ['1tau2lSR', '1tau2lCR3', '1tau2lCR3NoTau']
 
   
     #1tau0l

@@ -37,8 +37,8 @@ def main():
    
     #dataMC
     # version = 'v0dataMC_allCorrection'
-    version = 'v1dataMC_allbutHLT'
-    # version = 'v0dataMC_basicWeight'
+    # version = 'v1dataMC_allbutHLT'
+    version = 'v0dataMC_genWeight'
     # version = 'v1dataMC_allCorrectionFakeTau'
     
         

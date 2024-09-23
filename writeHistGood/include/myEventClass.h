@@ -280,6 +280,7 @@ public:
 
     myBranch<Double_t> muonsTopMVAT_1pt{"muonsTopMVAT_1pt"};
     myBranch<Double_t> elesTopMVAT_1pt{"elesTopMVAT_1pt"};
+    myBranch<Double_t> elesTopMVAT_1eta{"elesTopMVAT_1eta"};
 
     // branches for fakeTau;
     myBranch<Int_t> tausF_prongNum{"tausF_prongNum"};
@@ -535,6 +536,7 @@ private:
 
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
         {elesTopMVAT_1pt.n(), &elesTopMVAT_1pt},
+        {elesTopMVAT_1eta.n(), &elesTopMVAT_1eta},
 
         {tausF_num.n(), &tausF_num},
         {tausF_prongNum.n(), &tausF_prongNum},
