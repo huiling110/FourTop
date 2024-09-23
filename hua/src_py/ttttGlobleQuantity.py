@@ -192,7 +192,8 @@ histoGramPerSample = {
     "ttH_nonbb": "ttX", 
     "ttWW": "ttX",
     
-    "wz":"VV",
+    # "wz":"VV",
+    "WZTo3LNu":"VV", #!use this instead of wz
     "ww":"VV",
     "zz":"VV",
     'WWW': "VVV",
@@ -207,6 +208,7 @@ histoGramPerSample = {
     "TGJets": "XGamma",
     "ZGToLLG": "XGamma",
     "WGToLNuG": "XGamma",
+   
     
     "ggH_bb": "Higgs",
     "ggH_tautau": "Higgs",
@@ -217,7 +219,7 @@ histoGramPerSample = {
     "vbfH_bb": "Higgs",
     "vbfH_tautau": "Higgs",
     "vbfH_WW_2l": "Higgs",
-    "VH_nonbb": "Higgs",
+    # "VH_nonbb": "Higgs", #!not in MV
     
     "WJetsToLNu_HT-200To400": "WJets",
     "WJetsToLNu_HT-400To600": "WJets",

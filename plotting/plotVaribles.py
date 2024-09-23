@@ -69,10 +69,11 @@ def main():
     ifSystematic = False  
     # channel = '1tau1l'
     
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v0dataMC_allCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v0dataMC_allCorrection/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v1dataMC_allbutHLT/'
     channel = '1tau2l'
-    variables = ['bjetsM_num']
-    # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num',  'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
+    # variables = ['bjetsM_num']
+    variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num',  'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
     regionList = ['1tau2lSR', '1tau2lCR3']
 
   
@@ -480,6 +481,10 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
         'WJets': TColor.GetColor("#998ec3"),
         # 'fakeTau': TColor.GetColor("#ffeda0"),
         'fakeTau': TColor.GetColor("#fec44f"),
+        'XGamma': TColor.GetColor("#d73027"),
+        'VVV': TColor.GetColor("#4575b4"),
+        'Higgs': TColor.GetColor("#313695"),
+        'DY': TColor.GetColor("#313695"),
     }
     
     sumHist = nominal[keyList[0]].Clone()
