@@ -18,7 +18,7 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3", "1tau2lCR3NoTau"};
 
     WH::initializeHistVec(regionsForVariables, histsForRegion_vec, m_processName, e);
 
@@ -106,6 +106,9 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         //1tau2l CR3
         Bool_t is1tau2lCR3 = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3, "1tau2lCR3", eventWeight_1tau2l, m_isData);
+        //testing
+        Bool_t is1tau2lCR3NoTau = (e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v()==2)  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 ;
+        WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3NoTau, "1tau2lCR3NoTau", eventWeight_1tau2l, m_isData);
 
     }
     std::cout << "end of event loop\n";
