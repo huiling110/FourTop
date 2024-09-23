@@ -35,7 +35,8 @@ def main():
     inVersion = 'v82for1tau2l'
 
     # outVersion = 'v0baselineHardro'
-    outVersion = 'v0baseline1tau2l'
+    # outVersion = 'v0baseline1tau2l'
+    outVersion = 'v1baseline1tau2l_noTauCut'
     # outVersion = 'v1baselineHardroHLTSF'
     # outVersion = 'v1baselineHardro_FRweightSys'
     # outVersion = 'v2cut1tau0lSRTauF'

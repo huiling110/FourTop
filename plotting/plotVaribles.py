@@ -73,7 +73,7 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v1dataMC_allbutHLT/'
     channel = '1tau2l'
     # variables = ['bjetsM_num']
-    variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num',  'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour']
+    variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num',  'tausT_1decayMode', 'tausT_1pt', 'tausT_1genFlavour']
     regionList = ['1tau2lSR', '1tau2lCR3']
 
   

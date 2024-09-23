@@ -244,7 +244,9 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
     {"VLL_NN_M1000", 2.7308410000000003},
     {"ZJetsToNuNu_HT-600To800", 5726462.973848988},
     {"qcd_1000to1500", 14394786.0},
-    {"TTTo2L2Nu9", 4291003926.409401},}
+    {"TTTo2L2Nu9", 4291003926.409401},
+    {"WZTo3LNu", 83145979.098}
+    }
 },
 };
 

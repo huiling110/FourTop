@@ -34,7 +34,8 @@ void run_objectSelection(
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v82for1tau2l/mc/",
 
     // TString inputDir = "tttt",
-    TString inputDir = "ZGToLLG",
+    // TString inputDir = "ZGToLLG",
+    TString inputDir = "WZTo3LNu",
     // TString inputDir = "VLL_EE_M600",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
@@ -63,6 +64,7 @@ void run_objectSelection(
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
+    Bool_t if1tau2l = kTRUE;
     // Bool_t baseline = kFALSE;
     // mv.EventLoop(baseline, kTRUE, numEntries); //1tau1l cut 
     mv.EventLoop(baseline, kFALSE, numEntries);
