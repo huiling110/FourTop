@@ -26,12 +26,6 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun
     XGBoosterCreate(NULL, 0, &m_booster[0]);
     XGBoosterLoadModel(m_booster[0], eleWeight.Data());
 
-    // TString jsonBase = "../../jsonpog-integration/POG/";
-    // cset_eleScale = correction::CorrectionSet::from_file((jsonBase + eleScaleSmear.at(m_era).at(0)).Data());
-    // std::cout<<"electron scale and smearing files: "<<jsonBase + eleScaleSmear.at(m_era).at(0)<<"\n";
-    // for (auto const& corr : *cset_eleScale) {
-    //     std::cout << "eleScale: " << corr.first << "\n";
-    // }
 
     std::cout << "Done EleTopMVASel initialization......\n";
     std::cout << "\n";
@@ -71,7 +65,8 @@ void EleTopMVASel::Select(const eventForNano *e)
         }
         // std::cout<<"iE_cutBased="<<iE_cutBased<<"\n";
 
-        if (!(fabs(eta) < 2.5))
+        // if (!(fabs(eta) < 2.5))
+        if (!(fabs(eta) < 2.5 && fabs(eta)<1.442 && fabs(eta)>1.566))// 1.4442 and 1.566 are the transition region between the barrel and the endcap
             continue;
         if (!(pt > 10))
             continue;

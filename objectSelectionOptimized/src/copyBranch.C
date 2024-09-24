@@ -10,6 +10,7 @@ CopyBranch::CopyBranch(TTree *outTree, const Bool_t isRun3)
     std::cout<<"m_isRun3="<<m_isRun3<<"\n";
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);
+    outTree->Branch("luminosityBlock_", &luminosityBlock_);
     outTree->Branch("PV_npvsGood_", &PV_npvsGood_);
     outTree->Branch("MET_pt_", &MET_pt_);
     outTree->Branch("MET_phi_", &MET_phi_);
@@ -31,6 +32,7 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
 
     run_ = *e->run;
     event_ = *e->event;
+    luminosityBlock_ = *e->luminosityBlock;
     MET_pt_ = *e->MET_pt;
     MET_phi_ = *e->MET_phi;
 
