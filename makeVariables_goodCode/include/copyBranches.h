@@ -17,6 +17,7 @@ private:
     // output branches
     Int_t PV_npvsGood;
     UInt_t run;
+    UInt_t lumilosityBlock;
     ULong64_t event;
     //HLT
     Bool_t HLT_PFHT450_SixJet40_BTagCSV_p056 = kFALSE;

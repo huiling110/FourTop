@@ -49,6 +49,8 @@ def main():
     df.Snapshot('newtree', inputDir + 'leptonSumAll.root')#!triggers event loop once
     print(f'Output file: {inputDir}leptonSumAll.root\n\n')#!!!have to save it to prevent multiple event loop evaluating mark_duplicates()
     
+    #!
+    # auto df_with_id = df.Define("unique_id", "run * 1e12 + luminosityBlock * 1e6 + event");
     
     # # Filter out the duplicates
     df_new = ROOT.RDataFrame('newtree', inputDir+'leptonSumAll.root')

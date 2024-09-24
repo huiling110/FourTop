@@ -103,6 +103,7 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
 
     
 def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = []): 
+#!maybe make the tauF kenimatic into tauT variables
     allDataFiles = uf.getAllSubPro(era, 'jetHT') 
     #!for 2017 must consider BtagCSV too
     allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]

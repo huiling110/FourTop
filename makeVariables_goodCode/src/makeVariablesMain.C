@@ -60,7 +60,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if (baselineSel)
         {
             // if (!(jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1&& tauVarMaker.getNum()==1 && eleTopVarMaker.getNum()+muTopTVarMaker.getNum()==2) ) //!1tau2l basleline selection
-            if (!(jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1 && eleTopVarMaker.getNum()+muTopTVarMaker.getNum()==2) ) //!tau selection removed
+            if (!(jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1 && tauVarMaker.getNum()==1) ) //!lepton selection removed
             {
                 continue;
             }
