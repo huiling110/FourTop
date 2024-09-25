@@ -47,22 +47,10 @@ void EleTopMVASel::Select(const eventForNano *e)
         Double_t eta = e->Electron_eta.At(j);
         Double_t topMVAScore = -99.;
         //branches different between run2 and run3
-        Int_t iE_cutBased = 0;
-        Int_t iE_tightCharge = 0;
-        Int_t iE_jetIdx = 0;
-        Float_t mvaFall17V2noIso = -99; 
-        if (m_isRun3){
-            iE_cutBased = std::any_cast<UChar_t>(e->Electron_cutBased.at(j));//!!!hope for the correct implicit type conversion
-            iE_tightCharge = std::any_cast<UChar_t>(e->Electron_tightCharge.at(j));
-            iE_jetIdx = std::any_cast<Short_t>(e->Electron_jetIdx.at(j));
-            mvaFall17V2noIso = e->Electron_mvaNoIso->At(j);
-        }else{
-            iE_cutBased = std::any_cast<Int_t>(e->Electron_cutBased.at(j));
-            iE_tightCharge = std::any_cast<Int_t>(e->Electron_tightCharge.at(j));
-            iE_jetIdx = std::any_cast<Int_t>(e->Electron_jetIdx.at(j));
-            mvaFall17V2noIso = e->Electron_mvaFall17V2noIso->At(j);
-        }
-        // std::cout<<"iE_cutBased="<<iE_cutBased<<"\n";
+        Int_t iE_cutBased = m_isRun3? std::any_cast<UChar_t>(e->Electron_cutBased.at(j)): std::any_cast<Int_t>(e->Electron_cutBased.at(j));
+        Int_t iE_tightCharge = m_isRun3? std::any_cast<UChar_t>(e->Electron_tightCharge.at(j)): std::any_cast<Int_t>(e->Electron_tightCharge.at(j));
+        Int_t iE_jetIdx = m_isRun3? std::any_cast<Short_t>(e->Electron_jetIdx.at(j)): std::any_cast<Int_t>(e->Electron_jetIdx.at(j));
+        Double_t mvaFall17V2noIso = m_isRun3? e->Electron_mvaNoIso->At(j): e->Electron_mvaFall17V2noIso->At(j);
 
         // if (!(fabs(eta) < 2.5))
         if (!(fabs(eta) < 2.5 && !(fabs(eta)>1.442&&fabs(eta)<1.566)))// 1.4442 and 1.566 are the transition region between the barrel and the endcap
@@ -71,13 +59,11 @@ void EleTopMVASel::Select(const eventForNano *e)
             continue;
         if (m_type == 5)
         {
-            // if (!(e->Electron_cutBased[j] >= 2)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
-            if(!(iE_cutBased >= 2))
+            if(!(iE_cutBased >= 2))// cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
                 continue;
         }
         if (m_type == 4)
         {
-            // if (!(e->Electron_cutBased[j] >= 1)) // cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
             if (!(iE_cutBased >= 1))
                 continue;
         }
@@ -101,13 +87,10 @@ void EleTopMVASel::Select(const eventForNano *e)
         {
             if (!e->Electron_convVeto.At(j))
                 continue;                             // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
-            // if (!(e->Electron_tightCharge.At(j) > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
             if (!(iE_tightCharge > 0)) //??? Tight charge criteria (0:none, 1:isGsfScPixChargeConsistent, 2:isGsfCtfScPixChargeConsistent)
                 continue;
             // TOP UL Lepton MVA
             Float_t jetPtRatio = 1. / (e->Electron_jetRelIso[j] + 1.);
-            // Float_t jetBTag = Jet_btagDeepB[e->Electron_jetIdx[j]];
-            // Float_t jetBTag = e->Jet_btagDeepFlavB[e->Electron_jetIdx[j]];
             Float_t jetBTag = e->Jet_btagDeepFlavB[iE_jetIdx];
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Electron_pt[j]},
