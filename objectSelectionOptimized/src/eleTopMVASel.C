@@ -11,8 +11,8 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun
     outTree->Branch("elesTopMVAT_charge", &elesTopMVAT_charge);
     outTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
     outTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
-    outTree->Branch("elesTopMVAT_jetIdx", &elesTopMVAT_jetIdx);
-    outTree->Branch("elesTopMVAT_isTight", &elesTopMVAT_isTight);
+    // outTree->Branch("elesTopMVAT_jetIdx", &elesTopMVAT_jetIdx);
+    // outTree->Branch("elesTopMVAT_isTight", &elesTopMVAT_isTight);
 
     // m_isRun3 = TTTT::isRun3(m_era);
     std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
@@ -65,7 +65,7 @@ void EleTopMVASel::Select(const eventForNano *e)
         // std::cout<<"iE_cutBased="<<iE_cutBased<<"\n";
 
         // if (!(fabs(eta) < 2.5))
-        if (!(fabs(eta) < 2.5 && fabs(eta)<1.442 && fabs(eta)>1.566))// 1.4442 and 1.566 are the transition region between the barrel and the endcap
+        if (!(fabs(eta) < 2.5 && !(fabs(eta)>1.442&&fabs(eta)<1.566)))// 1.4442 and 1.566 are the transition region between the barrel and the endcap
             continue;
         if (!(pt > 10))
             continue;
@@ -137,8 +137,8 @@ void EleTopMVASel::Select(const eventForNano *e)
         elesTopMVAT_index.push_back(j);
         elesTopMVAT_topMVAScore.push_back(topMVAScore);
         //need eletron mother jet index
-        Int_t jetId = m_isRun3? std::any_cast<Short_t>(e->Electron_jetIdx.at(j)): std::any_cast<Int_t>(e->Electron_jetIdx.at(j));
-        elesTopMVAT_jetIdx.push_back(jetId); // Electron_jetIdx
+        // Int_t jetId = m_isRun3? std::any_cast<Short_t>(e->Electron_jetIdx.at(j)): std::any_cast<Int_t>(e->Electron_jetIdx.at(j));
+        // elesTopMVAT_jetIdx.push_back(jetId); // Electron_jetIdx
         // elesTopMVAT_isTight = ;
 
     } //
@@ -153,8 +153,8 @@ void EleTopMVASel::clearBranch()
     elesTopMVAT_charge.clear();
     elesTopMVAT_index.clear();
     elesTopMVAT_topMVAScore.clear();
-    elesTopMVAT_jetIdx.clear();
-    elesTopMVAT_isTight = kFALSE;
+    // elesTopMVAT_jetIdx.clear();
+    // elesTopMVAT_isTight = kFALSE;
 };
 
 std::vector<Double_t> &EleTopMVASel::getEtaVec()
