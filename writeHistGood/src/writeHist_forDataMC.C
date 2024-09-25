@@ -18,7 +18,7 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3", "1tau2lCR3NoTau"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3", "1tau2lCR3NoTau", "1tau2lCR3Mu1", "1tau2lCR3E1"};
 
     WH::initializeHistVec(regionsForVariables, histsForRegion_vec, m_processName, e);
 
@@ -60,7 +60,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         Double_t basicWeight = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
         Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
-        // Double_t eventWeight_1tau2l = e->EVENT_genWeight.v();//!testing
         Double_t eventWeight_1tau0l = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
 
         if(std::isinf(e->btagWPMT_weight.v()) || std::isnan(e->btagWPMT_weight.v())){
@@ -109,7 +108,11 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3, "1tau2lCR3", eventWeight_1tau2l, m_isData);
         //testing
         Bool_t is1tau2lCR3NoTau = (e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v()==2)  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 ;
+        Bool_t is1tau2lCR3Mu1 = e->tausT_num.v()==1  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 && e->muonsTopMVAT_num.v()==1;
+        Bool_t is1tau2lCR2E1 = e->tausT_num.v()==1  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 && e->elesTopMVAT_num.v()==1;
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3NoTau, "1tau2lCR3NoTau", eventWeight_1tau2l, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3Mu1, "1tau2lCR3Mu1", eventWeight_1tau2l, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR2E1, "1tau2lCR3E1", eventWeight_1tau2l, m_isData);
 
     }
     std::cout << "end of event loop\n";

@@ -1,11 +1,11 @@
-#include "../include/tauSel.h"
+#include "../include/TauSelBetter.h"
 #include <map>
 #include "../include/usefulFunc.h"
 
-TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, const Int_t tauWP, const UChar_t TES) : m_tauWP{tauWP}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}, m_TES{TES}
+TauSelBetter::TauSelBetter(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, const Int_t tauWP, const UChar_t TES) : m_tauWP{tauWP}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}, m_TES{TES}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing TauSel......\n";
+    std::cout << "Initializing TauSelBetter......\n";
     std::cout << "m_tauWP=" << m_tauWP<<" m_era="<<m_era<<" m_isRun3="<<m_isRun3 << " m_TES="<<static_cast<unsigned int>(m_TES)<<"\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
@@ -36,12 +36,12 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, 
     outTree->Branch("taus" + tauWPMap[tauWP] + "_jetMass", &taus_jetMass);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_jetPhi", &taus_jetPhi);
 
-    std::cout << "Done TauSel initialization......\n\n";
+    std::cout << "Done TauSelBetter initialization......\n\n";
 };
 
-TauSel::~TauSel(){};
+TauSelBetter::~TauSelBetter(){};
 
-void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec)
+void TauSelBetter::Select( const eventForNano *e, const Bool_t isData, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec, const std::vector<Double_t> &eEtaVec, const std::vector<Double_t> &ePhiVec)
 {
     // this is tau ID in ttH
     // 1:loose;2:fakeble;3:tight
@@ -196,7 +196,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
     }
 };
 
-void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
+void TauSelBetter::calTauSF_new(const eventForNano *e, const Bool_t isData)
 {
     // https://gitlab.cern.ch/cms-tau-pog/jsonpog-integration/-/blob/master/examples/tauExample.py
     auto corr_tauES = cset_tauSF->at("tau_energy_scale");
@@ -240,7 +240,7 @@ void TauSel::calTauSF_new(const eventForNano *e, const Bool_t isData)
 };
 
 
-Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_eta, Int_t itau_genPartFlav, std::string tauVsJetWP)
+Double_t TauSelBetter::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_eta, Int_t itau_genPartFlav, std::string tauVsJetWP)
 {
     //
     auto corr_tauES = cset_tauSF->at("tau_energy_scale");
@@ -282,7 +282,7 @@ Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_et
 };
 
 
-void TauSel::clearBranch()
+void TauSelBetter::clearBranch()
 {
     taus_pt.clear();
     taus_eta.clear();
@@ -299,16 +299,16 @@ void TauSel::clearBranch()
     taus_jetPhi.clear();
 };
 
-std::vector<Double_t> &TauSel::getEtaVec()
+std::vector<Double_t> &TauSelBetter::getEtaVec()
 {
     return taus_eta;
 };
-std::vector<Double_t> &TauSel::getPhiVec()
+std::vector<Double_t> &TauSelBetter::getPhiVec()
 {
     return taus_phi;
 };
 //!!!this could all be put in a base class
-Int_t TauSel::getSize()
+Int_t TauSelBetter::getSize()
 {
     return taus_pt.size();
 };
