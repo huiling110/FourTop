@@ -25,7 +25,8 @@ Bool_t mark_duplicates(ULong64_t event) {
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v81for1tau2l_v2/data/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/data/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noTauCut_v82for1tau2l/data/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noTauCut_v82for1tau2l/data/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noLepCut_v83for1tau2lEleEtaCut/data/'
 
     dataPDs = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #for 2018
     
@@ -43,14 +44,13 @@ def main():
     print('combined df entries: ', df.Count().GetValue())
     
     # Use Define to create the 'is_duplicate' column
-    df = df.Define("is_duplicate", "mark_duplicates(event)") #!can only go through event loop once! 
+    df = df.Define("unique_id", "run*1000000000000 + luminosityBlock*1000000 + event")
+    # df = df.Define("is_duplicate", "mark_duplicates(event)") #!can only go through event loop once! 
+    df = df.Define("is_duplicate", "mark_duplicates(unique_id)") #!use unique id instead
     print('is_duplicate type in df: ', df.GetColumnType('is_duplicate'))
-    # df.Display(["is_duplicate", "event", "HLT_IsoMu24"], 10).Print()#is_duplicate seems good here
     df.Snapshot('newtree', inputDir + 'leptonSumAll.root')#!triggers event loop once
     print(f'Output file: {inputDir}leptonSumAll.root\n\n')#!!!have to save it to prevent multiple event loop evaluating mark_duplicates()
     
-    #!
-    # auto df_with_id = df.Define("unique_id", "run * 1e12 + luminosityBlock * 1e6 + event");
     
     # # Filter out the duplicates
     df_new = ROOT.RDataFrame('newtree', inputDir+'leptonSumAll.root')
@@ -60,8 +60,9 @@ def main():
     # print('is_duplicate type in df_filtered: ', df_filtered.GetColumnType('is_duplicate'))
     
     
-    df_filtered.Snapshot('newtree', inputDir + 'leptonSum.root')#!triggers event loop third time
-    print(f'Output file: {inputDir}leptonSum.root')
+    era = uf.getEraFromDir(inputDir)
+    df_filtered.Snapshot('newtree', f'{inputDir}leptonSum_{era}.root')#!triggers event loop third time
+    print(f'Output file: {inputDir}leptonSum_{era}.root')
     report.Print()
 
 def getROOTDF(inputDir, dic, dataPD='singleMu'):
