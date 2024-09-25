@@ -81,90 +81,159 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         //     if (!(e->Tau_idDecayModeNewDMs->At(j))) //already applied in nanoAOD
         //         continue; // for 2022
         // }
-        Int_t tauID_vsJet;
-        Int_t tauID_vsEle;
-        Int_t tauID_vsMu;
-        if (!m_isRun3)
-        {
-            tauID_vsJet = e->Tau_idDeepTau2017v2p1VSjet.At(j);//DeepTau2017v2p1
-            tauID_vsEle = e->Tau_idDeepTau2017v2p1VSe.At(j);
-            tauID_vsMu = e->Tau_idDeepTau2017v2p1VSmu.At(j);
-        }else{
-            tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j); //DeepTauv2p5
-            tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
-            tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);//!!! for nanoAOD v12, tau id has no bit mast!!!
-        // byDeepTau2017v2p1VSe ID working points (deepTau2017v2p1): 1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
-        }
+        // Int_t tauID_vsJet;
+        // Int_t tauID_vsEle;
+        // Int_t tauID_vsMu;
+        // if (!m_isRun3)
+        // {
+        //     tauID_vsJet = e->Tau_idDeepTau2017v2p1VSjet.At(j);//DeepTau2017v2p1
+        //     tauID_vsEle = e->Tau_idDeepTau2017v2p1VSe.At(j);
+        //     tauID_vsMu = e->Tau_idDeepTau2017v2p1VSmu.At(j);
+        // }else{
+        //     tauID_vsJet =  e->Tau_idDeepTau2018v2p5VSjet->At(j); //DeepTauv2p5
+        //     tauID_vsEle =  e->Tau_idDeepTau2018v2p5VSe->At(j);
+        //     tauID_vsMu =  e->Tau_idDeepTau2018v2p5VSmu->At(j);//!!! for nanoAOD v12, tau id has no bit mast!!!
+        // // byDeepTau2017v2p1VSe ID working points (deepTau2017v2p1): 1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
+        // }
+        Int_t tauID_vsJet = m_isRun3 ? e->Tau_idDeepTau2018v2p5VSjet->At(j) : e->Tau_idDeepTau2017v2p1VSjet.At(j);
+        Int_t tauID_vsEle = m_isRun3 ? e->Tau_idDeepTau2018v2p5VSe->At(j) : e->Tau_idDeepTau2017v2p1VSe.At(j);
+        Int_t tauID_vsMu = m_isRun3 ? e->Tau_idDeepTau2018v2p5VSmu->At(j) : e->Tau_idDeepTau2017v2p1VSmu.At(j);
 
-        Bool_t isVSjetVVLoose = kFALSE;
-        Bool_t isVSeVVVLoose = kFALSE;
-        Bool_t isVSmuVLoose = kFALSE;
-        Bool_t isVSjetM = kFALSE;
-        if (m_tauWP == 1)
+        // Bool_t isVSjetVVLoose = kFALSE;
+        // Bool_t isVSeVVVLoose = kFALSE;
+        // Bool_t isVSmuVLoose = kFALSE;
+        // Bool_t isVSjetM = kFALSE;
+
+        Bool_t isVSjetVVLoose = m_isRun3 ? (tauID_vsJet >= 2) : (tauID_vsJet & (1 << 1)); // check if the 2nd bit (VVLoose WP) is 1
+            //1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
+        Bool_t isVSjetM = m_isRun3 ? (tauID_vsJet >= 5) : (tauID_vsJet & (1 << 4)); // check if the 4th bit (Medium WP) is 1
+        Bool_t isVSjetT = m_isRun3 ? (tauID_vsJet >= 6) : (tauID_vsJet & (1 << 5)); // check if the 5th bit (Tight WP) is 1
+        Bool_t isVSjetTT = m_isRun3 ? (tauID_vsJet >= 7) : (tauID_vsJet & (1 << 6)); // check if the 6th bit (TTight WP) is 1
+        Bool_t isVSjetTTT = m_isRun3 ? (tauID_vsJet >= 8) : (tauID_vsJet & (1 << 7)); // check if the 7th bit (TTight WP) is 1
+        Bool_t isVSjetTTTT = m_isRun3 ? (tauID_vsJet >= 9) : (tauID_vsJet & (1 << 8)); // check if the 8th bit (TTight WP) is 1
+
+
+        Bool_t isVSeVVVLoose = m_isRun3 ? (tauID_vsEle >= 2) : (tauID_vsEle & (1 << 0));  // check if the 1st bit (VVVLoose WP) is 1
+        Bool_t isVSmuVLoose = m_isRun3 ? (tauID_vsMu >= 3) : (tauID_vsMu & (1 << 0));    // check if the 1st bit (VLoose WP) is 1
+
+        switch (m_tauWP)
         {
-            if (m_isRun3)
-            {
-                isVSjetVVLoose = tauID_vsJet >= 2; // check if the 2nd bit (VVLoose WP) is 1
-            }
-            else
-            {
-                isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
-            }
-            // bitwise shift operators are the right-shift operator (>>
-            //&: bitwise and operator; only 1&1=1; 0&anything = 0
-            // 1<<1 = 2 = 00000010
-            // converting unsigned char to Bool_t: uchar_t ->int->Bool_t; if 2nd bit is 1 isVSjetVVLoose=true; if 2nd bit is 0 isVSjetVVLoose = false
+        case 1:
             if (!isVSjetVVLoose)
                 continue;
-            // bitmask 1 = VVVLoose, 2 = VVLoose, 4 = VLoose, 8 = Loose, 16 = Medium, 32 = Tight, 64 = VTight, 128 = VVTight
-        }
-        if (m_tauWP == 2)
-        {
-            if (m_isRun3)
-            {
-                isVSjetVVLoose = tauID_vsJet >= 2; // check if the 2nd bit (VVLoose WP) is 1
-                isVSeVVVLoose = tauID_vsEle >= 2;  // VVLoose WP) is 2
-                isVSmuVLoose = tauID_vsMu >= 3;    // check if the 1st bit (VLoose WP) is 1
-            }
-            else
-            {
-                isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
-                isVSeVVVLoose = tauID_vsEle & (1 << 0);  // check if the 1st bit (VVVLoose WP) is 1
-                isVSmuVLoose = tauID_vsMu & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
-            }
+            break;
+        case 2:
             if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
                 continue;
             if (itau_decayMode == 5 || itau_decayMode == 6)
                 continue;
-        }
-        if (m_tauWP == 3 || m_tauWP ==4 || m_tauWP ==5 || m_tauWP ==6 || m_tauWP==7)
-        { // tight tau
-            if (itau_decayMode == 5 || itau_decayMode == 6)
-                continue;
-            switch(m_tauWP){
-            //1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
-                case 3:
-                    isVSjetM = (m_isRun3) ? (tauID_vsJet >= 5) : (tauID_vsJet & (1 << 4));
-                    break;
-                case 4:
-                    isVSjetM = (m_isRun3) ? (tauID_vsJet >= 6) : (tauID_vsJet & (1 << 5));
-                    break;
-                case 5:
-                    isVSjetM = (m_isRun3) ? (tauID_vsJet >= 7) : (tauID_vsJet & (1 << 6));
-                    break;
-                case 6:
-                    isVSjetM = (m_isRun3) ? (tauID_vsJet >= 4) : (tauID_vsJet & (1 << 3)); //
-                    break;
-                case 7:
-                    isVSjetM = (m_isRun3) ? (tauID_vsJet >= 8) : (tauID_vsJet & (1 << 7));
-                    break;
-            }
-            isVSeVVVLoose = (m_isRun3) ? (tauID_vsEle >= 2) : (tauID_vsEle & (1 << 0));
-            isVSmuVLoose = (m_isRun3) ? (tauID_vsMu >= 3) : (tauID_vsMu & (1 << 0));
-
+            break;
+        case 3:
             if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
                 continue;
+            if (itau_decayMode == 5 || itau_decayMode == 6)
+                continue;
+            break;
+        case 4:
+            if (!(isVSjetT && isVSeVVVLoose && isVSmuVLoose))
+                continue;
+            if (itau_decayMode == 5 || itau_decayMode == 6)
+                continue;
+            break;
+        case 5:
+            if (!(isVSjetTT && isVSeVVVLoose && isVSmuVLoose))
+                continue;
+            if (itau_decayMode == 5 || itau_decayMode == 6)
+                continue;
+            break;
+        case 6:
+            if (!(isVSjetTTT && isVSeVVVLoose && isVSmuVLoose))
+                continue;
+            if (itau_decayMode == 5 || itau_decayMode == 6)
+                continue;
+            break;
+        case 7:
+            if (!(isVSjetTTTT && isVSeVVVLoose && isVSmuVLoose))
+                continue;
+            if (itau_decayMode == 5 || itau_decayMode == 6)
+                continue;
+            break; 
+        default:
+            break;
         }
+
+        // if (m_tauWP == 1)
+        // {
+        //     if (m_isRun3)
+        //     {
+        //         isVSjetVVLoose = tauID_vsJet >= 2; // check if the 2nd bit (VVLoose WP) is 1
+        //     }
+        //     else
+        //     {
+        //         isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+        //     }
+        //     // bitwise shift operators are the right-shift operator (>>
+        //     //&: bitwise and operator; only 1&1=1; 0&anything = 0
+        //     // 1<<1 = 2 = 00000010
+        //     // converting unsigned char to Bool_t: uchar_t ->int->Bool_t; if 2nd bit is 1 isVSjetVVLoose=true; if 2nd bit is 0 isVSjetVVLoose = false
+        //     if (!isVSjetVVLoose)
+        //         continue;
+        //     // bitmask 1 = VVVLoose, 2 = VVLoose, 4 = VLoose, 8 = Loose, 16 = Medium, 32 = Tight, 64 = VTight, 128 = VVTight
+        // }
+        // if (m_tauWP == 2)
+        // {
+        //     if (m_isRun3)
+        //     {
+        //         isVSjetVVLoose = tauID_vsJet >= 2; // check if the 2nd bit (VVLoose WP) is 1
+        //         isVSeVVVLoose = tauID_vsEle >= 2;  // VVLoose WP) is 2
+        //         isVSmuVLoose = tauID_vsMu >= 3;    // check if the 1st bit (VLoose WP) is 1
+        //     }
+        //     else
+        //     {
+        //         isVSjetVVLoose = tauID_vsJet & (1 << 1); // check if the 2nd bit (VVLoose WP) is 1
+        //         isVSeVVVLoose = tauID_vsEle & (1 << 0);  // check if the 1st bit (VVVLoose WP) is 1
+        //         isVSmuVLoose = tauID_vsMu & (1 << 0);    // check if the 1st bit (VLoose WP) is 1
+        //     }
+        //     if (!(isVSjetVVLoose && isVSeVVVLoose && isVSmuVLoose))
+        //         continue;
+        //     if (itau_decayMode == 5 || itau_decayMode == 6)
+        //         continue;
+        // }
+        // if (m_tauWP == 3 || m_tauWP ==4 || m_tauWP ==5 || m_tauWP ==6 || m_tauWP==7)
+        // { // tight tau
+        //     if (itau_decayMode == 5 || itau_decayMode == 6)
+        //         continue;
+        //     switch(m_tauWP){
+        //     //1 = VVVLoose, 2 = VVLoose, 3 = VLoose, 4 = Loose, 5 = Medium, 6 = Tight, 7 = VTight, 8 = VVTight
+        //         case 3:
+        //             isVSjetM = (m_isRun3) ? (tauID_vsJet >= 5) : (tauID_vsJet & (1 << 4));
+        //             break;
+        //         case 4:
+        //             isVSjetM = (m_isRun3) ? (tauID_vsJet >= 6) : (tauID_vsJet & (1 << 5));
+        //             break;
+        //         case 5:
+        //             isVSjetM = (m_isRun3) ? (tauID_vsJet >= 7) : (tauID_vsJet & (1 << 6));
+        //             break;
+        //         case 6:
+        //             isVSjetM = (m_isRun3) ? (tauID_vsJet >= 4) : (tauID_vsJet & (1 << 3)); //
+        //             break;
+        //         case 7:
+        //             isVSjetM = (m_isRun3) ? (tauID_vsJet >= 8) : (tauID_vsJet & (1 << 7));
+        //             break;
+        //     }
+        //     isVSeVVVLoose = (m_isRun3) ? (tauID_vsEle >= 2) : (tauID_vsEle & (1 << 0));
+        //     isVSmuVLoose = (m_isRun3) ? (tauID_vsMu >= 3) : (tauID_vsMu & (1 << 0));
+
+        //     if (!(isVSjetM && isVSeVVVLoose && isVSmuVLoose))
+        //         continue;
+        // }
+
+
+
+
+
+
+
 
         // overlap removal
         Bool_t removeTau = OS::overlapRemove(e->Tau_eta.At(j), e->Tau_phi.At(j), muEtaVec, muPhiVec);
