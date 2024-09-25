@@ -57,6 +57,8 @@ private:
     std::vector<Double_t> taus_jetEta;
     std::vector<Double_t> taus_jetMass;
     std::vector<Double_t> taus_jetPhi;
+
+    Bool_t taus_isTight = kFALSE;
 };
 
 #endif

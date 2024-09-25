@@ -35,6 +35,9 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, 
     outTree->Branch("taus" + tauWPMap[tauWP] + "_jetEta", &taus_jetEta);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_jetMass", &taus_jetMass);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_jetPhi", &taus_jetPhi);
+    if(m_tauWP==2){
+        outTree->Branch("tausF_isTight", &taus_isTight);
+    }
 
     std::cout << "Done TauSel initialization......\n\n";
 };
@@ -264,7 +267,9 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         taus_jetMass.push_back(e->Jet_mass.At(itau_jetIdx));
         taus_jetPhi.push_back(e->Jet_phi.At(itau_jetIdx));
         //
-        // taus_isTight.push_back(isVSjetM && isVSeVVVLoose && isVSmuVLoose);
+        if(m_tauWP==2){
+            taus_isTight = isVSjetM && isVSeVVVLoose && isVSmuVLoose && !(itau_decayMode == 5 || itau_decayMode == 6);
+        } 
     }
 };
 
@@ -369,6 +374,7 @@ void TauSel::clearBranch()
     taus_jetEta.clear();
     taus_jetMass.clear();
     taus_jetPhi.clear();
+    taus_isTight = kFALSE;
 };
 
 std::vector<Double_t> &TauSel::getEtaVec()
