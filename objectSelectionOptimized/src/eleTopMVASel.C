@@ -11,14 +11,13 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun
     outTree->Branch("elesTopMVAT_charge", &elesTopMVAT_charge);
     outTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
     outTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
-    // outTree->Branch("elesTopMVAT_", &elesTopMVAT_);
+    outTree->Branch("elesTopMVAT_jetIdx", &elesTopMVAT_jetIdx);
+    outTree->Branch("elesTopMVAT_isTight", &elesTopMVAT_isTight);
 
     // m_isRun3 = TTTT::isRun3(m_era);
     std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
 
     // set up xgboost booster
-    // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
-    // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/";
     TString baseDir = "./";
     TString eleWeight = baseDir+ TopMVALeptonMap[m_era].at(0);
     std::cout << "eleWeight: " << eleWeight << "\n";
@@ -39,7 +38,7 @@ EleTopMVASel::~EleTopMVASel()
 void EleTopMVASel::Select(const eventForNano *e)
 {
     clearBranch();
-    // 0: loose, 2: tight;
+    // 0: loose, 2: tight; 1: fake
     // POG: 4: veto; 5:POG loose
     //
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
@@ -137,6 +136,11 @@ void EleTopMVASel::Select(const eventForNano *e)
         elesTopMVAT_charge.push_back(e->Electron_charge.At(j));
         elesTopMVAT_index.push_back(j);
         elesTopMVAT_topMVAScore.push_back(topMVAScore);
+        //need eletron mother jet index
+        Int_t jetId = m_isRun3? std::any_cast<Short_t>(e->Electron_jetIdx.at(j)): std::any_cast<Int_t>(e->Electron_jetIdx.at(j));
+        elesTopMVAT_jetIdx.push_back(jetId); // Electron_jetIdx
+        // elesTopMVAT_isTight = ;
+
     } //
 };
 
@@ -149,6 +153,8 @@ void EleTopMVASel::clearBranch()
     elesTopMVAT_charge.clear();
     elesTopMVAT_index.clear();
     elesTopMVAT_topMVAScore.clear();
+    elesTopMVAT_jetIdx.clear();
+    elesTopMVAT_isTight = kFALSE;
 };
 
 std::vector<Double_t> &EleTopMVASel::getEtaVec()

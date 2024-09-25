@@ -34,6 +34,8 @@ private:
     std::vector<Int_t> elesTopMVAT_charge;
     std::vector<Int_t> elesTopMVAT_index;
     std::vector<Double_t> elesTopMVAT_topMVAScore;
+    std::vector<Int_t> elesTopMVAT_jetIdx;
+    Bool_t elesTopMVAT_isTight = kFALSE;
 };
 
 #endif
