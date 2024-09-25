@@ -22,7 +22,9 @@ TauSelBetter::TauSelBetter(TTree *outTree, const TString era, Bool_t isData, Boo
         {7, "TTTT"},
     };
 
-    outTree->Branch("taus" + tauWPMap[tauWP] + "_pt", &taus_pt);
+    // makeTauBranches(outTree, "F")
+    outTree->Branch("taus" + tauWPMap[tauWP] + "_pt", &taus_pt);//???how to update each tau variables for different WP then? 
+
     outTree->Branch("taus" + tauWPMap[tauWP] + "_eta", &taus_eta);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_phi", &taus_phi);
     outTree->Branch("taus" + tauWPMap[tauWP] + "_mass", &taus_mass);

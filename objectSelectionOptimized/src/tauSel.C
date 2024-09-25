@@ -48,6 +48,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
     //https://twiki.cern.ch/twiki/bin/view/CMS/TauIDRecommendationForRun3#Choice_of_the_tau_ID_algorithm
     clearBranch();
     //!!Here looping throug tau collection multiple times for different WP, not very efficient
+    // but then there's chanllenge of replicates of tau variables for different WP
 
     for (UInt_t j = 0; j < e->Tau_pt.GetSize(); ++j)
     {
@@ -193,6 +194,8 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         taus_jetEta.push_back(e->Jet_eta.At(itau_jetIdx));
         taus_jetMass.push_back(e->Jet_mass.At(itau_jetIdx));
         taus_jetPhi.push_back(e->Jet_phi.At(itau_jetIdx));
+        //
+        // taus_isTight.push_back(isVSjetM && isVSeVVVLoose && isVSmuVLoose);
     }
 };
 
