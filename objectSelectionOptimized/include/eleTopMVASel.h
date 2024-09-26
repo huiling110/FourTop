@@ -32,11 +32,11 @@ private:
     std::vector<Double_t> elesTopMVAT_phi;
     std::vector<Double_t> elesTopMVAT_mass;
     std::vector<Int_t> elesTopMVAT_charge;
-    std::vector<Int_t> elesTopMVAT_index;
     std::vector<Double_t> elesTopMVAT_topMVAScore;
     std::vector<Int_t> elesTopMVAF_jetIdx;
     std::vector<Bool_t> elesTopMVAF_isTight;
     std::vector<Double_t> elesTopMVAF_ptConeCorreted;
+    std::vector<UChar_t> elesTopMVAT_genPartFlav;//Electron_genPartFlav
 
     const std::map<TString, Double_t> m_ptRatioCutF = {
         {"2016preVFP", 0.5},

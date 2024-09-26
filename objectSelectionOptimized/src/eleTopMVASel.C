@@ -11,8 +11,8 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun
     outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_phi", &elesTopMVAT_phi);
     outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_mass", &elesTopMVAT_mass);
     outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_charge", &elesTopMVAT_charge);
-    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_index", &elesTopMVAT_index);
     outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_topMVAScore", &elesTopMVAT_topMVAScore);
+    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_genPartFlav", &elesTopMVAT_genPartFlav);
 
     if(m_type == 1){
         outTree->Branch("elesTopMVAF_isTight", &elesTopMVAF_isTight);
@@ -136,8 +136,9 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
         elesTopMVAT_phi.push_back(e->Electron_phi.At(j));
         elesTopMVAT_mass.push_back(e->Electron_mass.At(j));
         elesTopMVAT_charge.push_back(e->Electron_charge.At(j));
-        elesTopMVAT_index.push_back(j);
+        // elesTopMVAT_index.push_back(j);
         elesTopMVAT_topMVAScore.push_back(topMVAScore);
+        elesTopMVAT_genPartFlav.push_back(e->Electron_genPartFlav.At(j));
 
     } //
 };
@@ -149,8 +150,9 @@ void EleTopMVASel::clearBranch()
     elesTopMVAT_phi.clear();
     elesTopMVAT_mass.clear();
     elesTopMVAT_charge.clear();
-    elesTopMVAT_index.clear();
+    // elesTopMVAT_index.clear();
     elesTopMVAT_topMVAScore.clear();
+    elesTopMVAT_genPartFlav.clear();
     elesTopMVAF_jetIdx.clear();
     elesTopMVAF_ptConeCorreted.clear();
     elesTopMVAF_isTight.clear();

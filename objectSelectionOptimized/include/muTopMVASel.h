@@ -28,8 +28,9 @@ private:
     std::vector<Double_t> muonsTopMVAT_phi;
     std::vector<Double_t> muonsTopMVAT_mass;
     std::vector<Int_t> muonsTopMVAT_charge;
-    std::vector<Int_t> muonsTopMVAT_index;
+    // std::vector<Int_t> muonsTopMVAT_index;
     std::vector<Double_t> muonsTopMVAT_topMVAScore;
+    std::vector<UChar_t> muonsTopMVAT_genPartFlav;//Flavour of genParticle for MC matching to status==1 muons: 1 = prompt muon (including gamma*->mu mu), 15 = muon from prompt tau, 5 = muon from b, 4 = muon from c, 3 = muon from light or unknown, 0 = unmatched
     std::vector<Bool_t> muonsTopMVAF_isTight;
     std::vector<Double_t> muonsTopMVAF_ptConeCorreted;
 

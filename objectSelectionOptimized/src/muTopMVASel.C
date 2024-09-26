@@ -10,8 +10,9 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era,  const Bool_t isRun3
     outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_phi", &muonsTopMVAT_phi);
     outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_mass", &muonsTopMVAT_mass);
     outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_charge", &muonsTopMVAT_charge);
-    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_index", &muonsTopMVAT_index);
+    // outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_index", &muonsTopMVAT_index);
     outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_topMVAScore", &muonsTopMVAT_topMVAScore);
+    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_genPartFlav", &muonsTopMVAT_genPartFlav);
     if(m_type==1){
         outTree->Branch("muonsTopMVAF_isTight", &muonsTopMVAF_isTight);
         outTree->Branch("muonsTopMVAF_ptConeCorreted", &muonsTopMVAF_ptConeCorreted);
@@ -108,8 +109,8 @@ void MuTopMVASel::Select(const eventForNano *e)
         muonsTopMVAT_phi.push_back(e->Muon_phi.At(j));
         muonsTopMVAT_mass.push_back(e->Muon_mass.At(j));
         muonsTopMVAT_charge.push_back(e->Muon_charge.At(j));
-        muonsTopMVAT_index.push_back(j);
         muonsTopMVAT_topMVAScore.push_back(topLeptonScore);
+        muonsTopMVAT_genPartFlav.push_back(e->Muon_genPartFlav.At(j));
     }
 };
 
@@ -120,7 +121,7 @@ void MuTopMVASel::clearBranch()
     muonsTopMVAT_phi.clear();
     muonsTopMVAT_mass.clear();
     muonsTopMVAT_charge.clear();
-    muonsTopMVAT_index.clear();
+    muonsTopMVAT_genPartFlav.clear();
     muonsTopMVAT_topMVAScore.clear();
     muonsTopMVAF_isTight.clear();
     muonsTopMVAF_ptConeCorreted.clear();
