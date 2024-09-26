@@ -52,6 +52,7 @@ public:
                                         Electron_charge(reader, "Electron_charge"),
                                         Electron_r9(reader, "Electron_r9"),
                                         Electron_seedGain(reader, "Electron_seedGain"),
+                                        Electron_mvaFall17V2noIso_WPL(reader, "Electron_mvaFall17V2noIso_WPL"),
                                         // muon
                                         Muon_pt(reader, "Muon_pt"),
                                         Muon_eta(reader, "Muon_eta"),
@@ -359,6 +360,7 @@ public:
     TTreeReaderArray<Int_t> Electron_charge;
     TTreeReaderArray<Float_t> Electron_r9;
     TTreeReaderArray<UChar_t> Electron_seedGain;
+    TTreeReaderArray<Bool_t> Electron_mvaFall17V2noIso_WPL;
     // muon
     TTreeReaderArray<Float_t> Muon_pt;
     TTreeReaderArray<Float_t> Muon_eta;

@@ -4,18 +4,21 @@
 EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t type) : m_type{type}, m_era{era}, m_isRun3{isRun3}
 { // type for different electrons
     std::cout << "Initializing EleTopMVASel......\n";
-    outTree->Branch("elesTopMVAT_pt", &elesTopMVAT_pt);
-    outTree->Branch("elesTopMVAT_eta", &elesTopMVAT_eta);
-    outTree->Branch("elesTopMVAT_phi", &elesTopMVAT_phi);
-    outTree->Branch("elesTopMVAT_mass", &elesTopMVAT_mass);
-    outTree->Branch("elesTopMVAT_charge", &elesTopMVAT_charge);
-    outTree->Branch("elesTopMVAT_index", &elesTopMVAT_index);
-    outTree->Branch("elesTopMVAT_topMVAScore", &elesTopMVAT_topMVAScore);
-    // outTree->Branch("elesTopMVAT_jetIdx", &elesTopMVAT_jetIdx);
-    // outTree->Branch("elesTopMVAT_isTight", &elesTopMVAT_isTight);
-
-    // m_isRun3 = TTTT::isRun3(m_era);
     std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
+
+    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_pt", &elesTopMVAT_pt);
+    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_eta", &elesTopMVAT_eta);
+    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_phi", &elesTopMVAT_phi);
+    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_mass", &elesTopMVAT_mass);
+    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_charge", &elesTopMVAT_charge);
+    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_index", &elesTopMVAT_index);
+    outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_topMVAScore", &elesTopMVAT_topMVAScore);
+
+    if(m_type == 1){
+        outTree->Branch("elesTopMVAF_isTight", &elesTopMVAT_isTight);
+        outTree->Branch("elesTopMVAF_jetIdx", &elesTopMVAT_jetIdx);
+    }
+
 
     // set up xgboost booster
     TString baseDir = "./";
@@ -40,7 +43,6 @@ void EleTopMVASel::Select(const eventForNano *e)
     clearBranch();
     // 0: loose, 2: tight; 1: fake
     // POG: 4: veto; 5:POG loose
-    //
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
         Double_t pt = e->Electron_pt.At(j);
@@ -67,7 +69,7 @@ void EleTopMVASel::Select(const eventForNano *e)
             if (!(iE_cutBased >= 1))
                 continue;
         }
-        if (m_type == 0 || m_type == 2)
+        if (m_type == 0 || m_type == 2 || m_type == 1)
         {
             // IP
             if (!(fabs(e->Electron_dxy.At(j)) < 0.05))
@@ -83,7 +85,7 @@ void EleTopMVASel::Select(const eventForNano *e)
             if (!(int(e->Electron_lostHits.At(j)) < 1))
                 continue;
         }
-        if (m_type == 2)
+        if (m_type == 2|| m_type == 1)
         {
             if (!e->Electron_convVeto.At(j))
                 continue;                             // the number of missing pixel hits and a conversion veto based on the vertex fit probability. To reject electrons originating from photon conversion
@@ -98,7 +100,7 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"jetNDauCharged", e->Electron_jetNDauCharged.At(j)},
                 {"miniPFRelIso_chg", e->Electron_miniPFRelIso_chg[j]},
                 {"miniPFRelIso_all", e->Electron_miniPFRelIso_all[j]},
-                {"jetPtRelv2", e->Electron_jetPtRelv2[j]},
+                {"jetPtRelv2", e->Electron_jetPtRelv2[j]},//Relative momentum of the lepton with respect to the closest jet after subtracting the lepton
                 {"jetPtRatio", jetPtRatio},
                 {"pfRelIso03_all", e->Electron_pfRelIso03_all[j]},
                 {"jetBTag", jetBTag},
@@ -108,8 +110,17 @@ void EleTopMVASel::Select(const eventForNano *e)
                 {"mvaFall17V2noIso", mvaFall17V2noIso},
             }; // only for 2022
             topMVAScore = OS::TopLeptonEvaluate(inputFeatures, m_booster[0]);
-            if (!(topMVAScore > 0.81))
-            continue;
+            Bool_t isTight = topMVAScore > 0.81;
+
+            if(m_type ==2){
+                if (!isTight) continue;
+            }else if(m_type ==1){//Fakeable electron same as SS of 4tops
+                // Bool_t ifFake = e->Electron_mvaFall17V2noIso_WPL[j] && jetBTag<0.1 && jetPtRatio>0.5;
+                Bool_t ifFake = e->Electron_mvaFall17V2noIso_WPL[j] && jetBTag<0.1 && jetPtRatio>m_ptRatioCutF.at(m_era);
+                if (!(isTight || ifFake )) continue;
+                elesTopMVAT_isTight.push_back(isTight);
+                elesTopMVAT_jetIdx.push_back(iE_jetIdx); // Electron_jetIdx
+            }
         }
 
         elesTopMVAT_pt.push_back(e->Electron_pt.At(j));
@@ -119,10 +130,6 @@ void EleTopMVASel::Select(const eventForNano *e)
         elesTopMVAT_charge.push_back(e->Electron_charge.At(j));
         elesTopMVAT_index.push_back(j);
         elesTopMVAT_topMVAScore.push_back(topMVAScore);
-        //need eletron mother jet index
-        // Int_t jetId = m_isRun3? std::any_cast<Short_t>(e->Electron_jetIdx.at(j)): std::any_cast<Int_t>(e->Electron_jetIdx.at(j));
-        // elesTopMVAT_jetIdx.push_back(jetId); // Electron_jetIdx
-        // elesTopMVAT_isTight = ;
 
     } //
 };
@@ -136,8 +143,8 @@ void EleTopMVASel::clearBranch()
     elesTopMVAT_charge.clear();
     elesTopMVAT_index.clear();
     elesTopMVAT_topMVAScore.clear();
-    // elesTopMVAT_jetIdx.clear();
-    // elesTopMVAT_isTight = kFALSE;
+    elesTopMVAT_jetIdx.clear();
+    elesTopMVAT_isTight.clear();
 };
 
 std::vector<Double_t> &EleTopMVASel::getEtaVec()

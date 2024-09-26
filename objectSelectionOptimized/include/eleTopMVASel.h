@@ -35,7 +35,19 @@ private:
     std::vector<Int_t> elesTopMVAT_index;
     std::vector<Double_t> elesTopMVAT_topMVAScore;
     std::vector<Int_t> elesTopMVAT_jetIdx;
-    Bool_t elesTopMVAT_isTight = kFALSE;
+    std::vector<Bool_t> elesTopMVAT_isTight;
+
+    const std::map<TString, Double_t> m_ptRatioCutF = {
+        {"2016preVFP", 0.5},
+        {"2016postVFP", 0.5},
+        {"2017", 0.4},
+        {"2018", 0.4},
+    };
+    const std::map<Int_t, TString> WPMap = {
+        {0, "L"},
+        {2, "T"},
+        {1, "F"},
+    };
 };
 
 #endif
