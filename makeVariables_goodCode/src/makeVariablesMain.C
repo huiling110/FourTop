@@ -27,8 +27,6 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         eleVarMaker.makeVariables(e);
         eleTopVarMaker.makeVariables(e);
 
-        // std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT(muTopTVarMaker.getLorentzObjs().begin(), muTopTVarMaker.getLorentzObjs().end());
-        // leptonsMVAT.insert(leptonsMVAT.end(), elesLorentz.begin(), elesLorentz.end());
         std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT;
         addLorentzVector(muTopTVarMaker.getLorentzObjs(), eleTopVarMaker.getLorentzObjs(), leptonsMVAT);//Pt already sorted
         lepVarMaker.makeVariables(leptonsMVAT);
