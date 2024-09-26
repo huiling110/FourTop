@@ -138,10 +138,11 @@ namespace OS
         return minDeltaR;
     };
 
-    Bool_t overlapRemove(Double_t tauEta, Double_t tauPhi, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec ){
+    // Bool_t overlapRemove(Double_t tauEta, Double_t tauPhi, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec ){
+    Bool_t overlapRemove(Double_t tauEta, Double_t tauPhi, const std::vector<Double_t> &lepEtaVec, const std::vector<Double_t> &lepPhiVec, const coneSize ){
         Bool_t removeTau = kFALSE;
         Double_t min = deltRmin(tauEta, tauPhi, lepEtaVec, lepPhiVec);
-        if (min < 0.4) {
+        if (min < coneSize) {
             removeTau = kTRUE;
         }
         return removeTau;
