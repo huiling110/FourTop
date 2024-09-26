@@ -1,8 +1,5 @@
 #ifndef MUTOPMVASEL_H
 #define MUETOPMVASEL_H
-
-
-
 #include "eventReader_nano.h"
 #include "usefulFunc.h"
 #include "inputMap.h"
@@ -33,6 +30,14 @@ private:
     std::vector<Int_t> muonsTopMVAT_charge;
     std::vector<Int_t> muonsTopMVAT_index;
     std::vector<Double_t> muonsTopMVAT_topMVAScore;
+    std::vector<Bool_t> muonsTopMVAF_isTight;
+    std::vector<Double_t> muonsTopMVAF_ptConeCorreted;
+
+    const std::map<Int_t, TString> WPMap = {
+        {0, "L"},
+        {2, "T"},
+        {1, "F"},
+    };
 };
 
 #endif

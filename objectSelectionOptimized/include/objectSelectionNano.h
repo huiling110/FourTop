@@ -100,10 +100,10 @@ private:
     HLTSelector HLTselection{m_outTree, m_era, m_processName, m_isData, m_isRun3};
     EleTopMVASel eleTopMVATSel{m_outTree, m_era, m_isRun3};
     EleTopMVASel eleTopMVAFSel{m_outTree, m_era, m_isRun3, 1};
-    MuSel muSel{m_outTree, m_era, m_isRun3, 2};//muons Tight for both run 2 and run 3
-    // MuSel muSelT{m_outTree, m_era, m_isRun3, 3};
-    EleMVASel eleMVASel{m_outTree, m_era,m_isData, m_isRun3, 2, m_eleScale, m_eleSmear };//!!!
+    MuTopMVASel muTopMVAFSel{m_outTree, m_era, m_isRun3, 1};
     MuTopMVASel muTopMVATSel{m_outTree, m_era, m_isRun3};
+    MuSel muSel{m_outTree, m_era, m_isRun3, 2};//muons Tight for both run 2 and run 3
+    EleMVASel eleMVASel{m_outTree, m_era,m_isData, m_isRun3, 2, m_eleScale, m_eleSmear };//!!!
     TauSel tauSel{m_outTree, m_era, m_isData, m_isRun3, 3, m_TES};
     TauSel tauSelF{m_outTree, m_era, m_isData, m_isRun3, 2, m_TES};
     TauSel tauSelL{m_outTree, m_era, m_isData, m_isRun3, 1, m_TES};

@@ -55,6 +55,7 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         eleTopMVATSel.Select(e);
         muTopMVATSel.Select(e);
         eleTopMVAFSel.Select(e);
+        muTopMVAFSel.Select(e);
 
         //leptons for overlap removal
         std::vector<Double_t> muEtaVec = m_isRun3 ? muSel.getEtaVec(): muTopMVATSel.getEtaVec();

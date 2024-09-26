@@ -4,14 +4,18 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era,  const Bool_t isRun3
 { // m_type for different electrons
     std::cout << "Initializing MuTopMVASel......\n";
     std::cout << "m_era=" << m_era << "; m_isRun3=" << m_isRun3 << "; m_type=" << m_type<< "\n";
-    outTree->Branch("muonsTopMVAT_pt", &muonsTopMVAT_pt);
-    outTree->Branch("muonsTopMVAT_eta", &muonsTopMVAT_eta);
-    outTree->Branch("muonsTopMVAT_phi", &muonsTopMVAT_phi);
-    outTree->Branch("muonsTopMVAT_mass", &muonsTopMVAT_mass);
-    outTree->Branch("muonsTopMVAT_charge", &muonsTopMVAT_charge);
-    outTree->Branch("muonsTopMVAT_index", &muonsTopMVAT_index);
-    outTree->Branch("muonsTopMVAT_topMVAScore", &muonsTopMVAT_topMVAScore);
-    // outTree->Branch("muonsTopMVAT_", &muonsTopMVAT_);
+
+    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_pt", &muonsTopMVAT_pt);
+    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_eta", &muonsTopMVAT_eta);
+    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_phi", &muonsTopMVAT_phi);
+    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_mass", &muonsTopMVAT_mass);
+    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_charge", &muonsTopMVAT_charge);
+    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_index", &muonsTopMVAT_index);
+    outTree->Branch("muonsTopMVA" +WPMap.at(m_type)+ "_topMVAScore", &muonsTopMVAT_topMVAScore);
+    if(m_type==1){
+        outTree->Branch("muonsTopMVAF_isTight", &muonsTopMVAF_isTight);
+        outTree->Branch("muonsTopMVAF_ptConeCorreted", &muonsTopMVAF_ptConeCorreted);
+    }
 
     // set up xgboost booster
     // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
@@ -33,21 +37,14 @@ MuTopMVASel::~MuTopMVASel()
 void MuTopMVASel::Select(const eventForNano *e)
 {
     clearBranch();
-    // SS of TTTT: 0 for Loose; 2 tight
+    // SS of TTTT: 0 for Loose; 2 tight; 1: fake
     // POG: 5: loose
     Double_t topLeptonScore = -99.;
     for (UInt_t j = 0; j < e->Muon_pt.GetSize(); ++j)
     {
         //dealing with differences of nanoAODv9 and nanoAODv12
-        Int_t iMu_jetIdx = 0;
-        Int_t iMu_tightCharge = 0;
-        if(m_isRun3){
-            iMu_jetIdx = std::any_cast<Short_t>(e->Muon_jetIdx.at(j));
-            iMu_tightCharge = std::any_cast<UChar_t>(e->Muon_tightCharge.at(j));
-        }else{
-            iMu_jetIdx = std::any_cast<Int_t>(e->Muon_jetIdx.at(j));
-            iMu_tightCharge = std::any_cast<Int_t>(e->Muon_tightCharge.at(j));
-        }
+        Int_t iMu_jetIdx = m_isRun3? std::any_cast<Short_t>(e->Muon_jetIdx.at(j)): std::any_cast<Int_t>(e->Muon_jetIdx.at(j));
+        Int_t iMu_tightCharge = m_isRun3? std::any_cast<UChar_t>(e->Muon_tightCharge.at(j)): std::any_cast<Int_t>(e->Muon_tightCharge.at(j));
 
         if (!(e->Muon_pt.At(j) > 10))
             continue;
@@ -58,7 +55,7 @@ void MuTopMVASel::Select(const eventForNano *e)
             if (!e->Muon_looseId.At(j))
                 continue;
         }
-        if (m_type == 0 || m_type == 2)
+        if (m_type == 0 || m_type == 2|| m_type == 1)
         {
 
             if (!(fabs(e->Muon_dxy.At(j)) < 0.05))
@@ -74,10 +71,9 @@ void MuTopMVASel::Select(const eventForNano *e)
             if (!e->Muon_mediumId.At(j))
                 continue;
         }
-        if (m_type == 2)
+        if (m_type == 2|| m_type == 1)
         {
             Float_t jetPtRatio = 1. / (e->Muon_jetRelIso[j] + 1.);
-            // Float_t jetBTag = e->Jet_btagDeepFlavB[e->Muon_jetIdx[j]];//!!!
             Float_t jetBTag = e->Jet_btagDeepFlavB[iMu_jetIdx];
             std::map<TString, Float_t> inputFeatures = {
                 {"pt", e->Muon_pt[j]},
@@ -95,8 +91,16 @@ void MuTopMVASel::Select(const eventForNano *e)
                 {"mvaFall17V2noIso", e->Muon_segmentComp[j]},
             }; // Compatibility of track segments in the muon system with the expected pattern of a minimum ionizing particle
             topLeptonScore = OS::TopLeptonEvaluate(inputFeatures, m_booster[0]);
-            if (!(topLeptonScore > 0.64))
-                continue;
+            Bool_t isTight = topLeptonScore > 0.64;
+            
+            if(m_type==2){
+                if (!(isTight))                continue;
+            }else if(m_type==1){
+                Bool_t isFake = jetBTag < 0.025 && jetPtRatio>0.45;
+                if (!(isFake || isTight)) continue;
+                muonsTopMVAF_isTight.push_back(isTight);
+                muonsTopMVAF_ptConeCorreted.push_back(e->Muon_pt[j] * jetPtRatio);
+            }
         }
 
         muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));
@@ -118,6 +122,8 @@ void MuTopMVASel::clearBranch()
     muonsTopMVAT_charge.clear();
     muonsTopMVAT_index.clear();
     muonsTopMVAT_topMVAScore.clear();
+    muonsTopMVAF_isTight.clear();
+    muonsTopMVAF_ptConeCorreted.clear();
 };
 
 std::vector<Double_t> &MuTopMVASel::getEtaVec()
