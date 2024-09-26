@@ -58,10 +58,10 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         eleTopMVAFSel.Select(e, muTopMVAFSel.getEtaVec(), muTopMVAFSel.getPhiVec());//!need overlap removal with fakeable muon
 
         //leptons for overlap removal
-        std::vector<Double_t> muEtaVec = m_isRun3 ? muSel.getEtaVec(): muTopMVATSel.getEtaVec();
-        std::vector<Double_t> muPhiVec = m_isRun3 ? muSel.getPhiVec(): muTopMVATSel.getPhiVec();
-        std::vector<Double_t> eleEtaVec = m_isRun3 ? eleMVASel.getEtaVec(): eleTopMVATSel.getEtaVec();
-        std::vector<Double_t> elePhiVec = m_isRun3 ? eleMVASel.getPhiVec(): eleTopMVATSel.getPhiVec();
+        std::vector<Double_t> muEtaVec = m_isRun3 ? muSel.getEtaVec(): muTopMVAFSel.getEtaVec();
+        std::vector<Double_t> muPhiVec = m_isRun3 ? muSel.getPhiVec(): muTopMVAFSel.getPhiVec();
+        std::vector<Double_t> eleEtaVec = m_isRun3 ? eleMVASel.getEtaVec(): eleTopMVAFSel.getEtaVec();
+        std::vector<Double_t> elePhiVec = m_isRun3 ? eleMVASel.getPhiVec(): eleTopMVAFSel.getPhiVec();
 
         // tau selection
         tauSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec);
