@@ -55,6 +55,7 @@ private:
     std::vector<Double_t> jets_btags;
     std::vector<Double_t> jets_btagsPT;
     std::vector<Double_t> jets_btagsPN;
+
 };
 
 #endif

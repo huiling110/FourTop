@@ -15,8 +15,9 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun
     outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_topMVAScore", &elesTopMVAT_topMVAScore);
 
     if(m_type == 1){
-        outTree->Branch("elesTopMVAF_isTight", &elesTopMVAT_isTight);
-        outTree->Branch("elesTopMVAF_jetIdx", &elesTopMVAT_jetIdx);
+        outTree->Branch("elesTopMVAF_isTight", &elesTopMVAF_isTight);
+        outTree->Branch("elesTopMVAF_jetIdx", &elesTopMVAF_jetIdx);
+        outTree->Branch("elesTopMVAF_ptConeCorreted", &elesTopMVAF_ptConeCorreted);
     }
 
 
@@ -118,8 +119,9 @@ void EleTopMVASel::Select(const eventForNano *e)
                 // Bool_t ifFake = e->Electron_mvaFall17V2noIso_WPL[j] && jetBTag<0.1 && jetPtRatio>0.5;
                 Bool_t ifFake = e->Electron_mvaFall17V2noIso_WPL[j] && jetBTag<0.1 && jetPtRatio>m_ptRatioCutF.at(m_era);
                 if (!(isTight || ifFake )) continue;
-                elesTopMVAT_isTight.push_back(isTight);
-                elesTopMVAT_jetIdx.push_back(iE_jetIdx); // Electron_jetIdx
+                elesTopMVAF_isTight.push_back(isTight);
+                elesTopMVAF_jetIdx.push_back(iE_jetIdx); // Electron_jetIdx
+                elesTopMVAF_ptConeCorreted.push_back(pt*jetPtRatio);
             }
         }
 
@@ -143,8 +145,9 @@ void EleTopMVASel::clearBranch()
     elesTopMVAT_charge.clear();
     elesTopMVAT_index.clear();
     elesTopMVAT_topMVAScore.clear();
-    elesTopMVAT_jetIdx.clear();
-    elesTopMVAT_isTight.clear();
+    elesTopMVAF_jetIdx.clear();
+    elesTopMVAF_ptConeCorreted.clear();
+    elesTopMVAF_isTight.clear();
 };
 
 std::vector<Double_t> &EleTopMVASel::getEtaVec()

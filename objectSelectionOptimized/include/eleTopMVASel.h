@@ -34,8 +34,9 @@ private:
     std::vector<Int_t> elesTopMVAT_charge;
     std::vector<Int_t> elesTopMVAT_index;
     std::vector<Double_t> elesTopMVAT_topMVAScore;
-    std::vector<Int_t> elesTopMVAT_jetIdx;
-    std::vector<Bool_t> elesTopMVAT_isTight;
+    std::vector<Int_t> elesTopMVAF_jetIdx;
+    std::vector<Bool_t> elesTopMVAF_isTight;
+    std::vector<Double_t> elesTopMVAF_ptConeCorreted;
 
     const std::map<TString, Double_t> m_ptRatioCutF = {
         {"2016preVFP", 0.5},
