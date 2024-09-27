@@ -68,14 +68,14 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                 if(e->muonsTopMVAF_isTight.At(0)){
                     lepTopMVAF_FRweight = 1.0;
                 }else{
-                     FR = TTTT::get2DSF(e->muonsTopMVAF_pt.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
+                     FR = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
                     lepTopMVAF_FRweight = FR/(1.-FR);//!dangerous
                 }
             }else{
                 if(e->elesTopMVAF_isTight.At(0)){
                     lepTopMVAF_FRweight = 1.0;
                 }else{
-                    FR = TTTT::get2DSF(e->elesTopMVAF_pt.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
+                    FR = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
                     lepTopMVAF_FRweight = FR/(1.-FR);//!dangerous
                 }
             }
@@ -84,8 +84,10 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                 if(e->muonsTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(0)){
                     lepTopMVAF_FRweight = 1.0;
                 }else{
-                    Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_pt.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
-                    Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_pt.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
+                    // Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_pt.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
+                    // Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_pt.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
+                    Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
+                    Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
                     if(e->muonsTopMVAF_isTight.At(0) && !e->elesTopMVAF_isTight.At(0)){
                         lepTopMVAF_FRweight = FR2/(1.-FR2);
                     }else if(!e->muonsTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(0)){
@@ -95,8 +97,8 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     }
                 }
             }else if(muonSize==2){
-                Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_pt.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
-                Double_t FR2 = TTTT::get2DSF(e->muonsTopMVAF_pt.At(1), TMath::Abs(e->muonsTopMVAF_eta.At(1)), muFR_h, 0);
+                Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
+                Double_t FR2 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(1), TMath::Abs(e->muonsTopMVAF_eta.At(1)), muFR_h, 0);
                 if(e->muonsTopMVAF_isTight.At(0) && e->muonsTopMVAF_isTight.At(1)){
                     lepTopMVAF_FRweight = 1.0;
                 }else if(e->muonsTopMVAF_isTight.At(0) && !e->muonsTopMVAF_isTight.At(1)){
@@ -107,8 +109,8 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     lepTopMVAF_FRweight = -(FR1*FR2/(1.-FR1)/(1.-FR2));
                 }
             }else{//muonSize==0
-                Double_t FR1 = TTTT::get2DSF(e->elesTopMVAF_pt.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
-                Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_pt.At(1), TMath::Abs(e->elesTopMVAF_eta.At(1)), eleFR_h, 0);
+                Double_t FR1 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
+                Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(1), TMath::Abs(e->elesTopMVAF_eta.At(1)), eleFR_h, 0);
                 if(e->elesTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(1)){
                     lepTopMVAF_FRweight = 1.0;
                 }else if(e->elesTopMVAF_isTight.At(0) && !e->elesTopMVAF_isTight.At(1)){
