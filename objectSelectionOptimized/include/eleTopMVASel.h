@@ -11,7 +11,7 @@
 class EleTopMVASel
 {
 public:
-    EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun3=kFALSE, const Int_t type = 2);
+    EleTopMVASel(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3=kFALSE, const Int_t type = 2);
     ~EleTopMVASel();
     void Select(const eventForNano *e, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec);
     std::vector<Double_t> &getEtaVec();
@@ -23,8 +23,8 @@ public:
 private:
     Int_t m_type = 2;
     TString m_era;
+    Bool_t m_isData = kFALSE;
     Bool_t m_isRun3 = kFALSE;
-    // BoosterHandle m_booster[2];
     BoosterHandle m_booster[1];
     // output branches
     std::vector<Double_t> elesTopMVAT_pt;

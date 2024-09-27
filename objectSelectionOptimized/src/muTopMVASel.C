@@ -1,6 +1,6 @@
 #include "../include/muTopMVASel.h"
 
-MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era,  const Bool_t isRun3,const Int_t m_type) : m_type{m_type}, m_era{era}, m_isRun3{isRun3}
+MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,  const Bool_t isRun3,const Int_t m_type) : m_type{m_type}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}
 { // m_type for different electrons
     std::cout << "Initializing MuTopMVASel......\n";
     std::cout << "m_era=" << m_era << "; m_isRun3=" << m_isRun3 << "; m_type=" << m_type<< "\n";
@@ -110,7 +110,9 @@ void MuTopMVASel::Select(const eventForNano *e)
         muonsTopMVAT_mass.push_back(e->Muon_mass.At(j));
         muonsTopMVAT_charge.push_back(e->Muon_charge.At(j));
         muonsTopMVAT_topMVAScore.push_back(topLeptonScore);
-        muonsTopMVAT_genPartFlav.push_back(e->Muon_genPartFlav.At(j));
+        if(!m_isData){
+            muonsTopMVAT_genPartFlav.push_back(e->Muon_genPartFlav->At(j));
+        }
     }
 };
 

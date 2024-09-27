@@ -1,7 +1,7 @@
 #include "../include/eleTopMVASel.h"
 #include "../myLibrary/commenFunction.h"
 
-EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isRun3, const Int_t type) : m_type{type}, m_era{era}, m_isRun3{isRun3}
+EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3, const Int_t type) : m_type{type}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}
 { // type for different electrons
     std::cout << "Initializing EleTopMVASel......\n";
     std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
@@ -138,9 +138,11 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
         elesTopMVAT_charge.push_back(e->Electron_charge.At(j));
         // elesTopMVAT_index.push_back(j);
         elesTopMVAT_topMVAScore.push_back(topMVAScore);
-        elesTopMVAT_genPartFlav.push_back(e->Electron_genPartFlav.At(j));
-
+        if(!m_isData){
+            elesTopMVAT_genPartFlav.push_back(e->Electron_genPartFlav->At(j));
+        }
     } //
+
 };
 
 void EleTopMVASel::clearBranch()
@@ -150,7 +152,6 @@ void EleTopMVASel::clearBranch()
     elesTopMVAT_phi.clear();
     elesTopMVAT_mass.clear();
     elesTopMVAT_charge.clear();
-    // elesTopMVAT_index.clear();
     elesTopMVAT_topMVAScore.clear();
     elesTopMVAT_genPartFlav.clear();
     elesTopMVAF_jetIdx.clear();

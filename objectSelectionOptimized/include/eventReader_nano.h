@@ -53,7 +53,6 @@ public:
                                         Electron_r9(reader, "Electron_r9"),
                                         Electron_seedGain(reader, "Electron_seedGain"),
                                         Electron_mvaFall17V2noIso_WPL(reader, "Electron_mvaFall17V2noIso_WPL"),
-                                        Electron_genPartFlav(reader, "Electron_genPartFlav"),
                                         // muon
                                         Muon_pt(reader, "Muon_pt"),
                                         Muon_eta(reader, "Muon_eta"),
@@ -76,7 +75,6 @@ public:
                                         Muon_phi(reader, "Muon_phi"),
                                         Muon_charge(reader, "Muon_charge"),
                                         Muon_miniIsoId(reader, "Muon_miniIsoId"),
-                                        Muon_genPartFlav(reader, "Muon_genPartFlav"),
                                         Muon_tightCharge(reader, "Muon_tightCharge"),
                                         // tau
                                         Tau_pt(reader, "Tau_pt"),
@@ -182,6 +180,8 @@ public:
         OS::readPointer(genWeight, reader, "genWeight");
         OS::readPointerArray(Tau_genPartFlav, reader, "Tau_genPartFlav");
         OS::readPointer(nGenVisTau, reader, "nGenVisTau");
+        OS::readPointerArray(Electron_genPartFlav, reader, "Electron_genPartFlav");
+        OS::readPointerArray(Muon_genPartFlav, reader, "Muon_genPartFlav");
 
         // other branch not consistent between run2 and run3
         OS::readPointerArray(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
@@ -363,7 +363,7 @@ public:
     TTreeReaderArray<Float_t> Electron_r9;
     TTreeReaderArray<UChar_t> Electron_seedGain;
     TTreeReaderArray<Bool_t> Electron_mvaFall17V2noIso_WPL;
-    TTreeReaderArray<UChar_t> Electron_genPartFlav; //Flavour of genParticle (DressedLeptons for electrons) for MC matching to status==1 electrons or photons: 1 = prompt electron (including gamma*->mu mu), 15 = electron from prompt tau, 22 = prompt photon (likely conversion), 5 = electron from b, 4 = electron from c, 3 = electron from light or unknown, 0 = unmatched
+    TTreeReaderArray<UChar_t>* Electron_genPartFlav = nullptr; //Flavour of genParticle (DressedLeptons for electrons) for MC matching to status==1 electrons or photons: 1 = prompt electron (including gamma*->mu mu), 15 = electron from prompt tau, 22 = prompt photon (likely conversion), 5 = electron from b, 4 = electron from c, 3 = electron from light or unknown, 0 = unmatched
     // muon
     TTreeReaderArray<Float_t> Muon_pt;
     TTreeReaderArray<Float_t> Muon_eta;
@@ -386,7 +386,7 @@ public:
     TTreeReaderArray<Float_t> Muon_phi;
     TTreeReaderArray<Int_t> Muon_charge;
     TTreeReaderArray<UChar_t> Muon_miniIsoId;
-    TTreeReaderArray<UChar_t> Muon_genPartFlav;
+    TTreeReaderArray<UChar_t>* Muon_genPartFlav = nullptr;
     DynamicBranchReader Muon_tightCharge; //!!!
     // tau
     TTreeReaderArray<Float_t> Tau_pt;
