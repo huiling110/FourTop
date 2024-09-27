@@ -13,17 +13,17 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
     outTree->Branch(objName+ "_2charge", &lepTopMVAT_2charge);
 
     if(type==1){
-        outTree->Branch(objName + "_1isTight", &elesTopMVAF_1isTight);
-        outTree->Branch(objName + "_2isTight", &elesTopMVAF_2isTight);
-        outTree->Branch(objName + "_1isTightPrompt", &elesTopMVAF_1isTightPrompt);
-        outTree->Branch(objName + "_2isTightPrompt", &elesTopMVAF_2isTightPrompt);
-        outTree->Branch(objName + "_1isTight", &muonsTopMVAF_1isTight);
-        outTree->Branch(objName + "_2isTight", &muonsTopMVAF_2isTight);
-        outTree->Branch(objName + "_1isTightPrompt", &muonsTopMVAF_1isTightPrompt);
-        outTree->Branch(objName + "_2isTightPrompt", &muonsTopMVAF_2isTightPrompt);
-        outTree->Branch(objName + "_FRweight", &lepTopMVAF_FRweight);
-        outTree->Branch(objName + "_1ptConeCorreted", &elesTopMVAF_1ptConeCorreted);
-        outTree->Branch(objName + "_2ptConeCorreted", &elesTopMVAF_2ptConeCorreted);
+        outTree->Branch(  "elesTopMVAF_1isTight", &elesTopMVAF_1isTight);
+        outTree->Branch(  "elesTopMVAF_2isTight", &elesTopMVAF_2isTight);
+        outTree->Branch(  "elesTopMVAF_1isTightPrompt", &elesTopMVAF_1isTightPrompt);
+        outTree->Branch(  "elesTopMVAF_2isTightPrompt", &elesTopMVAF_2isTightPrompt);
+        outTree->Branch(  "muonsTopMVAF_1isTight", &muonsTopMVAF_1isTight);
+        outTree->Branch(  "muonsTopMVAF_2isTight", &muonsTopMVAF_2isTight);
+        outTree->Branch(  "muonsTopMVAF_1isTightPrompt", &muonsTopMVAF_1isTightPrompt);
+        outTree->Branch(  "muonsTopMVAF_2isTightPrompt", &muonsTopMVAF_2isTightPrompt);
+        outTree->Branch(  "lepTopMVAF_FRweight", &lepTopMVAF_FRweight);
+        outTree->Branch(  "lepTopMVAF_1ptConeCorreted", &lepTopMVAF_1ptConeCorreted);
+        outTree->Branch(  "lepTopMVAF_2ptConeCorreted", &lepTopMVAF_2ptConeCorreted);
 
 
         std::map<TString, TString> eraHistMap = {
@@ -59,18 +59,17 @@ void LepVarMaker::makeVariables(const EventForMV* e){
         muonsTopMVAF_1isTight = muonSize > 0 ? e->muonsTopMVAF_isTight.At(0) : kFALSE;
         muonsTopMVAF_2isTight = muonSize > 1 ? e->muonsTopMVAF_isTight.At(1) : kFALSE;
 
-        lep_ptConeCorretd.clear();
+        lep_ptConeCorrected.clear();
         for (UInt_t i = 0; i < muonSize; i++)
         {
-            lep_ptConeCorrectd.push_back(e->muonsTopMVAF_ptConeCorreted.At(i));
+            lep_ptConeCorrected.push_back(e->muonsTopMVAF_ptConeCorreted.At(i));
         }
         for(UInt_t i=0; i<eleSize; i++){
-            lep_ptConeCorrectd.push_back(e->elesTopMVAF_ptConeCorreted.At(i));
+            lep_ptConeCorrected.push_back(e->elesTopMVAF_ptConeCorreted.At(i));
         }
-        std::sort(lep_ptConeCorrctd.begin(), lep_ptConeCorrectd.end(), std::greater<Double_t>());
-
-        lepTopMVAF_1ptConeCorreted = lep_ptConeCorrectd.size()>0? lep_ptConeCorrectd.at(0): -99;
-        lepTopMVAF_2ptConeCorreted = lep_ptConeCorrectd.size()>1? lep_ptConeCorrectd.at(1): -99;
+        std::sort(lep_ptConeCorrected.begin(), lep_ptConeCorrected.end(), std::greater<Double_t>());
+        lepTopMVAF_1ptConeCorreted = lep_ptConeCorrected.size()>0? lep_ptConeCorrected.at(0): -99;
+        lepTopMVAF_2ptConeCorreted = lep_ptConeCorrected.size()>1? lep_ptConeCorrected.at(1): -99;
 
         if (!m_isData)
         {
@@ -191,6 +190,8 @@ void LepVarMaker::clearBranch(){
     lepTopMVAT_2pt = -99;
     lepTopMVAT_2eta = -99;
     lepTopMVAT_2phi = -99;
+    lepTopMVAF_1ptConeCorreted = -99.;
+    lepTopMVAF_2ptConeCorreted = -99;
 
     lepTopMVAF_FRweight = 1.0;
     elesTopMVAF_1isTight = kFALSE;

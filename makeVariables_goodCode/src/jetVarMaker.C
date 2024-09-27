@@ -137,6 +137,8 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e)
     case 0:
         getLorentzVec(e->jets_pt, e->jets_eta, e->jets_phi, e->jets_mass, objsLorentz);
         break;
+    default:
+        break;
     // case 1:
     //     getLorentzVec(e->jetsT_pt, e->jetsT_eta, e->jetsT_phi, e->jetsT_mass, objsLorentz);
     //     break;

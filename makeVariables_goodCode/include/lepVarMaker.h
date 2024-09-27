@@ -36,7 +36,7 @@ private:
     Bool_t lepTopMVAF_2ptConeCorreted;
 
 
-    std::vector<Double_t> lep_ptConeCorrectd;
+    std::vector<Double_t> lep_ptConeCorrected;
     std::vector<ROOT::Math::PtEtaPhiMVector> eles;
     std::vector<ROOT::Math::PtEtaPhiMVector> mus;
 
