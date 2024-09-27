@@ -132,6 +132,13 @@ namespace MV
         {"2016postVFP", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0FR_measure1prong/results/fakeRateInPtEta.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0FR_measure3prong/results/fakeRateInPtEta.root"}},
         {"2016preVFP", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0FR_measure1prong/results/fakeRateInPtEta.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0FR_measure3prong/results/fakeRateInPtEta.root"}},
     };
+
+    inline const std::map<TString, std::array<TString, 2>> lepFR_map = {
+        {"2016preVFP", {"../inputFiles/FR_fromSS/fakeRateMap_data_electron_2016Merged_mT.root", "../inputFiles/FR_fromSS/fakeRateMap_data_muon_2016Merged_mT.root"}},
+        {"2016postVFP", {"../inputFiles/FR_fromSS/fakeRateMap_data_electron_2016Merged_mT.root", "../inputFiles/FR_fromSS/fakeRateMap_data_muon_2016Merged_mT.root"}},
+        {"2017", {"../inputFiles/FR_fromSS/fakeRateMap_data_electron_2017_mT.root", "../inputFiles/FR_fromSS/fakeRateMap_data_muon_2017_mT.root"}},
+        {"2018", {"../inputFiles/FR_fromSS/fakeRateMap_data_electron_2018_mT.root", "../inputFiles/FR_fromSS/fakeRateMap_data_muon_2018_mT.root"}},
+    };
 };
 
 #endif
