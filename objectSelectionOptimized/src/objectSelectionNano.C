@@ -99,7 +99,7 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         systWeightCal.Select(e, m_isData);
 
         // if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){ //!for b-tag efficiency measurement
-        if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0, m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
+        if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0 && (eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==2 , m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
             continue;
         }
 
