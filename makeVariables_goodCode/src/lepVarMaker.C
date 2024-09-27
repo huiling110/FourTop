@@ -24,6 +24,7 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
         outTree->Branch(  "lepTopMVAF_FRweight", &lepTopMVAF_FRweight);
         outTree->Branch(  "lepTopMVAF_1ptConeCorreted", &lepTopMVAF_1ptConeCorreted);
         outTree->Branch(  "lepTopMVAF_2ptConeCorreted", &lepTopMVAF_2ptConeCorreted);
+        outTree->Branch("lepTopMVAF_isAR", &lepTopMVAF_isAR);//only for data
 
 
         std::map<TString, TString> eraHistMap = {
@@ -88,11 +89,13 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     if (e->muonsTopMVAF_isTight.At(0))
                     {
                         lepTopMVAF_FRweight = 1.0;
+                        lepTopMVAF_isAR = kFALSE;
                     }
                     else
                     {
                         FR = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
                         lepTopMVAF_FRweight = FR / (1. - FR); //! dangerous
+                        lepTopMVAF_isAR = kTRUE;
                     }
                 }
                 else
@@ -100,11 +103,13 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     if (e->elesTopMVAF_isTight.At(0))
                     {
                         lepTopMVAF_FRweight = 1.0;
+                        lepTopMVAF_isAR = kFALSE;
                     }
                     else
                     {
                         FR = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
                         lepTopMVAF_FRweight = FR / (1. - FR); //! dangerous
+                        lepTopMVAF_isAR = kTRUE;
                     }
                 }
             }
@@ -115,6 +120,7 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     if (e->muonsTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(0))
                     {
                         lepTopMVAF_FRweight = 1.0;
+                        lepTopMVAF_isAR = kFALSE;
                     }
                     else
                     {
@@ -134,6 +140,7 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                         {
                             lepTopMVAF_FRweight = -(FR1 * FR2 / (1. - FR1) / (1. - FR2));
                         }
+                        lepTopMVAF_isAR = kTRUE;
                     }
                 }
                 else if (muonSize == 2)
@@ -143,18 +150,22 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     if (e->muonsTopMVAF_isTight.At(0) && e->muonsTopMVAF_isTight.At(1))
                     {
                         lepTopMVAF_FRweight = 1.0;
+                        lepTopMVAF_isAR = kFALSE;
                     }
-                    else if (e->muonsTopMVAF_isTight.At(0) && !e->muonsTopMVAF_isTight.At(1))
-                    {
-                        lepTopMVAF_FRweight = FR2 / (1. - FR2);
-                    }
-                    else if (!e->muonsTopMVAF_isTight.At(0) && e->muonsTopMVAF_isTight.At(1))
-                    {
-                        lepTopMVAF_FRweight = FR1 / (1. - FR1);
-                    }
-                    else
-                    {
-                        lepTopMVAF_FRweight = -(FR1 * FR2 / (1. - FR1) / (1. - FR2));
+                    else{
+                        lepTopMVAF_isAR = kTRUE;
+                        if (e->muonsTopMVAF_isTight.At(0) && !e->muonsTopMVAF_isTight.At(1))
+                        {
+                            lepTopMVAF_FRweight = FR2 / (1. - FR2);
+                        }
+                        else if (!e->muonsTopMVAF_isTight.At(0) && e->muonsTopMVAF_isTight.At(1))
+                        {
+                            lepTopMVAF_FRweight = FR1 / (1. - FR1);
+                        }
+                        else
+                        {
+                            lepTopMVAF_FRweight = -(FR1 * FR2 / (1. - FR1) / (1. - FR2));
+                        }
                     }
                 }
                 else
@@ -164,22 +175,26 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     if (e->elesTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(1))
                     {
                         lepTopMVAF_FRweight = 1.0;
+                        lepTopMVAF_isAR = kFALSE;
                     }
                     else if (e->elesTopMVAF_isTight.At(0) && !e->elesTopMVAF_isTight.At(1))
                     {
                         lepTopMVAF_FRweight = FR2 / (1. - FR2);
+                        lepTopMVAF_isAR = kTRUE;
                     }
                     else if (!e->elesTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(1))
                     {
                         lepTopMVAF_FRweight = FR1 / (1. - FR1);
+                        lepTopMVAF_isAR = kTRUE;
                     }
                     else
                     {
                         lepTopMVAF_FRweight = -(FR1 * FR2 / (1. - FR1) / (1. - FR2));
+                        lepTopMVAF_isAR = kTRUE;
                     }
                 }
             }
-            std::cout << "lepTopMVAF_FRweight=" << lepTopMVAF_FRweight << "\n";
+            // std::cout << "lepTopMVAF_FRweight=" << lepTopMVAF_FRweight << "\n";
         } // m_isData
     }//m_type==1
 }
@@ -192,6 +207,7 @@ void LepVarMaker::clearBranch(){
     lepTopMVAT_2phi = -99;
     lepTopMVAF_1ptConeCorreted = -99.;
     lepTopMVAF_2ptConeCorreted = -99;
+    lepTopMVAF_isAR = kFALSE;
 
     lepTopMVAF_FRweight = 1.0;
     elesTopMVAF_1isTight = kFALSE;

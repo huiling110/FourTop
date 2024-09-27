@@ -34,7 +34,7 @@ private:
     Bool_t muonsTopMVAF_2isTightPrompt;
     Bool_t lepTopMVAF_1ptConeCorreted;
     Bool_t lepTopMVAF_2ptConeCorreted;
-
+    Bool_t lepTopMVAF_isAR= kFALSE;
 
     std::vector<Double_t> lep_ptConeCorrected;
     std::vector<ROOT::Math::PtEtaPhiMVector> eles;
