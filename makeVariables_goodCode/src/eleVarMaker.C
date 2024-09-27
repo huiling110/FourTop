@@ -21,8 +21,6 @@ void EleVarMaker::makeVariables(const EventForMV *e)
 
     setupLorentzObjs(e); //!!! crucial to overide base class!!!
 
-
-
     ObjVarMaker::basicVariables();
 }
 
@@ -42,49 +40,13 @@ void EleVarMaker::setupLorentzObjs(const EventForMV *e)
     case 1:
         getLorentzVec(e->elesTopMVAT_pt, e->elesTopMVAT_eta, e->elesTopMVAT_phi, e->elesTopMVAT_mass, objsLorentz);
         break;
-
+    case 2:
+        getLorentzVec(e->elesTopMVAF_pt, e->elesTopMVAF_eta, e->elesTopMVAF_phi, e->elesTopMVAF_mass, objsLorentz);
+        break;
+    default:
+        break;
     }
 
-    // UInt_t objNum = 0;
-    // switch (m_type)
-    // {
-    // case 0:
-    //     objNum = e->elesMVAT_pt.GetSize();
-    //     break;
-    // case 1:
-    //     objNum = e->elesTopMVAT_pt.GetSize();
-    //     break;
-    // }
-    // for (UInt_t i = 0; i < objNum; i++)
-    // {
-    //     Double_t objPt = -99;
-    //     Double_t objEta = -99;
-    //     Double_t objPhi = -99;
-    //     Double_t objMass = -99;
-    //     switch (m_type)
-    //     {
-    //     case 0:
-    //         objPt = e->elesMVAT_pt[i];
-    //         objEta = e->elesMVAT_eta[i];
-    //         objPhi = e->elesMVAT_phi[i];
-    //         objMass = e->elesMVAT_mass[i];
-    //         break;
-    //     case 1:
-    //         objPt = e->elesTopMVAT_pt[i];
-    //         objEta = e->elesTopMVAT_eta[i];
-    //         objPhi = e->elesTopMVAT_phi[i];
-    //         objMass = e->elesTopMVAT_mass[i];
-    //         break;
-    //         // case 2:
-    //         //     objPt = e->muonsL_pt[i];
-    //         //     objEta = e->muonsL_eta[i];
-    //         //     objPhi = e->muonsL_phi[i];
-    //         //     objMass = e->muonsL_mass[i];
-    //         //     break;
-    //     }
-    //     ROOT::Math::PtEtaPhiMVector muLorentz{objPt, objEta, objPhi, objMass};
-    //     objsLorentz.push_back(muLorentz);
-    // }
 };
 
 EleVarMaker::~EleVarMaker(){};
