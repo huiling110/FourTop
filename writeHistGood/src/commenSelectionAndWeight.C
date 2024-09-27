@@ -13,7 +13,7 @@ Bool_t baselineSelection(event *event, const Bool_t isRun3, Bool_t is1tau2l)
                 pass = event->jets_num.v() >= 6 && event->bjetsM_num.v() >= 2 && event->jets_HT.v() > 480. && event->jets_6pt.v()>38.;//
             }
         }else{
-            // pass = event->jets_num.v() >= 2 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 200. && event->lepTopMVAT_1pt.v()>25. && event->lepTopMVAT_2pt.v()>13. ;//!test for 1tau2l
+            // pass = event->jets_num.v() >= 2 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 200. && event->lepTopMVAT_1pt.v()>25. && event->lepTopMVAT_2pt.v()>13. ;//!leptonPt selection should be weighed lepton cone corrected pt for fakeLepton
             pass = event->jets_num.v() >= 2 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 200.  ;//!testing
         }
     }else{
@@ -65,16 +65,13 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     {
         lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
         bjetsMNum = e->bjetsM_num.v();
-        // tausTNum = e->tausT_num.v();
         tausTNum = isFakeTau ? e->tausF_num.v() : e->tausT_num.v();
     }
     else
     {
         lepNum = e->elesMVAT_num.v() + e->muonsT_num.v();
-        // bjetsMNum = e->bjetsPNM_num.v();
         bjetsMNum = e->bjetsPTM_num.v();
         tausTNum = e->tausTT_num.v();
-        // tausTNum = e->tausM_num.v();//!testing
     }
     Bool_t isPass = kFALSE;
     Bool_t CR1 = e->jets_num.v() >=6 && bjetsMNum ==2;
@@ -82,19 +79,16 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     switch (channel)
     {
     case 0: // 1tau1lSR
-        // isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 7 && bjetsMNum >= 3 && e->jets_6pt.v()>34.;
         isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 7 && bjetsMNum >= 3 ;
         break;
     case 1: //!NEW 1tau0lSR
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 3 &&e->tausF_num.v()==1;
-        // isPass = e->tausTT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 3;
         break;
     case 2: // !1tau2lSR
         isPass = tausTNum == 1 && lepNum == 2 && e->jets_num.v() >= 4 && bjetsMNum >= 2;
         break;
     case 3: //!!! 1tau0l testing
     //1tau1lCR1 CR2
-        // isPass = e->tausT_num.v() == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum>=3 && e->jets_HT.v()>550;
         isPass = tausTNum == 1 && lepNum == 1 && (CR1 || CR2);
         break;
     case 4: //! 1tau1lCR2
@@ -126,8 +120,6 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
         break;
     case 12: //1tau2lCR3 
         isPass = tausTNum == 1 && lepNum == 2 && e->jets_num.v() < 4 && bjetsMNum < 2 ;
-        // isPass = tausTNum == 1 && lepNum == 2 && e->jets_num.v() < 4 && bjetsMNum < 2 ;
-        // isPass = tausTNum == 1 && lepNum == 2 ;
         break;
 
     default:

@@ -4,10 +4,7 @@ import os
 def main():
     inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v84fakeLeptonUpdate/data/leptonSum_2018.root'
     
-    # SR = 'elesTopMVAF_1isTight && elesTopMVAF_'
     AR = 'lepTopMVAF_isAR'
-    #rDataframe
-     
     df = ROOT.RDataFrame('newtree', inputData)
     df_AR = df.Filter(AR)
     print('AR entries: ', df_AR.Count().GetValue())
