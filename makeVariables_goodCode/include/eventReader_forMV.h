@@ -52,6 +52,7 @@ public:
                                         muonsTopMVAF_phi(reader, "muonsTopMVAF_phi"),
                                         muonsTopMVAF_mass(reader, "muonsTopMVAF_mass"),
                                         muonsTopMVAF_isTight(reader, "muonsTopMVAF_isTight"),
+                                        muonsTopMVAF_genPartFlav(reader, "muonsTopMVAF_genPartFlav"),
                                       elesMVAT_pt(reader, "elesMVAT_pt"),
                                       elesMVAT_eta(reader, "elesMVAT_eta"),
                                       elesMVAT_phi(reader, "elesMVAT_phi"),
@@ -67,6 +68,7 @@ public:
                                         elesTopMVAF_phi(reader, "elesTopMVAF_phi"),
                                         elesTopMVAF_mass(reader, "elesTopMVAF_mass"),
                                         elesTopMVAF_isTight(reader, "elesTopMVAF_isTight"),
+                                        elesTopMVAF_genPartFlav(reader, "elesTopMVAF_genPartFlav"),
 
                                       tausT_pt(reader, "tausT_pt"),
                                       tausT_eta(reader, "tausT_eta"),
@@ -261,6 +263,7 @@ public:
     TTreeReaderArray<Double_t> muonsTopMVAF_phi;
     TTreeReaderArray<Double_t> muonsTopMVAF_mass;
     TTreeReaderArray<Bool_t> muonsTopMVAF_isTight;
+    TTreeReaderArray<UChar_t> muonsTopMVAF_genPartFlav;
 
     TTreeReaderArray<Double_t> elesMVAT_pt;
     TTreeReaderArray<Double_t> elesMVAT_eta;
@@ -277,6 +280,7 @@ public:
     TTreeReaderArray<Double_t> elesTopMVAF_phi;
     TTreeReaderArray<Double_t> elesTopMVAF_mass;
     TTreeReaderArray<Bool_t> elesTopMVAF_isTight;
+    TTreeReaderArray<UChar_t> elesTopMVAF_genPartFlav;
 
     TTreeReaderArray<Double_t> tausT_pt;
     TTreeReaderArray<Double_t> tausT_eta;

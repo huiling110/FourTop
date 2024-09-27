@@ -3,7 +3,7 @@
 #include "../include/variablesFunctions.h"
 #include "../../myLibrary/commenFunction.h"
 
-LepVarMaker::LepVarMaker(TTree* outTree, TString era, TString objName, const UInt_t type):ObjVarMaker(outTree, objName, type), m_era{era}{
+LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TString objName, const UInt_t type):ObjVarMaker(outTree, objName, type), m_era{era}, m_isData{isData}{
    std::cout<<"Initializing LepVarMaker"<<std::endl;
 
     outTree->Branch(objName+ "_2invariantMass", &lepTopMVAT_2invariantMass);
@@ -13,13 +13,23 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, TString objName, const UIn
     outTree->Branch(objName+ "_2charge", &lepTopMVAT_2charge);
 
     if(type==1){
+        outTree->Branch(objName + "_1isTight", &elesTopMVAF_1isTight);
+        outTree->Branch(objName + "_2isTight", &elesTopMVAF_2isTight);
+        outTree->Branch(objName + "_1isTightPrompt", &elesTopMVAF_1isTightPrompt);
+        outTree->Branch(objName + "_2isTightPrompt", &elesTopMVAF_2isTightPrompt);
+        outTree->Branch(objName + "_1isTight", &muonsTopMVAF_1isTight);
+        outTree->Branch(objName + "_2isTight", &muonsTopMVAF_2isTight);
+        outTree->Branch(objName + "_1isTightPrompt", &muonsTopMVAF_1isTightPrompt);
+        outTree->Branch(objName + "_2isTightPrompt", &muonsTopMVAF_2isTightPrompt);
+        outTree->Branch(objName + "_FRweight", &lepTopMVAF_FRweight);
+
+
         std::map<TString, TString> eraHistMap = {
             {"2016preVFP", "2016Merged"},
             {"2016postVFP", "2016Merged"},
             {"2017", "2017"},
             {"2018", "2018"},
         };
-        outTree->Branch(objName + "_FRweight", &lepTopMVAF_FRweight);
         eleFR_h = TTTT::getHistogramFromFile<TH2D>(MV::lepFR_map.at(m_era).at(0), "fakeRate_electron_"+eraHistMap.at(m_era));
         muFR_h = TTTT::getHistogramFromFile<TH2D>(MV::lepFR_map.at(m_era).at(1), "fakeRate_muon_"+eraHistMap.at(m_era));
         std::cout<<"electron FR file used: "<<MV::lepFR_map.at(m_era).at(0)<<"\n";
@@ -29,7 +39,6 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, TString objName, const UIn
    std::cout<<"Initialization done\n\n";
 }
 
-// void LepVarMaker::makeVariables(std::vector<ROOT::Math::PtEtaPhiMVector>& leptonsMVAT){
 void LepVarMaker::makeVariables(const EventForMV* e){
     clearBranch();
     setupLorentzObjs(e);
@@ -40,20 +49,19 @@ void LepVarMaker::makeVariables(const EventForMV* e){
     lepTopMVAT_2eta = muons_num > 1 ? objsLorentz[1].Eta() : -99;
     lepTopMVAT_2phi = muons_num > 1 ? objsLorentz[1].Phi() : -99;
 
-    //
-    // lepTopMVAF_1isTight = muons_num > 0 ? e->muonsTopMVAF_isTight->at(0) : kFALSE;
-    // lepTopMVAF_2isTight = ;
-    // lepTopMVAF_1isTightPrompt = ;
-    // lepTopMVAF_2isTightPrompt = ;
-    
-    // lepTopMVAF_FRweight = 1.0;
-    // if(lepTopMVAF_1isTight && !lepTopMVAF_2isTight){
-    //     lepTopMVAF_FRweight = 1.0; //FR2/1-FR2
-    // }
     if(m_type==1){//fakeble lepton
-        //for 1tau1l
         UInt_t muonSize = e->muonsTopMVAF_isTight.GetSize(); 
         UInt_t eleSize = e->elesTopMVAF_isTight.GetSize();
+        elesTopMVAF_1isTight = eleSize > 0 ? e->elesTopMVAF_isTight.At(0) : kFALSE;
+        elesTopMVAF_2isTight = eleSize > 1 ? e->elesTopMVAF_isTight.At(1) : kFALSE;
+        muonsTopMVAF_1isTight = muonSize > 0 ? e->muonsTopMVAF_isTight.At(0) : kFALSE;
+        muonsTopMVAF_2isTight = muonSize > 1 ? e->muonsTopMVAF_isTight.At(1) : kFALSE;
+        if(!m_isData){
+            elesTopMVAF_1isTightPrompt = eleSize > 0 ? e->elesTopMVAF_isTight.At(0)&& (e->elesTopMVAF_genPartFlav.At(0)==1||e->elesTopMVAF_genPartFlav.At(0)==15) : kFALSE;  
+            elesTopMVAF_2isTightPrompt = eleSize > 1 ? e->elesTopMVAF_isTight.At(1)&& (e->elesTopMVAF_genPartFlav.At(1)==1||e->elesTopMVAF_genPartFlav.At(1)==15) : kFALSE;
+            muonsTopMVAF_1isTightPrompt = muonSize > 0 ? e->muonsTopMVAF_isTight.At(0)&& (e->muonsTopMVAF_genPartFlav.At(0)==1||e->muonsTopMVAF_genPartFlav.At(0)==15) : kFALSE;
+            muonsTopMVAF_2isTightPrompt = muonSize > 1 ? e->muonsTopMVAF_isTight.At(1)&& (e->muonsTopMVAF_genPartFlav.At(1)==1||e->muonsTopMVAF_genPartFlav.At(1)==15) : kFALSE;
+        }else{
         UInt_t FR = 0;
         if(muonSize+eleSize ==1){//lepMVATopF=1
             if(muonSize==1){
@@ -113,7 +121,8 @@ void LepVarMaker::makeVariables(const EventForMV* e){
             }
         }
         std::cout<<"lepTopMVAF_FRweight="<<lepTopMVAF_FRweight<<"\n";
-    }
+        }//m_isData
+    }//m_type==1
 }
 
 void LepVarMaker::clearBranch(){
@@ -122,6 +131,16 @@ void LepVarMaker::clearBranch(){
     lepTopMVAT_2pt = -99;
     lepTopMVAT_2eta = -99;
     lepTopMVAT_2phi = -99;
+
+    lepTopMVAF_FRweight = 1.0;
+    elesTopMVAF_1isTight = kFALSE;
+    elesTopMVAF_2isTight = kFALSE;
+    muonsTopMVAF_1isTight = kFALSE;
+    muonsTopMVAF_2isTight = kFALSE;
+    elesTopMVAF_1isTightPrompt = kFALSE;
+    elesTopMVAF_2isTightPrompt = kFALSE;
+    muonsTopMVAF_1isTightPrompt = kFALSE;
+    muonsTopMVAF_2isTightPrompt = kFALSE;
 }
 
 // void LepVarMaker::setupLorentzObjs(std::vector<ROOT::Math::PtEtaPhiMVector>& leptonsMVAT){

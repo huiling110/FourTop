@@ -90,8 +90,8 @@ private:
     EleVarMaker eleVarMaker{m_outTree, "elesMVAT", 0};
     EleVarMaker eleTopVarMaker{m_outTree, "elesTopMVAF", 1};
 
-    LepVarMaker lepVarMaker{m_outTree, m_era, "lepTopMVAT", 0};
-    LepVarMaker lepVarFMaker{m_outTree, m_era, "lepTopMVAF", 1};
+    LepVarMaker lepVarMaker{m_outTree, m_era, m_isData, "lepTopMVAT", 0};
+    LepVarMaker lepVarFMaker{m_outTree, m_era, m_isData, "lepTopMVAF", 1};
 
     TauVarMaker tauVarMaker{m_outTree, "tausT"};
     TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};

@@ -7,7 +7,7 @@
 class LepVarMaker : public ObjVarMaker 
 {
 public:
-    LepVarMaker(TTree* tree, TString era, TString objName="lepTopMVAT", UInt_t type=0);
+    LepVarMaker(TTree* tree, TString era, const Bool_t isData, TString objName="lepTopMVAT", UInt_t type=0);
     ~LepVarMaker();
     void makeVariables(const EventForMV* e);
     void clearBranch();
@@ -16,6 +16,7 @@ public:
 
 private:
     TString m_era;
+    const Bool_t m_isData = kFALSE;
     Double_t lepTopMVAT_2invariantMass;
     Bool_t lepTopMVAT_2charge;
     Double_t lepTopMVAT_2pt;
@@ -23,10 +24,14 @@ private:
     Double_t lepTopMVAT_2phi;
 
     Double_t lepTopMVAF_FRweight;
-    Bool_t lepTopMVAF_1isTight;
-    Bool_t lepTopMVAF_2isTight;
-    Bool_t lepTopMVAF_1isTightPrompt;
-    Bool_t lepTopMVAF_2isTightPrompt;
+    Bool_t elesTopMVAF_1isTight;
+    Bool_t elesTopMVAF_2isTight;
+    Bool_t muonsTopMVAF_1isTight;
+    Bool_t muonsTopMVAF_2isTight;
+    Bool_t elesTopMVAF_1isTightPrompt;
+    Bool_t elesTopMVAF_2isTightPrompt;
+    Bool_t muonsTopMVAF_1isTightPrompt;
+    Bool_t muonsTopMVAF_2isTightPrompt;
 
     std::vector<ROOT::Math::PtEtaPhiMVector> eles;
     std::vector<ROOT::Math::PtEtaPhiMVector> mus;
