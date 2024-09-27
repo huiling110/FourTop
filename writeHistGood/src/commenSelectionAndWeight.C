@@ -85,7 +85,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 3 &&e->tausF_num.v()==1;
         break;
     case 2: // !1tau2lSR
-        isPass = tausTNum == 1 && lepNum == 2 && e->jets_num.v() >= 4 && bjetsMNum >= 2;
+        isPass = tausTNum == 1 && lepNum == 2 && e->jets_num.v() >= 4 && bjetsMNum >= 2;//SR, MC: (FTPromp, FTPrompt)
+        //fakeLepton 
         break;
     case 3: //!!! 1tau0l testing
     //1tau1lCR1 CR2

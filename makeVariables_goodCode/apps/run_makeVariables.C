@@ -33,10 +33,10 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v81addSysSum/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v82for1tau2l/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v83for1tau2lEleEtaCut/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdate/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdate/data/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdate/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdate/data/",
 
-    // TString inputDir = "tttt",
+    TString inputDir = "tttt",
     // TString inputDir = "ZGToLLG",
     // TString inputDir = "WZTo3LNu",
     // TString inputDir = "VLL_EE_M600",
@@ -48,7 +48,7 @@ void run_objectSelection(
     // TString inputDir = "singleMu_2018b",
     // TString inputDir = "TTToSemiLeptonic10",
     // TString inputDir = "TTTo2L2Nu0",
-    TString inputDir = "doubleMu_2018b",
+    // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
     Int_t numEntries = 3000)
