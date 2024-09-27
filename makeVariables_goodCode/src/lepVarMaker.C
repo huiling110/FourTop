@@ -22,6 +22,8 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
         outTree->Branch(objName + "_1isTightPrompt", &muonsTopMVAF_1isTightPrompt);
         outTree->Branch(objName + "_2isTightPrompt", &muonsTopMVAF_2isTightPrompt);
         outTree->Branch(objName + "_FRweight", &lepTopMVAF_FRweight);
+        outTree->Branch(objName + "_1ptConeCorreted", &elesTopMVAF_1ptConeCorreted);
+        outTree->Branch(objName + "_2ptConeCorreted", &elesTopMVAF_2ptConeCorreted);
 
 
         std::map<TString, TString> eraHistMap = {
@@ -56,74 +58,130 @@ void LepVarMaker::makeVariables(const EventForMV* e){
         elesTopMVAF_2isTight = eleSize > 1 ? e->elesTopMVAF_isTight.At(1) : kFALSE;
         muonsTopMVAF_1isTight = muonSize > 0 ? e->muonsTopMVAF_isTight.At(0) : kFALSE;
         muonsTopMVAF_2isTight = muonSize > 1 ? e->muonsTopMVAF_isTight.At(1) : kFALSE;
-        if(!m_isData){
+
+        lep_ptConeCorretd.clear();
+        for (UInt_t i = 0; i < muonSize; i++)
+        {
+            lep_ptConeCorrectd.push_back(e->muonsTopMVAF_ptConeCorreted.At(i));
+        }
+        for(UInt_t i=0; i<eleSize; i++){
+            lep_ptConeCorrectd.push_back(e->elesTopMVAF_ptConeCorreted.At(i));
+        }
+        std::sort(lep_ptConeCorrctd.begin(), lep_ptConeCorrectd.end(), std::greater<Double_t>());
+
+        lepTopMVAF_1ptConeCorreted = lep_ptConeCorrectd.size()>0? lep_ptConeCorrectd.at(0): -99;
+        lepTopMVAF_2ptConeCorreted = lep_ptConeCorrectd.size()>1? lep_ptConeCorrectd.at(1): -99;
+
+        if (!m_isData)
+        {
             elesTopMVAF_1isTightPrompt = eleSize > 0 ? e->elesTopMVAF_isTight.At(0)&& (e->elesTopMVAF_genPartFlav.At(0)==1||e->elesTopMVAF_genPartFlav.At(0)==15) : kFALSE;  
             elesTopMVAF_2isTightPrompt = eleSize > 1 ? e->elesTopMVAF_isTight.At(1)&& (e->elesTopMVAF_genPartFlav.At(1)==1||e->elesTopMVAF_genPartFlav.At(1)==15) : kFALSE;
             muonsTopMVAF_1isTightPrompt = muonSize > 0 ? e->muonsTopMVAF_isTight.At(0)&& (e->muonsTopMVAF_genPartFlav.At(0)==1||e->muonsTopMVAF_genPartFlav.At(0)==15) : kFALSE;
             muonsTopMVAF_2isTightPrompt = muonSize > 1 ? e->muonsTopMVAF_isTight.At(1)&& (e->muonsTopMVAF_genPartFlav.At(1)==1||e->muonsTopMVAF_genPartFlav.At(1)==15) : kFALSE;
-        }else{
-        UInt_t FR = 0;
-        if(muonSize+eleSize ==1){//lepMVATopF=1
-            if(muonSize==1){
-                if(e->muonsTopMVAF_isTight.At(0)){
-                    lepTopMVAF_FRweight = 1.0;
-                }else{
-                     FR = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
-                    lepTopMVAF_FRweight = FR/(1.-FR);//!dangerous
-                }
-            }else{
-                if(e->elesTopMVAF_isTight.At(0)){
-                    lepTopMVAF_FRweight = 1.0;
-                }else{
-                    FR = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
-                    lepTopMVAF_FRweight = FR/(1.-FR);//!dangerous
-                }
-            }
-        }else if(muonSize+eleSize==2){
-            if(muonSize==1){
-                if(e->muonsTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(0)){
-                    lepTopMVAF_FRweight = 1.0;
-                }else{
-                    // Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_pt.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
-                    // Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_pt.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
-                    Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
-                    Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
-                    if(e->muonsTopMVAF_isTight.At(0) && !e->elesTopMVAF_isTight.At(0)){
-                        lepTopMVAF_FRweight = FR2/(1.-FR2);
-                    }else if(!e->muonsTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(0)){
-                        lepTopMVAF_FRweight = FR1/(1.-FR1);
-                    }else{
-                        lepTopMVAF_FRweight = -(FR1*FR2/(1.-FR1)/(1.-FR2));
+        }
+        else
+        {
+            UInt_t FR = 0;
+            if (muonSize + eleSize == 1)
+            { // lepMVATopF=1
+                if (muonSize == 1)
+                {
+                    if (e->muonsTopMVAF_isTight.At(0))
+                    {
+                        lepTopMVAF_FRweight = 1.0;
+                    }
+                    else
+                    {
+                        FR = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
+                        lepTopMVAF_FRweight = FR / (1. - FR); //! dangerous
                     }
                 }
-            }else if(muonSize==2){
-                Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
-                Double_t FR2 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(1), TMath::Abs(e->muonsTopMVAF_eta.At(1)), muFR_h, 0);
-                if(e->muonsTopMVAF_isTight.At(0) && e->muonsTopMVAF_isTight.At(1)){
-                    lepTopMVAF_FRweight = 1.0;
-                }else if(e->muonsTopMVAF_isTight.At(0) && !e->muonsTopMVAF_isTight.At(1)){
-                    lepTopMVAF_FRweight = FR2/(1.-FR2);
-                }else if(!e->muonsTopMVAF_isTight.At(0) && e->muonsTopMVAF_isTight.At(1)){
-                    lepTopMVAF_FRweight = FR1/(1.-FR1);
-                }else{
-                    lepTopMVAF_FRweight = -(FR1*FR2/(1.-FR1)/(1.-FR2));
-                }
-            }else{//muonSize==0
-                Double_t FR1 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
-                Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(1), TMath::Abs(e->elesTopMVAF_eta.At(1)), eleFR_h, 0);
-                if(e->elesTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(1)){
-                    lepTopMVAF_FRweight = 1.0;
-                }else if(e->elesTopMVAF_isTight.At(0) && !e->elesTopMVAF_isTight.At(1)){
-                    lepTopMVAF_FRweight = FR2/(1.-FR2);
-                }else if(!e->elesTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(1)){
-                    lepTopMVAF_FRweight = FR1/(1.-FR1);
-                }else{
-                    lepTopMVAF_FRweight = -(FR1*FR2/(1.-FR1)/(1.-FR2));
+                else
+                {
+                    if (e->elesTopMVAF_isTight.At(0))
+                    {
+                        lepTopMVAF_FRweight = 1.0;
+                    }
+                    else
+                    {
+                        FR = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
+                        lepTopMVAF_FRweight = FR / (1. - FR); //! dangerous
+                    }
                 }
             }
-        }
-        std::cout<<"lepTopMVAF_FRweight="<<lepTopMVAF_FRweight<<"\n";
-        }//m_isData
+            else if (muonSize + eleSize == 2)
+            {
+                if (muonSize == 1)
+                {
+                    if (e->muonsTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(0))
+                    {
+                        lepTopMVAF_FRweight = 1.0;
+                    }
+                    else
+                    {
+                        // Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_pt.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
+                        // Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_pt.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
+                        Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
+                        Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
+                        if (e->muonsTopMVAF_isTight.At(0) && !e->elesTopMVAF_isTight.At(0))
+                        {
+                            lepTopMVAF_FRweight = FR2 / (1. - FR2);
+                        }
+                        else if (!e->muonsTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(0))
+                        {
+                            lepTopMVAF_FRweight = FR1 / (1. - FR1);
+                        }
+                        else
+                        {
+                            lepTopMVAF_FRweight = -(FR1 * FR2 / (1. - FR1) / (1. - FR2));
+                        }
+                    }
+                }
+                else if (muonSize == 2)
+                {
+                    Double_t FR1 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->muonsTopMVAF_eta.At(0)), muFR_h, 0);
+                    Double_t FR2 = TTTT::get2DSF(e->muonsTopMVAF_ptConeCorreted.At(1), TMath::Abs(e->muonsTopMVAF_eta.At(1)), muFR_h, 0);
+                    if (e->muonsTopMVAF_isTight.At(0) && e->muonsTopMVAF_isTight.At(1))
+                    {
+                        lepTopMVAF_FRweight = 1.0;
+                    }
+                    else if (e->muonsTopMVAF_isTight.At(0) && !e->muonsTopMVAF_isTight.At(1))
+                    {
+                        lepTopMVAF_FRweight = FR2 / (1. - FR2);
+                    }
+                    else if (!e->muonsTopMVAF_isTight.At(0) && e->muonsTopMVAF_isTight.At(1))
+                    {
+                        lepTopMVAF_FRweight = FR1 / (1. - FR1);
+                    }
+                    else
+                    {
+                        lepTopMVAF_FRweight = -(FR1 * FR2 / (1. - FR1) / (1. - FR2));
+                    }
+                }
+                else
+                { // muonSize==0
+                    Double_t FR1 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(0), TMath::Abs(e->elesTopMVAF_eta.At(0)), eleFR_h, 0);
+                    Double_t FR2 = TTTT::get2DSF(e->elesTopMVAF_ptConeCorreted.At(1), TMath::Abs(e->elesTopMVAF_eta.At(1)), eleFR_h, 0);
+                    if (e->elesTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(1))
+                    {
+                        lepTopMVAF_FRweight = 1.0;
+                    }
+                    else if (e->elesTopMVAF_isTight.At(0) && !e->elesTopMVAF_isTight.At(1))
+                    {
+                        lepTopMVAF_FRweight = FR2 / (1. - FR2);
+                    }
+                    else if (!e->elesTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(1))
+                    {
+                        lepTopMVAF_FRweight = FR1 / (1. - FR1);
+                    }
+                    else
+                    {
+                        lepTopMVAF_FRweight = -(FR1 * FR2 / (1. - FR1) / (1. - FR2));
+                    }
+                }
+            }
+            std::cout << "lepTopMVAF_FRweight=" << lepTopMVAF_FRweight << "\n";
+        } // m_isData
     }//m_type==1
 }
 
