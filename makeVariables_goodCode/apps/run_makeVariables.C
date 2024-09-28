@@ -51,9 +51,9 @@ void run_objectSelection(
     // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
-    Int_t numEntries = 3000)
+    // Int_t numEntries = 3000)
     // Int_t numEntries = 10000)
-    // Int_t numEntries = 0)
+    Int_t numEntries = 0)
 {
     TStopwatch t;
     t.Start();

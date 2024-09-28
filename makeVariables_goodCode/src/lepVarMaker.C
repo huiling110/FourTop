@@ -54,8 +54,8 @@ void LepVarMaker::makeVariables(const EventForMV* e){
     lepTopMVAT_2phi = muons_num > 1 ? objsLorentz[1].Phi() : -99;
 
     if(m_type==1){//fakeble lepton
-        UInt_t muonSize = e->muonsTopMVAF_isTight.GetSize(); 
-        UInt_t eleSize = e->elesTopMVAF_isTight.GetSize();
+        const UInt_t muonSize = e->muonsTopMVAF_isTight.GetSize(); 
+        const UInt_t eleSize = e->elesTopMVAF_isTight.GetSize();
         elesTopMVAF_1isTight = eleSize > 0 ? e->elesTopMVAF_isTight.At(0) : kFALSE;
         elesTopMVAF_2isTight = eleSize > 1 ? e->elesTopMVAF_isTight.At(1) : kFALSE;
         muonsTopMVAF_1isTight = muonSize > 0 ? e->muonsTopMVAF_isTight.At(0) : kFALSE;
@@ -75,7 +75,8 @@ void LepVarMaker::makeVariables(const EventForMV* e){
 
         if (!m_isData)
         {
-            elesTopMVAF_1isTightPrompt = eleSize > 0 ? e->elesTopMVAF_isTight.At(0)&& (e->elesTopMVAF_genPartFlav.At(0)==1||e->elesTopMVAF_genPartFlav.At(0)==15) : kFALSE;  
+            std::cout<<"eleSize="<<eleSize<<" genSize="<<e->elesTopMVAF_genPartFlav.GetSize()<<"\n";
+            elesTopMVAF_1isTightPrompt = eleSize > 0 ? e->elesTopMVAF_isTight.At(0)&& (e->elesTopMVAF_genPartFlav.At(0)==1||e->elesTopMVAF_genPartFlav.At(0)==15) : kFALSE;  //???bug here for ttbar_2l; strange thing with eleSize=1 genSize=0 for ttbar_2l
             elesTopMVAF_2isTightPrompt = eleSize > 1 ? e->elesTopMVAF_isTight.At(1)&& (e->elesTopMVAF_genPartFlav.At(1)==1||e->elesTopMVAF_genPartFlav.At(1)==15) : kFALSE;
             muonsTopMVAF_1isTightPrompt = muonSize > 0 ? e->muonsTopMVAF_isTight.At(0)&& (e->muonsTopMVAF_genPartFlav.At(0)==1||e->muonsTopMVAF_genPartFlav.At(0)==15) : kFALSE;
             muonsTopMVAF_2isTightPrompt = muonSize > 1 ? e->muonsTopMVAF_isTight.At(1)&& (e->muonsTopMVAF_genPartFlav.At(1)==1||e->muonsTopMVAF_genPartFlav.At(1)==15) : kFALSE;

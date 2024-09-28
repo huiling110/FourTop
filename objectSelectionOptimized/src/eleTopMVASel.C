@@ -60,6 +60,13 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
             continue;
         if (!(pt > 10))
             continue;
+        //Overlap removal with fakeable muons 
+        Bool_t removeMu = OS::overlapRemove(eta, e->Electron_phi.At(j), muEtaVec, muPhiVec, 0.05);// for electrons the cone size is 0.05//???maybe too small the the cone size for muon is 0.3
+        if(removeMu){
+            continue;
+        }
+
+
         if (m_type == 5)
         {
             if(!(iE_cutBased >= 2))// cut-based ID Fall17 V2 (0:fail, 1:veto, 2:loose, 3:medium, 4:tight)
@@ -123,12 +130,6 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
                 elesTopMVAF_jetIdx.push_back(iE_jetIdx); // Electron_jetIdx
                 elesTopMVAF_ptConeCorreted.push_back(pt*jetPtRatio);
             }
-        }
-
-        //Overlap removal with fakeable muons 
-        Bool_t removeMu = OS::overlapRemove(eta, e->Electron_phi.At(j), muEtaVec, muPhiVec, 0.05);// for electrons the cone size is 0.05//???maybe too small the the cone size for muon is 0.3
-        if(removeMu){
-            continue;
         }
 
         elesTopMVAT_pt.push_back(e->Electron_pt.At(j));
