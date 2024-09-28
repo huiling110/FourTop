@@ -25,6 +25,7 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
         outTree->Branch(  "lepTopMVAF_1ptConeCorreted", &lepTopMVAF_1ptConeCorreted);
         outTree->Branch(  "lepTopMVAF_2ptConeCorreted", &lepTopMVAF_2ptConeCorreted);
         outTree->Branch("lepTopMVAF_isAR", &lepTopMVAF_isAR);//only for data
+        // outTree->Branch("lepTopMVAF_isTightPrompt", &lepTopMVAF_isTightPrompt);//only for mc
 
 
         std::map<TString, TString> eraHistMap = {
@@ -104,6 +105,7 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     {
                         lepTopMVAF_FRweight = 1.0;
                         lepTopMVAF_isAR = kFALSE;
+                        // lepTopMVAF_isTightPrompt =m_isData? kFALSE; e->elesTopMVAF_isTightPrompt.At(0);
                     }
                     else
                     {
@@ -123,6 +125,7 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                     {
                         lepTopMVAF_FRweight = 1.0;
                         lepTopMVAF_isAR = kFALSE;
+                        // lepTopMVAF_isTightPrompt = m_isData? kFALSE: e->muonsTopMVAF_isTightPrompt.At(0) || e->elesTopMVAF_isTightPrompt.At(0);
                     }
                     else
                     {
