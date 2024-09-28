@@ -91,7 +91,7 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     case 0: // 1tau1lSR
         isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >= 7 && bjetsMNum >= 3 ;
         break;
-    case 1: //!NEW 1tau0lSR
+    case 1: // 1tau0lSR
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum >= 3 &&e->tausF_num.v()==1;
         break;
     case 2: // !1tau2lSR
@@ -99,13 +99,15 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
         isPass = tausTNum == 1 && lepCut2L && e->jets_num.v() >= 4 && bjetsMNum >= 2;//SR, MC: (FTPromp, FTPrompt)
         break;
     case 3: // 1tau1lCR12
-        isPass = tausTNum == 1 && lepNum == 1 &&( (e->jets_num.v() >= 6 && bjetsMNum == 2) || (e->jets_num.v() == 6 && bjetsMNum >= 3));
+        // isPass = tausTNum == 1 && lepNum == 1 &&( (e->jets_num.v() >= 6 && bjetsMNum == 2) || (e->jets_num.v() == 6 && bjetsMNum >= 3));
+        isPass = tausTNum == 1 && lepCut &&( (e->jets_num.v() >= 6 && bjetsMNum == 2) || (e->jets_num.v() == 6 && bjetsMNum >= 3));
         break;
     case 4: // 1tau1lCR2
-        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() == 6 && bjetsMNum >= 3;
+        // isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() == 6 && bjetsMNum >= 3;
+        isPass = tausTNum == 1 && lepCut && e->jets_num.v() == 6 && bjetsMNum >= 3;
         break;
     case 5: // 1tau1lCR1
-        isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() >=6 && bjetsMNum ==2 ;
+        isPass = tausTNum == 1 && lepCut && e->jets_num.v() >=6 && bjetsMNum ==2 ;
         break;
     case 6: // 1tau0lCR
         isPass = tausTNum == 1 && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 0 ;
