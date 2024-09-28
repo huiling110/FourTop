@@ -19,7 +19,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v81addSysSum/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noTauCut_v82for1tau2l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noLepCut_v83for1tau2lEleEtaCut/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noLepCut_v83for1tau2lEleEtaCut/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v84fakeLeptonUpdate/'
     
 
     #!fakerate
@@ -39,8 +40,9 @@ def main():
     #dataMC
     # version = 'v0dataMC_allCorrection'
     # version = 'v1dataMC_allbutHLT'
+    version = 'v1dataMC_allbutHLTFakeLepton'
     # version = 'v2dataMC_allbutHLT'
-    version = 'v2dataMC_allbutHLTAddTestReg'
+    # version = 'v2dataMC_allbutHLTAddTestReg'
     # version = 'v0dataMC_genWeight'
     # version = 'v1dataMC_allCorrectionFakeTau'
     

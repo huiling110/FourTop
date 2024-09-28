@@ -37,7 +37,8 @@ def main():
     inVersion = 'v84fakeLeptonUpdate'
 
     # outVersion = 'v0baselineHardro'
-    outVersion = 'v0baseline1tau2l'
+    # outVersion = 'v0baseline1tau2l'
+    outVersion = 'v0baseline1tau2l_v2'
     # outVersion = 'v1baseline1tau2l_noTauCut'
     # outVersion = 'v1baseline1tau2l_noLepCut'
     # outVersion = 'v1baselineHardroHLTSF'
