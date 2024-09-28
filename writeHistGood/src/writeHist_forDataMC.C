@@ -28,7 +28,6 @@ void WH_forDataMC::Init()
     std::cout << "\n";
 }
 
-
 void WH_forDataMC::LoopTree(UInt_t entry)
 {
     Long64_t allEvent = m_tree->GetEntries();
@@ -101,7 +100,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         //1tau1lCR1+CR2
         Bool_t is1tau0lSRTest = SR1tau1lSel(e, 3, m_isRun3, m_isFakeTau);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lSRTest, "1tau1lCR12", basicWeight, m_isData);
-        
 
         //1tau2l CR3
         Bool_t is1tau2lCR3 = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
