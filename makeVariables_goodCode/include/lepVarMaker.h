@@ -32,9 +32,14 @@ private:
     Bool_t elesTopMVAF_2isTightPrompt;
     Bool_t muonsTopMVAF_1isTightPrompt;
     Bool_t muonsTopMVAF_2isTightPrompt;
-    Bool_t lepTopMVAF_1ptConeCorreted;
-    Bool_t lepTopMVAF_2ptConeCorreted;
     Bool_t lepTopMVAF_isAR= kFALSE;
+    Double_t elesTopMVAF_1ptCorrected;
+    Double_t elesTopMVAF_2ptCorrected;
+    Double_t muonsTopMVAF_1ptCorrected;
+    Double_t muonsTopMVAF_2ptCorrected;
+    Double_t lepTopMVAF_1ptCorrected;
+    Double_t lepTopMVAF_2ptCorrected;
+
 
     std::vector<Double_t> lep_ptConeCorrected;
     std::vector<ROOT::Math::PtEtaPhiMVector> eles;
