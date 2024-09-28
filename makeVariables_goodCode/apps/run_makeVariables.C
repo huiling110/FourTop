@@ -9,13 +9,6 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/V75NoHLTNoTauBjet2/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v75NoHLTNoTauHT400Jet6pt30/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v77ForHLT/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v76WithVLLSample/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v76WithVLLAllMass/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77ForHLT/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77forBtagMeasurement/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v77forBtagMeasurement/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/data/",
@@ -37,13 +30,13 @@ void run_objectSelection(
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdateV2/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdate/data/",
 
-    // TString inputDir = "tttt",
+    TString inputDir = "tttt",
     // TString inputDir = "ZGToLLG",
     // TString inputDir = "WZTo3LNu",
     // TString inputDir = "VLL_EE_M600",
     // TString inputDir = "ttbar_0l",
     // TString inputDir = "ttbar_1l",
-    TString inputDir = "ttbar_2l",
+    // TString inputDir = "ttbar_2l",
     // TString inputDir = "jetHT_2017f",
     // TString inputDir = "BTagCSV_2017c",
     // TString inputDir = "singleMu_2018b",
@@ -52,9 +45,9 @@ void run_objectSelection(
     // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
-    // Int_t numEntries = 3000)
+    Int_t numEntries = 3000)
     // Int_t numEntries = 10000)
-    Int_t numEntries = 0)
+    // Int_t numEntries = 0)
 {
     TStopwatch t;
     t.Start();
