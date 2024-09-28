@@ -124,6 +124,18 @@ public:
     myBranch<Double_t> elesMVAT_1pt{"elesMVAT_1pt"};
     myBranch<Double_t> lepTopMVAT_1pt{"lepTopMVAT_1pt"};
     myBranch<Double_t> lepTopMVAT_2pt{"lepTopMVAT_2pt"};
+    myBranch<Int_t> elesTopMVAF_num{"elesTopMVAF_num"};
+    myBranch<Int_t> muonsTopMVAF_num{"muonsTopMVAF_num"};
+    myBranch<Bool_t> elesTopMVAF_1isTightPrompt{"elesTopMVAF_1isTightPrompt"};
+    myBranch<Bool_t> elesTopMVAF_2isTightPrompt{"elesTopMVAF_2isTightPrompt"};
+    myBranch<Bool_t> muonsTopMVAF_1isTightPrompt{"muonsTopMVAF_1isTightPrompt"};
+    myBranch<Bool_t> muonsTopMVAF_2isTightPrompt{"muonsTopMVAF_2isTightPrompt"};
+    myBranch<Bool_t> elesTopMVAF_1isTight{"elesTopMVAF_1isTight"};
+    myBranch<Bool_t> elesTopMVAF_2isTight{"elesTopMVAF_2isTight"};
+    myBranch<Bool_t> muonsTopMVAF_1isTight{"muonsTopMVAF_1isTight"};
+    myBranch<Bool_t> muonsTopMVAF_2isTight{"muonsTopMVAF_2isTight"};
+    myBranch<Bool_t> lepTopMVAF_isAR{"lepTopMVAF_isAR"};
+    // myBranch<Double_t> lepTopMVAF_FRweight{"lepTopMVAF_FRweight"};
 
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
@@ -400,6 +412,20 @@ private:
         {elesMVAT_1pt.n(), &elesMVAT_1pt},
         {lepTopMVAT_1pt.n(), &lepTopMVAT_1pt},
         {lepTopMVAT_2pt.n(), &lepTopMVAT_2pt},
+        {elesTopMVAF_num.n(), &elesTopMVAF_num},
+        {muonsTopMVAF_num.n(), &muonsTopMVAF_num},
+        {elesTopMVAF_1isTightPrompt.n(), &elesTopMVAF_1isTightPrompt},
+        {elesTopMVAF_2isTightPrompt.n(), &elesTopMVAF_2isTightPrompt},
+        {muonsTopMVAF_1isTightPrompt.n(), &muonsTopMVAF_1isTightPrompt},
+        {muonsTopMVAF_2isTightPrompt.n(), &muonsTopMVAF_2isTightPrompt},
+        {elesTopMVAF_1isTight.n(), &elesTopMVAF_1isTight},
+        {elesTopMVAF_2isTight.n(), &elesTopMVAF_2isTight},
+        {muonsTopMVAF_1isTight.n(), &muonsTopMVAF_1isTight},
+        {muonsTopMVAF_2isTight.n(), &muonsTopMVAF_2isTight},
+        {lepTopMVAF_isAR.n(), &lepTopMVAF_isAR},
+
+
+
 
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {EVENT_genWeight.n(), &EVENT_genWeight},

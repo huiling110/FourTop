@@ -42,6 +42,9 @@ public:
         m_isFakeTau = m_processName.Contains("fakeTau");
         std::cout<<"m_isFakeTau="<<m_isFakeTau<<"\n";
 
+        m_isFakeLepton = m_processName.Contains("fakeLepton");
+        std::cout<<"m_isFakeLepton="<<m_isFakeLepton<<"\n";
+
         std::cout << "m_processName: " << m_processName  << "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
 
@@ -58,6 +61,7 @@ private:
     TString m_processName;
     const Bool_t m_ifFakeTau;
     Bool_t m_isFakeTau;
+    Bool_t m_isFakeLepton = kFALSE;
     Bool_t m_isTest = kTRUE;
     TTree *m_tree;
     TFile *m_file;
