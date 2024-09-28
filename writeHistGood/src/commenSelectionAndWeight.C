@@ -73,7 +73,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     Bool_t lepCut2L = kFALSE;
     if(isMC){
         if(isFakeLepton){
-            lepCut = e->lepTopMVAF_isAR.v(); 
+            lepCut = e->lepTopMVAF_isAR.v() && lepF_num == 1; 
+            lepCut2L = e->lepTopMVAF_isAR.v() && lepF_num == 2;
         }else{
             lepCut = (lepF_num == 1) && isTightPrompt_1L;
             lepCut2L = (lepF_num == 2) && isTightPrompt_2L;
