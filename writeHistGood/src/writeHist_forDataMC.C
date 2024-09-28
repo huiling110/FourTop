@@ -57,16 +57,17 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             }
         }
 
+        //!to do: handling weight in baseWeightCal
         Double_t basicWeight = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
-        Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
+        // const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
+        const Double_t eventWeight_1tau2l = m_isFakeLepton? e->lepTopMVAF_FRweight.v(): baseWeightCal(e, i, m_isRun3, m_isData, 2);
         Double_t eventWeight_1tau0l = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
 
         if(std::isinf(e->btagWPMT_weight.v()) || std::isnan(e->btagWPMT_weight.v())){
             std::cout<<"btagWPMT_weight="<<e->btagWPMT_weight.v()<<"\n";
-        }
+        }//!!!todo: handle this in MV
 
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight.v() * e->musTopMVAT_weight.v()* e->btagWPMT_weight.v(); //!!!without HLT weight
-        // Double_t basicWeight = e->EVENT_genWeight.v()* e->PUweight_.v() *e->EVENT_prefireWeight.v() ; //basic weight
 
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
 
@@ -122,13 +123,12 @@ void WH_forDataMC::Terminate()
     std::cout << "Termintate: ..........................................\n";
     if (!m_isData)
     {
-        //???Problme of summing same process with extra extension!!!
-        if (!m_processName.Contains("fakeTau")){ //no scaling for faketau 
+        // if (!m_processName.Contains("fakeTau")){ //no scaling for faketau 
+        if(!m_ifFakeTau && !m_isFakeLepton){
             Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
             TString processName = WH::getProcessName(m_processName, m_isRun3);
             std::cout<<"newProcessName="<<processName<<"\n";
 
-            //
             if(std::find(WH::processWithExt.begin(), WH::processWithExt.end(), processName) != WH::processWithExt.end()){
                 genWeightSum = TTTT::getGenSum(m_inputDir + processName + "1.root") + TTTT::getGenSum(m_inputDir+processName+".root");
             }

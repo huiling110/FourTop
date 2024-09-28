@@ -48,7 +48,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noLepCut_v83for1tau2lEleEtaCut/mc/", 
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v84fakeLeptonUpdate/mc/", 
 
-    TString process = "tttt",
+    // TString process = "tttt",
+    TString process = "fakeLepton",
     // TString process = "WZTo3LNu",
     // TString process = "TTTo2L2Nu",
     // TString process = "TTToSemiLeptonic",
@@ -61,8 +62,8 @@ void run_treeAnalyzer(
     // TString process = "ttbar_0l",
     // TString process = "ttbar_2l",
     TString histVersion = "v0_test",
-    Bool_t isTest = kTRUE)
-// Bool_t isTest = kFALSE)
+    // Bool_t isTest = kTRUE)
+Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();

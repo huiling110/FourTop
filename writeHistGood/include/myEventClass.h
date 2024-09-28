@@ -136,7 +136,7 @@ public:
     myBranch<Bool_t> muonsTopMVAF_2isTight{"muonsTopMVAF_2isTight"};
     myBranch<Bool_t> lepTopMVAF_isAR{"lepTopMVAF_isAR"};
     myBranch<Int_t> lepTopMVAF_num{"lepTopMVAF_num"};
-    // myBranch<Double_t> lepTopMVAF_FRweight{"lepTopMVAF_FRweight"};
+    myBranch<Double_t> lepTopMVAF_FRweight{"lepTopMVAF_FRweight"};
 
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
@@ -425,6 +425,7 @@ private:
         {muonsTopMVAF_2isTight.n(), &muonsTopMVAF_2isTight},
         {lepTopMVAF_isAR.n(), &lepTopMVAF_isAR},
         {lepTopMVAF_num.n(), &lepTopMVAF_num},
+        {lepTopMVAF_FRweight.n(), &lepTopMVAF_FRweight},
 
 
 
