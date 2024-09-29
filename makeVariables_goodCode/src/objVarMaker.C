@@ -46,8 +46,10 @@ void ObjVarMaker::basicVariables()
     if (muons_num > 0)
     {
         muons_1pt = objsLorentz[0].Pt();
-        muons_1eta = fabs(objsLorentz[0].Eta());
-        muons_1phi = fabs(objsLorentz[0].Phi());
+        // muons_1eta = fabs(objsLorentz[0].Eta());
+        // muons_1phi = fabs(objsLorentz[0].Phi());
+        muons_1eta = objsLorentz[0].Eta();
+        muons_1phi = objsLorentz[0].Phi();
     }
 }
 
