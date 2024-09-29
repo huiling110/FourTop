@@ -13,6 +13,7 @@ public:
     void clearBranch();
 
     void processSingleLep(const EventForMV* e, const UInt_t muonSize, const UInt_t eleSize);
+    void processingDoubleLep(const EventForMV* e, const UInt_t muonSize, const UInt_t eleSize);
     void setupLorentzObjs(const EventForMV *e);
 
 private:
