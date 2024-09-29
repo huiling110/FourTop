@@ -71,17 +71,25 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
 
     Bool_t lepCut = kFALSE;
     Bool_t lepCut2L = kFALSE;
+    Bool_t eleCut = kFALSE;//testing, l electron region
+    Bool_t muonCut = kFALSE;
     if(isMC){
         if(isFakeLepton){
             lepCut = e->lepTopMVAF_isAR.v() && lepF_num == 1; 
             lepCut2L = e->lepTopMVAF_isAR.v() && lepF_num == 2;
+            eleCut = !e->elesTopMVAF_1isTight.v() && e->elesTopMVAF_num.v() == 1;
+            muonCut = !e->muonsTopMVAF_1isTight.v() && e->muonsTopMVAF_num.v() == 1;
         }else{
             lepCut = (lepF_num == 1) && isTightPrompt_1L;
             lepCut2L = (lepF_num == 2) && isTightPrompt_2L;
+            eleCut = e->elesTopMVAF_num.v() == 1 && e->elesTopMVAF_1isTightPrompt.v();
+            muonCut = e->muonsTopMVAF_num.v() == 1 && e->muonsTopMVAF_1isTightPrompt.v();
         }
     }else{//data
         lepCut = (lepF_num == 1) && isTight_1L;
         lepCut2L = (lepF_num == 2) && isTight_2L;
+        eleCut = e->elesTopMVAF_num.v() == 1 && e->elesTopMVAF_1isTight.v();
+        muonCut = e->muonsTopMVAF_num.v() == 1 && e->muonsTopMVAF_1isTight.v();
     } 
 
     Bool_t isPass = kFALSE;
@@ -127,6 +135,9 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
         isPass = e->tausM_num.v() == 1 && lepNum == 1 && e->jets_num.v() == 7 && bjetsMNum >= 3;
         break;
     case 12: //1tau2lCR3 
+        isPass = tausTNum == 1 && lepCut2L && e->jets_num.v() < 4 && bjetsMNum < 2 ;
+        break;
+    case 13: //1tau2lCR3+ele
         isPass = tausTNum == 1 && lepCut2L && e->jets_num.v() < 4 && bjetsMNum < 2 ;
         break;
 

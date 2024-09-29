@@ -99,7 +99,8 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         systWeightCal.Select(e, m_isData);
 
         // if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){ //!for b-tag efficiency measurement
-        if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0 && (eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==2 , m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
+        // if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0 && (eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==2 , m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
+        if(!(OS::ifEventPass(iftauSel, tauSelF.getSize()>0  , m_cutflow, 3))){//no lepton cut
             continue;
         }
 
@@ -129,6 +130,7 @@ void objectSelection::Terminate()
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) <<"; >=tauF:"<<m_cutflow->GetBinContent(4) <<" preSelection: " << m_cutflow->GetBinContent(6) << "\n";
     std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";//includes entries not passing selection
+    // std::cout<<"muonsTopMVAT="<<muTopMVATSel.getTotal()<<"; muonsTopMVAF="<<muTopMVAFSel.getTotal()<<"; elesTopMVAT="<<eleTopMVATSel.getTotal()<<"; elesTopMVAF="<<eleTopMVAFSel.getTotal()<<"\n";
 
     // get Runs tree
     if (!m_isData)

@@ -114,7 +114,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3NoTau, "1tau2lCR3NoTau", eventWeight_1tau2l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3Mu1, "1tau2lCR3Mu1", eventWeight_1tau2l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR2E1, "1tau2lCR3E1", eventWeight_1tau2l, m_isData);
-        std::cout<<"muonsTopMVAT_1eta="<<e->muonsTopMVAT_1eta.v()<<"\n";
 
     }
     std::cout << "end of event loop\n";
