@@ -25,6 +25,7 @@ def main():
     df_new = ROOT.RDataFrame('newtree', outFile)
     df_new = df_new.Define("lepTopMVAT_1pt", "lepTopMVAF_1ptCorrected")
     df_new = df_new.Define("lepTopMVAT_2pt", "lepTopMVAF_2ptCorrected")
+    # print('new columns: ', df_new.GetColumnNames())
     output_file = ROOT.TFile(outFile, "RECREATE")
     df_new.Snapshot('newtree', outFile)#overwrite the file
     print(f'Output file: {outFile}')
