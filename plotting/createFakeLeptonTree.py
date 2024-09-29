@@ -17,7 +17,7 @@ def main():
    
     all_columns = df_AR.GetColumnNames() 
     #!replace lepTopMVAT_pt with lepTopMVAF_ptCorrected
-    columns_to_remove = ["lepTopMVAT_1pt", "lepTopMVAT_2pt"]
+    columns_to_remove = ["lepTopMVAT_1pt", "lepTopMVAT_2pt", "elesTopMVAT_1pt", "muonsTopMVAT_1pt"]
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
     # Create a new dataframe with the selected columns
     df_AR.Snapshot('newtree', outFile, columns_to_keep)
@@ -27,7 +27,9 @@ def main():
     df_new = df_new.Define("lepTopMVAT_2pt", "lepTopMVAF_2ptCorrected")
     df_new = df_new.Define("elesTopMVAT_1pt", "elesTopMVAF_1ptCorrected")
     df_new = df_new.Define("muonsTopMVAT_1pt", "muonsTopMVAF_1ptCorrected")
-    # print('new columns: ', df_new.GetColumnNames())
+    df_new = df_new.Define("elesTopMVAT_2pt", "elesTopMVAF_2ptCorrected")
+    df_new = df_new.Define("muonsTopMVAT_2pt", "muonsTopMVAF_2ptCorrected")
+    print('new columns: ', df_new.GetColumnNames())
     output_file = ROOT.TFile(outFile, "RECREATE")
     df_new.Snapshot('newtree', outFile)#overwrite the file
     print(f'Output file: {outFile}')
