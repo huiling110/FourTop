@@ -56,10 +56,6 @@ void LepVarMaker::makeVariables(const EventForMV* e){
     lepTopMVAT_2eta = muons_num > 1 ? objsLorentz[1].Eta() : -99;
     lepTopMVAT_2phi = muons_num > 1 ? objsLorentz[1].Phi() : -99;
 
-    if(muons_num>1){
-    std::cout<<"lep 1 pt="<<objsLorentz[0].Pt()<<" lep 2 pt="<<objsLorentz[1].Pt()<<"\n";
-    }
-
     if(m_type==1){//fakeble lepton
         const UInt_t muonSize = e->muonsTopMVAF_isTight.GetSize(); 
         const UInt_t eleSize = e->elesTopMVAF_isTight.GetSize();
@@ -234,6 +230,15 @@ void LepVarMaker::makeVariables(const EventForMV* e){
 
     }//m_type==1
 }
+
+
+
+
+
+
+
+
+
 
 void LepVarMaker::clearBranch(){
     ObjVarMaker::clearBranch();
