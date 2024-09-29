@@ -7,6 +7,10 @@ EleVarMaker::EleVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
 {
     std::cout << "Initialzing the derived EleVarMaker........\n";
 
+    outTree->Branch(objName + "_2pt", &elesTopMVA_2pt);
+    outTree->Branch(objName + "_2eta", &elesTopMVA_2eta);
+    outTree->Branch(objName + "_2phi", &elesTopMVA_2phi);
+    outTree->Branch(objName + "_2mass", &elesTopMVA_2mass);
 
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
@@ -22,11 +26,23 @@ void EleVarMaker::makeVariables(const EventForMV *e)
     setupLorentzObjs(e); //!!! crucial to overide base class!!!
 
     ObjVarMaker::basicVariables();
+
+    elesTopMVA_2pt = muons_num>1 ? objsLorentz[1].Pt() : -99.;
+    elesTopMVA_2eta = muons_num>1 ? objsLorentz[1].Eta() : -99.;
+    elesTopMVA_2phi = muons_num>1 ? objsLorentz[1].Phi() : -99.;
+    elesTopMVA_2mass = muons_num>1 ? objsLorentz[1].M() : -99.;
+
+
 }
 
 void EleVarMaker::clearBranch()
 {
     ObjVarMaker::clearBranch();
+
+    elesTopMVA_2pt = -99.;
+    elesTopMVA_2eta = -99.;
+    elesTopMVA_2phi = -99.;
+    elesTopMVA_2mass = -99.;
 }
 
 void EleVarMaker::setupLorentzObjs(const EventForMV *e)
@@ -43,6 +59,12 @@ void EleVarMaker::setupLorentzObjs(const EventForMV *e)
     case 2:
         getLorentzVec(e->elesTopMVAF_pt, e->elesTopMVAF_eta, e->elesTopMVAF_phi, e->elesTopMVAF_mass, objsLorentz);
         break;
+    case 3:
+       getLorentzVec(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, e->muonsTopMVAT_phi, e->muonsTopMVAT_mass, objsLorentz);
+         break;
+    case 4:
+       getLorentzVec(e->muonsTopMVAF_pt, e->muonsTopMVAF_eta, e->muonsTopMVAF_phi, e->muonsTopMVAF_mass, objsLorentz);
+         break;
     default:
         break;
     }

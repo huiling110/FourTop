@@ -86,9 +86,10 @@ private:
     //
     // MuonVarMaker muVarMaker{m_outTree};
     ObjVarMaker muVarMaker{m_outTree, "muonsT", 0};
-    ObjVarMaker muTopTVarMaker{m_outTree, "muonsTopMVAT", 1};
+    // ObjVarMaker muTopTVarMaker{m_outTree, "muonsTopMVAT", 1};
     EleVarMaker eleVarMaker{m_outTree, "elesMVAT", 0};
     EleVarMaker eleTopVarMaker{m_outTree, "elesTopMVAT", 1};
+    EleVarMaker muTopTVarMaker{m_outTree, "muonsTopMVAT", 3};
 
     LepVarMaker lepVarMaker{m_outTree, m_era, m_isData, "lepTopMVAT", 0};
     LepVarMaker lepVarFMaker{m_outTree, m_era, m_isData, "lepTopMVAF", 1};

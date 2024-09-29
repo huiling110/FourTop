@@ -13,6 +13,11 @@ public:
     void setupLorentzObjs(const EventForMV *e);
 
 private:
+
+    Double_t elesTopMVA_2pt = -99.;
+    Double_t elesTopMVA_2eta = -99.;
+    Double_t elesTopMVA_2phi = -99.;
+    Double_t elesTopMVA_2mass = -99.;
 };
 
 #endif
