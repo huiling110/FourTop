@@ -109,8 +109,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3, "1tau2lCR3", eventWeight_1tau2l, m_isData);
         //testing
         Bool_t is1tau2lCR3NoTau = (e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v()==2)  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 ;
-        Bool_t is1tau2lCR3Mu1 = e->tausT_num.v()==1  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 && e->muonsTopMVAT_num.v()==1;
-        Bool_t is1tau2lCR2E1 = e->tausT_num.v()==1  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 && e->elesTopMVAT_num.v()==1;
+        // Bool_t is1tau2lCR3Mu1 = e->tausT_num.v()==1  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 && e->muonsTopMVAT_num.v()==1;
+        // Bool_t is1tau2lCR2E1 = e->tausT_num.v()==1  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 && e->elesTopMVAT_num.v()==1;
+        Bool_t is1tau2lCR3Mu1 = SR1tau1lSel(e, 14, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
+        Bool_t is1tau2lCR3E1 = SR1tau1lSel(e, 13, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3NoTau, "1tau2lCR3NoTau", eventWeight_1tau2l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3Mu1, "1tau2lCR3Mu1", eventWeight_1tau2l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR2E1, "1tau2lCR3E1", eventWeight_1tau2l, m_isData);
