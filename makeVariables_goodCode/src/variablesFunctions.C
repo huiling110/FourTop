@@ -1101,12 +1101,14 @@ void getLorentzVec(const TTreeReaderArray<Double_t> &ptVec, const TTreeReaderArr
 // Function to sort a vector of ROOT::Math::PtEtaPhiMVector by pt
 void sortByPt(std::vector<ROOT::Math::PtEtaPhiMVector>& vec) {
     std::sort(vec.begin(), vec.end(), [](const ROOT::Math::PtEtaPhiMVector& a, const ROOT::Math::PtEtaPhiMVector& b) {
-        return a.Pt() < b.Pt();
+        // return a.Pt() < b.Pt();
+        return a.Pt() > b.Pt();
     });
 }
 
 void addLorentzVector(const std::vector<ROOT::Math::PtEtaPhiMVector> &a, const std::vector<ROOT::Math::PtEtaPhiMVector> &b, std::vector<ROOT::Math::PtEtaPhiMVector> &out){
     out.clear();
+     out.reserve(a.size() + b.size()); // Reserve space for efficiency
     out.insert(out.end(), a.begin(), a.end());
     out.insert(out.end(), b.begin(), b.end());
     sortByPt(out);

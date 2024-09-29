@@ -56,6 +56,10 @@ void LepVarMaker::makeVariables(const EventForMV* e){
     lepTopMVAT_2eta = muons_num > 1 ? objsLorentz[1].Eta() : -99;
     lepTopMVAT_2phi = muons_num > 1 ? objsLorentz[1].Phi() : -99;
 
+    if(muons_num>1){
+    std::cout<<"lep 1 pt="<<objsLorentz[0].Pt()<<" lep 2 pt="<<objsLorentz[1].Pt()<<"\n";
+    }
+
     if(m_type==1){//fakeble lepton
         const UInt_t muonSize = e->muonsTopMVAF_isTight.GetSize(); 
         const UInt_t eleSize = e->elesTopMVAF_isTight.GetSize();
@@ -258,16 +262,10 @@ void LepVarMaker::clearBranch(){
 }
 
 void LepVarMaker::setupLorentzObjs(const EventForMV *e){
-    // objsLorentz.clear();
-    // for (UInt_t i = 0; i < leptonsMVAT.size(); i++){
-    //     objsLorentz.push_back(leptonsMVAT[i]);
-    // }
     switch(m_type){
         case 0:
             getLorentzVec(e->elesTopMVAT_pt, e->elesTopMVAT_eta, e->elesTopMVAT_phi, e->elesTopMVAT_mass, eles);
             getLorentzVec(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, e->muonsTopMVAT_phi, e->muonsTopMVAT_mass, mus);
-        // std::vector<ROOT::Math::PtEtaPhiMVector> leptonsMVAT;
-        // addLorentzVector(muonTopTVarMaker.getLorentzObjs(), eleTopVarMaker.getLorentzObjs(), leptonsMVAT);//Pt already sorted
             addLorentzVector(mus, eles, objsLorentz);
             break;
         case 1:
