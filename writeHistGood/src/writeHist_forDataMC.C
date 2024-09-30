@@ -115,7 +115,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         Bool_t is1tau2lCR3E1 = SR1tau1lSel(e, 13, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3NoTau, "1tau2lCR3NoTau", eventWeight_1tau2l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3Mu1, "1tau2lCR3Mu1", eventWeight_1tau2l, m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR2E1, "1tau2lCR3E1", eventWeight_1tau2l, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3E1, "1tau2lCR3E1", eventWeight_1tau2l, m_isData);
 
     }
     std::cout << "end of event loop\n";
