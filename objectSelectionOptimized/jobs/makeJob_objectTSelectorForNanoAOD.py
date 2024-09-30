@@ -51,7 +51,7 @@ def main():
     # dataList = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #!for 1tau2l  
     
     # sumProToSkip = ['jetHT', 'ttExtra'] #! and 1tau2l
-    sumProToSkip = ['jetHT'] #! need ttExtra for BDT training
+    sumProToSkip = ['jetHT', 'BTagCSV'] #! need ttExtra for BDT training
 
 
 
