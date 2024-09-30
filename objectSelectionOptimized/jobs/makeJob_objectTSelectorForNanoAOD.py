@@ -50,9 +50,8 @@ def main():
     # dataList = [ 'Muon']
     # dataList = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #!for 1tau2l  
     
-    # ifSkipTTExtra = True #! only for BDT training in 1tau1l and 1tau2l
-    # ifSkipTTExtra = False #! for 1tau0l
-    sumProToSkip = ['jetHT', 'ttExtra'] #! and 1tau2l
+    # sumProToSkip = ['jetHT', 'ttExtra'] #! and 1tau2l
+    sumProToSkip = ['jetHT'] #! need ttExtra for BDT training
 
 
 
