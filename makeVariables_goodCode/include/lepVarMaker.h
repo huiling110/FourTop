@@ -15,6 +15,8 @@ public:
     void processSingleLep(const EventForMV* e, const UInt_t muonSize, const UInt_t eleSize);
     void processingDoubleLep(const EventForMV* e, const UInt_t muonSize, const UInt_t eleSize);
     void setupLorentzObjs(const EventForMV *e);
+    Double_t get1pt();
+    Double_t get2pt();
 
 private:
     TString m_era;

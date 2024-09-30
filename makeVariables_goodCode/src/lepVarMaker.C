@@ -288,3 +288,11 @@ void LepVarMaker::setupLorentzObjs(const EventForMV *e){
 LepVarMaker::~LepVarMaker(){
     std::cout<<"Deleting LepVarMaker"<<std::endl;
 }
+
+Double_t LepVarMaker::get1pt(){
+    return muons_1pt;
+};
+Double_t LepVarMaker::get2pt(){
+    return lepTopMVAT_2pt;
+}
+
