@@ -29,6 +29,8 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
         outTree->Branch("muonsTopMVAF_2ptCorrected", &muonsTopMVAF_2ptCorrected);
         outTree->Branch("lepTopMVAF_1ptCorrected", &lepTopMVAF_1ptCorrected);
         outTree->Branch("lepTopMVAF_2ptCorrected", &lepTopMVAF_2ptCorrected);
+        outTree->Branch("elesTopMVAF_num", &elesTopMVAF_num);
+        outTree->Branch("muonsTopMVAF_num", &muonsTopMVAF_num);
 
 
         std::map<TString, TString> eraHistMap = {
@@ -63,6 +65,8 @@ void LepVarMaker::makeVariables(const EventForMV* e){
         elesTopMVAF_2isTight = eleSize > 1 ? e->elesTopMVAF_isTight.At(1) : kFALSE;
         muonsTopMVAF_1isTight = muonSize > 0 ? e->muonsTopMVAF_isTight.At(0) : kFALSE;
         muonsTopMVAF_2isTight = muonSize > 1 ? e->muonsTopMVAF_isTight.At(1) : kFALSE;
+        elesTopMVAF_num = eleSize;
+        muonsTopMVAF_num = muonSize;
 
         if (!m_isData)
         {
@@ -266,6 +270,9 @@ void LepVarMaker::clearBranch(){
     elesTopMVAF_2isTightPrompt = kFALSE;
     muonsTopMVAF_1isTightPrompt = kFALSE;
     muonsTopMVAF_2isTightPrompt = kFALSE;
+
+    elesTopMVAF_num = -99;
+    muonsTopMVAF_num = -99;
 }
 
 void LepVarMaker::setupLorentzObjs(const EventForMV *e){

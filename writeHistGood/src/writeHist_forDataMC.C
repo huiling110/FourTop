@@ -60,8 +60,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         //!to do: handling weight in baseWeightCal
         // Double_t basicWeight = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
         const Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0, m_isFakeTau, m_isFakeLepton);//!1tau1l
-        // const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2);
-        // const Double_t eventWeight_1tau2l = m_isFakeLepton? e->lepTopMVAF_FRweight.v(): baseWeightCal(e, i, m_isRun3, m_isData, 2);
         const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2, m_isFakeTau, m_isFakeLepton);
         Double_t eventWeight_1tau0l = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
 

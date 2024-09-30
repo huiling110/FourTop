@@ -43,6 +43,8 @@ private:
     Double_t muonsTopMVAF_2ptCorrected;
     Double_t lepTopMVAF_1ptCorrected;
     Double_t lepTopMVAF_2ptCorrected;
+    Int_t elesTopMVAF_num;
+    Int_t muonsTopMVAF_num;
 
 
     std::vector<Double_t> lep_ptConeCorrected;

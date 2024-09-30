@@ -18,7 +18,7 @@ def main():
    
     all_columns = df_AR.GetColumnNames() 
     #!replace lepTopMVAT_pt with lepTopMVAF_ptCorrected
-    columns_to_remove = ["lepTopMVAT_1pt", "lepTopMVAT_2pt", "elesTopMVAT_1pt", "muonsTopMVAT_1pt"]
+    columns_to_remove = ["lepTopMVAT_1pt", "lepTopMVAT_2pt", "elesTopMVAT_1pt", "muonsTopMVAT_1pt", "muonsTopMVAT_2pt", "elesTopMVAT_2pt"]
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
     # Create a new dataframe with the selected columns
     df_AR.Snapshot('newtree', outFile, columns_to_keep)

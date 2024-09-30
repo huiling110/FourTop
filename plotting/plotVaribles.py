@@ -65,9 +65,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v2_v84fakeLeptonUpdateV2/mc/variableHists_v1dataMC_allbutHLTFakeLepton/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2lNotLepCut_v84Pre1tau2lNoLepCut/mc/variableHists_v1dataMC_allbutHLTFakeLeptonNoLepCut/'
     channel = '1tau2l'
-    variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' ]
+    # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' ]
     # variables = ['jets_num']
-    # variables = ['']
+    variables = ['elesTopMVAT_2pt', 'muonsTopMVAT_2pt']
     regionList = ['1tau2lSR', '1tau2lCR3',  '1tau2lCR3Mu1', '1tau2lCR3E1']
     # regionList = ['1tau2lSR', '1tau2lCR3']
 

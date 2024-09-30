@@ -121,10 +121,12 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d muonsTopMVAT_1eta_class = std::make_shared<histsForRegionsMap<Double_t>>("muonsTopMVAT_1eta", "#eta^{#mu}", m_processName, 10, -2.5, 2.5, regionsForVariables, &(e->muonsTopMVAT_1eta));
     SP_d elesTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_1pt", "p_{T}^{e}(GeV)", m_processName, 10, 0, 200, regionsForVariables, &(e->elesTopMVAT_1pt));
     SP_d elesTopMVAT_1eta_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_1eta", "#eta^{e}", m_processName, 10, -2.5, 2.5, regionsForVariables, &(e->elesTopMVAT_1eta));
-    SP_d elesTopMVAT_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_2pt", "p_{T}^{2nd e}(GeV)", m_processName, 10, 0, 200, regionsForVariables, &(e->elesTopMVAT_2pt));
-    SP_d muonsTopMVAT_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("muonsTopMVAT_2pt", "p_{T}^{2nd #mu}(GeV)", m_processName, 10, 0, 200, regionsForVariables, &(e->muonsTopMVAT_2pt));
+    SP_d elesTopMVAT_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_2pt", "p_{T}^{2nd e}(GeV)", m_processName, 10, 0, 160, regionsForVariables, &(e->elesTopMVAT_2pt));
+    SP_d muonsTopMVAT_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("muonsTopMVAT_2pt", "p_{T}^{2nd #mu}(GeV)", m_processName, 10, 0, 160, regionsForVariables, &(e->muonsTopMVAT_2pt));
+    SP_d elesTopMVAT_2eta_class = std::make_shared<histsForRegionsMap<Double_t>>("elesTopMVAT_2eta", "#eta^{2nd e}", m_processName, 10, -2.5, 2.5, regionsForVariables, &(e->elesTopMVAT_2eta));
+    SP_d muonsTopMVAT_2eta_class = std::make_shared<histsForRegionsMap<Double_t>>("muonsTopMVAT_2eta", "#eta^{2nd #mu}", m_processName, 10, -2.5, 2.5, regionsForVariables, &(e->muonsTopMVAT_2eta));
     SP_d lepTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_1pt", "p_{T}^{1st l}(GeV)", m_processName, 10, 0, 200, regionsForVariables, &(e->lepTopMVAT_1pt));
-    SP_d lepTopMVAT_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_2pt", "p_{T}^{2nd l}(GeV)", m_processName, 10, 0, 200, regionsForVariables, &(e->lepTopMVAT_2pt));
+    SP_d lepTopMVAT_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_2pt", "p_{T}^{2nd l}(GeV)", m_processName, 10, 0, 160, regionsForVariables, &(e->lepTopMVAT_2pt));
 
 
 
@@ -247,6 +249,8 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(elesTopMVAT_1eta_class);
     histsForRegion_vec.push_back(elesTopMVAT_2pt_class);
     histsForRegion_vec.push_back(muonsTopMVAT_2pt_class);
+    histsForRegion_vec.push_back(elesTopMVAT_2eta_class);
+    histsForRegion_vec.push_back(muonsTopMVAT_2eta_class);
     histsForRegion_vec.push_back(lepTopMVAT_1pt_class);
     histsForRegion_vec.push_back(lepTopMVAT_2pt_class);
 
