@@ -476,6 +476,7 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
         'Higgs': TColor.GetColor("#313695"),
         'DY': TColor.GetColor("#313695"),
         'fakeLepton': TColor.GetColor("#fec44f"),
+        'Minor': TColor.GetColor("#edf8b1"),
     }
     
     sumHist = nominal[keyList[0]].Clone()
