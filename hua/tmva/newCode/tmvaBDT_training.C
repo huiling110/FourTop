@@ -86,9 +86,12 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
 
         {"1tau2l",{
             "tttt",
-            "ttbar_0l", //!should be with TTExtra in training
-            "ttbar_2l",
-            "ttbar_1l",
+            // "ttbar_0l", //!should be with TTExtra in training
+            // "ttbar_2l",
+            // "ttbar_1l",
+            "TTToHadronic",//!have to merge seperate files first with hadd
+            "TTToSemiLeptonic",
+            "TTTo2L2Nu",
             "ttG",
             "ttZ",
             "ttW",
