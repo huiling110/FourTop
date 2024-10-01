@@ -43,7 +43,7 @@ def main():
     #dataMC
     # version = 'v0dataMC_allCorrection'
     # version = 'v1dataMC_allbutHLT'
-    version = 'v1dataMC_allbutHLTFakeLepton'
+    # version = 'v1dataMC_allbutHLTFakeLepton'
     # version = 'v1dataMC_allbutHLTFakeLeptonNoLepCut'
     # version = 'v2dataMC_allbutHLT'
     # version = 'v2dataMC_allbutHLTAddTestReg'
@@ -74,7 +74,7 @@ def main():
     # version = 'v2BDT25inputsWith2018train'
     
     channel = '1tau2l'
-    # version = 'v0BDT1tau2l'
+    version = 'v0BDT1tau2l'
    
     # exe = './run_WH_forDataMC.out'
     # exe = './run_treeAnalyzer.out' 
@@ -121,8 +121,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
-            # run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './run_WH_forDataMC.out {} {} {} {}'.format(inputDir, iProcess, version, isTest)
+            run = './run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
