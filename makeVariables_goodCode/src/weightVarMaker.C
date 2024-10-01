@@ -1,7 +1,6 @@
 #include <TFile.h>
 #include <TCanvas.h>
 
-
 #include "../include/weightVarMaker.h"
 #include "../include/variablesFunctions.h"
 #include "../include/inputMap_MV.h"
@@ -179,7 +178,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
             global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(processTem) / GENSUM::genSumMap.at(m_era).at(processTem);
             std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processTem)<<" genSum="<<GENSUM::genSumMap.at(m_era).at(processTem)<<"\n";
         }else{
-            // global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / TTTT::genSumDic.at(m_era).at(m_processName);//!only BDT training uses this
             global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(m_processName) / GENSUM::genSumMap.at(m_era).at(m_processName);//!only BDT training uses this
             std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(m_processName)<<" genSum="<<GENSUM::genSumMap.at(m_era).at(m_processName)<<"\n";
         }

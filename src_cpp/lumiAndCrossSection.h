@@ -217,9 +217,8 @@ inline const std::map<TString, std::array<Double_t, 2>> particleNetBMT = {
     {"2022preEE", {0.245, 0.6734}},
     {"2022postEE", {0.2605, 0.6915}},
 };
-
-// inline const std::map<TString, double> genSumDic = {
 inline const std::map<TString, std::map<TString, double>> genSumDic = {
+//obsolete
         {"2018",{
             {"ttW", 27686900.0},
             {"qcd_2000toInf", 5374710.0},

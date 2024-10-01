@@ -7,6 +7,9 @@ namespace GENSUM{
 
 inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 {"2018", {
+    {"TTToSemiLeptonic", 1.35336e+12},// only for BDT training in 1tau1l and 1tau2l
+    {"TTToHadronic", 7.16154e+11},
+    {"TTTo2L2Nu", 9.77873e+10},
     {"TTTo2L2Nu12", 3676686735.3588},
     {"TTTo2L2Nu20", 4686306971.145},
     {"dy", 44304135.0},
