@@ -38,6 +38,8 @@ public:
         m_isData = TTTT::getIsData(m_inputDir);
         m_isRun3 = TTTT::isRun3(m_era);
         std::cout << "m_era=" << m_era <<" m_isRun3="<<m_isRun3<< " m_isData=" << m_isData << "  m_isTest=" << m_isTest << "\n";
+        m_isFakeLepton = m_processName.Contains("fakeLepton");
+        m_isFakeTau = m_processName.Contains("fakeTau");
 
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
@@ -55,7 +57,6 @@ public:
 private:
     TString m_inputDir;
     TString m_processName;
-    // Int_t m_channel;
     TString m_channel;
     Bool_t m_isTest = kTRUE;
     TTree *m_tree;
@@ -67,6 +68,8 @@ private:
     TFile *m_outFile;
     TH1D *cutFlowHist = new TH1D("cutFlow", "cutFlow", 3, 0, 3);
     event *e;
+    Bool_t m_isFakeLepton = kFALSE;
+    Bool_t m_isFakeTau = kFALSE;
 
     // for TMVA reader
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");

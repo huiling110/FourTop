@@ -31,8 +31,6 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau1lCR1", m_era);
         WH::getChannelSys(sysRegions, "1tau1lCR2", m_era);
 
-        // std::vector<Double_t> bins = {-0.25, -0.05, 0, 0.04, 0.08, 0.12, 0.17, 0.4 }; //1tau1l Bin B
-        // std::vector<Double_t> bins = { -0.25, -0.20, -0.15, 0., 0.08, 0.14, 0.4}; // 1tau1l Bin C
         // std::vector<Double_t> bins1tau1l =  {-0.25, -0.1036, -0.0731, -0.0487, -0.030, -0.012, 0.013, 0.037, 0.06, 0.122, 0.36}; //roughly 15 bg in each bin
         std::vector<Double_t> bins1tau1l = {-0.25, -0.0914, -0.0548, -0.0243, 0.0062, 0.0367, 0.0855, 0.135, 0.36}; //roughly 22 bg in each bin
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions); 
@@ -58,8 +56,6 @@ void treeAnalyzer::Init()
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};
         std::vector<Double_t> bins1tau0l = {-0.35, -0.28, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};//Bin B
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
-
-
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
         variableList = WH::BDT1tau0l.at(m_era).at(0);
@@ -70,8 +66,10 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau2lSR", m_era);
 
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau2l
-        variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv";
-        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
+        // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv";
+        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
+        variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv";
+        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau2lSR_v84Pre1tau2lLepF2/mc/BDTTrain/v1finalVar/inputList_1tau2l_final.csv.root";
     }else{
         std::cout << "WARNING!! channel not spefified\n";
     }
@@ -140,12 +138,12 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(1);
 
-        Bool_t isFakeTau = m_processName.Contains("fakeTau");
+        // Bool_t isFakeTau = m_processName.Contains("fakeTau");
         if(m_channel=="1tau0l"){
             if(!(e->tausF_num.v()==1)){
                 continue;
             }
-            if(!isFakeTau && !m_isData){
+            if(!m_isFakeTau && !m_isData){
                 if (!(e->tausT_genTauNum.v() == 1)) continue;
             }
         }
@@ -170,25 +168,30 @@ void treeAnalyzer::LoopTree()
 
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
 
-        Double_t basicWeight = 1.0;
-        basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel));//!
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
+        // basicWeight = m_processName.Contains("fakeTau") ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel));//!
 
         if(m_channel=="1tau0l"){
-            Bool_t SR1tau0l = SR1tau1lSel(e, 1, m_isRun3, isFakeTau);
-            Bool_t CR1tau0l = SR1tau1lSel(e, 9, m_isRun3, isFakeTau);
-            Bool_t MR1tau0l = SR1tau1lSel(e, 7, m_isRun3, isFakeTau);
-            Bool_t VR1tau0l = SR1tau1lSel(e, 8, m_isRun3, isFakeTau);
+            Bool_t SR1tau0l = SR1tau1lSel(e, 1, m_isRun3, m_isFakeTau);
+            Bool_t CR1tau0l = SR1tau1lSel(e, 9, m_isRun3, m_isFakeTau);
+            Bool_t MR1tau0l = SR1tau1lSel(e, 7, m_isRun3, m_isFakeTau);
+            Bool_t VR1tau0l = SR1tau1lSel(e, 8, m_isRun3, m_isFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau0l, "1tau0lSR");
             sysRegionsFill(bdtScore, basicWeight, CR1tau0l, "1tau0lCR");
             sysRegionsFill(bdtScore, basicWeight, MR1tau0l, "1tau0lMR");
             sysRegionsFill(bdtScore, basicWeight, VR1tau0l, "1tau0lVR");
         }else if(m_channel=="1tau1l"){
-            Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, isFakeTau );
-            Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, isFakeTau);
-            Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, isFakeTau);
+            Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, m_isFakeTau );
+            Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau);
+            Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, m_isFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau1l, "1tau1lSR");
             sysRegionsFill(bdtScore, basicWeight, CR11tau1l, "1tau1lCR1");
             sysRegionsFill(bdtScore, basicWeight, CR21tau1l, "1tau1lCR2");
+        }else if (m_channel=="1tau2l"){
+            Bool_t SR1tau2l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
+            Bool_t CR31tau2l = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
+            sysRegionsFill(bdtScore, basicWeight, SR1tau2l, "1tau2lSR");
+            sysRegionsFill(bdtScore, basicWeight, CR31tau2l, "1tau2lCR3");
         }
 
     }
@@ -275,11 +278,11 @@ void treeAnalyzer::Terminate()
 
     if (!m_isData)
     {
-        if(!m_processName.Contains("fakeTau")){
-
-        Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
-        const Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
-        SR1tau1lSys.scale(processScale);
+        // if(!m_processName.Contains("fakeTau")){
+        if(!m_isFakeTau || !m_isFakeLepton){
+            Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
+            const Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
+            SR1tau1lSys.scale(processScale);
         }
     };
     SR1tau1lSys.print();

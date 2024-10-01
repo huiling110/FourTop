@@ -15,16 +15,19 @@ def main():
     # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v0allVar/training.log'
     # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1allVar/inputList_1tau0l.csv.root'
     # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1allVar/training.log'
-    inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
-    inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v0allVar/training.log'
+    # inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v0allVar/inputList_1tau1l.csv.root'
+    # inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v0allVar/training.log'
+    
+    inputRoot = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau2lSR_v84Pre1tau2lLepF2/mc/BDTTrain/v0allVar/inputList_1tau2l_all.csv.root'
+    inputLog = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau2lSR_v84Pre1tau2lLepF2/mc/BDTTrain/v0allVar/training.log'
 
     outDir = os.path.dirname(inputRoot)
     
-    vListDir = generateVarList(inputRoot, inputLog)
+    # vListDir = generateVarList(inputRoot, inputLog)
     # submitTrainingJobs(vListDir, inputRoot)
 
+    plot_auc_vs_num_variables(outDir+ '/variableListv0/' +'BDTTrain/')
     # plot_auc_vs_num_variables(outDir+ '/variableList/' +'BDTTrain/')
-    # plot_auc_vs_num_variables(outDir+ '/variableListv0/' +'BDTTrain/')
 
 
 def get_auc_and_num_variables(root_file):
@@ -169,7 +172,6 @@ def generateVarList(inputRoot, inputLog, varListVer = 'v0'):
 
 def createNextVariableList_correlation( vlist, TMVAroot):
     #only stores variable in vlist
-    #  inputFile = ROOT.TFile("/publicfs/cms/user/huahuil/TauOfTTTT/2016v1/TMVAOutput/v1HT400Cut_v44_fixedSingJetHLTBugAndAddHLTcut/1tau1l_forvariables_variables.root")
     inputFile = ROOT.TFile( TMVAroot )
     inputFile.Print()
     h2 = inputFile.Get("dataset/CorrelationMatrixS"); #TH2F
