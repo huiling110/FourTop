@@ -57,7 +57,7 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_9eta", &jets_9eta);
     outTree->Branch(objName + "_9phi", &jets_9phi);
 
-    outTree->Branch(objName + "_leptonsMVAT_minDeltaR);", &jets_leptonsMVAT_minDeltaR);
+    outTree->Branch(objName + "_leptonsMVAT_minDeltaR", &jets_leptonsMVAT_minDeltaR);
     outTree->Branch(objName + "_tausT_minDeltaR", &jets_tausT_minDeltaR);
     outTree->Branch(objName + "_tausT_invariantMass", &jets_tausT_invariantMass);
 
