@@ -193,33 +193,33 @@ histoGramPerSample = {
     "ttWW": "ttX",
     
     # "wz":"VV",
-    "WZTo3LNu":"VV", #!use this instead of wz
-    "ww":"VV",
-    "zz":"VV",
-    'WWW': "VVV",
-    'WWZ': 'VVV',
-    'WZZ': 'VVV',
-    'ZZZ': 'VVV',
+    "WZTo3LNu":"Minor", #!use this instead of wz
+    "ww":"Minor",
+    "zz":"Minor",
+    'WWW': "Minor",
+    'WWZ': 'Minor',
+    'WZZ': 'Minor',
+    'ZZZ': 'Minor',
     
     "st_tZq":"singleTop",
     "st_tW_antitop":"singleTop",
     "st_tW_top":"singleTop",
     
-    "TGJets": "XGamma",
-    "ZGToLLG": "XGamma",
-    "WGToLNuG": "XGamma",
+    "TGJets": "Minor",#"XGamma",
+    "ZGToLLG": "Minor",#"XGamma",
+    "WGToLNuG": "Minor",#"XGamma",
    
     
-    "ggH_bb": "Higgs",
-    "ggH_tautau": "Higgs",
-    "ggH_WW_2l": "Higgs",
-    "ggH_ZZ_2l": "Higgs",
-    "ggH_ZZ_4l": "Higgs",
-    "ggH_gg": "Higgs",
-    "vbfH_bb": "Higgs",
-    "vbfH_tautau": "Higgs",
-    "vbfH_WW_2l": "Higgs",
-    # "VH_nonbb": "Higgs", #!not in MV
+    "ggH_bb": "Minor",#"Higgs",
+    "ggH_tautau": "Minor",#"Higgs",
+    "ggH_WW_2l": "Minor",#"Higgs",
+    "ggH_ZZ_2l": "Minor",#"Higgs",
+    "ggH_ZZ_4l": "Minor",#"Higgs",
+    "ggH_gg": "Minor",#"Higgs",
+    "vbfH_bb": "Minor",#"Higgs",
+    "vbfH_tautau": "Minor",#"Higgs",
+    "vbfH_WW_2l": "Minor",#"Higgs",
+    # "VH_nonbb": "Minor",#"Higgs", #!not in MV
     
     "WJetsToLNu_HT-200To400": "WJets",
     "WJetsToLNu_HT-400To600": "WJets",
@@ -475,5 +475,6 @@ dataDict = {
 proChannelDic = {
     '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, for now not considering data
     '1tau0l':  ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets', 'jetHT'], #!1tau0l
-    '1tau2l':  ['tt', 'ttX', 'singleTop', 'WJets',  'VV','VVV','Higgs', 'XGamma', 'fakeLepton', 'tttt', 'leptonSum'], 
+    # '1tau2l':  ['tt', 'ttX', 'singleTop', 'WJets',  'VV','VVV','Higgs', 'XGamma', 'fakeLepton', 'tttt', 'leptonSum'], 
+    '1tau2l':  ['tt', 'ttX', 'singleTop',  'VV','VVV','Higgs', 'XGamma', 'fakeLepton', 'tttt', 'leptonSum'], 
 }
