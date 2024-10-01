@@ -1,4 +1,3 @@
-
 #include <boost/lexical_cast.hpp>
 #include <fstream>
 
@@ -84,6 +83,24 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
                               "fakeTau_tauFGen",
                               "fakeTau_tauTGen",
                           }},
+
+        {"1tau2l",{
+            "tttt",
+            "ttbar_0l", //!should be with TTExtra in training
+            "ttbar_2l",
+            "ttbar_1l",
+            "ttG",
+            "ttZ",
+            "ttW",
+            "ttH_bb",
+            "ttH_nonbb",
+            "ttWW",
+            "st_tZq",
+            "st_tW_antitop",
+            "st_tW_top",
+            }
+        },
+
 
     };
 

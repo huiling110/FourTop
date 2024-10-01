@@ -74,7 +74,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if(tau1e1Sel){
             // if(!(jetVarMaker.getJet_num()>= 7 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
             // if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauFVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0  )){ //!1tau0lSR, can not add tauT cut, for fake tau estimation later
-            if(!(jetVarMaker.getJet_num()>= 4 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && lepVarMaker.getNum()==2 && lepVarMaker.get1pt()>25. && lepVarMaker.get2pt()>13. )){ //!1tau2lSR
+            if(!(jetVarMaker.getJet_num()>= 4 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && lepVarMaker.getNum()==2 && lepVarMaker.get1pt()>25. && lepVarMaker.get2pt()>13. )){ //!1tau2lSR, for BDTraining, not including fakeLepton
                 continue;
             }
         }
