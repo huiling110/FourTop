@@ -224,6 +224,12 @@ void getVarFromFile(TString variableListCsv, std::vector<TString> &variablesName
     variablesName.clear();
     while (getline(fin, line))
     {
+         // Remove trailing spaces and newline characters
+        if (!line.empty() && (line.back() == ' ' || line.back() == '\n' || line.back() == '\r'))
+        {
+            line.erase(line.find_last_not_of(" \n\r\t") + 1);
+        }
+
         ivariable = line;
         if (line.size() > 0)
         {
