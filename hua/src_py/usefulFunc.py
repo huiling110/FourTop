@@ -658,7 +658,7 @@ def addBGHist(sumProcessIVar,  region, includeQCD=False):
             # if ipro=='data' or ipro=='qcd' or ipro=='tttt': continue
             if ipro=='jetHT' or ipro=='singleMu' or ipro=='qcd' or ipro=='tttt': continue
         else:
-            if ipro=='jetHT' or ipro=='singleMu' or ipro=='tttt': continue
+            if ipro=='jetHT' or ipro=='singleMu' or ipro=='tttt' or ipro=='fakeLepton': continue
         sumHist.Add( sumProcessIVar[region][ipro])
     return sumHist
 

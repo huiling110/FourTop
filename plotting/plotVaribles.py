@@ -45,8 +45,8 @@ def main():
     # ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    # ifPrintSB = True
-    ifPrintSB = False
+    ifPrintSB = True
+    # ifPrintSB = False
     # ifSystematic = True #!Only for BDT
     ifSystematic = False  
     # channel = '1tau1l'

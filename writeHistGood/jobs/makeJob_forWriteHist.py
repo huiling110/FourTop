@@ -74,7 +74,8 @@ def main():
     # version = 'v2BDT25inputsWith2018train'
     
     channel = '1tau2l'
-    version = 'v0BDT1tau2l'
+    # version = 'v0BDT1tau2l'
+    version = 'v1BDT1tau2lEvenBin'
    
     # exe = './run_WH_forDataMC.out'
     # exe = './run_treeAnalyzer.out' 

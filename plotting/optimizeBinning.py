@@ -3,17 +3,20 @@ import ROOT
 from scipy.optimize import minimize
 
 import usefulFunc as uf
+import ttttGlobleQuantity as gq
 
 #to do: maybe consider statical uncertainty in data in the significance calculation
 def main():
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1BDT1tau1l_evenBin/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1BDT1tau1l_evenBin/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1BDT1tau2lEvenBin/'
+    channel = '1tau2l'
     
     
     era = uf.getEraFromDir(inputDir)
     print('era=', era)
     inputDirDic = uf.getInputDicNew( inputDir)
     uf.checkMakeDir( inputDirDic['mc']+'results/')
-    sigHist, bgHist = getSigBgHist(inputDirDic,  era)
+    sigHist, bgHist = getSigBgHist(inputDirDic,  era, channel)
     
     # optimizeHists(sigHist, bgHist)
     best_bin_edges, best_significance = optimize_binning(sigHist, bgHist, 1)
@@ -63,12 +66,15 @@ def plot_histograms(histograms, legend_names, output_filename="plot.png", title=
     c1.SaveAs(output_filename)
     
 
-def getSigBgHist(inputDirDic,  era):
-    sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
-    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, ['1tau1lSR'], sumProList, {}, ['BDT'], era, False )#sumProcessPerVar[ivar][region][sumPro]
+# def getSigBgHist(inputDirDic,  era):
+def getSigBgHist(inputDirDic,  era, channel = '1tau1l'):
+    # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
+    sumProList = gq.proChannelDic[channel]
+    region = f'{channel}SR'
+    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, [region], sumProList, {}, ['BDT'], era, False )#sumProcessPerVar[ivar][region][sumPro]
     
-    sigHist = sumProcessPerVar['BDT']['1tau1lSR']['tttt']
-    bgHist = uf.addBGHist(sumProcessPerVar['BDT'], '1tau1lSR')
+    sigHist = sumProcessPerVar['BDT'][region]['tttt']
+    bgHist = uf.addBGHist(sumProcessPerVar['BDT'], region)
     sigHist.Print()
     bgHist.Print()
     
