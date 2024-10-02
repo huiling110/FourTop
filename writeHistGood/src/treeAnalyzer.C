@@ -64,12 +64,13 @@ void treeAnalyzer::Init()
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";
         WH::getChannelSys(sysRegions, "1tau2lSR", m_era);
+        WH::getChannelSys(sysRegions, "1tau2lCR3", m_era);
 
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau2l
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
         variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv";
-        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau2lSR_v84Pre1tau2lLepF2/mc/BDTTrain/v1finalVar/inputList_1tau2l_final.csv.root";
+        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau2lSR_v84Pre1tau2lLepF2/mc/BDTTrain/v1finalVar/inputList_1tau2l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
     }else{
         std::cout << "WARNING!! channel not spefified\n";
     }

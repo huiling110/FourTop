@@ -137,6 +137,11 @@ public:
     myBranch<Bool_t> lepTopMVAF_isAR{"lepTopMVAF_isAR"};
     myBranch<Int_t> lepTopMVAF_num{"lepTopMVAF_num"};
     myBranch<Double_t> lepTopMVAF_FRweight{"lepTopMVAF_FRweight"};
+    myBranch<Double_t> lepTopMVAT_1eta{"lepTopMVAT_1eta"};
+    myBranch<Double_t> lepTopMVAT_2eta{"lepTopMVAT_2eta"};
+    myBranch<Double_t> lepTopMVAT_1phi{"lepTopMVAT_1phi"};
+    myBranch<Double_t> lepTopMVAT_2invariantMass{"lepTopMVAT_2invariantMass"};
+    myBranch<Int_t> leptons_2charge{"leptons_2charge"};
 
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
@@ -280,6 +285,7 @@ public:
     myBranch<Double_t> tausTT_leptonsTMVA_minDeltaR{"tausTT_leptonsTMVA_minDeltaR"};
     myBranch<Double_t> tausTT_leptonsT_transMass{"tausTT_leptonsT_transMass"};
     myBranch<Int_t> tausTT_1charge{"tausTT_1charge"};
+    myBranch<Double_t> tausT_1jetEtaAbs{"tausT_1jetEtaAbs"};
     myBranch<Int_t> tausTT_1genFlavour{"tausTT_1genFlavour"};
     myBranch<Int_t> tausTT_1decayMode{"tausTT_1decayMode"};
     myBranch<Int_t> tausTT_1lepton1_charge{"tausTT_1lepton1_charge"};
@@ -431,7 +437,11 @@ private:
         {lepTopMVAF_isAR.n(), &lepTopMVAF_isAR},
         {lepTopMVAF_num.n(), &lepTopMVAF_num},
         {lepTopMVAF_FRweight.n(), &lepTopMVAF_FRweight},
-
+        {lepTopMVAT_1eta.n(), &lepTopMVAT_1eta},
+        {lepTopMVAT_2eta.n(), &lepTopMVAT_2eta},
+        {lepTopMVAT_1phi.n(), &lepTopMVAT_1phi},
+        {lepTopMVAT_2invariantMass.n(), &lepTopMVAT_2invariantMass},
+        {leptons_2charge.n(), &leptons_2charge},
 
 
 
@@ -564,6 +574,7 @@ private:
         {tausTT_leptonsTMVA_minDeltaR.n(), &tausTT_leptonsTMVA_minDeltaR},
         {tausTT_leptonsT_transMass.n(), &tausTT_leptonsT_transMass},
         {tausTT_1charge.n(), &tausTT_1charge},
+        {tausT_1jetEtaAbs.n(), &tausT_1jetEtaAbs},
 
 
 
