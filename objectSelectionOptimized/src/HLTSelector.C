@@ -214,7 +214,9 @@ Bool_t HLTSelector::SelectLepTri(const eventForNano* e){
     }else if(m_era == "2017"){
         ifPass =
             **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ||
-            **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 || **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 ||**e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ||
+            // **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 || **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 ||**e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ||
+             **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 ||
+             **e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ||
             **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ||
             **e->HLT_IsoMu27 ||
             **e->HLT_Ele35_WPTight_Gsf;

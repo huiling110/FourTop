@@ -105,7 +105,7 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         }
 
         Bool_t jetCut = m_if1tau2l? jetSel.getSize()>1: jetSel.getSize()>5;
-        if(!(OS::ifEventPass(preSelection, jetCut, m_cutflow, 4))){//!for 1tau2l
+        if(!(OS::ifEventPass(preSelection, jetCut, m_cutflow, 4))){
             continue;
         }
         Bool_t bjetCut = m_if1tau2l? bjetMSel.getSize()>0: bjetMSel.getSize()>1;
