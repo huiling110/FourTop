@@ -314,8 +314,7 @@ histoGramPerSample = {
     'singleMu_2017e': 'singleMu',
     'singleMu_2017f': 'singleMu',
     
-    #!how to ovoid overlap of data in 1tau2l? 
-    #may additonal python code to remove the overlap
+    #additonal python code to remove the overlap
     'doubleMu_2018a': 'doubleMu',
     'doubleMu_2018b': 'doubleMu',
     'doubleMu_2018c': 'doubleMu',
@@ -328,6 +327,27 @@ histoGramPerSample = {
     'eGamma_2018b': 'eGamma',
     'eGamma_2018c': 'eGamma',
     'eGamma_2018d': 'eGamma',
+    
+    'doubleMu_2017b': 'doubleMu',
+    'doubleMu_2017c': 'doubleMu',
+    'doubleMu_2017d': 'doubleMu',
+    'doubleMu_2017e': 'doubleMu',
+    'doubleMu_2017f': 'doubleMu',
+    'doubleEG_2017b': 'doubleEG',
+    'doubleEG_2017c': 'doubleEG',
+    'doubleEG_2017d': 'doubleEG',
+    'doubleEG_2017e': 'doubleEG',
+    'doubleEG_2017f': 'doubleEG',
+    'MuonEG_2017b': 'muonEG',
+    'MuonEG_2017c': 'muonEG',
+    'MuonEG_2017d': 'muonEG',
+    'MuonEG_2017e': 'muonEG',
+    'MuonEG_2017f': 'muonEG',
+    'singleE_2017b': 'singleE',
+    'singleE_2017c': 'singleE',
+    'singleE_2017d': 'singleE',
+    'singleE_2017e': 'singleE',
+    'singleE_2017f': 'singleE',
     
     #overlap removed data for 1tau2l
     'leptonSum_2018': 'leptonSum',
