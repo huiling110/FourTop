@@ -39,12 +39,12 @@ def main():
     inVersion = 'v84Pre1tau2lLepF2'
 
     # outVersion = 'v0baselineHardro'
-    # outVersion = 'v0baselineLep'
+    outVersion = 'v0baselineLep'
     
     # outVersion = 'v0baseline1tau2lNotLepCut'
     # outVersion = 'v2cut1tau0lSRTauF'
     # outVersion = 'v1cut1tau1lSR'
-    outVersion = 'v2cut1tau2lSR'
+    # outVersion = 'v2cut1tau2lSR'
     
     #2022
     # year = '2022postEE'

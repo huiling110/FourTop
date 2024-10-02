@@ -65,8 +65,8 @@ void run_objectSelection(
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3);
     Bool_t baseline = kTRUE;
     // Bool_t if1tau2l = kTRUE;
-    mv.EventLoop(baseline, kTRUE, numEntries); //!channel cut, for BDT training only 
-    // mv.EventLoop(baseline, kFALSE, numEntries);
+    // mv.EventLoop(baseline, kTRUE, numEntries); //!channel cut, for BDT training only 
+    mv.EventLoop(baseline, kFALSE, numEntries);
     mv.Terminate();
 
     t.Stop();
