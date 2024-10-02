@@ -11,8 +11,8 @@ import usefulFunc as uf
 
 def main():
     # year = '2016'
-    year = '2018'
-    # year = '2017'
+    # year = '2018'
+    year = '2017'
     # inVersion = 'v67TheoryWeightAdded'
     # inVersion = 'v70BetterHLT'
     # inVersion = 'v71NoHLTNoTau'
