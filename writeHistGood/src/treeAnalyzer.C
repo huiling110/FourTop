@@ -67,7 +67,12 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau2lCR3", m_era);
 
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau2l
-        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.4, sysRegions);//!For optimization binnning
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.4, sysRegions);//!For optimization binnning
+        // std::vector<Double_t> bins1tau2l = {-0.25, -0.094, -0.068, -0.049, -0.035, -0.022, -0.003, 0.01, 0.03, 0.05, 0.07, 0.11, 0.4 }; //binA
+        // std::vector<Double_t> bins1tau2l = {-0.25, -0.094, -0.068, -0.049, -0.035, -0.022, -0.003, 0.01, 0.03, 0.05, 0.07, 0.11, 0.15, 0.4 }; //binA
+        std::vector<Double_t> bins1tau2l = {-0.25, -0.068, -0.049,  -0.022,  0.01,  0.05,  0.11, 0.15, 0.4 }; //binA
+        // std::vector<Double_t> bins1tau2l = {-0.25, -0.068, -0.049,  -0.022,  0.01,  0.05,  0.11, 0.155, 0.4 }; //binB
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau2l, sysRegions);//1tau2l
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
         variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv";
