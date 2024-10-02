@@ -23,7 +23,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v84fakeLeptonUpdate/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v2_v84fakeLeptonUpdateV2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2lNotLepCut_v84Pre1tau2lNoLepCut/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/'
     
 
     #!fakerate
@@ -76,8 +77,8 @@ def main():
     channel = '1tau2l'
     # version = 'v0BDT1tau2l'
     # version = 'v1BDT1tau2lEvenBin'
-    # version = 'v1BDT1tau2lBinA'
-    version = 'v1BDT1tau2lBinB'
+    version = 'v1BDT1tau2lBinA'
+    # version = 'v1BDT1tau2lBinB'
     # version = 'v1BDT1tau2lBinA'
    
     # exe = './run_WH_forDataMC.out'

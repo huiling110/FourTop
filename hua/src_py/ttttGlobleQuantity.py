@@ -45,7 +45,7 @@ crossSectionMap = {
     'WGToLNuG': 192 ,
    
     #H->ZZ, WW
-    'ggH_bb': 28.3,
+    'ggH_bb': 28.3, # ! not exist in 2017
     'ggH_tautau': 3.05,
     'ggH_WW_2l': 1.10,
     'ggH_ZZ_2l': 28.87,
@@ -210,13 +210,13 @@ histoGramPerSample = {
     "WGToLNuG": "Minor",#"XGamma",
    
     
-    "ggH_bb": "Minor",#"Higgs",
+    # "ggH_bb": "Minor",#"Higgs",#!not excsi in 2017 nano files
     "ggH_tautau": "Minor",#"Higgs",
     "ggH_WW_2l": "Minor",#"Higgs",
     "ggH_ZZ_2l": "Minor",#"Higgs",
     "ggH_ZZ_4l": "Minor",#"Higgs",
     "ggH_gg": "Minor",#"Higgs",
-    "vbfH_bb": "Minor",#"Higgs",
+    # "vbfH_bb": "Minor",#"Higgs", #!not exist in 2017
     "vbfH_tautau": "Minor",#"Higgs",
     "vbfH_WW_2l": "Minor",#"Higgs",
     # "VH_nonbb": "Minor",#"Higgs", #!not in MV
@@ -351,6 +351,9 @@ histoGramPerSample = {
     
     #overlap removed data for 1tau2l
     'leptonSum_2018': 'leptonSum',
+    'leptonSum_2017': 'leptonSum',
+    'leptonSum_2016preVFP': 'leptonSum',
+    'leptonSum_2016postVFP': 'leptonSum',
     
     
     
