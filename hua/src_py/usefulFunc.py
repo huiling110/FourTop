@@ -278,13 +278,16 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
 def checkIfOtherYear(isub, era, isData):
     if not isData:
         return False
-    else: 
-        for isubEra in gq.dataDict[era]:
-            parts = isub.split('_')
-            iera = '_'.join(parts[1:])
-            if iera == isubEra:
-                return False 
-        return True
+    else:
+        if 'leptonSum' in isub:
+            return False if era in isub else True
+        else:
+            for isubEra in gq.dataDict[era]:
+                parts = isub.split('_')
+                iera = '_'.join(parts[1:])
+                if iera == isubEra:
+                    return False 
+            return True
     
 def sumProDic(subProHists, sumProDic):
     #subProDicSys[var][region][subPro]['sys']
