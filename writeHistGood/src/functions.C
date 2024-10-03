@@ -127,6 +127,11 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d muonsTopMVAT_2eta_class = std::make_shared<histsForRegionsMap<Double_t>>("muonsTopMVAT_2eta", "#eta^{2nd #mu}", m_processName, 10, -2.5, 2.5, regionsForVariables, &(e->muonsTopMVAT_2eta));
     SP_d lepTopMVAT_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_1pt", "p_{T}^{1st l}(GeV)", m_processName, 10, 0, 200, regionsForVariables, &(e->lepTopMVAT_1pt));
     SP_d lepTopMVAT_2pt_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_2pt", "p_{T}^{2nd l}(GeV)", m_processName, 10, 0, 160, regionsForVariables, &(e->lepTopMVAT_2pt));
+    SP_i leptons_2charge_class = std::make_shared<histsForRegionsMap<Int_t>>("leptons_2charge", "charge^{lep}*charge^{lep}", m_processName, 3, -1.5, 1.5, regionsForVariables, &(e->leptons_2charge));//!prob
+    SP_d lepTopMVAT_1eta_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_1eta", "#eta^{1st l}", m_processName, 10, -2.5, 2.5, regionsForVariables, &(e->lepTopMVAT_1eta));
+    SP_d lepTopMVAT_2eta_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_2eta", "#eta^{2nd l}", m_processName, 10, -2.5, 2.5, regionsForVariables, &(e->lepTopMVAT_2eta));
+    SP_d lepTopMVAT_1phi_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_1phi", "#phi^{1st l}", m_processName, 10, -3.2, 3.2, regionsForVariables, &(e->lepTopMVAT_1phi));
+    SP_d lepTopMVAT_2invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_2invariantMass", "m^{2nd l}", m_processName, 10, 0, 200, regionsForVariables, &(e->lepTopMVAT_2invariantMass));
 
 
 
@@ -157,6 +162,8 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_i tausM_1lepton1_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausM_1lepton1_charge", "charge^{M#tau}*charge^{lep}", m_processName, 2, -1.5, 1.5, regionsForVariables, &(e->tausM_1lepton1_charge));
     SP_i tausT_leptons_charge_class = std::make_shared<histsForRegionsMap<Int_t>>( "tausT_leptons_charge", "charge^{T#tau}*charge^{lep}", m_processName, 3, -1.5, 1.5, regionsForVariables, &(e->tausT_leptons_charge));
     SP_i tausF_1prongNum_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1prongNum", "n^{F#tau prong}", m_processName, 10, 0, 10, regionsForVariables, &(e->tausF_1prongNum));
+
+    SP_d tausT_1jetEtaAbs_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1jetEtaAbs", "#eta^{#tau's mother jet}", m_processName, 10, 0, 3, regionsForVariables, &(e->tausT_1jetEtaAbs));
 
     histsForRegion_vec.push_back(jets_bScore_class);
     histsForRegion_vec.push_back(jets_num_class);
@@ -253,6 +260,11 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(muonsTopMVAT_2eta_class);
     histsForRegion_vec.push_back(lepTopMVAT_1pt_class);
     histsForRegion_vec.push_back(lepTopMVAT_2pt_class);
+    histsForRegion_vec.push_back(leptons_2charge_class);
+    histsForRegion_vec.push_back(lepTopMVAT_1eta_class);
+    histsForRegion_vec.push_back(lepTopMVAT_2eta_class);
+    histsForRegion_vec.push_back(lepTopMVAT_1phi_class);
+    histsForRegion_vec.push_back(lepTopMVAT_2invariantMass_class);
 
     histsForRegion_vec.push_back(bjetsM_num_class);
     histsForRegion_vec.push_back(bjetsT_num_class);
@@ -279,6 +291,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(tausM_1lepton1_charge_class);
     histsForRegion_vec.push_back(tausT_leptons_charge_class);
     histsForRegion_vec.push_back(tausF_1prongNum_class);
+    histsForRegion_vec.push_back(tausT_1jetEtaAbs_class);
 }
 
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::map<TString, Float_t> &varForReaderMap, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)

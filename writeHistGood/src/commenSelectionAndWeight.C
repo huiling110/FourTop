@@ -1,4 +1,3 @@
-// 
 #include "../include/commenSelectionAndWeight.h"
 
 Bool_t baselineSelection(event *event, const Bool_t isRun3, Bool_t is1tau2l)

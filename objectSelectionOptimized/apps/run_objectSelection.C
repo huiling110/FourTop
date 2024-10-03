@@ -8,7 +8,7 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/pu=blicfs/cms/data/TopQuark/nanoAOD/2018/mc/TTToHadronic1/",
@@ -17,7 +17,7 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017d/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017b/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/singleMu_2017b/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/MuonEG_2017f/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/MuonEG_2017f/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleMu_2016F/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/BTagCSV_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/jetHT_2018b/",

@@ -49,7 +49,7 @@ private:
     Double_t taus_jet_invariantMass = -99.;
     Double_t taus_jet1_Met_transMass = -99.;
 
-    Double_t leptons_2charge = -99;
+    Int_t leptons_2charge = -99;
 
     //put some lepton variables here for convenience 
 };
