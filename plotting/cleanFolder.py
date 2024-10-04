@@ -7,14 +7,15 @@ from datetime import datetime, timedelta
 def main():
     # Specify the directory and threshold time in seconds
     # directory_path = "/path/to/directory"
-    directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
+    # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/'
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
-    # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+    directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
     # directory_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-    removeOlderDays = 60
+    # removeOlderDays = 60
     # removeOlderDays = 40
+    removeOlderDays = 20
     # ifDryRun = True
     ifDryRun = False #!!!careful setting this!!!
     
