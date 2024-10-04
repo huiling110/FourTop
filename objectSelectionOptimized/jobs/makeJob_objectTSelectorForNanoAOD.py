@@ -31,7 +31,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v83for1tau2lEleEtaCut/'
 # jobVersionName = 'v84fakeLeptonUpdate/'
 # jobVersionName = 'v84Pre1tau2lNoLepCut/'
-jobVersionName = 'v84Pre1tau2lLepF2/'
+# jobVersionName = 'v84Pre1tau2lLepF2/'
+jobVersionName = 'v84Pre1tau2lLepF2V2/'
 
 #!same version numbers means no change in algrithm but only in selection
 
