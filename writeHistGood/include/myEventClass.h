@@ -143,6 +143,7 @@ public:
     myBranch<Double_t> lepTopMVAT_1phi{"lepTopMVAT_1phi"};
     myBranch<Double_t> lepTopMVAT_2invariantMass{"lepTopMVAT_2invariantMass"};
     myBranch<Int_t> leptons_2charge{"leptons_2charge"};
+    myBranch<Bool_t> lepTopMVAT_2ifZVeto{"lepTopMVAT_2ifZVeto"};
 
     myBranch<Double_t> EVENT_genWeight{"EVENT_genWeight"};
     myBranch<Double_t> EVENT_prefireWeight{"EVENT_prefireWeight"};
@@ -444,6 +445,7 @@ private:
         {lepTopMVAT_1phi.n(), &lepTopMVAT_1phi},
         {lepTopMVAT_2invariantMass.n(), &lepTopMVAT_2invariantMass},
         {leptons_2charge.n(), &leptons_2charge},
+        {lepTopMVAT_2ifZVeto.n(), &lepTopMVAT_2ifZVeto},
 
 
 
