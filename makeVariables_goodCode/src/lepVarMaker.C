@@ -12,6 +12,10 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
     outTree->Branch(objName+ "_2phi", &lepTopMVAT_2phi);
     outTree->Branch(objName+ "_2charge", &lepTopMVAT_2charge);
 
+    if(m_type ==0){
+        outTree->Branch("lepTopMVAT_2ifZVeto", &lepTopMVAT_2ifZVeto);
+    }
+
     if(type==1){
         outTree->Branch(  "elesTopMVAF_1isTight", &elesTopMVAF_1isTight);
         outTree->Branch(  "elesTopMVAF_2isTight", &elesTopMVAF_2isTight);
@@ -57,6 +61,24 @@ void LepVarMaker::makeVariables(const EventForMV* e){
     lepTopMVAT_2pt = muons_num > 1 ? objsLorentz[1].Pt() : -99;
     lepTopMVAT_2eta = muons_num > 1 ? objsLorentz[1].Eta() : -99;
     lepTopMVAT_2phi = muons_num > 1 ? objsLorentz[1].Phi() : -99;
+
+
+    if(m_type==0) {
+        lepTopMVAT_2ifZVeto = kFALSE ; //OSSF
+        if(e->elesTopMVAT_pt.GetSize() == 2){
+           if(e->elesTopMVAT_charge.At(0) *e->elesTopMVAT_charge.At(1)==-1){
+                if(TMath::Abs(InvariantMassCalculator(eles)) > 76 && TMath::Abs(InvariantMassCalculator(eles)) < 106){//Zmass=91
+                    lepTopMVAT_2ifZVeto = kTRUE; // should veto this event if it's true
+                }
+            }
+        }else if(e->muonsTopMVAT_pt.GetSize() == 2){
+            if( (e->muonsTopMVAT_charge.At(0) *e->muonsTopMVAT_charge.At(1)==-1)){
+                if(TMath::Abs(InvariantMassCalculator(mus)) > 76 && TMath::Abs(InvariantMassCalculator(mus)) < 106){//Zmass=91
+                    lepTopMVAT_2ifZVeto = kTRUE;
+                }
+            }
+        }
+    };
 
     if(m_type==1){//fakeble lepton
         const UInt_t muonSize = e->muonsTopMVAF_isTight.GetSize(); 
