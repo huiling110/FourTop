@@ -38,7 +38,7 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"ttWW", 0.00698},
 
     //VV cross section updated
-    {"wz", 47.},
+    {"wz", 50.6}, //https://arxiv.org/abs/2110.11231
     {"WZTo3LNu", 4.9173 },
     {"ww", 118.},
     {"zz", 16.5}, // ZZ

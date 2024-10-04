@@ -192,7 +192,7 @@ histoGramPerSample = {
     "ttH_nonbb": "ttX", 
     "ttWW": "ttX",
     
-    "wz":"Minor",
+    "wz":"Minor", #!should probably use wz instead of WZTo3LNu because the 2L part can also pass 1tau2l selection
     # "WZTo3LNu":"Minor", #!use this instead of wz
     "ww":"Minor",
     "zz":"Minor",
