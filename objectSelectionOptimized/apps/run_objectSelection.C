@@ -8,7 +8,8 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/wz/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/pu=blicfs/cms/data/TopQuark/nanoAOD/2018/mc/TTToHadronic1/",

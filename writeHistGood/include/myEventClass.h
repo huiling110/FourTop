@@ -136,6 +136,7 @@ public:
     myBranch<Bool_t> muonsTopMVAF_2isTight{"muonsTopMVAF_2isTight"};
     myBranch<Bool_t> lepTopMVAF_isAR{"lepTopMVAF_isAR"};
     myBranch<Int_t> lepTopMVAF_num{"lepTopMVAF_num"};
+    myBranch<Int_t> lepTopMVAT_num{"lepTopMVAT_num"};
     myBranch<Double_t> lepTopMVAF_FRweight{"lepTopMVAF_FRweight"};
     myBranch<Double_t> lepTopMVAT_1eta{"lepTopMVAT_1eta"};
     myBranch<Double_t> lepTopMVAT_2eta{"lepTopMVAT_2eta"};
@@ -436,6 +437,7 @@ private:
         {muonsTopMVAF_2isTight.n(), &muonsTopMVAF_2isTight},
         {lepTopMVAF_isAR.n(), &lepTopMVAF_isAR},
         {lepTopMVAF_num.n(), &lepTopMVAF_num},
+        {lepTopMVAT_num.n(), &lepTopMVAT_num},
         {lepTopMVAF_FRweight.n(), &lepTopMVAF_FRweight},
         {lepTopMVAT_1eta.n(), &lepTopMVAT_1eta},
         {lepTopMVAT_2eta.n(), &lepTopMVAT_2eta},

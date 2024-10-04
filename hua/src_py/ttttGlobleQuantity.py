@@ -192,8 +192,8 @@ histoGramPerSample = {
     "ttH_nonbb": "ttX", 
     "ttWW": "ttX",
     
-    # "wz":"VV",
-    "WZTo3LNu":"Minor", #!use this instead of wz
+    "wz":"Minor",
+    # "WZTo3LNu":"Minor", #!use this instead of wz
     "ww":"Minor",
     "zz":"Minor",
     'WWW': "Minor",
@@ -499,5 +499,6 @@ proChannelDic = {
     '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, for now not considering data
     '1tau0l':  ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets', 'jetHT'], #!1tau0l
     # '1tau2l':  ['tt', 'ttX', 'singleTop', 'WJets',  'VV','VVV','Higgs', 'XGamma', 'fakeLepton', 'tttt', 'leptonSum'], 
-    '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
+    # '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
+    '1tau2l':  ['tt', 'ttX',  'singleTop',  'Minor',  'tttt', 'leptonSum'], #!testing
 }

@@ -132,6 +132,12 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d lepTopMVAT_2eta_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_2eta", "#eta^{2nd l}", m_processName, 10, -2.5, 2.5, regionsForVariables, &(e->lepTopMVAT_2eta));
     SP_d lepTopMVAT_1phi_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_1phi", "#phi^{1st l}", m_processName, 10, -3.2, 3.2, regionsForVariables, &(e->lepTopMVAT_1phi));
     SP_d lepTopMVAT_2invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("lepTopMVAT_2invariantMass", "m^{2nd l}", m_processName, 10, 0, 200, regionsForVariables, &(e->lepTopMVAT_2invariantMass));
+    SP_i lepTopMVAF_num_class = std::make_shared<histsForRegionsMap<Int_t>>("lepTopMVAF_num", "n^{F lep}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->lepTopMVAF_num));
+    SP_i lepTopMVAT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("lepTopMVAT_num", "n^{T lep}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->lepTopMVAT_num));
+    SP_i elesTopMVAT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("elesTopMVAT_num", "n^{T e}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->elesTopMVAT_num));
+    SP_i muonsTopMVAT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("muonsTopMVAT_num", "n^{T #mu}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->muonsTopMVAT_num));
+    SP_i elesTopMVAF_num_class = std::make_shared<histsForRegionsMap<Int_t>>("elesTopMVAF_num", "n^{F e}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->elesTopMVAF_num));
+    SP_i muonsTopMVAF_num_class = std::make_shared<histsForRegionsMap<Int_t>>("muonsTopMVAF_num", "n^{F #mu}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->muonsTopMVAF_num));
 
 
 
@@ -265,6 +271,12 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(lepTopMVAT_2eta_class);
     histsForRegion_vec.push_back(lepTopMVAT_1phi_class);
     histsForRegion_vec.push_back(lepTopMVAT_2invariantMass_class);
+    histsForRegion_vec.push_back(lepTopMVAF_num_class);
+    histsForRegion_vec.push_back(lepTopMVAT_num_class);
+    histsForRegion_vec.push_back(elesTopMVAT_num_class);
+    histsForRegion_vec.push_back(muonsTopMVAT_num_class);
+    histsForRegion_vec.push_back(elesTopMVAF_num_class);
+    histsForRegion_vec.push_back(muonsTopMVAF_num_class);
 
     histsForRegion_vec.push_back(bjetsM_num_class);
     histsForRegion_vec.push_back(bjetsT_num_class);
