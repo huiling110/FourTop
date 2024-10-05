@@ -41,12 +41,12 @@ def main():
     # ifVLL = 'VLLm700'
     # is1tau0l = True
     is1tau0l = False
-    # ifLogy = True
-    ifLogy = False
+    ifLogy = True
+    # ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    # ifPrintSB = True
-    ifPrintSB = False
+    ifPrintSB = True
+    # ifPrintSB = False
     # ifSystematic = True #!Only for BDT
     ifSystematic = False  
     # channel = '1tau1l'
@@ -66,7 +66,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1dataMC_allbutHLTFakeLepton/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/mc/variableHists_v1dataMC_allbutHLTFakeLepton_noLepT1/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/mc/variableHists_v1dataMC_allbutHLTFakeLepton_lep1ZVeto/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1dataMC_allbutHLTFakeLepton_ZVeto/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1dataMC_allbutHLTFakeLepton_ZVeto/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1dataMC_allbutHLTFakeLepton_ZVeto/'
     channel = '1tau2l'
     # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
     # variables = ['lepTopMVAF_num', 'lepTopMVAT_num', 'muonsTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAF_num', 'elesTopMVAF_num', 'jets_num', 'bjetsT_num', 'bjetsM_num']

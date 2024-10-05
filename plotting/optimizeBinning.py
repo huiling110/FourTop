@@ -1,6 +1,7 @@
 import numpy as np
 import ROOT
 from scipy.optimize import minimize
+import scipy.stats as stats
 
 import usefulFunc as uf
 import ttttGlobleQuantity as gq
@@ -8,7 +9,8 @@ import ttttGlobleQuantity as gq
 #to do: maybe consider statical uncertainty in data in the significance calculation
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1BDT1tau1l_evenBin/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1BDT1tau2lEvenBin/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1BDT1tau2lEvenBin/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lEvenBin/'
     channel = '1tau2l'
     
     
@@ -130,6 +132,19 @@ def calculate_asimov_significance(signal, background):
             significance += 2 * (term1 - term2)
     return np.sqrt(significance)
 
+def calSig_lastBin(signal, background, scale = 1.):
+    sLast = signal.GetBinContent(signal.GetNbinsX())*scale
+    bLast = background.GetBinContent(background.GetNbinsX())*scale
+    # dataLast = (sLast + bLast) - np.sqrt(sLast + bLast) # consider the statistical uncertainty in data, giving the small yeild 
+    dataLast = (sLast + bLast)  # !
+    # sig = 2 * (sLast * np.log(1 + sLast / bLast) - sLast + dataLast * np.log(1 + dataLast / bLast) - dataLast) #explain this formula
+    
+    p_value = 1 - stats.poisson.cdf(dataLast - 1, bLast)
+    # Convert the p-value to a Z-score
+    significance = stats.norm.ppf(1 - p_value)
+    return significance
+    
+
 
 def rebin_histogram(histo, bin_edges):
     new_histo = ROOT.TH1D(histo.GetName() + "_rebin", histo.GetTitle(), len(bin_edges) - 1, np.array(bin_edges)).Clone()
@@ -152,7 +167,8 @@ def optimize_binning(h_signal, h_background, initial_target_bin_content):
         background = [h_rebinned_background.GetBinContent(i) for i in range(1, h_rebinned_background.GetNbinsX() + 1)]
 
         # significance = calculate_significance(signal, background)
-        significance = calculate_asimov_significance(signal, background)
+        # significance = calculate_asimov_significance(signal, background)
+        significance = calSig_lastBin(h_rebinned_signal, h_rebinned_background, 3.)
         print('target_bin_content=', target_bin_content)
         print('significance=', significance)
         print('bing_edges=', bin_edges, '\n')

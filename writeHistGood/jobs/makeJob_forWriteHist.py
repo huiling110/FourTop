@@ -24,8 +24,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v2_v84fakeLeptonUpdateV2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2lNotLepCut_v84Pre1tau2lNoLepCut/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/'
     
 
     #!fakerate
@@ -51,7 +52,7 @@ def main():
     # version = 'v0dataMC_genWeight'
     # version = 'v1dataMC_allCorrectionFakeTau'
     # version = 'v1dataMC_allbutHLTFakeLepton_noLepT1'
-    version = 'v1dataMC_allbutHLTFakeLepton_ZVeto'
+    # version = 'v1dataMC_allutHLTFakeLepton_ZVeto'
     
         
     #1tau1l
@@ -78,7 +79,7 @@ def main():
     
     channel = '1tau2l'
     # version = 'v0BDT1tau2l'
-    # version = 'v1BDT1tau2lEvenBin'
+    version = 'v1BDT1tau2lEvenBin'
     # version = 'v1BDT1tau2lBinA'
     # version = 'v1BDT1tau2lBinB'
     # version = 'v1BDT1tau2lBinA'
