@@ -72,7 +72,7 @@ void treeAnalyzer::Init()
         // std::vector<Double_t> bins1tau2l = {-0.25, -0.094, -0.068, -0.049, -0.035, -0.022, -0.003, 0.01, 0.03, 0.05, 0.07, 0.11, 0.15, 0.4 }; //binA
         // std::vector<Double_t> bins1tau2l = {-0.25, -0.068, -0.049,  -0.022,  0.01,  0.05,  0.11, 0.15, 0.4 }; //binA
         // std::vector<Double_t> bins1tau2l = {-0.25, -0.068, -0.049,  -0.022,  0.01,  0.05,  0.11, 0.155, 0.4 }; //binB
-        std::vector<Double_t> bins1tau2l = { -0.25,  0.15, -0.12, -0.093, -0.068, -0.042, -0.009, 0.04, 0.12, 0.4 }; //BinC
+        std::vector<Double_t> bins1tau2l = { -0.25,  -0.15, -0.12, -0.093, -0.068, -0.042, -0.009, 0.04, 0.12, 0.4 }; //BinC
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau2l, sysRegions);//1tau2l
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
