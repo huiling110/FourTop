@@ -40,6 +40,7 @@ public:
         std::cout << "m_era=" << m_era <<" m_isRun3="<<m_isRun3<< " m_isData=" << m_isData << "  m_isTest=" << m_isTest << "\n";
         m_isFakeLepton = m_processName.Contains("fakeLepton");
         m_isFakeTau = m_processName.Contains("fakeTau");
+        std::cout << "m_isFakeLepton=" << m_isFakeLepton << " m_isFakeTau=" << m_isFakeTau << "\n";
 
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");

@@ -35,10 +35,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/data/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/data/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/data/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/data/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/data/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v84Pre1tau2lLepF2V2/data/'
 
-    dataPDs = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #for 2018
-    # dataPDs = ['doubleMu', 'doubleEG', 'muonEG', 'singleMu', 'singleE' ] #!for 2017 and 2016
+    # dataPDs = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #for 2018
+    dataPDs = ['doubleMu', 'doubleEG', 'muonEG', 'singleMu', 'singleE' ] #!for 2017 and 2016
    
    
    
@@ -53,7 +54,6 @@ def main():
         print('\n')
         
     
-    # df = ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in dic['doubleMu'] + dic['muonEG'] + dic['eGamma'] + dic['singleMu']])
     allSubs = [isub for sublist in dic.values() for isub in sublist]
     df = ROOT.RDataFrame("newtree", [f"{inputDir}{sub}.root" for sub in allSubs])
     print('combined df entries: ', df.Count().GetValue())

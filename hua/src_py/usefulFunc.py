@@ -335,7 +335,7 @@ def merge_dicts(dict1, dict2):
 
 def isData(subPro):
     isdata = False
-    if ('jetHT' in subPro) or ('singleMu' in subPro) or ('BTagCSV' in subPro)  or ('singleMu' in subPro) or ('doubleMu' in subPro) or ('MuonEG' in subPro) or ('eGamma' in subPro) or ('singleE' in subPro) or ('leptonSum' in subPro):
+    if ('jetHT' in subPro) or ('singleMu' in subPro) or ('BTagCSV' in subPro)  or ('singleMu' in subPro) or ('doubleMu' in subPro) or ('MuonEG' in subPro) or ('eGamma' in subPro) or ('singleE' in subPro) or ('leptonSum' in subPro) or ('doubleEG' in subPro):
         isdata = True
     if('JetHT' in subPro) or ('Muon' in subPro) or ('JetMET' in subPro):
         isdata = True
@@ -407,7 +407,9 @@ def getAllSubPro(era, sumPro, isData=True):
     allSubs = []
     if isData:
         for isub, isum in all.items():
-           subEra = isub.split('_')[-1]
+           #get the substring after first '_'
+           subEra = isub.split('_', 1)[1]
+        #    print(subEra)
            if subEra in gq.dataDict[era] and isum in sumPro:
                allSubs.append(isub) 
         return allSubs
@@ -418,19 +420,20 @@ def getSubProDic(era, sumPro) :
     all = gq.histoGramPerSample
     allSubs = {}
     for isub, isum in all.items():
+        if not isum in sumPro: continue
         isdata = isData(isub)
+        # print(isub, ' ', isdata)
         if isdata:
-            subEra = isub.split('_')[-1]
-            if subEra in gq.dataDict[era] and isum in sumPro:
-                # allSubs[sum] = []
+            subEra = isub.split('_', 1)[1]
+            # print(subEra)
+            if subEra in gq.dataDict[era] :
                 if isum not in allSubs.keys():
                     allSubs[isum] = []
                 allSubs[isum].append(isub)
         else:
-            if isum in sumPro:
-                if isum not in allSubs.keys():
-                    allSubs[isum] = []
-                allSubs[isum].append(isub)
+            if isum not in allSubs.keys():
+                allSubs[isum] = []
+            allSubs[isum].append(isub)
     return allSubs
   
 ############################################################################################################
