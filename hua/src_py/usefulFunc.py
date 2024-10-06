@@ -422,10 +422,8 @@ def getSubProDic(era, sumPro) :
     for isub, isum in all.items():
         if not isum in sumPro: continue
         isdata = isData(isub)
-        # print(isub, ' ', isdata)
         if isdata:
             subEra = isub.split('_', 1)[1]
-            # print(subEra)
             if subEra in gq.dataDict[era] :
                 if isum not in allSubs.keys():
                     allSubs[isum] = []
