@@ -56,9 +56,9 @@ namespace MV
         // variableHists_v0HLTMeasureBinB/results/"},//!!!
         //
         {"2018", "../inputFiles/triggerSF/2018/v0baselineHardro_v77ForHLT/mc/variableHists_v1HLT_varyingCutOnBjetBinD/results/"},
-        {"2017", "../2017/v0baselineHardro_v79forHLT/mc/variableHists_v0HLTMeasure/results/"},
-        {"2016preVFP", "../2016preVFP/v0baselineHardro_v79forHLT/mc/variableHists_v0HLTMeasureBinB/results/"},//!!!
-        {"2016postVFP", "../2016postVFP/v0baselineHardro_v79forHLT/mc/variableHists_v0HLTMeasureBinB/results/"},//!!!
+        {"2017", "../inputFiles/triggerSF/2017/v0baselineHardro_v79forHLT/mc/variableHists_v0HLTMeasure/results/"},
+        {"2016preVFP", "../inputFiles/triggerSF/2016preVFP/v0baselineHardro_v79forHLT/mc/variableHists_v0HLTMeasureBinB/results/"},//!!!
+        {"2016postVFP", "../inputFiles/triggerSF/2016postVFP/v0baselineHardro_v79forHLT/mc/variableHists_v0HLTMeasureBinB/results/"},//!!!
     };
 
     inline const std::map<TString, std::array<TString, 3>> json_map = {
