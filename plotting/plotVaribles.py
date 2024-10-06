@@ -44,8 +44,8 @@ def main():
     ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    ifPrintSB = True
-    # ifPrintSB = False
+    # ifPrintSB = True
+    ifPrintSB = False
     # ifSystematic = True #!Only for BDT
     ifSystematic = False  
     plotName = 'dataVsMC_v4'
@@ -76,8 +76,8 @@ def main():
     # variables = ['elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'elesTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_1pt', 'muonsTopMVAT_2pt', 'muonsTopMVAT_1eta', 'muonsTopMVAT_2eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt']
     # variables = ['lepTopMVAF_num']
     # variables = ['BDT']
-    input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
-    variables = read_csv_as_lines(input1tau2l)
+    # input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
+    # variables = read_csv_as_lines(input1tau2l)
     # regionList = ['1tau2lSR', '1tau2lCR3',  '1tau2lCR3Mu1', '1tau2lCR3E1']
     regionList = ['1tau2lSR', '1tau2lCR3']
 

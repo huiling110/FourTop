@@ -412,7 +412,7 @@ def getAllSubPro(era, sumPro, isData=True):
                allSubs.append(isub) 
         return allSubs
     else:
-        return [ isum for isub, isum in all.items() if isum in sumPro]
+        return [ isub for isub, isum in all.items() if isum in sumPro]
    
 def getSubProDic(era, sumPro) :
     all = gq.histoGramPerSample

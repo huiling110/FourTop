@@ -21,10 +21,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT25inputsWith2018train/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binD/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE2/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v81addSysSum/mc/variableHists_v2BDT1tau1l_binE2/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v81addSysSum/mc/variableHists_v2BDT1tau1l_binE2/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
     # channel = '1tau0l' # 1tau0l
-    channel = '1tau1l' 
-    # channel = '1tau2l'
+    # channel = '1tau1l' 
+    channel = '1tau2l'
     # ifVLL = True
     ifVLL = False
    
@@ -33,6 +34,7 @@ def main():
     
     isRun3 = uf.isRun3(inputDir)
     print('isRun3=', isRun3)
+    era = uf.getEraFromDir(inputDir)
     
     
     outDir = inputDir+'combine/'
@@ -46,7 +48,11 @@ def main():
     # proList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #! 1tau1l, for now not considering data
     # allSubPro = uf.getAllSubPro(proList, isRun3)
     # allSubPro = uf.getAllSubPro1(proList, isRun3)
-    allSubPro = uf.getAllSubPro1(gq.proChannelDic[channel], isRun3)
+    # allSubPro = uf.getAllSubPro1(gq.proChannelDic[channel], isRun3)
+    sumPros = gq.proChannelDic[channel].copy()
+    #remove the last one, which is data
+    sumPros.pop()
+    allSubPro = uf.getAllSubPro(era, sumPros, False)
     print('all sub processes: ',allSubPro)
 
     summedHistDicAllSys = {}
