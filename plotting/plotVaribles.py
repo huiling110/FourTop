@@ -33,7 +33,6 @@ def main():
     # print(variables)
     
     # variables = ['BDT']
-    plotName = 'dataVsMC_v4'
     ifFTau = False
     # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     ifVLL = ''
@@ -41,15 +40,15 @@ def main():
     # ifVLL = 'VLLm700'
     # is1tau0l = True
     is1tau0l = False
-    ifLogy = True
-    # ifLogy = False
+    # ifLogy = True
+    ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
     ifPrintSB = True
     # ifPrintSB = False
     # ifSystematic = True #!Only for BDT
     ifSystematic = False  
-    # channel = '1tau1l'
+    plotName = 'dataVsMC_v4'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v0dataMC_allCorrection/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/variableHists_v2dataMC_allbutHLT/'
@@ -68,15 +67,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/mc/variableHists_v1dataMC_allbutHLTFakeLepton_lep1ZVeto/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1dataMC_allbutHLTFakeLepton_ZVeto/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1dataMC_allbutHLTFakeLepton_ZVeto/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1dataMC_allutHLTFakeLepton_ZVeto/'
     channel = '1tau2l'
-    # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
+    variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
     # variables = ['lepTopMVAF_num', 'lepTopMVAT_num', 'muonsTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAF_num', 'elesTopMVAF_num', 'jets_num', 'bjetsT_num', 'bjetsM_num']
     # variables = ['elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'elesTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_1pt', 'muonsTopMVAT_2pt', 'muonsTopMVAT_1eta', 'muonsTopMVAT_2eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt']
     # variables = ['lepTopMVAF_num']
-    variables = ['BDT']
-    # input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
-    # variables = read_csv_as_lines(input1tau2l)
+    # variables = ['BDT']
+    input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
+    variables = read_csv_as_lines(input1tau2l)
     # regionList = ['1tau2lSR', '1tau2lCR3',  '1tau2lCR3Mu1', '1tau2lCR3E1']
     regionList = ['1tau2lSR', '1tau2lCR3']
 

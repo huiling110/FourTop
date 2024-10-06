@@ -18,7 +18,7 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3", "1tau2lCR3NoTau", "1tau2lCR3Mu1", "1tau2lCR3E1"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3",  "1tau2lCR3Mu1", "1tau2lCR3E1"};
 
     WH::initializeHistVec(regionsForVariables, histsForRegion_vec, m_processName, e);
 
@@ -57,11 +57,11 @@ void WH_forDataMC::LoopTree(UInt_t entry)
             }
         }
 
-        //!to do: handling weight in baseWeightCal
         // Double_t basicWeight = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 0);//!1tau1l
         const Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0, m_isFakeTau, m_isFakeLepton);//!1tau1l
         const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2, m_isFakeTau, m_isFakeLepton);
-        Double_t eventWeight_1tau0l = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
+        // Double_t eventWeight_1tau0l = m_isFakeTau ? e->FR_weight_final : baseWeightCal(e, i, m_isRun3, m_isData, 1);//!1tau0l
+        const Double_t eventWeight_1tau0l = baseWeightCal(e, i, m_isRun3, m_isData, 1, m_isFakeTau, m_isFakeLepton);//!1tau0l
 
         if(std::isinf(e->btagWPMT_weight.v()) || std::isnan(e->btagWPMT_weight.v())){
             std::cout<<"btagWPMT_weight="<<e->btagWPMT_weight.v()<<"\n";
@@ -106,12 +106,10 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         Bool_t is1tau2lCR3 = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3, "1tau2lCR3", eventWeight_1tau2l, m_isData);
         //testing
-        Bool_t is1tau2lCR3NoTau = (e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v()==2)  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 ;
-        // Bool_t is1tau2lCR3Mu1 = e->tausT_num.v()==1  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 && e->muonsTopMVAT_num.v()==1;
-        // Bool_t is1tau2lCR2E1 = e->tausT_num.v()==1  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 && e->elesTopMVAT_num.v()==1;
+        // Bool_t is1tau2lCR3NoTau = (e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v()==2)  && e->jets_num.v() < 4 && e->bjetsM_num.v() < 2 ;
         Bool_t is1tau2lCR3Mu1 = SR1tau1lSel(e, 14, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
         Bool_t is1tau2lCR3E1 = SR1tau1lSel(e, 13, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3NoTau, "1tau2lCR3NoTau", eventWeight_1tau2l, m_isData);
+        // WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3NoTau, "1tau2lCR3NoTau", eventWeight_1tau2l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3Mu1, "1tau2lCR3Mu1", eventWeight_1tau2l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau2lCR3E1, "1tau2lCR3E1", eventWeight_1tau2l, m_isData);
 
