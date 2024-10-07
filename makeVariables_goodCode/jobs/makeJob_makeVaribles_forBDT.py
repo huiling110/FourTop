@@ -97,7 +97,7 @@ def main():
 
     for iera in inOutDirMap.keys():
         # if iera=='2016preVFP' : continue
-        # if iera=='2016postVFP' : continue#
+        if iera=='2016postVFP' : continue#
         print('era: ', iera)
         
         for key in inOutDirMap[iera].keys():

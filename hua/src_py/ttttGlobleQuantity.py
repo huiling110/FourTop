@@ -47,7 +47,7 @@ crossSectionMap = {
     #H->ZZ, WW
     'ggH_bb': 28.3, # ! not exist in 2017
     'ggH_tautau': 3.05,
-    'ggH_WW_2l': 1.10,
+    'ggH_WW_2l': 1.10, #!'ggH_ww_2l', in 2016
     'ggH_ZZ_2l': 28.87,
     'ggH_ZZ_4l': 0.01212,
     'ggH_gg': 0.01,
@@ -205,20 +205,20 @@ histoGramPerSample = {
     "st_tW_antitop":"singleTop",
     "st_tW_top":"singleTop",
     
-    "TGJets": "Minor",#"XGamma",
+    # "TGJets": "Minor",#"XGamma", #!not exist in 2016preVFP
     "ZGToLLG": "Minor",#"XGamma",
     "WGToLNuG": "Minor",#"XGamma",
    
     
     # "ggH_bb": "Minor",#"Higgs",#!not excsi in 2017 nano files
     "ggH_tautau": "Minor",#"Higgs",
-    "ggH_WW_2l": "Minor",#"Higgs",
-    "ggH_ZZ_2l": "Minor",#"Higgs",
-    "ggH_ZZ_4l": "Minor",#"Higgs",
-    "ggH_gg": "Minor",#"Higgs",
+    # "ggH_WW_2l": "Minor",#"Higgs", #! ggH_ww_2l in 2016   
+    # "ggH_ZZ_2l": "Minor",#"Higgs", #!ggH_zz_2l in 2016
+    # "ggH_ZZ_4l": "Minor",#"Higgs", #!ggH_zz_4l in 2016
+    # "ggH_gg": "Minor",#"Higgs", #!ggH_gg in 2016
     # "vbfH_bb": "Minor",#"Higgs", #!not exist in 2017
-    "vbfH_tautau": "Minor",#"Higgs",
-    "vbfH_WW_2l": "Minor",#"Higgs",
+    # "vbfH_tautau": "Minor",#"Higgs", #! not exist in 2016preVFP
+    # "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l in 2016
     # "VH_nonbb": "Minor",#"Higgs", #!not in MV
     
     "WJetsToLNu_HT-200To400": "WJets",
