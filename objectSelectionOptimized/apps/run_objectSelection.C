@@ -8,7 +8,7 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/wz/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/DYJetsToLL_M-50/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
@@ -30,7 +30,7 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016f/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleE_2016G/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/singleE_2016B_v2/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/singleE_2016D/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/singleE_2016D/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016h/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016h/",
     TString singleFileName = "outTree_2.root",
@@ -61,7 +61,8 @@ void run_objectSelection(
     const UChar_t JERSys = 0; //norminal
     // const UChar_t TES = 3; //no correction
     const UChar_t TES = 0; //no correction
-    const Bool_t if1tau2l = kTRUE;//!
+    // const Bool_t if1tau2l = kTRUE;//!
+    const Bool_t if1tau2l = kFALSE;//!
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES, if1tau2l);
 
