@@ -28,7 +28,10 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL_EE_M600/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL_EN_M800/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016f/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016h/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleE_2016G/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleE_2016B_v2/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016h/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016h/",
     TString singleFileName = "outTree_2.root",
     // TString singleFileName = "NanoAODv9_10.root",
     // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
