@@ -375,7 +375,8 @@ def remove_last_char_if_1(s):
     
 def checkIfInputDic(entry, isRun3):
     ifInDic = False
-    entryName = remove_last_char_if_1(entry)
+    # entryName = remove_last_char_if_1(entry)#! wrongly remove 2016B_v1
+    entryName = entry
     # print('entryName=', entryName)
     if not isRun3:
         if  entryName in gq.histoGramPerSample.keys(): 

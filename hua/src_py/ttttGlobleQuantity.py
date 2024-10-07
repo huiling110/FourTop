@@ -349,7 +349,7 @@ histoGramPerSample = {
     'singleE_2017e': 'singleE',
     'singleE_2017f': 'singleE',
     
-   
+    'doubleMu_2016b_v1': 'doubleMu',
     'doubleMu_2016b_v2': 'doubleMu',
     'doubleMu_2016c': 'doubleMu',
     'doubleMu_2016d': 'doubleMu',
@@ -358,6 +358,7 @@ histoGramPerSample = {
     'doubleMu_2016f': 'doubleMu',
     'doubleMu_2016g': 'doubleMu',
     'doubleMu_2016h': 'doubleMu',
+    'doubleEG_2016b_v1': 'doubleEG',
     'doubleEG_2016b_v2': 'doubleEG',
     'doubleEG_2016c': 'doubleEG',
     'doubleEG_2016d': 'doubleEG',
@@ -367,6 +368,7 @@ histoGramPerSample = {
     'doubleEG_2016g': 'doubleEG',
     'doubleEG_2016h': 'doubleEG',
     'MuonEG_2016b_v2': 'muonEG',
+    'MuonEG_2016b': 'muonEG',
     'MuonEG_2016c': 'muonEG',
     'MuonEG_2016d': 'muonEG',
     'MuonEG_2016e': 'muonEG',
@@ -374,6 +376,7 @@ histoGramPerSample = {
     'MuonEG_2016f': 'muonEG',
     'MuonEG_2016g': 'muonEG',
     'MuonEG_2016h': 'muonEG',
+    'singleE_2016B_v1': 'singleE',
     'singleE_2016B_v2': 'singleE',
     'singleE_2016C': 'singleE',
     'singleE_2016D': 'singleE',
@@ -526,7 +529,7 @@ dataDict = {
     '2017': ['2017b', '2017c', '2017d', '2017e', '2017f'],
     '2018': ['2018a', '2018b', '2018c', '2018d', '2018'], #add 2018 for leptonSum_2018
     '2016postVFP': ['2016F', '2016G', '2016H', '2016f', '2016g', '2016h'],
-    '2016preVFP': ['2016B_v1_v2', '2016B_v2_v2',  '2016C_v2', '2016D_v2', '2016E_v2', '2016F_hipm_v2'],
+    '2016preVFP': ['2016B_v1_v2', '2016B_v2_v2',  '2016C_v2', '2016D_v2', '2016E_v2', '2016F_hipm_v2', '2016b_v1', '2016b_v2', '2016b','2016c', '2016d', '2016e', '2016f_hipm'],
 }
 
 proChannelDic = {
