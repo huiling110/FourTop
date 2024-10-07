@@ -204,7 +204,7 @@ Bool_t HLTSelector::SelectTauTri(const eventForNano *e, const Bool_t ifHLTSel)
     return ifPass;
 }
 
-Bool_t HLTSelector::SelectLepTri(const eventForNano* e){
+Bool_t HLTSelector::SelectLepTri( eventForNano* e){
 
     Bool_t ifPass = kFALSE;
     if (m_era=="2018"){
@@ -222,24 +222,19 @@ Bool_t HLTSelector::SelectLepTri(const eventForNano* e){
             **e->HLT_Ele35_WPTight_Gsf;
     }else if(m_era=="2016preVFP" || m_era=="2016postVFP"){
         ifPass =
-        //mu mu
-            **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || **e->HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ || 
-            //ee
-            **e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ||
-            //mu e
-            // **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL ||
-            // **e->HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ||
-
+            **e->HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ || **e->HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ || //mu mu
+            **e->HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ || //ee
             **e->HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL || //good, mu, e
-            //careful here!
-            if (**e-)
-            **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL||//run <=281616
-            **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ || //run>=278273
-
-
 
             **e->HLT_IsoMu24 || **e->HLT_IsoTkMu24 ||
             **e->HLT_Ele27_WPTight_Gsf;
+            //careful here!
+        if (*e->run <=281616){
+            ifPass = ifPass || **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;//run <=281616
+        }
+        if (*e->run >=278273){
+            ifPass = ifPass || **e->HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
+        }
     }
     HLT_if2l = ifPass;
 

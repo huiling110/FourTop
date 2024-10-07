@@ -10,7 +10,7 @@ public:
     ~HLTSelector(){};
 
     Bool_t SelectTauTri(const eventForNano *e, const Bool_t ifHLTSel=kFALSE);
-    Bool_t SelectLepTri(const eventForNano* e);
+    Bool_t SelectLepTri( eventForNano* e);
     Bool_t Select(eventForNano *e, const Bool_t isHLTSel = kTRUE);
     void clearBranch();
 
