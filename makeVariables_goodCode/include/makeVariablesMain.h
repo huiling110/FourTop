@@ -27,11 +27,11 @@
 class MakeVariablesMain
 {
 public:
-    // MakeVariablesMain(TString inputDir, TChain *chain, TString outDir, TString processName) : m_inputDir{inputDir}, m_reader(chain), m_processName{processName}
-    MakeVariablesMain(TString inputDir, TString outDir, TString processName, Bool_t isData, TString era, Bool_t isRun3) : m_inputDir{inputDir}, m_processName{processName}, m_isData{isData}, m_era{era}, m_isRun3{isRun3}
+    MakeVariablesMain(TString inputDir, TString outDir, TString processName, Bool_t isData, TString era, Bool_t isRun3, Bool_t is1tau2l=kFALSE) : m_inputDir{inputDir}, m_processName{processName}, m_isData{isData}, m_era{era}, m_isRun3{isRun3}, m_is1tau2l{is1tau2l}
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
         std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "  m_isRun3=" << m_isRun3 << "\n";
+        std::cout<<"m_is1tau2l="<<m_is1tau2l<<"\n";
         std::cout << "m_processName=" << m_processName << "\n";
 
         std::cout<<"inputDir="<<inputDir<<"\n";
@@ -82,6 +82,7 @@ private:
     TFile *m_output;
     TTree *m_outTree = new TTree("newtree", "tree for BDT");
     TH1D *m_cutflow = new TH1D("cutflowforMV", "initial; baseline", 2, 0, 2);
+    const Bool_t m_is1tau2l = kFALSE;
 
     //
     // MuonVarMaker muVarMaker{m_outTree};

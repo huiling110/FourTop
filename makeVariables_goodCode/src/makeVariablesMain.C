@@ -54,14 +54,19 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
 
         // baseline selection
         Int_t bjetM_num = m_isRun3? bjetPTMVarMaker.getJet_num(): bjetMVarMaker.getJet_num();
-        const Bool_t ifPassBaseline = m_is1tau2l? (jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1 && tauVarMaker.getNum()==1)
-         :()
-        if (baselineSel)
+        Bool_t ifPass = kFALSE;
+        if(m_is1tau2l){
+            ifPass = jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1 && tauVarMaker.getNum()==1; 
+        }else{
+            ifPass = bjetM_num<4? jetVarMaker.getHT()>500. && jetVarMaker.getJet_6pt()>40.: jetVarMaker.getHT()>480. && jetVarMaker.getJet_6pt()>38.;
+            ifPass = ifPass && jetVarMaker.getJet_num()>= 6 && bjetM_num>=2;   
+        }
+        if (baselineSel&&!ifPass)
         {
-            if (!(jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1 && tauVarMaker.getNum()==1) ) //!lepton selection removed
-            {
-                continue;
-            }
+            // if (!(jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1 && tauVarMaker.getNum()==1) ) //!lepton selection removed
+            // {
+                // continue;
+            // }
             // if (!(jetVarMaker.getHT() > 550 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 )) //!!!for btag-efficiency measurement
             // if(!(jetVarMaker.getJet_num()>= 6 && bjetM_num>=2 && jetVarMaker.getJet_6pt()>38. && jetVarMaker.getHT()>480.))//!!!1tau1l and 1tau1l baseline selection
             // {
@@ -72,6 +77,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
             //         continue;
             //     }
             // }
+            continue;
         }
         if(tau1e1Sel){
             // if(!(jetVarMaker.getJet_num()>= 7 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
