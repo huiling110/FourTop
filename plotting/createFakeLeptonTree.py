@@ -1,5 +1,8 @@
 import ROOT
 import os
+import usefulFunc as uf
+
+
 #first have to run dataPDOverlapRemoval.py 
 def main():
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v84fakeLeptonUpdate/data/leptonSum_2018.root'
@@ -13,14 +16,26 @@ def main():
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/data/leptonSum_2017.root'
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/data/leptonSum_2018.root'
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v84Pre1tau2lLepF2V2/data/leptonSum_2016postVFP.root'
-    inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v84Pre1tau2lLepF2V2/data/leptonSum_2016preVFP.root'
+    # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v84Pre1tau2lLepF2V2/data/leptonSum_2016preVFP.root'
+   
+    #1tau1l 
+    inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
+    
+    if1tau2l = False
     
     
-    inputDir = os.path.dirname(inputData)
+    # inputDir = os.path.dirname(inputData)
+    inputDir = os.path.dirname(inputData) if if1tau2l else inputData
     outFile = inputDir.replace('data', 'mc') + '/fakeLepton.root'
     
     AR = 'lepTopMVAF_isAR'
-    df = ROOT.RDataFrame('newtree', inputData)
+    if if1tau2l:
+        df = ROOT.RDataFrame('newtree', inputData)
+    else:
+        # subDataList = uf.getAllSubPro(uf.getEraFromDir(inputData), ['jetHT'], True)
+        subDataList = uf.getSubProDic(uf.getEraFromDir(inputData), ['jetHT'])
+        print('subDataList: ', subDataList)
+        df = ROOT.RDataFrame('newtree', [inputData+ subData+'.root' for subData in subDataList['jetHT']])
     df_AR = df.Filter(AR)
     print('AR entries: ', df_AR.Count().GetValue())
    

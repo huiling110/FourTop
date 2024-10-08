@@ -410,7 +410,6 @@ def getAllSubPro(era, sumPro, isData=True):
         for isub, isum in all.items():
            #get the substring after first '_'
            subEra = isub.split('_', 1)[1]
-        #    print(subEra)
            if subEra in gq.dataDict[era] and isum in sumPro:
                allSubs.append(isub) 
         return allSubs
