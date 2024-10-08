@@ -22,9 +22,11 @@ def main():
     inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
     
     if1tau2l = False
+   
+   
+   
     
     
-    # inputDir = os.path.dirname(inputData)
     inputDir = os.path.dirname(inputData) if if1tau2l else inputData
     outFile = inputDir.replace('data', 'mc') + '/fakeLepton.root'
     

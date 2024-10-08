@@ -168,8 +168,6 @@ Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isDat
         {
         case 0: // 1tau1lSR
             HLTWeight = e->HLT_weight.v();
-            // btagWeight = e->btagWPMedium_weight.v();
-            // btagName = e->btagWPMedium_weight.n();
             btagWeight = e->btagWPMT_weight.v();
             btagName = e->btagWPMT_weight.n();
             break;
@@ -180,8 +178,6 @@ Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isDat
             break;
         case 2: //1tau2l
             HLTWeight = 1.0;//!for now
-            // btagWeight = e->btagWPMedium_weight.v();
-            // btagName = e->btagWPMedium_weight.n();
             btagWeight = e->btagWPMT_weight.v();
             btagName = e->btagWPMT_weight.n();
             break; 
