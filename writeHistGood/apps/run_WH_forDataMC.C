@@ -54,6 +54,7 @@ void run_treeAnalyzer(
     // TString process = "BTagCSV_2017f",
     // TString process = "ttbar_0l",
     // TString process = "ttbar_2l",
+    TString channel = "1tau1l",
     TString histVersion = "v0_test",
     Bool_t isTest = kTRUE)
 // Bool_t isTest = kFALSE)
@@ -61,7 +62,9 @@ void run_treeAnalyzer(
     TStopwatch t;
     t.Start();
 
-    WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest);
+    Bool_t is1tau2l = channel=="1tau2l";
+    std::cout<<"is1tau2l in run_WH_forDataMC="<<is1tau2l<<"\n"; 
+    WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);
     // WH_forDataMC writeHist(inputDir, process, kTRUE, histVersion, isTest);//!faketau, for 1tau0l
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
@@ -85,9 +88,10 @@ int main(int argc, char const *argv[])
 {
     TString inputDir;
     TString inputProcess;
+    TString channel;
     TString version;
     Bool_t isTest = kFALSE;
-    if (argc < 4)
+    if (argc < 5)
     {
         std::cout << "not enough input from command line\n";
         run_treeAnalyzer();
@@ -97,9 +101,10 @@ int main(int argc, char const *argv[])
         std::cout << "using input from command line\n";
         inputDir = boost::lexical_cast<std::string>(argv[1]);
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
-        version = boost::lexical_cast<std::string>(argv[3]);
-        isTest = boost::lexical_cast<Bool_t>(argv[4]);
-        run_treeAnalyzer(inputDir, inputProcess, version, isTest);
+        channel = boost::lexical_cast<std::string>(argv[3]);
+        version = boost::lexical_cast<std::string>(argv[4]);
+        isTest = boost::lexical_cast<Bool_t>(argv[5]);
+        run_treeAnalyzer(inputDir, inputProcess, channel, version, isTest);
     }
 
     return 0;

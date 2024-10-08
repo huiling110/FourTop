@@ -533,7 +533,8 @@ dataDict = {
 }
 
 proChannelDic = {
-    '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, for now not considering data
+    # '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l
+    '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',   'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
     '1tau0l':  ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets', 'jetHT'], #!1tau0l
     # '1tau2l':  ['tt', 'ttX', 'singleTop', 'WJets',  'VV','VVV','Higgs', 'XGamma', 'fakeLepton', 'tttt', 'leptonSum'], 
     '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
