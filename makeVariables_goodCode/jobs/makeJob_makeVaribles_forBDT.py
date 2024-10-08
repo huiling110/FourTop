@@ -11,8 +11,8 @@ import usefulFunc as uf
 
 def main():
     # year = '2016'
-    # year = '2018'
-    year = '2017'
+    year = '2018'
+    # year = '2017'
     # inVersion = 'v67TheoryWeightAdded'
     # inVersion = 'v70BetterHLT'
     # inVersion = 'v71NoHLTNoTau'
@@ -38,10 +38,11 @@ def main():
     # inVersion = 'v84Pre1tau2lNoLepCut'
     # inVersion = 'v84Pre1tau2lLepF2'
     # inVersion = 'v84Pre1tau2lNoLepCut'
-    inVersion = 'v84Pre1tau2lLepF2V2'
+    # inVersion = 'v84Pre1tau2lLepF2V2'
+    inVersion = 'v84HadroPresel'
 
-    # outVersion = 'v0baselineHardro'
-    outVersion = 'v0baselineLep'
+    outVersion = 'v0baselineHardro'
+    # outVersion = 'v0baselineLep'
     
     # outVersion = 'v0baseline1tau2lNotLepCut'
     # outVersion = 'v2cut1tau0lSRTauF'
