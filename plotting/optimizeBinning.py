@@ -10,8 +10,10 @@ import ttttGlobleQuantity as gq
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1BDT1tau1l_evenBin/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1BDT1tau2lEvenBin/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lEvenBin/'
-    channel = '1tau2l'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lEvenBin/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v1BDT1tau1lEvenBin/'
+    # channel = '1tau2l'
+    channel = '1tau1l'
     
     
     era = uf.getEraFromDir(inputDir)
@@ -68,9 +70,7 @@ def plot_histograms(histograms, legend_names, output_filename="plot.png", title=
     c1.SaveAs(output_filename)
     
 
-# def getSigBgHist(inputDirDic,  era):
 def getSigBgHist(inputDirDic,  era, channel = '1tau1l'):
-    # sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #1tau1l
     sumProList = gq.proChannelDic[channel]
     region = f'{channel}SR'
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, [region], sumProList, {}, ['BDT'], era, False )#sumProcessPerVar[ivar][region][sumPro]

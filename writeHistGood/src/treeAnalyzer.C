@@ -32,11 +32,11 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau1lCR2", m_era);
 
         // std::vector<Double_t> bins1tau1l =  {-0.25, -0.1036, -0.0731, -0.0487, -0.030, -0.012, 0.013, 0.037, 0.06, 0.122, 0.36}; //roughly 15 bg in each bin
-        std::vector<Double_t> bins1tau1l = {-0.25, -0.0914, -0.0548, -0.0243, 0.0062, 0.0367, 0.0855, 0.135, 0.36}; //roughly 22 bg in each bin
+        // std::vector<Double_t> bins1tau1l = {-0.25, -0.0914, -0.0548, -0.0243, 0.0062, 0.0367, 0.0855, 0.135, 0.36}; //roughly 22 bg in each bin
+        std::vector<Double_t> bins1tau1l = {-0.25, -0.067, -0.024, 0.018, 0.06, 0.14, 0.36 }; //BinF; roughly 30 bg in each bin
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions); 
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.36, sysRegions);//!For optimization binnning
 
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450Cut1tau1l_v75OverlapRemovalFTau/mc/BDTTrain/v2NoBtag/dataset/weight/TMVAClassification_BDT.weights.xml";
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l.csv"; 
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3cut1tau1lSR6thJetpt34_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLSample/mc/BDTTrain/v0allVar/dataset/weight/TMVAClassification_BDT.weights.xml";//!weight file for VLL in 1tau1l
