@@ -53,7 +53,7 @@ def main():
     
     # sumProToSkip = ['jetHT', 'ttExtra'] #! and 1tau2l
     # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG',  'ttExtra'] #1tau1l and 1tau0l 
+    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG'] #1tau1l and 1tau0l 
 
 
 
