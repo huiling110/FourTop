@@ -82,7 +82,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinFv2/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     variables = ['BDT']
@@ -174,7 +177,7 @@ def getSysDic(ifSys=False, channel='1tau1l'):
            'tttt': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
            'tt': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
            'ttX': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-           'singleTop': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
+           'singleTop': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],#!removed pdfAlphaS_normalised
            'WJets': [ "CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
         }
     return sumProSys

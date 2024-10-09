@@ -10,8 +10,8 @@ import usefulFunc as uf
 #todo add git co after job submission for version control
 
 def main():
-    # year = '2016'
-    year = '2018'
+    year = '2016'
+    # year = '2018'
     # year = '2017'
     # inVersion = 'v67TheoryWeightAdded'
     # inVersion = 'v70BetterHLT'
@@ -41,12 +41,12 @@ def main():
     # inVersion = 'v84Pre1tau2lLepF2V2'
     inVersion = 'v84HadroPresel'
 
-    # outVersion = 'v0baselineHardro'
+    outVersion = 'v0baselineHardro'
     # outVersion = 'v0baselineLep'
     
     # outVersion = 'v0baseline1tau2lNotLepCut'
     # outVersion = 'v2cut1tau0lSRTauF'
-    outVersion = 'v1cut1tau1lSR'
+    # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau2lSR'
     
     #2022
@@ -98,7 +98,7 @@ def main():
 
     for iera in inOutDirMap.keys():
         # if iera=='2016preVFP' : continue
-        if iera=='2016postVFP' : continue#
+        # if iera=='2016postVFP' : continue#
         print('era: ', iera)
         
         for key in inOutDirMap[iera].keys():
