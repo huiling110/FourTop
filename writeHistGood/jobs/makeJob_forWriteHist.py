@@ -66,7 +66,9 @@ def main():
     #1tau1l
     # channel = '1tau1l'
     # version = 'v0BDT1tau1l'
-    version = 'v0BDT1tau1lBinF'
+    # version = 'v0BDT1tau1lBinF'
+    # version = 'v0BDT1tau1lBinFv2'
+    version = 'v0BDT1tau1lBinGv2'
     # version = 'v1BDT1tau1lEvenBin'
     
     #1tau0l systematic
