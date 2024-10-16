@@ -39,9 +39,12 @@ HLTSelector::HLTSelector(TTree *outTree, const TString era, const TString proces
     outTree->Branch("HLT_IsoMu27_", &HLT_IsoMu27_);
     outTree->Branch("HLT_Ele32_WPTight_Gsf_", &HLT_Ele32_WPTight_Gsf_);
 
-    outTree->Branch("HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_);
-    outTree->Branch("HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_", &HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_);
-    outTree->Branch("HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_", &HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_);
+    // outTree->Branch("HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_);
+    // outTree->Branch("HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_", &HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_);
+    // outTree->Branch("HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_", &HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_);
+    outTree->Branch("HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_", &HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_);
+    outTree->Branch("HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1_", &HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1_);
+    outTree->Branch("HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v_", &HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v_);
 
     outTree->Branch("HLT_if2l", &HLT_if2l);
 
@@ -190,11 +193,11 @@ Bool_t HLTSelector::Select(eventForNano *e,  const Bool_t isHLTSel)
 Bool_t HLTSelector::SelectTauTri(const eventForNano *e, const Bool_t ifHLTSel)
 {
     Bool_t ifPass = kFALSE;
-    if(m_isRun3){
-        HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_ = **e->HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1;
-        HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_ = **e->HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1;
-        HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_ = **e->HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1;
-    }
+        //https://twiki.cern.ch/twiki/bin/view/CMS/TauTrigger#Tau_Triggers_in_NanoAOD_2018
+        // HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_CrossL1_v
+        HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ = **e->HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1;
+        HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1_ = **e->HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1;
+        HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v_ = **e->HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1;
 
     if (!ifHLTSel)
     {

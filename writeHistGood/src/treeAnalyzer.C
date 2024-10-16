@@ -111,7 +111,7 @@ void treeAnalyzer::Init()
 
     SR1tau1lSys.setDir(m_outFile);
 
-    if(!m_isFakeLepton || !m_isFakeTau || !m_isData){
+    if(m_isFakeLepton || m_isFakeTau || m_isData){
         m_scaleRe_normUp_SF = 1;
         m_scaleRe_normDown_SF = 1;
         m_scaleFa_normUp_SF = 1;

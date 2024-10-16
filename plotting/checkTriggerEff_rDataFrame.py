@@ -2,7 +2,8 @@ import ROOT
 
 # Create an RDataFrame for the dataset
 # input = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/output/2022preEE/tree_1.root'
-input = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/output/2018/outTree_0.root'
+# input = '/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/output/2018/outTree_0.root'
+input = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/output/2018/outTree_2.root'
 
 
 
@@ -18,6 +19,22 @@ def checkTrig1tau1l(df):
     
     harTrigger = 'HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59_ || HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94_ || HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5_'
     harTriggerCut = tau1l1Cut.Filter(harTrigger)
+    print('hadroncTriggerEff=', harTriggerCut.Count().GetValue()/tau1l1CutCount.GetValue())
+    
+    singleLepTrigger = 'HLT_IsoMu24_ || HLT_Ele32_WPTight_Gsf_' 
+    singleLepTriggerCut = tau1l1Cut.Filter(singleLepTrigger)
+    print('singleLepTriggerEff=', singleLepTriggerCut.Count().GetValue()/tau1l1CutCount.GetValue())
+   
+    singleLepAndHardronicCut = tau1l1Cut.Filter(harTrigger+'||'+singleLepTrigger)
+    print('singleLepAndHardronicCutEff=', singleLepAndHardronicCut.Count().GetValue()/tau1l1CutCount.GetValue())
+    
+    # tauLepTrigger = 'HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1_||HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1_'
+    # singleTauTrigger = 'HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1_'
+    tauLepTrigger =  'HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ ||     HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1_ || HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v_'
+    tauTriggerCut = tau1l1Cut.Filter(tauLepTrigger)
+    print('tauTriggerEff=', tauTriggerCut.Count().GetValue()/tau1l1CutCount.GetValue())
+     
+    
     
     
     print('initial=', df.Count().GetValue(), '1tau1l=', tau1l1CutCount.GetValue(), 'BR=', tau1l1CutCount.GetValue()/df.Count().GetValue())
@@ -124,8 +141,8 @@ def checkHardronicTrigger(df):
 
 
 if __name__=='__main__':
-    checkDileptonTri(df)
-    # checkTrig1tau1l(df)
+    # checkDileptonTri(df)
+    checkTrig1tau1l(df)
     
 
 
