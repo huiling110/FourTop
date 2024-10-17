@@ -60,9 +60,9 @@ private:
     //2018
 
     //hadronic triggers
-    Bool_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ = kFALSE;
-    Bool_t HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1_ = kFALSE;
-    Bool_t HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v_ = kFALSE;
+    // Bool_t HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1_ = kFALSE;
+    // Bool_t HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1_ = kFALSE;
+    // Bool_t HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1_v_ = kFALSE;
 };
 
 #endif

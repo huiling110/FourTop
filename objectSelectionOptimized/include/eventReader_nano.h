@@ -165,9 +165,9 @@ public:
         OS::readPointer(HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL, reader, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL");
 
 
-        OS::readPointer(HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1, reader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1");
-        OS::readPointer(HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1, reader, "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1");
-        OS::readPointer(HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1, reader, "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1");
+        // OS::readPointer(HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1, reader, "HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1");
+        // OS::readPointer(HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1, reader, "HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1");
+        // OS::readPointer(HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1, reader, "HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1");
 
 
         // gen
@@ -301,12 +301,9 @@ public:
     //
 
     //tau triggers
-    // TTreeReaderValue<Bool_t> *HLT_Ele24_eta2p1_WPTight_Gsf_LooseDeepTauPFTauHPS30_eta2p1_CrossL1 = nullptr;
-    // TTreeReaderValue<Bool_t> *HLT_IsoMu20_eta2p1_LooseDeepTauPFTauHPS27_eta2p1_CrossL1 = nullptr;
-    // TTreeReaderValue<Bool_t> *HLT_LooseDeepTauPFTauHPS180_L2NN_eta2p1 = nullptr;
-    TTreeReaderValue<Bool_t> *HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1 = nullptr;
-    TTreeReaderValue<Bool_t> *HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1 = nullptr;
-    TTreeReaderValue<Bool_t> *HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1 = nullptr;
+    // TTreeReaderValue<Bool_t> *HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTauHPS30_eta2p1_CrossL1 = nullptr;
+    // TTreeReaderValue<Bool_t> *HLT_IsoMu20_eta2p1_LooseChargedIsoPFTauHPS27_eta2p1_TightID_CrossL1 = nullptr;
+    // TTreeReaderValue<Bool_t> *HLT_MediumChargedIsoPFTau180HighPtRelaxedIso_Trk50_eta2p1 = nullptr;
 
 
     TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
