@@ -11,21 +11,14 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_HT", &taus_HT);
     outTree->Branch(objName + "_invariantMass", &taus_invariantMass);
     outTree->Branch(objName + "_minDeltaR", &taus_minDeltaR);
-    outTree->Branch(objName + "_genTauNum", &taus_genTauNum);
     outTree->Branch(objName + "_leptonsT_transMass", &taus_leptonsT_transMass); 
     outTree->Branch(objName + "_leptonsT_invariantMass", &taus_leptonsT_invariantMass);
     outTree->Branch(objName + "_leptonsTMVA_minDeltaR", &taus_leptonsTMVA_minDeltaR);
     outTree->Branch(objName + "_leptonsTopMVA_chargeMulti", &taus_leptonsTopMVA_chargeMulti);
-    outTree->Branch(objName + "_prongNum", &taus_prongNum);
-    outTree->Branch(objName + "_1decayMode", &taus_1decayMode);
-    outTree->Branch(objName + "_1prongNum", &taus_1prongNum);
     outTree->Branch(objName + "_1lepton1_charge", &taus_1lepton1_charge);
     outTree->Branch(objName + "_leptons_charge", &taus_leptons_charge);
-    outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
-    outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
     outTree->Branch(objName + "_1charge", &taus_1charge);
     outTree->Branch(objName + "_1neutralIso", &taus_1neutralIso);
-    outTree->Branch(objName + "_1genFlavour", &taus_1genFlavour);
 
     outTree->Branch(objName + "_1lepton1_deltaR", &taus_1lepton1_deltaR);
     outTree->Branch(objName + "_1Met_transMass", &taus_1Met_transMass);
@@ -35,6 +28,16 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_jet1_Met_transMass", &taus_jet1_Met_transMass);
 
     outTree->Branch("leptons_2charge", &leptons_2charge);
+
+    //Variables for tau FR 
+    outTree->Branch(objName + "_genTauNum", &taus_genTauNum);
+    outTree->Branch(objName + "_1genFlavour", &taus_1genFlavour);
+    // outTree->Branch(objName + "_prongNum", &taus_prongNum); //!not good variable
+    outTree->Branch(objName + "_1decayMode", &taus_1decayMode);
+    outTree->Branch(objName + "_1prongNum", &taus_1prongNum);
+    outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
+    outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
+
 
 
     std::cout << "Done initialization.............\n";
@@ -99,7 +102,7 @@ void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, cons
         taus_1jetPt = tau_jetPt.At(0);
         taus_1jetEtaAbs = tau_jetEta.At(0);
         taus_genTauNum = calGenTauNum(tau_genPartFlav); //!!!
-        taus_prongNum = getTauProng(tau_decayMode);
+        // taus_prongNum = getTauProng(tau_decayMode);
         taus_1genFlavour = tau_genPartFlav.At(0);
         taus_1decayMode = tau_decayMode.At(0);
         taus_1prongNum = (tau_decayMode.At(0)/5) + 1;
@@ -127,7 +130,7 @@ void TauVarMaker::clearBranch()
     taus_minDeltaR = -99;
     taus_genTauNum = -99;
     taus_leptonsTopMVA_chargeMulti = -99;
-    taus_prongNum = -99;
+    // taus_prongNum = -99;
 
     taus_1jetPt = -99;
     taus_1jetEtaAbs = -99;
