@@ -140,7 +140,8 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         // overlap removal
         Bool_t removeMu = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), muEtaVec, muPhiVec);
         Bool_t removeE = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), eEtaVec, ePhiVec);
-        Bool_t removeTau = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), tauEtaVec, tauPhiVec);
+        // Bool_t removeTau = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), tauEtaVec, tauPhiVec);
+        Bool_t removeTau = OS::overlapRemove(e->Jet_eta.At(j), e->Jet_phi.At(j), tauEtaVec, tauPhiVec, 0.5);//!!!
         if(removeE||removeMu|| removeTau){
             continue;
         }

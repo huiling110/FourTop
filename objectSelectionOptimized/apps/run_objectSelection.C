@@ -37,8 +37,8 @@ void run_objectSelection(
     // TString singleFileName = "NanoAODv9_10.root",
     // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
     TString outputDir = "./output/",
-    // Int_t eventNum = 1000)
-Int_t eventNum = 10000)
+    Int_t eventNum = 1000)
+// Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 {
     TStopwatch t;
