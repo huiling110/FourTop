@@ -309,7 +309,7 @@ public:
     myBranch<Double_t> muonsTopMVAT_2eta{"muonsTopMVAT_2eta"};
 
     // branches for fakeTau;
-    myBranch<Int_t> tausF_prongNum{"tausF_prongNum"};
+    // myBranch<Int_t> tausF_prongNum{"tausF_prongNum"};
     myBranch<Double_t> tausF_1jetPt{"tausF_1jetPt"};
     myBranch<Double_t> tausF_1eta{"tausF_1eta"};
     myBranch<Double_t> tausF_1jetEtaAbs{"tausF_1jetEtaAbs"};
@@ -323,6 +323,8 @@ public:
     myBranch<Double_t> tausF_invariantMass{"tausF_invariantMass"};
     myBranch<Double_t> tausF_jet_invariantMass{"tausF_jet_invariantMass"};
     myBranch<Double_t> tausF_jet1_Met_transMass{"tausF_jet1_Met_transMass"};
+    myBranch<Bool_t> tausF_1isTight{"tausF_1isTight"};
+    // myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
 
     myBranch<Int_t> tausM_1genFlavour{"tausM_1genFlavour"};
     myBranch<Int_t> tausT_1decayMode{"tausT_1decayMode"};
@@ -593,7 +595,6 @@ private:
         {muonsTopMVAT_2eta.n(), &muonsTopMVAT_2eta},
 
         {tausF_num.n(), &tausF_num},
-        {tausF_prongNum.n(), &tausF_prongNum},
         {tausF_1jetPt.n(), &tausF_1jetPt},
         {tausF_1eta.n(), &tausF_1eta},
         {tausF_1jetEtaAbs.n(), &tausF_1jetEtaAbs},
@@ -604,6 +605,9 @@ private:
         {tausF_invariantMass.n(), &tausF_invariantMass},
         {tausF_jet_invariantMass.n(), &tausF_jet_invariantMass},
         {tausF_jet1_Met_transMass.n(), &tausF_jet1_Met_transMass},
+        {tausF_1isTight.n(), &tausF_1isTight},
+        // {tausF_1genFlavour.n(), &tausF_1genFlavour},
+
 
         {tausT_1decayMode.n(), &tausT_1decayMode},
         {tausTT_1decayMode.n(), &tausTT_1decayMode},

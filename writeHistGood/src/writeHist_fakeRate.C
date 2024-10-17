@@ -146,7 +146,7 @@ void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForR
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 7, 5.5, 12.5, regionsForVariables, &(e->jets_num));
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
     SP_i tausT_leptonsTopMVA_chargeMulti_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_leptonsTopMVA_chargeMulti", "charge^{#tau}*charge^{lep}", m_processName, 3, -1.5, 1.5, regionsForVariables, &(e->tausT_leptonsTopMVA_chargeMulti));
-    SP_i tausF_prongNum_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_prongNum", " #tau prong", m_processName, 3, 1, 4, regionsForVariables, &(e->tausF_prongNum));
+    // SP_i tausF_prongNum_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_prongNum", " #tau prong", m_processName, 3, 1, 4, regionsForVariables, &(e->tausF_prongNum));
     SP_i tausF_charge_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_charge", " #tau charge", m_processName, 2, -2, 2, regionsForVariables, &(e->tausF_1charge));
     SP_i tausF_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1decayMode", " #tau decay mode", m_processName, 12, 0, 12, regionsForVariables, &(e->tausF_1decayMode));
 
@@ -302,25 +302,28 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
         // event weight
         // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE, 1, kFALSE, KFALSE); //!!!MC correction for 1tau0l
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData,  1, kFALSE, kFALSE); //!!!MC correction for 1tau0l
 
         Bool_t isTauLNum = (e->tausF_num.v() == 1);
-        Bool_t isTauLNumGen = (e->tausF_genTauNum.v() == 1);
-        Bool_t isTauTNumGen = (e->tausT_genTauNum.v() == 1);
-        Int_t tausTNum = e->tausT_num.v();//!!should be tauFT=1
+        // Bool_t isTauLNumGen = (e->tausF_genTauNum.v() == 1); //!should substract not only prompt tau but also eletron and muons
+        // Bool_t isTauTNumGen = (e->tausT_genTauNum.v() == 1);
+        // Int_t tausTNum = e->tausT_num.v();//!!should be tauFT=1
+        const Bool_t isTauFT = (e->tausF_num.v() == 1) && e->tausF_1isTight.v();
+        const Bool_t isTauTNumGen = e->tausF_1genFlavour.v() != 0  ; //Flavour of genParticle for MC matching to status==2 taus: 1 = prompt electron, 2 = prompt muon, 3 = tau->e decay, 4 = tau->mu decay, 5 = hadronic tau decay, 0 = unknown or unmatched
+        const Bool_t isTauLNumGen = e->tausF_1genFlavour.v() != 0;
         Int_t jetsNum = e->jets_num.v();
         Int_t bjetsNum = e->bjetsM_num.v();
         Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
 
-
         // 1tau0lMR
-        Bool_t is1tau0lMR = tausTNum == 1  && jetsNum >= 8 && bjetsNum == 2; 
+        // Bool_t is1tau0lMR = tausTNum == 1  && jetsNum >= 8 && bjetsNum == 2; 
+        Bool_t is1tau0lMR = isTauFT  && jetsNum >= 8 && bjetsNum == 2; 
         Bool_t is1tau0lMRLTau = isTauLNum && jetsNum >= 8 && bjetsNum == 2;
         //1tau0lVR
-        Bool_t is1tau0lVR = tausTNum==1 && lepNum == 0 && jetsNum < 8 && bjetsNum >=3;
+        Bool_t is1tau0lVR = isTauFT && lepNum == 0 && jetsNum < 8 && bjetsNum >=3;
         Bool_t is1tau0lVRLTau = isTauLNum && lepNum == 0 && jetsNum < 8 && bjetsNum >=3;
         //1tau0lCR
-        Bool_t is1tau0lCR = tausTNum==1 && lepNum == 0 && jetsNum < 8 && bjetsNum ==2;
+        Bool_t is1tau0lCR = isTauFT && lepNum == 0 && jetsNum < 8 && bjetsNum ==2;
         Bool_t is1tau0lCRLTau = isTauLNum && lepNum == 0 && jetsNum < 8 && bjetsNum ==2;
         //1tau0lSR
         Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
@@ -328,7 +331,8 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
         Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1jetEtaAbs.v()); //!tausF_1jetEtaAbs should be more accurate!
         if(m_ifMeasure){
-            if (!(e->tausF_prongNum.v() == 1)){//!!!1 prong
+            // if (!(e->tausF_prongNum.v() == 1)){//!!!1 prong
+            if(!(e->tausF_1prongNum.v() == 1)){//!!! group all tau prong=!1 into one
             // if (e->tausF_prongNum.v() == 1){//!!! group all tau prong=!1 into one
             // if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
                 continue;
@@ -359,6 +363,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta2", basicWeight, is1tau0lCR &&  isEta2, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta3", basicWeight, is1tau0lCR &&  isEta3, m_isData);
             }else{
+                //gen
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta1", basicWeight, is1tau0lMRLTau && isEta1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta2", basicWeight, is1tau0lMRLTau &&  isEta2 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta3", basicWeight, is1tau0lMRLTau &&  isEta3 && isTauLNumGen, m_isData);
@@ -382,7 +387,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             }
         }else{//FR application 
             Double_t FRWeight, FRWeight_up, FRWeight_down; 
-            Int_t tauProng = !(e->tausF_prongNum.v()==1)? 3 : e->tausF_prongNum.v(); //
+            Int_t tauProng = !(e->tausF_1prongNum.v()==1)? 3 : e->tausF_1prongNum.v(); //
             tausF_1jetEtaAbs = tausF_1jetEtaAbs >= 2.3 ? 2.2 : tausF_1jetEtaAbs; //!
             Bool_t ifFR = getFRandError(m_graphs, tausF_1jetEtaAbs, tauProng, e->tausF_1jetPt.v(), FRWeight, FRWeight_up, FRWeight_down);
             // std::cout<<"FRWeight="<<FRWeight<<" FRWeight_up="<<FRWeight_up<<" FRWeight_down="<<FRWeight_down<<"\n";
