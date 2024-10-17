@@ -93,6 +93,7 @@ Double_t calFRWeight(const Double_t taus_1pt, const Double_t taus_1eta, const In
     return FRWeight;
 };
 
+//!mabe delete this, validate FR with MV step
 void pushBackHiscVec(std::vector<std::shared_ptr<histForRegionsBase>> &histsForRegion_vec, const std::vector<TString> &regionsForVariables, TString m_processName, event *e)
 {
     histsForRegion_vec.clear();
@@ -193,7 +194,6 @@ void WH_fakeRate::Init()
     std::cout << "Start to initilation....................................................\n";
     //regions for measuring FR
     if(m_ifMeasure){
-
         std::vector<TString> regionsEtaDivided = {
         "1tau0lCRLTau_Eta1", 
         "1tau0lCRLTau_Eta2",
@@ -233,6 +233,10 @@ void WH_fakeRate::Init()
         "1tau0lVRGen_Eta1",
         "1tau0lVRGen_Eta2", // 54
         "1tau0lVRGen_Eta3",
+
+        //MR+CR
+        // "1tau"
+
         };
         tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
         tausF_1jetPt_class.setDir(m_outFile);
@@ -288,7 +292,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        if (!(baselineSelection(e, m_isRun3)))
+        if (!(baselineSelection(e, m_isRun3, kFALSE)))
         {
             continue;
         }
@@ -297,17 +301,18 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         }
 
         // event weight
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!
-        // Double_t basicWeight = e->EVENT_genWeight.v() *e->EVENT_prefireWeight.v() * e->PUweight_.v(); 
-        
+        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE, 1, kFALSE, KFALSE); //!!!MC correction for 1tau0l
+
         Bool_t isTauLNum = (e->tausF_num.v() == 1);
         Bool_t isTauLNumGen = (e->tausF_genTauNum.v() == 1);
         Bool_t isTauTNumGen = (e->tausT_genTauNum.v() == 1);
-        // Int_t tausTNum = e->tausTT_num.v();//!
-        Int_t tausTNum = e->tausT_num.v();//!!
+        Int_t tausTNum = e->tausT_num.v();//!!should be tauFT=1
         Int_t jetsNum = e->jets_num.v();
         Int_t bjetsNum = e->bjetsM_num.v();
         Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
+
+
         // 1tau0lMR
         Bool_t is1tau0lMR = tausTNum == 1  && jetsNum >= 8 && bjetsNum == 2; 
         Bool_t is1tau0lMRLTau = isTauLNum && jetsNum >= 8 && bjetsNum == 2;

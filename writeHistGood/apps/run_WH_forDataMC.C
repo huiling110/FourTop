@@ -39,7 +39,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/mc/", 
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018//v0baselineHardro_v84HadroPresel/mc/", 
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018//v0baselineHardro_v84HadroPresel/mc/", 
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/mc/", 
 
     TString process = "tttt",
     // TString process = "fakeLepton",
@@ -54,7 +55,8 @@ void run_treeAnalyzer(
     // TString process = "BTagCSV_2017f",
     // TString process = "ttbar_0l",
     // TString process = "ttbar_2l",
-    TString channel = "1tau1l",
+    // TString channel = "1tau1l",
+    TString channel = "1tau0l",
     TString histVersion = "v0_test",
     Bool_t isTest = kTRUE)
 // Bool_t isTest = kFALSE)
@@ -64,11 +66,11 @@ void run_treeAnalyzer(
 
     Bool_t is1tau2l = channel=="1tau2l";
     std::cout<<"is1tau2l in run_WH_forDataMC="<<is1tau2l<<"\n"; 
-    WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);
+    // WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);
     // WH_forDataMC writeHist(inputDir, process, kTRUE, histVersion, isTest);//!faketau, for 1tau0l
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
-    // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
+    WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
     // WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
 
     writeHist.Init();

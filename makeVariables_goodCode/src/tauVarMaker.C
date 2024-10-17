@@ -35,8 +35,13 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     // outTree->Branch(objName + "_prongNum", &taus_prongNum); //!not good variable
     outTree->Branch(objName + "_1decayMode", &taus_1decayMode);
     outTree->Branch(objName + "_1prongNum", &taus_1prongNum);
-    outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
-    outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
+
+    if(m_type==1){
+        outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
+        outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
+        outTree->Branch("tausF_1isTight", &tausF_1isTight);
+        // outTree->Branch("tausF_1isTightPrompt", &tausF_1isTightPrompt);
+    }
 
 
 
@@ -66,11 +71,18 @@ void TauVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
 
     // lepTOPMVAs_2invariantMass = InvariantMassCalculator(leptonsMVAT);
 
+    //for tauF variables
+    if(m_type==1){
+        tausF_1isTight = e->tausF_isTight.GetSize() > 0 ? e->tausF_isTight.At(0) : kFALSE;   
+        // if(!m_isData && e->tausF_genPartFlav.GetSize() > 0){
+        //     tausF_1isTightPrompt = tausF_1isTight && e->tausF_genPartFlav.At(0) == 5;
+        // }
+    }
+    // tausF_1isTightPrompt
 
     switch (m_type)
     {//!!!todo: better make each object a compact object
     case 0:
-        // tauVariables(e->tausT_jetPt, e->tausT_jetEta, e->tausT_jetPhi, e->tausT_jetMass, e->tausT_genPartFlav, e->tausT_decayMode, e->tausT_charge, e->elesMVAT_charge, e->muonsT_charge, *e->MET_pt_, *e->MET_phi_);
         tauVariables(e->tausT_jetPt, e->tausT_jetEta, e->tausT_jetPhi, e->tausT_jetMass, e->tausT_genPartFlav, e->tausT_decayMode, e->tausT_charge, e->elesTopMVAT_charge, e->muonsTopMVAT_charge, *e->MET_pt_, *e->MET_phi_);
         break;
     case 1:
@@ -102,7 +114,6 @@ void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, cons
         taus_1jetPt = tau_jetPt.At(0);
         taus_1jetEtaAbs = tau_jetEta.At(0);
         taus_genTauNum = calGenTauNum(tau_genPartFlav); //!!!
-        // taus_prongNum = getTauProng(tau_decayMode);
         taus_1genFlavour = tau_genPartFlav.At(0);
         taus_1decayMode = tau_decayMode.At(0);
         taus_1prongNum = (tau_decayMode.At(0)/5) + 1;
@@ -116,6 +127,7 @@ void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, cons
         taus_jet1_Met_transMass = tauJets.size() > 0 ? calculateTransverseMass(tauJets.at(0), MET_pt, MET_phi) : -99.;
 
         leptons_2charge = ele_charge.GetSize() + muon_charge.GetSize()==2 ? chargeMulCalNew(ele_charge, muon_charge) : -99;
+
 
     }
 
@@ -147,7 +159,8 @@ void TauVarMaker::clearBranch()
     taus_jet1_Met_transMass = -99.;
     leptons_2charge = -99;
 
-    // lepTOPMVAs_2invariantMass = -99;
+    tausF_1isTight = kFALSE;
+    // tausF_1isTightPrompt = kFALSE;
 }
 
 void TauVarMaker::setupLorentzObjs(const EventForMV *e)

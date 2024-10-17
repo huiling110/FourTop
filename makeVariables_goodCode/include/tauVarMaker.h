@@ -50,7 +50,9 @@ private:
 
     Int_t leptons_2charge = -99;
 
-    //put some lepton variables here for convenience 
+    Bool_t tausF_1isTight = kFALSE;
+    Bool_t tausF_1isTightPrompt = kFALSE;
+
 };
 
 #endif

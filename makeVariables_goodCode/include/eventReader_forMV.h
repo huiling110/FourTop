@@ -144,6 +144,7 @@ public:
                                       tausF_jetEta(reader, "tausF_jetEta"),
                                       tausF_jetPhi(reader, "tausF_jetPhi"),
                                       tausF_jetMass(reader, "tausF_jetMass"),
+                                      tausF_isTight(reader, "tausF_isTight"),
 
                                       tausL_pt(reader, "tausL_pt"),
                                       tausL_eta(reader, "tausL_eta"),
@@ -357,6 +358,7 @@ public:
     TTreeReaderArray<Double_t> tausF_jetEta;
     TTreeReaderArray<Double_t> tausF_jetPhi;
     TTreeReaderArray<Double_t> tausF_jetMass;
+    TTreeReaderArray<Bool_t> tausF_isTight;
 
     TTreeReaderArray<Double_t> tausL_pt;
     TTreeReaderArray<Double_t> tausL_eta;
