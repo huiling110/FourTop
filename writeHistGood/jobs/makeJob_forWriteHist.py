@@ -42,7 +42,8 @@ def main():
     
     #!fakerate
     # version = 'v0FR_measure1prong'
-    version = 'v0FR_measure1prongNew'
+    # version = 'v0FR_measure1prongNew'
+    version = 'v0FR_measure3prongNew'
     # version = 'v0FR_measure3prong'
     # version = 'v1FR_application'
        
