@@ -37,19 +37,21 @@ def main():
    
 # def plotFRNew(inputDirDic, era, tauProng='1prong'):
 def plotFRNew(inputDirDic, era):
-    # tauProng1 = '_1prong'
+    tauProng1 = '_1prong'
     regionList = ['1tau0lMRCR', '1tau0lMRCRGen', '1tau0lMRCRLTau', '1tau0lMRCRLTauGen']
-    # FR_eta1 = plotFRPerEta( inputDirDic, regionList, era, '_Eta1', tauProng1, 'FR' + tauProng1 + 'Eta1')
-    # FR_eta2 = plotFRPerEta( inputDirDic, regionList, era, '_Eta2', tauProng1, 'FR' + tauProng1 + 'Eta2')
-    # FR_eta3 = plotFRPerEta( inputDirDic, regionList, era, '_Eta3', tauProng1, 'FR' + tauProng1 + 'Eta3')
-    # uf.plotOverlay([FR_eta1, FR_eta2, FR_eta3],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.4'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng1 + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3]) 
+    FR_eta1 = plotFRPerEta( inputDirDic, regionList, era, '_Eta1', tauProng1, 'FR' + tauProng1 + 'Eta1')
+    FR_eta2 = plotFRPerEta( inputDirDic, regionList, era, '_Eta2', tauProng1, 'FR' + tauProng1 + 'Eta2')
+    FR_eta3 = plotFRPerEta( inputDirDic, regionList, era, '_Eta3', tauProng1, 'FR' + tauProng1 + 'Eta3')
+    uf.plotOverlay([FR_eta1, FR_eta2, FR_eta3],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.4'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng1 + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3]) 
     
     tauProng3 = '_3prong'
     FR_tauProng3 = plotFRPerEta( inputDirDic, regionList, era, '_EtaAll', tauProng3, 'FR' + tauProng3 + 'EtaAll')
     uf.plotOverlay([FR_tauProng3],  ['0<|#eta| <2.4'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng3 + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
     
+    histNameList = ['_Eta1Prong1', '_Eta2Prong1', '_Eta3Prong1', '_EtaAllProng3'] 
+    writeFRToFileNew([FR_eta1, FR_eta2, FR_eta3, FR_tauProng3], histNameList, inputDirDic)
     
-    # writeFRToFileNew([FR_eta1, FR_eta2, FR_eta3], inputDirDic)
+    
     
 def plotFR(inputDirDic, era,  tauProng='1prong'):
     regionList = ['1tau0lMR', '1tau0lMRGen', '1tau0lMRLTau', '1tau0lMRLTauGen']
@@ -85,10 +87,12 @@ def plotFR(inputDirDic, era,  tauProng='1prong'):
     uf.plotOverlay([FR_eta2_CR, FR_eta2_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
     uf.plotOverlay([FR_eta3_CR, FR_eta3_VR], ['CR: N_{jet}<8, N_{b-jet}=2', 'VR: N_{jet}<8, N_{b-jet}>=3'], era, 'Fake rate', inputDirDic['mc'] + 'results/FR_CRVR_' + tauProng + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
    
-def writeFRToFileNew(FR_ptInEtaList, inputDirDic):
-    outFile = ROOT.TFile( inputDirDic['mc'] + 'results/fakeRateInPtEta.root', "RECREATE")
+# def writeFRToFileNew(FR_ptInEtaList, inputDirDic, tauProng='1prong'):
+def writeFRToFileNew(FR_ptInEtaList, histNameList, inputDirDic, tauProng='1prong'):
+    outFile = ROOT.TFile( inputDirDic['mc'] + 'results/fakeRateInPtEtaProng.root', "RECREATE")
     for i in range(len(FR_ptInEtaList)):
-        FR_ptInEtaList[i].SetName('fakeRate_Eta'+str(i+1))
+        # FR_ptInEtaList[i].SetName('fakeRate_Eta'+str(i+1))
+        FR_ptInEtaList[i].SetName('fakeRate'+histNameList[i])
         FR_ptInEtaList[i].Write()
     outFile.Write()
     print('fake rate file here: ', outFile.GetName())
