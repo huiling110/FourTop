@@ -363,7 +363,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             // if (e->tausF_1prongNum.v() == 1){//!!! group all tau prong=!1 into one
                 // continue;
             // }
-            const Bool_t isProng1 = e->tausF_1prongNum.v() == 1;
+            const Bool_t isProng1 = (e->tausF_1prongNum.v() == 1);
             Bool_t isEta1 = 0 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 0.8;
             Bool_t isEta2 = 0.8 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 1.5;
             Bool_t isEta3 = 1.5 < tausF_1jetEtaAbs && tausF_1jetEtaAbs <= 2.4; //!consider the jet eta cut instead of tau eta
@@ -431,7 +431,7 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta1_1prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta1&& isProng1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta2_1prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta2&& isProng1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta3_1prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta3&& isProng1 && isTauLNumGen, m_isData);
-                tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_EtaAll_3prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  (!isProng1) && isTauTNumGen, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_EtaAll_3prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  (!isProng1) && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_Eta1_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta1 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_Eta2_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta2 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_Eta3_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta3 && isProng1 && isTauTNumGen, m_isData);
