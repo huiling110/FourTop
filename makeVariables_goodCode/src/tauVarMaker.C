@@ -38,9 +38,11 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
 
     if(m_type==1){
         outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
-        outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
+        outTree->Branch(objName + "_1jetEta", &taus_1jetEtaAbs);
         outTree->Branch("tausF_1isTight", &tausF_1isTight);
         // outTree->Branch("tausF_1isTightPrompt", &tausF_1isTightPrompt);
+        outTree->Branch(objName + "_1jetMass", &taus_1jetMass);
+        outTree->Branch(objName + "_1jetPhi", &taus_1jetPhi);
     }
 
 
@@ -113,6 +115,9 @@ void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, cons
     {
         taus_1jetPt = tau_jetPt.At(0);
         taus_1jetEtaAbs = tau_jetEta.At(0);
+        taus_1jetMass = tau_jetMass.At(0);
+        taus_1jetPhi = tau_jetPhi.At(0);
+
         taus_genTauNum = calGenTauNum(tau_genPartFlav); //!!!
         taus_1genFlavour = tau_genPartFlav.At(0);
         taus_1decayMode = tau_decayMode.At(0);
@@ -146,6 +151,9 @@ void TauVarMaker::clearBranch()
 
     taus_1jetPt = -99;
     taus_1jetEtaAbs = -99;
+    taus_1jetMass = -99;
+    taus_1jetPhi = -99;
+
     taus_1genFlavour = -99;
     taus_1decayMode = -99;
     taus_1prongNum = -99;

@@ -21,11 +21,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v80addTauJetVar/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v80addTauJetVar/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/'
    
    
-   
-   
+    
    
    
     
@@ -35,14 +35,16 @@ def main():
     
     cut1tau0l = 'tausF_num==1' #!no channel specific selection
     tauF = 'tausF_num==1'
-    tauT = 'tausT_num!=0'
+    # tauT = 'tausT_num!=0'
+    tauT = 'tausF_1isTight'
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
     
-    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
     
+    createFakeTauTree(inputDirDic, era) 
      
 def makeOtherMCGen(inputDirDic, era):
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
@@ -98,7 +100,19 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
     print(inputDirDic['mc']+ 'fakeTau_tauTGen.root' + ' done')
    
     
-
+def createFakeTauTree(inputDirDic, era):
+    allDataFiles = uf.getAllSubPro(era, ['jetHT'])
+    allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
+    print('all data files: ', allDataFiles)
+    
+    dataDF = ROOT.RDataFrame('newtree', allDataFiles)
+    dataAR  = dataDF.Filter('tausF_num==1 && !tausF_1isTight')  
+    
+    print('AR entries: ', dataAR.Count().GetValue())
+    
+    #!!!replace tausT variables with tausF' matched jet variables  
+    columnsToExlude = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi']
+     
     
 
     
@@ -124,6 +138,9 @@ def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = 
     tauF_data = tauF_data.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
     tauT_data = tauT_data.Define('event_allWeight_1tau0l', 'FR_weight_final')
     
+    #!in FnotT region, remove tauT variables and replace with tauF variables
+    
+    
     tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF.root')
     print(inputDirDic['mc']+ 'fakeTau_tauF.root' + ' done')
     tauT_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauT.root')
@@ -134,7 +151,7 @@ def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = 
     print('tauT_data entries: ', tauT_data.Count().GetValue())
     print('\n')
     
-    
+ 
     
     
 def countFR(tauF_data):    

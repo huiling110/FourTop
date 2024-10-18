@@ -42,41 +42,15 @@ def main():
     # inVersion = 'v84HadroPresel'
     inVersion = 'v85HadroPreselTauOverlap0.5'
 
-    outVersion = 'v0baselineHardro'
+    # outVersion = 'v0baselineHardro'
     # outVersion = 'v0baselineLep'
-    
+   
+    outVersion = 'v1baselineHardroFRUpdated' 
     # outVersion = 'v0baseline1tau2lNotLepCut'
     # outVersion = 'v2cut1tau0lSRTauF'
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau2lSR'
     
-    #2022
-    # year = '2022postEE'
-    # year = '2022preEE'
-    # inVersion = 'v0preSel'
-    # inVersion = 'v1for2022preSel'
-    # inVersion = 'v2leptonsNameChange'
-    # inVersion = 'v0for2022baseline'
-    # inVersion = 'v3EnergyScaleDone'
-    # inVersion = 'v3NoHLTNoBtagButTauSel'
-    # inVersion = 'v3NotHLTPre'
-    # inVersion = 'v3HLTPre'
-    # inVersion = 'v4HLTPreNoEnergyScale'
-    # inVersion = 'v5HLTPreJetVetoMap'
-    # inVersion = 'v6AllEnergyScale'
-    # inVersion = 'v7tauSelFix'
-    # inVersion = 'v8OldTauIDNoTES'
-    # inVersion = 'v9addTauTT'
-    # inVersion = 'v10addBjetPTT'
-    # inVersion = 'v11overlapRemovalTausT'
-    # inVersion = 'v13BetterHLTSel'
-    # outVersion = 'v0baseline'
-    # outVersion = 'v1TauSFNew'
-    # outVersion = 'v0baselineTauIDSFUpdated'
-    # outVersion = 'v0NoBtagSel'
-    # outVersion = 'v0baselineTauGenFlavour'
-    # outVersion = 'v0NoSel'
-  
    
     
     

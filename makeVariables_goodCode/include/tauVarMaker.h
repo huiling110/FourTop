@@ -37,6 +37,10 @@ private:
     Int_t taus_leptons_charge = -99;
     Double_t taus_1jetPt = -99;
     Double_t taus_1jetEtaAbs = -99;
+    Double_t taus_1jetMass = -99;
+    Double_t taus_1jetPhi = -99;
+
+
     Int_t taus_1charge = -99;
     Double_t taus_1neutralIso = -99;
     Int_t taus_1genFlavour = -99;
