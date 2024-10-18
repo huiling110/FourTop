@@ -235,7 +235,12 @@ void WH_fakeRate::Init()
         "1tau0lVRGen_Eta3",
 
         //MR+CR
-        // "1tau"
+        "1tau0lMRCRLTau_Eta1", // 5
+        "1tau0lMRCRLTau_Eta2",
+        "1tau0lMRCRLTau_Eta3",
+        "1tau0lMRCRLTauGen_Eta1",
+        "1tau0lMRCRLTauGen_Eta2",
+        "1tau0lMRCRLTauGen_Eta3",
 
         };
         tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
@@ -300,8 +305,6 @@ void WH_fakeRate::LoopTree(UInt_t entry)
             continue;
         }
 
-        // event weight
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, kTRUE);//!!!
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData,  1, kFALSE, kFALSE); //!!!MC correction for 1tau0l
 
         Bool_t isTauLNum = (e->tausF_num.v() == 1);
@@ -316,7 +319,6 @@ void WH_fakeRate::LoopTree(UInt_t entry)
         Int_t lepNum = e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
 
         // 1tau0lMR
-        // Bool_t is1tau0lMR = tausTNum == 1  && jetsNum >= 8 && bjetsNum == 2; 
         Bool_t is1tau0lMR = isTauFT  && jetsNum >= 8 && bjetsNum == 2; 
         Bool_t is1tau0lMRLTau = isTauLNum && jetsNum >= 8 && bjetsNum == 2;
         //1tau0lVR
@@ -331,7 +333,6 @@ void WH_fakeRate::LoopTree(UInt_t entry)
 
         Double_t tausF_1jetEtaAbs = std::abs(e->tausF_1jetEtaAbs.v()); //!tausF_1jetEtaAbs should be more accurate!
         if(m_ifMeasure){
-            // if (!(e->tausF_prongNum.v() == 1)){//!!!1 prong
             if(!(e->tausF_1prongNum.v() == 1)){//!!! group all tau prong=!1 into one
             // if (e->tausF_prongNum.v() == 1){//!!! group all tau prong=!1 into one
             // if (!(e->tausF_prongNum.v() == 2 || e->tausF_prongNum.v()==3)){//!!!
@@ -362,6 +363,13 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta1", basicWeight, is1tau0lCR &&  isEta1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta2", basicWeight, is1tau0lCR &&  isEta2, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCR_Eta3", basicWeight, is1tau0lCR &&  isEta3, m_isData);
+                //MRCR 
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTau_Eta1", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta1, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTau_Eta2", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta2, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTau_Eta3", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta3, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCR_Eta1", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta1, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCR_Eta2", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta2, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCR_Eta3", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta3, m_isData);
             }else{
                 //gen
                 tausF_1jetPt_class.fillHistVec("1tau0lMRLTauGen_Eta1", basicWeight, is1tau0lMRLTau && isEta1 && isTauLNumGen, m_isData);
