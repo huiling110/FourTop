@@ -32,19 +32,25 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
+    createFakeTauTree(inputDirDic, era) 
+    # createFakeTauTree_mc(inputDirDic, era)
+    
+    # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
+    
+    
+    
+    
+    
     
     cut1tau0l = 'tausF_num==1' #!no channel specific selection
     tauF = 'tausF_num==1'
     # tauT = 'tausT_num!=0'
     tauT = 'tausF_1isTight'
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
-    
     # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
     # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
-    # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
     
-    createFakeTauTree(inputDirDic, era) 
      
 def makeOtherMCGen(inputDirDic, era):
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
@@ -115,8 +121,52 @@ def createFakeTauTree(inputDirDic, era):
     columns_to_remove = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi']
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
     dataAR.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_data.root', columns_to_keep)
-     
     
+    dataAR_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_data.root')
+    dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1jetPt')
+    dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1jetEtaAbs')
+    dataAR_new = dataAR_new.Define('tausT_1mass', 'tausF_1jetMass')
+    dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1jetPhi')
+    dataAR_new = dataAR_new.Define('FR_weight_final', 'FR_weight')
+    dataAR_new = dataAR_new.Define('FR_weight_final_up', 'FR_weight_up')
+    dataAR_new = dataAR_new.Define('FR_weight_final_down', 'FR_weight_down')
+    
+    dataAR_new.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_data.root')
+    print('fakeTau_data file: ', inputDirDic['mc']+ 'fakeTau_data.root', ' done')
+     
+  
+def createFakeTauTree_mc(inputDirDic, era): 
+    #creat MC fake tau tree
+    #todo: consider more filtering, currently 4Million events afrer filtering
+    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
+    allMC = []
+    for iMC in MCSum:
+        allMC += uf.getAllSubPro(era, iMC, False)
+    allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
+    print(allMCFiles)
+    
+    df = ROOT.RDataFrame('newtree', allMCFiles)
+    tauFCut = 'tausF_num==1 && !tausF_1isTight && tausF_1genFlavour==0' #not prompt tau and prompt e or mu 
+    lepCut = 'lepTopMVAT_num=0'
+    df_tauF = df.Filter(tauFCut)
+    
+    print('all entries: ', df.Count().GetValue())
+    print('tauF entries: ', df_tauF.Count().GetValue())
+    
+    #no need to replace tauT varibles for MC since it's properly modeled by MC 
+    df_tauF = df_tauF.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
+    df_tauF = df_tauF.Define('FR_weight_final_up', '-1.*FR_weight_up*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
+    df_tauF = df_tauF.Define('FR_weight_final_down', '-1.*FR_weight_down*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
+    
+    df_tauF = df_tauF.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
+    df_tauF.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_MC.root')
+    print(inputDirDic['mc']+ 'fakeTau_MC.root' + ' done') 
+    
+    
+    
+    
+    
+     
 
     
 def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = []): 
