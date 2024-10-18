@@ -111,7 +111,10 @@ def createFakeTauTree(inputDirDic, era):
     print('AR entries: ', dataAR.Count().GetValue())
     
     #!!!replace tausT variables with tausF' matched jet variables  
-    columnsToExlude = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi']
+    all_columns = dataAR.GetColumnNames() 
+    columns_to_remove = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi']
+    columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
+    dataAR.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_data.root', columns_to_keep)
      
     
 
