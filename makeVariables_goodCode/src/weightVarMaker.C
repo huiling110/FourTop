@@ -159,16 +159,17 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout<<"trigger SF: "<<triggerSFdir<<"\n\n";
 
     //get FR
-    TFile* file = new TFile(MV::FR_map.at(m_era).at(0), "READ");
-    TFile* file3Prong = new TFile(MV::FR_map.at(m_era).at(1), "READ");
-    std::cout<<"FR files used: "<<file->GetName()<<"\n"<<file3Prong->GetName()<<"\n";
+    // TFile* file = new TFile(MV::FR_map.at(m_era).at(0), "READ");
+    // TFile* file3Prong = new TFile(MV::FR_map.at(m_era).at(1), "READ");
+    TFile *file = new TFile(MV::FR_mapNew.at(m_era), "READ");
+    std::cout<<"FR files used: "<<file->GetName()<<"\n"<<file->GetName()<<"\n";
     // Assuming these graphs are already created and stored in the ROOT file
-    m_graphs.emplace_back(0.0, 0.8, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta1")));
-    m_graphs.emplace_back(0.8, 1.5, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta2")));
-    m_graphs.emplace_back(1.5, 2.7, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta3")));
-    m_graphs.emplace_back(0.0, 0.8, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta1"))); //!3 is not 3 but not 1
-    m_graphs.emplace_back(0.8, 1.5, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta2")));
-    m_graphs.emplace_back(1.5, 2.7, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta3")));
+    m_graphs.emplace_back(0.0, 0.8, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta1Prong1")));
+    m_graphs.emplace_back(0.8, 1.5, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta2Prong1")));
+    m_graphs.emplace_back(1.5, 2.7, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta3Prong1")));
+    m_graphs.emplace_back(0.0, 2.7, 3, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_EtaAllProng3"))); //!3 is not 3 but not 1
+    // m_graphs.emplace_back(0.8, 1.5, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta2")));
+    // m_graphs.emplace_back(1.5, 2.7, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta3")));
 
     if(!m_isData){
         if(m_processName.Contains("TTToSemiLeptonic") || m_processName.Contains("TTTo2L2Nu") || m_processName.Contains("TTToHadronic")){//!TT extra processes have to be added to use later
