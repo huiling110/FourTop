@@ -392,6 +392,11 @@ void WH_fakeRate::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lCRGen_Eta1", basicWeight, is1tau0lCR && isEta1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCRGen_Eta2", basicWeight, is1tau0lCR && isEta2 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lCRGen_Eta3", basicWeight, is1tau0lCR && isEta3 && isTauTNumGen, m_isData);
+
+                //MRCR
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta1", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta1 && isTauLNumGen, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta2", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta2 && isTauLNumGen, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta3", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta3 && isTauLNumGen, m_isData);
             }
         }else{//FR application 
             Double_t FRWeight, FRWeight_up, FRWeight_down; 
