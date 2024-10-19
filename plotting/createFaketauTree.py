@@ -32,8 +32,8 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    createFakeTauTree(inputDirDic, era) 
-    # createFakeTauTree_mc(inputDirDic, era)
+    # createFakeTauTree(inputDirDic, era) 
+    createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
     
@@ -146,9 +146,9 @@ def createFakeTauTree_mc(inputDirDic, era):
     print(allMCFiles)
     
     df = ROOT.RDataFrame('newtree', allMCFiles)
-    tauFCut = 'tausF_num==1 && !tausF_1isTight && tausF_1genFlavour==0' #not prompt tau and prompt e or mu 
-    lepCut = 'lepTopMVAT_num=0'
-    df_tauF = df.Filter(tauFCut)
+    tauFCut = 'tausF_num==1 && !tausF_1isTight && tausF_1genFlavour!=0' #not prompt tau and prompt e or mu 
+    lepCut = 'lepTopMVAT_num==0'
+    df_tauF = df.Filter(tauFCut + '&&' + lepCut)
     
     print('all entries: ', df.Count().GetValue())
     print('tauF entries: ', df_tauF.Count().GetValue())

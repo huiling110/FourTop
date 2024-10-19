@@ -34,16 +34,18 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/'
     
-    channel = '1tau1l'
+    # channel = '1tau1l'
     # channel = '1tau2l'
+    channel = '1tau0l'
     
     
     #!fakerate
     # version = 'v0FR_measure1prong'
     # version = 'v0FR_measure1prongNew'
-    version = 'v0FR_measure3prongNew'
+    # version = 'v0FR_measure3prongNew'
     # version = 'v0FR_measure3prong'
     # version = 'v1FR_application'
        
@@ -64,9 +66,7 @@ def main():
     # version = 'v1dataMC_allbutHLTFakeLeptonNoLepCut'
     # version = 'v2dataMC_allbutHLT'
     # version = 'v0dataMC_genWeight'
-    # version = 'v1dataMC_allCorrectionFakeTau'
-    # version = 'v1dataMC_allbutHLTFakeLepton_noLepT1'
-    # version = 'v1dataMC_allutHLTFakeLepton_ZVeto'
+    version = 'v1dataMC_allCorrectionFakeTau'
     
         
     #1tau1l
@@ -144,7 +144,9 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             logFile = logDir + iProcess + ".log"
             errFile = logDir + iProcess +".err"
             # subAllProcess.write('hep_sub '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
-            subAllProcess.write('hep_sub -os CentOS7 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
+        subAllProcess.write('hep_sub -os CentOS7 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
+    # version = 'v1dataMC_allutHLTFakeLepton_ZVeto'
+
 
     subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True)
     subprocess.run('chmod 777 ' + Jobsubmitpath+ 'subAllProcess.sh', shell=True)

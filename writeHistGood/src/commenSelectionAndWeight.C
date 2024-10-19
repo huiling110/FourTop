@@ -56,8 +56,17 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     Int_t bjetsMNum = isRun3? e->bjetsPTM_num.v() : e->bjetsM_num.v();
     Int_t tausTNum = isFakeTau ? e->tausF_num.v() : e->tausT_num.v();
 
-    //
-    const Bool_t tauCut = isFakeTau? e->tausF_num.v()==1 && !e->tausF_1isTight.v() : e->tausF_num.v()==1 && e->tausF_1isTight.v(); //!for 1tau0l, fake tau bg estimation 
+    //fakeTau estimation for 1tau0l
+    Bool_t tauCut = kFALSE;
+    if(isMC){
+        if(isFakeTau){
+            tauCut = e->tausF_num.v()==1 && !e->tausF_1isTight.v() ;
+        }else{
+            tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v() && e->tausF_1genFlavour.v()!=0;
+        }
+    }else{
+        tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v();
+    }
 
     // const Int_t lepF_num = e->elesTopMVAF_num.v() + e->muonsTopMVAF_num.v();
     const Int_t lepF_num = e->lepTopMVAF_num.v();//lepTopMVAF_num
@@ -158,7 +167,7 @@ Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isDat
         return basicWeight;
     }
     if(isFakeTau){
-        return e->FR_weight_final;  
+        return e->FR_weight_final;  //branch created with createFakeTau.py
     }
     if(isFakeLepton){
         return e->lepTopMVAF_FRweight.v();

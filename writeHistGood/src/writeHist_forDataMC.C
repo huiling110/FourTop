@@ -18,7 +18,7 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR", "1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3",  "1tau2lCR3Mu1", "1tau2lCR3E1"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR",  "1tau0lCRMR","1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3",  "1tau2lCR3Mu1", "1tau2lCR3E1"};
 
     WH::initializeHistVec(regionsForVariables, histsForRegion_vec, m_processName, e);
 
@@ -48,14 +48,16 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         {
             continue;
         }
-        if(m_ifFakeTau ){//!if fake tau bg, MC should be gen tau
-            if(!(e->tausF_num.v()==1)){
-                continue;
-            }
-            if(!m_isFakeTau && !m_isData){
-                if (!(e->tausT_genTauNum.v() == 1)) continue;
-            }
-        }
+
+        //!taken care in SR1tau1lSel()
+        // if(m_ifFakeTau ){//!if fake tau bg, MC should be gen tau
+        //     if(!(e->tausF_num.v()==1)){
+        //         continue;
+        //     }
+        //     if(!m_isFakeTau && !m_isData){
+        //         if (!(e->tausT_genTauNum.v() == 1)) continue;
+        //     }
+        // }
 
         const Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0, m_isFakeTau, m_isFakeLepton);//!1tau1l
         const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2, m_isFakeTau, m_isFakeLepton);
@@ -88,6 +90,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lMR, "1tau0lMR", eventWeight_1tau0l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", eventWeight_1tau0l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", eventWeight_1tau0l, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR||is1tau0lMR, "1tau0lCRMR", eventWeight_1tau0l, m_isData);
 
         // 1tau1lCR
         Bool_t is1tau1lCR1 = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData); 
@@ -118,10 +121,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 void WH_forDataMC::Terminate()
 {
     std::cout << "Termintate: ..........................................\n";
-    if (!m_isData)
-    {
-        // if (!m_processName.Contains("fakeTau")){ //no scaling for faketau 
-        if(!m_ifFakeTau && !m_isFakeLepton){
+    if(!m_isData && !m_isFakeTau && !m_isFakeLepton){
             Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
             TString processName = WH::getProcessName(m_processName, m_isRun3);
             std::cout<<"newProcessName="<<processName<<"\n";
@@ -135,7 +135,7 @@ void WH_forDataMC::Terminate()
             std::cout<<"processScale="<<processScale<<"\n";
             std::cout<<"m_processName="<<m_processName<<" lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processName)<<"\n";
             WH::histRegionsVectScale(histsForRegion_vec, processScale);
-        }
+        // }
     };
     for(UInt_t i=0; i<histsForRegion_vec.size(); i++){
         if(i>0){

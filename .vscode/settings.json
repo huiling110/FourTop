@@ -111,6 +111,7 @@
         "**/*.out": true,
         "**/jobs/**/*.sh": true
     },
+    "editor.defaultFormatter": "ms-python.autopep8",
 
 
 }
