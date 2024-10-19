@@ -66,7 +66,8 @@ def main():
     # version = 'v1dataMC_allbutHLTFakeLeptonNoLepCut'
     # version = 'v2dataMC_allbutHLT'
     # version = 'v0dataMC_genWeight'
-    version = 'v1dataMC_allCorrectionFakeTau'
+    # version = 'v1dataMC_allCorrectionFakeTau'
+    version = 'v1dataMC_allCorrectionFakeTauTWithF'
     
         
     #1tau1l
