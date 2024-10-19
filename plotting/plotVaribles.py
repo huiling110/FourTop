@@ -91,7 +91,7 @@ def main():
     channel = '1tau0l' 
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
     # variables = ['jets_HT'] 
-    variables = ['tausT_1decayMode']
+    variables = ['tausT_1decayMode', 'tausT_1pt']
     # variables = [  'jets_MHT', 'jets_centrality', 'MET_pt', 'jets_aplanarity',  'jets_4largestBscoreSum', 'jets_bScore', 'jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT',  'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2MET_stransMass' ] #!1tau0l BDT inputs
     # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num', 'tausT_1pt', 'tausT_1eta']#!fake rate validation
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  

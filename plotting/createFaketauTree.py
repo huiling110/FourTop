@@ -32,7 +32,7 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    # createFakeTauTree(inputDirDic, era) #!with leptopMVAT_num=0
+    createFakeTauTree(inputDirDic, era) #!with leptopMVAT_num=0
     createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
@@ -123,10 +123,14 @@ def createFakeTauTree(inputDirDic, era):
     dataAR.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_data.root', columns_to_keep)
     
     dataAR_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_data.root')
-    dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1jetPt')
-    dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1jetEtaAbs')
-    dataAR_new = dataAR_new.Define('tausT_1mass', 'tausF_1jetMass')
-    dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1jetPhi')
+    # dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1jetPt')
+    # dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1jetEtaAbs')
+    # dataAR_new = dataAR_new.Define('tausT_1mass', 'tausF_1jetMass')
+    # dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1jetPhi')
+    dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1pt')
+    dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1eta')
+    # dataAR_new = dataAR_new.Define('tausT_1mass', 'tausF_1mass')
+    dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1phi')
     dataAR_new = dataAR_new.Define('tausT_1decayMode', 'tausF_1decayMode')
     
     dataAR_new = dataAR_new.Define('FR_weight_final', 'FR_weight')
@@ -163,10 +167,14 @@ def createFakeTauTree_mc(inputDirDic, era):
      
     
     df_tauF_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_MC.root') 
-    df_tauF_new = df_tauF_new.Define('tausT_1pt', 'tausF_1jetPt')
-    df_tauF_new = df_tauF_new.Define('tausT_1eta', 'tausF_1jetEtaAbs')
-    df_tauF_new = df_tauF_new.Define('tausT_1mass', 'tausF_1jetMass')
-    df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1jetPhi')
+    # df_tauF_new = df_tauF_new.Define('tausT_1pt', 'tausF_1jetPt')#!tausF ' mother jet should be better for tauT
+    # df_tauF_new = df_tauF_new.Define('tausT_1eta', 'tausF_1jetEtaAbs')
+    # df_tauF_new = df_tauF_new.Define('tausT_1mass', 'tausF_1jetMass')
+    # df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1jetPhi')
+    df_tauF_new = df_tauF_new.Define('tausT_1pt', 'tausF_1pt') #!use tausF kinematic for tauT
+    df_tauF_new = df_tauF_new.Define('tausT_1eta', 'tausF_1eta')
+    # df_tauF_new = df_tauF_new.Define('tausT_1mass', 'tausF_1mass')
+    df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1phi')
     df_tauF_new = df_tauF_new.Define('tausT_1decayMode', 'tausF_1decayMode')
     
     df_tauF_new = df_tauF_new.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')

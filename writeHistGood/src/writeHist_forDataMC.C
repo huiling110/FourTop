@@ -18,7 +18,16 @@ void WH_forDataMC::Init()
     std::cout << "Start to initilation....................................................\n";
 
     // regions for hists
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR",  "1tau0lCRMR","1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3",  "1tau2lCR3Mu1", "1tau2lCR3E1"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR",  "1tau0lCRMR","1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3",  "1tau2lCR3Mu1", "1tau2lCR3E1", "1tau0lCRMR_CMS_tau_F"};
+
+    //regions for FR uncertainty for 1tau0l
+    if(m_isFakeTau){
+        // region + "_CMS_tau_FR_" + era + "Up"
+        regionsForVariables.push_back("1tau0lCRMR_CMS_tau_FR_" + m_era + "Up");
+        regionsForVariables.push_back("1tau0lCRMR_CMS_tau_FR_" + m_era + "Down");
+        regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Up");
+        regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Down");
+    }
 
     WH::initializeHistVec(regionsForVariables, histsForRegion_vec, m_processName, e);
 
@@ -42,7 +51,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        // const Bool_t ifBaseline = baselineSelection(e, m_isRun3, kFALSE); //!for 1tau1l and 1tau0l
         const Bool_t ifBaseline = baselineSelection(e, m_isRun3, m_is1tau2l); //!for 1tau2l
         if (!ifBaseline)
         {
@@ -91,6 +99,12 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR", eventWeight_1tau0l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR, "1tau0lCR", eventWeight_1tau0l, m_isData);
         WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR||is1tau0lMR, "1tau0lCRMR", eventWeight_1tau0l, m_isData);
+        if(m_isFakeTau){
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR||is1tau0lMR, "1tau0lCRMR_CMS_tau_FR_" + m_era + "Down", e->FR_weight_final_down, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lCR||is1tau0lMR, "1tau0lCRMR_CMS_tau_FR_" + m_era + "Up", e->FR_weight_final_up, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR_CMS_tau_FR_" + m_era + "Down", e->FR_weight_final_down, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, is1tau0lVR, "1tau0lVR_CMS_tau_FR_" + m_era + "Up", e->FR_weight_final_up, m_isData);
+        }
 
         // 1tau1lCR
         Bool_t is1tau1lCR1 = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData); 
