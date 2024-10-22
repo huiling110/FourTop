@@ -57,7 +57,11 @@ def plotFRNew(inputDirDic, era):
     FR_eta1_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta1', tauProng1, 'FR' + tauProng1 + 'Eta1_VR')
     FR_eta2_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta2', tauProng1, 'FR' + tauProng1 + 'Eta2_VR')
     FR_eta3_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta3', tauProng1, 'FR' + tauProng1 + 'Eta3_VR')
-    uf.plotOverlay([FR_eta1_VR, FR_eta1], ['MR+CR', 'VR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    FR_tauProng3_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_EtaAll', tauProng3, 'FR' + tauProng3 + 'EtaAll_VR')
+    uf.plotOverlay([FR_eta1_VR, FR_eta1], ['VR', 'MR+CR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta2_VR, FR_eta2], ['VR', 'MR+CR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_eta3_VR, FR_eta3], ['VR', 'MR+CR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_tauProng3_VR, FR_tauProng3], ['VR', 'MR+CR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng3 + 'EtaAll', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3]) 
    
     
     
