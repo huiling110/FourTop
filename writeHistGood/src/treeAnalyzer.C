@@ -54,6 +54,7 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau0lCR", m_era);
         WH::getChannelSys(sysRegions, "1tau0lMR", m_era);
         WH::getChannelSys(sysRegions, "1tau0lVR", m_era);
+        WH::getChannelSys(sysRegions, "1tau0lCRMR", m_era);
 
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.15,  0.19,  0.23,  0.35};
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};
@@ -158,15 +159,14 @@ void treeAnalyzer::LoopTree()
         }
         cutFlowHist->Fill(1);
 
-        // Bool_t isFakeTau = m_processName.Contains("fakeTau");
-        if(m_channel=="1tau0l"){
-            if(!(e->tausF_num.v()==1)){
-                continue;
-            }
-            if(!m_isFakeTau && !m_isData){
-                if (!(e->tausT_genTauNum.v() == 1)) continue;
-            }
-        }
+        // if(m_channel=="1tau0l"){
+        //     if(!(e->tausF_num.v()==1)){
+        //         continue;
+        //     }
+        //     if(!m_isFakeTau && !m_isData){
+        //         if (!(e->tausT_genTauNum.v() == 1)) continue;
+        //     }
+        // }
         cutFlowHist->Fill(2);
 
         // convert branch value to float for reader
@@ -200,6 +200,7 @@ void treeAnalyzer::LoopTree()
             sysRegionsFill(bdtScore, basicWeight, CR1tau0l, "1tau0lCR");
             sysRegionsFill(bdtScore, basicWeight, MR1tau0l, "1tau0lMR");
             sysRegionsFill(bdtScore, basicWeight, VR1tau0l, "1tau0lVR");
+            sysRegionsFill(bdtScore, basicWeight, CR1tau0l||MR1tau0l, "1tau0lCRMR");
         }else if(m_channel=="1tau1l"){
             Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
             Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);

@@ -34,8 +34,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/'
     
     # channel = '1tau1l'
     # channel = '1tau2l'
@@ -44,10 +44,8 @@ def main():
     
     #!fakerate
     # version = 'v0FR_measure1prong'
-    # version = 'v0FR_measure1prongNew'
-    # version = 'v0FR_measure3prongNew'
     # version = 'v0FR_measure3prong'
-    # version = 'v1FR_application'
+    version = 'v0FRMeasure'
        
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
@@ -67,7 +65,7 @@ def main():
     # version = 'v2dataMC_allbutHLT'
     # version = 'v0dataMC_genWeight'
     # version = 'v1dataMC_allCorrectionFakeTau'
-    version = 'v1dataMC_allCorrectionFakeTauTWithF'
+    # version = 'v1dataMC_allCorrectionFakeTauTWithF'
     
         
     #1tau1l
@@ -81,10 +79,7 @@ def main():
     #1tau0l systematic
     # channel = '1tau0l'
     # version = 'v0BDT1tau0l'
-    # version = 'v0BDT1tau0lBinB'
     # version = 'v1BDTtauFJetVar2017train'
-    # version = 'v2BDT25inputs'
-    # version = 'v2BDT25inputsWith2018train'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
@@ -145,7 +140,7 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             logFile = logDir + iProcess + ".log"
             errFile = logDir + iProcess +".err"
             # subAllProcess.write('hep_sub '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
-        subAllProcess.write('hep_sub -os CentOS7 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
+            subAllProcess.write('hep_sub -os CentOS7 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
     # version = 'v1dataMC_allutHLTFakeLepton_ZVeto'
 
 

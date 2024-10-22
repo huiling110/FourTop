@@ -29,15 +29,14 @@ def main():
     # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     ifVLL = ''
     # ifVLL = 'VLLm800'
-    # ifVLL = 'VLLm700'
-    # ifLogy = True
-    ifLogy = False
+    ifLogy = True
+    # ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    # ifPrintSB = True
-    ifPrintSB = False
-    # ifSystematic = True #!Only for BDT
-    ifSystematic = False  
+    ifPrintSB = True
+    # ifPrintSB = False
+    ifSystematic = True #!Only for BDT
+    # ifSystematic = False  
     plotName = 'dataVsMC_v4'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noLepCut_v83for1tau2lEleEtaCut/mc/variableHists_v2dataMC_allbutHLTAddTestReg/'
@@ -89,25 +88,22 @@ def main():
     #1tau0l
     channel = '1tau0l' 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTauTWithF/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTauTWithF/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v0BDT1tau0l/'
+    # variables = ['tausF_1pt']
     # variables = ['jets_HT'] 
     # variables = ['tausT_1decayMode', 'tausT_1pt']
-    ifFTau = True #!if plot FR uncertainty
-    variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num', 'tausT_1pt', 'tausT_1eta', 'tausT_1decayMode']#!fake rate validation
+    # ifFTau = True #!if plot FR uncertainty
+    ifFTau = False #!if plot FR uncertainty
+    # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num', 'tausT_1pt', 'tausT_1eta', 'tausT_1decayMode']#!fake rate validation
     # variables = [  'jets_MHT', 'jets_centrality', 'MET_pt', 'jets_aplanarity',  'jets_4largestBscoreSum', 'jets_bScore', 'jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT',  'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2MET_stransMass' ] #!1tau0l BDT inputs
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
     # variables = ['tausF_1jetPt', 'tausF_jet_invariantMass', 'tausF_jet1_Met_transMass']
-    # variables = ['tausF_1pt', 'tausF_invarianMass', 'tausF_1Met_transMass']
-    # regionList = ['1tau0lCR', '1tau0lCRGen', '1tau0lCRLTauNotT_Weighted', '1tau0lCRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTauNotT_Weighted', '1tau0lVRLTauNotTGen_Weighted'] # new MR
-    # regionList = ['1tau0lCRb', '1tau0lCRbGen', '1tau0lCRbLTauNotT_Weighted', '1tau0lCRbLTauNotTGen_Weighted'] # new CR
-    # regionList = ['1tau0lCRc', '1tau0lCRcGen', '1tau0lCRcLTauNotT_Weighted', '1tau0lCRcLTauNotTGen_Weighted'] # new VR
-    # regionList = ['1tau0lSR', '1tau0lSRGen',  '1tau0lSRLTauNotT_Weighted', '1tau0lSRLTauNotTGen_Weighted']
-    # regionList = ['1tau0lCR']
+    variables = ['BDT']
+    # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lMR']
     # regionList = ['1tau0lSR']
-    # variables = ['BDT']
     # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR', '1tau0lCRMR']
-    regionList = ['1tau0lVR',  '1tau0lCRMR']
+    regionList = ['1tau0lVR',  '1tau0lCRMR', '1tau0lSR']
 
     
     era = uf.getEraFromDir(inputDir)

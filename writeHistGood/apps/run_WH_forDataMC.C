@@ -41,10 +41,11 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018//v0baselineHardro_v84HadroPresel/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/mc/", 
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/data/",
 
     // TString process = "tttt",
-    TString process = "fakeTau_data",
+    // TString process = "fakeTau_data",
     // TString process = "fakeLepton",
     // TString process = "WZTo3LNu",
     // TString process = "TTTo2L2Nu",
@@ -52,7 +53,7 @@ void run_treeAnalyzer(
     // TString process = "TTToHadronic",
     // TString process = "VLL_EN_M600",
     // TString process = "fakeTau_tauF",
-    // TString process = "jetHT_2018d",
+    TString process = "jetHT_2018d",
     // TString process = "singleMu_2016E_v2",
     // TString process = "BTagCSV_2017f",
     // TString process = "ttbar_0l",
@@ -68,11 +69,11 @@ void run_treeAnalyzer(
 
     Bool_t is1tau2l = channel=="1tau2l";
     std::cout<<"is1tau2l in run_WH_forDataMC="<<is1tau2l<<"\n"; 
-    WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);
+    // WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);
     // WH_forDataMC writeHist(inputDir, process, kTRUE, histVersion, isTest);//!faketau, for 1tau0l
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
-    // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
+    WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
     // WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
 
     writeHist.Init();
