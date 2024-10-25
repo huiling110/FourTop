@@ -123,10 +123,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     cset_muonMPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(1)).Data()); 
     cset_muonHPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(2)).Data()); 
     std::cout << "\n";
-    // for (auto &corr : *cset_muonHPt)  
-    // {
-    //     printf("Correction: %s\n", corr.first.c_str());
-    // }
 
     // new SF files from
     TString tauSF_json = base + MV::json_map.at(m_era).at(1);
@@ -159,8 +155,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout<<"trigger SF: "<<triggerSFdir<<"\n\n";
 
     //get FR
-    // TFile* file = new TFile(MV::FR_map.at(m_era).at(0), "READ");
-    // TFile* file3Prong = new TFile(MV::FR_map.at(m_era).at(1), "READ");
     TFile *file = new TFile(MV::FR_mapNew.at(m_era), "READ");
     std::cout<<"FR files used: "<<file->GetName()<<"\n"<<file->GetName()<<"\n";
     // Assuming these graphs are already created and stored in the ROOT file
