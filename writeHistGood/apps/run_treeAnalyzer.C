@@ -41,8 +41,8 @@ void run_treeAnalyzer(
     // TString process = "jetHT_2018a",
     TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l
-    // TString channel = "1tau1l",//0: 1tau1l
-    TString channel = "1tau0l",//
+    TString channel = "1tau1l",//0: 1tau1l
+    // TString channel = "1tau0l",//
     // TString channel = "1tau2l",//
     Bool_t isTest = kTRUE)
     // Bool_t isTest = kFALSE)

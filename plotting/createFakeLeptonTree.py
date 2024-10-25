@@ -22,7 +22,8 @@ def main():
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
-    inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
+    # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
+    inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v85HadroPreselTauOverlap0.5/data/' #for 1tau1l
     
     if1tau2l = False
    
@@ -52,6 +53,7 @@ def main():
     df_AR.Snapshot('newtree', outFile, columns_to_keep)
     
     df_new = ROOT.RDataFrame('newtree', outFile)
+    #!actually no need to replace leptoT pt with lepTopMVAF ptCorrected, the leptonF pt in FT region should be leptonT
     df_new = df_new.Define("lepTopMVAT_1pt", "lepTopMVAF_1ptCorrected")
     df_new = df_new.Define("lepTopMVAT_2pt", "lepTopMVAF_2ptCorrected")
     df_new = df_new.Define("elesTopMVAT_1pt", "elesTopMVAF_1ptCorrected")
