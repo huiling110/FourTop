@@ -21,7 +21,6 @@ jets_invariantMass
 jets_transMass
 jets_minDeltaR
 jets_centrality
-jets_bScore
 jets_average_deltaR
 jets_4largestBscoreSum
 jets_4largestBscoreMulti
