@@ -79,8 +79,18 @@ def copySingleFile():
         
         for inano in ifile:
             # inputDir = redirector + inano
-            command = 'xrdcp ' + inano + ' ' + outDir
+            command = 'xrdcp --verbose ' + inano + ' ' + outDir
             print(command)
+            file_name = inano.split('/')[-1]
+            print(outDir+file_name)
+            if os.path.exists(outDir+file_name):
+                root_file = ROOT.TFile.Open(outDir+file_name)
+                if root_file.IsZombie():
+                    print(f'rm {outDir+file_name}')
+                    subprocess.run([f'rm {outDir+file_name}'], shell=True)
+                else:
+                    print(f"{file_name} exists!!!")
+                    continue
             process = subprocess.run([command], shell=True)
             output =  process.stdout
             print(output)

@@ -245,7 +245,7 @@ namespace OS
     // }
 
 
-Bool_t ifEventPass(const Bool_t ifSel, const Bool_t ifPass, TH1D* cutflow, Int_t cutIndex){
+Bool_t ifEventPass(const Bool_t ifSel, const Bool_t ifPass, TH1D* cutflow, Int_t cutIndex, Double_t genWeight){
     // if(ifPass){
     //     cutflow->Fill(cutIndex);
     // }
@@ -253,11 +253,11 @@ Bool_t ifEventPass(const Bool_t ifSel, const Bool_t ifPass, TH1D* cutflow, Int_t
     //     cutflow->Fill(cutIndex);
     // }
     if(!ifSel){
-        cutflow->Fill(cutIndex);
+        cutflow->Fill(cutIndex, genWeight);
         return kTRUE;
     }else{
         if(ifPass){
-            cutflow->Fill(cutIndex);
+            cutflow->Fill(cutIndex, genWeight);
             return kTRUE;
         }else{
             return kFALSE;
