@@ -123,7 +123,6 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         }
         m_cutflow->Fill(7., genWeight);//!gamma sample overlap removal
 
-        // CF_pre->Fill(0., genWeight);
         m_outTree->Fill();
     };
     std::cout << "End of event loop...................................................\n\n";
