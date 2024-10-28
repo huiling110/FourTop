@@ -9,11 +9,9 @@ CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t i
     std::cout<<"m_isRun3="<<m_isRun3<<"\n";
 
     m_isGammaSample = m_processName=="ttG" || m_processName=="ZGToLLG" || m_processName=="WGToLNuG" || m_processName=="TGJets";
-    m_isNotGammaSample = m_processName=="ttbar" || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || m_processName.Contains("st_");
+    m_isNotGammaSample = m_processName.Contains("ttbar") || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || m_processName.Contains("st_");
     std::cout<<"m_isGammaSample="<<m_isGammaSample<<"\n";
     std::cout<<"m_isNotGammaSample="<<m_isNotGammaSample<<"\n";
-
-
 
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);

@@ -133,8 +133,9 @@ void objectSelection::Terminate()
     std::cout << "Terminate phase.......................................................\n";
     std::cout << "outFile here: " << m_output->GetName() << "\n";
     std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) <<"; >=tauF:"<<m_cutflow->GetBinContent(4) <<" preSelection: " << m_cutflow->GetBinContent(6) << "\n";
+    std::cout<<"gammaSampleRemoval: "<<m_cutflow->GetBinContent(7)<<"\n";
+
     std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";//includes entries not passing selection
-    // std::cout<<"muonsTopMVAT="<<muTopMVATSel.getTotal()<<"; muonsTopMVAF="<<muTopMVAFSel.getTotal()<<"; elesTopMVAT="<<eleTopMVATSel.getTotal()<<"; elesTopMVAF="<<eleTopMVAFSel.getTotal()<<"\n";
 
     // get Runs tree
     if (!m_isData)
