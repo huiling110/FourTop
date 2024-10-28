@@ -3,8 +3,7 @@
 #include <iostream>
 #include <any>
 
-CopyBranch::CopyBranch(TTree *outTree, const Bool_t isRun3)
-:m_isRun3{isRun3}
+CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t isData, const Bool_t isRun3):m_processName{processName}, m_isData{isData}, m_isRun3{isRun3}
 {
     std::cout << "Initializing CopyBranch .........\n";
     std::cout<<"m_isRun3="<<m_isRun3<<"\n";
@@ -29,6 +28,8 @@ CopyBranch::CopyBranch(TTree *outTree, const Bool_t isRun3)
 void CopyBranch::Select(eventForNano *e, Bool_t isData)
 {
     clearBranch();//!!!important
+
+    overlapRemovalSamples(e);
 
     run_ = *e->run;
     event_ = *e->event;
@@ -71,9 +72,15 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
 };
 void CopyBranch::clearBranch()
 {
-    // Electron_charge_.clear();
-    // Muon_charge_.clear();
     GenPart_genPartIdxMother_.clear();
     GenPart_pdgId_.clear();
     LHEPdfWeight_.clear();
 };
+
+void CopyBranch::overlapRemovalSamples(const eventForNano* e){
+//overlap removal for Gamma processes 
+    // if()
+
+
+
+}
