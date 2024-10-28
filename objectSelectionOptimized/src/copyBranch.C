@@ -7,6 +7,12 @@ CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t i
 {
     std::cout << "Initializing CopyBranch .........\n";
     std::cout<<"m_isRun3="<<m_isRun3<<"\n";
+
+    m_isGammaSample = m_processName=="ttG" || m_processName=="ZGToLLG" || m_processName=="WGToLNuG" || m_processName=="TGJets";
+    m_isNotGammaSample = m_processName=="ttbar" || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || 
+
+
+
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);
     outTree->Branch("luminosityBlock_", &luminosityBlock_);
@@ -77,10 +83,38 @@ void CopyBranch::clearBranch()
     LHEPdfWeight_.clear();
 };
 
-void CopyBranch::overlapRemovalSamples(const eventForNano* e){
+Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
 //overlap removal for Gamma processes 
-    // if()
+    Bool_t ifRemove = kFALSE;
+    // Bool_t isGammaSample = m_processName
+
+    if(m_processName=="ttG"){
+        //should exist gen photo pt>10 and delta R> 0.05 with parton 
+        ifRemove = kTRUE;
+        for (size_t i = 0; i < *e->GenPart_pdgId->GetSize(); i++)
+        {
+            if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
+            {
+                std::vector<Double_t> partonsEtaVec;
+                std::vector<Double_t> partonsPhiVec;
+                for (size_t j = 0; j < *e->GenPart_pdgId->GetSize(); j++)
+                {
+                    if (std::abs(e->GenPart_pdgId->At(j)) < 7 || std::abs(e->GenPart_pdgId->At(j)) == 21)
+                    {
+                        partonsEtaVec.push_back(e->GenPart_eta->At(j));
+                        partonsPhiVec.push_back(e->GenPart_phi->At(j));
+                    }
+                }
+               Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec); 
+                if(!removeIGen){
+                     ifRemove = kFALSE;
+                     break; // exit a loop prematurely when a certain condition is met.
+                }
+            }
+        }
+    }
 
 
+    return ifRemove;
 
 }

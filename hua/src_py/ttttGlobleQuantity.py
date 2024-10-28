@@ -201,11 +201,15 @@ histoGramPerSample = {
     'WZZ': 'Minor',
     'ZZZ': 'Minor',
     
+    #!do we miss some single top samples : s-channel, t channel, tW channel
     "st_tZq":"singleTop",
     "st_tW_antitop":"singleTop",
     "st_tW_top":"singleTop",
+    "st_schan_had": "singleTop",
+    "st_schan_lep": "singleTop",
+    "st_tchan": "singleTop"
     
-    # "TGJets": "Minor",#"XGamma", #!not exist in 2016preVFP
+    "TGJets": "Minor",#"XGamma", #!not exist in 2016preVFP
     "ZGToLLG": "Minor",#"XGamma",
     "WGToLNuG": "Minor",#"XGamma",
    

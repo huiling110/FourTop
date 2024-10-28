@@ -18,6 +18,9 @@ private:
     Bool_t m_isRun3;
     const Bool_t m_isData;
     TString m_processName;
+    Bool_t m_isGammaSample;
+    Bool_t m_isNotGammaSample;
+
     UInt_t run_;
     ULong64_t event_;
     UInt_t luminosityBlock_;
