@@ -21,7 +21,7 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         if(!m_isData){
             genWeight = **e->genWeight;
         }
-        m_cutflow->Fill(0);
+        m_cutflow->Fill(0., genWeight);
         CF_initial->Fill(0., genWeight);
 
         // good lumi and good PV selection
@@ -35,14 +35,14 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         {
             continue;
         }
-        m_cutflow->Fill(1);
+        m_cutflow->Fill(1., genWeight);
         CF_met->Fill(0., genWeight);
 
         // HLT selection and HLT branch filling
         Bool_t passHLT = HLTselection.Select(e,  ifHLT);
         Bool_t passLepTri = HLTselection.SelectLepTri(e);//!!!for 1tau2l
         Bool_t ifPassHLT = m_if1tau2l? passLepTri: passHLT;
-        if(!(OS::ifEventPass(ifHLT, ifPassHLT, m_cutflow, 2))){
+        if(!(OS::ifEventPass(ifHLT, ifPassHLT, m_cutflow, 2, genWeight))){
             continue;
         }
 
@@ -100,20 +100,20 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
 
         // if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){ //!for b-tag efficiency measurement
         const Bool_t tauLepCut = m_if1tau2l? (eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==2 && tauSelF.getSize()>0: tauSelF.getSize()>0;
-        if(!(OS::ifEventPass(iftauSel, tauLepCut, m_cutflow, 3))){//!use tauF so that fakeTau bg can be estimated later
+        if(!(OS::ifEventPass(iftauSel, tauLepCut, m_cutflow, 3, genWeight))){//!use tauF so that fakeTau bg can be estimated later
             continue;
         }
 
         Bool_t jetCut = m_if1tau2l? jetSel.getSize()>1: jetSel.getSize()>5;
-        if(!(OS::ifEventPass(preSelection, jetCut, m_cutflow, 4))){
+        if(!(OS::ifEventPass(preSelection, jetCut, m_cutflow, 4, genWeight))){
             continue;
         }
         Bool_t bjetCut = m_if1tau2l? bjetMSel.getSize()>0: bjetMSel.getSize()>1;
-        if(!(OS::ifEventPass(preSelection, bjetCut, m_cutflow, 5))){//baseline for 1tau2l
+        if(!(OS::ifEventPass(preSelection, bjetCut, m_cutflow, 5, genWeight))){//baseline for 1tau2l
             continue;
         }//!No b-tag ,for b-tag efficiency measurement!
         Bool_t HTCut = m_if1tau2l? jetSel.getHT()>200.: (jetSel.getHT()>480.&& jetSel.get6thPt()>38.);
-        if(!OS::ifEventPass(preSelection, HTCut , m_cutflow, 6)){
+        if(!OS::ifEventPass(preSelection, HTCut , m_cutflow, 6, genWeight)){
             continue;
         }
 
