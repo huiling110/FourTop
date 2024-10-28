@@ -207,7 +207,7 @@ histoGramPerSample = {
     "st_tW_top":"singleTop",
     "st_schan_had": "singleTop",
     "st_schan_lep": "singleTop",
-    "st_tchan": "singleTop"
+    "st_tchan": "singleTop",
     
     "TGJets": "Minor",#"XGamma", #!not exist in 2016preVFP
     "ZGToLLG": "Minor",#"XGamma",

@@ -9,7 +9,9 @@ CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t i
     std::cout<<"m_isRun3="<<m_isRun3<<"\n";
 
     m_isGammaSample = m_processName=="ttG" || m_processName=="ZGToLLG" || m_processName=="WGToLNuG" || m_processName=="TGJets";
-    m_isNotGammaSample = m_processName=="ttbar" || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || 
+    m_isNotGammaSample = m_processName=="ttbar" || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || m_processName.Contains("st_");
+    std::cout<<"m_isGammaSample="<<m_isGammaSample<<"\n";
+    std::cout<<"m_isNotGammaSample="<<m_isNotGammaSample<<"\n";
 
 
 
@@ -31,11 +33,12 @@ CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t i
     std::cout << "\n";
 };
 
-void CopyBranch::Select(eventForNano *e, Bool_t isData)
+// void CopyBranch::Select(eventForNano *e, Bool_t isData)
+Bool_t CopyBranch::Select(eventForNano *e, Bool_t isData)
 {
     clearBranch();//!!!important
 
-    overlapRemovalSamples(e);
+    Bool_t ifRemoveEvent = overlapRemovalSamples(e);
 
     run_ = *e->run;
     event_ = *e->event;
@@ -75,6 +78,9 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     // copy_TTreeReaderArray_toVector<Int_t>(static_cast<TTreeReaderArray<Int_t>>(*e->GenPart_genPartIdxMother), GenPart_genPartIdxMother_); //???it seem this is causing the memery exceeding problem
     // copy_TTreeReaderArray_toVector<Int_t>(*e->GenPart_pdgId, GenPart_pdgId_ );
     // }
+
+
+    return ifRemoveEvent;
 };
 void CopyBranch::clearBranch()
 {
@@ -86,18 +92,20 @@ void CopyBranch::clearBranch()
 Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
 //overlap removal for Gamma processes 
     Bool_t ifRemove = kFALSE;
-    // Bool_t isGammaSample = m_processName
+    if((!m_isGammaSample)&&(!m_isNotGammaSample)){
+        return kFALSE;
+    }
 
-    if(m_processName=="ttG"){
-        //should exist gen photo pt>10 and delta R> 0.05 with parton 
+    if(m_isGammaSample){
+        //should exist gen photo pt>10 and delta R> 0.05 with parton , for gamma sample
         ifRemove = kTRUE;
-        for (size_t i = 0; i < *e->GenPart_pdgId->GetSize(); i++)
+        for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++)
         {
             if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
             {
                 std::vector<Double_t> partonsEtaVec;
                 std::vector<Double_t> partonsPhiVec;
-                for (size_t j = 0; j < *e->GenPart_pdgId->GetSize(); j++)
+                for (size_t j = 0; j < e->GenPart_pdgId->GetSize(); j++)
                 {
                     if (std::abs(e->GenPart_pdgId->At(j)) < 7 || std::abs(e->GenPart_pdgId->At(j)) == 21)
                     {
@@ -112,6 +120,29 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
                 }
             }
         }
+    }else if(m_isNotGammaSample){
+       ifRemove = kFALSE;
+        for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++)
+        {
+            if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
+            {
+                std::vector<Double_t> partonsEtaVec;
+                std::vector<Double_t> partonsPhiVec;
+                for (size_t j = 0; j < e->GenPart_pdgId->GetSize(); j++)
+                {
+                    if (std::abs(e->GenPart_pdgId->At(j)) < 7 || std::abs(e->GenPart_pdgId->At(j)) == 21)
+                    {
+                        partonsEtaVec.push_back(e->GenPart_eta->At(j));
+                        partonsPhiVec.push_back(e->GenPart_phi->At(j));
+                    }
+                }
+               Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec); 
+                if(removeIGen){
+                     ifRemove = kTRUE;
+                     break; // exit a loop prematurely when a certain condition is met.
+                }
+            }
+        } 
     }
 
 

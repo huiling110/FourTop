@@ -9,9 +9,9 @@ public:
     CopyBranch(TTree *outTree, const TString processes, const Bool_t isData =kFALSE, const Bool_t isRun3=kFALSE);
     ~CopyBranch(){};
 
-    void Select(eventForNano *e, Bool_t isData);
+    Bool_t Select(eventForNano *e, Bool_t isData);
     void clearBranch();
-    void overlapRemovalSamples(const eventForNano* e);
+    Bool_t overlapRemovalSamples(const eventForNano* e);
 
 private:
     // output branches
