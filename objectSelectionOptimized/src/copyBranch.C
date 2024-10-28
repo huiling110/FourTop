@@ -104,6 +104,9 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
             partonsPhiVec.push_back(e->GenPart_phi->At(j));
         }
     }
+    //impove the above code
+
+
     if(m_isGammaSample){
         //should exist gen photon pt>10 and delta R> 0.05 with parton , for gamma sample
         ifRemove = kTRUE;
@@ -111,7 +114,7 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
         {
             if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
             {
-               Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec); //if overlap with parton
+               Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); //if overlap with parton
                 if(!removeIGen){
                      ifRemove = kFALSE;
                      break; // exit a loop prematurely when a certain condition is met.
@@ -124,7 +127,7 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
         {
             if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
             {
-               Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec); 
+               Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); 
                 if(removeIGen){
                      ifRemove = kTRUE;
                      break; // exit a loop prematurely when a certain condition is met.
