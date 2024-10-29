@@ -112,19 +112,20 @@ void MakeVariablesMain::Terminate()
         std::cout << "--------\n";
         std::cout << "now comes to add Runs tree stage\n";
         TChain chain2("Runs");
-        if (!m_isRun3)
-        {
-            if(m_processName.Contains("VLL")){
-                chain2.Add(m_inputDir + "NanoAODv9*.root");
-            }else{
-                chain2.Add(m_inputDir + "outTree*.root");
-            }
-        }
-        else
-        {
-            chain2.Add(m_inputDir + "tree*.root");
-        }
-        // chain2.Merge(m_output, 2000);
+        chain2.Add(m_inputDir +"*.root");
+        // if (!m_isRun3)
+        // {
+        //     if(m_processName.Contains("VLL")){
+        //         chain2.Add(m_inputDir + "NanoAODv9*.root");
+        //     }else{
+        //         chain2.Add(m_inputDir + "outTree*.root");
+        //     }
+        // }
+        // else
+        // {
+        //     chain2.Add(m_inputDir + "tree*.root");
+        // }
+        // // chain2.Merge(m_output, 2000);
         TTree *Runs = chain2.CloneTree();
         Runs->SetDirectory(m_output);
         std::cout
