@@ -214,16 +214,16 @@ histoGramPerSample = {
     "WGToLNuG": "Minor",#"XGamma",
    
     
-    # "ggH_bb": "Minor",#"Higgs",#!not excsi in 2017 nano files
+    "ggH_bb": "Minor",#"Higgs",#!not excsi in 2017 nano files
     "ggH_tautau": "Minor",#"Higgs",
-    # "ggH_WW_2l": "Minor",#"Higgs", #! ggH_ww_2l in 2016   
-    # "ggH_ZZ_2l": "Minor",#"Higgs", #!ggH_zz_2l in 2016
-    # "ggH_ZZ_4l": "Minor",#"Higgs", #!ggH_zz_4l in 2016
-    # "ggH_gg": "Minor",#"Higgs", #!ggH_gg in 2016
-    # "vbfH_bb": "Minor",#"Higgs", #!not exist in 2017
-    # "vbfH_tautau": "Minor",#"Higgs", #! not exist in 2016preVFP
-    # "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l in 2016
-    # "VH_nonbb": "Minor",#"Higgs", #!not in MV
+    "ggH_WW_2l": "Minor",#"Higgs", #! ggH_ww_2l in 2016   
+    "ggH_ZZ_2l": "Minor",#"Higgs", #!ggH_zz_2l in 2016
+    "ggH_ZZ_4l": "Minor",#"Higgs", #!ggH_zz_4l in 2016
+    "ggH_gg": "Minor",#"Higgs", #!ggH_gg in 2016
+    "vbfH_bb": "Minor",#"Higgs", #!not exist in 2017
+    "vbfH_tautau": "Minor",#"Higgs", #! not exist in 2016preVFP
+    "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l in 2016
+    "VH_nonbb": "Minor",#"Higgs", #!not in MV
     
     "WJetsToLNu_HT-200To400": "WJets",
     "WJetsToLNu_HT-400To600": "WJets",
