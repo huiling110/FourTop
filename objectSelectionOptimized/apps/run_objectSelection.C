@@ -14,7 +14,7 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttG/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_1l/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_2l/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_0l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017c/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/data/jetHT_2017d/",
