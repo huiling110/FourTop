@@ -23,7 +23,7 @@ def main():
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
     # inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/data/' #for 1tau1l 
-    inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v85HadroPreselTauOverlap0.5/data/' #for 1tau1l
+    inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/data/'
     
     if1tau2l = False
    
