@@ -118,9 +118,24 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
     }
 
     if(m_isGammaSample){
+        //except events if all prompt photons not radiated from partons?
+        //accept if at least one prompt photon not radiated from partons?
         return ifRemove;
     }
     if(m_isNotGammaSample){
+        //for ttbar, DY, W, st, should remove events if all prompt photons radiated from partons
+        // ifRemove = kFALSE;
+        // for(size_t i=0; i<e->GenPart_pdgId->GetSize(); i++){
+        //     if(std::abs(e->GenPart_pdgId->At(i))==22 && e->GenPart_pt->At(i)>10.){
+        //         Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); //if overlap with parton
+        //         // if(removeIGen){
+        //         //     ifRemove = kTRUE;
+        //         //     break; // exit a loop prematurely when a certain condition is met.
+        //         // }
+        //         ifRemove = ifRemove && removeIGen;
+        //     }
+        // }
+
         return !ifRemove;
     }
 
