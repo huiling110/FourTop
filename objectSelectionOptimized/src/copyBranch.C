@@ -89,7 +89,8 @@ void CopyBranch::clearBranch()
 
 Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
 //overlap removal for Gamma processes 
-    Bool_t ifRemove = kFALSE;
+    // Bool_t ifRemove = kFALSE;
+    Bool_t ifRemove = kTRUE;
     if((!m_isGammaSample)&&(!m_isNotGammaSample)){
         return kFALSE;
     }
@@ -107,7 +108,7 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
     //impove the above code
 
 
-    if(m_isGammaSample){
+    // if(m_isGammaSample){
         //should exist gen photon pt>10 and delta R> 0.05 with parton , for gamma sample
         ifRemove = kTRUE;
         for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++)
@@ -121,20 +122,24 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
                 }
             }
         }
-    }else if(m_isNotGammaSample){
-       ifRemove = kFALSE;
-        for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++)
-        {
-            if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
-            {
-               Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); 
-                if(removeIGen){
-                     ifRemove = kTRUE;
-                     break; // exit a loop prematurely when a certain condition is met.
-                }
-            }
-        } 
-    }
+
+        // ifRemove = m_isGammaSample? ifRemove:!ifRemove;
+
+    // }else if(m_isNotGammaSample){
+    //     //remove event if exist gen photon pt>10 and delta R< 0.05 with parton , for non gamma sample
+    //    ifRemove = kFALSE;
+    //     for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++)
+    //     {
+    //         if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
+    //         {
+    //            Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); 
+    //             if(removeIGen){
+    //                  ifRemove = kTRUE;
+    //                  break; // exit a loop prematurely when a certain condition is met.
+    //             }
+    //         }
+    //     } 
+    // }
 
 
     return ifRemove;

@@ -22,7 +22,6 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
             genWeight = **e->genWeight;
         }
         m_cutflow->Fill(0., genWeight);
-        // CF_initial->Fill(0., genWeight);
 
         // good lumi and good PV selection
         if (!(lumiAndPVSelection.Select(m_isData, e)))//!!!turn off temperorilly
@@ -36,7 +35,6 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
             continue;
         }
         m_cutflow->Fill(1., genWeight);
-        // CF_met->Fill(0., genWeight);
 
         // HLT selection and HLT branch filling
         Bool_t passHLT = HLTselection.Select(e,  ifHLT);
@@ -117,11 +115,11 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
 
         // copy some nanoAOD branches
         Bool_t ifRemoveEvent = copyBranch.Select(e, m_isData);
-        if (ifRemoveEvent)
-        {
-            continue;
-        }
-        m_cutflow->Fill(7., genWeight);//!gamma sample overlap removal
+        // if (ifRemoveEvent)
+        // {
+        //     continue;
+        // }
+        m_cutflow->Fill(7, genWeight);//!gamma sample overlap removal
 
         m_outTree->Fill();
     };
