@@ -111,7 +111,6 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
         {
             if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
             {
-
                 Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); //if overlap with parton
                 if(!removeIGen){
                         ifRemove = kFALSE;

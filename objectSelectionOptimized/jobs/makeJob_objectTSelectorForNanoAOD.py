@@ -34,7 +34,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v84Pre1tau2lLepF2/'
 # jobVersionName = 'v84Pre1tau2lLepF2V2/'
 # jobVersionName = 'v84HadroPresel/'
-jobVersionName = 'v85HadroPreselTauOverlap0.5/'
+# jobVersionName = 'v85HadroPreselTauOverlap0.5/'
+jobVersionName = 'v86HadroPreSelWithGammaRemoval/'
 
 #!same version numbers means no change in algrithm but only in selection
 #!todo: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
