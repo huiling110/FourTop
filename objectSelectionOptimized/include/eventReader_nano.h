@@ -185,6 +185,7 @@ public:
         OS::readPointerArray(GenPart_eta, reader, "GenPart_eta");
         OS::readPointerArray(GenPart_phi, reader, "GenPart_phi");
         OS::readPointerArray(GenPart_pt, reader, "GenPart_pt");
+        OS::readPointerArray(GenPart_statusFlags, reader, "GenPart_statusFlags");
 
         // other branch not consistent between run2 and run3
         OS::readPointerArray(Electron_mvaFall17V2noIso, reader, "Electron_mvaFall17V2noIso");
@@ -319,6 +320,7 @@ public:
     TTreeReaderArray<Float_t> *GenPart_eta = nullptr;
     TTreeReaderArray<Float_t> *GenPart_phi = nullptr;
     TTreeReaderArray<Float_t> *GenPart_pt = nullptr;
+    TTreeReaderArray<Int_t> *GenPart_statusFlags = nullptr;
     //theoretical 
     // TTreeReaderArray<Float_t> LHEPdfWeight ; //LHE pdf variation weights (w_var / w_nominal) for LHA IDs 306000 - 306102
     //https://lhapdf.hepforge.org/pdfsets
