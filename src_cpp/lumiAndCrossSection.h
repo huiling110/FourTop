@@ -29,7 +29,6 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"ttbar_1l", 365.34},
     {"ttbar_2l", 88.29},//TT intotal 833.9pb
 
-    // {"ttG", 4.62},        // 
     {"ttG", 15.89},        // 
     {"ttZ", 0.783},       // 0.6559
     {"ttW", 0.611},       // 0.2014 changed to 611
@@ -50,6 +49,11 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"st_tZq", 0.07358},
     {"st_tW_antitop", 35.85}, // 38.06
     {"st_tW_top", 35.85},     // 38.09
+    {"st_schan_had", 7.67936 },
+    {"st_schan_lep", 3.74},
+    {"st_tchan", 136.02 },
+    {"st_antitchan", 80.95},
+
 
     // GX: ttGamma, ZGamma
         {"TGJets", 1.02},

@@ -201,25 +201,29 @@ histoGramPerSample = {
     'WZZ': 'Minor',
     'ZZZ': 'Minor',
     
+    #!do we miss some single top samples : s-channel, t channel, tW channel
     "st_tZq":"singleTop",
     "st_tW_antitop":"singleTop",
     "st_tW_top":"singleTop",
+    "st_schan_had": "singleTop",
+    "st_schan_lep": "singleTop",
+    "st_tchan": "singleTop",
     
-    # "TGJets": "Minor",#"XGamma", #!not exist in 2016preVFP
+    "TGJets": "Minor",#"XGamma", #!not exist in 2016preVFP
     "ZGToLLG": "Minor",#"XGamma",
     "WGToLNuG": "Minor",#"XGamma",
    
     
-    # "ggH_bb": "Minor",#"Higgs",#!not excsi in 2017 nano files
+    "ggH_bb": "Minor",#"Higgs",#!not excsi in 2017 nano files
     "ggH_tautau": "Minor",#"Higgs",
-    # "ggH_WW_2l": "Minor",#"Higgs", #! ggH_ww_2l in 2016   
-    # "ggH_ZZ_2l": "Minor",#"Higgs", #!ggH_zz_2l in 2016
-    # "ggH_ZZ_4l": "Minor",#"Higgs", #!ggH_zz_4l in 2016
-    # "ggH_gg": "Minor",#"Higgs", #!ggH_gg in 2016
-    # "vbfH_bb": "Minor",#"Higgs", #!not exist in 2017
-    # "vbfH_tautau": "Minor",#"Higgs", #! not exist in 2016preVFP
-    # "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l in 2016
-    # "VH_nonbb": "Minor",#"Higgs", #!not in MV
+    "ggH_WW_2l": "Minor",#"Higgs", #! ggH_ww_2l in 2016   
+    "ggH_ZZ_2l": "Minor",#"Higgs", #!ggH_zz_2l in 2016
+    "ggH_ZZ_4l": "Minor",#"Higgs", #!ggH_zz_4l in 2016
+    "ggH_gg": "Minor",#"Higgs", #!ggH_gg in 2016
+    "vbfH_bb": "Minor",#"Higgs", #!not exist in 2017
+    "vbfH_tautau": "Minor",#"Higgs", #! not exist in 2016preVFP
+    "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l in 2016
+    "VH_nonbb": "Minor",#"Higgs", #!not in MV
     
     "WJetsToLNu_HT-200To400": "WJets",
     "WJetsToLNu_HT-400To600": "WJets",

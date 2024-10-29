@@ -3,11 +3,16 @@
 #include <iostream>
 #include <any>
 
-CopyBranch::CopyBranch(TTree *outTree, const Bool_t isRun3)
-:m_isRun3{isRun3}
+CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t isData, const Bool_t isRun3):m_processName{processName}, m_isData{isData}, m_isRun3{isRun3}
 {
     std::cout << "Initializing CopyBranch .........\n";
     std::cout<<"m_isRun3="<<m_isRun3<<"\n";
+
+    m_isGammaSample = m_processName=="ttG" || m_processName=="ZGToLLG" || m_processName=="WGToLNuG" || m_processName=="TGJets";
+    m_isNotGammaSample = m_processName.Contains("ttbar") || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || m_processName.Contains("st_");
+    std::cout<<"m_isGammaSample="<<m_isGammaSample<<"\n";
+    std::cout<<"m_isNotGammaSample="<<m_isNotGammaSample<<"\n";
+
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);
     outTree->Branch("luminosityBlock_", &luminosityBlock_);
@@ -26,9 +31,11 @@ CopyBranch::CopyBranch(TTree *outTree, const Bool_t isRun3)
     std::cout << "\n";
 };
 
-void CopyBranch::Select(eventForNano *e, Bool_t isData)
+Bool_t CopyBranch::Select(eventForNano *e, Bool_t isData)
 {
     clearBranch();//!!!important
+
+    Bool_t ifRemoveEvent = overlapRemovalSamples(e);
 
     run_ = *e->run;
     event_ = *e->event;
@@ -68,12 +75,75 @@ void CopyBranch::Select(eventForNano *e, Bool_t isData)
     // copy_TTreeReaderArray_toVector<Int_t>(static_cast<TTreeReaderArray<Int_t>>(*e->GenPart_genPartIdxMother), GenPart_genPartIdxMother_); //???it seem this is causing the memery exceeding problem
     // copy_TTreeReaderArray_toVector<Int_t>(*e->GenPart_pdgId, GenPart_pdgId_ );
     // }
+
+
+    return ifRemoveEvent;
 };
 void CopyBranch::clearBranch()
 {
-    // Electron_charge_.clear();
-    // Muon_charge_.clear();
     GenPart_genPartIdxMother_.clear();
     GenPart_pdgId_.clear();
     LHEPdfWeight_.clear();
 };
+
+Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
+//overlap removal for Gamma processes 
+    if((!m_isGammaSample)&&(!m_isNotGammaSample)){
+        return kFALSE;
+    }
+
+    std::vector<Double_t> partonsEtaVec;
+    std::vector<Double_t> partonsPhiVec;
+    for (size_t j = 0; j < e->GenPart_pdgId->GetSize(); j++)
+    {
+        if (std::abs(e->GenPart_pdgId->At(j)) < 7 || std::abs(e->GenPart_pdgId->At(j)) == 21)
+        {
+            partonsEtaVec.push_back(e->GenPart_eta->At(j));
+            partonsPhiVec.push_back(e->GenPart_phi->At(j));
+        }
+    }
+
+    Bool_t ifRemove = kTRUE;
+    if(m_isGammaSample){
+        //except events if all prompt photons not radiated from partons?
+        //accept if at least one prompt photon not radiated from partons?
+        for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++)
+        {
+            if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10.)
+            {
+                Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); //if overlap with parton
+                if(!removeIGen){
+                        ifRemove = kFALSE;
+                        break; // exit a loop prematurely when a certain condition is met.
+                }
+            }
+        }
+        return ifRemove;
+    }
+    if(m_isNotGammaSample){
+        //for ttbar, DY, W, st, should remove events if all prompt photons radiated from partons
+        ifRemove = kFALSE;
+        for(size_t i=0; i<e->GenPart_pdgId->GetSize(); i++){
+            if(std::abs(e->GenPart_pdgId->At(i))==22 && e->GenPart_pt->At(i)>10.){
+                //check if only have leptons, quarks, gluons, and bosons as parents
+                Int_t parentPdgId = OS::getValForDynamicReader<Short_t>(m_isRun3, e->GenPart_genPartIdxMother, i);
+                Bool_t parentGood = std::abs(e->GenPart_pdgId->At(parentPdgId))<7 || std::abs(e->GenPart_pdgId->At(parentPdgId))==21 || std::abs(e->GenPart_pdgId->At(parentPdgId))==24 || std::abs(e->GenPart_pdgId->At(parentPdgId))==23 || std::abs(e->GenPart_pdgId->At(parentPdgId))==25; //<7=quarks, 21=gluons, 24=W, 23=Z, 25=Higgs
+                if(!parentGood){
+                    // std::cout<<"parentPdgId="<<e->GenPart_pdgId->At(parentPdgId)<<"\n";//maily phi mesons
+                    continue;
+                }//!seems essential to keep the gamma from meson decay
+                Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); //if overlap with parton
+                if(removeIGen){
+                    ifRemove = kTRUE;
+                    break; // exit a loop prematurely when a certain condition is met.
+                }
+                // ifRemove = ifRemove && removeIGen;
+            }
+        }
+
+        return ifRemove;
+    }
+
+    return ifRemove;
+
+}

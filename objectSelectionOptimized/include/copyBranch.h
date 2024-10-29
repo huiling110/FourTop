@@ -6,15 +6,21 @@
 class CopyBranch
 {
 public:
-    CopyBranch(TTree *outTree, const Bool_t isRun3=kFALSE);
+    CopyBranch(TTree *outTree, const TString processes, const Bool_t isData =kFALSE, const Bool_t isRun3=kFALSE);
     ~CopyBranch(){};
 
-    void Select(eventForNano *e, Bool_t isData);
+    Bool_t Select(eventForNano *e, Bool_t isData);
     void clearBranch();
+    Bool_t overlapRemovalSamples(const eventForNano* e);
 
 private:
     // output branches
     Bool_t m_isRun3;
+    const Bool_t m_isData;
+    TString m_processName;
+    Bool_t m_isGammaSample;
+    Bool_t m_isNotGammaSample;
+
     UInt_t run_;
     ULong64_t event_;
     UInt_t luminosityBlock_;

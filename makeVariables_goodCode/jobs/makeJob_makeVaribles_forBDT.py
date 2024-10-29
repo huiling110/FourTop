@@ -40,12 +40,13 @@ def main():
     # inVersion = 'v84Pre1tau2lNoLepCut'
     # inVersion = 'v84Pre1tau2lLepF2V2'
     # inVersion = 'v84HadroPresel'
-    inVersion = 'v85HadroPreselTauOverlap0.5'
+    # inVersion = 'v85HadroPreselTauOverlap0.5'
+    inVersion = 'v86HadroPreSelWithGammaRemoval'
 
-    # outVersion = 'v0baselineHardro'
+    outVersion = 'v0baselineHardro'
     # outVersion = 'v0baselineLep'
    
-    outVersion = 'v1baselineHardroFRUpdated' 
+    # outVersion = 'v1baselineHardroFRUpdated' 
     # outVersion = 'v0baseline1tau2lNotLepCut'
     # outVersion = 'v2cut1tau0lSRTauF'
     # outVersion = 'v1cut1tau1lSR'

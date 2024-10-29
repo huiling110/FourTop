@@ -54,10 +54,10 @@ public:
             std::cout<<"m_if1tau2l="<<m_if1tau2l<<"\n";
 
             m_cutflow->SetDirectory(m_output);
-            CF_initial->SetDirectory(m_output);
-            CF_met->SetDirectory(m_output);
-            CF_HLT->SetDirectory(m_output);
-            CF_pre->SetDirectory(m_output);
+            // CF_initial->SetDirectory(m_output);
+            // CF_met->SetDirectory(m_output);
+            // CF_HLT->SetDirectory(m_output);
+            // CF_pre->SetDirectory(m_output);
         }
         else
         {
@@ -120,7 +120,7 @@ private:
     JetSel bjetPNMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 15, m_JESSys, m_JERSys};
     JetSel bjetPTMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 17, m_JESSys, m_JERSys};
     JetSel bjetPTTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 18, m_JESSys, m_JERSys};
-    CopyBranch copyBranch{m_outTree, m_isRun3};
+    CopyBranch copyBranch{m_outTree, m_processName, m_isData, m_isRun3};
     PUWeightCal puWeightCal{m_outTree, m_isData, m_era, m_isRun3};
     SystWeightCal systWeightCal{m_outTree, m_isData};
 
@@ -132,11 +132,11 @@ private:
     ULong_t m_jetsTotal = 0;
     ULong_t m_bjetsM = 0;
 
-    TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: >=1tauF: >5jet: >1bjetM:HT>480,6thjet>38", 7, 0, 7);
-    TH1D *CF_initial = new TH1D("OS_initial", "OS_initial", 2, -1, 1);
-    TH1D *CF_met = new TH1D("OS_MetFilter", "OS_MetFilter", 2, -1, 1);
-    TH1D *CF_HLT = new TH1D("OS_HLT", "OS_HLT", 2, -1, 1);
-    TH1D *CF_pre = new TH1D("OS_preSlection", "OS_preSelection", 2, -1, 1);
+    TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: >=1tauF: >5jet: >1bjetM:HT>480,6thjet>38: gammaRemoval", 8, 0, 8);
+    // TH1D *CF_initial = new TH1D("OS_initial", "OS_initial", 2, -1, 1);
+    // TH1D *CF_met = new TH1D("OS_MetFilter", "OS_MetFilter", 2, -1, 1);
+    // TH1D *CF_HLT = new TH1D("OS_HLT", "OS_HLT", 2, -1, 1);
+    // TH1D *CF_pre = new TH1D("OS_preSlection", "OS_preSelection", 2, -1, 1);
 };
 
 #endif
