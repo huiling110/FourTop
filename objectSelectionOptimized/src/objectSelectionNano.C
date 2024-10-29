@@ -115,10 +115,10 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
 
         // copy some nanoAOD branches
         Bool_t ifRemoveEvent = copyBranch.Select(e, m_isData);
-        // if (ifRemoveEvent)
-        // {
-        //     continue;
-        // }
+        if (ifRemoveEvent)
+        {
+            continue;
+        }
         m_cutflow->Fill(7, genWeight);//!gamma sample overlap removal
 
         m_outTree->Fill();
@@ -130,8 +130,8 @@ void objectSelection::Terminate()
 {
     std::cout << "Terminate phase.......................................................\n";
     std::cout << "outFile here: " << m_output->GetName() << "\n";
-    std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) <<"; >=tauF:"<<m_cutflow->GetBinContent(4) <<" preSelection: " << m_cutflow->GetBinContent(6) << "\n";
-    std::cout<<"gammaSampleRemoval: "<<m_cutflow->GetBinContent(7)<<"\n";
+    std::cout << "initial events:" << m_cutflow->GetBinContent(1) << ";   HLT: " << m_cutflow->GetBinContent(3) <<"; >=tauF:"<<m_cutflow->GetBinContent(4) <<" preSelection: " << m_cutflow->GetBinContent(7) << "\n";
+    std::cout<<"gammaSampleRemoval: "<<m_cutflow->GetBinContent(8)<<"\n";
 
     std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";//includes entries not passing selection
 
