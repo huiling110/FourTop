@@ -421,7 +421,6 @@ Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
     return initB;
 }
 
-// Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav)
 Int_t calGenTauNum(const TTreeReaderArray<UChar_t> &tausT_genPartFlav)
 {
     Int_t genNum = 0;
@@ -945,6 +944,8 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
 Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, TH2D *btagTEff_b, TH2D *btagTEff_c, TH2D *btagTEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3, const Bool_t ifBTagT)
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
+    //https://btv-wiki.docs.cern.ch/PerformanceCalibration/SFUncertaintiesAndCorrelations/#working-point-based-sfs-fixedwp-sfs
+    //!!!More than one data-taking era is analyzed: A breakdown of SFbc and SFlight into up/down_correlated/uncorrelated is to be used.
     Double_t sf = 1.0;
     if(isData){
         return 1.0;

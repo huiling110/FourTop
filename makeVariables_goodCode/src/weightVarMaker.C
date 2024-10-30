@@ -70,6 +70,10 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("btagWPMT_weight", &btagWPMT_weight);
     outTree->Branch("btagWPMT_weight_up", &btagWPMT_weight_up);
     outTree->Branch("btagWPMT_weight_down", &btagWPMT_weight_down);
+    outTree->Branch("btagWPMT_weight_correlated_up", &btagWPMT_weight_correlated_up);
+    outTree->Branch("btagWPMT_weight_correlated_down", &btagWPMT_weight_correlated_down);
+    outTree->Branch("btagWPMT_weight_uncorrelated_up", &btagWPMT_weight_uncorrelated_up);
+    outTree->Branch("btagWPMT_weight_uncorrelated_down", &btagWPMT_weight_uncorrelated_down);
 
     outTree->Branch("HLT_weight", &HLT_weight);
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
@@ -91,10 +95,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("scaleWeightRe_down_", &scaleWeightRe_down_);
     outTree->Branch("scaleWeightFa_up_", &scaleWeightFa_up_);
     outTree->Branch("scaleWeightFa_down_", &scaleWeightFa_down_);
-    // outTree->Branch("scaleWeightRe_normalised_up", &scaleWeightRe_normalised_up);
-    // outTree->Branch("scaleWeightRe_normalised_down", &scaleWeightRe_normalised_down);
-    // outTree->Branch("scaleWeightFa_normalised_up", &scaleWeightFa_normalised_up);
-    // outTree->Branch("scaleWeightFa_normalised_down", &scaleWeightFa_normalised_down);
 
     // TOP Lepton MVA
     TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
@@ -237,7 +237,6 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", "Medium", m_isData, m_isRun3);
     tauTT_IDSF_weight_new = calTau_IDSF_new(e->tausTT_pt, e->tausTT_eta, e->tausTT_decayMode, e->tausTT_genPartFlav, cset.get(), "nom", "nom", "nom",  "Tight", m_isData, m_isRun3);
 
-    // TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btags : e->jets_btagsPT;
     TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btagsPT : e->jets_btags;
     btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");
     btagShape_weight_jes_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_jes");
@@ -259,6 +258,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagShape_weight_cferr2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr2");
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
+    //!For each JES source used in your analysis the respective up/down_jesXXX varied SF is to be applied to the JES-varied template instead of the nominal one
 
     //btag WorkingPoint
     btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
@@ -269,7 +269,11 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagWPMT_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3, kTRUE);
     if(std::isnan(btagWPMT_weight) || std::isinf(btagWPMT_weight)){
         std::cout<<"btagWPMT_weight="<<btagWPMT_weight<<"\n";
-    }
+    }//!
+    btagWPMT_weight_correlated_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_correlated", m_isRun3, kTRUE);
+    btagWPMT_weight_correlated_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_correlated", m_isRun3, kTRUE);
+    btagWPMT_weight_uncorrelated_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_uncorrelated", m_isRun3, kTRUE);
+    btagWPMT_weight_uncorrelated_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_uncorrelated", m_isRun3, kTRUE);
 
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
@@ -301,6 +305,14 @@ void WeightVarMaker::clearBranch()
     FR_weight = -99;
     FR_weight_up = -99;
     FR_weight_down = -99;
+
+    btagWPMT_weight = 1.;
+    btagWPMT_weight_up = 1.;
+    btagWPMT_weight_down = 1.;
+    btagWPMT_weight_correlated_up = 1.;
+    btagWPMT_weight_correlated_down = 1.;
+    btagWPMT_weight_uncorrelated_up = 1.;
+    btagWPMT_weight_uncorrelated_down = 1.;
 
     
 };
