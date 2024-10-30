@@ -213,7 +213,7 @@ void treeAnalyzer::LoopTree()
 };
 
 void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region){
-
+//!maybe make correlated uncertainties with no era in the name
         SR1tau1lSys.fillHistVec(region, bdtScore, basicWeight, SR1tau1l, m_isData);
 
         SR1tau1lSys.fillHistVec(region + "_CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);

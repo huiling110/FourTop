@@ -29,6 +29,9 @@ private:
     Double_t scaleWeightRe_down=1.;
     Double_t scaleWeightFa_up=1.;
     Double_t scaleWeightFa_down=1.;
+    Double_t PSWeight_up=1.;
+    Double_t PSWeight_down=1.;
+    // std::array<Double_t, 103> LHEPdfWeight;
 };
 
 #endif

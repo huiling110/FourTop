@@ -207,6 +207,7 @@ public:
         OS::readPointer(Rho_fixedGridRhoFastjetAll, reader, "Rho_fixedGridRhoFastjetAll");
         OS::readPointerArray(LHEPdfWeight, reader, "LHEPdfWeight");
         OS::readPointerArray(LHEScaleWeight, reader, "LHEScaleWeight");
+        OS::readPointerArray(PSWeight, reader, "PSWeight");
 
     };
 
@@ -433,6 +434,7 @@ public:
 
     TTreeReaderArray<Float_t> *LHEPdfWeight = nullptr;
     TTreeReaderArray<Float_t> *LHEScaleWeight = nullptr;
+    TTreeReaderArray<Float_t> *PSWeight = nullptr;
 };
 
 #endif
