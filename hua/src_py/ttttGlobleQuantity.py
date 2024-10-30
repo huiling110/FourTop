@@ -186,8 +186,14 @@ histoGramPerSample = {
     'qcd_2000toInf':'qcd',
 
     "ttG":"ttX",
-    "ttZ":"ttX",  
-    "ttW":"ttX",
+    # "ttZ":"ttX",  
+    # "ttW":"ttX",
+    #TTZToLLNuNu TTZToQQ  TTWJetsToLNu TTWJetsToQQ
+    "TTZToLLNuNu": "ttX",
+    "TTZToQQ": "ttX",
+    "TTWJetsToQQ": "ttX",
+    "TTWJetstoLNu": "ttX",
+    "TTZTo"
     "ttH_bb": "ttX", 
     "ttH_nonbb": "ttX", 
     # "ttWW": "ttX", #!temprarily close
