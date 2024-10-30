@@ -61,8 +61,8 @@ def makeOtherMCGen(inputDirDic, era):
         for isubPro in isubPros:
             ifile = inputDirDic['mc']+ isubPro + '.root'
             iDF = ROOT.RDataFrame('newtree', ifile)
-            # cut = iDF.Filter('tausT_genTauNum==1')
-            cut = iDF.Filter('tausT_genTauNum==1&&tausT_num==1')
+            # cut = iDF.Filter('tausT_genTauNum==1&&tausT_num==1')
+            cut = iDF.Filter('tausF_num==1 && tausF_1isTight && tausF_1genFlavour!=0')
             cut = cut.Define('event_allWeight_1tau0l', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new* btagShape_weight * btagShapeR')#!1tau0l
             
             cut.Snapshot('newtree', inputDirDic['mc']+ isubPro + '_tauGen.root')
