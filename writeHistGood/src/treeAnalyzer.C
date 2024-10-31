@@ -213,7 +213,7 @@ void treeAnalyzer::LoopTree()
 };
 
 void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region){
-//!maybe make correlated uncertainties with no era in the name
+//!correlated uncertainties are the same NP for 3 years, no need to add era in the name
         SR1tau1lSys.fillHistVec(region, bdtScore, basicWeight, SR1tau1l, m_isData);
 
         SR1tau1lSys.fillHistVec(region + "_CMS_pileup_" + m_era + "Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
@@ -261,7 +261,6 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
             SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era + "Down", bdtScore, e->FR_weight_final_down, SR1tau1l, m_isData);
         }
 
-        //!!!temparory workaround, need to fix the HLT_weight==0 in MV step
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
 
