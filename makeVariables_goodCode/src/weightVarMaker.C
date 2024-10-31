@@ -168,7 +168,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
         if(m_processName.Contains("TTToSemiLeptonic") || m_processName.Contains("TTTo2L2Nu") || m_processName.Contains("TTToHadronic")){//!TT extra processes have to be added to use later
             TString processTem = removeTrailingNumbers(m_processName);
             std::cout<<"processTem="<<processTem<<"\n";
-            // global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(processTem) / TTTT::genSumDic.at(m_era).at(processTem);
             global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(processTem) / GENSUM::genSumMap.at(m_era).at(processTem);
             std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processTem)<<" genSum="<<GENSUM::genSumMap.at(m_era).at(processTem)<<"\n";
         }else{
