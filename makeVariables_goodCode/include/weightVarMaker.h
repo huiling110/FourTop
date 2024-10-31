@@ -59,8 +59,9 @@ private:
     Double_t tauT_IDSF_weight_new_vsmu_down;
     Double_t tauT_IDSF_weight_new_vsele_up;
     Double_t tauT_IDSF_weight_new_vsele_down;
-    Double_t btagShape_weight = 1.0;
+    Double_t tauT_IDSF_weight_new_stats_DMUncorrEraUncorr_up;
 
+    Double_t btagShape_weight = 1.0;
     Double_t btagShape_weight_jes_up = 1.0;
     Double_t btagShape_weight_jes_down = 1.0;
     Double_t btagShape_weight_hf_up = 1.0;
