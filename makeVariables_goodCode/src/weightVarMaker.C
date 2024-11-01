@@ -232,8 +232,14 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     musTopMVAT_weight = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 0, kTRUE, m_isData);
     musTopMVAT_weight_up = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 1, kTRUE, m_isData);
     musTopMVAT_weight_down = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 2, kTRUE, m_isData);
-    musTopMVAT_weight_sys_up = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_sys, e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, 1, kTRUE, m_isData); 
-    musTopMVAT_weight_sys_down = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_sys, e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, 2, kTRUE, m_isData);
+    musTopMVAT_weight_sys_up = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_sys, e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 1, kTRUE, m_isData, kFALSE); 
+    musTopMVAT_weight_sys_down = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_sys, e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 2, kTRUE, m_isData, kFALSE);
+    musTopMVAT_weight_stat_up = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_stat, e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 1, kTRUE, m_isData, kTRUE);
+    musTopMVAT_weight_stat_down = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_stat, e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 2, kTRUE, m_isData, kTRUE);
+    elesTopMVAT_weight_sys_up = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_sys,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 1, kFALSE, m_isData, kFALSE );
+    elesTopMVAT_weight_sys_down = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_sys,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 2, kFALSE, m_isData, kFALSE);
+    elesTopMVAT_weight_stat_up = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_stat,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 1, kFALSE, m_isData, kTRUE);
+    elesTopMVAT_weight_stat_down = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_stat,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 2, kFALSE, m_isData, kTRUE);
     //!!!normal leptons
     eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
     eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);
