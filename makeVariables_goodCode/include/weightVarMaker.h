@@ -120,6 +120,10 @@ private:
 
     TH2D *eleIDSF_topMVA;
     TH2D *muIDSF_topMVA;
+    TH2D *eleIDSF_topMVA_sys;
+    TH2D *muIDSF_topMVA_sys;
+    TH2D *eleIDSF_topMVA_stat;
+    TH2D *muIDSF_topMVA_stat;
 
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;

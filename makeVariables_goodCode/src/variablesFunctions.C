@@ -754,6 +754,33 @@ Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeRead
     return muonIDSF;
 }
 
+Double_t calMuonIDSF_independentSys(const TH2D* hist_sf, const TH2D* hist_sys, const TTreeReaderArray<Double_t>& muon_pt, const TTreeReaderArray<Double_t>& muon_eta, Int_t sysMuon, Bool_t isData){
+    if(isData){
+        return 1.0;
+    }
+    Double_t sf = 1.0;
+    for(UInt_t i = 0; i < muon_pt.GetSize(); i++){
+        sf = TTTT::get2DSF(muon_pt, muon_eta, hist_sf, 0);
+        //for muons: the errors are stored in the errors of the histograms, so an example code line becomes: nominal->GetBinContent(x, y) * (1. + sys->GetBinError(x, y)
+        err = TTTT::get2DSF(muon_pt, muon_eta, hist_sys, 3);
+        switch (sysMuon)
+        {
+        case 1://up
+            sf = sf + err;
+            break;
+        case 2://down
+            sf = sf - err;
+            break;
+        default:
+            break;
+        }
+    }
+
+    return sf;
+
+};
+
+
 Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, Int_t sysMuon, Bool_t isData){
     Double_t sf = 1.0;
     if(isData){

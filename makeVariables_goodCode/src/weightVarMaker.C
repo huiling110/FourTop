@@ -114,7 +114,10 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     // delete muIDSF_topMVAFile;
     eleIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "EGamma_SF2D");
     muIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(1), "NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-
+    eleIDSF_topMVA_stat = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "stat");
+    eleIDSF_topMVA_sys = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "sys");//n the sys and stat histograms, the bincontent is the uncertainty you want, so you can just extract that. So example, the systematic up variation of the electron SF: EGamma_SF2D->GetBinContent(x, y) * (1. + sys->GetBinContent(x, y)).
+    muIDSF_topMVA_sys = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(1), "NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt_combined_syst");
+    muIDSF_topMVA_stat = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(1), "NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt_stat"); // the errors are stored in the errors of the histograms, so an example code line becomes: nominal->GetBinContent(x, y) * (1. + sys->GetBinError(x, y))
 
     //muon 2022 SFs
     TString base = "../../jsonpog-integration/POG/";
@@ -219,6 +222,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     musTopMVAT_weight = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 0, kTRUE, m_isData);
     musTopMVAT_weight_up = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 1, kTRUE, m_isData);
     musTopMVAT_weight_down = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 2, kTRUE, m_isData);
+    elesTopMVAT_weight_sys_up =  
     //!!!normal leptons
     eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
     eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);

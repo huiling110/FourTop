@@ -179,6 +179,7 @@ namespace TTTT
 
 Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
 { // sys =0: normal; sys=1: up; sys=2: down
+//3: just get bin error
     Double_t sf = 1.0;
     Int_t xbins = hist->GetXaxis()->GetNbins();
     Double_t xmin = hist->GetXaxis()->GetBinLowEdge(1);
@@ -198,19 +199,29 @@ Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
         Int_t biny = hist->GetYaxis()->FindBin(y);
         sf = hist->GetBinContent(binx, biny);
         Double_t err = hist->GetBinError(binx, biny);
-        if (sys == 1)
+        // if (sys == 1)
+        // {
+        //     sf = sf + err;
+        // }
+        // if (sys == 2)
+        // {
+        //     sf = sf - err;
+        // }
+        switch (sys)
         {
+        case 1:
             sf = sf + err;
-        }
-        if (sys == 2)
-        {
+            break;
+        case 2:
             sf = sf - err;
+            break;
+        case 3:
+            sf = err;
+            break;
+        default:
+            break;
         }
     }
-    // if(std::abs(sf-1.)<1e-6){
-    // std::cout << "x=" << x << " y=" << y << " sf=" << sf << "\n";
-    // std::cout<<"xmin="<<xmin<<" xmax="<<xmax<<" ymin="<<ymin<<" ymax="<<ymax<<"\n";
-    // }
     
     return sf;
 }
