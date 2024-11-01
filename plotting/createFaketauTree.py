@@ -23,7 +23,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v80addTauJetVar/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/'
    
    
     
@@ -33,10 +34,10 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    # createFakeTauTree(inputDirDic, era) #!with leptopMVAT_num=0
-    # createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
+    createFakeTauTree(inputDirDic, era) #!with leptopMVAT_num=0
+    createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
-    makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
+    # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
     
     
     

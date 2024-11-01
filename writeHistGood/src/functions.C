@@ -429,8 +429,9 @@ TString getProcessName(const TString processName, Bool_t isRun3){
 
 void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era){
     sysRegions.push_back(region);
-    sysRegions.push_back(region + "_CMS_pileup_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_pileup_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_pileup_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_pileup_Up");// 100% correlated
+    sysRegions.push_back(region + "_CMS_pileup_Down");
     sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
     sysRegions.push_back(region + "_CMS_prefiring_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Up");
@@ -439,10 +440,20 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_tttt_eff_e_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_eff_e_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_tttt_eff_m_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_eff_m_" + era + "Down");
+
+    // sysRegions.push_back(region + "_CMS_tttt_eff_e_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_e_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_m_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_m_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_e_syst_Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_e_syst_Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_m_syst_Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_m_syst_Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_m_stat" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_m_stat" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_e_stat" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_e_stat" + era + "Down");
+
     sysRegions.push_back(region + "_CMS_btag_shape_jes_" + era + "Up");
     sysRegions.push_back(region + "_CMS_btag_shape_jes_" + era + "Down");
     sysRegions.push_back(region + "_CMS_btag_shape_hf_" + era + "Up");
