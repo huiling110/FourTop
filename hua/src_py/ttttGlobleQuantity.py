@@ -188,7 +188,6 @@ histoGramPerSample = {
     "ttG":"ttX",
     # "ttZ":"ttX",  
     # "ttW":"ttX",
-    #TTZToLLNuNu TTZToQQ  TTWJetsToLNu TTWJetsToQQ
     "TTZToLLNuNu": "ttX",
     "TTZToQQ": "ttX",
     "TTWJetsToQQ": "ttX",
