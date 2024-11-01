@@ -193,7 +193,6 @@ histoGramPerSample = {
     "TTZToQQ": "ttX",
     "TTWJetsToQQ": "ttX",
     "TTWJetsToLNu": "ttX",
-    "TTZTo"
     "ttH_bb": "ttX", 
     "ttH_nonbb": "ttX", 
     # "ttWW": "ttX", #!temprarily close
