@@ -97,21 +97,24 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("scaleWeightFa_down_", &scaleWeightFa_down_);
 
     // TOP Lepton MVA
-    TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
-    std::cout << "top ele SF file used: " << eleIDSF_topMVAFile->GetName() << "\n";
-    eleIDSF_topMVA = (TH2D *)eleIDSF_topMVAFile->Get("EGamma_SF2D");
-    eleIDSF_topMVA->SetDirectory(nullptr);
-    eleIDSF_topMVAFile->Close();
-    delete eleIDSF_topMVAFile;
-    TFile *muIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(1)), "READ");
-    std::cout << "top mu SF file used: " << muIDSF_topMVAFile->GetName() << "\n";
+    // TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
+    // std::cout << "top ele SF file used: " << eleIDSF_topMVAFile->GetName() << "\n";
+    // eleIDSF_topMVA = (TH2D *)eleIDSF_topMVAFile->Get("EGamma_SF2D");
+    // eleIDSF_topMVA->SetDirectory(nullptr);
+    // eleIDSF_topMVAFile->Close();
+    // delete eleIDSF_topMVAFile;
+    // TFile *muIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(1)), "READ");
+    // std::cout << "top mu SF file used: " << muIDSF_topMVAFile->GetName() << "\n";
     // TCanvas *canvas = (TCanvas *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
     // muIDSF_topMVA = (TH2D *)canvas->GetPrimitive("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    muIDSF_topMVA->Print();
-    muIDSF_topMVA->SetDirectory(nullptr);
-    muIDSF_topMVAFile->Close();
-    delete muIDSF_topMVAFile;
+    // muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    // muIDSF_topMVA->Print();
+    // muIDSF_topMVA->SetDirectory(nullptr);
+    // muIDSF_topMVAFile->Close();
+    // delete muIDSF_topMVAFile;
+    eleIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "EGamma_SF2D");
+    muIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(1), "NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+
 
     //muon 2022 SFs
     TString base = "../../jsonpog-integration/POG/";
