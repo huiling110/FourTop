@@ -58,6 +58,8 @@ private:
     Double_t elesTopMVAT_weight_sys_down;
     Double_t elesTopMVAT_weight_stat_up;
     Double_t elesTopMVAT_weight_stat_down;
+    Double_t elesTopMVAT_weight_new = 1.0;
+    Double_t musTopMVAT_weight_new = 1.0;
     // Double_t tauT_IDSF_weight;
     Double_t tauT_IDSF_weight_new;
     Double_t tauTT_IDSF_weight_new;
