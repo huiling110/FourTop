@@ -236,7 +236,6 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     tauTT_IDSF_weight_new = calTau_IDSF_new(e->tausTT_pt, e->tausTT_eta, e->tausTT_decayMode, e->tausTT_genPartFlav, cset.get(), "nom", "nom", "nom",  "Tight", m_isData, m_isRun3);
     //handling of tau systematic uncertainties properly 
     // tauT_IDSF_weight_new_stats_DMUncorrEraUncorr_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "syst_alleras_up", "up", "up", "Medium", m_isData, m_isRun3); //"stat$i_dm$DM_{up,down}" where $i=1,2 and $DM=0,1,10,11 
-    // tauT_IDSF_weight_new_stats_DMUncorrEraUncorr_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "uncert0_up", "up", "up", "Medium", m_isData, m_isRun3); //"stat$i_dm$DM_{up,down}" where $i=1,2 and $DM=0,1,10,11 
 
     TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btagsPT : e->jets_btags;
     btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");
