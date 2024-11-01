@@ -177,7 +177,7 @@ namespace TTTT
 // }
 
 
-Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys)
+Double_t get2DSF(Double_t x, Double_t y,const TH2D *hist, UInt_t sys)
 { // sys =0: normal; sys=1: up; sys=2: down
 //3: just get bin error
     Double_t sf = 1.0;

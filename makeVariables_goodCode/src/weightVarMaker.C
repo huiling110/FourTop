@@ -34,6 +34,16 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("musTopMVAT_weight", &musTopMVAT_weight);
     outTree->Branch("musTopMVAT_weight_up", &musTopMVAT_weight_up);
     outTree->Branch("musTopMVAT_weight_down", &musTopMVAT_weight_down);
+    outTree->Branch("musTopMVAT_weight_sys_up", &musTopMVAT_weight_sys_up);
+    outTree->Branch("musTopMVAT_weight_sys_down", &musTopMVAT_weight_sys_down);
+    outTree->Branch("musTopMVAT_weight_stat_up", &musTopMVAT_weight_stat_up);
+    outTree->Branch("musTopMVAT_weight_stat_down", &musTopMVAT_weight_stat_down);
+    outTree->Branch("elesTopMVAT_weight_sys_up", &elesTopMVAT_weight_sys_up);
+    outTree->Branch("elesTopMVAT_weight_sys_down", &elesTopMVAT_weight_sys_down);
+    outTree->Branch("elesTopMVAT_weight_stat_up", &elesTopMVAT_weight_stat_up);
+    outTree->Branch("elesTopMVAT_weight_stat_down", &elesTopMVAT_weight_stat_down);
+
+
     outTree->Branch("tauT_IDSF_weight_new", &tauT_IDSF_weight_new);
     outTree->Branch("tauTT_IDSF_weight_new", &tauTT_IDSF_weight_new);
     outTree->Branch("tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up);
@@ -222,7 +232,8 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     musTopMVAT_weight = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 0, kTRUE, m_isData);
     musTopMVAT_weight_up = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 1, kTRUE, m_isData);
     musTopMVAT_weight_down = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 2, kTRUE, m_isData);
-    elesTopMVAT_weight_sys_up =  
+    musTopMVAT_weight_sys_up = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_sys, e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, 1, kTRUE, m_isData); 
+    musTopMVAT_weight_sys_down = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_sys, e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, 2, kTRUE, m_isData);
     //!!!normal leptons
     eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
     eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);

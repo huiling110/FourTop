@@ -754,29 +754,30 @@ Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeRead
     return muonIDSF;
 }
 
-Double_t calMuonIDSF_independentSys(const TH2D* hist_sf, const TH2D* hist_sys, const TTreeReaderArray<Double_t>& muon_pt, const TTreeReaderArray<Double_t>& muon_eta, Int_t sysMuon, Bool_t isData){
+Double_t calMuonIDSF_independentSys(const TH2D* hist_sf, const TH2D* hist_sys, const TTreeReaderArray<Double_t>& muon_pt, const TTreeReaderArray<Double_t>& muon_eta, Int_t sysMuon, const Bool_t isMuon, Bool_t isData){
     if(isData){
         return 1.0;
     }
-    Double_t sf = 1.0;
+    Double_t SF = 1.0;
     for(UInt_t i = 0; i < muon_pt.GetSize(); i++){
-        sf = TTTT::get2DSF(muon_pt, muon_eta, hist_sf, 0);
+        Double_t sf = TTTT::get2DSF(muon_pt.At(i), muon_eta.At(i), hist_sf, 0);
         //for muons: the errors are stored in the errors of the histograms, so an example code line becomes: nominal->GetBinContent(x, y) * (1. + sys->GetBinError(x, y)
-        err = TTTT::get2DSF(muon_pt, muon_eta, hist_sys, 3);
+        Double_t err = TTTT::get2DSF(muon_pt.At(i), muon_eta.At(i), hist_sys, 3);
         switch (sysMuon)
         {
         case 1://up
-            sf = sf + err;
+            sf = sf*(1. + err);
             break;
         case 2://down
-            sf = sf - err;
+            sf = sf*(1. - err);
             break;
         default:
             break;
         }
+        SF = SF * sf;
     }
 
-    return sf;
+    return SF;
 
 };
 

@@ -24,7 +24,7 @@ void fillHist(TH1D *&hist, Double_t value, Double_t weight, Bool_t isData);
 
     Double_t getGenSum(TString inputFile);
 
-Double_t get2DSF(Double_t x, Double_t y, TH2D *hist, UInt_t sys=0);
+Double_t get2DSF(Double_t x, Double_t y,const TH2D *hist, UInt_t sys=0);
 
     // TH1D *getHistogramFromFile(TString filename, const char *histname);
     template <typename T>
