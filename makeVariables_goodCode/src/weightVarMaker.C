@@ -105,8 +105,9 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     delete eleIDSF_topMVAFile;
     TFile *muIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(1)), "READ");
     std::cout << "top mu SF file used: " << muIDSF_topMVAFile->GetName() << "\n";
-    TCanvas *canvas = (TCanvas *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    muIDSF_topMVA = (TH2D *)canvas->GetPrimitive("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    // TCanvas *canvas = (TCanvas *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    // muIDSF_topMVA = (TH2D *)canvas->GetPrimitive("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
     muIDSF_topMVA->Print();
     muIDSF_topMVA->SetDirectory(nullptr);
     muIDSF_topMVAFile->Close();
