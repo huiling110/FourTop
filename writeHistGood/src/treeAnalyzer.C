@@ -248,10 +248,6 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_t_vsJet_syst_"+m_era+"_dm11_Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_era_dm11_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_t_vsJet_syst_"+m_era+"_dm11_Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_era_dm11_down.v(), SR1tau1l, m_isData);
 
-        // SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_" + m_era + "Up", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_up.v(), SR1tau1l, m_isData);
-        // SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_" + m_era + "Down", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_down.v(), SR1tau1l, m_isData);
-        // SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_" + m_era + "Up", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_up.v(), SR1tau1l, m_isData);
-        // SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_" + m_era + "Down", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_syst_Up", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_syst_Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_syst_Up", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
@@ -280,12 +276,16 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr1_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr2_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr2_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(), SR1tau1l, m_isData);
-        //!!!temporarily for b WPM
+
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era + "Up", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era + "Down", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_down.v(), SR1tau1l, m_isData);
         //Btag WP medium and tight uncertainty
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_" + m_era + "Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_" + m_era + "Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_correlated_Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_correlated_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_correlated_Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_correlated_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_uncorrelated_"+m_era+"Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_uncorrelated_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_uncorrelated_"+m_era+"Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_uncorrelated_down.v(), SR1tau1l, m_isData); 
         
         if( m_processName.Contains("fakeTau")){
             SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era + "Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);

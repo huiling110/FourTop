@@ -151,8 +151,7 @@ public:
     myBranch<Double_t> HLT_weight{"HLT_weight"};
     myBranch<Double_t> tauT_IDSF_weight_new{"tauT_IDSF_weight_new"};
     myBranch<Double_t> tauTT_IDSF_weight_new{"tauTT_IDSF_weight_new"};
-    // myBranch<Double_t> elesTopMVAT_weight{"elesTopMVAT_weight"};
-    // myBranch<Double_t> musTopMVAT_weight{"musTopMVAT_weight"};
+
     myBranch<Double_t> btagShape_weight{"btagShape_weight"};
     myBranch<Double_t> btagShapeR{"btagShapeR"};
     myBranch<Double_t> btagWPMedium_weight{"btagWPMedium_weight"};
@@ -161,6 +160,11 @@ public:
     myBranch<Double_t> btagWPMT_weight{"btagWPMT_weight"};
     myBranch<Double_t> btagWPMT_weight_up{"btagWPMT_weight_up"};
     myBranch<Double_t> btagWPMT_weight_down{"btagWPMT_weight_down"};
+    myBranch<Double_t> btagWPMT_weight_correlated_up{"btagWPMT_weight_correlated_up"};
+    myBranch<Double_t> btagWPMT_weight_correlated_down{"btagWPMT_weight_correlated_down"};
+    myBranch<Double_t> btagWPMT_weight_uncorrelated_up{"btagWPMT_weight_uncorrelated_up"};
+    myBranch<Double_t> btagWPMT_weight_uncorrelated_down{"btagWPMT_weight_uncorrelated_down"};
+
     myBranch<Double_t> eleMVAT_IDSF_weight{"eleMVAT_IDSF_weight"};
 
     myBranch<Double_t> elesTopMVAT_weight_new{"elesTopMVAT_weight_new"};
@@ -488,8 +492,7 @@ private:
         {HLT_weight.n(), &HLT_weight},
         {tauT_IDSF_weight_new.n(), &tauT_IDSF_weight_new},
         {tauTT_IDSF_weight_new.n(), &tauTT_IDSF_weight_new},
-        // {elesTopMVAT_weight.n(), &elesTopMVAT_weight},
-        // {musTopMVAT_weight.n(), &musTopMVAT_weight},
+
         {btagShape_weight.n(), &btagShape_weight},
         {btagShapeR.n(), &btagShapeR},
         {btagWPMedium_weight.n(), &btagWPMedium_weight},
@@ -498,6 +501,11 @@ private:
         {btagWPMT_weight.n(), &btagWPMT_weight},
         {btagWPMT_weight_up.n(), &btagWPMT_weight_up},
         {btagWPMT_weight_down.n(), &btagWPMT_weight_down},
+        {btagWPMT_weight_correlated_up.n(), &btagWPMT_weight_correlated_up},
+        {btagWPMT_weight_correlated_down.n(), &btagWPMT_weight_correlated_down},
+        {btagWPMT_weight_uncorrelated_up.n(), &btagWPMT_weight_uncorrelated_up},
+        {btagWPMT_weight_uncorrelated_down.n(), &btagWPMT_weight_uncorrelated_down},
+
         {eleMVAT_IDSF_weight.n(), &eleMVAT_IDSF_weight},
 
         {pdfWeight_up_.n(), &pdfWeight_up_},
