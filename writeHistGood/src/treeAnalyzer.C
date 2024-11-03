@@ -252,6 +252,14 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         // SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_" + m_era + "Down", bdtScore, (basicWeight / e->elesTopMVAT_weight.v()) * e->elesTopMVAT_weight_down.v(), SR1tau1l, m_isData);
         // SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_" + m_era + "Up", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_up.v(), SR1tau1l, m_isData);
         // SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_" + m_era + "Down", bdtScore, (basicWeight / e->musTopMVAT_weight.v()) * e->musTopMVAT_weight_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_syst_Up", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_syst_Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_syst_Up", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_syst_Down", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_stat" + m_era + "Up", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_stat" + m_era + "Down", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_stat" + m_era + "Up", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_stat" + m_era + "Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
 
 
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jes_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);
