@@ -69,7 +69,27 @@ private:
     Double_t tauT_IDSF_weight_new_vsmu_down;
     Double_t tauT_IDSF_weight_new_vsele_up;
     Double_t tauT_IDSF_weight_new_vsele_down;
-    Double_t tauT_IDSF_weight_new_stats_DMUncorrEraUncorr_up;
+    //tau ID SF considering correlation 
+    Double_t tauT_IDSF_weight_new_stat1_dm0_up;
+    Double_t tauT_IDSF_weight_new_stat1_dm0_down;
+    Double_t tauT_IDSF_weight_new_stat1_dm1_up;
+    Double_t tauT_IDSF_weight_new_stat1_dm1_down;
+    Double_t tauT_IDSF_weight_new_stat1_dm10_up;
+    Double_t tauT_IDSF_weight_new_stat1_dm10_down;
+    Double_t tauT_IDSF_weight_new_stat1_dm11_up;
+    Double_t tauT_IDSF_weight_new_stat1_dm11_down;
+    Double_t tauT_IDSF_weight_new_syst_alleras_up;
+    Double_t tauT_IDSF_weight_new_syst_alleras_down;
+    Double_t tauT_IDSF_weight_new_syst_era_up;
+    Double_t tauT_IDSF_weight_new_syst_era_down;
+    Double_t tauT_IDSF_weight_new_syst_era_dm0_up;
+    Double_t tauT_IDSF_weight_new_syst_era_dm0_down;
+    Double_t tauT_IDSF_weight_new_syst_era_dm1_up;
+    Double_t tauT_IDSF_weight_new_syst_era_dm1_down;
+    Double_t tauT_IDSF_weight_new_syst_era_dm10_up;
+    Double_t tauT_IDSF_weight_new_syst_era_dm10_down;
+    Double_t tauT_IDSF_weight_new_syst_era_dm11_up;
+    Double_t tauT_IDSF_weight_new_syst_era_dm11_down;
 
     Double_t btagShape_weight = 1.0;
     Double_t btagShape_weight_jes_up = 1.0;

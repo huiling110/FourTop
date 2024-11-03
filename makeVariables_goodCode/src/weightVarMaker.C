@@ -54,8 +54,29 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("tauT_IDSF_weight_new_vsmu_down", &tauT_IDSF_weight_new_vsmu_down);
     outTree->Branch("tauT_IDSF_weight_new_vsele_up", &tauT_IDSF_weight_new_vsele_up);
     outTree->Branch("tauT_IDSF_weight_new_vsele_down", &tauT_IDSF_weight_new_vsele_down);
-    outTree->Branch("btagShape_weight", &btagShape_weight);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm0_up", &tauT_IDSF_weight_new_stat1_dm0_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm0_down", &tauT_IDSF_weight_new_stat1_dm0_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm1_up", &tauT_IDSF_weight_new_stat1_dm1_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm1_down", &tauT_IDSF_weight_new_stat1_dm1_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm10_up", &tauT_IDSF_weight_new_stat1_dm10_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm10_down", &tauT_IDSF_weight_new_stat1_dm10_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm11_up", &tauT_IDSF_weight_new_stat1_dm11_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm11_down", &tauT_IDSF_weight_new_stat1_dm11_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_alleras_up", &tauT_IDSF_weight_new_syst_alleras_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_alleras_down", &tauT_IDSF_weight_new_syst_alleras_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_up", &tauT_IDSF_weight_new_syst_era_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_down", &tauT_IDSF_weight_new_syst_era_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm0_up", &tauT_IDSF_weight_new_syst_era_dm0_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm0_down", &tauT_IDSF_weight_new_syst_era_dm0_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm1_up", &tauT_IDSF_weight_new_syst_era_dm1_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm1_down", &tauT_IDSF_weight_new_syst_era_dm1_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm10_up", &tauT_IDSF_weight_new_syst_era_dm10_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm10_down", &tauT_IDSF_weight_new_syst_era_dm10_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm11_up", &tauT_IDSF_weight_new_syst_era_dm11_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm11_down", &tauT_IDSF_weight_new_syst_era_dm11_down);
 
+
+    outTree->Branch("btagShape_weight", &btagShape_weight);
     outTree->Branch("btagShape_weight_jes_up", &btagShape_weight_jes_up);
     outTree->Branch("btagShape_weight_jes_down", &btagShape_weight_jes_down);
     outTree->Branch("btagShape_weight_hf_up", &btagShape_weight_hf_up);
@@ -109,21 +130,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("scaleWeightFa_down_", &scaleWeightFa_down_);
 
     // TOP Lepton MVA
-    // TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
-    // std::cout << "top ele SF file used: " << eleIDSF_topMVAFile->GetName() << "\n";
-    // eleIDSF_topMVA = (TH2D *)eleIDSF_topMVAFile->Get("EGamma_SF2D");
-    // eleIDSF_topMVA->SetDirectory(nullptr);
-    // eleIDSF_topMVAFile->Close();
-    // delete eleIDSF_topMVAFile;
-    // TFile *muIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(1)), "READ");
-    // std::cout << "top mu SF file used: " << muIDSF_topMVAFile->GetName() << "\n";
-    // TCanvas *canvas = (TCanvas *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    // muIDSF_topMVA = (TH2D *)canvas->GetPrimitive("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    // muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    // muIDSF_topMVA->Print();
-    // muIDSF_topMVA->SetDirectory(nullptr);
-    // muIDSF_topMVAFile->Close();
-    // delete muIDSF_topMVAFile;
     eleIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "EGamma_SF2D");
     muIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(1), "NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
     eleIDSF_topMVA_stat = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "stat");
@@ -264,7 +270,8 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", "Medium", m_isData, m_isRun3);
     tauTT_IDSF_weight_new = calTau_IDSF_new(e->tausTT_pt, e->tausTT_eta, e->tausTT_decayMode, e->tausTT_genPartFlav, cset.get(), "nom", "nom", "nom",  "Tight", m_isData, m_isRun3);
     //handling of tau systematic uncertainties properly 
-    tauT_IDSF_weight_new_stats_DMUncorrEraUncorr_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "syst_alleras_up", "up", "up", "Medium", m_isData, m_isRun3); //"stat$i_dm$DM_{up,down}" where $i=1,2 and $DM=0,1,10,11 
+    // tauT_IDSF_weight_new_stats_DMUncorrEraUncorr_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "syst_alleras_up", "up", "up", "Medium", m_isData, m_isRun3); //"stat$i_dm$DM_{up,down}" where $i=1,2 and $DM=0,1,10,11 
+    // tauT_IDSF_weight_new_stats_stat1DM0_eraUncorr_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm0_up"); //"stat$i_dm$DM_{up,down}" where $i=1,2 and $DM=0,1,10,11
 
     TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btagsPT : e->jets_btags;
     btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");
