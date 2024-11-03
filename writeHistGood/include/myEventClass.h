@@ -321,7 +321,6 @@ public:
     myBranch<Double_t> muonsTopMVAT_2eta{"muonsTopMVAT_2eta"};
 
     // branches for fakeTau;
-    // myBranch<Int_t> tausF_prongNum{"tausF_prongNum"};
     myBranch<Double_t> tausF_1jetPt{"tausF_1jetPt"};
     myBranch<Double_t> tausF_1eta{"tausF_1eta"};
     myBranch<Double_t> tausF_1jetEtaAbs{"tausF_1jetEtaAbs"};
@@ -347,11 +346,34 @@ public:
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
     myBranch<Double_t> PUweight_up_{"PUweight_up_"};
     myBranch<Double_t> HLT_weight_stats_up{"HLT_weight_stats_up"};
+
     myBranch<Double_t> tauT_IDSF_weight_new_vsjet_up{"tauT_IDSF_weight_new_vsjet_up"};
-    // myBranch<Double_t> elesTopMVAT_weight_up{"elesTopMVAT_weight_up"};
-    // myBranch<Double_t> musTopMVAT_weight_up{"musTopMVAT_weight_up"};
     myBranch<Double_t> tauT_IDSF_weight_new_vsmu_up{"tauT_IDSF_weight_new_vsmu_up"};
     myBranch<Double_t> tauT_IDSF_weight_new_vsele_up{"tauT_IDSF_weight_new_vsele_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsjet_down{"tauT_IDSF_weight_new_vsjet_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsmu_down{"tauT_IDSF_weight_new_vsmu_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_vsele_down{"tauT_IDSF_weight_new_vsele_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm0_up{"tauT_IDSF_weight_new_stat1_dm0_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm0_down{"tauT_IDSF_weight_new_stat1_dm0_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm1_up{"tauT_IDSF_weight_new_stat1_dm1_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm1_down{"tauT_IDSF_weight_new_stat1_dm1_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm10_up{"tauT_IDSF_weight_new_stat1_dm10_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm10_down{"tauT_IDSF_weight_new_stat1_dm10_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm11_up{"tauT_IDSF_weight_new_stat1_dm11_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm11_down{"tauT_IDSF_weight_new_stat1_dm11_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_alleras_up{"tauT_IDSF_weight_new_syst_alleras_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_alleras_down{"tauT_IDSF_weight_new_syst_alleras_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_up{"tauT_IDSF_weight_new_syst_era_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_down{"tauT_IDSF_weight_new_syst_era_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_dm0_up{"tauT_IDSF_weight_new_syst_era_dm0_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_dm0_down{"tauT_IDSF_weight_new_syst_era_dm0_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_dm1_up{"tauT_IDSF_weight_new_syst_era_dm1_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_dm1_down{"tauT_IDSF_weight_new_syst_era_dm1_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_dm10_up{"tauT_IDSF_weight_new_syst_era_dm10_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_dm10_down{"tauT_IDSF_weight_new_syst_era_dm10_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_dm11_up{"tauT_IDSF_weight_new_syst_era_dm11_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_syst_era_dm11_down{"tauT_IDSF_weight_new_syst_era_dm11_down"};
+
     myBranch<Double_t> btagShape_weight_jes_up{"btagShape_weight_jes_up"};
     myBranch<Double_t> btagShape_weight_hf_up{"btagShape_weight_hf_up"};
     myBranch<Double_t> btagShape_weight_lf_up{"btagShape_weight_lf_up"};
@@ -361,14 +383,10 @@ public:
     myBranch<Double_t> btagShape_weight_lfstats2_up{"btagShape_weight_lfstats2_up"};
     myBranch<Double_t> btagShape_weight_cferr1_up{"btagShape_weight_cferr1_up"};
     myBranch<Double_t> btagShape_weight_cferr2_up{"btagShape_weight_cferr2_up"};
+
     myBranch<Double_t> EVENT_prefireWeight_down{"EVENT_prefireWeight_down"};
     myBranch<Double_t> PUweight_down_{"PUweight_down_"};
     myBranch<Double_t> HLT_weight_stats_down{"HLT_weight_stats_down"};
-    myBranch<Double_t> tauT_IDSF_weight_new_vsjet_down{"tauT_IDSF_weight_new_vsjet_down"};
-    // myBranch<Double_t> elesTopMVAT_weight_down{"elesTopMVAT_weight_down"};
-    // myBranch<Double_t> musTopMVAT_weight_down{"musTopMVAT_weight_down"};
-    myBranch<Double_t> tauT_IDSF_weight_new_vsmu_down{"tauT_IDSF_weight_new_vsmu_down"};
-    myBranch<Double_t> tauT_IDSF_weight_new_vsele_down{"tauT_IDSF_weight_new_vsele_down"};
     myBranch<Double_t> btagShape_weight_jes_down{"btagShape_weight_jes_down"};
     myBranch<Double_t> btagShape_weight_hf_down{"btagShape_weight_hf_down"};
     myBranch<Double_t> btagShape_weight_lf_down{"btagShape_weight_lf_down"};
@@ -656,11 +674,33 @@ private:
         {EVENT_prefireWeight_down.n(), &EVENT_prefireWeight_down},
         {PUweight_down_.n(), &PUweight_down_},
         {HLT_weight_stats_down.n(), &HLT_weight_stats_down},
+
         {tauT_IDSF_weight_new_vsjet_down.n(), &tauT_IDSF_weight_new_vsjet_down},
-        // {elesTopMVAT_weight_down.n(), &elesTopMVAT_weight_down},
-        // {musTopMVAT_weight_down.n(), &musTopMVAT_weight_down},
         {tauT_IDSF_weight_new_vsmu_down.n(), &tauT_IDSF_weight_new_vsmu_down},
         {tauT_IDSF_weight_new_vsele_down.n(), &tauT_IDSF_weight_new_vsele_down},
+        {tauT_IDSF_weight_new_stat1_dm0_up.n(), &tauT_IDSF_weight_new_stat1_dm0_up},
+        {tauT_IDSF_weight_new_stat1_dm0_down.n(), &tauT_IDSF_weight_new_stat1_dm0_down},
+        {tauT_IDSF_weight_new_stat1_dm1_up.n(), &tauT_IDSF_weight_new_stat1_dm1_up},
+        {tauT_IDSF_weight_new_stat1_dm1_down.n(), &tauT_IDSF_weight_new_stat1_dm1_down},
+        {tauT_IDSF_weight_new_stat1_dm10_up.n(), &tauT_IDSF_weight_new_stat1_dm10_up},
+        {tauT_IDSF_weight_new_stat1_dm10_down.n(), &tauT_IDSF_weight_new_stat1_dm10_down},
+        {tauT_IDSF_weight_new_stat1_dm11_up.n(), &tauT_IDSF_weight_new_stat1_dm11_up},
+        {tauT_IDSF_weight_new_stat1_dm11_down.n(), &tauT_IDSF_weight_new_stat1_dm11_down},
+        {tauT_IDSF_weight_new_syst_alleras_up.n(), &tauT_IDSF_weight_new_syst_alleras_up},
+        {tauT_IDSF_weight_new_syst_alleras_down.n(), &tauT_IDSF_weight_new_syst_alleras_down},
+        {tauT_IDSF_weight_new_syst_era_up.n(), &tauT_IDSF_weight_new_syst_era_up},
+        {tauT_IDSF_weight_new_syst_era_down.n(), &tauT_IDSF_weight_new_syst_era_down},
+        {tauT_IDSF_weight_new_syst_era_dm0_up.n(), &tauT_IDSF_weight_new_syst_era_dm0_up},
+        {tauT_IDSF_weight_new_syst_era_dm0_down.n(), &tauT_IDSF_weight_new_syst_era_dm0_down},
+        {tauT_IDSF_weight_new_syst_era_dm1_up.n(), &tauT_IDSF_weight_new_syst_era_dm1_up},
+        {tauT_IDSF_weight_new_syst_era_dm1_down.n(), &tauT_IDSF_weight_new_syst_era_dm1_down},
+        {tauT_IDSF_weight_new_syst_era_dm10_up.n(), &tauT_IDSF_weight_new_syst_era_dm10_up},
+        {tauT_IDSF_weight_new_syst_era_dm10_down.n(), &tauT_IDSF_weight_new_syst_era_dm10_down},
+        {tauT_IDSF_weight_new_syst_era_dm11_up.n(), &tauT_IDSF_weight_new_syst_era_dm11_up},
+        {tauT_IDSF_weight_new_syst_era_dm11_down.n(), &tauT_IDSF_weight_new_syst_era_dm11_down},
+
+
+
         {btagShape_weight_jes_down.n(), &btagShape_weight_jes_down},
         {btagShape_weight_hf_down.n(), &btagShape_weight_hf_down},
         {btagShape_weight_lf_down.n(), &btagShape_weight_lf_down},

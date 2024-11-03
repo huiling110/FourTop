@@ -434,17 +434,34 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_pileup_Down");
     sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
     sysRegions.push_back(region + "_CMS_prefiring_" + era + "Down");
+
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Up"); // uncorrelated between eras, statistical uncertainty dominates
     sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_alleras_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_alleras_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+"_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+"_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm0_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm0_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm1_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm1_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm10_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm10_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm11_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm11_Down"); 
 
-    // sysRegions.push_back(region + "_CMS_tttt_eff_e_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_e_" + era + "Down");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_m_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_m_" + era + "Down");
     sysRegions.push_back(region + "_CMS_tttt_eff_e_syst_Up");
     sysRegions.push_back(region + "_CMS_tttt_eff_e_syst_Down");
     sysRegions.push_back(region + "_CMS_tttt_eff_m_syst_Up");
@@ -557,6 +574,7 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
             break;
         case 2: 
             // pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100); for per event
+            //i event: uncer = sqrt(1 + (LHEPdfWeight[1] - LHEPdfWeight[0])^2 + ... + (LHEPdfWeight[100] - LHEPdfWeight[0])^2)
             //!might not be possible to get the uncertainty from the sum of genEventWeight 
             break;
         
