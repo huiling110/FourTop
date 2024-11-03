@@ -270,8 +270,26 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", "Medium", m_isData, m_isRun3);
     tauTT_IDSF_weight_new = calTau_IDSF_new(e->tausTT_pt, e->tausTT_eta, e->tausTT_decayMode, e->tausTT_genPartFlav, cset.get(), "nom", "nom", "nom",  "Tight", m_isData, m_isRun3);
     //handling of tau systematic uncertainties properly 
-    // tauT_IDSF_weight_new_stats_DMUncorrEraUncorr_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "syst_alleras_up", "up", "up", "Medium", m_isData, m_isRun3); //"stat$i_dm$DM_{up,down}" where $i=1,2 and $DM=0,1,10,11 
-    // tauT_IDSF_weight_new_stats_stat1DM0_eraUncorr_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm0_up"); //"stat$i_dm$DM_{up,down}" where $i=1,2 and $DM=0,1,10,11
+    tauT_IDSF_weight_new_stat1_dm0_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm0_up", "nom", "nom", "Medium", m_isData, m_isRun3);//!detailed sytematic uncertainties only available for tauVsJet
+    tauT_IDSF_weight_new_stat1_dm0_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm0_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm1_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm1_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm1_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm1_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm10_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm10_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm10_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm10_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm11_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm11_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm11_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm11_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_alleras_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "syst_alleras_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_alleras_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "syst_alleras_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3); //! care for 2016; era=2016_preVFP, 2016_postVFP, 2017, 2018
+    tauT_IDSF_weight_new_syst_era_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm0_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_dm0_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm0_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_dm0_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm1_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_dm1_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm1_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_dm1_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm10_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_dm10_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm10_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_dm10_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm11_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_dm11_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm11_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_era + "_dm11_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
 
     TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btagsPT : e->jets_btags;
     btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");

@@ -861,8 +861,7 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
                 sf_vsele = corr_vsele->evaluate({ieta, idecayMode, igenMatch, "VVLoose", syst_vsele}); 
             }else{
                 // sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"}); //???not sure if is should be 5 or the genmatch of the tau
-                // sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "dm"}); //???not sure if is should be 5 or the genmatch of the tau
-                //!should probably use DM instead of pt
+                sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "VVLoose", syst_vsjet, "dm"}); //!should probably use DM instead of pt
                 sf_vsele = corr_vsele->evaluate({ieta, igenMatch, "VVLoose", syst_vsele}); // no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
             }
             sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu});
