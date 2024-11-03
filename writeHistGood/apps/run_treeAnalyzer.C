@@ -31,7 +31,6 @@ void run_treeAnalyzer(
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/",
     TString process = "tttt",
     // TString process = "fakeLepton",
-    // TString process = "st_tZq",
     // TString process = "fakeTau_tauF",
     // TString process = "ttbar_0l",
     // TString process = "ttbar_2l",
