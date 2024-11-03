@@ -429,7 +429,7 @@ TString getProcessName(const TString processName, Bool_t isRun3){
 
 void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era){
     sysRegions.push_back(region);
-    // sysRegions.push_back(region + "_CMS_pileup_" + era + "Up");
+
     sysRegions.push_back(region + "_CMS_pileup_Up");// 100% correlated
     sysRegions.push_back(region + "_CMS_pileup_Down");
     sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
@@ -504,23 +504,24 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
 
     sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
-    sysRegions.push_back(region + "_pdf_" + era + "Up");
-    sysRegions.push_back(region + "_pdf_" + era + "Down");
-    sysRegions.push_back(region + "_pdfAlphaS_" + era + "Up");
-    sysRegions.push_back(region + "_pdfAlphaS_" + era + "Down");
-    sysRegions.push_back(region + "_QCDscale_Re_" + era + "Up");
-    sysRegions.push_back(region + "_QCDscale_Re_" + era + "Down");
-    sysRegions.push_back(region + "_QCDscale_Fa_" + era + "Up");
-    sysRegions.push_back(region + "_QCDscale_Fa_" + era + "Down");
 
-    sysRegions.push_back(region + "_QCDscale_Re_normalised_" + era + "Up");
-    sysRegions.push_back(region + "_QCDscale_Re_normalised_" + era + "Down");
-    sysRegions.push_back(region + "_QCDscale_Fa_normalised_" + era + "Up");
-    sysRegions.push_back(region + "_QCDscale_Fa_normalised_" + era + "Down");
-    // sysRegions.push_back(region + "_pdf_normalised_" + era + "Up");
-    // sysRegions.push_back(region + "_pdf_normalised_" + era + "Down");
-    sysRegions.push_back(region + "_pdfAlphaS_normalised_" + era + "Up");
-    sysRegions.push_back(region + "_pdfAlphaS_normalised_" + era + "Down");
+    sysRegions.push_back(region + "_pdf_Up");
+    sysRegions.push_back(region + "_pdf_Down");
+    sysRegions.push_back(region + "_pdfAlphaS_Up");
+    sysRegions.push_back(region + "_pdfAlphaS_Down");
+    sysRegions.push_back(region + "_QCDscale_Re_Up");
+    sysRegions.push_back(region + "_QCDscale_Re_Down");
+    sysRegions.push_back(region + "_QCDscale_Fa_Up");
+    sysRegions.push_back(region + "_QCDscale_Fa_Down");
+
+    sysRegions.push_back(region + "_QCDscale_Re_normalised_Up");
+    sysRegions.push_back(region + "_QCDscale_Re_normalised_Down");
+    sysRegions.push_back(region + "_QCDscale_Fa_normalised_Up");
+    sysRegions.push_back(region + "_QCDscale_Fa_normalised_Down");
+    // sysRegions.push_back(region + "_pdf_normalised_Up");
+    // sysRegions.push_back(region + "_pdf_normalised_Down");
+    sysRegions.push_back(region + "_pdfAlphaS_normalised_Up");
+    sysRegions.push_back(region + "_pdfAlphaS_normalised_Down");
 }
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index){

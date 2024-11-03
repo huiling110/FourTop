@@ -215,6 +215,7 @@ void treeAnalyzer::LoopTree()
 void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region){
 //!correlated uncertainties are the same NP for 3 years, no need to add era in the name
         SR1tau1lSys.fillHistVec(region, bdtScore, basicWeight, SR1tau1l, m_isData);
+        if(!(m_isFakeLepton || m_isFakeTau||m_isData)){
 
         SR1tau1lSys.fillHistVec(region + "_CMS_pileup_Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_pileup_Down", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_down_.v(), SR1tau1l, m_isData);
@@ -287,30 +288,30 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_uncorrelated_"+m_era+"Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_uncorrelated_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_uncorrelated_"+m_era+"Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_uncorrelated_down.v(), SR1tau1l, m_isData); 
         
-        if( m_processName.Contains("fakeTau")){
-            SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era + "Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);
-            SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era + "Down", bdtScore, e->FR_weight_final_down, SR1tau1l, m_isData);
-        }
 
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hlt_stats_" + m_era + "Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hlt_stats_" + m_era + "Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
 
         //theorectical uncertainties
-        SR1tau1lSys.fillHistVec(region + "_pdf_" + m_era + "Up", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdf_" + m_era + "Down", bdtScore, basicWeight* e->pdfWeight_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_" + m_era + "Up", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_" + m_era + "Down", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_" + m_era + "Up", bdtScore, basicWeight* e->scaleWeightRe_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_" + m_era + "Down", bdtScore, basicWeight* e->scaleWeightRe_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_" + m_era + "Up", bdtScore, basicWeight* e->scaleWeightFa_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_" + m_era + "Down", bdtScore, basicWeight* e->scaleWeightFa_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_normalised_" + m_era + "Up", bdtScore, basicWeight* e->scaleWeightRe_up_.v()*m_scaleRe_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_normalised_" + m_era + "Down", bdtScore, basicWeight* e->scaleWeightRe_down_.v()*m_scaleRe_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_normalised_" + m_era + "Up", bdtScore, basicWeight* e->scaleWeightFa_up_.v()*m_scaleFa_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_normalised_" + m_era + "Down", bdtScore, basicWeight* e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalised_" + m_era + "Up", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v()*m_pdfAlphaS_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalised_" + m_era + "Down", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, SR1tau1l, m_isData);
-
+        SR1tau1lSys.fillHistVec(region + "_pdf_Up", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdf_Down", bdtScore, basicWeight* e->pdfWeight_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_Up", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_Down", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_Up", bdtScore, basicWeight* e->scaleWeightRe_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_Down", bdtScore, basicWeight* e->scaleWeightRe_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_Up", bdtScore, basicWeight* e->scaleWeightFa_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_Down", bdtScore, basicWeight* e->scaleWeightFa_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_normalised_Up", bdtScore, basicWeight* e->scaleWeightRe_up_.v()*m_scaleRe_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_normalised_Down", bdtScore, basicWeight* e->scaleWeightRe_down_.v()*m_scaleRe_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_normalised_Up", bdtScore, basicWeight* e->scaleWeightFa_up_.v()*m_scaleFa_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_normalised_Down", bdtScore, basicWeight* e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalised_Up", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v()*m_pdfAlphaS_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalised_Down", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, SR1tau1l, m_isData);
+        
+        }else if(m_isFakeTau){
+            SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era + "Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);
+            SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era + "Down", bdtScore, e->FR_weight_final_down, SR1tau1l, m_isData);
+        }//!fake lepton uncertainty to be added
 
 }
 
