@@ -258,12 +258,12 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_stat" + m_era + "Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
 
 
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jes_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jes_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);//!JES part should only be considered with the corresponding JES variation
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jes_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hf_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hf_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_lf_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_lf_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hf_Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hf_Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_lf_Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_lf_Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hfstats1_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hfstats1_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hfstats2_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_up.v(), SR1tau1l, m_isData);
@@ -272,10 +272,10 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_lfstats1_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_lfstats2_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_lfstats2_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr1_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr1_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr2_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr2_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr1_Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr1_Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr2_Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr2_Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(), SR1tau1l, m_isData);
 
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era + "Up", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era + "Down", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_down.v(), SR1tau1l, m_isData);
