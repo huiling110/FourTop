@@ -175,6 +175,7 @@ private:
     TH2D* triggerHist3b;
 
     std::vector<TTTT::EtaProngGraph> m_graphs;
+    TString m_eraForTau;
 
 };
 
