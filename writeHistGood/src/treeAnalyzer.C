@@ -258,8 +258,8 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_stat" + m_era + "Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
 
 
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jes_" + m_era + "Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);//!JES part should only be considered with the corresponding JES variation
-        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jes_" + m_era + "Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jes_Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);//!JES part should only be considered with the corresponding JES variation
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jes_Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hf_Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_hf_Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_hf_down.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_lf_Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_lf_up.v(), SR1tau1l, m_isData);
