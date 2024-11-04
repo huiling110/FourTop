@@ -24,6 +24,22 @@ MCSys = {
     'CMS_eff_t_vsJet_syst_dm10': [False, 0],
     'CMS_eff_t_vsJet_syst_dm11': [False, 0],
     
+    'CMS_tttt_eff_e_syst': [True, 0],
+    'CMS_tttt_eff_m_syst': [True, 0],
+    'CMS_tttt_eff_e_stat': [False, 0],
+    'CMS_tttt_eff_m_stat': [False, 0],
+    
+    #!btagWP for 1tau1l and 1tau2l
+    'CMS_eff_bWPMT_correlated': [True, 0],
+    'CMS_eff_bWPMT_uncorrelated': [False, 0],
+   
+    'CMS_tau_FR': [False, 1],
+    
+    'pdfAlphaS_normalised': [True, 0],
+    'pdf': [True, 0],
+    'QCDscale_Re_normalised': [True, 0],   
+    'QCDscale_Fa_normalised': [True, 0],   
+    
     
 }
 
@@ -32,9 +48,11 @@ MCSys = {
 def main():
    channel = '1tau1l'
    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+   outVersion = 'v0'
    
    inputDir = os.path.dirname(inputTemplate) 
-   outDir = inputDir + '/datacardSys/'
+#    outDir = inputDir + '/datacardSys/'
+   outDir = f"{inputDir}/datacardSys_{outVersion}/"
    uf.checkMakeDir(outDir)
    outCard = f"{outDir}datacard_{channel}.txt"
     
