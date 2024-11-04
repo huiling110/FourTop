@@ -34,7 +34,7 @@ def main():
    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
    
    inputDir = os.path.dirname(inputTemplate) 
-   outDir = inputDir + 'datacardSys/'
+   outDir = inputDir + '/datacardSys/'
    uf.checkMakeDir(outDir)
    outCard = f"{outDir}datacard_{channel}.txt"
     
@@ -175,6 +175,10 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
         )
         # print(line)
         lines.append(line)
+        
+    # Add MC statistical uncertainties
+    lines.append("---------------")
+    lines.append(f"{channelNameName} autoMCStats 10 0 1")
 
     # Write to file
     with open(output_file, 'w') as f:

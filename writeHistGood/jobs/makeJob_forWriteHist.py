@@ -138,8 +138,7 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
 
             logFile = logDir + iProcess + ".log"
             errFile = logDir + iProcess +".err"
-            # subAllProcess.write('hep_sub '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
-            subAllProcess.write('hep_sub -os CentOS7 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
+            subAllProcess.write('hep_sub -os CentOS7 -mem 8000 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
     # version = 'v1dataMC_allutHLTFakeLepton_ZVeto'
 
 
