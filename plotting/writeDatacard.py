@@ -5,9 +5,9 @@ import ttttGlobleQuantity as gq
 MCSys = {
     #sys: [isCorrelated, whichProces] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
     'CMS_pileup': [True, 0],
-    'CMS_prefiring': [True, 0],
+    'CMS_prefiring': [False, 0],
     
-    'CMS_eff_t_vsMu': [False, 0], #uncorrelated
+    'CMS_eff_t_vsMu_': [False, 0], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0], #need to add era to the name
     'CMS_eff_t_vsJet_stat1_dm0': [False, 0],
     'CMS_eff_t_vsJet_stat1_dm1': [False, 0],
@@ -153,7 +153,7 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
         "---------------",
         f"{binString}{''.join([channelNameName.ljust(value_col_width) for _ in range(num_processes)])}",
         f"{proString}{''.join([proc.ljust(value_col_width) for proc in processes])}",
-        f"{proString}{''.join([str(i - signal_index).ljust(value_col_width) for i in range(num_processes)])}",
+        f"{proString}{''.join([str(signal_index-i).ljust(value_col_width) for i in range(num_processes)])}",
         f"{rates}{''.join(['-1'.ljust(value_col_width) for i in range(num_processes)])}" ,
         
         "---------------"
