@@ -6,10 +6,24 @@ MCSys = {
     #sys: [isCorrelated, whichProces] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
     'CMS_pileup': [True, 0],
     'CMS_prefiring': [True, 0],
+    
     'CMS_eff_t_vsMu': [False, 0], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0], #need to add era to the name
     'CMS_eff_t_vsJet_stat1_dm0': [False, 0],
     'CMS_eff_t_vsJet_stat1_dm1': [False, 0],
+    'CMS_eff_t_vsJet_stat1_dm10': [False, 0],
+    'CMS_eff_t_vsJet_stat1_dm11': [False, 0],
+    'CMS_eff_t_vsJet_stat2_dm0': [False, 0],
+    'CMS_eff_t_vsJet_stat2_dm1': [False, 0],
+    'CMS_eff_t_vsJet_stat2_dm10': [False, 0],
+    'CMS_eff_t_vsJet_stat2_dm11': [False, 0],
+    'CMS_eff_t_vsJet_syst_alleras': [True, 0],
+    'CMS_eff_t_vsJet_syst': [False, 0],
+    'CMS_eff_t_vsJet_syst_dm0': [False, 0],
+    'CMS_eff_t_vsJet_syst_dm1': [False, 0],
+    'CMS_eff_t_vsJet_syst_dm10': [False, 0],
+    'CMS_eff_t_vsJet_syst_dm11': [False, 0],
+    
     
 }
 
@@ -25,6 +39,7 @@ def main():
    outCard = f"{outDir}datacard_{channel}.txt"
     
    processes = gq.proChannelDic[channel]
+   processes.remove('jetHT')  
    print(processes)
   
    era = uf.getEraFromDir(inputTemplate) 
@@ -84,7 +99,7 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
     
     rates = f"rate".ljust(process_col_width)
     proString = f"process".ljust(process_col_width)
-    binString = f""
+    binString = f"bin".ljust(process_col_width)
     lines = [
         "imax 1  number of channels",
         "jmax {}  number of background processes".format(num_processes - 1),
@@ -104,14 +119,20 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
     ]
 
     for unc_name, (unc_type, uncertainties) in systematics.items():
-        line = f"{unc_name.ljust(process_col_width)}{unc_type.ljust(value_col_width)}"
+        line = f"{unc_name }  {unc_type}".ljust(process_col_width)
+        ilist = []
+        for proc in processes:
+           iuncer = uncertainties[proc] if not uncertainties[proc]==0 else '-'
+        #    print(type(iuncer))
+           ilist.append(f"{iuncer}".ljust(value_col_width))
         line += " ".join(
+            ilist
             # f"{uncertainties[proc][0]:.3f}/{uncertainties[proc][1]:.3f}" if proc in uncertainties else "-"
             # for proc in processes
-            f"{uncertainties[proc]}" if proc in uncertainties else "-"
-            for proc in processes
+            # f"{uncertainties[proc]}" if proc in uncertainties else "-"
+            # for proc in processes
         )
-
+        # print(line)
         lines.append(line)
 
     # Write to file
