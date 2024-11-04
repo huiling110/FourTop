@@ -214,8 +214,8 @@ void treeAnalyzer::LoopTree()
 
 void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region){
 //!correlated uncertainties are the same NP for 3 years, no need to add era in the name
-        SR1tau1lSys.fillHistVec(region, bdtScore, basicWeight, SR1tau1l, m_isData);
-        if(!(m_isFakeLepton || m_isFakeTau||m_isData)){
+    SR1tau1lSys.fillHistVec(region, bdtScore, basicWeight, SR1tau1l, m_isData);
+    if(!(m_isFakeLepton || m_isFakeTau||m_isData)){
 
         SR1tau1lSys.fillHistVec(region + "_CMS_pileup_Up", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_pileup_Down", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_down_.v(), SR1tau1l, m_isData);
