@@ -51,7 +51,6 @@ def main():
    outVersion = 'v0'
    
    inputDir = os.path.dirname(inputTemplate) 
-#    outDir = inputDir + '/datacardSys/'
    outDir = f"{inputDir}/datacardSys_{outVersion}/"
    uf.checkMakeDir(outDir)
    outCard = f"{outDir}datacard_{channel}.txt"

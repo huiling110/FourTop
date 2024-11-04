@@ -57,6 +57,7 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         // scaleWeight_up = std::max_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
         // scaleWeight_down = std::min_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
         if (e->LHEScaleWeight!=nullptr){
+            //!w_var / w_nominal
             std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;//this one should be correct
             scaleWeight_up = *(std::max_element(vec.begin(), vec.end()));
             scaleWeight_down =*( std::min_element(vec.begin(), vec.end()));

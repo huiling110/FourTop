@@ -140,7 +140,6 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_i muonsTopMVAF_num_class = std::make_shared<histsForRegionsMap<Int_t>>("muonsTopMVAF_num", "n^{F #mu}", m_processName, 5, -0.5, 4.5, regionsForVariables, &(e->muonsTopMVAF_num));
 
 
-
     SP_i jets_num_class = std::make_shared<histsForRegionsMap<Int_t>>("jets_num", "n^{jet}", m_processName, 12, 1.5, 13.5, regionsForVariables, &(e->jets_num));
     SP_i bjetsM_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsM_num", "n^{b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsM_num));
     SP_i bjetsT_num_class = std::make_shared<histsForRegionsMap<Int_t>>("bjetsT_num", "n^{T b-jet}", m_processName, 8, -0.5, 7.5, regionsForVariables, &(e->bjetsT_num));
