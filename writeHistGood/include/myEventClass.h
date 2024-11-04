@@ -365,6 +365,16 @@ public:
     myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm10_down{"tauT_IDSF_weight_new_stat1_dm10_down"};
     myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm11_up{"tauT_IDSF_weight_new_stat1_dm11_up"};
     myBranch<Double_t> tauT_IDSF_weight_new_stat1_dm11_down{"tauT_IDSF_weight_new_stat1_dm11_down"};
+
+    myBranch<Double_t> tauT_IDSF_weight_new_stat2_dm0_up{"tauT_IDSF_weight_new_stat2_dm0_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat2_dm0_down{"tauT_IDSF_weight_new_stat2_dm0_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat2_dm1_up{"tauT_IDSF_weight_new_stat2_dm1_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat2_dm1_down{"tauT_IDSF_weight_new_stat2_dm1_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat2_dm10_up{"tauT_IDSF_weight_new_stat2_dm10_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat2_dm10_down{"tauT_IDSF_weight_new_stat2_dm10_down"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat2_dm11_up{"tauT_IDSF_weight_new_stat2_dm11_up"};
+    myBranch<Double_t> tauT_IDSF_weight_new_stat2_dm11_down{"tauT_IDSF_weight_new_stat2_dm11_down"};
+
     myBranch<Double_t> tauT_IDSF_weight_new_syst_alleras_up{"tauT_IDSF_weight_new_syst_alleras_up"};
     myBranch<Double_t> tauT_IDSF_weight_new_syst_alleras_down{"tauT_IDSF_weight_new_syst_alleras_down"};
     myBranch<Double_t> tauT_IDSF_weight_new_syst_era_up{"tauT_IDSF_weight_new_syst_era_up"};
@@ -694,6 +704,17 @@ private:
         {tauT_IDSF_weight_new_stat1_dm10_down.n(), &tauT_IDSF_weight_new_stat1_dm10_down},
         {tauT_IDSF_weight_new_stat1_dm11_up.n(), &tauT_IDSF_weight_new_stat1_dm11_up},
         {tauT_IDSF_weight_new_stat1_dm11_down.n(), &tauT_IDSF_weight_new_stat1_dm11_down},
+
+        {tauT_IDSF_weight_new_stat2_dm0_up.n(), &tauT_IDSF_weight_new_stat2_dm0_up},
+        {tauT_IDSF_weight_new_stat2_dm0_down.n(), &tauT_IDSF_weight_new_stat2_dm0_down},
+        {tauT_IDSF_weight_new_stat2_dm1_up.n(), &tauT_IDSF_weight_new_stat2_dm1_up},
+        {tauT_IDSF_weight_new_stat2_dm1_down.n(), &tauT_IDSF_weight_new_stat2_dm1_down},
+        {tauT_IDSF_weight_new_stat2_dm10_up.n(), &tauT_IDSF_weight_new_stat2_dm10_up},
+        {tauT_IDSF_weight_new_stat2_dm10_down.n(), &tauT_IDSF_weight_new_stat2_dm10_down},
+        {tauT_IDSF_weight_new_stat2_dm11_up.n(), &tauT_IDSF_weight_new_stat2_dm11_up},
+        {tauT_IDSF_weight_new_stat2_dm11_down.n(), &tauT_IDSF_weight_new_stat2_dm11_down},
+
+
         {tauT_IDSF_weight_new_syst_alleras_up.n(), &tauT_IDSF_weight_new_syst_alleras_up},
         {tauT_IDSF_weight_new_syst_alleras_down.n(), &tauT_IDSF_weight_new_syst_alleras_down},
         {tauT_IDSF_weight_new_syst_era_up.n(), &tauT_IDSF_weight_new_syst_era_up},

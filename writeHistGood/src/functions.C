@@ -449,6 +449,16 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "_Down");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "_Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "_Down");
+
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm0_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm0_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm1_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm1_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm10_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm10_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm11_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm11_" + era + "_Down");
+
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_alleras_Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_alleras_Down");
 
