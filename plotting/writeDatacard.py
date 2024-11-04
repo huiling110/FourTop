@@ -46,11 +46,17 @@ def main():
    sysDic = getSysDic(processes, channel, era) 
    
    addLumi(sysDic, era, processes)
+   addProcessNormalization(sysDic, processes)
    
    for i, iv in sysDic.items():
        print(i, iv)
        
    write_shape_datacard(outCard, inputTemplate, channel, processes,  sysDic, era) 
+   
+def addProcessNormalization(sysDic, processes):
+    proNormalDic = {
+        
+    }
 
 def addLumi(sysDic, era, processes):
     sysDic['lumi_13TeV'] = [] # correlated 3 years

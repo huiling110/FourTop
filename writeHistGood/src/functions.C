@@ -432,44 +432,45 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
 
     sysRegions.push_back(region + "_CMS_pileup_Up");// 100% correlated
     sysRegions.push_back(region + "_CMS_pileup_Down");
-    sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_prefiring_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_prefiring_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_prefiring_" + era + "_Down");
 
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Up"); // uncorrelated between eras, statistical uncertainty dominates
-    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "_Up"); // uncorrelated between eras, statistical uncertainty dominates
+    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "_Down");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_alleras_Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_alleras_Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+"_Up");//!era in the end
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+"_Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm0_Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm0_Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm1_Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm1_Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm10_Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm10_Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm11_Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_"+era+ "_dm11_Down"); 
+
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_" +era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm0_" + era +"_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm0_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm1_" + era +"_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm1_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm10_" + era +"_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm10_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era +"_Up");
+    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era + "_Down"); 
 
     sysRegions.push_back(region + "_CMS_tttt_eff_e_syst_Up");
     sysRegions.push_back(region + "_CMS_tttt_eff_e_syst_Down");
     sysRegions.push_back(region + "_CMS_tttt_eff_m_syst_Up");
     sysRegions.push_back(region + "_CMS_tttt_eff_m_syst_Down");
-    sysRegions.push_back(region + "_CMS_tttt_eff_m_stat" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_eff_m_stat" + era + "Down");
-    sysRegions.push_back(region + "_CMS_tttt_eff_e_stat" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_eff_e_stat" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "_Down");
 
     sysRegions.push_back(region + "_CMS_btag_shape_jes_Up");
     sysRegions.push_back(region + "_CMS_btag_shape_jes_Down");
@@ -477,34 +478,34 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_btag_shape_hf_Down");
     sysRegions.push_back(region + "_CMS_btag_shape_lf_Up");
     sysRegions.push_back(region + "_CMS_btag_shape_lf_Down");
-    sysRegions.push_back(region + "_CMS_btag_shape_hfstats1_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_btag_shape_hfstats1_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_btag_shape_hfstats2_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_btag_shape_hfstats2_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_btag_shape_lfstats1_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_btag_shape_lfstats1_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_btag_shape_lfstats2_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_btag_shape_lfstats2_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_hfstats1_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_hfstats1_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_hfstats2_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_hfstats2_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_lfstats1_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_lfstats1_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_btag_shape_lfstats2_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_btag_shape_lfstats2_" + era + "_Down");
     sysRegions.push_back(region + "_CMS_btag_shape_cferr1_Up");
     sysRegions.push_back(region + "_CMS_btag_shape_cferr1_Down");
     sysRegions.push_back(region + "_CMS_btag_shape_cferr2_Up");
     sysRegions.push_back(region + "_CMS_btag_shape_cferr2_Down");
 
 
-    sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "_Down");
 
-    sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "_Down");
+    sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "_Down");
     sysRegions.push_back(region + "_CMS_eff_bWPMT_correlated_Up");
     sysRegions.push_back(region + "_CMS_eff_bWPMT_correlated_Down");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Up");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Down");
+    sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"_Up");
+    sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"_Down");
 
-    sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tau_FR_" + era + "_Up");
+    sysRegions.push_back(region + "_CMS_tau_FR_" + era + "_Down");
 
     sysRegions.push_back(region + "_pdf_Up");
     sysRegions.push_back(region + "_pdf_Down");
