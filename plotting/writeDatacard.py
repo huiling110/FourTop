@@ -44,11 +44,44 @@ def main():
   
    era = uf.getEraFromDir(inputTemplate) 
    sysDic = getSysDic(processes, channel, era) 
-#    print(sysDic)
+   
+   addLumi(sysDic, era, processes)
+   
    for i, iv in sysDic.items():
        print(i, iv)
        
-   write_shape_datacard(outCard, inputTemplate, channel, processes,  sysDic) 
+   write_shape_datacard(outCard, inputTemplate, channel, processes,  sysDic, era) 
+
+def addLumi(sysDic, era, processes):
+    sysDic['lumi_13TeV'] = [] # correlated 3 years
+    sysDic[f'lumi_13TeV_{era}'] = []
+    sysDic['lumi_13TeV_20172018'] = []
+    sysDic['lumi_13TeV'].append("lnN")
+    sysDic[f'lumi_13TeV_{era}'].append("lnN")
+    sysDic['lumi_13TeV_20172018'].append("lnN")
+     
+    lumiMap = {
+        #[uncorrelated, correlated 3 years, correlated 2017 and 2018]
+        '2016preVFP': [1.01, 1.006, 0] , '2016postVFP': [1.01, 1.006, 0], '2017': [1.02, 1.009, 1.006], '2018': [1.015, 1.02, 1.002]}
+    iDicCorrelated = {}
+    iDicUncorrelated = {}
+    iDic20172018 = {}
+    for ipro in processes:
+        if ipro == 'fakeTau' or ipro == 'fakeLepton': 
+            iDicCorrelated[ipro] = 0 
+            iDicUncorrelated[ipro] = 0
+            iDic20172018[ipro] = 0
+        else:
+            iDicCorrelated[ipro] = lumiMap[era][1]
+            iDicUncorrelated[ipro] = lumiMap[era][0]
+            iDic20172018[ipro] = lumiMap[era][2] 
+    
+    sysDic['lumi_13TeV'].append(iDicCorrelated)
+    sysDic[f'lumi_13TeV_{era}'].append(iDicUncorrelated)
+    sysDic['lumi_13TeV_20172018'].append(iDic20172018)        
+            
+             
+              
 
 def getSysDic(processes, channel, era):
     sysDic = {}
@@ -76,7 +109,7 @@ def getProSysDic(sys, sysList, processes):
     return proSys            
              
    
-def write_shape_datacard(output_file, root_file, channel_name, processes,  systematics):
+def write_shape_datacard(output_file, root_file, channel_name, processes,  systematics, era='2018'):
     """
     Write a shape datacard for CMS Combine.
 
@@ -92,10 +125,12 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
     """
 
     num_processes = len(processes)
-    signal_index = -1  # Assuming the first process is the signal
+    # signal_index = -1  # Assuming the first process is the signal
+    signal_index = processes.index('tttt')
     
-    process_col_width = 40
-    value_col_width = 12
+    process_col_width = 38
+    value_col_width = 14
+    channelNameName = f"SR{channel_name}_{era}"
     
     rates = f"rate".ljust(process_col_width)
     proString = f"process".ljust(process_col_width)
@@ -105,12 +140,12 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
         "jmax {}  number of background processes".format(num_processes - 1),
         "kmax *  number of nuisance parameters (sources of systematic uncertainties)",
         "---------------",
-        f"shapes * {channel_name} {root_file} $PROCESS $PROCESS_$SYSTEMATIC",
+        f"shapes * {channelNameName} {root_file} $PROCESS_{channel_name}SR_BDT $PROCESS_{channel_name}SR_$SYSTEMATIC_BDT",
         "---------------",
-        f"bin         {channel_name}",
+        f"bin         {channelNameName}",
         "observation -1",
         "---------------",
-        f"{binString}{''.join([channel_name.ljust(value_col_width) for _ in range(num_processes)])}",
+        f"{binString}{''.join([channelNameName.ljust(value_col_width) for _ in range(num_processes)])}",
         f"{proString}{''.join([proc.ljust(value_col_width) for proc in processes])}",
         f"{proString}{''.join([str(i - signal_index).ljust(value_col_width) for i in range(num_processes)])}",
         f"{rates}{''.join(['-1'.ljust(value_col_width) for i in range(num_processes)])}" ,
@@ -119,7 +154,7 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
     ]
 
     for unc_name, (unc_type, uncertainties) in systematics.items():
-        line = f"{unc_name }  {unc_type}".ljust(process_col_width)
+        line = f"{unc_name} {unc_type}".ljust(process_col_width)
         ilist = []
         for proc in processes:
            iuncer = uncertainties[proc] if not uncertainties[proc]==0 else '-'
