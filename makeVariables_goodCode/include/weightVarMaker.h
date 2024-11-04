@@ -78,6 +78,15 @@ private:
     Double_t tauT_IDSF_weight_new_stat1_dm10_down;
     Double_t tauT_IDSF_weight_new_stat1_dm11_up;
     Double_t tauT_IDSF_weight_new_stat1_dm11_down;
+
+    Double_t tauT_IDSF_weight_new_stat2_dm0_up;
+    Double_t tauT_IDSF_weight_new_stat2_dm0_down;
+    Double_t tauT_IDSF_weight_new_stat2_dm1_up;
+    Double_t tauT_IDSF_weight_new_stat2_dm1_down;
+    Double_t tauT_IDSF_weight_new_stat2_dm10_up;
+    Double_t tauT_IDSF_weight_new_stat2_dm10_down;
+    Double_t tauT_IDSF_weight_new_stat2_dm11_up;
+    Double_t tauT_IDSF_weight_new_stat2_dm11_down;
     Double_t tauT_IDSF_weight_new_syst_alleras_up;
     Double_t tauT_IDSF_weight_new_syst_alleras_down;
     Double_t tauT_IDSF_weight_new_syst_era_up;
