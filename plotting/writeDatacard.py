@@ -7,7 +7,7 @@ MCSys = {
     'CMS_pileup': [True, 0],
     'CMS_prefiring': [False, 0],
     
-    'CMS_eff_t_vsMu_': [False, 0], #uncorrelated
+    'CMS_eff_t_vsMu': [False, 0], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0], #need to add era to the name
     'CMS_eff_t_vsJet_stat1_dm0': [False, 0],
     'CMS_eff_t_vsJet_stat1_dm1': [False, 0],
