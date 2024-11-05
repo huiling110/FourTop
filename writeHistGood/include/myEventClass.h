@@ -189,6 +189,8 @@ public:
     myBranch<Double_t> scaleWeightRe_down_{"scaleWeightRe_down_"};
     myBranch<Double_t> scaleWeightFa_up_{"scaleWeightFa_up_"};
     myBranch<Double_t> scaleWeightFa_down_{"scaleWeightFa_down_"};
+    myBranch<Double_t> PSWeight_up_{"PSWeight_up_"};
+    myBranch<Double_t> PSWeight_down_{"PSWeight_down_"};
 
     myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
@@ -528,6 +530,8 @@ private:
         {scaleWeightRe_down_.n(), &scaleWeightRe_down_},
         {scaleWeightFa_up_.n(), &scaleWeightFa_up_},
         {scaleWeightFa_down_.n(), &scaleWeightFa_down_},
+        {PSWeight_up_.n(), &PSWeight_up_},
+        {PSWeight_down_.n(), &PSWeight_down_},
 
     {jets_num.n(), &jets_num},
     {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},

@@ -320,6 +320,8 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_normalisedDown", bdtScore, basicWeight* e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalisedUp", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v()*m_pdfAlphaS_normUp_SF, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalisedDown", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ISRFSRUp", bdtScore, basicWeight* e->PSWeight_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ISRFSRDown", bdtScore, basicWeight* e->PSWeight_down_.v(), SR1tau1l, m_isData);
         
         }else if(m_isFakeTau){
             SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era +"Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);
