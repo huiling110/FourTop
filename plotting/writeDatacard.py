@@ -4,7 +4,7 @@ import ttttGlobleQuantity as gq
 
 MCSys = {
     #sys: [isCorrelated, whichProces, channelBits] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
-    #!Channlebits information for each channel, bit 0:1tau1l; bit 1:1tau0l; bit 2: 1tau2l
+    #!Channlebits information for each channel, bit 100:1tau1l; bit 010:1tau0l; bit 001: 1tau2l
     'CMS_pileup': [True, 0, 0b111 ],
     'CMS_prefiring': [False, 0, 0b111],
     
