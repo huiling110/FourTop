@@ -48,7 +48,7 @@ MCSys = {
    
     'CMS_tau_FR': [False, 1, 0b010],
     
-    'pdfAlphaS_normalised': [True, 0, 0b111],
+    'pdfAlphaS_normalised': [True, 0, 0b111], #!not considering for singleTop 
     'pdf': [True, 0, 0b111],
     'QCDscale_Re_normalised': [True, 0, 0b111],   
     'QCDscale_Fa_normalised': [True, 0, 0b111],  
@@ -151,6 +151,8 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
             proSys[ipro] = 1 if sysList[1]==2 and ((sysList[2]&channeMask) !=0) else 0
         else: 
             proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
+            if sys=='pdfAlphaS_normalised' and ipro=='singleTop': #!!!
+                proSys[ipro] = 0
              
     return proSys            
              

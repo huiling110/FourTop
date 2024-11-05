@@ -131,7 +131,8 @@ def main():
     SystematicsNames = [
         'QCDscale_Re_normalised',
         'QCDscale_Fa_normalised',
-        'pdfAlphaS_normalised'
+        'pdfAlphaS_normalised',
+        'ISRFSR',
     ]
     year = '2018'
     for ProcessName in ProcessNames:
