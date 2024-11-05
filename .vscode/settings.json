@@ -101,7 +101,7 @@
     "-c",
     "source ${workspaceFolder}/setupEnv.sh; exec $SHELL"
     ],
-    "window.zoomLevel": 0.2,
+    "window.zoomLevel": -1,
     "files.exclude": {
         "**/*.o": true
     },
@@ -112,6 +112,7 @@
         "**/jobs/**/*.sh": true
     },
     "editor.defaultFormatter": "ms-python.autopep8",
+    "cmake.ignoreCMakeListsMissing": true,
 
 
 }

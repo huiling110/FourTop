@@ -35,14 +35,14 @@ def main():
     
     #!1tau1l
     channel = '1tau1l'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/'
+    #inputDir = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baseline1tau0lForBDT_v81addSysSum_1tau0l_full/mc/'
+    inputDir = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardro_1tau1l_BDTSR_v86HadroPreSelWithGammaRemoval/mc/'
     # varList = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final30.csv'
     # varList = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l.csv'
-    varList = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv'
+    varList = '/afs/ihep.ac.cn/users/t/turuobing/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv'
     g_weight = 'global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMT_weight'
     # outVersion = 'v0allVar'
-    outVersion = 'v1finalVar27'
+    outVersion = 'tttt_GBDT_1tau1l'
     
     #1tau2l
     # channel = '1tau2l'
@@ -54,7 +54,7 @@ def main():
     # outVersion = 'v0allVar'
     # outVersion = 'v1finalVar'
     
-    ifVLL = ''
+    ifVLL = 'VLLm600'
     
     outDir = inputDir + 'BDTTrain/' 
     uf.checkMakeDir(outDir)

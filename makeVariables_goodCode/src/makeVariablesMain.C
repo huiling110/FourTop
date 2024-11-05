@@ -58,7 +58,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if(m_is1tau2l){
             ifPass = jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1 && tauVarMaker.getNum()==1; 
         }else{
-            ifPass = bjetM_num<4? jetVarMaker.getHT()>500. && jetVarMaker.getJet_6pt()>40.: jetVarMaker.getHT()>480. && jetVarMaker.getJet_6pt()>38.;
+            ifPass = bjetM_num>=3 && jetVarMaker.getHT()>500. && jetVarMaker.getJet_6pt()>40.;
             ifPass = ifPass && jetVarMaker.getJet_num()>= 6 && bjetM_num>=2;   
         }
         if (baselineSel&&!ifPass)
@@ -80,8 +80,8 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
             continue;
         }
         if(tau1e1Sel){
-            if(!(jetVarMaker.getJet_num()>= 7 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
-            // if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauFVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0  )){ //!1tau0lSR, can not add tauT cut, for fake tau estimation later
+            // if(!(jetVarMaker.getJet_num()>= 7 && bjetM_num >= 3 && tauVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==1 )){//!1tau1l SR
+            if(!(jetVarMaker.getJet_num()>= 8 && bjetM_num >= 3 && tauFVarMaker.getNum()==1 && (eleTopVarMaker.getNum()+muTopTVarMaker.getNum())==0  )){ //!1tau0lSR, can not add tauT cut, for fake tau estimation later
             // if(!(jetVarMaker.getJet_num()>= 4 && bjetM_num >= 2 && tauVarMaker.getNum()==1 && lepVarMaker.getNum()==2 && lepVarMaker.get1pt()>25. && lepVarMaker.get2pt()>13. )){ //!1tau2lSR, for BDTraining, not including fakeLepton
                 continue;
             }
@@ -115,14 +115,14 @@ void MakeVariablesMain::Terminate()
         if (!m_isRun3)
         {
             if(m_processName.Contains("VLL")){
-                chain2.Add(m_inputDir + "NanoAODv9*.root");
+                chain2.Add(m_inputDir + "*.root");
             }else{
-                chain2.Add(m_inputDir + "outTree*.root");
+                chain2.Add(m_inputDir + "*.root");
             }
         }
         else
         {
-            chain2.Add(m_inputDir + "tree*.root");
+            chain2.Add(m_inputDir + "*.root");
         }
         // chain2.Merge(m_output, 2000);
         TTree *Runs = chain2.CloneTree();

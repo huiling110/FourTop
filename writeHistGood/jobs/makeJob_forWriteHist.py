@@ -34,7 +34,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/'
+    inputDir = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/'
     
     # channel = '1tau1l'
@@ -45,7 +45,7 @@ def main():
     #!fakerate
     # version = 'v0FR_measure1prong'
     # version = 'v0FR_measure3prong'
-    version = 'v0FRMeasure'
+    version = '1tau0l_ABDT_VLL'
        
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
@@ -133,8 +133,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './apps/run_WH_forDataMC.out {} {} {} {} {}'.format(inputDir, iProcess, channel, version, isTest)
-            # run = './apps/run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            # run = './apps/run_WH_forDataMC.out {} {} {} {} {}'.format(inputDir, iProcess, channel, version, isTest)
+            run = './apps/run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

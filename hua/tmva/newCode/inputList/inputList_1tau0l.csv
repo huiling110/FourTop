@@ -4,11 +4,10 @@ tausF_MHT
 tausF_HT
 tausF_invariantMass
 tausF_minDeltaR
-tausF_prongNum
 tausF_1decayMode
 tausF_1prongNum
 tausF_1jetPt
-tausF_1jetEtaAbs
+tausF_1jetEta
 tausF_1charge
 tausF_1neutralIso
 tausF_1Met_transMass

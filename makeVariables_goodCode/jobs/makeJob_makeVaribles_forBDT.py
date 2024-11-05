@@ -43,7 +43,7 @@ def main():
     # inVersion = 'v85HadroPreselTauOverlap0.5'
     inVersion = 'v86HadroPreSelWithGammaRemoval'
 
-    outVersion = 'v0baselineHardro'
+    outVersion = 'v0baselineHardro_nb3Ht500Pt40'
     # outVersion = 'v0baselineLep'
    
     # outVersion = 'v1baselineHardroFRUpdated' 
@@ -96,7 +96,7 @@ def main():
 
 def getInOutDic( year, inVersion, outVersion, justMC ):
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
+    outputBase = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/'
     # outputBase = '/scratchfs/cms/huahuil/forMVA/'
     inputOutputDic={
         '2016postVFP': 'UL2016_postVFP',

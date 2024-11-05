@@ -85,7 +85,7 @@ def copySingleFile():
         print(outName)
         # if not outName == 'VLL_EE_M500': continue
         # if outName == 'VLL_EE_M500': continue
-        if not Process_name[0] in outName: continue
+        if not Process_name[1] in outName: continue
         
         for inano in ifile:
             # inputDir = redirector + inano

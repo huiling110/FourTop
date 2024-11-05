@@ -74,18 +74,18 @@ def copyDir():
     # print(output)
     
 def copySingleFile():
-    for isam, ifile in VLL_Charis_2018.filesetSignal.items():
+    for isam, ifile in VLL_Charis_2016post.filesetSignal.items():
         print(isam)
         outName = isam
         # outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL/' + outName + '/'
-        outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/' + outName + '/'
+        outDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/' + outName + '/'
         
         if not os.path.exists( outDir ):
             os.mkdir( outDir )
         print(outName)
         # if not outName == 'VLL_EE_M500': continue
         # if outName == 'VLL_EE_M500': continue
-        if not Process_name[0] in outName: continue
+        if not Process_name[1] in outName: continue
         
         for inano in ifile:
             # inputDir = redirector + inano

@@ -22,7 +22,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v80addTauJetVar/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v80addTauJetVar/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/'
+    inputDir = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardro_1tau0l_BDTSR_v86HadroPreSelWithGammaRemoval/mc/'
    
    
     
@@ -35,7 +35,7 @@ def main():
     createFakeTauTree(inputDirDic, era) #!with leptopMVAT_num=0
     createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
-    # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
+    makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
     
     
     
@@ -47,13 +47,13 @@ def main():
     # tauT = 'tausT_num!=0'
     tauT = 'tausF_1isTight'
     branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
-    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
     
      
 def makeOtherMCGen(inputDirDic, era):
-    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
+    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt','VLLm500', 'VLLm550','VLLm600','VLLm650','VLLm700','VLLm750','VLLm800','VLLm850','VLLm900','VLLm950','VLLm1000']
     for iPro in MCSum:
         isubPros = uf.getAllSubPro(era, iPro, False)
         print(isubPros)

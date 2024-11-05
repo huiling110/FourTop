@@ -37,12 +37,12 @@ public:
         std::cout<<"inputDir="<<inputDir<<"\n";
         TChain *chain1 = new TChain("tree");
         if(m_isRun3){
-            chain1->Add(inputDir + "tree*.root");
+            chain1->Add(inputDir + "*.root");
         }else{
             if(m_processName.Contains("VLL")){
-                chain1->Add(inputDir + "NanoAODv9*.root");
+                chain1->Add(inputDir + "*.root");
             }else{
-                chain1->Add(inputDir + "outTree*.root");
+                chain1->Add(inputDir + "*.root");
             }
         }
         std::cout << "all entries in chain: " << chain1->GetEntries() << "\n";

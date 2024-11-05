@@ -27,7 +27,7 @@ def main():
     # print(variables)
     
     # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
-    ifVLL = ''
+    ifVLL = 'VLLm600'
     # ifVLL = 'VLLm800'
     ifLogy = True
     # ifLogy = False
@@ -89,7 +89,7 @@ def main():
     channel = '1tau0l' 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTauTWithF/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v0BDT1tau0l/'
+    inputDir = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/variableHists_1tau0l_ABDT_VLL/'
     # variables = ['tausF_1pt']
     # variables = ['jets_HT'] 
     # variables = ['tausT_1decayMode', 'tausT_1pt']

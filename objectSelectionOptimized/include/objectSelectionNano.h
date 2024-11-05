@@ -132,7 +132,7 @@ private:
     ULong_t m_jetsTotal = 0;
     ULong_t m_bjetsM = 0;
 
-    TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: >=1tauF: >5jet: >1bjetM:HT>480,6thjet>38: gammaRemoval", 8, 0, 8);
+    TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: >=1tauF: >5jet: >1bjetM:HT>480,6thjet>38:HT>500,6thjet>40: gammaRemoval", 9, 0, 9);
     // TH1D *CF_initial = new TH1D("OS_initial", "OS_initial", 2, -1, 1);
     // TH1D *CF_met = new TH1D("OS_MetFilter", "OS_MetFilter", 2, -1, 1);
     // TH1D *CF_HLT = new TH1D("OS_HLT", "OS_HLT", 2, -1, 1);
