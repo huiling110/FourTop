@@ -53,9 +53,6 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         //envelope to consider: upup, downdown;up or down; no up and down
         //LHE scale variation weights (w_var / w_nominal); [0] is renscfact=0.5d0 facscfact=0.5d0 ; [1] is renscfact=0.5d0 facscfact=1d0 ; [2] is renscfact=0.5d0 facscfact=2d0 ; [3] is renscfact=1d0 facscfact=0.5d0 ; [4] is renscfact=1d0 facscfact=1d0 ; [5] is renscfact=1d0 facscfact=2d0 ; [6] is renscfact=2d0 facscfact=0.5d0 ; [7] is renscfact=2d0 facscfact=1d0 ; [8] is renscfact=2d0 facscfact=2d0
         // std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(4), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;
-        // std::vector<Double_t> vec={e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(2), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(4), e->LHEScaleWeight->At(6), e->LHEScaleWeight->At(8)}  ;
-        // scaleWeight_up = std::max_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
-        // scaleWeight_down = std::min_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
         if (e->LHEScaleWeight!=nullptr){
             //!w_var / w_nominal
             std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;//this one should be correct

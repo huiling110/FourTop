@@ -8,11 +8,9 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/DYJetsToLL_M-50/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttG/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_1l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_0l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
@@ -38,8 +36,8 @@ void run_objectSelection(
     // TString singleFileName = "NanoAODv9_10.root",
     // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
     TString outputDir = "./output/",
-    Int_t eventNum = 1000)
-// Int_t eventNum = 10000)
+    // Int_t eventNum = 1000)
+Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 {
     TStopwatch t;

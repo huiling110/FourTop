@@ -537,7 +537,7 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
     //Re_up: 7; Re_down: 1; Fa_up: 5; Fa_down: 3
-    //LHEScaleSumw: sum of genEventWeight * LHESacleWeight[i]/ genEventSumw 
+    //!LHEScaleSumw: sum of genEventWeight * LHESacleWeight[i]/ genEventSumw 
     //?does the sum of genEventWeight of just one sample or all samples?
     //I think it's per sample
     TFile *file = TFile::Open(inputFile);

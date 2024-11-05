@@ -39,9 +39,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
     
-    channel = '1tau1l'
+    # channel = '1tau1l'
     # channel = '1tau2l'
-    # channel = '1tau0l'
+    channel = '1tau0l'
     
     
     #!fakerate
@@ -72,13 +72,13 @@ def main():
         
     #1tau1l
     # channel = '1tau1l'
-    version = 'v0BDT1tau1l'
+    # version = 'v0BDT1tau1l'
     # version = 'v1BDT1tau1lEvenBin'
     
     #1tau0l systematic
     # channel = '1tau0l'
     # version = 'v0BDT1tau0l'
-    # version = 'v1BDTtauFJetVar2017train'
+    version = 'v1BDT1tau0lEvenBin'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
@@ -139,7 +139,6 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             logFile = logDir + iProcess + ".log"
             errFile = logDir + iProcess +".err"
             subAllProcess.write('hep_sub -os CentOS7 -mem 8000 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
-    # version = 'v1dataMC_allutHLTFakeLepton_ZVeto'
 
 
     subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True)

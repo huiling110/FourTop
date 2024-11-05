@@ -69,8 +69,8 @@ def main():
 
 
     #1tau1l
-    channel = '1tau1l'
-    ifFTau = False
+    # channel = '1tau1l'
+    # ifFTau = False
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0dataMC_allCorrectionFakeLepton/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinF/'
@@ -80,32 +80,33 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/variableHists_v0BDT1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/'
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
-    variables = ['BDT']
-    regionList = ['1tau1lSR', '1tau1lCR12']
+    # variables = ['BDT']
+    # regionList = ['1tau1lSR', '1tau1lCR12']
 
 
   
     #1tau0l
-    # channel = '1tau0l' 
+    channel = '1tau0l' 
+    ifFTau = True #!if plot FR uncertainty
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTauTWithF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v0BDT1tau0l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau0l/'
     # variables = ['tausF_1pt']
     # variables = ['jets_HT'] 
     # variables = ['tausT_1decayMode', 'tausT_1pt']
-    # ifFTau = True #!if plot FR uncertainty
     # ifFTau = False #!if plot FR uncertainty
     # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num', 'tausT_1pt', 'tausT_1eta', 'tausT_1decayMode']#!fake rate validation
     # variables = [  'jets_MHT', 'jets_centrality', 'MET_pt', 'jets_aplanarity',  'jets_4largestBscoreSum', 'jets_bScore', 'jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT',  'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2MET_stransMass' ] #!1tau0l BDT inputs
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
     # variables = ['tausF_1jetPt', 'tausF_jet_invariantMass', 'tausF_jet1_Met_transMass']
-    # variables = ['BDT']
+    variables = ['BDT']
     # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lMR']
     # regionList = ['1tau0lSR']
-    # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR', '1tau0lCRMR']
+    regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR', '1tau0lCRMR']
     # regionList = ['1tau0lVR',  '1tau0lCRMR', '1tau0lSR']
 
     

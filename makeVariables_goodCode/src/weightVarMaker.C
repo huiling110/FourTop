@@ -242,8 +242,6 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     scaleWeightRe_down_ = *e->scaleWeightRe_down;
     scaleWeightFa_up_ = *e->scaleWeightFa_up;
     scaleWeightFa_down_ = *e->scaleWeightFa_down;
-    //
-    // scaleWeightRe_normalised_up = 
 
     // lepton SF for top mva leptons
     elesTopMVAT_weight = calMuonIDSF(e->elesTopMVAT_pt, e->elesTopMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData); //muon pt and eta

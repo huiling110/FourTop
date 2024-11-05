@@ -6,6 +6,7 @@ MCSys = {
     #sys: [isCorrelated, whichProces] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
     'CMS_pileup': [True, 0],
     'CMS_prefiring': [False, 0],
+    'CMS_tttt_eff_hlt_stats': [False, 0],
     
     'CMS_eff_t_vsMu': [False, 0], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0], #need to add era to the name
