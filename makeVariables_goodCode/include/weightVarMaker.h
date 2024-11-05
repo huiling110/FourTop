@@ -152,10 +152,8 @@ private:
     Double_t scaleWeightRe_down_ =1.;
     Double_t scaleWeightFa_up_ =1.;
     Double_t scaleWeightFa_down_ =1.;
-    // Double_t scaleWeightRe_normalised_up =1.;
-    // Double_t scaleWeightRe_normalised_down =1.;
-    // Double_t scaleWeightFa_normalised_up =1.;
-    // Double_t scaleWeightFa_normalised_down =1.;
+    Double_t PSWeight_up_ = 1.0;
+    Double_t PSWeight_down_ = 1.0;
 
     TH2D *eleIDSF_topMVA;
     TH2D *muIDSF_topMVA;
