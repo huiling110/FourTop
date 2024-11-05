@@ -3,8 +3,8 @@ import usefulFunc as uf
 import ttttGlobleQuantity as gq
 
 MCSys = {
-    #sys: [isCorrelated, whichProces] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
-    #!bit information for each channel, bit 0:1tau1l; bit 1:1tau0l; bit 2: 1tau2l
+    #sys: [isCorrelated, whichProces, channelBits] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
+    #!Channlebits information for each channel, bit 0:1tau1l; bit 1:1tau0l; bit 2: 1tau2l
     'CMS_pileup': [True, 0, 0b111 ],
     'CMS_prefiring': [False, 0, 0b111],
     
@@ -35,6 +35,16 @@ MCSys = {
     #!btagWP for 1tau1l and 1tau2l
     'CMS_eff_bWPMT_correlated': [True, 0, 0b101],
     'CMS_eff_bWPMT_uncorrelated': [False, 0, 0b101],
+    
+    #btagShape information, only in 1tau0l
+    'CMS_btag_shape_hf': [True, 0, 0b010], 
+    'CMS_btag_shape_lf': [True, 0, 0b010],
+    'CMS_btag_shape_cferr1': [True, 0, 0b010],
+    'CMS_btag_shape_cferr2': [True, 0, 0b010],
+    'CMS_btag_shape_hfstats1': [False, 0, 0b010],
+    'CMS_btag_shape_hfstats2': [False, 0, 0b010],
+    'CMS_btag_shape_lfstats1': [False, 0, 0b010],
+    'CMS_btag_shape_lfstats2': [False, 0, 0b010],
    
     'CMS_tau_FR': [False, 1, 0b010],
     
