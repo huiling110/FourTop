@@ -59,9 +59,12 @@ MCSys = {
 
 
 def main():
-   channel = '1tau1l'
-   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+#    channel = '1tau1l'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
    outVersion = 'v0'
+   channel = '1tau0l'
+   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
+   
    
    inputDir = os.path.dirname(inputTemplate) 
    outDir = f"{inputDir}/datacardSys_{outVersion}/"
@@ -76,7 +79,7 @@ def main():
    sysDic = getSysDic(processes, channel, era) 
    
    addLumi(sysDic, era, processes)
-   addProcessNormalization(sysDic, processes)
+#    addProcessNormalization(sysDic, processes)#!to be done
    
    for i, iv in sysDic.items():
        print(i, iv)
@@ -125,22 +128,28 @@ def getSysDic(processes, channel, era):
         sysName = sys if sysList[0] else f"{sys}_{era}"
         sysDic[sysName] = []
         sysDic[sysName].append("shape")     
-        proSysDic = getProSysDic(sysName, sysList, processes)   
+        proSysDic = getProSysDic(sysName, sysList, processes, channel)   
         sysDic[sysName].append(proSysDic)
 
     return  sysDic
      
-     
-def getProSysDic(sys, sysList, processes):
+def getProSysDic(sys, sysList, processes, channe='1tau1l'):
+    if channe=='1tau1l':
+        channeMask = 0b100
+    elif channe=='1tau0l':
+        channeMask = 0b010
+    elif channe=='1tau2l':
+        channeMask = 0b001
+    
     proSys = {}
     for ipro in processes:
         if uf.isData(ipro) : continue
         if ipro=='fakeTau':
-            proSys[ipro] = 1 if sysList[1]==1 else 0
+            proSys[ipro] = 1 if sysList[1]==1 and ((sysList[2]&channeMask) !=0) else 0
         elif ipro=='fakeLepton':
-            proSys[ipro] = 1 if sysList[1]==2 else 0
+            proSys[ipro] = 1 if sysList[1]==2 and ((sysList[2]&channeMask) !=0) else 0
         else: 
-            proSys[ipro] = 1 if sysList[1]==0 else 0
+            proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
              
     return proSys            
              
