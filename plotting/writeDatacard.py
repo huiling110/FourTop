@@ -62,7 +62,8 @@ MCSys = {
 def main():
 #    channel = '1tau1l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
-   outVersion = 'v0'
+#    outVersion = 'v0'
+   outVersion = 'v1proNormAdd'
    channel = '1tau0l'
    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
    
@@ -80,7 +81,7 @@ def main():
    sysDic = getSysDic(processes, channel, era) 
    
    addLumi(sysDic, era, processes)
-#    addProcessNormalization(sysDic, processes)#!to be done
+   addProcessNormalization(sysDic, processes)#!to be done
    
    for i, iv in sysDic.items():
        print(i, iv)
@@ -89,8 +90,25 @@ def main():
    
 def addProcessNormalization(sysDic, processes):
     proNormalDic = {
-        
+       'tttt':  0.1,
+       'tt': 0.05,#https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO
+       'ttX' : 0.11,
+       'singleTop': 0.2,
+       'WJets': 0.1,
+       'Minor': 0.2, 
     }
+    for ipro, inorm in proNormalDic.items():
+        sysDic[f"norm_{ipro}"] = []
+        sysDic[f"norm_{ipro}"].append("lnN")
+        proDic = {}
+        for ipro2 in processes:
+            if ipro2 == ipro:
+                proDic[ipro2] = 1+inorm
+            else:
+                proDic[ipro2] = 0
+        sysDic[f"norm_{ipro}"].append(proDic)
+                
+                
 
 def addLumi(sysDic, era, processes):
     sysDic['lumi_13TeV'] = [] # correlated 3 years
