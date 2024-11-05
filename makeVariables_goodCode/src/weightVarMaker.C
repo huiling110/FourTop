@@ -388,6 +388,11 @@ void WeightVarMaker::clearBranch()
     btagWPMT_weight_uncorrelated_up = 1.;
     btagWPMT_weight_uncorrelated_down = 1.;
 
+    pdfWeight_up_ = 1.;
+    pdfWeight_down_ = 1.;
+    pdfWeightAlphaS_up_ = 1.;
+    pdfWeightAlphaS_down_ = 1.;
+
     
 };
 
