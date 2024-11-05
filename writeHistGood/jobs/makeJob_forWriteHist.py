@@ -78,7 +78,8 @@ def main():
     #1tau0l systematic
     # channel = '1tau0l'
     # version = 'v0BDT1tau0l'
-    version = 'v1BDT1tau0lEvenBin'
+    # version = 'v1BDT1tau0lEvenBin'
+    version = 'v2BDT1tau0lBinC'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'

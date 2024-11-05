@@ -4,42 +4,44 @@ import ttttGlobleQuantity as gq
 
 MCSys = {
     #sys: [isCorrelated, whichProces] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
-    'CMS_pileup': [True, 0],
-    'CMS_prefiring': [False, 0],
-    'CMS_tttt_eff_hlt_stats': [False, 0],
+    #!bit information for each channel, bit 0:1tau1l; bit 1:1tau0l; bit 2: 1tau2l
+    'CMS_pileup': [True, 0, 0b111 ],
+    'CMS_prefiring': [False, 0, 0b111],
     
-    'CMS_eff_t_vsMu': [False, 0], #uncorrelated
-    'CMS_eff_t_vsEle': [False, 0], #need to add era to the name
-    'CMS_eff_t_vsJet_stat1_dm0': [False, 0],
-    'CMS_eff_t_vsJet_stat1_dm1': [False, 0],
-    'CMS_eff_t_vsJet_stat1_dm10': [False, 0],
-    'CMS_eff_t_vsJet_stat1_dm11': [False, 0],
-    'CMS_eff_t_vsJet_stat2_dm0': [False, 0],
-    'CMS_eff_t_vsJet_stat2_dm1': [False, 0],
-    'CMS_eff_t_vsJet_stat2_dm10': [False, 0],
-    'CMS_eff_t_vsJet_stat2_dm11': [False, 0],
-    'CMS_eff_t_vsJet_syst_alleras': [True, 0],
-    'CMS_eff_t_vsJet_syst': [False, 0],
-    'CMS_eff_t_vsJet_syst_dm0': [False, 0],
-    'CMS_eff_t_vsJet_syst_dm1': [False, 0],
-    'CMS_eff_t_vsJet_syst_dm10': [False, 0],
-    'CMS_eff_t_vsJet_syst_dm11': [False, 0],
+    'CMS_tttt_eff_hlt_stats': [False, 0, 0b110],
     
-    'CMS_tttt_eff_e_syst': [True, 0],
-    'CMS_tttt_eff_m_syst': [True, 0],
-    'CMS_tttt_eff_e_stat': [False, 0],
-    'CMS_tttt_eff_m_stat': [False, 0],
+    'CMS_eff_t_vsMu': [False, 0, 0b111], #uncorrelated
+    'CMS_eff_t_vsEle': [False, 0, 0b111], #need to add era to the name
+    'CMS_eff_t_vsJet_stat1_dm0': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat1_dm1': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat1_dm10': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat1_dm11': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat2_dm0': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat2_dm1': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat2_dm10': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat2_dm11': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_alleras': [True, 0, 0b111],
+    'CMS_eff_t_vsJet_syst': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_dm0': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_dm1': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111],
+    
+    'CMS_tttt_eff_e_syst': [True, 0, 0b101],
+    'CMS_tttt_eff_m_syst': [True, 0, 0b101],
+    'CMS_tttt_eff_e_stat': [False, 0, 0b101],
+    'CMS_tttt_eff_m_stat': [False, 0, 0b101],
     
     #!btagWP for 1tau1l and 1tau2l
-    'CMS_eff_bWPMT_correlated': [True, 0],
-    'CMS_eff_bWPMT_uncorrelated': [False, 0],
+    'CMS_eff_bWPMT_correlated': [True, 0, 0b101],
+    'CMS_eff_bWPMT_uncorrelated': [False, 0, 0b101],
    
-    'CMS_tau_FR': [False, 1],
+    'CMS_tau_FR': [False, 1, 0b010],
     
-    'pdfAlphaS_normalised': [True, 0],
-    'pdf': [True, 0],
-    'QCDscale_Re_normalised': [True, 0],   
-    'QCDscale_Fa_normalised': [True, 0],   
+    'pdfAlphaS_normalised': [True, 0, 0b111],
+    'pdf': [True, 0, 0b111],
+    'QCDscale_Re_normalised': [True, 0, 0b111],   
+    'QCDscale_Fa_normalised': [True, 0, 0b111],   
     
     
 }
