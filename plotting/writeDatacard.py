@@ -51,7 +51,8 @@ MCSys = {
     'pdfAlphaS_normalised': [True, 0, 0b111],
     'pdf': [True, 0, 0b111],
     'QCDscale_Re_normalised': [True, 0, 0b111],   
-    'QCDscale_Fa_normalised': [True, 0, 0b111],   
+    'QCDscale_Fa_normalised': [True, 0, 0b111],  
+    'ISRFSR': [True, 0, 0b111],
     
     
 }
