@@ -52,7 +52,6 @@ def main():
     # outVersion = 'v2cut1tau0lSRTauF'
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau2lSR'
-    
    
     
     
