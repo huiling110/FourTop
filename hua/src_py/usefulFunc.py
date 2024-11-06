@@ -217,9 +217,10 @@ def getSysHistNames(sumProSys, subPro, region, var, era, fileName):
     sumPro = gq.histoGramPerSample[subPro]
     if sumPro in sumProSys.keys():
         for isys in sumProSys[sumPro]:
-            isysUp = f"{subPro}_{region}_{isys}_{era}Up_{var}"
-            isysDown = f"{subPro}_{region}_{isys}_{era}Down_{var}"
-            # subProHist[var][region][subPro][isys+'_up'], subProHist[var][region][subPro][isys+'_down']= getHistFromFile(fileName, [isysUp, isysDown])
+            # isysUp = f"{subPro}_{region}_{isys}_{era}Up_{var}"
+            # isysDown = f"{subPro}_{region}_{isys}_{era}Down_{var}"
+            isysUp = f"{subPro}_{region}_{isys}Up_{var}"
+            isysDown = f"{subPro}_{region}_{isys}Down_{var}"
             sysDic[isys+'_up'], sysDic[isys+'_down']= getHistFromFile(fileName, [isysUp, isysDown])
     return sysDic        
     

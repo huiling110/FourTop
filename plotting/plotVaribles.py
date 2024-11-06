@@ -151,18 +151,17 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     
     sumProSys = getSysDicPL(ifDoSystmatic, channel, era)    
     [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
-    # print(sumProSys)
     # if ifFakeTau:
     #     sumProSys = {
     #         'fakeTau': ['CMS_tau_FR'],
     #     }
-    # sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
    
-    # plotDir = inputDirDic['mc']+'results/'
-    # uf.checkMakeDir( plotDir)
-    # for variable in variables:
-    #     for iRegion in regionList:       
-    #         makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
+    plotDir = inputDirDic['mc']+'results/'
+    uf.checkMakeDir( plotDir)
+    for variable in variables:
+        for iRegion in regionList:       
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
     
 def getSysDicPL(ifSys=False, channel='1tau1l', era='2018'):
     #todo: add funcionality of getting systematics from datacard
