@@ -635,10 +635,10 @@ def getSystVariation(nominalHist,systHists):
     for systHi in systHists.keys():
     #systHi is 'up' or 'down' for varias sources
     #so this is to sum the sytstmatic variation for sources of systematic uncertainty
-        print( 'doing sytematic calculation for: ',systHi )
+        # print( 'doing sytematic calculation for: ',systHi )
         iSys = True
         syst = systHists[systHi].Clone()
-        print( 'sytHistUp: ', syst.GetName() )
+        # print( 'sytHistUp: ', syst.GetName() )
         syst.Add(nominalHist,-1)
         for i in range(1,syst.GetXaxis().GetNbins()+1):
             if "Up" in syst.GetName():
