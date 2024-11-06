@@ -36,15 +36,16 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v84HadroPresel/'
 # jobVersionName = 'v85HadroPreselTauOverlap0.5/'
 # jobVersionName = 'v86HadroPreSelWithGammaRemoval/'
-jobVersionName = 'v86HadroPreSelWithTTWTTZNLO/'
+# jobVersionName = 'v86HadroPreSelWithTTWTTZNLO/'
+jobVersionName = 'v86LepPreSel/'
 
 #!same version numbers means no change in algrithm but only in selection
 #!todo: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
-    era = '2016'
+    # era = '2016'
     # era = '2016APV'
     # era = '2017'
-    # era = '2018'
+    era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # onlyMC = True
@@ -55,8 +56,8 @@ def main():
     # dataList = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #!for 1tau2l  
     
     # sumProToSkip = ['jetHT', 'ttExtra'] #! and 1tau2l
-    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
+    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
 
 
 
