@@ -6,7 +6,8 @@
 namespace GENSUM{
 
 inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
-{"2018", {
+{"2018",
+ {
     {"TTToSemiLeptonic", 1.35336e+12},// only for BDT training in 1tau1l and 1tau2l
     {"TTToHadronic", 7.16154e+11},
     {"TTTo2L2Nu", 9.77873e+10}, //!!!
@@ -212,11 +213,12 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 {"VLL_NN_M1000", 3.4763252},
 {"ZJetsToNuNu_HT-600To800", 5726462.973848988},
 {"qcd_1000to1500", 14394786.0},
-{"TTTo2L2Nu9", 4291003926.409401}}
-
+{"TTTo2L2Nu9", 4291003926.409401}
+}
 },
 
-{"2017",{
+{"2017",
+{
 {"dy", 75384332.0},
 {"qcd_200to300", 42714435.0},
 {"ZJetsToNuNu_HT-2500ToInf", 6446.0},
@@ -352,7 +354,8 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 {"VLL_EE_M700", 114.04829200000002},
 {"VLL_NN_M1000", 3.4867114},
 {"ZJetsToNuNu_HT-600To800", 5664642.0},
-{"qcd_1000to1500", 10186734.0}}
+{"qcd_1000to1500", 10186734.0}
+}
 },
 
 {"2016postVFP",{
@@ -597,8 +600,8 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 {"qcd_1000to1500", 4773503.0},
 
 }
-};
+}
 
-
+}; //end of map
 };
 #endif
