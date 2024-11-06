@@ -36,8 +36,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
+# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
     
     # channel = '1tau1l'
     # channel = '1tau2l'
@@ -47,7 +48,7 @@ def main():
     #!fakerate
     # version = 'v0FR_measure1prong'
     # version = 'v0FR_measure3prong'
-    # version = 'v0FRMeasure'
+    version = 'v0FRMeasure'
        
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
@@ -79,7 +80,7 @@ def main():
     # channel = '1tau0l'
     # version = 'v0BDT1tau0l'
     # version = 'v1BDT1tau0lEvenBin'
-    version = 'v2BDT1tau0lBinC'
+    # version = 'v2BDT1tau0lBinC'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
@@ -133,13 +134,13 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = './apps/run_WH_forDataMC.out {} {} {} {} {}'.format(inputDir, iProcess, channel, version, isTest)
-            run = './apps/run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = './apps/run_WH_forDataMC.out {} {} {} {} {}'.format(inputDir, iProcess, channel, version, isTest)
+            # run = './apps/run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"
             errFile = logDir + iProcess +".err"
-            subAllProcess.write('hep_sub -os CentOS7 -mem 8000 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
+            subAllProcess.write('hep_sub -os CentOS7 -mem 6000 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
 
 
     subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True)

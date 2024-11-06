@@ -5,14 +5,16 @@ import ROOT
 import usefulFunc as uf
 
 def getGenSumFromNano():
-    inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/'
+    # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/'
     # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/'
-    # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
+    inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/'
     # inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/'
     
     # year = uf.getEraFromDir(inputDir)
     # year = '2016APV'
-    year = '2018'
+    # year = '2018'
+    # year = '2017'
+    year = '2016'
     
     # iinputDir = inputDir+'tttt/'
     dic = {}
