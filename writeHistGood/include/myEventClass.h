@@ -305,7 +305,7 @@ public:
     myBranch<Double_t> tausTT_leptonsTMVA_minDeltaR{"tausTT_leptonsTMVA_minDeltaR"};
     myBranch<Double_t> tausTT_leptonsT_transMass{"tausTT_leptonsT_transMass"};
     myBranch<Int_t> tausTT_1charge{"tausTT_1charge"};
-    myBranch<Double_t> tausT_1jetEtaAbs{"tausT_1jetEtaAbs"};
+    // myBranch<Double_t> tausT_1jetEtaAbs{"tausT_1jetEtaAbs"};
     myBranch<Int_t> tausTT_1genFlavour{"tausTT_1genFlavour"};
     myBranch<Int_t> tausTT_1decayMode{"tausTT_1decayMode"};
     myBranch<Int_t> tausTT_1lepton1_charge{"tausTT_1lepton1_charge"};
@@ -329,7 +329,7 @@ public:
     // branches for fakeTau;
     myBranch<Double_t> tausF_1jetPt{"tausF_1jetPt"};
     myBranch<Double_t> tausF_1eta{"tausF_1eta"};
-    myBranch<Double_t> tausF_1jetEtaAbs{"tausF_1jetEtaAbs"};
+    myBranch<Double_t> tausF_1jetEta{"tausF_1jetEta"};
     myBranch<Int_t> tausF_num{"tausF_num"};
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
     myBranch<Double_t> tausF_1pt{"tausF_1pt"};
@@ -632,7 +632,7 @@ private:
         {tausTT_leptonsTMVA_minDeltaR.n(), &tausTT_leptonsTMVA_minDeltaR},
         {tausTT_leptonsT_transMass.n(), &tausTT_leptonsT_transMass},
         {tausTT_1charge.n(), &tausTT_1charge},
-        {tausT_1jetEtaAbs.n(), &tausT_1jetEtaAbs},
+        // {tausT_1jetEtaAbs.n(), &tausT_1jetEtaAbs},
 
 
 
@@ -649,7 +649,7 @@ private:
         {tausF_num.n(), &tausF_num},
         {tausF_1jetPt.n(), &tausF_1jetPt},
         {tausF_1eta.n(), &tausF_1eta},
-        {tausF_1jetEtaAbs.n(), &tausF_1jetEtaAbs},
+        {tausF_1jetEta.n(), &tausF_1jetEta},
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
         {tausF_1prongNum.n(), &tausF_1prongNum},
