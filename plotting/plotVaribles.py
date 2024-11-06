@@ -108,7 +108,8 @@ def main():
     # variables = ['tausF_1jetPt', 'tausF_jet_invariantMass', 'tausF_jet1_Met_transMass']
     variables = ['BDT']
     # regionList = ['1tau0lSR']
-    regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
+    regionList = ['1tau0lCRMR']
+    # regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
 
     
     era = uf.getEraFromDir(inputDir)
@@ -148,20 +149,20 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     sumProList = gq.proChannelDic[channel]
     if ifVLL:
         sumProList.append(ifVLL)
-    
+    print(sumProList) 
     sumProSys = getSysDicPL(ifDoSystmatic, channel, era)    
     [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
     # if ifFakeTau:
     #     sumProSys = {
     #         'fakeTau': ['CMS_tau_FR'],
     #     }
-    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
    
-    plotDir = inputDirDic['mc']+'results/'
-    uf.checkMakeDir( plotDir)
-    for variable in variables:
-        for iRegion in regionList:       
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
+    # plotDir = inputDirDic['mc']+'results/'
+    # uf.checkMakeDir( plotDir)
+    # for variable in variables:
+    #     for iRegion in regionList:       
+    #         makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
     
 def getSysDicPL(ifSys=False, channel='1tau1l', era='2018'):
     #todo: add funcionality of getting systematics from datacard
