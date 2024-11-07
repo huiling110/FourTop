@@ -40,18 +40,19 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardroFRUpdated_v86HadroPreSelWithTTWTTZNLO/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v86LepPreSel/'
     
     # channel = '1tau1l'
-    # channel = '1tau2l'
-    channel = '1tau0l'
+    channel = '1tau2l'
+    # channel = '1tau0l'
     
     
     #!fakerate
     # version = 'v0FR_measure1prong'
     # version = 'v0FR_measure3prong'
-    version = 'v0FRMeasure'
+    # version = 'v0FRMeasure'
        
     #b-tag measurement 
     # version = 'v1_btagRMeasure'
@@ -86,13 +87,11 @@ def main():
     # version = 'v2BDT1tau0lBinC'
     
     # channel = '1tau2l'
-    # version = 'v0BDT1tau2l'
+    version = 'v0BDT1tau2l'
     # version = 'v1BDT1tau2lEvenBin'
-    # version = 'v1BDT1tau2lBinA'
-    # version = 'v1BDT1tau2lBinC'
    
-    # exe = './run_WH_forDataMC.out'
-    # exe = './run_treeAnalyzer.out' 
+    # exe = './apps/run_WH_forDataMC.out'
+    exe = './apps/run_treeAnalyzer.out' 
     
    
     justMC = False
@@ -112,7 +111,7 @@ def main():
         inputDirDic['data'] = inputDir + 'data/'
 
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, channel )
+        makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, channel , exe)
         # makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, exe, channel )
     subAllProcess.close()
 
@@ -120,8 +119,7 @@ def main():
 
 
 
-def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , channel):
-# def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , exe='', channel= '1tau0l'):
+def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out'):
     jobDir = Jobsubmitpath +'jobSH/'
     outputDir = inputDir + 'variableHists_' + version +'/'
     logDir = outputDir+'log/'
@@ -137,8 +135,9 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = './apps/run_WH_forDataMC.out {} {} {} {} {}'.format(inputDir, iProcess, channel, version, isTest)
+            # run = './apps/run_WH_forDataMC.out {} {} {} {} {}'.format(inputDir, iProcess, channel, version, isTest)
             # run = './apps/run_treeAnalyzer.out {} {} {} {} {}'.format(inputDir, iProcess, version, channel, isTest)
+            run = f"{exe} {inputDir} {iProcess} {channel} {version} {isTest}"
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

@@ -21,7 +21,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardroFRUpdated_v86HadroPreSelWithTTWTTZNLO/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardroFRUpdated_v86HadroPreSelWithTTWTTZNLO/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v86LepPreSel/mc/",
     TString process = "tttt",
     // TString process = "fakeLepton",
     // TString process = "fakeTau_tauF",
@@ -29,11 +30,11 @@ void run_treeAnalyzer(
     // TString process = "ttbar_2l",
     // TString process = "jetHT_2016E",
     // TString process = "jetHT_2018a",
-    TString histVersion = "v0_test",
     // Int_t channel = 0,//0: 1tau1l
     // TString channel = "1tau1l",//0: 1tau1l
-    TString channel = "1tau0l",//
-    // TString channel = "1tau2l",//
+    // TString channel = "1tau0l",//
+    TString channel = "1tau2l",//
+    TString histVersion = "v0_test",//
     Bool_t isTest = kTRUE)
     // Bool_t isTest = kFALSE)
 {
@@ -65,10 +66,10 @@ int main(int argc, char const *argv[])
         std::cout << "using input from command line\n";
         inputDir = boost::lexical_cast<std::string>(argv[1]);
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
-        version = boost::lexical_cast<std::string>(argv[3]);
-        channel = boost::lexical_cast<std::string>(argv[4]);
+        channel = boost::lexical_cast<std::string>(argv[3]);
+        version = boost::lexical_cast<std::string>(argv[4]);
         isTest = boost::lexical_cast<Bool_t>(argv[5]);
-        run_treeAnalyzer(inputDir, inputProcess, version, channel, isTest);
+        run_treeAnalyzer(inputDir, inputProcess,   channel, version, isTest);
     }
 
     return 0;

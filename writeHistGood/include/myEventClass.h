@@ -294,6 +294,7 @@ public:
     myBranch<Int_t> tausT_prongNum{"tausT_prongNum"};
     myBranch<Int_t> tausT_1lepton1_charge{"tausT_1lepton1_charge"};
     myBranch<Int_t> tausT_leptons_charge{"tausT_leptons_charge"};
+    myBranch<Double_t> tausT_1jetEtaAbs{"tausT_1jetEtaAbs"};
 
     myBranch<Double_t> tausTT_HT{"tausTT_HT"};
     myBranch<Double_t> tausTT_MHT{"tausTT_MHT"};
@@ -619,6 +620,7 @@ private:
         {tausT_1charge.n(), &tausT_1charge},
         {tausT_1lepton1_charge.n(), &tausT_1lepton1_charge},
         {tausT_leptons_charge.n(), &tausT_leptons_charge},
+        {tausT_1jetEtaAbs.n(), &tausT_1jetEtaAbs},
 
         {tausTT_1pt.n(), &tausTT_1pt},
         {tausTT_1eta.n(), &tausTT_1eta},
