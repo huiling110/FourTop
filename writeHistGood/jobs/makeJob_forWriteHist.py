@@ -42,12 +42,15 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardroFRUpdated_v86HadroPreSelWithTTWTTZNLO/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v86LepPreSel/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v86LepPreSel/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/'
     
     # channel = '1tau1l'
     channel = '1tau2l'
     # channel = '1tau0l'
     
+    # exe = './apps/run_WH_forDataMC.out'
+    exe = './apps/run_treeAnalyzer.out' 
     
     #!fakerate
     # version = 'v0FR_measure1prong'
@@ -90,8 +93,6 @@ def main():
     version = 'v0BDT1tau2l'
     # version = 'v1BDT1tau2lEvenBin'
    
-    # exe = './apps/run_WH_forDataMC.out'
-    exe = './apps/run_treeAnalyzer.out' 
     
    
     justMC = False
