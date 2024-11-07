@@ -23,9 +23,9 @@ def main():
     ifStackSignal = True
     # ifStackSignal = False
     ifPrintSB = True
-    # ifPrintSB = False
-    ifSystematic = True #!Only for BDT
-    # ifSystematic = False  
+    ifPrintSB = False
+    # ifSystematic = True #!Only for BDT
+    ifSystematic = False  
     ifFTau = False
     plotName = 'dataVsMC_v4'
    

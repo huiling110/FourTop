@@ -10,7 +10,8 @@
 void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttG/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_1l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_0l/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
@@ -65,12 +66,12 @@ void run_objectSelection(
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES, if1tau2l);
 
-    // const Bool_t tauSel = kFALSE; //for HLT
-    const Bool_t tauSel = kTRUE;
-    // const Bool_t HLTSel = kFALSE;
-    const Bool_t HLTSel = kTRUE;
-    os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
-    // os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
+    const Bool_t tauSel = kFALSE; //for HLT
+    // const Bool_t tauSel = kTRUE;
+    const Bool_t HLTSel = kFALSE;
+    // const Bool_t HLTSel = kTRUE;
+    // os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
+    os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
 
     os.Terminate();
 
