@@ -17,9 +17,22 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
             std::cout <<"ifTauSel="<<iftauSel<< " preSelection="<< preSelection << "; ifHLT="<<ifHLT<< "\n";
         }
 
+
         Double_t genWeight = 1.0;
         if(!m_isData){
             genWeight = **e->genWeight;
+
+            //calculate pdf up sum and down sum for later scaling 
+            if (e->LHEPdfWeight != nullptr)
+            {//!!!some files like wz don't have LHE branches, assign nominal 1 to them
+                Double_t pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100);
+                m_pdfSumwUp += (1.+pdfUnc)*genWeight;
+                m_pdfSumwDown += (1.-pdfUnc)*genWeight;
+            }
+            if(e->PSWeight!=nullptr){//PS weights (w_var / w_nominal); [0] is ISR=2 FSR=1; [1] is ISR=1 FSR=2[2] is ISR=0.5 FSR=1; [3] is ISR=1 FSR=0.5;
+                m_PSWeightSumwUp += e->PSWeight->At(1)*genWeight;
+                m_PSWeightSumwDown += e->PSWeight->At(3)*genWeight;
+            }
         }
         m_cutflow->Fill(0., genWeight);
 
@@ -146,6 +159,27 @@ void objectSelection::Terminate()
         runs->SetBranchStatus("LHEScaleSumw", 1);//Sum of genEventWeight * LHEScaleWeight[i], divided by genEventSumw
 
         TTree *runsForOut = runs->CloneTree();
+        //add branch LHEPdfSumwUp, LHEPdfSumwDown
+        std::cout<<"m_pdfSumwUp="<<m_pdfSumwUp<<"; m_pdfSumwDown="<<m_pdfSumwDown<<"\n";
+        std::cout<<"m_PSWeightUp="<<m_PSWeightSumwUp<<"; m_PSWeightDown="<<m_PSWeightSumwDown<<"\n";
+        // runsForOut->Branch("LHEPdfSumwUp", &m_pdfSumwUp);
+        // runsForOut->Branch("LHEPdfSumwDown", &m_pdfSumwDown);
+        // runsForOut->Branch("PSWeightSumwUp", &m_PSWeightUp);
+        // runsForOut->Branch("PSWeightSumwDown", &m_PSWeightDown);
+        TBranch *newBranch = runsForOut->Branch("LHEPdfSumwUp", &m_pdfSumwUp);
+        TBranch *newBranch2 = runsForOut->Branch("LHEPdfSumwDown", &m_pdfSumwDown);
+        TBranch *newBranch3 = runsForOut->Branch("PSWeightSumwUp", &m_PSWeightSumwUp);
+        TBranch *newBranch4 = runsForOut->Branch("PSWeightSumwDown", &m_PSWeightSumwDown);
+
+        for(UInt_t i=0; i<runsForOut->GetEntries(); i++){
+            runsForOut->GetEntry(i);
+            // runsForOut->Fill();
+            newBranch->Fill();
+            newBranch2->Fill();
+            newBranch3->Fill();
+            newBranch4->Fill();
+        }
+
         runsForOut->SetDirectory(m_output);
     }
 
