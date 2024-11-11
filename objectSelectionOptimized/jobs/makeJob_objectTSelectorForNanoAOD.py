@@ -1,5 +1,7 @@
 import os
 import subprocess
+import re
+import glob
 
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
@@ -36,7 +38,7 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v84HadroPresel/'
 # jobVersionName = 'v85HadroPreselTauOverlap0.5/'
 # jobVersionName = 'v86HadroPreSelWithGammaRemoval/'
-jobVersionName = 'v86HadroPreSelWithTTWTTZNLO/'
+jobVersionName = 'v86HadroPreSelWithTTWTTZNLO_testtest/'
 
 #!same version numbers means no change in algrithm but only in selection
 #!todo: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
@@ -104,7 +106,7 @@ def getInputOutDir( jobVersionName, era):
         '2022_13p6/crabNanoPost_2022preEE_v3': '2022preEE',
     }
     inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
+    outputBase = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/'
     inputDir = inputBase + era +'/'
     outputDir = outputBase + eraDic[era] + '/' +jobVersionName  
     uf.checkMakeDir( outputDir) 
@@ -182,18 +184,29 @@ def makeJobsInDir( inputDir, outputDir, jobScriptsFolder, isData, era, isRun3,  
         uf.checkMakeDir( koutputDir )
         uf.checkMakeDir( kOutDirLog )
         print( 'outputDir for kprocess: ', koutputDir )
+        sample_file_path = glob.glob(os.path.join(sampleDir, "*.root"))
+        sample_file_name = [os.path.basename(file) for file in sample_file_path]
+        _idx_tmp = 0
         for entry in os.listdir( sampleDir):
             if not '.root' in entry: continue
             if os.path.isfile(os.path.join(sampleDir, entry)):
                 smallFile = entry.replace( ".root", "")
-                iSmallJobName = 'OS_'+ era + sample_k + '_' + smallFile + ".sh"
+
+                iSmallJobName = 'OS_'+ era + sample_k + '_' + f"{_idx_tmp}" + ".sh"
                 smallFilejob = jobScriptsFolder +sample_k + "/" + iSmallJobName   
                 prepareCshJob( sampleDir, koutputDir, smallFilejob, entry)
+                _idx_tmp += 1
                 
-                logFile = kOutDirLog + smallFile + ".log"
-                errFile = kOutDirLog + smallFile + ".err"
+                #logFile = kOutDirLog + smallFile + ".log"
+                #errFile = kOutDirLog + smallFile + ".err"
                 # sub_oneProcess.write( "hep_sub -os CentOS7 " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
-                sub_oneProcess.write( "hep_sub -os CentOS7 -mem 8000 " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")#!Memory comsuption is too high, need to be understood
+        if len(sample_file_path)!=0:
+            #smallFile_forSub = sample_file_name[0].replace( ".root", "")
+            #smallFile_forSub = re.sub(r'_(\d+)$', r'''_"%{ProcId}"''', smallFile_forSub)
+            iSmallJobName_forSub = 'OS_'+ era + sample_k + '_' + '''"%{ProcId}"''' + ".sh"
+            logFile = kOutDirLog + '''_"%{ProcId}"''' + ".log"
+            errFile = kOutDirLog + '''_"%{ProcId}"''' + ".err"
+            sub_oneProcess.write( "hep_sub -os CentOS7 -mem 8000 " + iSmallJobName_forSub + " -o " + logFile + " -e " + errFile + f" -n {len(sample_file_path)}" + "\n")#!Memory comsuption is too high, need to be understood
 
         os.popen('chmod 777 '+ jobScriptsFolder + sample_k + "/*sh")
         sub_oneProcess.close()
@@ -218,7 +231,6 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile):
 
 if __name__ == "__main__":
     main()
-
 
 
 
