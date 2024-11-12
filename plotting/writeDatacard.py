@@ -49,10 +49,12 @@ MCSys = {
     'CMS_tau_FR': [False, 1, 0b010],
     
     'pdfAlphaS_normalised': [True, 0, 0b111], #!not considering for singleTop 
-    'pdf': [True, 0, 0b111],
+    # 'pdf': [True, 0, 0b111],
+    'pdf_normalised': [True, 0, 0b111],
     'QCDscale_Re_normalised': [True, 0, 0b111],   
     'QCDscale_Fa_normalised': [True, 0, 0b111],  
-    'ISRFSR': [True, 0, 0b111],
+    # 'ISRFSR': [True, 0, 0b111],
+    'ISRFSR_normalised': [True, 0, 0b111],
     
     
 }
@@ -67,7 +69,8 @@ def main():
 #    channel = '1tau0l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
    channel = '1tau2l'
-   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
    
    
    inputDir = os.path.dirname(inputTemplate) 
