@@ -130,6 +130,10 @@ void treeAnalyzer::Init()
         m_pdfAlphaS_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 0);//!inf big for singleTop process
         m_pdfAlphaS_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 1);
         //!pdf normalization to be addded
+        m_pdf_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 2);
+        m_pdf_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 3);
+        m_PSWeight_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 0);
+        m_PSWeight_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 1);
     }
     std::cout<<"m_scaleRe_normDown_SF="<<m_scaleRe_normDown_SF<<"\n";
     std::cout<<"m_scaleRe_normUp_SF="<<m_scaleRe_normUp_SF<<"\n";
@@ -137,6 +141,10 @@ void treeAnalyzer::Init()
     std::cout<<"m_scaleFa_normUp_SF="<<m_scaleFa_normUp_SF<<"\n";
     std::cout<<"m_pdfAlphaS_normUp_SF="<<m_pdfAlphaS_normUp_SF<<"\n";//!could be inf for some samples for example st_tZq
     std::cout<<"m_pdfAlphaS_normDown_SF="<<m_pdfAlphaS_normDown_SF<<"\n";
+    std::cout<<"m_pdf_normUp_SF="<<m_pdf_normUp_SF<<"\n";
+    std::cout<<"m_pdf_normDown_SF="<<m_pdf_normDown_SF<<"\n";
+    std::cout<<"m_PSWeight_normUp_SF="<<m_PSWeight_normUp_SF<<"\n";
+    std::cout<<"m_PSWeight_normDown_SF="<<m_PSWeight_normDown_SF<<"\n";
 
     std::cout << "done initializing\n";
     std::cout << "\n";

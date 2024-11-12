@@ -577,6 +577,10 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
     TTreeReader reader("Runs", file); // Replace "tree_name" with the actual name of your TTree
     TTreeReaderArray<Double_t> LHEPdfSumw(reader, "LHEPdfSumw");//Sum of genEventWeight * LHEPdfWeight[i], divided by genEventSumw
     TTreeReaderValue<Double_t> genEventSumw(reader, "genEventSumw");
+    TTreeReaderValue<Double_t> LHEPdfSumwUp(reader, "LHEPdfSumwUp");//Sum of genEventWeight * LHEPdfWeightUp
+    TTreeReaderValue<Double_t> LHEPdfSumwDown(reader, "LHEPdfSumwDown");//Sum of genEventWeight * LHEPdfWeightDown
+    TTreeReaderValue<Double_t> PSWeightSumwUp(reader, "PSWeightSumwUp");//Sum of genEventWeight * PSWeightUp
+    TTreeReaderValue<Double_t> PSWeightSumwDown(reader, "PSWeightSumwDown");//Sum of genEventWeight * PSWeightDown
 
     Double_t sumGen = 0.;
     Double_t sumGenScale = 0;
@@ -594,16 +598,23 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
             sumGenScale += (LHEPdfSumw[102])*(*genEventSumw);
             break;
         case 2: 
-            // pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100); for per event
             //i event: uncer = sqrt(1 + (LHEPdfWeight[1] - LHEPdfWeight[0])^2 + ... + (LHEPdfWeight[100] - LHEPdfWeight[0])^2)
-            //!might not be possible to get the uncertainty from the sum of genEventWeight 
+            sumGenScale += *LHEPdfSumwUp;
             break;
-        
+        case 3:
+            sumGenScale += *LHEPdfSumwDown;
+            break;
+        case 4:
+            sumGenScale += *PSWeightSumwUp;
+            break;
+        case 5:
+            sumGenScale += *PSWeightSumwDown;
+            break;
+
         default:
             break;
         }
     }
-    // std::cout<<"sumGen = "<<sumGen<<" sumGenScale = "<<sumGenScale<<"\n";4
     Double_t scale = std::abs(sumGenScale)>1e-10? sumGen/sumGenScale:1;
 
     file->Close();
