@@ -203,8 +203,6 @@ def getHistFromFileDic(fileName, regionList, varList, subPro, sumProSys, era):
             subProHist[ivar][ire] = {}
             subProHist[ivar][ire][subPro] = {}
             subProHist[ivar][ire][subPro] = getHistFromFile(fileName, [histName])[0]
-            # subProHist[ivar][ire][subPro]['nom'] = getHistFromFile(fileName, [histName])[0]
-            # sysHistNames = getSysHistNames(sumProSys, subPro, ire, ivar, era, subProHist, fileName)
             subProHistSys[ivar][ire] = {}
             subProHistSys[ivar][ire][subPro] = {}
             subProHistSys[ivar][ire][subPro] = getSysHistNames(sumProSys, subPro, ire, ivar, era, fileName)
@@ -262,8 +260,9 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
         else:
             rootFile = inputDirDic['mc'] + isub +'.root'
         print('opening file:', rootFile)
-        # isubProHist = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
         isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
+        #!printing 
+        isubProHist.Print()
         print_dict_structure(isubProHist)
         toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
         toGetSubHistSys = merge_dicts(toGetSubHistSys, isubProHistSys)
