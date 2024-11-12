@@ -21,7 +21,6 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         Double_t genWeight = 1.0;
         if(!m_isData){
             genWeight = **e->genWeight;
-
             //calculate pdf up sum and down sum for later scaling 
             if (e->LHEPdfWeight != nullptr)
             {//!!!some files like wz don't have LHE branches, assign nominal 1 to them
@@ -162,10 +161,6 @@ void objectSelection::Terminate()
         //add branch LHEPdfSumwUp, LHEPdfSumwDown
         std::cout<<"m_pdfSumwUp="<<m_pdfSumwUp<<"; m_pdfSumwDown="<<m_pdfSumwDown<<"\n";
         std::cout<<"m_PSWeightUp="<<m_PSWeightSumwUp<<"; m_PSWeightDown="<<m_PSWeightSumwDown<<"\n";
-        // runsForOut->Branch("LHEPdfSumwUp", &m_pdfSumwUp);
-        // runsForOut->Branch("LHEPdfSumwDown", &m_pdfSumwDown);
-        // runsForOut->Branch("PSWeightSumwUp", &m_PSWeightUp);
-        // runsForOut->Branch("PSWeightSumwDown", &m_PSWeightDown);
         TBranch *newBranch = runsForOut->Branch("LHEPdfSumwUp", &m_pdfSumwUp);
         TBranch *newBranch2 = runsForOut->Branch("LHEPdfSumwDown", &m_pdfSumwDown);
         TBranch *newBranch3 = runsForOut->Branch("PSWeightSumwUp", &m_PSWeightSumwUp);
