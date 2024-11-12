@@ -129,7 +129,6 @@ void treeAnalyzer::Init()
         m_scaleFa_normDown_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 3);
         m_pdfAlphaS_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 0);//!inf big for singleTop process
         m_pdfAlphaS_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 1);
-        //!pdf normalization to be addded
         m_pdf_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 2);
         m_pdf_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 3);
         m_PSWeight_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 0);
@@ -330,6 +329,10 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalisedDown", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_ISRFSRUp", bdtScore, basicWeight* e->PSWeight_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_ISRFSRDown", bdtScore, basicWeight* e->PSWeight_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdf_normalisedUp", bdtScore, basicWeight* e->pdfWeight_up_.v()*m_pdf_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdf_normalisedDown", bdtScore, basicWeight* e->pdfWeight_down_.v()*m_pdf_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ISRFSR_normalisedUp", bdtScore, basicWeight* e->PSWeight_up_.v()*m_PSWeight_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ISRFSR_normalisedDown", bdtScore, basicWeight* e->PSWeight_down_.v()*m_PSWeight_normDown_SF, SR1tau1l, m_isData);
         
         }else if(m_isFakeTau){
             SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era +"Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);
