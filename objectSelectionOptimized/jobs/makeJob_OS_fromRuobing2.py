@@ -41,7 +41,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v86HadroPreSelWithTTWTTZNLO_testtest/'
 # jobVersionName = 'v87addPdfPSWeightSum/'
 # jobVersionName = 'v87addPdfPSWeightSum/'# with new downloaded MC samples actuaclly
-jobVersionName = 'v88PSWeightFixedLepPre/'
+# jobVersionName = 'v88PSWeightFixedLepPre/'
+jobVersionName = 'v88PSWeightFixedHadroPre/'
 
 isRuobing = False
 #!same version numbers means no change in algrithm but only in selection
@@ -59,8 +60,8 @@ def main():
     # dataList = [ 'Muon']
     # dataList = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #!for 1tau2l  
     
-    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
+    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
 
 
 
