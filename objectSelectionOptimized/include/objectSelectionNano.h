@@ -134,8 +134,10 @@ private:
 
     Double_t m_pdfSumwUp = 0.;
     Double_t m_pdfSumwDown = 0.;
-    Double_t m_PSWeightSumwUp = 0.;
-    Double_t m_PSWeightSumwDown = 0.;
+    Double_t m_PSWeightISRSumwUp = 0.;
+    Double_t m_PSWeightISRSumwDown = 0.;
+    Double_t m_PSWeightFSRSumwDown = 0.;
+    Double_t m_PSWeightFSRSumwUp = 0.;
 
     TH1D *m_cutflow = new TH1D("OScutflow", "initial: Met: HLT: >=1tauF: >5jet: >1bjetM:HT>480,6thjet>38: gammaRemoval", 8, 0, 8);
     // TH1D *CF_initial = new TH1D("OS_initial", "OS_initial", 2, -1, 1);

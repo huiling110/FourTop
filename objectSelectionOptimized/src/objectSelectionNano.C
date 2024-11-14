@@ -28,10 +28,12 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
                 m_pdfSumwUp += (1.+pdfUnc)*genWeight;
                 m_pdfSumwDown += (1.-pdfUnc)*genWeight;
             }
-            // if(e->PSWeight!=nullptr){//PS weights (w_var / w_nominal); [0] is ISR=2 FSR=1; [1] is ISR=1 FSR=2[2] is ISR=0.5 FSR=1; [3] is ISR=1 FSR=0.5;
-            //     m_PSWeightSumwUp += e->PSWeight->At(1)*genWeight;
-            //     m_PSWeightSumwDown += e->PSWeight->At(3)*genWeight;
-            // }
+            if(e->PSWeight!=nullptr){//PS weights (w_var / w_nominal); [0] is ISR=2 FSR=1; [1] is ISR=1 FSR=2[2] is ISR=0.5 FSR=1; [3] is ISR=1 FSR=0.5;
+                m_PSWeightISRSumwUp += e->PSWeight->At(0)*genWeight;
+                m_PSWeightISRSumwDown += e->PSWeight->At(2)*genWeight;
+                m_PSWeightFSRSumwUp += e->PSWeight->At(1)*genWeight;
+                m_PSWeightFSRSumwDown += e->PSWeight->At(3)*genWeight;
+            }
         }
         m_cutflow->Fill(0., genWeight);
 
@@ -160,11 +162,13 @@ void objectSelection::Terminate()
         TTree *runsForOut = runs->CloneTree();
         //add branch LHEPdfSumwUp, LHEPdfSumwDown
         std::cout<<"m_pdfSumwUp="<<m_pdfSumwUp<<"; m_pdfSumwDown="<<m_pdfSumwDown<<"\n";
-        std::cout<<"m_PSWeightUp="<<m_PSWeightSumwUp<<"; m_PSWeightDown="<<m_PSWeightSumwDown<<"\n";
+        // std::cout<<"m_PSWeightUp="<<m_PSWeightSumwUp<<"; m_PSWeightDown="<<m_PSWeightSumwDown<<"\n";
         TBranch *newBranch = runsForOut->Branch("LHEPdfSumwUp", &m_pdfSumwUp);
         TBranch *newBranch2 = runsForOut->Branch("LHEPdfSumwDown", &m_pdfSumwDown);
-        TBranch *newBranch3 = runsForOut->Branch("PSWeightSumwUp", &m_PSWeightSumwUp);
-        TBranch *newBranch4 = runsForOut->Branch("PSWeightSumwDown", &m_PSWeightSumwDown);
+        TBranch *newBranch3 = runsForOut->Branch("m_PSWeightISRSumwUp", &m_PSWeightISRSumwUp);
+        TBranch *newBranch4 = runsForOut->Branch("m_PSWeightISRSumwDown", &m_PSWeightISRSumwDown);
+        TBranch *newBranch5 = runsForOut->Branch("m_PSWeightFSRSumwUp", &m_PSWeightFSRSumwUp);
+        TBranch *newBranch6 = runsForOut->Branch("m_PSWeightFSRSumwDown", &m_PSWeightFSRSumwDown);
 
         for(UInt_t i=0; i<runsForOut->GetEntries(); i++){
             runsForOut->GetEntry(i);
@@ -173,6 +177,7 @@ void objectSelection::Terminate()
             newBranch2->Fill();
             newBranch3->Fill();
             newBranch4->Fill();
+            newBranch5->Fill();
         }
 
         runsForOut->SetDirectory(m_output);
