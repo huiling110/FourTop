@@ -101,6 +101,8 @@ Int_t chargeMulCalNew(const TTreeReaderArray<Int_t> &muons_charge, const TTreeRe
 
 Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeReaderArray<Double_t> &muons_eta, const TH2D *MuonIDSF, const Int_t type, Bool_t isMuon, Bool_t isData);
 
+Double_t calMuonIDSF_independentSys(const TH2D *hist_sf, const TH2D *hist_sys, const TTreeReaderArray<Double_t> &muon_pt, const TTreeReaderArray<Double_t> &muon_eta, Int_t sysMuon, const Bool_t isMuon, Bool_t isData, Bool_t isError);
+
 Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t> &muon_eta, const TTreeReaderArray<Double_t> &muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, Int_t sysMuon = 0, Bool_t isData = kFALSE);
 
 Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, std::string VsJetWP = "Medium", Bool_t isData = kFALSE, Bool_t isRun3 = kFALSE);

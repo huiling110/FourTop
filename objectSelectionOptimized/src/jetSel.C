@@ -2,7 +2,7 @@
 #include "../../src_cpp/lumiAndCrossSection.h"
 #include <map>
 
-JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys, const UChar_t JERSys) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}, m_JERSys{JERSys}
+JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys, const UChar_t JERSys) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}, m_JERSys{JERSys}, m_JESSysUncerType{JESSysUncerType}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
     std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<" m_JESSys="<<static_cast<unsigned int>(m_JESSys)<< " m_JERSys="<<static_cast<unsigned int>(m_JERSys)<<"......\n";
@@ -66,6 +66,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Int_t ijet_hadronFlavour = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_hadronFlavour, j);
 
         Double_t JESSF = 1.0;
+        //!for run 2 need to handling the JES uncertainty variation
         if(m_isRun3){
             JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
         }
@@ -82,7 +83,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Double_t JERSF = 1.0;
         if(!m_isData){
             Double_t fixedGridRhoFastjetAll = m_isRun3? **e->Rho_fixedGridRhoFastjetAll:**e->fixedGridRhoFastjetAll;
-            // JERSF = calJER_SF_new(jetpt, ijetEta, ijetPhi, ijetMass, **e->Rho_fixedGridRhoFastjetAll, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt);
             JERSF = calJER_SF_new(jetpt, ijetEta, ijetPhi, ijetMass, fixedGridRhoFastjetAll, *e->GenJet_eta, *e->GenJet_phi, *e->GenJet_pt);
         }
         // std::cout << "JERSF=" << JERSF << "\n";
@@ -182,7 +182,7 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
     // https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetmetHelperRun2.py
     auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
     //???does the MC_Total include the JER uncertainty?
-    //!!!not sure how to get the JEC uncertainty for data yet?
+    //not sure how to get the JEC uncertainty for data yet? the uncertainty in data is abored in MC
 
     JER_SF_new.clear();
 
@@ -257,8 +257,6 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
         // std::cout << "iJERSF: " << iSF << "\n";
         // std::cout<<"iSF_JES"<<iSF_JESuncer<<"\n";
         JER_SF_new.push_back(iSF);
-        // jer_sf_up.push_back(iSF_up);
-        // jer_sf_down.push_back(iSF_down);
         jets_JESuncer.push_back(iSF_JESuncer);
     }
 };
@@ -346,8 +344,9 @@ Double_t JetSel::calJES_SF(Double_t area, Double_t eta, Double_t pt, Double_t ph
     Double_t JES_SF = 1.0;
     Double_t JES_uncer = 0.;
     if (!m_isRun3)
-    {
-        auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
+    {//https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jecUncertainties.py
+        //auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
+        auto corr_jesUncer = cset_jerSF->at(corr_Uncer_JES_map[m_era].at(m_JESSysUncerType).Data());
         JES_uncer = corr_jesUncer->evaluate({eta, pt}); //!!! do you need the pt to be raw?
     }else{
         TString L1Tag;
@@ -378,19 +377,6 @@ Double_t JetSel::calJES_SF(Double_t area, Double_t eta, Double_t pt, Double_t ph
         // std::cout << compound << "\n";
         auto corr_JESSF_compound = cset_jerSF->compound().at(compound.Data());//!!!
         JES_SF = corr_JESSF_compound->evaluate({area, eta, pt, pho});
-
-        // Double_t iJES_SF_L1 = corr_JESSF_L1->evaluate({area, eta, pt, pho}); //!!!seems all 1 for data
-        // Double_t iJES_SF_L2 = corr_JESSF_L2->evaluate({eta, pt});             //!!!seems all larger than 1 for MC, why?
-        // Double_t iJES_SF_L3 = corr_JESSF_L3->evaluate({eta, pt});             // all 1, dummy for data
-        // if(!m_isData){
-        //     // JES_SF = iJES_SF_L1 * iJES_SF_L2 * iJES_SF_L3;
-        //     auto corr_jesUncer = cset_jerSF->at(jesTagMC.at(m_era).at(4).Data());
-        //     JES_uncer = corr_jesUncer->evaluate({eta, pt}); 
-        // }else{
-        //     auto corr_JESSF_L2L3Res = cset_jerSF->at(L2L3Re.Data());
-        //     Double_t iJES_SF_L2L3Res = corr_JESSF_L2L3Res->evaluate({eta, pt});       
-        //     JES_SF = iJES_SF_L1 * iJES_SF_L2 * iJES_SF_L3 * iJES_SF_L2L3Res;
-        // }
 
     }
 
@@ -468,7 +454,3 @@ Bool_t JetSel::jetVetoMap(Double_t eta, Double_t phi){
         return kFALSE;
     }
 }
-
-// Void JetSel::lepFake(const std::vector<Int_t>& elesTopMVAF_jetIdx ){
-
-// }

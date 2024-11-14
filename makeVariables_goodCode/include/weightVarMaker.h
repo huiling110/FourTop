@@ -50,6 +50,16 @@ private:
     Double_t musTopMVAT_weight;
     Double_t musTopMVAT_weight_up;
     Double_t musTopMVAT_weight_down;
+    Double_t musTopMVAT_weight_sys_up;
+    Double_t musTopMVAT_weight_sys_down;
+    Double_t musTopMVAT_weight_stat_up;
+    Double_t musTopMVAT_weight_stat_down;
+    Double_t elesTopMVAT_weight_sys_up;
+    Double_t elesTopMVAT_weight_sys_down;
+    Double_t elesTopMVAT_weight_stat_up;
+    Double_t elesTopMVAT_weight_stat_down;
+    Double_t elesTopMVAT_weight_new = 1.0;
+    Double_t musTopMVAT_weight_new = 1.0;
     // Double_t tauT_IDSF_weight;
     Double_t tauT_IDSF_weight_new;
     Double_t tauTT_IDSF_weight_new;
@@ -59,8 +69,38 @@ private:
     Double_t tauT_IDSF_weight_new_vsmu_down;
     Double_t tauT_IDSF_weight_new_vsele_up;
     Double_t tauT_IDSF_weight_new_vsele_down;
-    Double_t btagShape_weight = 1.0;
+    //tau ID SF considering correlation 
+    Double_t tauT_IDSF_weight_new_stat1_dm0_up;
+    Double_t tauT_IDSF_weight_new_stat1_dm0_down;
+    Double_t tauT_IDSF_weight_new_stat1_dm1_up;
+    Double_t tauT_IDSF_weight_new_stat1_dm1_down;
+    Double_t tauT_IDSF_weight_new_stat1_dm10_up;
+    Double_t tauT_IDSF_weight_new_stat1_dm10_down;
+    Double_t tauT_IDSF_weight_new_stat1_dm11_up;
+    Double_t tauT_IDSF_weight_new_stat1_dm11_down;
 
+    Double_t tauT_IDSF_weight_new_stat2_dm0_up;
+    Double_t tauT_IDSF_weight_new_stat2_dm0_down;
+    Double_t tauT_IDSF_weight_new_stat2_dm1_up;
+    Double_t tauT_IDSF_weight_new_stat2_dm1_down;
+    Double_t tauT_IDSF_weight_new_stat2_dm10_up;
+    Double_t tauT_IDSF_weight_new_stat2_dm10_down;
+    Double_t tauT_IDSF_weight_new_stat2_dm11_up;
+    Double_t tauT_IDSF_weight_new_stat2_dm11_down;
+    Double_t tauT_IDSF_weight_new_syst_alleras_up;
+    Double_t tauT_IDSF_weight_new_syst_alleras_down;
+    Double_t tauT_IDSF_weight_new_syst_era_up;
+    Double_t tauT_IDSF_weight_new_syst_era_down;
+    Double_t tauT_IDSF_weight_new_syst_era_dm0_up;
+    Double_t tauT_IDSF_weight_new_syst_era_dm0_down;
+    Double_t tauT_IDSF_weight_new_syst_era_dm1_up;
+    Double_t tauT_IDSF_weight_new_syst_era_dm1_down;
+    Double_t tauT_IDSF_weight_new_syst_era_dm10_up;
+    Double_t tauT_IDSF_weight_new_syst_era_dm10_down;
+    Double_t tauT_IDSF_weight_new_syst_era_dm11_up;
+    Double_t tauT_IDSF_weight_new_syst_era_dm11_down;
+
+    Double_t btagShape_weight = 1.0;
     Double_t btagShape_weight_jes_up = 1.0;
     Double_t btagShape_weight_jes_down = 1.0;
     Double_t btagShape_weight_hf_up = 1.0;
@@ -87,6 +127,10 @@ private:
     Double_t btagWPMT_weight = 1.0;
     Double_t btagWPMT_weight_up = 1.0;
     Double_t btagWPMT_weight_down = 1.0;
+    Double_t btagWPMT_weight_correlated_up = 1.0;
+    Double_t btagWPMT_weight_correlated_down = 1.0;
+    Double_t btagWPMT_weight_uncorrelated_up = 1.0;
+    Double_t btagWPMT_weight_uncorrelated_down = 1.0;
 
     Double_t HLT_weight = 1.0;
     Double_t HLT_weight_stats_up = 1.0;
@@ -115,6 +159,10 @@ private:
 
     TH2D *eleIDSF_topMVA;
     TH2D *muIDSF_topMVA;
+    TH2D *eleIDSF_topMVA_sys;
+    TH2D *muIDSF_topMVA_sys;
+    TH2D *eleIDSF_topMVA_stat;
+    TH2D *muIDSF_topMVA_stat;
 
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;
@@ -136,6 +184,7 @@ private:
     TH2D* triggerHist3b;
 
     std::vector<TTTT::EtaProngGraph> m_graphs;
+    TString m_eraForTau;
 
 };
 

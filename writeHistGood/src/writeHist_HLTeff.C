@@ -146,7 +146,8 @@ void WH_HLTeff::LoopTree(UInt_t entry)
         if (!m_isData)
         {
             if(!m_isRun3){
-                basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->btagWPMedium_weight.v()) * e->musTopMVAT_weight.v() * e->elesTopMVAT_weight.v();
+                // basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->btagWPMedium_weight.v()) * e->musTopMVAT_weight.v() * e->elesTopMVAT_weight.v();
+                basicWeight = (e->EVENT_prefireWeight.v()) * (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->btagWPMedium_weight.v()) * e->musTopMVAT_weight_new.v() * e->elesTopMVAT_weight_new.v();
             }else{
                 basicWeight = (e->EVENT_genWeight.v()) * (e->PUweight_.v()) * (e->btagWPMedium_weight.v());
             }

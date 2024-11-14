@@ -184,8 +184,12 @@ histoGramPerSample = {
     'qcd_2000toInf':'qcd',
 
     "ttG":"ttX",
-    "ttZ":"ttX",  
-    "ttW":"ttX",
+    # "ttZ":"ttX",  
+    # "ttW":"ttX",
+    "TTZToLLNuNu": "ttX",
+    "TTZToQQ": "ttX",
+    "TTWJetsToQQ": "ttX",
+    "TTWJetsToLNu": "ttX",
     "ttH_bb": "ttX", 
     "ttH_nonbb": "ttX", 
     # "ttWW": "ttX", #!temprarily close
@@ -221,7 +225,7 @@ histoGramPerSample = {
     "vbfH_bb": "Minor",#"Higgs", #!not exist in 2017
     "vbfH_tautau": "Minor",#"Higgs", #! not exist in 2016preVFP
     "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l in 2016
-    "VH_nonbb": "Minor",#"Higgs", #!not in MV
+    # "VH_nonbb": "Minor",#"Higgs", #!doesn't exsit in 2018
     
     "WJetsToLNu_HT-200To400": "WJets",
     "WJetsToLNu_HT-400To600": "WJets",
@@ -538,7 +542,7 @@ dataDict = {
 
 proChannelDic = {
     # '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l
-    '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',   'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
+    '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets', 'Minor',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
     '1tau0l':  [ 'fakeTau', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l
     '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
     # '1tau2l':  ['tt', 'ttX',  'singleTop',  'Minor',  'tttt', 'leptonSum'], #!testing

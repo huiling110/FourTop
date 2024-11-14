@@ -18,6 +18,8 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
     outTree->Branch("scaleWeightRe_down", &scaleWeightRe_down);
     outTree->Branch("scaleWeightFa_up", &scaleWeightFa_up);
     outTree->Branch("scaleWeightFa_down", &scaleWeightFa_down);
+    outTree->Branch("PSWeight_up", &PSWeight_up);
+    outTree->Branch("PSWeight_down", &PSWeight_down);
 
     std::cout<<"Done SystWeightCal initialization.......\n\n";
 };
@@ -44,6 +46,7 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         }
         pdfWeight_up = 1.+pdfUnc;
         pdfWeight_down = 1.-pdfUnc;
+        //might have to store all 100 variation for alternative studies
 
         //scale weight//???seems wrong
         //2: up; 0.5:down
@@ -54,6 +57,7 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         // scaleWeight_up = std::max_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
         // scaleWeight_down = std::min_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
         if (e->LHEScaleWeight!=nullptr){
+            //!w_var / w_nominal
             std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;//this one should be correct
             scaleWeight_up = *(std::max_element(vec.begin(), vec.end()));
             scaleWeight_down =*( std::min_element(vec.begin(), vec.end()));
@@ -63,6 +67,12 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
             scaleWeightFa_down = e->LHEScaleWeight->At(3);
             scaleWeight = e->LHEScaleWeight->At(4);
             //Jan suggested scale the systematic weights by the nominal weight
+        }
+
+        if(e->PSWeight!=nullptr){//PS weights (w_var / w_nominal); [0] is ISR=2 FSR=1; [1] is ISR=1 FSR=2[2] is ISR=0.5 FSR=1; [3] is ISR=1 FSR=0.5;
+        //Recommendation: default variations with factor 2 and 0.5 
+            PSWeight_up = e->PSWeight->At(0);
+            PSWeight_down = e->PSWeight->At(3);
         }
     }
 };
@@ -80,4 +90,6 @@ void SystWeightCal::clearBranch(){
     scaleWeightRe_down=1.;
     scaleWeightFa_up=1.;
     scaleWeightFa_down=1.;
+    PSWeight_up=1.;
+    PSWeight_down=1.;
 };

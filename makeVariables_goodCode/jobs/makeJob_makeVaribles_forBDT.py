@@ -41,7 +41,8 @@ def main():
     # inVersion = 'v84Pre1tau2lLepF2V2'
     # inVersion = 'v84HadroPresel'
     # inVersion = 'v85HadroPreselTauOverlap0.5'
-    inVersion = 'v86HadroPreSelWithGammaRemoval'
+    # inVersion = 'v86HadroPreSelWithGammaRemoval'
+    inVersion = 'v86HadroPreSelWithTTWTTZNLO'
 
     outVersion = 'v0baselineHardro_nb3Ht500Pt40'
     # outVersion = 'v0baselineLep'

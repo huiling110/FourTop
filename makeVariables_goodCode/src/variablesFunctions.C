@@ -421,7 +421,6 @@ Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
     return initB;
 }
 
-// Int_t calGenTauNum(const TTreeReaderArray<Int_t> &tausT_genPartFlav)
 Int_t calGenTauNum(const TTreeReaderArray<UChar_t> &tausT_genPartFlav)
 {
     Int_t genNum = 0;
@@ -755,6 +754,35 @@ Double_t calMuonIDSF(const TTreeReaderArray<Double_t> &muons_pt, const TTreeRead
     return muonIDSF;
 }
 
+Double_t calMuonIDSF_independentSys(const TH2D* hist_sf, const TH2D* hist_sys, const TTreeReaderArray<Double_t>& muon_pt, const TTreeReaderArray<Double_t>& muon_eta, Int_t sysMuon, const Bool_t isMuon, Bool_t isData, Bool_t isError){
+    if(isData){
+        return 1.0;
+    }
+    Double_t SF = 1.0;
+    for(UInt_t i = 0; i < muon_pt.GetSize(); i++){
+        Double_t sf = TTTT::get2DSF(muon_pt.At(i), muon_eta.At(i), hist_sf, 0);
+        //for muons: the errors are stored in the errors of the histograms, so an example code line becomes: nominal->GetBinContent(x, y) * (1. + sys->GetBinError(x, y)
+        Double_t err = isError? TTTT::get2DSF(muon_pt.At(i), muon_eta.At(i), hist_sys, 3): TTTT::get2DSF(muon_pt.At(i), muon_eta.At(i), hist_sys, 0); //first x, second y
+        //!I am guessing: for sys uncertainty, it's stored as bin content, not bin error
+        switch (sysMuon)
+        {
+        case 1://up
+            sf = isError?(sf+err): sf*(1. + err);
+            break;
+        case 2://down
+            sf = isError? (sf-err): sf*(1. - err);
+            break;
+        default:
+            break;
+        }
+        SF = SF * sf;
+    }
+
+    return SF;
+
+};
+
+
 Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTreeReaderArray<Double_t>& muon_pt, correction::CorrectionSet *csetLPt, correction::CorrectionSet *csetMPt, correction::CorrectionSet *csetHPt, Int_t sysMuon, Bool_t isData){
     Double_t sf = 1.0;
     if(isData){
@@ -829,11 +857,11 @@ Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeR
             Double_t sf_vsele = 1.0;
             Double_t sf_vsmu = 1.0;
             if(isRun3){
-                // sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "VVLoose", syst_vsjet, "dm"}); //!why need WPVSEle?
                 sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, VsJetWP, "VVLoose", syst_vsjet, "dm"}); //!why need WPVSEle?
                 sf_vsele = corr_vsele->evaluate({ieta, idecayMode, igenMatch, "VVLoose", syst_vsele}); 
             }else{
-                sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"}); //???not sure if is should be 5 or the genmatch of the tau
+                // sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", syst_vsjet, "pt"}); //???not sure if is should be 5 or the genmatch of the tau
+                sf_vsJet = corr_vsjet->evaluate({ipt, idecayMode, igenMatch, "Medium", "VVLoose", syst_vsjet, "dm"}); //!should probably use DM instead of pt
                 sf_vsele = corr_vsele->evaluate({ieta, igenMatch, "VVLoose", syst_vsele}); // no VVVLoose histogram in file, use VVLoose and add +3% uncertainty (recommended by TAU POG conveners)
             }
             sf_vsmu = corr_vsmu->evaluate({ieta, igenMatch, "VLoose", syst_vsmu});
@@ -945,6 +973,8 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
 Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, TH2D *btagTEff_b, TH2D *btagTEff_c, TH2D *btagTEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3, const Bool_t ifBTagT)
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
+    //https://btv-wiki.docs.cern.ch/PerformanceCalibration/SFUncertaintiesAndCorrelations/#working-point-based-sfs-fixedwp-sfs
+    //!!!More than one data-taking era is analyzed: A breakdown of SFbc and SFlight into up/down_correlated/uncorrelated is to be used.
     Double_t sf = 1.0;
     if(isData){
         return 1.0;

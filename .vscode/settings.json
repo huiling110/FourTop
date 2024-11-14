@@ -81,7 +81,14 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "hashtable": "cpp"
+        "hashtable": "cpp",
+        "any": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "numbers": "cpp",
+        "semaphore": "cpp",
+        "span": "cpp",
+        "stop_token": "cpp"
     },
     "C_Cpp.default.includePath": [
         "/scratchfs/cms/huahuil/python/lib/python3.6/site-packages/correctionlib-0.0.0-py3.6-linux-x86_64.egg/correctionlib/include/",

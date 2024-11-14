@@ -34,6 +34,18 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("musTopMVAT_weight", &musTopMVAT_weight);
     outTree->Branch("musTopMVAT_weight_up", &musTopMVAT_weight_up);
     outTree->Branch("musTopMVAT_weight_down", &musTopMVAT_weight_down);
+    outTree->Branch("musTopMVAT_weight_sys_up", &musTopMVAT_weight_sys_up);
+    outTree->Branch("musTopMVAT_weight_sys_down", &musTopMVAT_weight_sys_down);
+    outTree->Branch("musTopMVAT_weight_stat_up", &musTopMVAT_weight_stat_up);
+    outTree->Branch("musTopMVAT_weight_stat_down", &musTopMVAT_weight_stat_down);
+    outTree->Branch("elesTopMVAT_weight_sys_up", &elesTopMVAT_weight_sys_up);
+    outTree->Branch("elesTopMVAT_weight_sys_down", &elesTopMVAT_weight_sys_down);
+    outTree->Branch("elesTopMVAT_weight_stat_up", &elesTopMVAT_weight_stat_up);
+    outTree->Branch("elesTopMVAT_weight_stat_down", &elesTopMVAT_weight_stat_down);
+    outTree->Branch("elesTopMVAT_weight_new", &elesTopMVAT_weight_new);
+    outTree->Branch("musTopMVAT_weight_new", &musTopMVAT_weight_new);
+
+
     outTree->Branch("tauT_IDSF_weight_new", &tauT_IDSF_weight_new);
     outTree->Branch("tauTT_IDSF_weight_new", &tauTT_IDSF_weight_new);
     outTree->Branch("tauT_IDSF_weight_new_vsjet_up", &tauT_IDSF_weight_new_vsjet_up);
@@ -42,8 +54,40 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("tauT_IDSF_weight_new_vsmu_down", &tauT_IDSF_weight_new_vsmu_down);
     outTree->Branch("tauT_IDSF_weight_new_vsele_up", &tauT_IDSF_weight_new_vsele_up);
     outTree->Branch("tauT_IDSF_weight_new_vsele_down", &tauT_IDSF_weight_new_vsele_down);
-    outTree->Branch("btagShape_weight", &btagShape_weight);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm0_up", &tauT_IDSF_weight_new_stat1_dm0_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm0_down", &tauT_IDSF_weight_new_stat1_dm0_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm1_up", &tauT_IDSF_weight_new_stat1_dm1_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm1_down", &tauT_IDSF_weight_new_stat1_dm1_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm10_up", &tauT_IDSF_weight_new_stat1_dm10_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm10_down", &tauT_IDSF_weight_new_stat1_dm10_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm11_up", &tauT_IDSF_weight_new_stat1_dm11_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat1_dm11_down", &tauT_IDSF_weight_new_stat1_dm11_down);
 
+    outTree->Branch("tauT_IDSF_weight_new_stat2_dm0_up", &tauT_IDSF_weight_new_stat2_dm0_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat2_dm0_down", &tauT_IDSF_weight_new_stat2_dm0_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat2_dm1_up", &tauT_IDSF_weight_new_stat2_dm1_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat2_dm1_down", &tauT_IDSF_weight_new_stat2_dm1_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat2_dm10_up", &tauT_IDSF_weight_new_stat2_dm10_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat2_dm10_down", &tauT_IDSF_weight_new_stat2_dm10_down);
+    outTree->Branch("tauT_IDSF_weight_new_stat2_dm11_up", &tauT_IDSF_weight_new_stat2_dm11_up);
+    outTree->Branch("tauT_IDSF_weight_new_stat2_dm11_down", &tauT_IDSF_weight_new_stat2_dm11_down);
+
+
+    outTree->Branch("tauT_IDSF_weight_new_syst_alleras_up", &tauT_IDSF_weight_new_syst_alleras_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_alleras_down", &tauT_IDSF_weight_new_syst_alleras_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_up", &tauT_IDSF_weight_new_syst_era_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_down", &tauT_IDSF_weight_new_syst_era_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm0_up", &tauT_IDSF_weight_new_syst_era_dm0_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm0_down", &tauT_IDSF_weight_new_syst_era_dm0_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm1_up", &tauT_IDSF_weight_new_syst_era_dm1_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm1_down", &tauT_IDSF_weight_new_syst_era_dm1_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm10_up", &tauT_IDSF_weight_new_syst_era_dm10_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm10_down", &tauT_IDSF_weight_new_syst_era_dm10_down);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm11_up", &tauT_IDSF_weight_new_syst_era_dm11_up);
+    outTree->Branch("tauT_IDSF_weight_new_syst_era_dm11_down", &tauT_IDSF_weight_new_syst_era_dm11_down);
+
+
+    outTree->Branch("btagShape_weight", &btagShape_weight);
     outTree->Branch("btagShape_weight_jes_up", &btagShape_weight_jes_up);
     outTree->Branch("btagShape_weight_jes_down", &btagShape_weight_jes_down);
     outTree->Branch("btagShape_weight_hf_up", &btagShape_weight_hf_up);
@@ -70,6 +114,10 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("btagWPMT_weight", &btagWPMT_weight);
     outTree->Branch("btagWPMT_weight_up", &btagWPMT_weight_up);
     outTree->Branch("btagWPMT_weight_down", &btagWPMT_weight_down);
+    outTree->Branch("btagWPMT_weight_correlated_up", &btagWPMT_weight_correlated_up);
+    outTree->Branch("btagWPMT_weight_correlated_down", &btagWPMT_weight_correlated_down);
+    outTree->Branch("btagWPMT_weight_uncorrelated_up", &btagWPMT_weight_uncorrelated_up);
+    outTree->Branch("btagWPMT_weight_uncorrelated_down", &btagWPMT_weight_uncorrelated_down);
 
     outTree->Branch("HLT_weight", &HLT_weight);
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
@@ -91,27 +139,14 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("scaleWeightRe_down_", &scaleWeightRe_down_);
     outTree->Branch("scaleWeightFa_up_", &scaleWeightFa_up_);
     outTree->Branch("scaleWeightFa_down_", &scaleWeightFa_down_);
-    // outTree->Branch("scaleWeightRe_normalised_up", &scaleWeightRe_normalised_up);
-    // outTree->Branch("scaleWeightRe_normalised_down", &scaleWeightRe_normalised_down);
-    // outTree->Branch("scaleWeightFa_normalised_up", &scaleWeightFa_normalised_up);
-    // outTree->Branch("scaleWeightFa_normalised_down", &scaleWeightFa_normalised_down);
 
     // TOP Lepton MVA
-    TFile *eleIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(0)), "READ");
-    std::cout << "top ele SF file used: " << eleIDSF_topMVAFile->GetName() << "\n";
-    eleIDSF_topMVA = (TH2D *)eleIDSF_topMVAFile->Get("EGamma_SF2D");
-    eleIDSF_topMVA->SetDirectory(nullptr);
-    eleIDSF_topMVAFile->Close();
-    delete eleIDSF_topMVAFile;
-    TFile *muIDSF_topMVAFile = new TFile((MV::topLeptonSF_files.at(m_era).at(1)), "READ");
-    std::cout << "top mu SF file used: " << muIDSF_topMVAFile->GetName() << "\n";
-    TCanvas *canvas = (TCanvas *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    // muIDSF_topMVA = (TH2D *)muIDSF_topMVAFile->Get("cNUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    muIDSF_topMVA = (TH2D *)canvas->GetPrimitive("NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
-    muIDSF_topMVA->Print();
-    muIDSF_topMVA->SetDirectory(nullptr);
-    muIDSF_topMVAFile->Close();
-    delete muIDSF_topMVAFile;
+    eleIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "EGamma_SF2D");
+    muIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(1), "NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt");
+    eleIDSF_topMVA_stat = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "stat");
+    eleIDSF_topMVA_sys = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "sys");//n the sys and stat histograms, the bincontent is the uncertainty you want, so you can just extract that. So example, the systematic up variation of the electron SF: EGamma_SF2D->GetBinContent(x, y) * (1. + sys->GetBinContent(x, y)).
+    muIDSF_topMVA_sys = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(1), "NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt_combined_syst");
+    muIDSF_topMVA_stat = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(1), "NUM_LeptonMvaMedium_DEN_TrackerMuons_abseta_pt_stat"); // the errors are stored in the errors of the histograms, so an example code line becomes: nominal->GetBinContent(x, y) * (1. + sys->GetBinError(x, y))
 
     //muon 2022 SFs
     TString base = "../../jsonpog-integration/POG/";
@@ -131,6 +166,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout << "btagSF_json=" << btagSF_json << "\n";
     cset = correction::CorrectionSet::from_file(tauSF_json.Data());//for tau
     cset_btag = correction::CorrectionSet::from_file(btagSF_json.Data());
+    m_eraForTau = m_era.Contains("2016") ?  m_era.ReplaceAll("2016P", "2016_p"): m_era;
     // btagR files
     btagRHist = TTTT::getHistogramFromFile<TH1D>(MV::btagR_map.at(m_era), "btagR");
     std::cout << "b tag R file used: " << MV::btagR_map.at(m_era) << "\n";
@@ -169,7 +205,6 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
         if(m_processName.Contains("TTToSemiLeptonic") || m_processName.Contains("TTTo2L2Nu") || m_processName.Contains("TTToHadronic")){//!TT extra processes have to be added to use later
             TString processTem = removeTrailingNumbers(m_processName);
             std::cout<<"processTem="<<processTem<<"\n";
-            // global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(processTem) / TTTT::genSumDic.at(m_era).at(processTem);
             global_weight = TTTT::lumiMap.at(m_era) * TTTT::crossSectionMap.at(processTem) / GENSUM::genSumMap.at(m_era).at(processTem);
             std::cout<<"lumi="<<TTTT::lumiMap.at(m_era)<<" crossSection="<<TTTT::crossSectionMap.at(processTem)<<" genSum="<<GENSUM::genSumMap.at(m_era).at(processTem)<<"\n";
         }else{
@@ -217,6 +252,16 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     musTopMVAT_weight = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 0, kTRUE, m_isData);
     musTopMVAT_weight_up = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 1, kTRUE, m_isData);
     musTopMVAT_weight_down = calMuonIDSF(e->muonsTopMVAT_pt, e->muonsTopMVAT_eta, muIDSF_topMVA, 2, kTRUE, m_isData);
+    musTopMVAT_weight_sys_up = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_sys, e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 1, kTRUE, m_isData, kFALSE); 
+    musTopMVAT_weight_sys_down = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_sys, e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 2, kTRUE, m_isData, kFALSE);
+    musTopMVAT_weight_stat_up = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_stat, e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 1, kTRUE, m_isData, kTRUE);
+    musTopMVAT_weight_stat_down = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_stat, e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 2, kTRUE, m_isData, kTRUE);
+    elesTopMVAT_weight_sys_up = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_sys,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 1, kFALSE, m_isData, kFALSE );
+    elesTopMVAT_weight_sys_down = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_sys,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 2, kFALSE, m_isData, kFALSE);
+    elesTopMVAT_weight_stat_up = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_stat,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 1, kFALSE, m_isData, kFALSE);
+    elesTopMVAT_weight_stat_down = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_stat,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 2, kFALSE, m_isData, kFALSE);
+    elesTopMVAT_weight_new = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_stat,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 0, kFALSE, m_isData, kTRUE);
+    musTopMVAT_weight_new = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_stat,  e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 0, kTRUE, m_isData, kTRUE);
     //!!!normal leptons
     eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
     eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);
@@ -229,15 +274,45 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     muonIDSF_weight_down = calMuonIDSF_json(e->muonsT_eta, e->muonsT_pt, cset_muonLPt.get(), cset_muonMPt.get(), cset_muonHPt.get(), 2, m_isData);//!!!check input muon collection
 
     tauT_IDSF_weight_new = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "nom",  "Medium", m_isData, m_isRun3);
-    tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_vsjet_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "up", "nom", "nom", "Medium", m_isData, m_isRun3);//!for 'dm' systematic, the up and down are the same as nominal
     tauT_IDSF_weight_new_vsjet_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "down", "nom", "nom", "Medium", m_isData, m_isRun3);
     tauT_IDSF_weight_new_vsmu_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "up", "nom", "Medium", m_isData, m_isRun3);
     tauT_IDSF_weight_new_vsmu_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "down", "nom", "Medium", m_isData, m_isRun3);
     tauT_IDSF_weight_new_vsele_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "up", "Medium", m_isData, m_isRun3);
     tauT_IDSF_weight_new_vsele_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "nom", "nom", "down", "Medium", m_isData, m_isRun3);
     tauTT_IDSF_weight_new = calTau_IDSF_new(e->tausTT_pt, e->tausTT_eta, e->tausTT_decayMode, e->tausTT_genPartFlav, cset.get(), "nom", "nom", "nom",  "Tight", m_isData, m_isRun3);
+    //handling of tau systematic uncertainties properly 
+    tauT_IDSF_weight_new_stat1_dm0_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm0_up", "nom", "nom", "Medium", m_isData, m_isRun3);//!detailed sytematic uncertainties only available for tauVsJet
+    tauT_IDSF_weight_new_stat1_dm0_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm0_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm1_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm1_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm1_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm1_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm10_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm10_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm10_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm10_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm11_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm11_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat1_dm11_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat1_dm11_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat2_dm0_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat2_dm0_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat2_dm0_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat2_dm0_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat2_dm1_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat2_dm1_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat2_dm1_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat2_dm1_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat2_dm10_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat2_dm10_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat2_dm10_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat2_dm10_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat2_dm11_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat2_dm11_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_stat2_dm11_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "stat2_dm11_down", "nom", "nom", "Medium", m_isData, m_isRun3);
 
-    // TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btags : e->jets_btagsPT;
+
+    tauT_IDSF_weight_new_syst_alleras_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "syst_alleras_up", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_alleras_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), "syst_alleras_down", "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3); //! care for 2016; era=2016_preVFP, 2016_postVFP, 2017, 2018
+    tauT_IDSF_weight_new_syst_era_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm0_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm0_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm0_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm0_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm1_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm1_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm1_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm1_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm10_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm10_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm10_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm10_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm11_up = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm11_up").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+    tauT_IDSF_weight_new_syst_era_dm11_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm11_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
+
     TTreeReaderArray<Double_t>& jets_btags = (m_isRun3) ? e->jets_btagsPT : e->jets_btags;
     btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");
     btagShape_weight_jes_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_jes");
@@ -259,6 +334,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagShape_weight_cferr2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr2");
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr2");
     btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
+    //!For each JES source used in your analysis the respective up/down_jesXXX varied SF is to be applied to the JES-varied template instead of the nominal one
 
     //btag WorkingPoint
     btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
@@ -269,7 +345,11 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagWPMT_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3, kTRUE);
     if(std::isnan(btagWPMT_weight) || std::isinf(btagWPMT_weight)){
         std::cout<<"btagWPMT_weight="<<btagWPMT_weight<<"\n";
-    }
+    }//!
+    btagWPMT_weight_correlated_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_correlated", m_isRun3, kTRUE);
+    btagWPMT_weight_correlated_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_correlated", m_isRun3, kTRUE);
+    btagWPMT_weight_uncorrelated_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_uncorrelated", m_isRun3, kTRUE);
+    btagWPMT_weight_uncorrelated_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_uncorrelated", m_isRun3, kTRUE);
 
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
@@ -301,6 +381,14 @@ void WeightVarMaker::clearBranch()
     FR_weight = -99;
     FR_weight_up = -99;
     FR_weight_down = -99;
+
+    btagWPMT_weight = 1.;
+    btagWPMT_weight_up = 1.;
+    btagWPMT_weight_down = 1.;
+    btagWPMT_weight_correlated_up = 1.;
+    btagWPMT_weight_correlated_down = 1.;
+    btagWPMT_weight_uncorrelated_up = 1.;
+    btagWPMT_weight_uncorrelated_down = 1.;
 
     
 };
