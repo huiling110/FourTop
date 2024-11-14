@@ -178,6 +178,7 @@ void objectSelection::Terminate()
             newBranch3->Fill();
             newBranch4->Fill();
             newBranch5->Fill();
+            newBranch6->Fill();
         }
 
         runsForOut->SetDirectory(m_output);
