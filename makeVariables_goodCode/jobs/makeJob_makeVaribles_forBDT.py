@@ -45,8 +45,7 @@ def main():
     # inVersion = 'v86HadroPreSelWithTTWTTZNLO'
     # inVersion = 'v86LepPreSel'
     # inVersion = 'v87LepPreSel_GammaRemovalBugFixed'
-    # inVersion = 'v87addPdfPSWeightSum'
-    inVersion = 'v87WithMCSamplesAllNew'
+    inVersion = 'v87addPdfPSWeightSum'
 
     # outVersion = 'v0baselineHardro'
     outVersion = 'v0baselineLep'

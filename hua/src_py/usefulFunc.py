@@ -261,8 +261,6 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
             rootFile = inputDirDic['mc'] + isub +'.root'
         print('opening file:', rootFile)
         isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
-        #!printing 
-        isubProHist.Print()
         print_dict_structure(isubProHist)
         toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
         toGetSubHistSys = merge_dicts(toGetSubHistSys, isubProHistSys)

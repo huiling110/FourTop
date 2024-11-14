@@ -28,10 +28,10 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
                 m_pdfSumwUp += (1.+pdfUnc)*genWeight;
                 m_pdfSumwDown += (1.-pdfUnc)*genWeight;
             }
-            if(e->PSWeight!=nullptr){//PS weights (w_var / w_nominal); [0] is ISR=2 FSR=1; [1] is ISR=1 FSR=2[2] is ISR=0.5 FSR=1; [3] is ISR=1 FSR=0.5;
-                m_PSWeightSumwUp += e->PSWeight->At(1)*genWeight;
-                m_PSWeightSumwDown += e->PSWeight->At(3)*genWeight;
-            }
+            // if(e->PSWeight!=nullptr){//PS weights (w_var / w_nominal); [0] is ISR=2 FSR=1; [1] is ISR=1 FSR=2[2] is ISR=0.5 FSR=1; [3] is ISR=1 FSR=0.5;
+            //     m_PSWeightSumwUp += e->PSWeight->At(1)*genWeight;
+            //     m_PSWeightSumwDown += e->PSWeight->At(3)*genWeight;
+            // }
         }
         m_cutflow->Fill(0., genWeight);
 

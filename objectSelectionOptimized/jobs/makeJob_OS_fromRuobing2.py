@@ -39,7 +39,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v85HadroPreselTauOverlap0.5/'
 # jobVersionName = 'v86HadroPreSelWithGammaRemoval/'
 # jobVersionName = 'v86HadroPreSelWithTTWTTZNLO_testtest/'
-jobVersionName = 'v87addPdfPSWeightSum/'
+# jobVersionName = 'v87addPdfPSWeightSum/'
+jobVersionName = 'v87addPdfPSWeightSum/'# with new downloaded MC samples actuaclly
 
 isRuobing = False
 #!same version numbers means no change in algrithm but only in selection
@@ -60,8 +61,8 @@ def main():
     
     # sumProToSkip = ['jetHT', 'ttExtra'] #! and 1tau2l
     # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
+    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
 
 
 

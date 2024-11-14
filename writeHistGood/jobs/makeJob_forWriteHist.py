@@ -91,7 +91,8 @@ def main():
     # version = 'v2BDT1tau0lBinC'
     
     # channel = '1tau2l'
-    version = 'v0BDT1tau2l'
+    # version = 'v0BDT1tau2l'
+    version = 'v0BDT1tau2l_newMCSample'
     # version = 'v1BDT1tau2lEvenBin'
    
     
