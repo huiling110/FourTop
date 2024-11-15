@@ -44,10 +44,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardroFRUpdated_v86HadroPreSelWithTTWTTZNLO/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v86LepPreSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/'
     
-    # channel = '1tau1l'
-    channel = '1tau2l'
+    channel = '1tau1l'
+    # channel = '1tau2l'
     # channel = '1tau0l'
     
     # exe = './apps/run_WH_forDataMC.out'
@@ -81,7 +82,7 @@ def main():
         
     #1tau1l
     # channel = '1tau1l'
-    # version = 'v0BDT1tau1l'
+    version = 'v0BDT1tau1l'
     # version = 'v1BDT1tau1lEvenBin'
     
     #1tau0l systematic
@@ -92,7 +93,7 @@ def main():
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'
-    version = 'v0BDT1tau2l_newMCSample'
+    # version = 'v0BDT1tau2l_newMCSample'
     # version = 'v1BDT1tau2lEvenBin'
    
     

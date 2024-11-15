@@ -24,8 +24,8 @@ def main():
     # ifStackSignal = False
     ifPrintSB = True
     # ifPrintSB = False
-    ifSystematic = True #!Only for BDT
-    # ifSystematic = False  
+    # ifSystematic = True #!Only for BDT
+    ifSystematic = False  
     ifFTau = False
     plotName = 'dataVsMC_v4'
    
@@ -39,20 +39,20 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/'
-    channel = '1tau2l'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/'
+    # channel = '1tau2l'
     # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
     # variables = ['lepTopMVAF_num', 'lepTopMVAT_num', 'muonsTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAF_num', 'elesTopMVAF_num', 'jets_num', 'bjetsT_num', 'bjetsM_num']
     # variables = ['elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'elesTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_1pt', 'muonsTopMVAT_2pt', 'muonsTopMVAT_1eta', 'muonsTopMVAT_2eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt']
     # variables = ['lepTopMVAF_num']
-    variables = ['BDT']
+    # variables = ['BDT']
     # input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
     # variables = read_csv_as_lines(input1tau2l)
-    regionList = ['1tau2lSR', '1tau2lCR3']
+    # regionList = ['1tau2lSR', '1tau2lCR3']
 
 
     #1tau1l
-    # channel = '1tau1l'
+    channel = '1tau1l'
     # ifFTau = False
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0dataMC_allCorrectionFakeLepton/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1l/'
@@ -64,10 +64,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
-    # variables = ['BDT']
-    # regionList = ['1tau1lSR', '1tau1lCR12']
+    variables = ['BDT']
+    regionList = ['1tau1lSR', '1tau1lCR12']
 
 
   
