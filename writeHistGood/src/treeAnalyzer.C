@@ -131,8 +131,10 @@ void treeAnalyzer::Init()
         m_pdfAlphaS_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 1);
         m_pdf_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 2);
         m_pdf_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 3);
-        m_PSWeight_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 0);
-        m_PSWeight_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 1);
+        m_PSWeightISR_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 4);
+        m_PSWeightISR_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 5);
+        m_PSWeightFSR_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 6);
+        m_PSWeightFSR_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 7);
     }
     std::cout<<"m_scaleRe_normDown_SF="<<m_scaleRe_normDown_SF<<"\n";
     std::cout<<"m_scaleRe_normUp_SF="<<m_scaleRe_normUp_SF<<"\n";
@@ -142,8 +144,8 @@ void treeAnalyzer::Init()
     std::cout<<"m_pdfAlphaS_normDown_SF="<<m_pdfAlphaS_normDown_SF<<"\n";
     std::cout<<"m_pdf_normUp_SF="<<m_pdf_normUp_SF<<"\n";
     std::cout<<"m_pdf_normDown_SF="<<m_pdf_normDown_SF<<"\n";
-    std::cout<<"m_PSWeight_normUp_SF="<<m_PSWeight_normUp_SF<<"\n";
-    std::cout<<"m_PSWeight_normDown_SF="<<m_PSWeight_normDown_SF<<"\n";
+    std::cout<<"m_PSWeightISR_normUp_SF="<<m_PSWeightISR_normUp_SF<<" m_PSWeightISR_normDown_SF="<<m_PSWeightISR_normDown_SF<<"\n";
+    std::cout<<"m_PSWeightFSR_normUp_SF="<<m_PSWeightFSR_normUp_SF<<" m_PSWeightFSR_normDown_SF="<<m_PSWeightFSR_normDown_SF<<"\n";
 
     std::cout << "done initializing\n";
     std::cout << "\n";
@@ -327,12 +329,16 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_normalisedDown", bdtScore, basicWeight* e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalisedUp", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v()*m_pdfAlphaS_normUp_SF, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalisedDown", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_ISRFSRUp", bdtScore, basicWeight* e->PSWeight_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_ISRFSRDown", bdtScore, basicWeight* e->PSWeight_down_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_pdf_normalisedUp", bdtScore, basicWeight* e->pdfWeight_up_.v()*m_pdf_normUp_SF, SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_pdf_normalisedDown", bdtScore, basicWeight* e->pdfWeight_down_.v()*m_pdf_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_ISRFSR_normalisedUp", bdtScore, basicWeight* e->PSWeight_up_.v()*m_PSWeight_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_ISRFSR_normalisedDown", bdtScore, basicWeight* e->PSWeight_down_.v()*m_PSWeight_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ISR_normalisedUp", bdtScore, basicWeight* e->PSWeightISR_up_.v()*m_PSWeightISR_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ISR_normalisedDown", bdtScore, basicWeight* e->PSWeightISR_down_.v()*m_PSWeightISR_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_FSR_normalisedUp", bdtScore, basicWeight* e->PSWeightFSR_up_.v()*m_PSWeightFSR_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_FSR_normalisedDown", bdtScore, basicWeight* e->PSWeightFSR_down_.v()*m_PSWeightFSR_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ISRUp", bdtScore, basicWeight* e->PSWeightISR_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ISRDown", bdtScore, basicWeight* e->PSWeightISR_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_FSRUp", bdtScore, basicWeight* e->PSWeightFSR_up_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_FSRDown", bdtScore, basicWeight* e->PSWeightFSR_down_.v(), SR1tau1l, m_isData);
         
         }else if(m_isFakeTau){
             SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era +"Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);

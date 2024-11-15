@@ -533,10 +533,14 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_pdf_normalisedDown");
     sysRegions.push_back(region + "_pdfAlphaS_normalisedUp");
     sysRegions.push_back(region + "_pdfAlphaS_normalisedDown");
-    sysRegions.push_back(region + "_ISRFSRUp");
-    sysRegions.push_back(region + "_ISRFSRDown");
-    sysRegions.push_back(region + "_ISRFSR_normalisedUp");
-    sysRegions.push_back(region + "_ISRFSR_normalisedDown");
+    sysRegions.push_back(region + "_ISR_normalisedUp");
+    sysRegions.push_back(region + "_ISR_normalisedDown");
+    sysRegions.push_back(region + "_FSR_normalisedUp");
+    sysRegions.push_back(region + "_FSR_normalisedDown");
+    sysRegions.push_back(region + "_ISRUp");
+    sysRegions.push_back(region + "_ISRDown");
+    sysRegions.push_back(region + "_FSRUp");
+    sysRegions.push_back(region + "_FSRDown");
 }
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
@@ -581,8 +585,10 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
     TTreeReaderValue<Double_t> genEventSumw(reader, "genEventSumw");
     TTreeReaderValue<Double_t> LHEPdfSumwUp(reader, "LHEPdfSumwUp");//Sum of genEventWeight * LHEPdfWeightUp
     TTreeReaderValue<Double_t> LHEPdfSumwDown(reader, "LHEPdfSumwDown");//Sum of genEventWeight * LHEPdfWeightDown
-    TTreeReaderValue<Double_t> PSWeightSumwUp(reader, "PSWeightSumwUp");//Sum of genEventWeight * PSWeightUp
-    TTreeReaderValue<Double_t> PSWeightSumwDown(reader, "PSWeightSumwDown");//Sum of genEventWeight * PSWeightDown
+    TTreeReaderValue<Double_t> PSWeightISRSumwUp(reader, "m_PSWeightISRSumwUp");//Sum of genEventWeight * PSWeightUp
+    TTreeReaderValue<Double_t> PSWeightISRSumwDown(reader, "m_PSWeightISRSumwDown");//Sum of genEventWeight * PSWeightDown
+    TTreeReaderValue<Double_t> PSWeightFSRSumwUp(reader, "m_PSWeightFSRSumwUp");//Sum of genEventWeight * PSWeightUp
+    TTreeReaderValue<Double_t> PSWeightFSRSumwDown(reader, "m_PSWeightFSRSumwDown");//Sum of genEventWeight * PSWeightDown
 
     Double_t sumGen = 0.;
     Double_t sumGenScale = 0;
@@ -607,10 +613,16 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
             sumGenScale += *LHEPdfSumwDown;
             break;
         case 4:
-            sumGenScale += *PSWeightSumwUp;
+            sumGenScale += *PSWeightISRSumwUp;
             break;
         case 5:
-            sumGenScale += *PSWeightSumwDown;
+            sumGenScale += *PSWeightISRSumwDown;
+            break;
+        case 6:
+            sumGenScale += *PSWeightFSRSumwUp;
+            break;
+        case 7:
+            sumGenScale += *PSWeightFSRSumwDown;
             break;
 
         default:
