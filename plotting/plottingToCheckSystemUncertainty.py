@@ -124,7 +124,8 @@ def main():
     # file_path = "/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardroSR_v81addSysSum/mc/variableHists_v0Basictraining1tau1l_VLLm600_6/combine/templatesForCombine1tau1l.root"
     # file_path = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root"
     # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
-    file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
+    # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
+    file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
 
     channel = "1tau2l"
     # channel = "1tau0l"
@@ -134,9 +135,9 @@ def main():
         # 'QCDscale_Re_normalised',
         # 'QCDscale_Fa_normalised',
         # 'pdfAlphaS_normalised',
-        'ISRFSR',
-        'pdf',
-        'ISRFSR_normalised',
+        'pdf_normalised',
+        'ISR_normalised',
+        'FSR_normalised',
     ]
     year = '2018'
     for ProcessName in ProcessNames:

@@ -49,12 +49,11 @@ MCSys = {
     'CMS_tau_FR': [False, 1, 0b010],
     
     'pdfAlphaS_normalised': [True, 0, 0b111], #!not considering for singleTop 
-    # 'pdf': [True, 0, 0b111],
     'pdf_normalised': [True, 0, 0b111],
     'QCDscale_Re_normalised': [True, 0, 0b111],   
     'QCDscale_Fa_normalised': [True, 0, 0b111],  
-    # 'ISRFSR': [True, 0, 0b111],
-    'ISRFSR_normalised': [True, 0, 0b111],
+    'ISR_normalised': [True, 0, 0b111],
+    'FSR_normalised': [True, 0, 0b111],
     
     
 }
@@ -71,7 +70,8 @@ def main():
    channel = '1tau2l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
-   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
+   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
    
    
    inputDir = os.path.dirname(inputTemplate) 
@@ -88,6 +88,7 @@ def main():
   
    era = uf.getEraFromDir(inputTemplate) 
    sysDic = getSysDic(processes, channel, era) 
+   #sysDic
    
    addLumi(sysDic, era, processes)
    addProcessNormalization(sysDic, processes)#!to be done
@@ -151,6 +152,7 @@ def addLumi(sysDic, era, processes):
               
 
 def getSysDic(processes, channel, era):
+    #return: pdf_normalised ['shape', {'tt': 1, 'ttX': 1, 'fakeLepton': 0, 'singleTop': 1, 'Minor': 1, 'tttt': 1}]
     sysDic = {}
     for sys, sysList in MCSys.items():
         sysName = sys if sysList[0] else f"{sys}_{era}"
@@ -162,6 +164,7 @@ def getSysDic(processes, channel, era):
     return  sysDic
      
 def getProSysDic(sys, sysList, processes, channe='1tau1l'):
+    #return porSys: {'tt': 1, 'ttX': 1, 'fakeLepton': 0, 'singleTop': 1, 'Minor': 1, 'tttt': 1}
     if channe=='1tau1l':
         channeMask = 0b100
     elif channe=='1tau0l':
@@ -176,6 +179,8 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
             proSys[ipro] = 1 if sysList[1]==1 and ((sysList[2]&channeMask) !=0) else 0
         elif ipro=='fakeLepton':
             proSys[ipro] = 1 if sysList[1]==2 and ((sysList[2]&channeMask) !=0) else 0
+        elif ipro=='Minor' :#!!!not considering anys systematic for Minor processes
+            proSys[ipro] = 0
         else: 
             proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
             if sys=='pdfAlphaS_normalised' and ipro=='singleTop': #!!!
