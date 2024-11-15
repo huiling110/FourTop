@@ -48,7 +48,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v86LepPreSel/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v87LepPreSel_GammaRemovalBugFixed/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v87addPdfPSWeightSum/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedLepPre/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedLepPre/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedHadroPre/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "TTZToLLNuNu",
     // TString inputDir = "ttG",
@@ -80,8 +81,8 @@ void run_objectSelection(
     Bool_t isData = TTTT::getIsData(inputDir1);
     TString era = TTTT::getEra2(inputDir1);
     Bool_t isRun3 = TTTT::isRun3(era);
-    Bool_t if1tau2l = kTRUE; //!
-    // Bool_t if1tau2l = kFALSE;
+    // Bool_t if1tau2l = kTRUE; //!
+    Bool_t if1tau2l = kFALSE;
     std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3, if1tau2l);
