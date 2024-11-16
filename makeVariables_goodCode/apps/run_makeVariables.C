@@ -42,10 +42,17 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v84HadroPresel/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v85HadroPreselTauOverlap0.5/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v86HadroPreSelWithGammaRemoval/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v86HadroPreSelWithTTWTTZNLO/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v86HadroPreSelWithTTWTTZNLO/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v86HadroPreSelWithTTWTTZNLO/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v86HadroPreSelWithTTWTTZNLO/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v86LepPreSel/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v87LepPreSel_GammaRemovalBugFixed/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v87addPdfPSWeightSum/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedLepPre/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedHadroPre/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "TTZToLLNuNu",
-    // TString inputDir = "ttZ",
+    // TString inputDir = "ttG",
     // TString inputDir = "ZGToLLG",
     // TString inputDir = "WZTo3LNu",
     // TString inputDir = "wz",
@@ -62,8 +69,8 @@ void run_objectSelection(
     // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
     // Int_t numEntries = 100000)
-    // Int_t numEntries = 3000)
-    Int_t numEntries = 10000)
+    Int_t numEntries = 3000)
+    // Int_t numEntries = 10000)
     // Int_t numEntries = 0)
 {
     TStopwatch t;
@@ -74,7 +81,7 @@ void run_objectSelection(
     Bool_t isData = TTTT::getIsData(inputDir1);
     TString era = TTTT::getEra2(inputDir1);
     Bool_t isRun3 = TTTT::isRun3(era);
-    // Bool_t if1tau2l = kTRUE;
+    // Bool_t if1tau2l = kTRUE; //!
     Bool_t if1tau2l = kFALSE;
     std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
 

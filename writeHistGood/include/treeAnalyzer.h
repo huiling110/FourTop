@@ -91,6 +91,10 @@ private:
     Double_t m_pdf_normDown_SF = 1.0;
     Double_t m_pdfAlphaS_normUp_SF = 1.0;
     Double_t m_pdfAlphaS_normDown_SF = 1.0;
+    Double_t m_PSWeightISR_normUp_SF = 1.0;
+    Double_t m_PSWeightISR_normDown_SF = 1.0;
+    Double_t m_PSWeightFSR_normUp_SF = 1.0;
+    Double_t m_PSWeightFSR_normDown_SF = 1.0;
 };
 
 #endif      

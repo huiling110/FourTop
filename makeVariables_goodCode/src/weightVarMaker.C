@@ -139,6 +139,11 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("scaleWeightRe_down_", &scaleWeightRe_down_);
     outTree->Branch("scaleWeightFa_up_", &scaleWeightFa_up_);
     outTree->Branch("scaleWeightFa_down_", &scaleWeightFa_down_);
+    outTree->Branch("PSWeightISR_up_", &PSWeightISR_up_);
+    outTree->Branch("PSWeightISR_down_", &PSWeightISR_down_);
+    outTree->Branch("PSWeightFSR_up_", &PSWeightFSR_up_);
+    outTree->Branch("PSWeightFSR_down_", &PSWeightFSR_down_);
+
 
     // TOP Lepton MVA
     eleIDSF_topMVA = TTTT::getHistogramFromFile<TH2D>(MV::topLeptonSF_files.at(m_era).at(0), "EGamma_SF2D");
@@ -242,8 +247,12 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     scaleWeightRe_down_ = *e->scaleWeightRe_down;
     scaleWeightFa_up_ = *e->scaleWeightFa_up;
     scaleWeightFa_down_ = *e->scaleWeightFa_down;
-    //
-    // scaleWeightRe_normalised_up = 
+    // PSWeight_up_ = *e->PSWeight_up;
+    // PSWeight_down_ = *e->PSWeight_down;
+    PSWeightISR_up_ = *e->PSWeightISR_up;
+    PSWeightISR_down_ = *e->PSWeightISR_down;
+    PSWeightFSR_up_ = *e->PSWeightFSR_up;
+    PSWeightFSR_down_ = *e->PSWeightFSR_down;
 
     // lepton SF for top mva leptons
     elesTopMVAT_weight = calMuonIDSF(e->elesTopMVAT_pt, e->elesTopMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData); //muon pt and eta
@@ -389,6 +398,11 @@ void WeightVarMaker::clearBranch()
     btagWPMT_weight_correlated_down = 1.;
     btagWPMT_weight_uncorrelated_up = 1.;
     btagWPMT_weight_uncorrelated_down = 1.;
+
+    pdfWeight_up_ = 1.;
+    pdfWeight_down_ = 1.;
+    pdfWeightAlphaS_up_ = 1.;
+    pdfWeightAlphaS_down_ = 1.;
 
     
 };

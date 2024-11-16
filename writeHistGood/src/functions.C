@@ -106,7 +106,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d tausT_1lepton1Met1_stransMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1lepton1Met1_stransMass", "m_{T2}^{#tau and lep and MET}", m_processName, 10, 0, 250, regionsForVariables, &(e->tausT_1lepton1Met1_stransMass));
 
     SP_d tausF_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1pt", "p_{T}^{1st fakeble#tau}", m_processName, 10, 20, 200, regionsForVariables, &(e->tausF_1pt)); //!should be tauT variables in FT region
-    SP_d tausF_1jetEtaAbs_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1jetEtaAbs", "#eta^{tau's mother jet}", m_processName, 10, -2.4, 2.4, regionsForVariables, &(e->tausF_1jetEtaAbs));
+    SP_d tausF_1jetEta_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1jetEta", "#eta^{tau's mother jet}", m_processName, 10, -2.4, 2.4, regionsForVariables, &(e->tausF_1jetEta));
     SP_d tausF_1jetPt_class = std::make_shared<histsForRegionsMap<Double_t>>( "tausF_1jetPt", "p_{T}^{F#tau's mother jet}", m_processName, 10, 20, 200, regionsForVariables, &(e->tausF_1jetPt));
     SP_d tausF_1Met_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1Met_transMass", "m_{T}^{F#tau and MET}", m_processName, 10, 0, 250, regionsForVariables, &(e->tausF_1Met_transMass));
     SP_d tausF_invariantMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_invariantMass", "m^{F#tau}", m_processName, 10, 0, 50, regionsForVariables, &(e->tausF_invariantMass));
@@ -168,7 +168,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_i tausT_leptons_charge_class = std::make_shared<histsForRegionsMap<Int_t>>( "tausT_leptons_charge", "charge^{T#tau}*charge^{lep}", m_processName, 3, -1.5, 1.5, regionsForVariables, &(e->tausT_leptons_charge));
     SP_i tausF_1prongNum_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1prongNum", "n^{F#tau prong}", m_processName, 10, 0, 10, regionsForVariables, &(e->tausF_1prongNum));
 
-    SP_d tausT_1jetEtaAbs_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1jetEtaAbs", "#eta^{#tau's mother jet}", m_processName, 10, 0, 3, regionsForVariables, &(e->tausT_1jetEtaAbs));
+    // SP_d tausT_1jetEtaAbs_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1jetEtaAbs", "#eta^{#tau's mother jet}", m_processName, 10, 0, 3, regionsForVariables, &(e->tausT_1jetEtaAbs));
 
     histsForRegion_vec.push_back(jets_bScore_class);
     histsForRegion_vec.push_back(jets_num_class);
@@ -245,7 +245,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(tausT_1Met_transMass_class);
     histsForRegion_vec.push_back(tausT_1lepton1Met1_stransMass_class);
     histsForRegion_vec.push_back(tausF_1pt_class);
-    histsForRegion_vec.push_back(tausF_1jetEtaAbs_class);
+    histsForRegion_vec.push_back(tausF_1jetEta_class);
     histsForRegion_vec.push_back(tausF_1jetPt_class);
     histsForRegion_vec.push_back(tausF_1Met_transMass_class);
     histsForRegion_vec.push_back(tausF_invariantMass_class);
@@ -302,7 +302,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(tausM_1lepton1_charge_class);
     histsForRegion_vec.push_back(tausT_leptons_charge_class);
     histsForRegion_vec.push_back(tausF_1prongNum_class);
-    histsForRegion_vec.push_back(tausT_1jetEtaAbs_class);
+    // histsForRegion_vec.push_back(tausT_1jetEtaAbs_class);
 }
 
 void readVariableList(TString variableListCsv, std::vector<TString> &variablesName, std::vector<Float_t> &variablesForReader, std::map<TString, Float_t> &varForReaderMap, std::vector<std::variant<Int_t, Double_t>> &variablesOriginAll)
@@ -529,15 +529,23 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_QCDscale_Re_normalisedDown");
     sysRegions.push_back(region + "_QCDscale_Fa_normalisedUp");
     sysRegions.push_back(region + "_QCDscale_Fa_normalisedDown");
-    // sysRegions.push_back(region + "_pdf_normalisedUp");
-    // sysRegions.push_back(region + "_pdf_normalisedDown");
+    sysRegions.push_back(region + "_pdf_normalisedUp");
+    sysRegions.push_back(region + "_pdf_normalisedDown");
     sysRegions.push_back(region + "_pdfAlphaS_normalisedUp");
     sysRegions.push_back(region + "_pdfAlphaS_normalisedDown");
+    sysRegions.push_back(region + "_ISR_normalisedUp");
+    sysRegions.push_back(region + "_ISR_normalisedDown");
+    sysRegions.push_back(region + "_FSR_normalisedUp");
+    sysRegions.push_back(region + "_FSR_normalisedDown");
+    sysRegions.push_back(region + "_ISRUp");
+    sysRegions.push_back(region + "_ISRDown");
+    sysRegions.push_back(region + "_FSRUp");
+    sysRegions.push_back(region + "_FSRDown");
 }
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
     //Re_up: 7; Re_down: 1; Fa_up: 5; Fa_down: 3
-    //LHEScaleSumw: sum of genEventWeight * LHESacleWeight[i]/ genEventSumw 
+    //!LHEScaleSumw: sum of genEventWeight * LHESacleWeight[i]/ genEventSumw 
     //?does the sum of genEventWeight of just one sample or all samples?
     //I think it's per sample
     TFile *file = TFile::Open(inputFile);
@@ -575,6 +583,12 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
     TTreeReader reader("Runs", file); // Replace "tree_name" with the actual name of your TTree
     TTreeReaderArray<Double_t> LHEPdfSumw(reader, "LHEPdfSumw");//Sum of genEventWeight * LHEPdfWeight[i], divided by genEventSumw
     TTreeReaderValue<Double_t> genEventSumw(reader, "genEventSumw");
+    TTreeReaderValue<Double_t> LHEPdfSumwUp(reader, "LHEPdfSumwUp");//Sum of genEventWeight * LHEPdfWeightUp
+    TTreeReaderValue<Double_t> LHEPdfSumwDown(reader, "LHEPdfSumwDown");//Sum of genEventWeight * LHEPdfWeightDown
+    TTreeReaderValue<Double_t> PSWeightISRSumwUp(reader, "m_PSWeightISRSumwUp");//Sum of genEventWeight * PSWeightUp
+    TTreeReaderValue<Double_t> PSWeightISRSumwDown(reader, "m_PSWeightISRSumwDown");//Sum of genEventWeight * PSWeightDown
+    TTreeReaderValue<Double_t> PSWeightFSRSumwUp(reader, "m_PSWeightFSRSumwUp");//Sum of genEventWeight * PSWeightUp
+    TTreeReaderValue<Double_t> PSWeightFSRSumwDown(reader, "m_PSWeightFSRSumwDown");//Sum of genEventWeight * PSWeightDown
 
     Double_t sumGen = 0.;
     Double_t sumGenScale = 0;
@@ -592,16 +606,29 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
             sumGenScale += (LHEPdfSumw[102])*(*genEventSumw);
             break;
         case 2: 
-            // pdfUnc = OS::quadraticSum(*(e->LHEPdfWeight), 1., 100); for per event
             //i event: uncer = sqrt(1 + (LHEPdfWeight[1] - LHEPdfWeight[0])^2 + ... + (LHEPdfWeight[100] - LHEPdfWeight[0])^2)
-            //!might not be possible to get the uncertainty from the sum of genEventWeight 
+            sumGenScale += *LHEPdfSumwUp;
             break;
-        
+        case 3:
+            sumGenScale += *LHEPdfSumwDown;
+            break;
+        case 4:
+            sumGenScale += *PSWeightISRSumwUp;
+            break;
+        case 5:
+            sumGenScale += *PSWeightISRSumwDown;
+            break;
+        case 6:
+            sumGenScale += *PSWeightFSRSumwUp;
+            break;
+        case 7:
+            sumGenScale += *PSWeightFSRSumwDown;
+            break;
+
         default:
             break;
         }
     }
-    // std::cout<<"sumGen = "<<sumGen<<" sumGenScale = "<<sumGenScale<<"\n";4
     Double_t scale = std::abs(sumGenScale)>1e-10? sumGen/sumGenScale:1;
 
     file->Close();

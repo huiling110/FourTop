@@ -174,7 +174,7 @@ histoGramPerSample = {
     'ttbar_2l': 'tt',
     
     'qcd_50to100':'qcd',
-    # 'qcd_100to200':'qcd',//!!!to be updated
+    'qcd_100to200':'qcd',#!!!to be updated
     'qcd_200to300':'qcd',
     'qcd_300to500':'qcd',
     'qcd_500to700':'qcd',
@@ -192,11 +192,10 @@ histoGramPerSample = {
     "TTWJetsToLNu": "ttX",
     "ttH_bb": "ttX", 
     "ttH_nonbb": "ttX", 
-    # "ttWW": "ttX", #!temprarily close
     
     # "wz":"Minor", #!should probably use wz instead of WZTo3LNu because the 2L part can also pass 1tau2l selection; but non of it passes selection
     "WZTo3LNu":"Minor", #!use this instead of wz
-    "ww":"Minor",
+    # "ww":"Minor", # !!!no entries in 1tau2l all regions
     "zz":"Minor",
     'WWW': "Minor",
     'WWZ': 'Minor',
@@ -204,26 +203,26 @@ histoGramPerSample = {
     'ZZZ': 'Minor',
     
     #!do we miss some single top samples : s-channel, t channel, tW channel
-    "st_tZq":"singleTop",
+    # "st_tZq":"singleTop", #!seems problom with systematic uncertainty and contribution negative, remove this process
     "st_tW_antitop":"singleTop",
     "st_tW_top":"singleTop",
     "st_schan_had": "singleTop",
-    "st_schan_lep": "singleTop",
+    "st_schan_lep": "singleTop", #!pdfAlphas variation strange for this too
     "st_tchan": "singleTop",
     
-    "TGJets": "Minor",#"XGamma", #!not exist in 2016preVFP
+    # "TGJets": "Minor",#"XGamma", #!!!no entries in 1tau2l
     "ZGToLLG": "Minor",#"XGamma",
-    "WGToLNuG": "Minor",#"XGamma",
+    # "WGToLNuG": "Minor",#"XGamma",#!!!no entreis in 1tau2l
    
     
     "ggH_bb": "Minor",#"Higgs",#!not excsi in 2017 nano files
-    "ggH_tautau": "Minor",#"Higgs",
+    # "ggH_tautau": "Minor",#"Higgs", #!!! no entries in 1tau2l
     "ggH_WW_2l": "Minor",#"Higgs", #! ggH_ww_2l in 2016   
     "ggH_ZZ_2l": "Minor",#"Higgs", #!ggH_zz_2l in 2016
     "ggH_ZZ_4l": "Minor",#"Higgs", #!ggH_zz_4l in 2016
-    "ggH_gg": "Minor",#"Higgs", #!ggH_gg in 2016
-    "vbfH_bb": "Minor",#"Higgs", #!not exist in 2017
-    "vbfH_tautau": "Minor",#"Higgs", #! not exist in 2016preVFP
+    # "ggH_gg": "Minor",#"Higgs", #!no entries in 1tau2l
+    # "vbfH_bb": "Minor",#"Higgs", #!!! no entries in 1tau2l
+    # "vbfH_tautau": "Minor",#"Higgs", #!! no entries in 1tau2l
     "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l in 2016
     # "VH_nonbb": "Minor",#"Higgs", #!doesn't exsit in 2018
     
@@ -541,9 +540,9 @@ dataDict = {
 }
 
 proChannelDic = {
-    # '1tau1l':  ['tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l
-    '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets', 'Minor',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
-    '1tau0l':  [ 'fakeTau', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l
+    # '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets', 'Minor',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
+    '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
+    '1tau0l':  [ 'fakeTau', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, no Minor in 1tau0l neither
     '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
     # '1tau2l':  ['tt', 'ttX',  'singleTop',  'Minor',  'tttt', 'leptonSum'], #!testing
 }

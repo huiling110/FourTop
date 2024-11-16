@@ -203,8 +203,6 @@ def getHistFromFileDic(fileName, regionList, varList, subPro, sumProSys, era):
             subProHist[ivar][ire] = {}
             subProHist[ivar][ire][subPro] = {}
             subProHist[ivar][ire][subPro] = getHistFromFile(fileName, [histName])[0]
-            # subProHist[ivar][ire][subPro]['nom'] = getHistFromFile(fileName, [histName])[0]
-            # sysHistNames = getSysHistNames(sumProSys, subPro, ire, ivar, era, subProHist, fileName)
             subProHistSys[ivar][ire] = {}
             subProHistSys[ivar][ire][subPro] = {}
             subProHistSys[ivar][ire][subPro] = getSysHistNames(sumProSys, subPro, ire, ivar, era, fileName)
@@ -217,9 +215,10 @@ def getSysHistNames(sumProSys, subPro, region, var, era, fileName):
     sumPro = gq.histoGramPerSample[subPro]
     if sumPro in sumProSys.keys():
         for isys in sumProSys[sumPro]:
-            isysUp = f"{subPro}_{region}_{isys}_{era}Up_{var}"
-            isysDown = f"{subPro}_{region}_{isys}_{era}Down_{var}"
-            # subProHist[var][region][subPro][isys+'_up'], subProHist[var][region][subPro][isys+'_down']= getHistFromFile(fileName, [isysUp, isysDown])
+            # isysUp = f"{subPro}_{region}_{isys}_{era}Up_{var}"
+            # isysDown = f"{subPro}_{region}_{isys}_{era}Down_{var}"
+            isysUp = f"{subPro}_{region}_{isys}Up_{var}"
+            isysDown = f"{subPro}_{region}_{isys}Down_{var}"
             sysDic[isys+'_up'], sysDic[isys+'_down']= getHistFromFile(fileName, [isysUp, isysDown])
     return sysDic        
     
@@ -262,7 +261,6 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
         else:
             rootFile = inputDirDic['mc'] + isub +'.root'
         print('opening file:', rootFile)
-        # isubProHist = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
         isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
         print_dict_structure(isubProHist)
         toGetSubHist = merge_dicts(toGetSubHist, isubProHist)

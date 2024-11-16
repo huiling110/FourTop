@@ -3,42 +3,59 @@ import usefulFunc as uf
 import ttttGlobleQuantity as gq
 
 MCSys = {
-    #sys: [isCorrelated, whichProces] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
-    'CMS_pileup': [True, 0],
-    'CMS_prefiring': [False, 0],
+    #sys: [isCorrelated, whichProces, channelBits] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
+    #!Channlebits information for each channel, bit 100:1tau1l; bit 010:1tau0l; bit 001: 1tau2l
+    'CMS_pileup': [True, 0, 0b111 ],
+    'CMS_prefiring': [False, 0, 0b111],
     
-    'CMS_eff_t_vsMu': [False, 0], #uncorrelated
-    'CMS_eff_t_vsEle': [False, 0], #need to add era to the name
-    'CMS_eff_t_vsJet_stat1_dm0': [False, 0],
-    'CMS_eff_t_vsJet_stat1_dm1': [False, 0],
-    'CMS_eff_t_vsJet_stat1_dm10': [False, 0],
-    'CMS_eff_t_vsJet_stat1_dm11': [False, 0],
-    'CMS_eff_t_vsJet_stat2_dm0': [False, 0],
-    'CMS_eff_t_vsJet_stat2_dm1': [False, 0],
-    'CMS_eff_t_vsJet_stat2_dm10': [False, 0],
-    'CMS_eff_t_vsJet_stat2_dm11': [False, 0],
-    'CMS_eff_t_vsJet_syst_alleras': [True, 0],
-    'CMS_eff_t_vsJet_syst': [False, 0],
-    'CMS_eff_t_vsJet_syst_dm0': [False, 0],
-    'CMS_eff_t_vsJet_syst_dm1': [False, 0],
-    'CMS_eff_t_vsJet_syst_dm10': [False, 0],
-    'CMS_eff_t_vsJet_syst_dm11': [False, 0],
+    'CMS_tttt_eff_hlt_stats': [False, 0, 0b110],
     
-    'CMS_tttt_eff_e_syst': [True, 0],
-    'CMS_tttt_eff_m_syst': [True, 0],
-    'CMS_tttt_eff_e_stat': [False, 0],
-    'CMS_tttt_eff_m_stat': [False, 0],
+    'CMS_eff_t_vsMu': [False, 0, 0b111], #uncorrelated
+    'CMS_eff_t_vsEle': [False, 0, 0b111], #need to add era to the name
+    'CMS_eff_t_vsJet_stat1_dm0': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat1_dm1': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat1_dm10': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat1_dm11': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat2_dm0': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat2_dm1': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat2_dm10': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_stat2_dm11': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_alleras': [True, 0, 0b111],
+    'CMS_eff_t_vsJet_syst': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_dm0': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_dm1': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111],
+    'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111],
+    
+    'CMS_tttt_eff_e_syst': [True, 0, 0b101],
+    'CMS_tttt_eff_m_syst': [True, 0, 0b101],
+    'CMS_tttt_eff_e_stat': [False, 0, 0b101],
+    'CMS_tttt_eff_m_stat': [False, 0, 0b101],
     
     #!btagWP for 1tau1l and 1tau2l
-    'CMS_eff_bWPMT_correlated': [True, 0],
-    'CMS_eff_bWPMT_uncorrelated': [False, 0],
-   
-    'CMS_tau_FR': [False, 1],
+    'CMS_eff_bWPMT_correlated': [True, 0, 0b101],
+    'CMS_eff_bWPMT_uncorrelated': [False, 0, 0b101],
     
-    'pdfAlphaS_normalised': [True, 0],
-    'pdf': [True, 0],
-    'QCDscale_Re_normalised': [True, 0],   
-    'QCDscale_Fa_normalised': [True, 0],   
+    #btagShape information, only in 1tau0l
+    'CMS_btag_shape_hf': [True, 0, 0b010], 
+    'CMS_btag_shape_lf': [True, 0, 0b010],
+    'CMS_btag_shape_cferr1': [True, 0, 0b010],
+    'CMS_btag_shape_cferr2': [True, 0, 0b010],
+    'CMS_btag_shape_hfstats1': [False, 0, 0b010],
+    'CMS_btag_shape_hfstats2': [False, 0, 0b010],
+    'CMS_btag_shape_lfstats1': [False, 0, 0b010],
+    'CMS_btag_shape_lfstats2': [False, 0, 0b010],
+   
+    'CMS_tau_FR': [False, 1, 0b010],
+    
+    #!fakeLepton systematic to be added
+    
+    'pdfAlphaS_normalised': [True, 0, 0b111], #!not considering for singleTop 
+    'pdf_normalised': [True, 0, 0b111],
+    'QCDscale_Re_normalised': [True, 0, 0b111],   
+    'QCDscale_Fa_normalised': [True, 0, 0b111],  
+    'ISR_normalised': [True, 0, 0b111],
+    'FSR_normalised': [True, 0, 0b111],
     
     
 }
@@ -46,9 +63,27 @@ MCSys = {
 
 
 def main():
-   channel = '1tau1l'
-   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
-   outVersion = 'v0'
+#    channel = '1tau1l'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+#    outVersion = 'v0'
+   outVersion = 'v1proNormAdd'
+   
+   
+   channel = '1tau0l'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
+   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
+
+
+#    channel = '1tau2l'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
+
+
+
+   
    
    inputDir = os.path.dirname(inputTemplate) 
    outDir = f"{inputDir}/datacardSys_{outVersion}/"
@@ -56,14 +91,18 @@ def main():
    outCard = f"{outDir}datacard_{channel}.txt"
     
    processes = gq.proChannelDic[channel]
-   processes.remove('jetHT')  
+   if channel== '1tau2l':
+       processes.remove('leptonSum')
+   else: 
+       processes.remove('jetHT')  
    print(processes)
   
    era = uf.getEraFromDir(inputTemplate) 
    sysDic = getSysDic(processes, channel, era) 
+   #sysDic
    
    addLumi(sysDic, era, processes)
-   addProcessNormalization(sysDic, processes)
+   addProcessNormalization(sysDic, processes)#!to be done
    
    for i, iv in sysDic.items():
        print(i, iv)
@@ -72,8 +111,25 @@ def main():
    
 def addProcessNormalization(sysDic, processes):
     proNormalDic = {
-        
+       'tttt':  0.1,
+       'tt': 0.05,#https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO
+       'ttX' : 0.11,
+       'singleTop': 0.2,
+       'WJets': 0.1,
+       'Minor': 0.2, 
     }
+    for ipro, inorm in proNormalDic.items():
+        sysDic[f"norm_{ipro}"] = []
+        sysDic[f"norm_{ipro}"].append("lnN")
+        proDic = {}
+        for ipro2 in processes:
+            if ipro2 == ipro:
+                proDic[ipro2] = 1+inorm
+            else:
+                proDic[ipro2] = 0
+        sysDic[f"norm_{ipro}"].append(proDic)
+                
+                
 
 def addLumi(sysDic, era, processes):
     sysDic['lumi_13TeV'] = [] # correlated 3 years
@@ -107,27 +163,39 @@ def addLumi(sysDic, era, processes):
               
 
 def getSysDic(processes, channel, era):
+    #return: pdf_normalised ['shape', {'tt': 1, 'ttX': 1, 'fakeLepton': 0, 'singleTop': 1, 'Minor': 1, 'tttt': 1}]
     sysDic = {}
     for sys, sysList in MCSys.items():
         sysName = sys if sysList[0] else f"{sys}_{era}"
         sysDic[sysName] = []
         sysDic[sysName].append("shape")     
-        proSysDic = getProSysDic(sysName, sysList, processes)   
+        proSysDic = getProSysDic(sysName, sysList, processes, channel)   
         sysDic[sysName].append(proSysDic)
 
     return  sysDic
      
-     
-def getProSysDic(sys, sysList, processes):
+def getProSysDic(sys, sysList, processes, channe='1tau1l'):
+    #return porSys: {'tt': 1, 'ttX': 1, 'fakeLepton': 0, 'singleTop': 1, 'Minor': 1, 'tttt': 1}
+    if channe=='1tau1l':
+        channeMask = 0b100
+    elif channe=='1tau0l':
+        channeMask = 0b010
+    elif channe=='1tau2l':
+        channeMask = 0b001
+    
     proSys = {}
     for ipro in processes:
         if uf.isData(ipro) : continue
         if ipro=='fakeTau':
-            proSys[ipro] = 1 if sysList[1]==1 else 0
+            proSys[ipro] = 1 if sysList[1]==1 and ((sysList[2]&channeMask) !=0) else 0
         elif ipro=='fakeLepton':
-            proSys[ipro] = 1 if sysList[1]==2 else 0
+            proSys[ipro] = 1 if sysList[1]==2 and ((sysList[2]&channeMask) !=0) else 0
+        elif ipro=='Minor' :#!!!not considering anys systematic for Minor processes
+            proSys[ipro] = 0
         else: 
-            proSys[ipro] = 1 if sysList[1]==0 else 0
+            proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
+            if sys=='pdfAlphaS_normalised' and ipro=='singleTop': #!!!
+                proSys[ipro] = 0
              
     return proSys            
              

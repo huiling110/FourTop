@@ -214,7 +214,12 @@ public:
                                       scaleWeightRe_up(reader, "scaleWeightRe_up"),
                                       scaleWeightRe_down(reader, "scaleWeightRe_down"),
                                       scaleWeightFa_up(reader, "scaleWeightFa_up"),
-                                      scaleWeightFa_down(reader, "scaleWeightFa_down")
+                                      scaleWeightFa_down(reader, "scaleWeightFa_down"),
+                                      PSWeightISR_up(reader, "PSWeightISR_up"),
+                                        PSWeightISR_down(reader, "PSWeightISR_down"),
+                                        PSWeightFSR_up(reader, "PSWeightFSR_up"),
+                                        PSWeightFSR_down(reader, "PSWeightFSR_down")
+
 
     {
         std::cout << "Initializing EventForMV..\n";
@@ -436,6 +441,10 @@ public:
     TTreeReaderValue<Double_t> scaleWeightRe_down;
     TTreeReaderValue<Double_t> scaleWeightFa_up;
     TTreeReaderValue<Double_t> scaleWeightFa_down;
+    TTreeReaderValue<Double_t> PSWeightISR_up;
+    TTreeReaderValue<Double_t> PSWeightISR_down;
+    TTreeReaderValue<Double_t> PSWeightFSR_up;
+    TTreeReaderValue<Double_t> PSWeightFSR_down;
 };
 
 #endif

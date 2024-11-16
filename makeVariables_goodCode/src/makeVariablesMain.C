@@ -68,15 +68,6 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
                 // continue;
             // }
             // if (!(jetVarMaker.getHT() > 550 && jetVarMaker.getJet_6pt() > 40 && jetVarMaker.getJet_num() >=6 )) //!!!for btag-efficiency measurement
-            // if(!(jetVarMaker.getJet_num()>= 6 && bjetM_num>=2 && jetVarMaker.getJet_6pt()>38. && jetVarMaker.getHT()>480.))//!!!1tau1l and 1tau1l baseline selection
-            // {
-            //     continue;
-            // }
-            // if(bjetM_num<4){//!
-            //     if(!(jetVarMaker.getHT()>500. && jetVarMaker.getJet_6pt()>40.)){
-            //         continue;
-            //     }
-            // }
             continue;
         }
         if(tau1e1Sel){
@@ -113,19 +104,6 @@ void MakeVariablesMain::Terminate()
         std::cout << "now comes to add Runs tree stage\n";
         TChain chain2("Runs");
         chain2.Add(m_inputDir +"*.root");
-        // if (!m_isRun3)
-        // {
-        //     if(m_processName.Contains("VLL")){
-        //         chain2.Add(m_inputDir + "NanoAODv9*.root");
-        //     }else{
-        //         chain2.Add(m_inputDir + "outTree*.root");
-        //     }
-        // }
-        // else
-        // {
-        //     chain2.Add(m_inputDir + "tree*.root");
-        // }
-        // // chain2.Merge(m_output, 2000);
         TTree *Runs = chain2.CloneTree();
         Runs->SetDirectory(m_output);
         std::cout

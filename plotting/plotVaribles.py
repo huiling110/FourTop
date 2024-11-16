@@ -6,20 +6,9 @@ import usefulFunc as uf
 from ROOT import *
 import setTDRStyle as st
 import ttttGlobleQuantity as gq
+import writeDatacard as wd
 
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v0dataMC_allCorrection/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v0BDT1tau1l/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v0BDT1tau1l_binC/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binD/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v81addSysSum/mc/variableHists_v2BDT1tau1l_binE2/'
-
-
     # input1tau1l = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau1lSRBjet2_v76WithVLLAllMass/mc/BDTTrain/v0allVar/variableList/varibleList_30.csv'
     # input1tau0l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_finalFinal25.csv'
     # variables = read_csv_as_lines(input1tau1l)
@@ -37,25 +26,20 @@ def main():
     # ifPrintSB = False
     ifSystematic = True #!Only for BDT
     # ifSystematic = False  
+    ifFTau = False
     plotName = 'dataVsMC_v4'
-    
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noLepCut_v83for1tau2lEleEtaCut/mc/variableHists_v2dataMC_allbutHLTAddTestReg/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v2_v84fakeLeptonUpdateV2/mc/variableHists_v1dataMC_allbutHLTFakeLepton/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2lNotLepCut_v84Pre1tau2lNoLepCut/mc/variableHists_v1dataMC_allbutHLTFakeLeptonNoLepCut/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1dataMC_allbutHLTFakeLepton/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v0BDT1tau2l/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1BDT1tau2lBinB/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1BDT1tau2lBinA/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1dataMC_allbutHLTFakeLepton/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/mc/variableHists_v1dataMC_allbutHLTFakeLepton_noLepT1/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/mc/variableHists_v1dataMC_allbutHLTFakeLepton_lep1ZVeto/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/mc/variableHists_v1dataMC_allbutHLTFakeLepton_ZVeto/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1dataMC_allbutHLTFakeLepton_ZVeto/'
+   
+    #!1tau2l 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1dataMC_allutHLTFakeLepton_ZVeto/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v86LepPreSel/mc/variableHists_v0BDT1tau2l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/'
     # channel = '1tau2l'
     # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
     # variables = ['lepTopMVAF_num', 'lepTopMVAT_num', 'muonsTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAF_num', 'elesTopMVAF_num', 'jets_num', 'bjetsT_num', 'bjetsM_num']
@@ -64,13 +48,12 @@ def main():
     # variables = ['BDT']
     # input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
     # variables = read_csv_as_lines(input1tau2l)
-    # regionList = ['1tau2lSR', '1tau2lCR3',  '1tau2lCR3Mu1', '1tau2lCR3E1']
     # regionList = ['1tau2lSR', '1tau2lCR3']
 
 
     #1tau1l
-    channel = '1tau1l'
-    ifFTau = False
+    # channel = '1tau1l'
+    # ifFTau = False
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0dataMC_allCorrectionFakeLepton/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinF/'
@@ -80,33 +63,37 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/variableHists_v0BDT1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
-    variables = ['BDT']
-    regionList = ['1tau1lSR', '1tau1lCR12']
+    # variables = ['BDT']
+    # regionList = ['1tau1lSR', '1tau1lCR12']
 
 
   
     #1tau0l
-    # channel = '1tau0l' 
+    channel = '1tau0l' 
+    # ifFTau = True #!if plot FR uncertainty
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTauTWithF/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v0BDT1tau0l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau0l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardroFRUpdated_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau0l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'
     # variables = ['tausF_1pt']
     # variables = ['jets_HT'] 
     # variables = ['tausT_1decayMode', 'tausT_1pt']
-    # ifFTau = True #!if plot FR uncertainty
     # ifFTau = False #!if plot FR uncertainty
     # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num', 'tausT_1pt', 'tausT_1eta', 'tausT_1decayMode']#!fake rate validation
     # variables = [  'jets_MHT', 'jets_centrality', 'MET_pt', 'jets_aplanarity',  'jets_4largestBscoreSum', 'jets_bScore', 'jets_5pt', 'jets_7pt' , 'bjetsM_HT', 'bjetsT_num', 'bjetsT_MHT',  'bjetsM_minDeltaR', 'bjetsM_invariantMass', 'bjetsM_2MET_stransMass' ] #!1tau0l BDT inputs
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
     # variables = ['tausF_1jetPt', 'tausF_jet_invariantMass', 'tausF_jet1_Met_transMass']
-    # variables = ['BDT']
-    # regionList = ['1tau0lCR', '1tau0lVR', '1tau0lMR']
+    variables = ['BDT']
     # regionList = ['1tau0lSR']
-    # regionList = ['1tau0lVR', '1tau0lMR', '1tau0lCR', '1tau0lSR', '1tau0lCRMR']
-    # regionList = ['1tau0lVR',  '1tau0lCRMR', '1tau0lSR']
+    # regionList = ['1tau0lCRMR']
+    regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
 
     
     era = uf.getEraFromDir(inputDir)
@@ -146,13 +133,14 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     sumProList = gq.proChannelDic[channel]
     if ifVLL:
         sumProList.append(ifVLL)
-    
-    sumProSys = getSysDic(ifDoSystmatic, channel)    
-    if ifFakeTau:
-        sumProSys = {
-            'fakeTau': ['CMS_tau_FR'],
-        }
-    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList,sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    print(sumProList) 
+    sumProSys = getSysDicPL(ifDoSystmatic, channel, era)    
+    [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
+    # if ifFakeTau:
+    #     sumProSys = {
+    #         'fakeTau': ['CMS_tau_FR'],
+    #     }
+    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
    
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
@@ -160,30 +148,48 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         for iRegion in regionList:       
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
     
-def getSysDic(ifSys=False, channel='1tau1l'):
+def getSysDicPL(ifSys=False, channel='1tau1l', era='2018'):
     #todo: add funcionality of getting systematics from datacard
     #!Lumi uncertainty to be added mannually
     if not ifSys:
         return {}
     sumProSys = {} 
-    if channel == '1tau0l': 
-        sumProSys = {
-            'tt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-            'ttX': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-            'WJets': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-            'singleTop': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-            'tttt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-            'fakeTau': ['CMS_tau_FR'],
-        }
-    elif channel == '1tau1l':
-        sumProSys = {
-           'tttt': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-           'tt': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-           'ttX': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-           'singleTop': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],#!removed pdfAlphaS_normalised
-           'WJets': [ "CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-        }
+    print('staring to get process systematic')
+    processes = gq.proChannelDic[channel][:]
+    print('processes in getSysDicPL(): ', processes) #?not 'jetHT' already
+    if channel=='1tau2l':
+        processes.remove('leptonSum')
+    else:
+        processes.remove('jetHT')
+    proSys = wd.getSysDic(processes, channel, era)          
+    # print(proSys)
+    
+    for ipro in processes:
+        sumProSys[ipro] = [] 
+        for isys, sysList in proSys.items():
+            if sysList[1][ipro]==1:
+                sumProSys[ipro].append(isys)
+    
     return sumProSys
+        
+    # if channel == '1tau0l': 
+    #     sumProSys = {
+    #         'tt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+    #         'ttX': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+    #         'WJets': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+    #         'singleTop': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+    #         'tttt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
+    #         'fakeTau': ['CMS_tau_FR'],
+    #     }
+    # elif channel == '1tau1l':
+    #     sumProSys = {
+    #        'tttt': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
+    #        'tt': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
+    #        'ttX': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
+    #        'singleTop': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],#!removed pdfAlphaS_normalised
+    #        'WJets': [ "CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
+    #     }
+    # return sumProSys
        
        
 def plotFakeTau(inputDirDic, variables, regions, plotName, era, isRun3, ifFTau=False):
@@ -615,10 +621,10 @@ def getSystVariation(nominalHist,systHists):
     for systHi in systHists.keys():
     #systHi is 'up' or 'down' for varias sources
     #so this is to sum the sytstmatic variation for sources of systematic uncertainty
-        print( 'doing sytematic calculation for: ',systHi )
+        # print( 'doing sytematic calculation for: ',systHi )
         iSys = True
         syst = systHists[systHi].Clone()
-        print( 'sytHistUp: ', syst.GetName() )
+        # print( 'sytHistUp: ', syst.GetName() )
         syst.Add(nominalHist,-1)
         for i in range(1,syst.GetXaxis().GetNbins()+1):
             if "Up" in syst.GetName():

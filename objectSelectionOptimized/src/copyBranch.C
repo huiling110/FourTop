@@ -109,7 +109,8 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
         //accept if at least one prompt photon not radiated from partons?
         for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++)
         {
-            if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10. && e->GenPart_statusFlags->At(i)==0)
+            // std::cout<<"e->GenParr_statusFlags->At(i)="<<e->GenPart_statusFlags->At(i)<<"\n"; //!!!statusFlags has very big index number, not as discribed in nanoAOD v9
+            if (std::abs(e->GenPart_pdgId->At(i)) == 22 && e->GenPart_pt->At(i)>10. && e->GenPart_statusFlags->At(i)>0)
             {
                 Bool_t removeIGen = OS::overlapRemove(e->GenPart_eta->At(i), e->GenPart_phi->At(i), partonsEtaVec, partonsPhiVec, 0.05); //if overlap with parton
                 if(!removeIGen){
@@ -124,7 +125,7 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
         //for ttbar, DY, W, st, should remove events if all prompt photons radiated from partons
         ifRemove = kFALSE;
         for(size_t i=0; i<e->GenPart_pdgId->GetSize(); i++){
-            if(std::abs(e->GenPart_pdgId->At(i))==22 && e->GenPart_pt->At(i)>10. && e->GenPart_statusFlags->At(i)==0){
+            if(std::abs(e->GenPart_pdgId->At(i))==22 && e->GenPart_pt->At(i)>10. && e->GenPart_statusFlags->At(i)>0){
                 //check if only have leptons, quarks, gluons, and bosons as parents
                 Int_t parentPdgId = OS::getValForDynamicReader<Short_t>(m_isRun3, e->GenPart_genPartIdxMother, i);
                 Bool_t parentGood = std::abs(e->GenPart_pdgId->At(parentPdgId))<7 || std::abs(e->GenPart_pdgId->At(parentPdgId))==21 || std::abs(e->GenPart_pdgId->At(parentPdgId))==24 || std::abs(e->GenPart_pdgId->At(parentPdgId))==23 || std::abs(e->GenPart_pdgId->At(parentPdgId))==25; //<7=quarks, 21=gluons, 24=W, 23=Z, 25=Higgs

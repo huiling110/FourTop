@@ -18,8 +18,12 @@ SystWeightCal::SystWeightCal(TTree *outTree, Bool_t isData,  Bool_t isRun3):m_is
     outTree->Branch("scaleWeightRe_down", &scaleWeightRe_down);
     outTree->Branch("scaleWeightFa_up", &scaleWeightFa_up);
     outTree->Branch("scaleWeightFa_down", &scaleWeightFa_down);
-    outTree->Branch("PSWeight_up", &PSWeight_up);
-    outTree->Branch("PSWeight_down", &PSWeight_down);
+    // outTree->Branch("PSWeight_up", &PSWeight_up);
+    // outTree->Branch("PSWeight_down", &PSWeight_down);
+    outTree->Branch("PSWeightISR_up", &PSWeightISR_up);
+    outTree->Branch("PSWeightISR_down", &PSWeightISR_down);
+    outTree->Branch("PSWeightFSR_up", &PSWeightFSR_up);
+    outTree->Branch("PSWeightFSR_down", &PSWeightFSR_down);
 
     std::cout<<"Done SystWeightCal initialization.......\n\n";
 };
@@ -53,9 +57,6 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
         //envelope to consider: upup, downdown;up or down; no up and down
         //LHE scale variation weights (w_var / w_nominal); [0] is renscfact=0.5d0 facscfact=0.5d0 ; [1] is renscfact=0.5d0 facscfact=1d0 ; [2] is renscfact=0.5d0 facscfact=2d0 ; [3] is renscfact=1d0 facscfact=0.5d0 ; [4] is renscfact=1d0 facscfact=1d0 ; [5] is renscfact=1d0 facscfact=2d0 ; [6] is renscfact=2d0 facscfact=0.5d0 ; [7] is renscfact=2d0 facscfact=1d0 ; [8] is renscfact=2d0 facscfact=2d0
         // std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(4), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;
-        // std::vector<Double_t> vec={e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(2), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(4), e->LHEScaleWeight->At(6), e->LHEScaleWeight->At(8)}  ;
-        // scaleWeight_up = std::max_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
-        // scaleWeight_down = std::min_element(e->LHEScaleWeight->begin(), e->LHEScaleWeight->end());
         if (e->LHEScaleWeight!=nullptr){
             //!w_var / w_nominal
             std::vector<Double_t> vec={e->LHEScaleWeight->At(0), e->LHEScaleWeight->At(1), e->LHEScaleWeight->At(3), e->LHEScaleWeight->At(5), e->LHEScaleWeight->At(7), e->LHEScaleWeight->At(8)}  ;//this one should be correct
@@ -71,8 +72,12 @@ void SystWeightCal::Select(eventForNano *e, Bool_t isData){
 
         if(e->PSWeight!=nullptr){//PS weights (w_var / w_nominal); [0] is ISR=2 FSR=1; [1] is ISR=1 FSR=2[2] is ISR=0.5 FSR=1; [3] is ISR=1 FSR=0.5;
         //Recommendation: default variations with factor 2 and 0.5 
-            PSWeight_up = e->PSWeight->At(0);
-            PSWeight_down = e->PSWeight->At(3);
+            // PSWeight_up = e->PSWeight->At(0);
+            // PSWeight_down = e->PSWeight->At(3); //!this is probably wrong calculating ISR and FSR separately
+            PSWeightISR_up = e->PSWeight->At(0);
+            PSWeightISR_down = e->PSWeight->At(2);
+            PSWeightFSR_up = e->PSWeight->At(1);
+            PSWeightFSR_down = e->PSWeight->At(3);
         }
     }
 };
@@ -90,6 +95,8 @@ void SystWeightCal::clearBranch(){
     scaleWeightRe_down=1.;
     scaleWeightFa_up=1.;
     scaleWeightFa_down=1.;
-    PSWeight_up=1.;
-    PSWeight_down=1.;
+    PSWeightISR_up=1.;
+    PSWeightISR_down=1.;
+    PSWeightFSR_up=1.;
+    PSWeightFSR_down=1.;
 };

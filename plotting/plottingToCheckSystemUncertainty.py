@@ -1,6 +1,7 @@
 import ROOT
 import numpy as np
 import ttttGlobleQuantity as gq
+import usefulFunc as uf
 import os
 
 def getContextForBin(histogram, n_bins):
@@ -113,50 +114,41 @@ def StartPlotiing(file_path, base_name, up_name, down_name):
     line.SetLineStyle(2)
     line.Draw()
     dir_path = os.path.dirname(file_path)
-    png_path = f"{dir_path}/TemplatCheckPlot/{title}.png"
-    c1.SaveAs(png_path)
-    print(f"success created {png_path}")
+    outDir = f"{dir_path}/results/"
+    uf.checkMakeDir(outDir)
+    # png_path = f"{dir_path
+    c1.SaveAs(outDir + f"{title}.png")
+    print(f"success created {outDir}{title}.png")
 
 def main():
-    file_path = "/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardroSR_v81addSysSum/mc/variableHists_v0Basictraining1tau1l_VLLm600_6/combine/templatesForCombine1tau1l.root"
+    # file_path = "/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardroSR_v81addSysSum/mc/variableHists_v0Basictraining1tau1l_VLLm600_6/combine/templatesForCombine1tau1l.root"
+    # file_path = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root"
+    # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+    # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
+    # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
+    file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 
-    channel = "1tau2l"
+    # channel = "1tau2l"
+    # channel = "1tau0l"
+    channel = '1tau1l'
+    
     ProcessNames = gq.proChannelDic[channel][:-1]
     SystematicsNames = [
-        '_CMS_pileup_',
-        '_CMS_prefiring_',
-        '_CMS_eff_t_vsJet_',
-        '_CMS_eff_t_vsMu_',
-        '_CMS_eff_t_vsEle_',
-        '_CMS_tttt_eff_e_',
-        '_CMS_tttt_eff_m_',
-        '_CMS_btag_shape_jes_',
-        '_CMS_btag_shape_hf_',
-        '_CMS_btag_shape_lf_',
-        '_CMS_btag_shape_hfstats1_',
-        '_CMS_btag_shape_hfstats2_',
-        '_CMS_btag_shape_lfstats1_',
-        '_CMS_btag_shape_lfstats2_',
-        '_CMS_btag_shape_cferr1_',
-        '_CMS_btag_shape_cferr2_',
-        '_CMS_eff_bWPM_',
-        '_CMS_eff_bWPMT_',
-        '_CMS_tau_FR_',
-        '_CMS_tttt_eff_hlt_stats_',
-        '_pdf_',
-        '_pdfAlphaS_',
-        '_QCDscale_Re_',
-        '_QCDscale_Fa_',
-        '_QCDscale_Re_normalised_',
-        '_QCDscale_Fa_normalised_',
-        '_pdfAlphaS_normalised_'
+        # 'QCDscale_Re_normalised',
+        # 'QCDscale_Fa_normalised',
+        # 'pdfAlphaS_normalised',
+        'pdf_normalised',
+        'ISR_normalised',
+        'FSR_normalised',
+        'CMS_pileup',
     ]
     year = '2018'
     for ProcessName in ProcessNames:
         for SystematicsName in SystematicsNames:
-            base_name = ProcessName + '_1tau1lSR_BDT'
-            up_name = f'{ProcessName}_1tau1lSR{SystematicsName}{year}Up_BDT'
-            down_name = f'{ProcessName}_1tau1lSR{SystematicsName}{year}Down_BDT'
+            base_name = f"{ProcessName}_{channel}SR_BDT"
+            up_name = f'{ProcessName}_{channel}SR_{SystematicsName}Up_BDT'
+            down_name = f'{ProcessName}_{channel}SR_{SystematicsName}Down_BDT'
+            print(base_name, up_name, down_name)
             StartPlotiing(file_path, base_name, up_name, down_name)
 
 if __name__ == "__main__":

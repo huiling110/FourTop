@@ -42,17 +42,20 @@ def main():
     # inVersion = 'v84HadroPresel'
     # inVersion = 'v85HadroPreselTauOverlap0.5'
     # inVersion = 'v86HadroPreSelWithGammaRemoval'
-    inVersion = 'v86HadroPreSelWithTTWTTZNLO'
+    # inVersion = 'v86HadroPreSelWithTTWTTZNLO'
+    # inVersion = 'v86LepPreSel'
+    # inVersion = 'v87LepPreSel_GammaRemovalBugFixed'
+    # inVersion = 'v87addPdfPSWeightSum'
+    # inVersion = 'v88PSWeightFixedLepPre'
+    inVersion = 'v88PSWeightFixedHadroPre'
 
     outVersion = 'v0baselineHardro_nb3Ht500Pt40'
     # outVersion = 'v0baselineLep'
-   
     # outVersion = 'v1baselineHardroFRUpdated' 
     # outVersion = 'v0baseline1tau2lNotLepCut'
     # outVersion = 'v2cut1tau0lSRTauF'
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau2lSR'
-    
    
     
     
@@ -159,8 +162,7 @@ def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False):
         uf.checkMakeDir(inOutList[1] +"log/")
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
-        # subDirJobs.write( 'hep_sub  '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
-        subDirJobs.write( 'hep_sub -os CentOS7 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        subDirJobs.write( 'hep_sub -os CentOS7 -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
 
     subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
     subprocess.run( 'chmod 777 ' + subDirName, shell = True)

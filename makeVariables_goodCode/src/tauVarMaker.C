@@ -35,10 +35,11 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     // outTree->Branch(objName + "_prongNum", &taus_prongNum); //!not good variable
     outTree->Branch(objName + "_1decayMode", &taus_1decayMode);
     outTree->Branch(objName + "_1prongNum", &taus_1prongNum);
+    outTree->Branch(objName + "_1jetEtaAbs", &taus_1jetEtaAbs);
 
     if(m_type==1){
+    outTree->Branch(objName + "_1jetEta", &taus_1jetEtaAbs);
         outTree->Branch(objName + "_1jetPt", &taus_1jetPt);
-        outTree->Branch(objName + "_1jetEta", &taus_1jetEtaAbs);
         outTree->Branch("tausF_1isTight", &tausF_1isTight);
         // outTree->Branch("tausF_1isTightPrompt", &tausF_1isTightPrompt);
         outTree->Branch(objName + "_1jetMass", &taus_1jetMass);

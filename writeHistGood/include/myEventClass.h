@@ -189,6 +189,10 @@ public:
     myBranch<Double_t> scaleWeightRe_down_{"scaleWeightRe_down_"};
     myBranch<Double_t> scaleWeightFa_up_{"scaleWeightFa_up_"};
     myBranch<Double_t> scaleWeightFa_down_{"scaleWeightFa_down_"};
+    myBranch<Double_t> PSWeightISR_up_{"PSWeightISR_up_"};
+    myBranch<Double_t> PSWeightISR_down_{"PSWeightISR_down_"};
+    myBranch<Double_t> PSWeightFSR_up_{"PSWeightFSR_up_"};
+    myBranch<Double_t> PSWeightFSR_down_{"PSWeightFSR_down_"};
 
     myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
@@ -343,6 +347,7 @@ public:
     myBranch<Int_t> tausT_prongNum{"tausT_prongNum"};
     myBranch<Int_t> tausT_1lepton1_charge{"tausT_1lepton1_charge"};
     myBranch<Int_t> tausT_leptons_charge{"tausT_leptons_charge"};
+    myBranch<Double_t> tausT_1jetEtaAbs{"tausT_1jetEtaAbs"};
 
     myBranch<Double_t> tausTT_HT{"tausTT_HT"};
     myBranch<Double_t> tausTT_MHT{"tausTT_MHT"};
@@ -354,7 +359,7 @@ public:
     myBranch<Double_t> tausTT_leptonsTMVA_minDeltaR{"tausTT_leptonsTMVA_minDeltaR"};
     myBranch<Double_t> tausTT_leptonsT_transMass{"tausTT_leptonsT_transMass"};
     myBranch<Int_t> tausTT_1charge{"tausTT_1charge"};
-    myBranch<Double_t> tausT_1jetEtaAbs{"tausT_1jetEtaAbs"};
+    // myBranch<Double_t> tausT_1jetEtaAbs{"tausT_1jetEtaAbs"};
     myBranch<Int_t> tausTT_1genFlavour{"tausTT_1genFlavour"};
     myBranch<Int_t> tausTT_1decayMode{"tausTT_1decayMode"};
     myBranch<Int_t> tausTT_1lepton1_charge{"tausTT_1lepton1_charge"};
@@ -378,6 +383,7 @@ public:
     // branches for fakeTau;
     myBranch<Double_t> tausF_1jetPt{"tausF_1jetPt"};
     myBranch<Double_t> tausF_1eta{"tausF_1eta"};
+    myBranch<Double_t> tausF_1jetEta{"tausF_1jetEta"};
     myBranch<Double_t> tausF_1jetEtaAbs{"tausF_1jetEtaAbs"};
     myBranch<Int_t> tausF_num{"tausF_num"};
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
@@ -579,6 +585,10 @@ private:
         {scaleWeightRe_down_.n(), &scaleWeightRe_down_},
         {scaleWeightFa_up_.n(), &scaleWeightFa_up_},
         {scaleWeightFa_down_.n(), &scaleWeightFa_down_},
+        {PSWeightISR_up_.n(), &PSWeightISR_up_},
+        {PSWeightISR_down_.n(), &PSWeightISR_down_},
+        {PSWeightFSR_up_.n(), &PSWeightFSR_up_},
+        {PSWeightFSR_down_.n(), &PSWeightFSR_down_},
 
     {jets_num.n(), &jets_num},
     {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
@@ -673,6 +683,7 @@ private:
         {tausT_1charge.n(), &tausT_1charge},
         {tausT_1lepton1_charge.n(), &tausT_1lepton1_charge},
         {tausT_leptons_charge.n(), &tausT_leptons_charge},
+        {tausT_1jetEtaAbs.n(), &tausT_1jetEtaAbs},
 
         {tausTT_1pt.n(), &tausTT_1pt},
         {tausTT_1eta.n(), &tausTT_1eta},
@@ -687,7 +698,7 @@ private:
         {tausTT_leptonsTMVA_minDeltaR.n(), &tausTT_leptonsTMVA_minDeltaR},
         {tausTT_leptonsT_transMass.n(), &tausTT_leptonsT_transMass},
         {tausTT_1charge.n(), &tausTT_1charge},
-        {tausT_1jetEtaAbs.n(), &tausT_1jetEtaAbs},
+        // {tausT_1jetEtaAbs.n(), &tausT_1jetEtaAbs},
 
         {bjetsT_1eta.n(), &bjetsT_1eta},
         {bjetsT_1phi.n(), &bjetsT_1phi},
@@ -746,6 +757,7 @@ private:
         {tausF_num.n(), &tausF_num},
         {tausF_1jetPt.n(), &tausF_1jetPt},
         {tausF_1eta.n(), &tausF_1eta},
+        {tausF_1jetEta.n(), &tausF_1jetEta},
         {tausF_1jetEtaAbs.n(), &tausF_1jetEtaAbs},
         {tausF_1charge.n(), &tausF_1charge},
         {tausF_1decayMode.n(), &tausF_1decayMode},
