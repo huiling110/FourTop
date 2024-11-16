@@ -149,7 +149,7 @@ Process_dict = {
 parser = argparse.ArgumentParser()
 parser.add_argument('--nameid', type=int, default=0, help='int min 0 max 40')
 parser.add_argument('--out_path', type=str, default="/publicfs/cms/data/TopQuark/nanoAOD_new/", help='Output Path')
-parser.add_argument('--year', type=str, default="2017", help='2016 2016APV 2017 2018')
+parser.add_argument('--year', type=str, default="2016", help='2016 2016APV 2017 2018')
 args = parser.parse_args()
 
 if args.year == "2018":
