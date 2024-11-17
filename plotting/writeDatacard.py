@@ -63,16 +63,17 @@ MCSys = {
 
 
 def main():
-#    channel = '1tau1l'
+   channel = '1tau1l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    outVersion = 'v0'
    outVersion = 'v1proNormAdd'
    
    
-   channel = '1tau0l'
+#    channel = '1tau0l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
-   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
 
 
 #    channel = '1tau2l'
