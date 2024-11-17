@@ -8,14 +8,6 @@ import usefulFunc as uf
 
 
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
-# jobVersionName = 'v72PreSelWithTauF_METAdd'
-# jobVersionName = 'v73NoHLTNoTauHT400/'
-# jobVersionName = 'v73NoHLTTauFHT400/'
-# jobVersionName = 'v74AddMETPhi/'
-# jobVersionName = 'v75AddTauTTTT/'
-# jobVersionName = 'v75AddTauTTTTNoHTCut/'
-# jobVersionName = 'v75OverlapRemovalFTau/'
-# jobVersionName = 'v76For1tau2l/'
 # jobVersionName = 'v77ForHLT/'
 # jobVersionName = 'v76WithVLLSample/'
 # jobVersionName = 'v76WithVLLAllMass/'
@@ -41,16 +33,16 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v86HadroPreSelWithTTWTTZNLO_testtest/'
 # jobVersionName = 'v87addPdfPSWeightSum/'
 # jobVersionName = 'v87addPdfPSWeightSum/'# with new downloaded MC samples actuaclly
-# jobVersionName = 'v88PSWeightFixedLepPre/'
-jobVersionName = 'v88PSWeightFixedHadroPre/'
+jobVersionName = 'v88PSWeightFixedLepPre/'
+# jobVersionName = 'v88PSWeightFixedHadroPre/'
 
 isRuobing = False
 #!same version numbers means no change in algrithm but only in selection
-#!todo: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
+#done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
-    era = '2016'
+    # era = '2016'
     # era = '2016APV'
-    # era = '2017'
+    era = '2017'
     # era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
@@ -58,8 +50,8 @@ def main():
     # dataList = ['singleMu'] #!for HLT
     # dataList = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #!for 1tau2l  
     
-    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
+    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
 
 
 
