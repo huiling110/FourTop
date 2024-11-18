@@ -225,7 +225,7 @@ histoGramPerSample = {
     # "ggH_gg": "Minor",#"Higgs", #!no entries in 1tau2l
     # "vbfH_bb": "Minor",#"Higgs", #!!! no entries in 1tau2l
     # "vbfH_tautau": "Minor",#"Higgs", #!! no entries in 1tau2l
-    "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l in 2016
+    # "vbfH_WW_2l": "Minor",#"Higgs", #!vbH_ww_2l probmatic in 2016 pre
     # "VH_nonbb": "Minor",#"Higgs", #!doesn't exsit in 2018
     
     "WJetsToLNu_HT-200To400": "WJets",

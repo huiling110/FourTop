@@ -40,10 +40,10 @@ isRuobing = False
 #!same version numbers means no change in algrithm but only in selection
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
-    era = '2016'
+    # era = '2016'
     # era = '2016APV'
     # era = '2017'
-    # era = '2018'
+    era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # dataList = ['jetHT', 'BTagCSV']#!for 1tau1l and 1tau0l
