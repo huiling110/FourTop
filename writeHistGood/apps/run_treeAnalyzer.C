@@ -28,9 +28,10 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
-    TString process = "tttt",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
+    // TString process = "tttt",
     // TString process = "fakeLepton",
-    // TString process = "fakeTau_tauF",
+    TString process = "fakeTau_MC",
     // TString process = "ttbar_0l",
     // TString process = "ttbar_2l",
     // TString process = "jetHT_2016E",
@@ -40,8 +41,8 @@ void run_treeAnalyzer(
     TString channel = "1tau0l",//
     // TString channel = "1tau2l",//
     TString histVersion = "v0_test",//
-    Bool_t isTest = kTRUE)
-    // Bool_t isTest = kFALSE)
+    // Bool_t isTest = kTRUE)
+    Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();
