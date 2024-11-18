@@ -30,11 +30,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/'
     
-    channel = '1tau1l'
+    # channel = '1tau1l'
     # channel = '1tau2l'
-    # channel = '1tau0l'
+    channel = '1tau0l'
     
     # exe = './apps/run_WH_forDataMC.out'
     exe = './apps/run_treeAnalyzer.out' 
@@ -63,12 +62,12 @@ def main():
         
     #1tau1l
     # channel = '1tau1l'
-    version = 'v0BDT1tau1l'
+    # version = 'v0BDT1tau1l'
     # version = 'v1BDT1tau1lEvenBin'
     
     #1tau0l systematic
     # channel = '1tau0l'
-    # version = 'v0BDT1tau0l'
+    version = 'v0BDT1tau0l'
     # version = 'v1BDT1tau0lEvenBin'
     # version = 'v2BDT1tau0lBinC'
     

@@ -246,6 +246,13 @@ histoGramPerSample = {
     # "fakeTau_tauTGen": "fakeTau",
     "fakeTau_data": "fakeTau", #!update
     "fakeTau_MC": "fakeTau",
+
+    "VLL_EE_M500": "VLLm500",
+    "VLL_EN_M500": "VLLm500",
+    "VLL_NN_M500": "VLLm500",
+    "VLL_EE_M550": "VLLm550",
+    "VLL_EN_M550": "VLLm550",
+    "VLL_NN_M550": "VLLm550",
     
     "VLL_EE_M600": "VLLm600",
     "VLL_EN_M600": "VLLm600",
