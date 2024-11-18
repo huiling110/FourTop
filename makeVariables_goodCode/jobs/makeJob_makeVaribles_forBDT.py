@@ -10,16 +10,9 @@ import usefulFunc as uf
 #todo add git co after job submission for version control
 
 def main():
-    # year = '2016'
+    year = '2016'
     # year = '2018'
-    year = '2017'
-    # inVersion = 'v67TheoryWeightAdded'
-    # inVersion = 'v70BetterHLT'
-    # inVersion = 'v71NoHLTNoTau'
-    # inVersion = 'v73NoHLTNoTauHT400'
-    # inVersion = 'v73NoHLTTauFHT400'
-    # inVersion = 'v74AddMETPhi'
-    # inVersion = 'v75AddTauTTTTNoHTCut'
+    # year = '2017'
     # inVersion = 'v75OverlapRemovalFTau'
     # inVersion = 'v76WithVLLSample'
     # inVersion = 'v76WithVLLAllMass'
