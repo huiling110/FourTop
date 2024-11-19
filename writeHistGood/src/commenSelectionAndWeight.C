@@ -50,7 +50,7 @@ Bool_t HLTSel(event *e, const TString m_era){
     return ifHLT;
 }
 
-Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTau, Bool_t isFakeLepton, Bool_t isMC )
+Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTau, Bool_t isFakeLepton, Bool_t isMC, Bool_t ifFakeTau )
 {
     Int_t lepNum = isRun3? e->elesMVAT_num.v() + e->muonsT_num.v() : e->elesTopMVAT_num.v() + e->muonsTopMVAT_num.v();
     Int_t bjetsMNum = isRun3? e->bjetsPTM_num.v() : e->bjetsM_num.v();
@@ -58,7 +58,7 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
 
     //fakeTau estimation for 1tau0l
     Bool_t tauCut = kFALSE;
-    if(isMC){
+    if(isMC && ifFakeTau){
         if(isFakeTau){
             tauCut = e->tausF_num.v()==1 && !e->tausF_1isTight.v() ;
         }else{
