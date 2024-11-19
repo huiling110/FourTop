@@ -12,11 +12,6 @@
 #include "../include/writeHist_HLTeff.h"
 
 void run_treeAnalyzer(
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v82for1tau2l/mc/", 
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noTauCut_v82for1tau2l/mc/", 
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baseline1tau2l_noLepCut_v83for1tau2lEleEtaCut/mc/", 
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2l_v2_v84fakeLeptonUpdateV2/mc/", 
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline1tau2lNotLepCut_v84Pre1tau2lNoLepCut/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2/mc/", 
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lNoLepCut/mc/", 
@@ -57,11 +52,11 @@ void run_treeAnalyzer(
 
     Bool_t is1tau2l = channel=="1tau2l";
     std::cout<<"is1tau2l in run_WH_forDataMC="<<is1tau2l<<"\n"; 
-    // WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);
+    WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);
     // WH_forDataMC writeHist(inputDir, process, kTRUE, histVersion, isTest);//!faketau, for 1tau0l
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
-    WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
+    // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);
     // WH_HLTeff writeHist(inputDir, process, histVersion, isTest);
 
     writeHist.Init();

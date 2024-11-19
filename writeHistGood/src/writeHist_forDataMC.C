@@ -51,21 +51,11 @@ void WH_forDataMC::LoopTree(UInt_t entry)
     {
         m_tree->GetEntry(i);
 
-        const Bool_t ifBaseline = baselineSelection(e, m_isRun3, m_is1tau2l); //!for 1tau2l
+        const Bool_t ifBaseline = baselineSelection(e, m_isRun3, m_is1tau2l); 
         if (!ifBaseline)
         {
             continue;
         }
-
-        //!taken care in SR1tau1lSel()
-        // if(m_ifFakeTau ){//!if fake tau bg, MC should be gen tau
-        //     if(!(e->tausF_num.v()==1)){
-        //         continue;
-        //     }
-        //     if(!m_isFakeTau && !m_isData){
-        //         if (!(e->tausT_genTauNum.v() == 1)) continue;
-        //     }
-        // }
 
         const Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0, m_isFakeTau, m_isFakeLepton);//!1tau1l
         const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2, m_isFakeTau, m_isFakeLepton);
