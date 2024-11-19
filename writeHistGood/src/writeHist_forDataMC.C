@@ -60,6 +60,11 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         const Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0, m_isFakeTau, m_isFakeLepton);//!1tau1l
         const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2, m_isFakeTau, m_isFakeLepton);
         const Double_t eventWeight_1tau0l = baseWeightCal(e, i, m_isRun3, m_isData, 1, m_isFakeTau, m_isFakeLepton);//!1tau0l
+        //!!!Some FR_weight_final == inf for fakeTau_MC, temporary fix here
+        if (std::isnan(eventWeight_1tau0l)|| std::isinf(eventWeight_1tau0l)){
+            std::cout<<"!!!! FR_weight_final is NAN\n";
+            continue;
+        }
 
         if(std::isinf(e->btagWPMT_weight.v()) || std::isnan(e->btagWPMT_weight.v())){
             std::cout<<"btagWPMT_weight="<<e->btagWPMT_weight.v()<<"\n";

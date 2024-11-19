@@ -29,17 +29,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/'
     
     # channel = '1tau1l'
-    channel = '1tau2l'
-    # channel = '1tau0l'
+    # channel = '1tau2l'
+    channel = '1tau0l'
     
-    # exe = './apps/run_WH_forDataMC.out'
-    exe = './apps/run_treeAnalyzer.out' 
+    exe = './apps/run_WH_forDataMC.out'
+    # exe = './apps/run_treeAnalyzer.out' 
     
     #!fakerate
     # version = 'v0FRMeasure'
@@ -51,14 +51,13 @@ def main():
     
     #HLT 
     # version = 'v0HLTMeasure'
-    # version = 'v0HLTMeasureBinB'
    
     #dataMC
     # version = 'v0dataMC_allCorrection'
+    version = 'v0dataMC_allCorrectionFakeTau'
     # version = 'v0dataMC_allCorrectionFakeLepton'
     # version = 'v1dataMC_allbutHLT'
     # version = 'v1dataMC_allbutHLTFakeLepton'
-    # version = 'v1dataMC_allbutHLTFakeLeptonNoLepCut'
     # version = 'v2dataMC_allbutHLT'
     # version = 'v0dataMC_genWeight'
     
@@ -75,7 +74,7 @@ def main():
     # version = 'v2BDT1tau0lBinC'
     
     # channel = '1tau2l'
-    version = 'v0BDT1tau2l'
+    # version = 'v0BDT1tau2l'
     # version = 'v0BDT1tau2l_newMCSample'
     # version = 'v1BDT1tau2lEvenBin'
    

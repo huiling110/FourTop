@@ -15,7 +15,6 @@ def main():
     # variables = read_csv_as_lines(input1tau0l)
     # print(variables)
     
-    # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     ifVLL = ''
     # ifVLL = 'VLLm800'
     ifLogy = True
@@ -24,9 +23,10 @@ def main():
     # ifStackSignal = False
     ifPrintSB = True
     # ifPrintSB = False
-    ifSystematic = True #!Only for BDT
-    # ifSystematic = False  
+    # ifSystematic = True #!Only for BDT
+    ifSystematic = False  
     ifFTau = False
+    # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     plotName = 'dataVsMC_v4'
    
     #!1tau2l 
@@ -42,16 +42,16 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
-    channel = '1tau2l'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
+    # channel = '1tau2l'
     # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
     # variables = ['lepTopMVAF_num', 'lepTopMVAT_num', 'muonsTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAF_num', 'elesTopMVAF_num', 'jets_num', 'bjetsT_num', 'bjetsM_num']
     # variables = ['elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'elesTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_1pt', 'muonsTopMVAT_2pt', 'muonsTopMVAT_1eta', 'muonsTopMVAT_2eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt']
     # variables = ['lepTopMVAF_num']
-    variables = ['BDT']
+    # variables = ['BDT']
     # input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
     # variables = read_csv_as_lines(input1tau2l)
-    regionList = ['1tau2lSR', '1tau2lCR3']
+    # regionList = ['1tau2lSR', '1tau2lCR3']
 
 
     #1tau1l
@@ -72,7 +72,7 @@ def main():
     # regionList = ['1tau1lSR', '1tau1lCR12']
   
     #1tau0l
-    # channel = '1tau0l' 
+    channel = '1tau0l' 
     # ifFTau = True #!if plot FR uncertainty
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/variableHists_v1dataMC_allCorrectionFakeTauTWithF/'
@@ -84,8 +84,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/' #!problem with fakeTau_MC 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0dataMC_allCorrectionFakeTau/'
     # variables = ['tausF_1pt']
-    # variables = ['jets_HT'] 
+    variables = ['jets_HT'] 
     # variables = ['tausT_1decayMode', 'tausT_1pt']
     # ifFTau = False #!if plot FR uncertainty
     # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEtaAbs', 'tausF_1prongNum', 'tausF_num', 'tausT_1pt', 'tausT_1eta', 'tausT_1decayMode']#!fake rate validation
@@ -95,7 +96,7 @@ def main():
     # variables = ['BDT']
     # regionList = ['1tau0lSR']
     # regionList = ['1tau0lCRMR']
-    # regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
+    regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
 
     
     era = uf.getEraFromDir(inputDir)
