@@ -22,13 +22,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v79HadroPresel/mc/variableHists_v0FR_measure3prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0FR_measure3prong/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardroHLTSF_v79HadroPresel/mc/variableHists_v0FR_measure1prong/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/mc/variableHists_v0FR_measure1prongNew/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/mc/variableHists_v0FRMeasure/'
+# inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
     
    
     
@@ -66,7 +66,7 @@ def plotFRNew(inputDirDic, era):
     uf.plotOverlay([FR_eta1_VR, FR_eta1], ['VR', 'MR+CR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
     uf.plotOverlay([FR_eta2_VR, FR_eta2], ['VR', 'MR+CR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
     uf.plotOverlay([FR_eta3_VR, FR_eta3], ['VR', 'MR+CR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    uf.plotOverlay([FR_tauProng3_VR, FR_tauProng3], ['VR', 'MR+CR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng3 + 'EtaAll', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3]) 
+    uf.plotOverlay([FR_tauProng3_VR, FR_tauProng3], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng3 + 'EtaAll', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3]) 
    
     
     

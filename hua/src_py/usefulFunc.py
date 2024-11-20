@@ -507,6 +507,14 @@ def getEff(h_de, h_nu):
     eff.SetTitle(h_de.GetTitle())
     eff.SetName(h_de.GetName())
     return eff
+   
+def handle_negative_bins(hist):
+    """Set negative bin contents to zero and log a warning."""
+    for i in range(1, hist.GetNbinsX() + 1):  # Start from 1 to skip underflow bin
+        if hist.GetBinContent(i) < 0:
+            print(f"Warning: Negative bin content at bin {i}. Setting to zero.")
+            hist.SetBinContent(i, 0)
+   
     
 def plotEffTEff(h_nu, h_de, plotName, era, legendName, yRange=[0, 1.2], rightTitle='Efficiency'):
     '''
@@ -521,6 +529,8 @@ def plotEffTEff(h_nu, h_de, plotName, era, legendName, yRange=[0, 1.2], rightTit
     ROOT.gStyle.SetOptStat(ROOT.kFALSE)
     ROOT.gStyle.SetOptTitle(0)
     
+    handle_negative_bins(h_nu)
+    handle_negative_bins(h_de)
     eff = ROOT.TGraphAsymmErrors()
     eff.Divide(h_nu, h_de, "cp") #cp : Clopper-Pearson interval; #https://root.cern.ch/doc/master/classTGraphAsymmErrors.html#ac9a2403d1297546c603f5cf1511a5ca5
     eff.Draw("AP")
