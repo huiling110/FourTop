@@ -25,8 +25,8 @@ void plotAll(
     // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/results/",
     // TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv.root",
     // TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v1finalVar27/results/",
-    TString fin = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau2lSR_v84Pre1tau2lLepF2/mc/BDTTrain/v1finalVar/inputList_1tau2l_final.csv.root",
-    TString outDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau2lSR_v84Pre1tau2lLepF2/mc/BDTTrain/v1finalVar/results/",
+    TString fin = "/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardro_1tau1l_BDTSR_v86HadroPreSelWithGammaRemoval/mc/BDTTrain/tttt_GBDT_1tau1l/inputList_1tau1l_final.csv.root",
+    TString outDir = "/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardro_1tau1l_BDTSR_v86HadroPreSelWithGammaRemoval/mc/BDTTrain/tttt_GBDT_1tau1l/results/",
     Bool_t plotSigOnly = false
 )
 {

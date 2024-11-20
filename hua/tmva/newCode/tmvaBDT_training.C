@@ -22,8 +22,11 @@
 void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const TString channel = "1tau2l", const TString ifVLL=kFALSE)
 {
     std::map<TString, std::vector<TString>> allProcesses = {
-        {"1tau1l", {
-                       "tttt",
+        {"1tau1l", {    
+                    //"VLL_EE_M600", //VLLm600
+                    //"VLL_EN_M600",
+                    //"VLL_NN_M600",
+                    "tttt",
                        // "VLL_EE_M600", //VLLm600
                        // "VLL_EN_M600",
                        // "VLL_NN_M600",
@@ -33,12 +36,12 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
                        // "VLL_EE_M700",
                        // "VLL_EN_M700",
                        // "VLL_NN_M700",
-                    //    "ttbar_0l",
-                    //    "ttbar_2l",
-                    //    "ttbar_1l",
+                       "ttbar_0l",
+                       "ttbar_2l",
+                       "ttbar_1l",
                     // "TTToHadronic",//! only for training
-                    "TTToSemiLeptonic",//!
-                    "TTTo2L2Nu",//!
+                    // "TTToSemiLeptonic",//!
+                    // "TTTo2L2Nu",//!
                        "ttG",
                        "ttZ",
                        "ttW",
@@ -57,6 +60,9 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
                        "WJetsToLNu_HT-2500ToInf",
                    }},
         {"1tau0l", {
+                            "VLL_EE_M600_tauGen", //VLLm600
+                            "VLL_EN_M600_tauGen",
+                            "VLL_NN_M600_tauGen",
                               "tttt_tauGen",
                               "ttbar_0l_tauGen",
                               "ttbar_2l_tauGen",
@@ -85,6 +91,9 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
                           }},
 
         {"1tau2l",{
+            "VLL_EE_M600", //VLLm600
+            "VLL_EN_M600",
+            "VLL_NN_M600",
             "tttt",
             // "ttbar_0l", //!should be with TTExtra in training
             // "ttbar_2l",
@@ -189,7 +198,8 @@ int tmvaBDT_training(
     getProcessesVec(inputDir, processVec, channel, ifVLL);
     for (UInt_t i=0;i<processVec.size(); i++){
         if(processVec.at(i).getTree()->GetEntries()<=0) continue;
-        if(processVec.at(i).isbg(!ifVLL.IsNull())){
+        // if(processVec.at(i).isbg(!ifVLL.IsNull())){
+        if(i>=1){
             std::cout << "bg tree: " << processVec.at(i).getName() << "\n";
             dataloader->AddBackgroundTree(processVec.at(i).getTree());
             if(!isTest){
@@ -221,7 +231,8 @@ int tmvaBDT_training(
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30");
                             // "!H:!V:NTrees=850:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");//trainA: increase MinNodeSize
-                            "!H:!V:NTrees=1000:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
+                            //"!H:!V:NTrees=1000:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
+                            "!H:!V:NTrees=500:MinNodeSize=5%:MaxDepth=3:BoostType=Grad:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
     // if (Use["BDTB"]) // Bagging
     //   factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTB",
                         //    "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=20" );//default

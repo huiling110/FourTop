@@ -42,7 +42,7 @@ def main():
     # inVersion = 'v88PSWeightFixedLepPre'
     inVersion = 'v88PSWeightFixedHadroPre'
 
-    outVersion = 'v0baselineHardro'
+    outVersion = 'v0baselineHardro_nb3Ht500Pt40'
     # outVersion = 'v0baselineLep'
     # outVersion = 'v1baselineHardroFRUpdated' 
     # outVersion = 'v1cut1tau1lSR'
@@ -91,7 +91,7 @@ def main():
 
 def getInOutDic( year, inVersion, outVersion, justMC ):
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
+    outputBase = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/'
     # outputBase = '/scratchfs/cms/huahuil/forMVA/'
     inputOutputDic={
         '2016postVFP': 'UL2016_postVFP',

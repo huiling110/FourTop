@@ -6,6 +6,7 @@
 #include <string>
 
 extern std::map<TString, std::array<TString, 4>> corr_SF_map;
+extern std::map<TString, std::array<TString, 27>> corr_Uncer_JES_map;
 
 extern std::map<TString, std::array<TString, 5>> json_map;
 

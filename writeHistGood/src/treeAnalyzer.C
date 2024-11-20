@@ -59,14 +59,13 @@ void treeAnalyzer::Init()
 
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.15,  0.19,  0.23,  0.35};
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};
-        // std::vector<Double_t> bins1tau0l = {-0.35, -0.28, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};//Bin B
-        std::vector<Double_t> bins1tau0l = {-0.35, -0.16, -0.12, -0.105, -0.084, -0.063, -0.042, -0.021, 0.0, 0.021, 0.049, 0.091, 0.35} ; //Bin C, optimized, 
+        std::vector<Double_t> bins1tau0l = {-0.43, -0.30, -0.28, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13, 0.28};//Bin B
+        // std::vector<Double_t> bins1tau0l = {-1.01, -0.95, -0.80, -0.50, -0.10, 0.20, 0.50, 0.985, 1.01};//Bin B
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.35, 0.35, sysRegions);//!For optimization binnning
-        // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
-        variableList = WH::BDT1tau0l.at(m_era).at(0);
-        weightfile = WH::BDT1tau0l.at(m_era).at(1);
+        variableList = "/afs/ihep.ac.cn/users/t/turuobing/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
+        weightfile = "/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHardro_1tau0l_BDTSR_v86HadroPreSelWithGammaRemoval/mc/BDTTrain/VLLm600_ABDT_1tau0l/inputList_1tau0l.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
+        // variableList = WH::BDT1tau0l.at(m_era).at(0);
+        // weightfile = WH::BDT1tau0l.at(m_era).at(1);
 
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";

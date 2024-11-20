@@ -10,7 +10,7 @@ ROOTGLIBS = $(shell root-config --glibs)
 
 TMVALIBS = -lTMVA
 
-MYLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
+MYLIB = -L/afs/ihep.ac.cn/users/t/turuobing/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
 # Compiler flags (optional)
 CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
 CXXFLAGS += $(ROOTCFLAGS) 

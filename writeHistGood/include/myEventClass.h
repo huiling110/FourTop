@@ -96,11 +96,11 @@ public:
     };
     std::variant<Int_t, Double_t, Bool_t> getByName(TString branchName)
     {
+        if (!(m_variableMap.count(branchName)))
+        {
+            std::cout << "BAD!!! "<< branchName<< "  branch doesn't exist in the event class object yet\n";
+        }
         assert(m_variableMap.count(branchName));
-        //  if (!(m_variableMap.count(branchName)))
-        // {
-        //     std::cout << "BAD!!!  branch doesn't exist in the event class object yet\n";
-        // }
         std::variant<Int_t, Double_t, Bool_t> a;
         if (std::holds_alternative<myBranch<Int_t> *>(m_variableMap[branchName]))
         {
@@ -230,14 +230,64 @@ public:
     myBranch<Double_t> jets_6btag{"jets_6btag"};
     myBranch<Double_t> jets_7btag{"jets_7btag"};
     myBranch<Double_t> jets_8btag{"jets_8btag"};
+    myBranch<Double_t> bjetsT_1eta{"bjetsT_1eta"};
+    myBranch<Double_t> bjetsT_1phi{"bjetsT_1phi"};
+    myBranch<Double_t> elesTopMVAF_1ptCorrected{"elesTopMVAF_1ptCorrected"};
+    myBranch<Double_t> elesTopMVAF_2ptCorrected{"elesTopMVAF_2ptCorrected"};
+    myBranch<Double_t> elesTopMVAT_1phi{"elesTopMVAT_1phi"};
+    myBranch<Double_t> elesTopMVAT_2mass{"elesTopMVAT_2mass"};
+    myBranch<Double_t> elesTopMVAT_2phi{"elesTopMVAT_2phi"};
+    myBranch<Double_t> jets_1eta{"jets_1eta"};
+    myBranch<Double_t> jets_1phi{"jets_1phi"};
+    myBranch<Double_t> jets_2eta{"jets_2eta"};
+    myBranch<Double_t> jets_2phi{"jets_2phi"};
+    myBranch<Double_t> jets_3eta{"jets_3eta"};
+    myBranch<Double_t> jets_3phi{"jets_3phi"};
+    myBranch<Double_t> jets_4eta{"jets_4eta"};
+    myBranch<Double_t> jets_4phi{"jets_4phi"};
+    myBranch<Double_t> jets_5eta{"jets_5eta"};
+    myBranch<Double_t> jets_5phi{"jets_5phi"};
+    myBranch<Double_t> jets_6eta{"jets_6eta"};
+    myBranch<Double_t> jets_6phi{"jets_6phi"};
+    myBranch<Double_t> jets_7eta{"jets_7eta"};
+    myBranch<Double_t> jets_7phi{"jets_7phi"};
+    myBranch<Double_t> jets_8eta{"jets_8eta"};
+    myBranch<Double_t> jets_8phi{"jets_8phi"};
+    myBranch<Double_t> jets_9eta{"jets_9eta"};
+    myBranch<Double_t> jets_9phi{"jets_9phi"};
+    myBranch<Double_t> jets_9btag{"jets_9btag"};
+    myBranch<Double_t> tausF_1neutralIso{"tausF_1neutralIso"};
+    myBranch<Double_t> tausF_HT{"tausF_HT"};
+    myBranch<Double_t> tausF_MHT{"tausF_MHT"};
+    myBranch<Double_t> tausF_minDeltaR{"tausF_minDeltaR"};
+    myBranch<Double_t> lepTopMVAF_1eta{"lepTopMVAF_1eta"};
+    myBranch<Double_t> lepTopMVAF_1phi{"lepTopMVAF_1phi"};
+    myBranch<Double_t> lepTopMVAF_1pt{"lepTopMVAF_1pt"};
+    myBranch<Double_t> lepTopMVAF_1ptCorrected{"lepTopMVAF_1ptCorrected"};
+    myBranch<Bool_t> lepTopMVAF_2charge{"lepTopMVAF_2charge"};
+    myBranch<Double_t> lepTopMVAF_2eta{"lepTopMVAF_2eta"};
+    myBranch<Double_t> lepTopMVAF_2invariantMass{"lepTopMVAF_2invariantMass"};
+    myBranch<Double_t> lepTopMVAF_2phi{"lepTopMVAF_2phi"};
+    myBranch<Double_t> lepTopMVAF_2pt{"lepTopMVAF_2pt"};
+    myBranch<Double_t> lepTopMVAF_2ptCorrected{"lepTopMVAF_2ptCorrected"};
+    myBranch<Bool_t> lepTopMVAT_2charge{"lepTopMVAT_2charge"};
+    myBranch<Double_t> lepTopMVAT_2phi{"lepTopMVAT_2phi"};
+    myBranch<Double_t> tausT_1jetPt{"tausT_1jetPt"};
+    myBranch<Double_t> tausT_1neutralIso{"tausT_1neutralIso"};
+    myBranch<Int_t> tausT_1prongNum{"tausT_1prongNum"};
+    myBranch<Double_t> tausT_jet1_Met_transMass{"tausT_jet1_Met_transMass"};
+    myBranch<Double_t> tausT_jet_invariantMass{"tausT_jet_invariantMass"};
+    myBranch<Double_t> tausT_minDeltaR{"tausT_minDeltaR"};
 
     myBranch<Double_t> MET_pt{"MET_pt"};
+    myBranch<Double_t> MET_phi{"MET_phi"};
 
     myBranch<Int_t> bjetsM_num{"bjetsM_num"};
     myBranch<Int_t> bjetsT_num{"bjetsT_num"};
     myBranch<Int_t> bjetsPNM_num{"bjetsPNM_num"};
     myBranch<Int_t> bjetsPTM_num{"bjetsPTM_num"};
     myBranch<Int_t> bjetsPTT_num{"bjetsPTT_num"};
+    myBranch<Double_t> bjetsM_1eta{"bjetsM_1eta"};
 
     myBranch<Double_t> bjetsM_invariantMass{"bjetsM_invariantMass"};
     myBranch<Double_t> bjetsM_HT{"bjetsM_HT"};
@@ -270,6 +320,7 @@ public:
     myBranch<Double_t> bjetsT_1pt{"bjetsT_1pt"};
     myBranch<Double_t> bjetsT_2pt{"bjetsT_2pt"};
     myBranch<Double_t> bjetsT_3pt{"bjetsT_3pt"};
+    myBranch<Double_t> bjetsM_1phi{"bjetsM_1phi"};
 
 
     myBranch<Int_t> tausT_num{"tausT_num"};
@@ -344,6 +395,7 @@ public:
     myBranch<Double_t> tausF_invariantMass{"tausF_invariantMass"};
     myBranch<Double_t> tausF_jet_invariantMass{"tausF_jet_invariantMass"};
     myBranch<Double_t> tausF_jet1_Met_transMass{"tausF_jet1_Met_transMass"};
+    myBranch<Double_t> tausF_1jetEta{"tausF_1jetEta"};
     myBranch<Bool_t> tausF_1isTight{"tausF_1isTight"};
     // myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
 
@@ -498,8 +550,7 @@ private:
         {lepTopMVAT_2invariantMass.n(), &lepTopMVAT_2invariantMass},
         {leptons_2charge.n(), &leptons_2charge},
         {lepTopMVAT_2ifZVeto.n(), &lepTopMVAT_2ifZVeto},
-
-
+        {tausF_1jetEta.n(), &tausF_1jetEta},
 
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {EVENT_genWeight.n(), &EVENT_genWeight},
@@ -566,6 +617,11 @@ private:
     {jets_7pt.n(), &jets_7pt},
     {jets_8pt.n(), &jets_8pt},
     {jets_9pt.n(), &jets_9pt},
+    {jets_9btag.n(), &jets_9btag},
+    {tausF_1neutralIso.n(), &tausF_1neutralIso},
+    {tausF_HT.n(), &tausF_HT},
+    {tausF_MHT.n(), &tausF_MHT},
+    {tausF_minDeltaR.n(), &tausF_minDeltaR},
     {jets_1btag.n(), &jets_1btag},
     {jets_2btag.n(), &jets_2btag},
     {jets_3btag.n(), &jets_3btag},
@@ -576,6 +632,7 @@ private:
     {jets_8btag.n(), &jets_8btag},
 
         {MET_pt.n(), &MET_pt},
+        {MET_phi.n(), &MET_phi},
 
         {bjetsM_invariantMass.n(), &bjetsM_invariantMass},
         {bjetsM_HT.n(), &bjetsM_HT},
@@ -592,6 +649,8 @@ private:
         {bjetsM_1pt.n(), &bjetsM_1pt},
         {bjetsM_2pt.n(), &bjetsM_2pt},
         {bjetsM_3pt.n(), &bjetsM_3pt},
+        {bjetsM_1eta.n(), &bjetsM_1eta},
+        {bjetsM_1phi.n(), &bjetsM_1phi},
 
         {bjetsT_invariantMass.n(), &bjetsT_invariantMass},
         {bjetsT_HT.n(), &bjetsT_HT},
@@ -641,7 +700,49 @@ private:
         {tausTT_1charge.n(), &tausTT_1charge},
         // {tausT_1jetEtaAbs.n(), &tausT_1jetEtaAbs},
 
-
+        {bjetsT_1eta.n(), &bjetsT_1eta},
+        {bjetsT_1phi.n(), &bjetsT_1phi},
+        {elesTopMVAF_1ptCorrected.n(), &elesTopMVAF_1ptCorrected},
+        {elesTopMVAF_2ptCorrected.n(), &elesTopMVAF_2ptCorrected},
+        {elesTopMVAT_1phi.n(), &elesTopMVAT_1phi},
+        {elesTopMVAT_2mass.n(), &elesTopMVAT_2mass},
+        {elesTopMVAT_2phi.n(), &elesTopMVAT_2phi},
+        {jets_1eta.n(), &jets_1eta},
+        {jets_1phi.n(), &jets_1phi},
+        {jets_2eta.n(), &jets_2eta},
+        {jets_2phi.n(), &jets_2phi},
+        {jets_3eta.n(), &jets_3eta},
+        {jets_3phi.n(), &jets_3phi},
+        {jets_4eta.n(), &jets_4eta},
+        {jets_4phi.n(), &jets_4phi},
+        {jets_5eta.n(), &jets_5eta},
+        {jets_5phi.n(), &jets_5phi},
+        {jets_6eta.n(), &jets_6eta},
+        {jets_6phi.n(), &jets_6phi},
+        {jets_7eta.n(), &jets_7eta},
+        {jets_7phi.n(), &jets_7phi},
+        {jets_8eta.n(), &jets_8eta},
+        {jets_8phi.n(), &jets_8phi},
+        {jets_9eta.n(), &jets_9eta},
+        {jets_9phi.n(), &jets_9phi},
+        {lepTopMVAF_1eta.n(), &lepTopMVAF_1eta},
+        {lepTopMVAF_1phi.n(), &lepTopMVAF_1phi},
+        {lepTopMVAF_1pt.n(), &lepTopMVAF_1pt},
+        {lepTopMVAF_1ptCorrected.n(), &lepTopMVAF_1ptCorrected},
+        {lepTopMVAF_2charge.n(), &lepTopMVAF_2charge},
+        {lepTopMVAF_2eta.n(), &lepTopMVAF_2eta},
+        {lepTopMVAF_2invariantMass.n(), &lepTopMVAF_2invariantMass},
+        {lepTopMVAF_2phi.n(), &lepTopMVAF_2phi},
+        {lepTopMVAF_2pt.n(), &lepTopMVAF_2pt},
+        {lepTopMVAF_2ptCorrected.n(), &lepTopMVAF_2ptCorrected},
+        {lepTopMVAT_2charge.n(), &lepTopMVAT_2charge},
+        {lepTopMVAT_2phi.n(), &lepTopMVAT_2phi},
+        {tausT_1jetPt.n(), &tausT_1jetPt},
+        {tausT_1neutralIso.n(), &tausT_1neutralIso},
+        {tausT_1prongNum.n(), &tausT_1prongNum},
+        {tausT_jet1_Met_transMass.n(), &tausT_jet1_Met_transMass},
+        {tausT_jet_invariantMass.n(), &tausT_jet_invariantMass},
+        {tausT_minDeltaR.n(), &tausT_minDeltaR},
 
 
         {muonsTopMVAT_1pt.n(), &muonsTopMVAT_1pt},
