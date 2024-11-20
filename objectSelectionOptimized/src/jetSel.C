@@ -5,7 +5,7 @@
 JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys, const UChar_t JERSys, const Int_t JESSysUncerType) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}, m_JERSys{JERSys}, m_JESSysUncerType{JESSysUncerType}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<" m_JESSys="<<static_cast<unsigned int>(m_JESSys)<< " m_JERSys="<<static_cast<unsigned int>(m_JERSys) << " m_JESSysUncerType="<<static_cast<unsigned int>(m_JESSysUncerType) <<"......\n";
+    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<" m_JESSys="<<static_cast<unsigned int>(m_JESSys)<< " m_JERSys="<<static_cast<unsigned int>(m_JERSys) << " m_JESSysUncerType="<<m_JESSysUncerType <<"......\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
     cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
@@ -72,7 +72,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         }else{
             JESSF = calJES_SF(0, e->Jet_eta.At(j), e->Jet_pt.At(j), **e->fixedGridRhoFastjetAll);
         }
-        // std::cout<<"JESSF="<<JESSF<<"\n";
+        std::cout<<"JESSF="<<JESSF<<"\n";
 
         Double_t jetpt = e->Jet_pt.At(j)*JESSF;
         Double_t ijetMass = e->Jet_mass.At(j)*JESSF;
@@ -388,7 +388,7 @@ Double_t JetSel::calJES_SF(Double_t area, Double_t eta, Double_t pt, Double_t ph
         case 0:
             return JES_SF;
             break;
-        case 1:
+        case 1: //up
             return JES_SF * (1 + JES_uncer);
             break;
         case 2:
