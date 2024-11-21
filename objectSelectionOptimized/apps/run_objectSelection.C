@@ -8,9 +8,9 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttG/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ZGToLLG/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttbar_2l/",
@@ -33,7 +33,6 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/singleE_2016G/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/singleE_2016B_v2/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/singleE_2016D/",
-    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016h/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016h/",
     // TString singleFileName = "outTree_2.root",
     // TString singleFileName = "01D97507-B0BB-234F-A28E-6AD66C3499E9.root",//2018 tttt
@@ -61,11 +60,11 @@ void run_objectSelection(
 
     const UChar_t eleScale = 0;
     const UChar_t eleSmear = 0;
-    // const UChar_t JESSys = 0;
+    const UChar_t JESSys = 0;
     // const UChar_t JESSys = 2; //down
-    const UChar_t JESSys = 1; //up
-    const UChar_t JERSys = 0; //norminal
+    // const UChar_t JESSys = 1; //up
     const Int_t JESSysUncerType = 26; // In range 0-26
+    const UChar_t JERSys = 0; //norminal
     // const UChar_t TES = 3; //no correction
     const UChar_t TES = 0; //no correction
     // const Bool_t if1tau2l = kTRUE;//!
