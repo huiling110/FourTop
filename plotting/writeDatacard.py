@@ -81,7 +81,8 @@ def main():
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
-   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+#    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+   inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
 
 
 
@@ -221,8 +222,8 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
     # signal_index = -1  # Assuming the first process is the signal
     signal_index = processes.index('tttt')
     
-    process_col_width = 38
-    value_col_width = 14
+    process_col_width = 45
+    value_col_width = 20
     channelNameName = f"SR{channel_name}_{era}"
     
     rates = f"rate".ljust(process_col_width)
