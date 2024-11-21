@@ -62,7 +62,8 @@ void run_objectSelection(
     const UChar_t eleScale = 0;
     const UChar_t eleSmear = 0;
     // const UChar_t JESSys = 0;
-    const UChar_t JESSys = 2; //norminal
+    // const UChar_t JESSys = 2; //down
+    const UChar_t JESSys = 1; //up
     const UChar_t JERSys = 0; //norminal
     const Int_t JESSysUncerType = 26; // In range 0-26
     // const UChar_t TES = 3; //no correction

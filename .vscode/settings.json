@@ -108,7 +108,7 @@
     "-c",
     "source ${workspaceFolder}/setupEnv.sh; exec $SHELL"
     ],
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "files.exclude": {
         "**/*.o": true
     },
