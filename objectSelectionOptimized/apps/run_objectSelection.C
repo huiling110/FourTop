@@ -35,8 +35,8 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/singleE_2016D/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/data/MuonEG_2016h/",
     // TString singleFileName = "outTree_2.root",
-    // TString singleFileName = "01D97507-B0BB-234F-A28E-6AD66C3499E9.root",//2018 tttt
-    TString singleFileName = "02151677-7D45-7940-803F-3FA5A101D504.root",//2017, tttt
+    TString singleFileName = "01D97507-B0BB-234F-A28E-6AD66C3499E9.root",//2018 tttt
+    // TString singleFileName = "02151677-7D45-7940-803F-3FA5A101D504.root",//2017, tttt
     // TString singleFileName = "0BF1CAC0-066F-6C41-89EF-6F7B67A8E1D7.root",
     // TString singleFileName = "NanoAODv9_10.root",
     // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
@@ -60,10 +60,10 @@ void run_objectSelection(
 
     const UChar_t eleScale = 0;
     const UChar_t eleSmear = 0;
-    const UChar_t JESSys = 0;
+    const UChar_t JESSys = 2; //norminal
     // const UChar_t JESSys = 2; //down
     // const UChar_t JESSys = 1; //up
-    const Int_t JESSysUncerType = 26; // In range 0-26
+    const Int_t JESSysUncerType = 0; // In range 0-26
     const UChar_t JERSys = 0; //norminal
     // const UChar_t TES = 3; //no correction
     const UChar_t TES = 0; //no correction

@@ -1,20 +1,25 @@
 import os
 import subprocess
 
-for JESSysType in range(1,27):
+
+# def makeJES_OS_e:
+# for JESSysType in range(1,27):
+for JESSysType in range(0, 1):
     for JESSys in ['1', '2']:
-        file_path = "/afs/ihep.ac.cn/users/t/turuobing/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/apps/run_objectSelection.C"
+        # file_path = "/afs/ihep.ac.cn/users/t/turuobing/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/apps/run_objectSelection.C"
+        file_path = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/apps/run_objectSelection.C'
         line_of_JESSys = f"    const UChar_t JESSys = {JESSys}; //norminal\n"
         line_of_JESSysType = f'''    const Int_t JESSysUncerType = {JESSysType}; // In range 0-26\n'''
         print(line_of_JESSysType)
 
+        
         with open(file_path, 'r') as file:
             lines = file.readlines()
 
         if len(lines) >= 80:
             #lines[35] = new_line
-            lines[60] = line_of_JESSys
-            lines[62] = line_of_JESSysType
+            lines[62] = line_of_JESSys
+            lines[65] = line_of_JESSysType
 
             with open(file_path, 'w') as file:
                 file.writelines(lines)
@@ -22,10 +27,11 @@ for JESSysType in range(1,27):
         else:
             print(f"File {file_path} does not have 36 lines")
 
-        compile_dir = "/afs/ihep.ac.cn/users/t/turuobing/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/"
+        # compile_dir = "/afs/ihep.ac.cn/users/t/turuobing/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/"
+        compile_dir = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/'
 
         commands = [
-            ["make", "clean"],
+            # ["make", "clean"],
             ["make"]
         ]
         for command in commands:

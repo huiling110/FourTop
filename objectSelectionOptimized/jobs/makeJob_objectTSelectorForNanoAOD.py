@@ -159,21 +159,35 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v86HadroPreSelWithGammaRemoval/'
 #jobVersionName = 'v87addPdfPSWeightSum/'
 g_era = "2018"
-jobVersionName = 'v86HadroPreSelWithTTWTTZNLO'
+# jobVersionName = 'v86HadroPreSelWithTTWTTZNLO'
+jobVersionName = 'v88HardroForJES'
 JESSys = 2
-JESSysType = 26 #None or in range 0-26 2
+JESSysType = 3 #None or in range 0-26 2
+print('JESSys=', JESSys, ' JESSysType=', JESSysType)
 if JESSysType is not None:
     jobVersionName = jobVersionName + '_' + corr_Uncer_JES_map[g_era][JESSysType] + '_' + jes_up_down[JESSys]+'/'
+    #jobVersionNameDown = jobVersionName + '_' + corr_Uncer_JES_map[g_era][JESSysType] + '_' + jes_up_down[2]+'/'
 else:
     jobVersionName = jobVersionName + '/'
+
+def generateJob_eachJES():
+    JESSys = 2
+    for iJES in range(0, 27):    
+        JESSysType = iJES #None or in range 0-26 2
+        print('JESSys=', JESSys, ' JESSysType=', JESSysType)
+        if JESSysType is not None:
+            jobVersionName = jobVersionName + '_' + corr_Uncer_JES_map[g_era][JESSysType] + '_' + jes_up_down[1]+'/'
+            jobVersionNameDown = jobVersionName + '_' + corr_Uncer_JES_map[g_era][JESSysType] + '_' + jes_up_down[2]+'/'
+        else:
+            jobVersionName = jobVersionName + '/'
 
 #!same version numbers means no change in algrithm but only in selection
 #!todo: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
     # era = '2016'
     # era = '2016APV'
-    era = '2017'
-    # era = '2018'
+    # era = '2017'
+    era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # onlyMC = True
@@ -184,8 +198,9 @@ def main():
     # dataList = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #!for 1tau2l  
     
     # sumProToSkip = ['jetHT', 'ttExtra'] #! and 1tau2l
-    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
     # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
+    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'jetHT', 'BTagCSV', 'Minor', 'singleTop', 'WJets', 'DY', 'qcd' ] #1tau1l and 1tau0l , 
 
 
 
@@ -219,8 +234,6 @@ def main():
     makeSubAllJobs( jobsDir , eraOut)
     subprocess.run('chmod 777 '+jobScriptsFolder + "*sh", shell=True )
 
-    
-
 
 def getInputOutDir( jobVersionName, era):
     eraDic = {
@@ -235,7 +248,8 @@ def getInputOutDir( jobVersionName, era):
         '2022_13p6/crabNanoPost_2022preEE_v3': '2022preEE',
     }
     inputBase = '/publicfs/cms/data/TopQuark/nanoAOD/'
-    outputBase = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/'
+    # outputBase = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
     inputDir = inputBase + era +'/'
     outputDir = outputBase + eraDic[era] + '/' +jobVersionName  
     uf.checkMakeDir( outputDir) 
@@ -262,6 +276,7 @@ def makeSubAllJobs( jobsDir , era):
     subAllProcessName.close()
     print( 'submitting all jobs using: ', subAllFile )
     subprocess.run( 'chmod 777 ' + subAllFile,  shell=True )
+    subprocess.run( 'bash ' + subAllFile,  shell=True ) 
 
 
 
@@ -364,6 +379,7 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile):
 
 
 if __name__ == "__main__":
+    # generateJob_eachJES()
     main()
 
 
