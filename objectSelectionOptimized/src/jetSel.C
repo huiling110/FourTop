@@ -92,7 +92,8 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         ijetMass *= JERSF;
 
         // here SF_up or SF_down should also be apllied.
-        if (!(jetpt > 25))
+        Double_t jetPtCut = (m_JESSys== 0)? 25. : 22.; //!!!preserve lower pt cut for JES systematic varaition
+        if (!(jetpt > jetPtCut))
             continue;
         if (!(fabs(ijetEta) < 2.4))
             continue;
@@ -205,8 +206,6 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
         Double_t ipt = e->Jet_pt.At(i);
         ROOT::Math::PtEtaPhiMVector ijetVec(ipt, ieta, iphi, e->Jet_mass.At(i));
         Double_t ienergy = ijetVec.energy();
-        // std::cout << "Jet_rawFactor=" << Jet_rawFactor[i] << "\n";
-        // Double_t rawJetPt = ipt * (1 - Jet_rawFactor[i]);
 
         // Double_t ijet_sf = corr_jerSF->evaluate({ieta, "nom"}); // JER_SF_new
         Double_t ijet_sf = 1.0; // JER_SF_new
