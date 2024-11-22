@@ -250,7 +250,6 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
     allSubPro = list(allDic.keys())
     toGetSubHist = {} 
     toGetSubHistSys = {}
-    print(allSubPro)
     for isub in allSubPro:
         isdata = isData(isub)
         if not allDic[isub] in sumProList: continue # not getting

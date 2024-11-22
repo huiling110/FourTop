@@ -26,8 +26,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v86LepPreSel/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/'
@@ -38,8 +38,8 @@ def main():
     # channel = '1tau2l'
     # channel = '1tau0l'
     
-    # exe = './apps/run_WH_forDataMC.out'
-    exe = './apps/run_treeAnalyzer.out' 
+    exe = './apps/run_WH_forDataMC.out'
+    # exe = './apps/run_treeAnalyzer.out' 
     
     #!fakerate
     # version = 'v0FRMeasure'
@@ -54,10 +54,9 @@ def main():
    
     #dataMC
     # version = 'v0dataMC_allCorrection'
-    # version = 'v0dataMC_allCorrectionFakeTau'
     # version = 'v1dataMC_allCorrectionNotFakeTau'
     # version = 'v0dataMC_allCorrectionFakeLepton'
-    # version = 'v1dataMC_allbutHLT'
+    version = 'v1dataMC_allbutHLT'
     # version = 'v1dataMC_allbutHLTFakeLepton'
     # version = 'v2dataMC_allbutHLT'
     # version = 'v0dataMC_genWeight'
@@ -65,7 +64,7 @@ def main():
         
     #1tau1l
     # channel = '1tau1l'
-    version = 'v0BDT1tau1l'
+    # version = 'v0BDT1tau1l'
     # version = 'v1BDT1tau1lEvenBin'
     
     #1tau0l systematic

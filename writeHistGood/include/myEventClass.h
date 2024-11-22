@@ -395,7 +395,6 @@ public:
     myBranch<Double_t> tausF_invariantMass{"tausF_invariantMass"};
     myBranch<Double_t> tausF_jet_invariantMass{"tausF_jet_invariantMass"};
     myBranch<Double_t> tausF_jet1_Met_transMass{"tausF_jet1_Met_transMass"};
-    myBranch<Double_t> tausF_1jetEta{"tausF_1jetEta"};
     myBranch<Bool_t> tausF_1isTight{"tausF_1isTight"};
     // myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
 
@@ -550,7 +549,6 @@ private:
         {lepTopMVAT_2invariantMass.n(), &lepTopMVAT_2invariantMass},
         {leptons_2charge.n(), &leptons_2charge},
         {lepTopMVAT_2ifZVeto.n(), &lepTopMVAT_2ifZVeto},
-        {tausF_1jetEta.n(), &tausF_1jetEta},
 
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
         {EVENT_genWeight.n(), &EVENT_genWeight},
