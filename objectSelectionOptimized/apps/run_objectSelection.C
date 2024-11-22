@@ -60,10 +60,10 @@ void run_objectSelection(
 
     const UChar_t eleScale = 0;
     const UChar_t eleSmear = 0;
-    const UChar_t JESSys = 0; //!!! 0:nominal, JESSys controls if the JES SFs are stored, if jet pt cut looser, if event selection is tighter
-    // const UChar_t JESSys = 2; //down
+    // const UChar_t JESSys = 0; //!!! 0:nominal, not 0 means jet pt looser of 22.
+    const UChar_t JESSys = 2; //down
 // const UChar_t JESSys = 1; //up
-    const Int_t JESSysUncerType = 0; // In range 0-26
+    const Int_t JESSysUncerType = 0; // In range 0-26//!!! not going to use it here
     const UChar_t JERSys = 0; //norminal
     // const UChar_t TES = 3; //no correction
     const UChar_t TES = 0; //no correction

@@ -95,12 +95,8 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         bjetMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
         bjetLSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
         bjetTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
-        // bjetPNMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
-        // bjetPTMSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
-        // bjetPTTSel.Select(e, m_isData, muEtaVec, muPhiVec, eleEtaVec, elePhiVec, tausFEtaVec, tausFPhiVec, kTRUE);
         m_jetsTotal += jetSel.getSize();
         m_bjetsM += bjetMSel.getSize();
-
 
         // pile up weight cal
         puWeightCal.Select(e, m_isData);
@@ -109,19 +105,16 @@ void objectSelection::EventLoop(const Bool_t iftauSel, const Bool_t preSelection
         systWeightCal.Select(e, m_isData);
 
         // if(!(OS::ifEventPass(iftauSel, tauSel.getSize()>0, m_cutflow, 3))){ //!for b-tag efficiency measurement
-        // const Bool_t tauLepCut = m_if1tau2l? (eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==2 && tauSelF.getSize()>0: tauSelF.getSize()>0;
-        const Bool_t tauLepCut = m_if1tau2l? (eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==2 && tauSelF.getSize()>0: tauSel.getSize()==0 && ((eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==0 || (eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==1);//!!!for JES variation
+        const Bool_t tauLepCut = m_if1tau2l? (eleTopMVAFSel.getSize()+muTopMVAFSel.getSize())==2 && tauSelF.getSize()>0: tauSelF.getSize()>0;
         if(!(OS::ifEventPass(iftauSel, tauLepCut, m_cutflow, 3, genWeight))){//!use tauF so that fakeTau bg can be estimated later
             continue;
         }
 
-        // Bool_t jetCut = m_if1tau2l? jetSel.getSize()>1: jetSel.getSize()>5;
-        Bool_t jetCut = m_if1tau2l? jetSel.getSize()>1: jetSel.getSize()>6;//!!!for JES variation
+        Bool_t jetCut = m_if1tau2l? jetSel.getSize()>1: jetSel.getSize()>5;
         if(!(OS::ifEventPass(preSelection, jetCut, m_cutflow, 4, genWeight))){
             continue;
         }
-        // Bool_t bjetCut = m_if1tau2l? bjetMSel.getSize()>0: bjetMSel.getSize()>1;
-        Bool_t bjetCut = m_if1tau2l? bjetMSel.getSize()>0: bjetMSel.getSize()>2;//!!! for JES variation
+        Bool_t bjetCut = m_if1tau2l? bjetMSel.getSize()>0: bjetMSel.getSize()>1;
         if(!(OS::ifEventPass(preSelection, bjetCut, m_cutflow, 5, genWeight))){//baseline for 1tau2l
             continue;
         }//!No b-tag ,for b-tag efficiency measurement!

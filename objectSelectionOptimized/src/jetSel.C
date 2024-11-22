@@ -40,10 +40,10 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
     outTree->Branch(jetTypeMap[m_jetType] + "_mass", &jets_mass);
     outTree->Branch(jetTypeMap[m_jetType] + "_flavour", &jets_flavour);
     outTree->Branch(jetTypeMap[m_jetType] + "_btags", &jets_btags);
-    if(m_isRun3){
-        outTree->Branch(jetTypeMap[m_jetType] + "_btagsPN", &jets_btagsPN);
-        outTree->Branch(jetTypeMap[m_jetType] + "_btagsPT", &jets_btagsPT);
-    }
+    // if(m_isRun3){
+    //     outTree->Branch(jetTypeMap[m_jetType] + "_btagsPN", &jets_btagsPN);
+    //     outTree->Branch(jetTypeMap[m_jetType] + "_btagsPT", &jets_btagsPT);
+    // }
     
     //Maybe this will help with memory management
     jets_pt.reserve(10);
@@ -52,13 +52,6 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
     jets_mass.reserve(10);
     jets_flavour.reserve(10);
     jets_btags.reserve(10);
-
-    // if(!m_JESSys==0){
-    //     outTree->Branch(jetTypeMap[m_jetType] + "JESSFUp_AbsoluteMPFBias_AK4PFchs", &jets_JESSFUp_AbsoluteMPFBias_AK4PFchs);
-    //     outTree->Branch(jetTypeMap[m_jetType] + "JESSFDown_AbsoluteMPFBias_AK4PFchs", &jets_JESSFDown_AbsoluteMPFBias_AK4PFchs);
-    //     // outTree->Branch(jetTypeMap[m_jetType] + "JESSFUp_AbsoluteScale_AK4PFchs", &jets_JESSFUp_AbsoluteScale_AK4PFchs);
-    //     // outTree->Branch(jetTypeMap[m_jetType] + "JESSFUp_AbsoluteStat_AK4PFchs", &jets_JESSFUp_AbsoluteStat_AK4PFchs);
-    // }
 
 
     std::cout << "Done JetSel initialization......\n";
@@ -86,10 +79,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         //!for run 2 need to handling the JES uncertainty variation
         if(m_isRun3){
             JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
-        }else{
-            JESSF = calJES_SF(0, e->Jet_eta.At(j), e->Jet_pt.At(j), **e->fixedGridRhoFastjetAll);
         }
-        // std::cout<<"JESSF="<<JESSF<<"\n";
 
         Double_t jetpt = e->Jet_pt.At(j)*JESSF;
         Double_t ijetMass = e->Jet_mass.At(j)*JESSF;
@@ -114,7 +104,6 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             continue;
         if (!(fabs(ijetEta) < 2.4))
             continue;
-        // if (!(ijet_jetID > 0))
         if (!(ijet_jetID >= 2)) // run2: jetID=0; 2=tight;6; //run3:bit2 is tight, bit3 is tightLepVeto
             continue;          // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
@@ -174,18 +163,17 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         {
             jets_flavour.push_back(ijet_hadronFlavour);
         }
-        else
-        {
+        else{
             jets_flavour.push_back(-99);
         }
         jets_btags.push_back(e->Jet_btagDeepFlavB.At(j));
-        if (m_isRun3){
-            jets_btagsPN.push_back(e->Jet_btagPNetB->At(j));
-            jets_btagsPT.push_back(e->Jet_btagRobustParTAK4B->At(j));//???small portions of value -3???
-        }else{
-            jets_btagsPN.push_back(-99);
-            jets_btagsPT.push_back(-99);
-        }
+        // if (m_isRun3){
+        //     jets_btagsPN.push_back(e->Jet_btagPNetB->At(j));
+        //     jets_btagsPT.push_back(e->Jet_btagRobustParTAK4B->At(j));//???small portions of value -3???
+        // }else{
+        //     jets_btagsPN.push_back(-99);
+        //     jets_btagsPT.push_back(-99);
+        // }
     }
 };
 
@@ -196,7 +184,6 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
     // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution
     // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_25/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h
     //https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jetSmearer.py
-    std::cout << " JES_uncerValue1234" << std::endl;
     auto corr_jerSF = cset_jerSF->at(corr_SF_map[m_era].at(0).Data());
     auto corr_jerResolution = cset_jerSF->at(corr_SF_map[m_era].at(2).Data());
 
@@ -276,7 +263,7 @@ void JetSel::calJER_SF(eventForNano *e, const Bool_t isData, const Int_t sys)
         // std::cout << "iJERSF: " << iSF << "\n";
         // std::cout<<"iSF_JES"<<iSF_JESuncer<<"\n";
         JER_SF_new.push_back(iSF);
-        jets_JESuncer.push_back(iSF_JESuncer);
+        // jets_JESuncer.push_back(iSF_JESuncer);
     }
 };
 
@@ -358,6 +345,23 @@ Double_t JetSel::calJER_SF_new(Double_t pt, Double_t eta, Double_t phi, Double_t
     return iSF;
 }
 
+//!!!no need, do it in Later steps
+// void pushBackJESSF(Double_t eta, Double_t pt){
+//     if(m_JESSys==0){
+//         return;
+//     };
+
+//     Double_t JES_uncer = 0.;
+//     std::array<Double_t, 27> ijets_JES_uncer;
+//    for(UInt_t i =0; i<OS::JES_uncer.size(); i++){
+//         auto corr_jesUncer = cset_jerSF->at(corr_Uncer_JES_map[m_era].at(m_JESSysUncerType).Data());
+//         JES_uncer = corr_jesUncer->evaluate({eta, pt}); // do you need the pt to be raw? no
+//         //std::cout << JES_uncer << " JES_uncerValue" << std::endl;
+//         ijets_JES_uncer[i] = JES_uncer;
+//     }
+//     jets_JES_uncer.push_back(ijets_JES_uncer);
+
+// }
 
 Double_t JetSel::calJES_SF(Double_t area, Double_t eta, Double_t pt, Double_t pho){
     Double_t JES_SF = 1.0;
@@ -424,8 +428,8 @@ void JetSel::clearBranch()
     jets_mass.clear();
     jets_flavour.clear();
     jets_btags.clear();
-    jets_btagsPN.clear();
-    jets_btagsPT.clear();
+    // jets_btagsPN.clear();
+    // jets_btagsPT.clear();
 };
 
 std::vector<Double_t> &JetSel::getEtaVec()

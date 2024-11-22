@@ -21,6 +21,36 @@ std::map<TString, std::array<TString, 27>> corr_Uncer_JES_map{
     {"2018", {"Summer19UL18_V5_MC_AbsoluteMPFBias_AK4PFchs", "Summer19UL18_V5_MC_AbsoluteScale_AK4PFchs", "Summer19UL18_V5_MC_AbsoluteStat_AK4PFchs", "Summer19UL18_V5_MC_FlavorQCD_AK4PFchs", "Summer19UL18_V5_MC_Fragmentation_AK4PFchs", "Summer19UL18_V5_MC_PileUpDataMC_AK4PFchs", "Summer19UL18_V5_MC_PileUpPtBB_AK4PFchs", "Summer19UL18_V5_MC_PileUpPtEC1_AK4PFchs", "Summer19UL18_V5_MC_PileUpPtEC2_AK4PFchs", "Summer19UL18_V5_MC_PileUpPtHF_AK4PFchs", "Summer19UL18_V5_MC_PileUpPtRef_AK4PFchs", "Summer19UL18_V5_MC_RelativeFSR_AK4PFchs", "Summer19UL18_V5_MC_RelativeJEREC1_AK4PFchs", "Summer19UL18_V5_MC_RelativeJEREC2_AK4PFchs", "Summer19UL18_V5_MC_RelativeJERHF_AK4PFchs", "Summer19UL18_V5_MC_RelativePtBB_AK4PFchs", "Summer19UL18_V5_MC_RelativePtEC1_AK4PFchs", "Summer19UL18_V5_MC_RelativePtEC2_AK4PFchs", "Summer19UL18_V5_MC_RelativePtHF_AK4PFchs", "Summer19UL18_V5_MC_RelativeBal_AK4PFchs", "Summer19UL18_V5_MC_RelativeSample_AK4PFchs", "Summer19UL18_V5_MC_RelativeStatEC_AK4PFchs", "Summer19UL18_V5_MC_RelativeStatFSR_AK4PFchs", "Summer19UL18_V5_MC_RelativeStatHF_AK4PFchs", "Summer19UL18_V5_MC_SinglePionECAL_AK4PFchs", "Summer19UL18_V5_MC_SinglePionHCAL_AK4PFchs", "Summer19UL18_V5_MC_TimePtEta_AK4PFchs"}},
 };
 
+// std::array<TString, 27> JES_uncer = {
+//     "AbsoluteMPFBias_AK4PFchs",
+//     "AbsoluteScale_AK4PFchs",
+//     "AbsoluteStat_AK4PFchs",
+//     "FlavorQCD_AK4PFchs",
+//     "Fragmentation_AK4PFchs",
+//     "PileUpDataMC_AK4PFchs",
+//     "PileUpPtBB_AK4PFchs",
+//     "PileUpPtEC1_AK4PFchs",
+//     "PileUpPtEC2_AK4PFchs",
+//     "PileUpPtHF_AK4PFchs",
+//     "PileUpPtRef_AK4PFchs",
+//     "RelativeFSR_AK4PFchs",
+//     "RelativeJEREC1_AK4PFchs",
+//     "RelativeJEREC2_AK4PFchs",
+//     "RelativeJERHF_AK4PFchs",
+//     "RelativePtBB_AK4PFchs",
+//     "RelativePtEC1_AK4PFchs",
+//     "RelativePtEC2_AK4PFchs",
+//     "RelativePtHF_AK4PFchs",
+//     "RelativeBal_AK4PFchs",
+//     "RelativeSample_AK4PFchs",
+//     "RelativeStatEC_AK4PFchs",
+//     "RelativeStatFSR_AK4PFchs",
+//     "RelativeStatHF_AK4PFchs",
+//     "SinglePionECAL_AK4PFchs",
+//     "SinglePionHCAL_AK4PFchs",
+//     "TimePtEta_AK4PFchs",
+// };
+
 std::map<TString, std::array<TString, 5>> json_map = {
     {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json", "LUM/2016preVFP_UL/puWeights.json", "JME/2016preVFP_UL/jetvetomaps.json"}},
     {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json", "LUM/2016postVFP_UL/puWeights.json", "JME/2016postVFP_UL/jetvetomaps.json"}},

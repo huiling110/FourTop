@@ -43,8 +43,8 @@ private:
     std::unique_ptr<correction::CorrectionSet> cset_jerSF;
     std::unique_ptr<correction::CorrectionSet> cset_jetVeto;
     std::vector<Double_t> JER_SF_new;
-    std::vector<Double_t> JES_SF;
-    std::vector<Double_t> jets_JESuncer;
+    // std::vector<Double_t> JES_SF;
+    // std::vector<Double_t> jets_JESuncer;
     std::mt19937 m_random_generator;
 
     // output branches
@@ -54,8 +54,12 @@ private:
     std::vector<Double_t> jets_mass;
     std::vector<Int_t> jets_flavour;
     std::vector<Double_t> jets_btags;
-    std::vector<Double_t> jets_btagsPT;
-    std::vector<Double_t> jets_btagsPN;
+    // std::vector<Double_t> jets_btagsPT;
+    // std::vector<Double_t> jets_btagsPN;
+
+    // std::vector<Double_t> jets_JESSFUp_AbsoluteMPFBias_AK4PFchs;
+    // std::vector<Double_t> jets_JESSFDown_AbsoluteMPFBias_AK4PFchs;
+    // std::vector<std::array<Double_t, 27>> jets_JES_uncer;//!!!why do you have to calculate JES uncertainty here? You could totoally do it in later steps when you need it
 
 };
 
