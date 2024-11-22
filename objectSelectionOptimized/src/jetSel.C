@@ -40,8 +40,25 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
     outTree->Branch(jetTypeMap[m_jetType] + "_mass", &jets_mass);
     outTree->Branch(jetTypeMap[m_jetType] + "_flavour", &jets_flavour);
     outTree->Branch(jetTypeMap[m_jetType] + "_btags", &jets_btags);
-    outTree->Branch(jetTypeMap[m_jetType] + "_btagsPN", &jets_btagsPN);
-    outTree->Branch(jetTypeMap[m_jetType] + "_btagsPT", &jets_btagsPT);
+    if(m_isRun3){
+        outTree->Branch(jetTypeMap[m_jetType] + "_btagsPN", &jets_btagsPN);
+        outTree->Branch(jetTypeMap[m_jetType] + "_btagsPT", &jets_btagsPT);
+    }
+    
+    //Maybe this will help with memory management
+    jets_pt.reserve(10);
+    jets_eta.reserve(10);
+    jets_phi.reserve(10);
+    jets_mass.reserve(10);
+    jets_flavour.reserve(10);
+    jets_btags.reserve(10);
+
+    // if(!m_JESSys==0){
+    //     outTree->Branch(jetTypeMap[m_jetType] + "JESSFUp_AbsoluteMPFBias_AK4PFchs", &jets_JESSFUp_AbsoluteMPFBias_AK4PFchs);
+    //     outTree->Branch(jetTypeMap[m_jetType] + "JESSFDown_AbsoluteMPFBias_AK4PFchs", &jets_JESSFDown_AbsoluteMPFBias_AK4PFchs);
+    //     // outTree->Branch(jetTypeMap[m_jetType] + "JESSFUp_AbsoluteScale_AK4PFchs", &jets_JESSFUp_AbsoluteScale_AK4PFchs);
+    //     // outTree->Branch(jetTypeMap[m_jetType] + "JESSFUp_AbsoluteStat_AK4PFchs", &jets_JESSFUp_AbsoluteStat_AK4PFchs);
+    // }
 
 
     std::cout << "Done JetSel initialization......\n";
@@ -65,7 +82,7 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
         Int_t ijet_jetID = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_jetId, j);
         Int_t ijet_hadronFlavour = OS::getValForDynamicReader<UChar_t>(m_isRun3, e->Jet_hadronFlavour, j);
 
-        Double_t JESSF = 1.0;
+        Double_t JESSF = 1.0; //JES already applied in the nanoAODv9 for run2
         //!for run 2 need to handling the JES uncertainty variation
         if(m_isRun3){
             JESSF = calJES_SF(e->Jet_area.At(j), e->Jet_eta.At(j), e->Jet_pt.At(j), **e->Rho_fixedGridRhoFastjetAll);
@@ -349,7 +366,7 @@ Double_t JetSel::calJES_SF(Double_t area, Double_t eta, Double_t pt, Double_t ph
     {//https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jecUncertainties.py
         //auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
         auto corr_jesUncer = cset_jerSF->at(corr_Uncer_JES_map[m_era].at(m_JESSysUncerType).Data());
-        JES_uncer = corr_jesUncer->evaluate({eta, pt}); //!!! do you need the pt to be raw?
+        JES_uncer = corr_jesUncer->evaluate({eta, pt}); // do you need the pt to be raw? no
         //std::cout << JES_uncer << " JES_uncerValue" << std::endl;
     }else{
         TString L1Tag;

@@ -114,13 +114,13 @@ private:
     TauSel tauSelTTTT{m_outTree, m_era, m_isData, m_isRun3, 7, m_TES};// 
 
     JetSel jetSel{m_outTree, m_era, m_processName,  m_isRun3, m_isData, 0, m_JESSys, m_JERSys, m_JESSysUncerType};
-    JetSel jetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 1, m_JESSys, m_JERSys, m_JESSysUncerType};
+    // JetSel jetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 1, m_JESSys, m_JERSys, m_JESSysUncerType};
     JetSel bjetLSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 11, m_JESSys, m_JERSys, m_JESSysUncerType};
     JetSel bjetMSel{m_outTree, m_era,m_processName,  m_isRun3, m_isData, 12, m_JESSys, m_JERSys, m_JESSysUncerType};
     JetSel bjetTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 13, m_JESSys, m_JERSys, m_JESSysUncerType};
-    JetSel bjetPNMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 15, m_JESSys, m_JERSys, m_JESSysUncerType};
-    JetSel bjetPTMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 17, m_JESSys, m_JERSys, m_JESSysUncerType};
-    JetSel bjetPTTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 18, m_JESSys, m_JERSys, m_JESSysUncerType};
+    // JetSel bjetPNMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 15, m_JESSys, m_JERSys, m_JESSysUncerType};
+    // JetSel bjetPTMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 17, m_JESSys, m_JERSys, m_JESSysUncerType};
+    // JetSel bjetPTTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 18, m_JESSys, m_JERSys, m_JESSysUncerType};
     CopyBranch copyBranch{m_outTree, m_processName, m_isData, m_isRun3};
     PUWeightCal puWeightCal{m_outTree, m_isData, m_era, m_isRun3};
     SystWeightCal systWeightCal{m_outTree, m_isData};
