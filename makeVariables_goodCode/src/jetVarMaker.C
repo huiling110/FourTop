@@ -2,7 +2,6 @@
 
 #include "../include/jetVarMaker.h"
 #include "../include/variablesFunctions.h"
-#include "../../src_cpp/lumiAndCrossSection.h"
 
 JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type, TString era, UChar_t JESVariation) : ObjVarMaker{outTree, objName, type}, m_era{era}, m_JESVariation{JESVariation}
 {
@@ -64,9 +63,6 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type, TString er
     outTree->Branch(objName + "_tausT_invariantMass", &jets_tausT_invariantMass);
 
 
-    TString jsonBase = "../../jsonpog-integration/POG/";
-    cset_jerSF = correction::CorrectionSet::from_file((jsonBase + TTTT::json_map.at(m_era).at(0)).Data());
-    std::cout<<"JEC sf file: "<<(jsonBase + TTTT::json_map.at(m_era).at(0)).Data()<<"\n";
 
 
     std::cout << "Done initialization.............\n";
@@ -139,6 +135,8 @@ void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Do
 void JetVarMaker::setupLorentzObjs(const EventForMV *e)
 {
     //!!!Jet pt already JES corrected, but cut at 22 GeV at OS for JES variation
+    //write a class to handle the JES variation to jets_pt and jets_mass
+    // JESVariation.applyJESVariation(e->jets_pt, e->jets_mass, m_JESVariation);
 
 
     // overide base ObjValMaker

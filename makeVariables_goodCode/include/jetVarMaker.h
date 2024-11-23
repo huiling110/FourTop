@@ -20,7 +20,6 @@ public:
 private:
     const UChar_t m_JESVariation = 0; //0: nominal, >=1: variation
     const TString m_era = "2018";
-    std::unique_ptr<correction::CorrectionSet> cset_jerSF;
 
     Double_t jets_rationHT_4toRest = -99;
     Double_t jets_MHT = -99;
