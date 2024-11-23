@@ -50,8 +50,9 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v87addPdfPSWeightSum/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedLepPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedHadroPre/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v88PSWeightFixedHadroPre/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v88PSWeightFixedHadroPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v88PSWeightFixedHadroPre/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v89HadroPre_JESPt22/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "TTWJetsToLNu",
     // TString inputDir = "TTZToLLNuNu",
@@ -85,10 +86,11 @@ void run_objectSelection(
     TString era = TTTT::getEra2(inputDir1);
     Bool_t isRun3 = TTTT::isRun3(era);
     // Bool_t if1tau2l = kTRUE; //!
-    Bool_t if1tau2l = kFALSE;
+    Bool_t if1tau2l = kFALSE; //!to do: make it parameter
+    UChar_t JESVariation = 0; //!!!0: nominal, >=1: variation
     std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
 
-    MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3, if1tau2l);
+    MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3, if1tau2l, JESVariation);
     Bool_t baseline = kTRUE;
     mv.EventLoop(baseline, kFALSE, numEntries);
     //mv.EventLoop(baseline, kTRUE, numEntries); //!channel cut, for BDT training only 

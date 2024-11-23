@@ -163,8 +163,6 @@ public:
                                       jets_phi(reader, "jets_phi"),
                                       jets_mass(reader, "jets_mass"),
                                       jets_btags(reader, "jets_btags"),
-                                      jets_btagsPN(reader, "jets_btagsPN"),
-                                      jets_btagsPT(reader, "jets_btagsPT"),
                                       jets_flavour(reader, "jets_flavour"),
 
                                       bjetsM_pt(reader, "bjetsM_pt"),
@@ -179,18 +177,18 @@ public:
                                       bjetsT_eta(reader, "bjetsT_eta"),
                                       bjetsT_phi(reader, "bjetsT_phi"),
                                       bjetsT_mass(reader, "bjetsT_mass"),
-                                      bjetsPNM_pt(reader, "bjetsPNM_pt"),
-                                      bjetsPNM_eta(reader, "bjetsPNM_eta"),
-                                      bjetsPNM_phi(reader, "bjetsPNM_phi"),
-                                      bjetsPNM_mass(reader, "bjetsPNM_mass"),
-                                      bjetsPTM_pt(reader, "bjetsPTM_pt"),
-                                      bjetsPTM_eta(reader, "bjetsPTM_eta"),
-                                      bjetsPTM_phi(reader, "bjetsPTM_phi"),
-                                      bjetsPTM_mass(reader, "bjetsPTM_mass"),
-                                      bjetsPTT_pt(reader, "bjetsPTT_pt"),
-                                      bjetsPTT_eta(reader, "bjetsPTT_eta"),
-                                      bjetsPTT_phi(reader, "bjetsPTT_phi"),
-                                      bjetsPTT_mass(reader, "bjetsPTT_mass"),
+                                    //   bjetsPNM_pt(reader, "bjetsPNM_pt"),
+                                    //   bjetsPNM_eta(reader, "bjetsPNM_eta"),
+                                    //   bjetsPNM_phi(reader, "bjetsPNM_phi"),
+                                    //   bjetsPNM_mass(reader, "bjetsPNM_mass"),
+                                    //   bjetsPTM_pt(reader, "bjetsPTM_pt"),
+                                    //   bjetsPTM_eta(reader, "bjetsPTM_eta"),
+                                    //   bjetsPTM_phi(reader, "bjetsPTM_phi"),
+                                    //   bjetsPTM_mass(reader, "bjetsPTM_mass"),
+                                    //   bjetsPTT_pt(reader, "bjetsPTT_pt"),
+                                    //   bjetsPTT_eta(reader, "bjetsPTT_eta"),
+                                    //   bjetsPTT_phi(reader, "bjetsPTT_phi"),
+                                    //   bjetsPTT_mass(reader, "bjetsPTT_mass"),
 
                                       PV_npvsGood_(reader, "PV_npvsGood_"),
                                         run_(reader, "run_"),
@@ -382,14 +380,9 @@ public:
     TTreeReaderArray<Double_t> jets_phi;
     TTreeReaderArray<Double_t> jets_mass;
     TTreeReaderArray<Double_t> jets_btags;
-    TTreeReaderArray<Double_t> jets_btagsPN;
-    TTreeReaderArray<Double_t> jets_btagsPT;
+    // TTreeReaderArray<Double_t> jets_btagsPN;
+    // TTreeReaderArray<Double_t> jets_btagsPT;
     TTreeReaderArray<Int_t> jets_flavour;
-    // TTreeReaderArray<Double_t> jetsT_pt;
-    // TTreeReaderArray<Double_t> jetsT_eta;
-    // TTreeReaderArray<Double_t> jetsT_phi;
-    // TTreeReaderArray<Double_t> jetsT_mass;
-    // TTreeReaderArray<Double_t> jetsT_btags;
     TTreeReaderArray<Double_t> bjetsM_pt;
     TTreeReaderArray<Double_t> bjetsM_eta;
     TTreeReaderArray<Double_t> bjetsM_phi;
@@ -402,18 +395,18 @@ public:
     TTreeReaderArray<Double_t> bjetsT_eta;
     TTreeReaderArray<Double_t> bjetsT_phi;
     TTreeReaderArray<Double_t> bjetsT_mass;
-    TTreeReaderArray<Double_t> bjetsPNM_pt;
-    TTreeReaderArray<Double_t> bjetsPNM_eta;
-    TTreeReaderArray<Double_t> bjetsPNM_phi;
-    TTreeReaderArray<Double_t> bjetsPNM_mass;
-    TTreeReaderArray<Double_t> bjetsPTM_pt;
-    TTreeReaderArray<Double_t> bjetsPTM_eta;
-    TTreeReaderArray<Double_t> bjetsPTM_phi;
-    TTreeReaderArray<Double_t> bjetsPTM_mass;
-    TTreeReaderArray<Double_t> bjetsPTT_pt;
-    TTreeReaderArray<Double_t> bjetsPTT_eta;
-    TTreeReaderArray<Double_t> bjetsPTT_phi;
-    TTreeReaderArray<Double_t> bjetsPTT_mass;
+    // TTreeReaderArray<Double_t> bjetsPNM_pt;
+    // TTreeReaderArray<Double_t> bjetsPNM_eta;
+    // TTreeReaderArray<Double_t> bjetsPNM_phi;
+    // TTreeReaderArray<Double_t> bjetsPNM_mass;
+    // TTreeReaderArray<Double_t> bjetsPTM_pt;
+    // TTreeReaderArray<Double_t> bjetsPTM_eta;
+    // TTreeReaderArray<Double_t> bjetsPTM_phi;
+    // TTreeReaderArray<Double_t> bjetsPTM_mass;
+    // TTreeReaderArray<Double_t> bjetsPTT_pt;
+    // TTreeReaderArray<Double_t> bjetsPTT_eta;
+    // TTreeReaderArray<Double_t> bjetsPTT_phi;
+    // TTreeReaderArray<Double_t> bjetsPTT_mass;
 
     TTreeReaderValue<Int_t> PV_npvsGood_;
     TTreeReaderValue<UInt_t> run_;

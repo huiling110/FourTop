@@ -41,15 +41,15 @@ void BjetVarMaker::setupLorentzObjs(const EventForMV *e)
         case 2:
             getLorentzVec(e->bjetsT_pt, e->bjetsT_eta, e->bjetsT_phi, e->bjetsT_mass,  objsLorentz);
             break;
-        case 3:
-            getLorentzVec(e->bjetsPNM_pt, e->bjetsPNM_eta, e->bjetsPNM_phi, e->bjetsPNM_mass,  objsLorentz);
-            break;
-        case 4:
-            getLorentzVec(e->bjetsPTM_pt, e->bjetsPTM_eta, e->bjetsPTM_phi, e->bjetsPTM_mass,  objsLorentz);
-            break;
-        case 5: 
-            getLorentzVec(e->bjetsPTT_pt, e->bjetsPTT_eta, e->bjetsPTT_phi, e->bjetsPTT_mass,  objsLorentz);
-            break;
+        // case 3:
+        //     getLorentzVec(e->bjetsPNM_pt, e->bjetsPNM_eta, e->bjetsPNM_phi, e->bjetsPNM_mass,  objsLorentz);
+        //     break;
+        // case 4:
+        //     getLorentzVec(e->bjetsPTM_pt, e->bjetsPTM_eta, e->bjetsPTM_phi, e->bjetsPTM_mass,  objsLorentz);
+        //     break;
+        // case 5: 
+        //     getLorentzVec(e->bjetsPTT_pt, e->bjetsPTT_eta, e->bjetsPTT_phi, e->bjetsPTT_mass,  objsLorentz);
+        //     break;
         default:
             std::cout<<"Error: BjetVarMaker::setupLorentzObjs() type not found\n";
             break;

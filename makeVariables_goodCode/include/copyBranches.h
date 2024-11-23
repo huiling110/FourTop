@@ -54,8 +54,8 @@ private:
     std::vector<Double_t> jets_pt_;
     std::vector<Double_t> jets_eta_;
     std::vector<Double_t> jets_btags_;
-    std::vector<Double_t> jets_btagsPN_;
-    std::vector<Double_t> jets_btagsPT_;
+    // std::vector<Double_t> jets_btagsPN_;
+    // std::vector<Double_t> jets_btagsPT_;
     std::vector<Int_t> jets_flavour_;
 };
 

@@ -45,9 +45,9 @@ CopyBranches::CopyBranches(TTree *outTree)
     outTree->Branch("jets_pt_", &jets_pt_);
     outTree->Branch("jets_eta_", &jets_eta_);
     outTree->Branch("jets_btags_", &jets_btags_);
-    outTree->Branch("jets_btagsPN_", &jets_btagsPN_);
-    outTree->Branch("jets_btagsPT_", &jets_btagsPT_);
-    outTree->Branch("jets_flavour_", &jets_flavour_);
+    // outTree->Branch("jets_btagsPN_", &jets_btagsPN_);
+    // outTree->Branch("jets_btagsPT_", &jets_btagsPT_);
+    // outTree->Branch("jets_flavour_", &jets_flavour_);
 
     std::cout << "Done initializing ............\n";
     std::cout << "\n";
@@ -96,8 +96,8 @@ void CopyBranches::makeVariables(EventForMV *e)
     copy_TTreeReaderArray_toVector(e->jets_pt, jets_pt_);
     copy_TTreeReaderArray_toVector(e->jets_eta, jets_eta_);
     copy_TTreeReaderArray_toVector(e->jets_btags, jets_btags_);
-    copy_TTreeReaderArray_toVector(e->jets_btagsPN, jets_btagsPN_);
-    copy_TTreeReaderArray_toVector(e->jets_btagsPT, jets_btagsPT_);
+    // copy_TTreeReaderArray_toVector(e->jets_btagsPN, jets_btagsPN_);
+    // copy_TTreeReaderArray_toVector(e->jets_btagsPT, jets_btagsPT_);
     copy_TTreeReaderArray_toVector(e->jets_flavour, jets_flavour_);
 
 };
@@ -114,9 +114,9 @@ void CopyBranches::clearBranch(){
     jets_pt_.clear();
     jets_eta_.clear();
     jets_btags_.clear();
-    jets_btagsPN_.clear();
-    jets_btagsPT_.clear();
-    jets_flavour_.clear();
+    // jets_btagsPN_.clear();
+    // jets_btagsPT_.clear();
+    // jets_flavour_.clear();
 };
 
 CopyBranches::~CopyBranches(){
