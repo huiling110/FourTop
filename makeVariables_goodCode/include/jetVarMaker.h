@@ -2,11 +2,12 @@
 #define JETVARMAKER_H
 
 #include "objVarMaker.h"
+#include "correction.h"
 
 class JetVarMaker : public ObjVarMaker
 {
 public:
-    JetVarMaker(TTree *outTree, TString objName, Int_t type = 0);
+    JetVarMaker(TTree *outTree, TString objName, Int_t type = 0, TString era="2018", UChar_t JESVariation = 0);
     ~JetVarMaker();
     void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus);
     void clearBranch();
@@ -17,6 +18,10 @@ public:
     void getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t &jets_pt, Double_t &jets_eta, Double_t &jets_phi, Double_t &jets_btag);
 
 private:
+    const UChar_t m_JESVariation = 0; //0: nominal, >=1: variation
+    const TString m_era = "2018";
+    std::unique_ptr<correction::CorrectionSet> cset_jerSF;
+
     Double_t jets_rationHT_4toRest = -99;
     Double_t jets_MHT = -99;
     Double_t jets_HT = -99;
