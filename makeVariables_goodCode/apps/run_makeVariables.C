@@ -73,9 +73,13 @@ void run_objectSelection(
     // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
     // Int_t numEntries = 100)
-    Int_t numEntries = 3000)
-    // Int_t numEntries = 10000)
-    // Int_t numEntries = 0)
+    Int_t numEntries = 3000,
+    // Bool_t if1tau2l = kTRUE; //!
+    Bool_t if1tau2l = kFALSE, //!!!
+    UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
+    // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
+    UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
+    )
 {
     TStopwatch t;
     t.Start();
@@ -85,10 +89,6 @@ void run_objectSelection(
     Bool_t isData = TTTT::getIsData(inputDir1);
     TString era = TTTT::getEra2(inputDir1);
     Bool_t isRun3 = TTTT::isRun3(era);
-    // Bool_t if1tau2l = kTRUE; //!
-    Bool_t if1tau2l = kFALSE; //!to do: make it parameter
-    UChar_t JESVariationType = 0; //!!!0: nominal, 1: up, 2: down
-    UChar_t JESVariation = 0; //ordering of the source of systematic uncertainties for  JES
     std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3, if1tau2l, JESVariation, JESVariationType);
@@ -109,7 +109,10 @@ int main(int argc, char const *argv[])
     TString inputProcess;
     TString outputDir;
     Int_t numEntries = 0;
-    if (argc < 4)
+    Bool_t if1tau2l = kFALSE;
+    UChar_t JESVariationType = 0;
+    UChar_t JESVariation = 0;
+    if (argc < 7)
     {
         std::cout << "not enough input from command line\n";
         run_objectSelection();
@@ -121,7 +124,10 @@ int main(int argc, char const *argv[])
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
         outputDir = boost::lexical_cast<std::string>(argv[3]);
         numEntries = boost::lexical_cast<Int_t>(argv[4]);
-        run_objectSelection(inputDir, inputProcess, outputDir, numEntries);
+        if1tau2l = boost::lexical_cast<Bool_t>(argv[5]);
+        JESVariationType = boost::lexical_cast<UChar_t>(argv[6]);
+        JESVariation = boost::lexical_cast<UChar_t>(argv[7]);
+        run_objectSelection(inputDir, inputProcess, outputDir, numEntries, if1tau2l, JESVariationType, JESVariation);
     }
 
     return 0;

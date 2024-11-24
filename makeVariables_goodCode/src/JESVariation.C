@@ -19,7 +19,7 @@ JESVariation::JESVariation(TString era, const UChar_t JESVariation, const UChar_
     };
     m_JESTtring = m_JESMap.at(m_era)+ MV::JES_uncer.at(m_JESVariation);
     std::cout<<"JES string: "<<m_JESTtring<<"\n";
-    std::cout<<"m_JESVariationType: "<<static_cast<int>(m_JESSysUncerType)<<"\n";
+    std::cout<<"!!!m_JESVariationType: "<<static_cast<int>(m_JESSysUncerType)<<"\n";
 
     std::cout<<"Done JESVariation initialization......\n";
 }

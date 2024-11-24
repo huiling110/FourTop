@@ -113,7 +113,7 @@ private:
     // CreateHist createHists{m_output};
     CreateHist createHist; //cannot initialize here because m_output not properly initialzided yet
     WeightVarMaker weightVarMaker{m_outTree, m_era, m_isData, m_isRun3, m_processName};
-    JESVariation jesVariation{m_era, m_JESVariation};
+    JESVariation jesVariation{m_era, m_JESVariation, m_JESVariationType};
 };
 
 #endif
