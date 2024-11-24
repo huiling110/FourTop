@@ -7,8 +7,8 @@ inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
 outVersion = 'v0baselineHadro'
 channel = '1tau1l'
 
-# for i in range(0, 27):
-for i in range(0, 1):
+for i in range(0, 27):
+# for i in range(0, 1):
    inputVersionUp = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}/'
    inputVersionDown = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}/'
    
