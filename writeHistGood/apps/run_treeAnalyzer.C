@@ -29,7 +29,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_JESup_2_v89HadroPre_JESPt22/mc/",
     TString process = "tttt",
     // TString process = "fakeLepton",
     // TString process = "fakeTau_MC",
@@ -38,12 +39,12 @@ void run_treeAnalyzer(
     // TString process = "jetHT_2016E",
     // TString process = "jetHT_2018a",
     // Int_t channel = 0,//0: 1tau1l
-    // TString channel = "1tau1l",//
-    TString channel = "1tau0l",//
+    TString channel = "1tau1l",//
+    // TString channel = "1tau0l",//
     // TString channel = "1tau2l",//
     TString histVersion = "v0_test",//
-    // Bool_t isTest = kTRUE)
-    Bool_t isTest = kFALSE)
+    Bool_t isTest = kTRUE)
+    // Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();
