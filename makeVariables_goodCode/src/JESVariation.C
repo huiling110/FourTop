@@ -46,5 +46,11 @@ void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& p
             break;
         }
 
+        //!do the jet pt cut after JES variation
+        if(particleVec[i].Pt()<25.){
+            particleVec.erase(particleVec.begin()+i);
+            i--;// Decrement the index to account for the removed element
+        }//explain: 
+
     }
 }

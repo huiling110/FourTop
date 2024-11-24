@@ -91,7 +91,7 @@ void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     jets_centrality = jets_HT / jets_invariantMass;
     jets_average_deltaR = AverageDeltaRCal(objsLorentz);
 
-    jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);//!!!code needs to be reconstructed 
+    jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);//!!! the JES variation not reflected in here, need to organize jet variabls into a class
     jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
     jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
     jets_rationHT_4toRest = rationHT_4toRestCal(objsLorentz);
@@ -133,11 +133,8 @@ void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Do
     }
 }
 
-// void JetVarMaker::setupLorentzObjs(const EventForMV *e)
 void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariation)
 {
-
-
     // overide base ObjValMaker
     switch (m_type)
     {
@@ -153,7 +150,13 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariati
 
     //!!!Jet pt already JES corrected, but cut at 22 GeV at OS for JES variation
     //write a class to handle the JES variation to jets_pt and jets_mass
+    // if(objsLorentz.size()>0){
+    //     std::cout<<"1st pt before JES variation: "<<objsLorentz[0].Pt()<<"\n";
+    // }
     jesVariation.applyJESVariation(objsLorentz);
+    // if(objsLorentz.size()>0){
+    //     std::cout<<"1st pt after JES variation: "<<objsLorentz[0].Pt()<<"\n";
+    // }
 
 };
 
