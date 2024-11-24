@@ -72,8 +72,8 @@ void run_objectSelection(
     // TString inputDir = "TTTo2L2Nu0",
     // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
-    Int_t numEntries = 100)
-    // Int_t numEntries = 3000)
+    // Int_t numEntries = 100)
+    Int_t numEntries = 3000)
     // Int_t numEntries = 10000)
     // Int_t numEntries = 0)
 {

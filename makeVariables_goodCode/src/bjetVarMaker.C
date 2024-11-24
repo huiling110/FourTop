@@ -1,11 +1,11 @@
 #include "../include/bjetVarMaker.h"
 #include "../include/variablesFunctions.h"
 
-BjetVarMaker::BjetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMaker(outTree, objName, type)
+BjetVarMaker::BjetVarMaker(TTree *outTree, TString objName, Int_t type, UChar_t JESVariation, UChar_t JESType) : ObjVarMaker(outTree, objName, type), m_JESType{JESType}, m_JESVariation{JESVariation}
 {
     std::cout << "Initialize BjetVarMaker class..................................\n";
     std::cout << "objName=" << objName << "  type=" << type << "\n";
-    std::cout << "Done initializing BjetVarMaker class................................\n";
+    std::cout << "m_JESType=" << static_cast<int>(m_JESType) << "  m_JESVariation=" << static_cast<int>(m_JESVariation) << "\n";    
 
     outTree->Branch(objName + "_MHT", &bjets_MHT);
     outTree->Branch(objName + "_HT", &bjets_HT);
@@ -27,7 +27,7 @@ BjetVarMaker::BjetVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVar
     std::cout << "\n";
 };
 
-void BjetVarMaker::setupLorentzObjs(const EventForMV *e)
+void BjetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariation)
 {//!!!class should be better initialized rather than like this
     // overide base ObjValMaker
         switch (m_type)
@@ -54,13 +54,15 @@ void BjetVarMaker::setupLorentzObjs(const EventForMV *e)
             std::cout<<"Error: BjetVarMaker::setupLorentzObjs() type not found\n";
             break;
         }
+        jesVariation.applyJESVariation(objsLorentz);
+
 }
 
-void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausT, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausF)
+void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausT, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausF, JESVariation& jesVariation)
 {
     ObjVarMaker::reportEntry("BjetVarMaker::makeVariables()");
     clearBranch();
-    setupLorentzObjs(e);
+    setupLorentzObjs(e, jesVariation); //!!! crucial to overide base class!!!
     ObjVarMaker::basicVariables();
 
     bjets_MHT = HTcalculator(objsLorentz);
