@@ -9,13 +9,15 @@ def main():
     outVersion = 'v0baselineHadro'
     if1tau2l = 0
     
-    for i in range(0, 27):
+    # for i in range(0, 27):
+    for i in range(0, 1):
         print('i JESVariation: ', i)
         ioutVersionUp = f'{outVersion}_JESup_{i}'
         ioutVersionDown = f'{outVersion}_JESDown_{i}'
         mj.main(year, inVersion, ioutVersionUp, if1tau2l, 1, i)
+        print('submitted JES up\n')
         mj.main(year, inVersion, ioutVersionDown, if1tau2l, 2, i)
-        print('\n\n\n')
+        print('submitted JES down\n\n\n')
         
    
    

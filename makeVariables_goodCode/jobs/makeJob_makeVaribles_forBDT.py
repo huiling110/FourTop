@@ -37,10 +37,12 @@ def main(
     isRun3 = uf.isRun3Era(year)
     justMC = False
     
+    jobVersion = outVersion + '_' + inVersion 
     print('jobVersion:', outVersion + '_'+ inVersion) 
     inOutDirMap = getInOutDic( year, inVersion, outVersion, justMC )
-
     jobDir = os.path.dirname(os.path.abspath(__file__)) 
+    jobDir = jobDir + '/'+jobVersion
+    uf.checkMakeDir(jobDir)
 
     subAllName = year+'subAllofAll.sh'
     subAllofAllName = jobDir+ '/'+ subAllName
