@@ -10,7 +10,8 @@ def main():
     if1tau2l = 0
     
     # for i in range(0, 27):
-    for i in range(0, 1):
+    # for i in range(0, 1):
+    for i in range(1, 27):
         print('i JESVariation: ', i)
         ioutVersionUp = f'{outVersion}_JESup_{i}'
         ioutVersionDown = f'{outVersion}_JESDown_{i}'
