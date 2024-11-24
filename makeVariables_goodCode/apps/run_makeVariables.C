@@ -90,6 +90,8 @@ void run_objectSelection(
     TString era = TTTT::getEra2(inputDir1);
     Bool_t isRun3 = TTTT::isRun3(era);
     std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
+    std::cout<<"JESVariationType="<<static_cast<int>(JESVariationType)<<"   JESVariation="<<static_cast<int>(JESVariation)<<"\n";
+    std::cout<<"finishing run_MakeVariables\n\n";
 
     MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3, if1tau2l, JESVariation, JESVariationType);
     Bool_t baseline = kTRUE;
@@ -125,8 +127,9 @@ int main(int argc, char const *argv[])
         outputDir = boost::lexical_cast<std::string>(argv[3]);
         numEntries = boost::lexical_cast<Int_t>(argv[4]);
         if1tau2l = boost::lexical_cast<Bool_t>(argv[5]);
-        JESVariationType = boost::lexical_cast<UChar_t>(argv[6]);
-        JESVariation = boost::lexical_cast<UChar_t>(argv[7]);
+        // JESVariationType = boost::lexical_cast<UChar_t>(argv[6]);
+        JESVariationType = static_cast<UChar_t>(boost::lexical_cast<int>(argv[6]));
+        JESVariation = static_cast<UChar_t>(boost::lexical_cast<int>(argv[7]));
         run_objectSelection(inputDir, inputProcess, outputDir, numEntries, if1tau2l, JESVariationType, JESVariation);
     }
 

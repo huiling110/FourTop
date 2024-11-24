@@ -9,41 +9,25 @@ import usefulFunc as uf
 #???make this job submisssion and checking and resubmit and addHist automatized
 #todo add git co after job submission for version control
 
-def main():
+def main(
     # year = '2016'
-    # year = '2018'
-    year = '2017'
-    # inVersion = 'v75OverlapRemovalFTau'
-    # inVersion = 'v76WithVLLSample'
-    # inVersion = 'v76WithVLLAllMass'
-    # inVersion = 'v76For1tau2l'
-    # inVersion = 'v77ForHLT'
-    # inVersion = 'v77forBtagMeasurement'
-    # inVersion = 'v77HadroPresel'
-    # inVersion = 'v79forHLT'
-    # inVersion = 'v79HadroPresel'
-    # inVersion = 'v80addTauJetVar'
-    # inVersion = 'v80addTTExtra1'
-    # inVersion = 'v81addSysSum'
-    # inVersion = 'v82for1tau2l'
-    # inVersion = 'v83for1tau2lEleEtaCut'
-    # inVersion = 'v84fakeLeptonUpdateV2'
-    # inVersion = 'v84Pre1tau2lNoLepCut'
-    # inVersion = 'v84Pre1tau2lLepF2'
-    # inVersion = 'v84Pre1tau2lNoLepCut'
-    # inVersion = 'v84Pre1tau2lLepF2V2'
-    # inVersion = 'v84HadroPresel'
-    # inVersion = 'v85HadroPreselTauOverlap0.5'
-    # inVersion = 'v86HadroPreSelWithGammaRemoval'
-    # inVersion = 'v86HadroPreSelWithTTWTTZNLO'
+    year = '2018',
+    # year = '2017'
+    inVersion = 'v89HadroPre_JESPt22',#!!!for JES variation only
+    # outVersion = 'v0baselineLep',
+    outVersion = 'v0baselineHadro',
+    # MVParameters = [1, 0, 0] ,# if1tau2l, JESVariationType, JESVariation
+    if1tau2l = 0, # 0 false, 1 True
+    JESVariationType = 0,
+    JESVariation = 0,
+):
     # inVersion = 'v86LepPreSel'
     # inVersion = 'v87LepPreSel_GammaRemovalBugFixed'
     # inVersion = 'v87addPdfPSWeightSum'
     # inVersion = 'v88PSWeightFixedLepPre'
-    inVersion = 'v88PSWeightFixedHadroPre'
+    # inVersion = 'v88PSWeightFixedHadroPre'
 
-    outVersion = 'v0baselineHardro_nb3Ht500Pt40'
-    # outVersion = 'v0baselineLep'
+    
     # outVersion = 'v1baselineHardroFRUpdated' 
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau2lSR'
@@ -53,9 +37,7 @@ def main():
     isRun3 = uf.isRun3Era(year)
     justMC = False
     
-    
     print('jobVersion:', outVersion + '_'+ inVersion) 
-    #all the parameters you need to change is in this part , better not change the rest of the code.
     inOutDirMap = getInOutDic( year, inVersion, outVersion, justMC )
 
     jobDir = os.path.dirname(os.path.abspath(__file__)) 
@@ -75,23 +57,23 @@ def main():
         for key in inOutDirMap[iera].keys():
             iDir = inOutDirMap[iera][key]
             print( 'inputOutDir: ', iDir )
-            generateJobsForDir( iDir, iera+'_'+key,  jobDir , isRun3)
+            generateJobsForDir( iDir, iera+'_'+key,  jobDir , isRun3, if1tau2l, JESVariationType, JESVariation)
             subAllofAll.write('bash '+ iera+'_'+key + '_subAll.sh\n' )
     print( 'sub all jobs using: ' + jobDir +'/' + subAllName)
     subAllofAll.close()
 
     #change mod
     subprocess.run( 'chmod 777 '+ subAllofAllName, shell=True )
-
-
-    uf.sumbitJobs(  subAllofAllName )
+    
+    # uf.sumbitJobs(  subAllofAllName )
 
 
 
 
 def getInOutDic( year, inVersion, outVersion, justMC ):
     inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-    outputBase = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/'
+    # outputBase = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/'
+    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
     # outputBase = '/scratchfs/cms/huahuil/forMVA/'
     inputOutputDic={
         '2016postVFP': 'UL2016_postVFP',
@@ -129,7 +111,7 @@ def getInOutDic( year, inVersion, outVersion, justMC ):
 
 
 
-def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False):
+def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False, if1tau2l=False, JESVariationType=0, JESVariation=0):
     subDirName = jobDir+ '/'+ dirKind+'_subAll.sh'
     print('creating: ', subDirName )
     subDirJobs = open( subDirName, 'w' )
@@ -147,7 +129,7 @@ def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False):
         if not uf.checkIfInputDic(entry, isRun3): continue
         
         processJob = jobsDir + 'MV_' + dirKind +'_'+ entry + ".sh"
-        iParametersList = [ inOutList[0], entry, inOutList[1], 0]
+        iParametersList = [ inOutList[0], entry, inOutList[1], 0, if1tau2l, JESVariationType, JESVariation]
         writeIjob( iParametersList, processJob )
 
         uf.checkMakeDir(inOutList[1] +"log/")
@@ -169,7 +151,9 @@ def writeIjob( parameterList, processJob ):
     codeDir = os.path.dirname(os.path.abspath(__file__))
     codeDir = codeDir.rsplit('/',1)[0]
     subFile.write("cd {}\n".format(codeDir))
-    command = './apps/run_makeVariables.out {}  {} {} {}    '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
+    # command = './apps/run_makeVariables.out {}  {} {} {}    '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
+    # command = './apps/run_makeVariables.out {}  {} {} {} {} {} {}     '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
+    command = f'./apps/run_makeVariables.out {parameterList[0]} {parameterList[1]} {parameterList[2]} {parameterList[3]} {parameterList[4]} {parameterList[5]} {parameterList[6]}'
     subFile.write(command )
     subFile.close()
 
