@@ -3,15 +3,17 @@
 
 #include "objVarMaker.h"
 #include "correction.h"
+#include "JESVariation.h"
 
 class JetVarMaker : public ObjVarMaker
 {
 public:
     JetVarMaker(TTree *outTree, TString objName, Int_t type = 0, TString era="2018", UChar_t JESVariation = 0);
     ~JetVarMaker();
-    void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus);
+    // void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus);
+    void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus, JESVariation& jesVariation);
     void clearBranch();
-    void setupLorentzObjs(const EventForMV *e);
+    void setupLorentzObjs(const EventForMV *e, JESVariation& JESVariation);
     Double_t getHT();
     Double_t getJet_6pt();
     Int_t getJet_num();

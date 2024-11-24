@@ -72,8 +72,8 @@ void run_objectSelection(
     // TString inputDir = "TTTo2L2Nu0",
     // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
-    // Int_t numEntries = 100000)
-    Int_t numEntries = 3000)
+    Int_t numEntries = 100)
+    // Int_t numEntries = 3000)
     // Int_t numEntries = 10000)
     // Int_t numEntries = 0)
 {
@@ -87,10 +87,11 @@ void run_objectSelection(
     Bool_t isRun3 = TTTT::isRun3(era);
     // Bool_t if1tau2l = kTRUE; //!
     Bool_t if1tau2l = kFALSE; //!to do: make it parameter
-    UChar_t JESVariation = 0; //!!!0: nominal, >=1: variation
+    UChar_t JESVariationType = 0; //!!!0: nominal, 1: up, 2: down
+    UChar_t JESVariation = 0; //ordering of the source of systematic uncertainties for  JES
     std::cout << "isRun3=" << isRun3 << " era=" << era << "\n";
 
-    MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3, if1tau2l, JESVariation);
+    MakeVariablesMain mv(inputDir1, outputDir, processName, isData, era, isRun3, if1tau2l, JESVariation, JESVariationType);
     Bool_t baseline = kTRUE;
     mv.EventLoop(baseline, kFALSE, numEntries);
     //mv.EventLoop(baseline, kTRUE, numEntries); //!channel cut, for BDT training only 

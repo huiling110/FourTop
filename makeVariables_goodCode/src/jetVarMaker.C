@@ -69,7 +69,8 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type, TString er
     std::cout << "\n";
 };
 
-void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus)
+// void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus)
+void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus, JESVariation& jesVariation)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
@@ -78,7 +79,7 @@ void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
 
     clearBranch();
 
-    setupLorentzObjs(e); //!!! crucial to overide base class!!!
+    setupLorentzObjs(e, jesVariation); //!!! crucial to overide base class!!!
 
     ObjVarMaker::basicVariables();
 
@@ -132,11 +133,9 @@ void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Do
     }
 }
 
-void JetVarMaker::setupLorentzObjs(const EventForMV *e)
+// void JetVarMaker::setupLorentzObjs(const EventForMV *e)
+void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariation)
 {
-    //!!!Jet pt already JES corrected, but cut at 22 GeV at OS for JES variation
-    //write a class to handle the JES variation to jets_pt and jets_mass
-    // JESVariation.applyJESVariation(e->jets_pt, e->jets_mass, m_JESVariation);
 
 
     // overide base ObjValMaker
@@ -151,6 +150,10 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e)
     //     getLorentzVec(e->jetsT_pt, e->jetsT_eta, e->jetsT_phi, e->jetsT_mass, objsLorentz);
     //     break;
     }
+
+    //!!!Jet pt already JES corrected, but cut at 22 GeV at OS for JES variation
+    //write a class to handle the JES variation to jets_pt and jets_mass
+    jesVariation.applyJESVariation(objsLorentz);
 
 };
 

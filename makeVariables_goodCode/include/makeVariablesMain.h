@@ -1,7 +1,6 @@
 #ifndef MAKEVARIABLESMAIN_H
 #define MAKEVARIABLESMAIN_H
 // #include <iostream>
-
 #include "TFile.h"
 #include "TTree.h"
 #include "TTreeReader.h"
@@ -22,18 +21,20 @@
 #include "weightVarMaker.h"
 #include "createHists.h"
 #include "topVarMaker.h"
+#include "JESVariation.h"
 #include "../../myLibrary/commenFunction.h"
 
 class MakeVariablesMain
 {
 public:
-    MakeVariablesMain(TString inputDir, TString outDir, TString processName, Bool_t isData, TString era, Bool_t isRun3, Bool_t is1tau2l=kFALSE, UChar_t JESVariation=0) : m_inputDir{inputDir}, m_processName{processName}, m_isData{isData}, m_era{era}, m_isRun3{isRun3}, m_is1tau2l{is1tau2l}, m_JESVariation{JESVariation}
+    MakeVariablesMain(TString inputDir, TString outDir, TString processName, Bool_t isData, TString era, Bool_t isRun3, Bool_t is1tau2l=kFALSE, UChar_t JESVariation=0, UChar_t JESSysUncerType=0) : m_inputDir{inputDir}, m_processName{processName}, m_isData{isData}, m_era{era}, m_isRun3{isRun3}, m_is1tau2l{is1tau2l}, m_JESVariation{JESVariation}, m_JESVariationType{JESSysUncerType}
     {
         std::cout << "Initialize MakeVariablesMain class..................................\n";
         std::cout << "m_isData=" << m_isData << "  m_era=" << m_era << "  m_isRun3=" << m_isRun3 << "\n";
         std::cout<<"m_is1tau2l="<<m_is1tau2l<<"\n";
         std::cout << "m_processName=" << m_processName << "\n";
         std::cout<<"m_JESVariation="<<static_cast<int>( m_JESVariation)<<"\n";
+        std::cout<<"m_JESVariationType="<<static_cast<int>( m_JESVariationType)<<"\n";
 
         std::cout<<"inputDir="<<inputDir<<"\n";
         TChain *chain1 = new TChain("tree");
@@ -86,6 +87,7 @@ private:
     TH1D *m_cutflow = new TH1D("cutflowforMV", "initial; baseline", 2, 0, 2);
     const Bool_t m_is1tau2l = kFALSE;
     const UChar_t m_JESVariation = 0;
+    const UChar_t m_JESVariationType = 0; //!!!0: nominal, 1: up, 2: down
 
     //
     // MuonVarMaker muVarMaker{m_outTree};
@@ -120,6 +122,7 @@ private:
     // CreateHist createHists{m_output};
     CreateHist createHist; //cannot initialize here because m_output not properly initialzided yet
     WeightVarMaker weightVarMaker{m_outTree, m_era, m_isData, m_isRun3, m_processName};
+    JESVariation jesVariation{m_era, m_JESVariation};
 };
 
 #endif
