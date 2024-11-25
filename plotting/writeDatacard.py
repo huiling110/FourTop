@@ -56,7 +56,35 @@ MCSys = {
     'QCDscale_Fa_normalised': [True, 0, 0b111],  
     'ISR_normalised': [True, 0, 0b111],
     'FSR_normalised': [True, 0, 0b111],
-    
+   
+    #JES https://docs.google.com/spreadsheets/d/1JZfk78_9SD225bcUuTWVo4i02vwI5FfeVKH-dwzUdhM/edit?gid=1345121349#gid=1345121349 
+    "AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111], 
+    "AbsoluteScale_AK4PFchs": [True, 0, 0b111],
+    "AbsoluteStat_AK4PFchs": [False, 0, 0b111],
+    "FlavorQCD_AK4PFchs": [True, 0, 0b111],
+    "Fragmentation_AK4PFchs": [True, 0, 0b111], 
+    "PileUpDataMC_AK4PFchs": [True, 0, 0b111],
+    "PileUpPtBB_AK4PFchs": [True, 0, 0b111],
+    "PileUpPtEC1_AK4PFchs":  [True, 0, 0b111],
+    "PileUpPtEC2_AK4PFchs":  [True, 0, 0b111],
+    "PileUpPtHF_AK4PFchs":  [True, 0, 0b111],
+    "PileUpPtRef_AK4PFchs": [ True, 0, 0b111],
+    "RelativeFSR_AK4PFchs":  [True, 0, 0b111],
+    "RelativeJEREC1_AK4PFchs":  [False, 0, 0b111],
+    "RelativeJEREC2_AK4PFchs": [False, 0, 0b111],
+    "RelativeJERHF_AK4PFchs":  [True, 0, 0b111],
+    "RelativePtBB_AK4PFchs":  [True, 0, 0b111],
+    "RelativePtEC1_AK4PFchs": [False, 0, 0b111],
+    "RelativePtEC2_AK4PFchs": [False, 0, 0b111],
+    "RelativePtHF_AK4PFchs":  [True, 0, 0b111],
+    "RelativeBal_AK4PFchs":  [True, 0, 0b111],
+    "RelativeSample_AK4PFchs":  [False, 0, 0b111],
+    "RelativeStatEC_AK4PFchs":  [False, 0, 0b111],
+    "RelativeStatFSR_AK4PFchs":  [False, 0, 0b111],
+    "RelativeStatHF_AK4PFchs":  [False, 0, 0b111],
+    "SinglePionECAL_AK4PFchs":  [True, 0, 0b111],
+    "SinglePionHCAL_AK4PFchs": [True, 0, 0b111],
+    "TimePtEta_AK4PFchs": [True, 0, 0b111]
     
 }
 
