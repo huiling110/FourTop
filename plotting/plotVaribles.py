@@ -17,17 +17,18 @@ def main():
     
     ifVLL = ''
     # ifVLL = 'VLLm800'
-    # ifLogy = True
-    ifLogy = False
+    ifLogy = True
+    # ifLogy = False
     # ifStackSignal = True
     ifStackSignal = False
-    # ifPrintSB = True
-    ifPrintSB = False
-    # ifSystematic = True #!Only for BDT
-    ifSystematic = False  
+    ifPrintSB = True
+    # ifPrintSB = False
+    ifSystematic = True #!Only for BDT
+    # ifSystematic = False  
     ifFTau = False
     # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
-    plotName = 'dataVsMC_v4'
+    # plotName = 'dataVsMC_v4'
+    plotName = 'dataVsMC_v5WithJES'
    
     #!1tau2l 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
@@ -57,20 +58,16 @@ def main():
     #1tau1l
     channel = '1tau1l'
     # ifFTau = False
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/variableHists_v0BDT1tau1l/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0dataMC_allCorrection/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0dataMC_allCorrection/'
     # variables = ['jets_num']
-    variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
-    # variables = ['BDT']
-    regionList = ['1tau1lSR', '1tau1lCR12']
+    # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
+    variables = ['BDT']
+    # regionList = ['1tau1lSR', '1tau1lCR12']
+    regionList = ['1tau1lCR12']
   
     #1tau0l
     # channel = '1tau0l' 
@@ -629,13 +626,16 @@ def getSystVariation(nominalHist,systHists):
         # print( 'doing sytematic calculation for: ',systHi )
         iSys = True
         syst = systHists[systHi].Clone()
-        # print( 'sytHistUp: ', syst.GetName() )
+        print( 'sytHistUp: ', syst.GetName() )
         syst.Add(nominalHist,-1)
         for i in range(1,syst.GetXaxis().GetNbins()+1):
+            if nominalHist.GetBinContent(i)<=0.: continue 
             if "Up" in syst.GetName():
                 systHistUp.SetBinContent(i,systHistUp.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
             else:
                 systHistDown.SetBinContent(i,systHistDown.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
+            if (syst.GetBinContent(i)-nominalHist.GetBinContent(i))/nominalHist.GetBinContent(i)>0.1:
+                print('!!! sytematic variation too big: ', syst.GetName())
 
     return systHistUp,systHistDown
 
