@@ -37,6 +37,7 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v88PSWeightFixedHadroPre/'
 jobVersionName = 'v89HadroPre_JESPt22/'
 
+
 isRuobing = False
 #!same version numbers means no change in algrithm but only in selection
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
