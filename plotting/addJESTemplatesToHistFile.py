@@ -1,3 +1,4 @@
+import ROOT
 import usefulFunc as uf
 import ttttGlobleQuantity as gq
 import writeDatacard as wd
@@ -65,8 +66,8 @@ def main():
     
      
     regionList = ['1tau1lSR', '1tau1lCR12']#
-    # for i in range(0, 27):
-    for i in range(0, 1):
+    for i in range(0, 27):
+    # for i in range(0, 1):
         JESUpDir, JESDownDir = uf.getInputDirUpDown(inVersion, outVersion, i)
         JESUpDir = f'{JESUpDir}/mc/variableHists_v0BDT1tau1l/'
         JESDownDir = f'{JESDownDir}/mc/variableHists_v0BDT1tau1l/'
@@ -74,18 +75,18 @@ def main():
         iJESVariation = JESVariationList[i]
         ifCorrelated = wd.MCSys[iJESVariation][0]
         if ifCorrelated:
-            JESUpName =  f'{channel}SR_CMS_JES_{iJESVariation}Up'        
-            JESDownName =  f'{channel}SR_CMS_JES_{iJESVariation}Down'        
+            JESUpName =  f'CMS_JES_{iJESVariation}Up'        
+            JESDownName =  f'CMS_JES_{iJESVariation}Down'        
         else:
-            JESUpName =  f'{channel}SR_CMS_JES_{iJESVariation}_{era}Up'        
-            JESDownName =  f'{channel}SR_CMS_JES_{iJESVariation}_{era}Down'        
+            JESUpName =  f'CMS_JES_{iJESVariation}_{era}Up'        
+            JESDownName =  f'CMS_JES_{iJESVariation}_{era}Down'        
         getJESHistForDir(JESUpDir, JESDownDir, JESListUp, JESListDown, JESUpName, JESDownName, regionList) 
         
-    for isub, histList in JESListUP.items():
+    for isub, histList in JESListUp.items():
         inominal = f'{nominalDir}{isub}.root'
         downHists = JESListDown[isub]
         histToAdd = histList + downHists
-        add_histograms_to_rootfile(histToadd, inominal) 
+        add_histograms_to_rootfile(histToAdd, inominal) 
        
 def add_histograms_to_rootfile(histograms, rootfile_path):
     """
