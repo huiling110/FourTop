@@ -634,7 +634,7 @@ def getSystVariation(nominalHist,systHists):
                 systHistUp.SetBinContent(i,systHistUp.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
             else:
                 systHistDown.SetBinContent(i,systHistDown.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
-            if (syst.GetBinContent(i)-nominalHist.GetBinContent(i))/nominalHist.GetBinContent(i)>0.1:
+            if abs(syst.GetBinContent(i)/nominalHist.GetBinContent(i))>0.1:
                 print('!!! sytematic variation too big: ', syst.GetName())
 
     return systHistUp,systHistDown
