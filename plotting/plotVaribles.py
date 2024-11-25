@@ -66,8 +66,8 @@ def main():
     # variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     variables = ['BDT']
-    # regionList = ['1tau1lSR', '1tau1lCR12']
-    regionList = ['1tau1lCR12']
+    regionList = ['1tau1lSR', '1tau1lCR12']
+    # regionList = ['1tau1lCR12']
   
     #1tau0l
     # channel = '1tau0l' 
@@ -626,7 +626,7 @@ def getSystVariation(nominalHist,systHists):
         # print( 'doing sytematic calculation for: ',systHi )
         iSys = True
         syst = systHists[systHi].Clone()
-        print( 'sytHistUp: ', syst.GetName() )
+        # print( 'sytHistUp: ', syst.GetName() )
         syst.Add(nominalHist,-1)
         for i in range(1,syst.GetXaxis().GetNbins()+1):
             if nominalHist.GetBinContent(i)<=0.: continue 

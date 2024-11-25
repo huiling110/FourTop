@@ -42,6 +42,7 @@ def main():
     inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     outVersion = 'v0baselineHadro'
     channel = '1tau1l'
+    regionList = ['1tau1lSR', '1tau1lCR12']#
     
      
     era = uf.getEraFromDir(nominalDir)
@@ -65,7 +66,6 @@ def main():
         JESListDown[isub] = []
     
      
-    regionList = ['1tau1lSR', '1tau1lCR12']#
     for i in range(0, 27):
     # for i in range(0, 1):
         JESUpDir, JESDownDir = uf.getInputDirUpDown(inVersion, outVersion, i)
@@ -73,7 +73,7 @@ def main():
         JESDownDir = f'{JESDownDir}/mc/variableHists_v0BDT1tau1l/'
         print(JESUpDir, JESDownDir)  
         iJESVariation = JESVariationList[i]
-        ifCorrelated = wd.MCSys[iJESVariation][0]
+        ifCorrelated = wd.MCSys[f'CMS_JES_{iJESVariation}'][0]
         if ifCorrelated:
             JESUpName =  f'CMS_JES_{iJESVariation}Up'        
             JESDownName =  f'CMS_JES_{iJESVariation}Down'        
