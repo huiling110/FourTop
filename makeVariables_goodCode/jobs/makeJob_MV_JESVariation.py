@@ -2,8 +2,8 @@ import makeJob_makeVaribles_forBDT as mj
 #generate all 54 up and down JES variation job version for  MV  
 
 def main():
-    year = '2018'
-    # year = '2017'
+    # year = '2018'
+    year = '2017'
     inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     # outVersion = 'v0baselineLep',
     outVersion = 'v0baselineHadro'
