@@ -58,8 +58,12 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         if(m_is1tau2l){
             ifPass = jetVarMaker.getHT() > 200. && jetVarMaker.getJet_num() >=2 && bjetM_num >= 1 && tauVarMaker.getNum()==1; 
         }else{
-            ifPass = bjetM_num>=3 && jetVarMaker.getHT()>500. && jetVarMaker.getJet_6pt()>40.;
-            ifPass = ifPass && jetVarMaker.getJet_num()>= 6 && bjetM_num>=2;   
+            if(bjetM_num<4){
+                ifPass = jetVarMaker.getHT() > 500. && jetVarMaker.getJet_6pt() > 40. && jetVarMaker.getJet_num() >= 6;
+            }else{
+                ifPass = jetVarMaker.getHT() > 480. && jetVarMaker.getJet_6pt() > 38. && jetVarMaker.getJet_num() >= 6;
+            }
+            ifPass = ifPass && bjetM_num >= 2;
         }
         if (baselineSel&&!ifPass)
         {
