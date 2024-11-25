@@ -80,6 +80,38 @@ def main():
             JESUpName =  f'{channel}SR_CMS_JES_{iJESVariation}_{era}Up'        
             JESDownName =  f'{channel}SR_CMS_JES_{iJESVariation}_{era}Down'        
         getJESHistForDir(JESUpDir, JESDownDir, JESListUp, JESListDown, JESUpName, JESDownName, regionList) 
+        
+    for isub, histList in JESListUP.items():
+        inominal = f'{nominalDir}{isub}.root'
+        downHists = JESListDown[isub]
+        histToAdd = histList + downHists
+        add_histograms_to_rootfile(histToadd, inominal) 
+       
+def add_histograms_to_rootfile(histograms, rootfile_path):
+    """
+    Add a list of histograms to an existing ROOT file.
+
+    Parameters:
+    histograms (list): A list of ROOT.TH1 objects to be added to the file.
+    rootfile_path (str): The path to the existing ROOT file.
+    """
+    # Open the ROOT file in update mode
+    rootfile = ROOT.TFile.Open(rootfile_path, "UPDATE")
+    if not rootfile or rootfile.IsZombie():
+        print(f"Error: Could not open file {rootfile_path}")
+        return
+
+    # Write each histogram to the ROOT file
+    for histogram in histograms:
+        if isinstance(histogram, ROOT.TH1):
+            histogram.Write()  # Write the histogram to the file
+        else:
+            print(f"Warning: Object {histogram} is not a ROOT.TH1 histogram and will not be added.")
+
+    # Close the ROOT file to ensure all changes are saved
+    rootfile.Close()
+    print(f"Histograms added to {rootfile_path}") 
+        
           
 def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList):
     for isub in JESListUP.keys():
