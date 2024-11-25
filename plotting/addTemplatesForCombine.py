@@ -26,7 +26,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     channel = '1tau1l' 
     
     #
@@ -113,7 +114,11 @@ def getSysHist(summedHistDicAllSys, allSubPro,inputDir, outFile, isRun3=False):
             print('BAD!!!', ifile, 'not existing\n')
         for isysHist in summedHistDicAllSys.keys():
             # print(isub+isysHist)
-            iHist = iroot.Get(isub+'_'+isysHist).Clone()
+            iiHist = iroot.Get(isub+'_'+ isysHist)
+            if not iiHist: 
+                print(isub + '_' + isysHist, 'not existing, skiping it!!!')
+                continue
+            iHist = iiHist.Clone()
             addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile, isRun3) 
         iroot.Close() 
     print('done adding sys hists to sumPro\n\n')
