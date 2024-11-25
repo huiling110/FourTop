@@ -11,7 +11,7 @@
 class JetSel
 {
 public:
-    JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3=kFALSE, const Bool_t isData=kFALSE,  const Int_t jetType = 0, const UChar_t JESSys = 0, UChar_t JERSys = 0, const Int_t JESSysUncerType = 0);
+    JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3=kFALSE, const Bool_t isData=kFALSE,  const Int_t jetType = 0, const UChar_t JESSys = 0, UChar_t JERSys = 0);
 
     ~JetSel();
 
@@ -39,7 +39,7 @@ private:
     const Bool_t m_isData;
     const UChar_t m_JESSys = 0;
     const UChar_t m_JERSys = 0;
-    const Int_t m_JESSysUncerType = 0;
+    // const Int_t m_JESSysUncerType = 0;
     std::unique_ptr<correction::CorrectionSet> cset_jerSF;
     std::unique_ptr<correction::CorrectionSet> cset_jetVeto;
     std::vector<Double_t> JER_SF_new;

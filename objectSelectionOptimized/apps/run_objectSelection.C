@@ -61,16 +61,16 @@ void run_objectSelection(
     const UChar_t eleScale = 0;
     const UChar_t eleSmear = 0;
     // const UChar_t JESSys = 0; //!!! 0:nominal, not 0 means jet pt looser of 22.
-    const UChar_t JESSys = 2; //down
+    const UChar_t JESSys = 2; //!!! 0:nominal, not 0 means jet pt looser of 22.
 // const UChar_t JESSys = 1; //up
-    const Int_t JESSysUncerType = 0; // In range 0-26//!!! not going to use it here
+    // const Int_t JESSysUncerType = 0; // In range 0-26//!!! not going to use it here
     const UChar_t JERSys = 0; //norminal
     // const UChar_t TES = 3; //no correction
     const UChar_t TES = 0; //no correction
     // const Bool_t if1tau2l = kTRUE;//!
     const Bool_t if1tau2l = kFALSE;//!
-    std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) << " JESSysUncerType=" << JESSysUncerType<< " TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
-    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, JESSysUncerType, TES, if1tau2l);
+    std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) <<" TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
+    objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES, if1tau2l);
 
     // const Bool_t tauSel = kFALSE; //for HLT
     const Bool_t tauSel = kTRUE;

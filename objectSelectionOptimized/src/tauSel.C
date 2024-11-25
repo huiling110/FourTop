@@ -1,6 +1,7 @@
 #include "../include/tauSel.h"
 #include <map>
 #include "../include/usefulFunc.h"
+#include "../../src_cpp/lumiAndCrossSection.h"  
 
 TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, const Int_t tauWP, const UChar_t TES) : m_tauWP{tauWP}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}, m_TES{TES}
 { // m_type for different electrons
@@ -9,8 +10,8 @@ TauSel::TauSel(TTree *outTree, const TString era, Bool_t isData, Bool_t isRun3, 
     std::cout << "m_tauWP=" << m_tauWP<<" m_era="<<m_era<<" m_isRun3="<<m_isRun3 << " m_TES="<<static_cast<unsigned int>(m_TES)<<"\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
-    cset_tauSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(1)).Data());
-    std::cout << "tau energy sf file: " << (jsonBase + json_map[era].at(1)).Data() << "\n";
+    cset_tauSF = correction::CorrectionSet::from_file((jsonBase + TTTT::json_map.at(era).at(1)).Data());
+    std::cout << "tau energy sf file: " << (jsonBase + TTTT::json_map.at(era).at(1)).Data() << "\n";
 
     std::map<Int_t, TString> tauWPMap = {
         {1, "L"},

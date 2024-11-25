@@ -1,4 +1,5 @@
 #include "../include/PUWeightCal.h"
+#include "../../src_cpp/lumiAndCrossSection.h"
 #include "../include/inputMap.h"
 #include <TFile.h>
 
@@ -32,8 +33,8 @@ PUWeightCal::PUWeightCal(TTree *outTree, Bool_t isData, TString era, Bool_t isRu
     }
     if(m_isRun3){
         TString jsonBase = "../../jsonpog-integration/POG/";
-        cset_puWeight = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(3)).Data());
-        std::cout<<"PUWeightCal: json file used: "<<jsonBase + json_map[era].at(3)<<"\n";
+        cset_puWeight = correction::CorrectionSet::from_file((jsonBase + TTTT::json_map.at(era).at(3)).Data());
+        std::cout<<"PUWeightCal: json file used: "<<jsonBase + TTTT::json_map.at(era).at(3)<<"\n";
     }
 
     outTree->Branch("PUWeight", &PUWeight);

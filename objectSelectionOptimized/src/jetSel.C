@@ -2,17 +2,17 @@
 #include "../../src_cpp/lumiAndCrossSection.h"
 #include <map>
 
-JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys, const UChar_t JERSys, const Int_t JESSysUncerType) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}, m_JERSys{JERSys}, m_JESSysUncerType{JESSysUncerType}
+JetSel::JetSel(TTree *outTree, const TString era, const TString processName, const Bool_t isRun3, const Bool_t isData, const Int_t jetType, const UChar_t JESSys, const UChar_t JERSys) : m_jetType{jetType}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_isData{isData}, m_JESSys{JESSys}, m_JERSys{JERSys}
 { // m_type for different electrons
     // 1:loose;2:fakeble;3:tight
-    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<" m_JESSys="<<static_cast<unsigned int>(m_JESSys)<< " m_JERSys="<<static_cast<unsigned int>(m_JERSys) << " m_JESSysUncerType="<<m_JESSysUncerType <<"......\n";
+    std::cout << "Initializing JetSel: m_jetType=" << m_jetType <<"m_era"<<m_era<<" m_isRun3="<<m_isRun3<<" m_isData="<<m_isData<<" m_processName="<<m_processName<<" m_JESSys="<<static_cast<unsigned int>(m_JESSys)<< " m_JERSys="<<static_cast<unsigned int>(m_JERSys) <<"......\n";
 
     TString jsonBase = "../../jsonpog-integration/POG/";
-    cset_jerSF = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(0)).Data());
-    cset_jetVeto = correction::CorrectionSet::from_file((jsonBase + json_map[era].at(4)).Data());
+    cset_jerSF = correction::CorrectionSet::from_file((jsonBase + TTTT::json_map.at(era).at(0)).Data());
+    cset_jetVeto = correction::CorrectionSet::from_file((jsonBase + TTTT::json_map.at(era).at(4)).Data());
     // auto cset_jerSF_com = cset_jerSF->compound();
-    std::cout << "JEC sf file: " << (jsonBase + json_map[era].at(0)).Data() << "\n";
-    std::cout << "Jet veto file: " << (jsonBase + json_map[era].at(4)).Data() << "\n";
+    std::cout << "JEC sf file: " << (jsonBase + TTTT::json_map.at(era).at(0)).Data() << "\n";
+    std::cout << "Jet veto file: " << (jsonBase + TTTT::json_map.at(era).at(4)).Data() << "\n";
     // for (auto &corr : *cset_jerSF)  
     // {
     //     printf("Correction: %s\n", corr.first.c_str());
@@ -368,8 +368,8 @@ Double_t JetSel::calJES_SF(Double_t area, Double_t eta, Double_t pt, Double_t ph
     Double_t JES_uncer = 0.;
     if (!m_isRun3)
     {//https://github.com/cms-nanoAOD/nanoAOD-tools/blob/master/python/postprocessing/modules/jme/jecUncertainties.py
-        //auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
-        auto corr_jesUncer = cset_jerSF->at(corr_Uncer_JES_map[m_era].at(m_JESSysUncerType).Data());
+        auto corr_jesUncer = cset_jerSF->at(corr_SF_map[m_era].at(1).Data());
+        // auto corr_jesUncer = cset_jerSF->at(corr_Uncer_JES_map[m_era].at(m_JESSysUncerType).Data());
         JES_uncer = corr_jesUncer->evaluate({eta, pt}); // do you need the pt to be raw? no
         //std::cout << JES_uncer << " JES_uncerValue" << std::endl;
     }else{
