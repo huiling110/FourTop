@@ -87,13 +87,17 @@ namespace MV
         {"2016", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
         // {"2016postVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
         // {"2016preVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
-        {"2016postVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
-        {"2016preVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
-        {"2017", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
+        // {"2016postVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
+        // {"2016preVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v2eraBugFixed_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
+        // {"2017", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
         // {"2018", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineNoBCutHLTWeightUpdated_v57ovelapWithTausF/mc/variableHists_v1_btagRMeasure/results/1tauNoBbtagR.root"},
-        {"2018", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
+        // {"2018", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
         {"2022preEE", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
         {"2022postEE", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v61fixesLepRemovalBug/mc/variableHists_v1btagRCal/results/bShapeR.root"},
+        {"2018", "./input/btagR/2018/bShapeR.root"},
+        {"2017", "./input/btagR/2017/bShapeR.root"},
+        {"2016preVFP", "./input/btagR/2016preVFP/bShapeR.root"},
+        {"2016postVFP", "./input/btagR/2016postVFP/bShapeR.root"},
     };
 
     inline const std::map<TString, TString> btagWPEff_map = {

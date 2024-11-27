@@ -42,7 +42,7 @@ def main(
     # version = 'v0HLTMeasure'
    
     #dataMC
-    version = 'v0dataMC_allCorrection'
+    # version = 'v0dataMC_allCorrection'
     # version = 'v1dataMC_allCorrectionNotFakeTau'
     # version = 'v0dataMC_allCorrectionFakeLepton'
     # version = 'v1dataMC_allbutHLT'
@@ -58,9 +58,8 @@ def main(
     
     #1tau0l systematic
     # channel = '1tau0l'
-    # version = 'v0BDT1tau0l'
+    version = 'v0BDT1tau0l'
     # version = 'v1BDT1tau0lEvenBin'
-    # version = 'v2BDT1tau0lBinC'
     
     # channel = '1tau2l'
     # version = 'v0BDT1tau2l'

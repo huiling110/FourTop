@@ -53,7 +53,7 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v88PSWeightFixedHadroPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v88PSWeightFixedHadroPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v89HadroPre_JESPt22/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v89HadroPre_JESPt22/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v89HadroPre_JESPt22/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "TTWJetsToLNu",
     // TString inputDir = "TTZToLLNuNu",

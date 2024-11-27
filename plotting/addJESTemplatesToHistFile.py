@@ -36,13 +36,21 @@ JESVariationList = [
 
 #add JES variation templates to WH root files 
 def main():
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
-       
-    inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
+    
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
+      
+    era =  uf.getEraFromDir(nominalDir) 
+    inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
     inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     outVersion = 'v0baselineHadro'
-    channel = '1tau1l'
-    regionList = ['1tau1lSR', '1tau1lCR12']#
+    # channel = '1tau1l'
+    # regionList = ['1tau1lSR', '1tau1lCR12']#
+    channel = '1tau0l'
+    regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
+    
     
      
     era = uf.getEraFromDir(nominalDir)
@@ -68,9 +76,9 @@ def main():
      
     for i in range(0, 27):
     # for i in range(0, 1):
-        JESUpDir, JESDownDir = uf.getInputDirUpDown(inVersion, outVersion, i)
-        JESUpDir = f'{JESUpDir}/mc/variableHists_v0BDT1tau1l/'
-        JESDownDir = f'{JESDownDir}/mc/variableHists_v0BDT1tau1l/'
+        JESUpDir, JESDownDir = uf.getInputDirUpDown(inVersion, outVersion, i, inputDirBase)
+        JESUpDir = f'{JESUpDir}/mc/variableHists_v0BDT{channel}/'
+        JESDownDir = f'{JESDownDir}/mc/variableHists_v0BDT{channel}/'
         print(JESUpDir, JESDownDir)  
         iJESVariation = JESVariationList[i]
         ifCorrelated = wd.MCSys[f'CMS_JES_{iJESVariation}'][0]
