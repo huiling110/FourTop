@@ -3,7 +3,8 @@ import makeJob_makeVaribles_forBDT as mj
 
 def main():
     # year = '2018'
-    year = '2017'
+    # year = '2017'
+    year = '2016'
     inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     # outVersion = 'v0baselineLep',
     outVersion = 'v0baselineHadro'
