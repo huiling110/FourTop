@@ -153,7 +153,7 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariati
     // if(objsLorentz.size()>0){
     //     std::cout<<"1st pt before JES variation: "<<objsLorentz[0].Pt()<<"\n";
     // }
-    jesVariation.applyJESVariation(objsLorentz);
+    jesVariation.applyJESVariation(objsLorentz, m_removedIndices);
     // if(objsLorentz.size()>0){
     //     std::cout<<"1st pt after JES variation: "<<objsLorentz[0].Pt()<<"\n";
     // }

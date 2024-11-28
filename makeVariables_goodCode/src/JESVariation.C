@@ -24,11 +24,13 @@ JESVariation::JESVariation(TString era, const UChar_t JESVariation, const UChar_
     std::cout<<"Done JESVariation initialization......\n";
 }
 
-void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec){
+// void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec){
+void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices){
     if(m_JESSysUncerType==0){
         return;
     };
 
+    removedIndices.clear(); 
     auto corr_jesUncer = cset_jerSF->at(m_JESTtring.Data());
     for(UInt_t i=0; i<particleVec.size(); i++){
         // auto corr_jesUncer = cset_jerSF->at(corr_Uncer_JES_map[m_era].at(m_JESSysUncerType).Data());
@@ -48,9 +50,15 @@ void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& p
 
         //!do the jet pt cut after JES variation
         if(particleVec[i].Pt()<25.){
+            removedIndices.push_back(i);
             particleVec.erase(particleVec.begin()+i);
             i--;// Decrement the index to account for the removed element
         }//explain: 
 
     }
+};
+
+void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec) {
+    std::vector<UInt_t> dummyRemovedIndices;
+    applyJESVariation(particleVec, dummyRemovedIndices);
 }

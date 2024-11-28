@@ -186,11 +186,11 @@ Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isDat
             break;
         case 1: //1tau0l 
             HLTWeight = e->HLT_weight.v();
-            btagWeight = e->btagShape_weight.v() * e->btagShapeR.v();
+            btagWeight = e->btagShape_weight.v() * e->btagShapeR.v(); //!!!should apply btagShape_weight_jes_up when it's JES variation
             btagName = e->btagShape_weight.n() + "*" + e->btagShapeR.n();
             break;
         case 2: //1tau2l
-            HLTWeight = 1.0;//!for now
+            HLTWeight = 1.0;//!!!for now
             btagWeight = e->btagWPMT_weight.v();
             btagName = e->btagWPMT_weight.n();
             break; 
