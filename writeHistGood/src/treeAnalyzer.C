@@ -162,7 +162,7 @@ void treeAnalyzer::LoopTree()
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 5000;
+        allEvent = 50000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -196,7 +196,8 @@ void treeAnalyzer::LoopTree()
 
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
 
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
+        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
+        Double_t basicWeight =  e->EVENT_genWeight.v();//!!!testing
         //!!!Some FR_weight_final == inf for fakeTau_MC, temporary fix here
         if (std::isnan(basicWeight)|| std::isinf(basicWeight)){
             std::cout<<"!!!! FR_weight_final is NAN\n";
@@ -366,6 +367,7 @@ void treeAnalyzer::Terminate()
             Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
             const Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
             SR1tau1lSys.scale(processScale);
+            std::cout<<"processScale: "<<processScale<<"\n";
     }
     SR1tau1lSys.print();
 

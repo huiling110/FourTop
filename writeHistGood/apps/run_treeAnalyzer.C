@@ -30,7 +30,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_JESup_0_v89HadroPre_JESPt22/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_JESup_0_v89HadroPre_JESPt22/mc/",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_JESDown_0_v89HadroPre_JESPt22/mc/",
     TString process = "tttt",
     // TString process = "ttbar_2l",
     // TString process = "fakeLepton",
@@ -44,8 +45,8 @@ void run_treeAnalyzer(
     TString channel = "1tau0l",//
     // TString channel = "1tau2l",//
     TString histVersion = "v0_test",//
-    Bool_t isTest = kTRUE)
-    // Bool_t isTest = kFALSE)
+    // Bool_t isTest = kTRUE)
+    Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();

@@ -223,7 +223,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout << "\n";
 };
 
-void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t bjetsM_num)
+void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t jets_num, const Int_t bjetsM_num)
 {
     reportEntry("WeightVarMaker::makeVariables()");
     clearBranch();
@@ -343,10 +343,12 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagShape_weight_cferr1_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr1");
     btagShape_weight_cferr2_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_cferr2");
     btagShape_weight_cferr2_down = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "down_cferr2");
-    btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist);
+    // btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist); //!!!When JES variation, the btagR is to be varied as well
+    btagShapeR = calBtagR(jets_num, btagRHist); //!!!When JES variation, the btagR is to be varied as well
     //!For each JES source used in your analysis the respective up/down_jesXXX varied SF is to be applied to the JES-varied template instead of the nominal one
 
     //btag WorkingPoint
+    //!!!Not sure if we should vary the BtagWP weight for JES variation as well
     btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
     btagWPMedium_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3) ;
     btagWPMedium_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3) ;

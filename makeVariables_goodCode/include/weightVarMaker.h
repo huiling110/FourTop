@@ -14,8 +14,7 @@ class WeightVarMaker
 public:
     WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const Bool_t isRun3=kFALSE, const TString processName = "tttt");
     ~WeightVarMaker();
-    // void makeVariables(EventForMV *e);
-    void makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t bjetM_num);
+    void makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t jets_num, const Int_t bjetM_num);
     void clearBranch();
     void reportEntry(TString className);
 
