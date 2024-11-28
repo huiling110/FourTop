@@ -375,12 +375,12 @@ Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &jetsBTags)
 }
 
 // Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags)
-Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &jetsBtags)
+Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags)
 {
-    // std::vector<Double_t> jetsBtags;
+    std::vector<Double_t> jetsBtags;
     // copy_TTreeReaderArray_toVector(SelectedJetsBTags, jetsBtags);
-    // TTTT::copyVecToVec(SelectedJetsBTags, jetsBtags);
-    std::sort(jetsBtags.begin(), jetsBtags.end());
+    TTTT::copyVecToVec(SelectedJetsBTags, jetsBtags);
+    // std::sort(jetsBtags.begin(), jetsBtags.end());
     std::reverse(jetsBtags.begin(), jetsBtags.end());
     Double_t sum = 1;
     // if (SelectedJetsBTags.GetSize() > 3)

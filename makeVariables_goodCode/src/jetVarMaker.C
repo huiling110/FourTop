@@ -157,7 +157,7 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariati
     //write a class to handle the JES variation to jets_pt and jets_mass
     jesVariation.applyJESVariation(objsLorentz, m_removedIndices);
     m_jets_btags.clear();
-    for (UInt_t i = 0; i < objsLorentz.size(); i++)
+    for (UInt_t i = 0; i < e->jets_btags.GetSize(); i++)
     {
        //push_back the index not in m_removedIndices
             // Convert m_removedIndices to an unordered_set for efficient lookups
@@ -166,6 +166,7 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariati
             m_jets_btags.push_back(e->jets_btags.At(i));
         };
     }
+    // std::cout<<"m_jets_btags.size()="<<m_jets_btags.size()<<"jets_size="<<objsLorentz.size()<<"\n";
 };
 
 void JetVarMaker::clearBranch()

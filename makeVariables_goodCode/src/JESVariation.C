@@ -24,39 +24,75 @@ JESVariation::JESVariation(TString era, const UChar_t JESVariation, const UChar_
     std::cout<<"Done JESVariation initialization......\n";
 }
 
-// void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec){
-void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices){
+// // void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec){
+// void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices){
+//     if(m_JESSysUncerType==0){
+//         return;
+//     };
+
+//     removedIndices.clear(); 
+//     auto corr_jesUncer = cset_jerSF->at(m_JESTtring.Data());
+//     for(UInt_t i=0; i<particleVec.size(); i++){
+//         // auto corr_jesUncer = cset_jerSF->at(corr_Uncer_JES_map[m_era].at(m_JESSysUncerType).Data());
+//         Double_t JES_uncer = corr_jesUncer->evaluate({particleVec.at(i).Eta(), particleVec.at(i).Pt()}); // do you need the pt to be raw? no
+//         // std::cout << JES_uncer << " JES_uncerValue" << std::endl;
+//         switch (m_JESSysUncerType)
+//         {
+//         case 1:
+//             particleVec[i] = particleVec[i] * (1 + JES_uncer);
+//             break;
+//         case 2:
+//             particleVec[i] = particleVec[i] * (1 - JES_uncer);
+//             break;
+//         default:
+//             break;
+//         }
+
+//         //!do the jet pt cut after JES variation
+//         if(particleVec[i].Pt()<25.){
+//             removedIndices.push_back(i);
+//             particleVec.erase(particleVec.begin()+i);
+//             i--;// Decrement the index to account for the removed element
+//         }//explain: 
+
+//     }
+// };
+
+void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices) {
     if(m_JESSysUncerType==0){
         return;
     };
 
-    removedIndices.clear(); 
+    removedIndices.clear();
     auto corr_jesUncer = cset_jerSF->at(m_JESTtring.Data());
-    for(UInt_t i=0; i<particleVec.size(); i++){
-        // auto corr_jesUncer = cset_jerSF->at(corr_Uncer_JES_map[m_era].at(m_JESSysUncerType).Data());
-        Double_t JES_uncer = corr_jesUncer->evaluate({particleVec.at(i).Eta(), particleVec.at(i).Pt()}); // do you need the pt to be raw? no
-        // std::cout << JES_uncer << " JES_uncerValue" << std::endl;
-        switch (m_JESSysUncerType)
-        {
-        case 1:
-            particleVec[i] = particleVec[i] * (1 + JES_uncer);
-            break;
-        case 2:
-            particleVec[i] = particleVec[i] * (1 - JES_uncer);
-            break;
-        default:
-            break;
+    // std::cout<<"before removal: particleVec.size()="<<particleVec.size()<<"\n";
+    for (UInt_t i = 0; i < particleVec.size(); ++i) {
+        Double_t JES_uncer = corr_jesUncer->evaluate({particleVec.at(i).Eta(), particleVec.at(i).Pt()});
+
+        switch (m_JESSysUncerType) {
+            case 1:
+                particleVec[i] = particleVec[i] * (1 + JES_uncer);
+                break;
+            case 2:
+                particleVec[i] = particleVec[i] * (1 - JES_uncer);
+                break;
+            default:
+                break;
         }
 
-        //!do the jet pt cut after JES variation
-        if(particleVec[i].Pt()<25.){
+        // Mark indices of particles to be removed
+        if (particleVec[i].Pt() < 25.) {
             removedIndices.push_back(i);
-            particleVec.erase(particleVec.begin()+i);
-            i--;// Decrement the index to account for the removed element
-        }//explain: 
-
+        }
     }
-};
+
+    // Remove marked elements from particleVec
+    // Erase from the end to the beginning to avoid shifting issues
+    for (auto it = removedIndices.rbegin(); it != removedIndices.rend(); ++it) {
+        particleVec.erase(particleVec.begin() + *it);
+    }
+}
+
 
 void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec) {
     std::vector<UInt_t> dummyRemovedIndices;
