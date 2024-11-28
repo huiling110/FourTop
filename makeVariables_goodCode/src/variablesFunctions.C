@@ -974,6 +974,56 @@ Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTr
     return sf;
 }
 
+Double_t calBtagShapeWeight(
+    const std::vector<Double_t>& jets_pt,
+    const std::vector<Double_t>& jets_eta,
+    const std::vector<Int_t>& jets_flavour,
+    const std::vector<Double_t>& jets_btag,
+    correction::CorrectionSet* cset_btag,
+    Bool_t isData,
+    const std::string sys
+) {
+    Double_t sf = 1.0;
+    if (!isData) {
+        auto corr_deepJet = cset_btag->at("deepJet_shape");
+
+        for (size_t j = 0; j < jets_pt.size(); ++j) {
+            Double_t ijetSF = 1.0;
+            Double_t ijetPt = jets_pt[j];
+            Double_t ijetEta = std::abs(jets_eta[j]);
+            Double_t ijetBtag = jets_btag[j];
+            Int_t ijetFlav = jets_flavour[j];
+
+            // Check for valid btag range
+            if (!(ijetBtag > 0. && ijetBtag < 1.)) {
+                std::cout << "!!!Warning: btag value out of range: " << ijetBtag << "\n";
+                return 1.0;
+            }
+
+            if (sys == "central") {
+                ijetSF = corr_deepJet->evaluate({sys, ijetFlav, ijetEta, ijetPt, ijetBtag});
+            } else if (sys.find("cferr") != std::string::npos) {
+                if (ijetFlav == 4) {
+                    ijetSF = corr_deepJet->evaluate({sys, ijetFlav, ijetEta, ijetPt, ijetBtag});
+                } else {
+                    ijetSF = corr_deepJet->evaluate({"central", ijetFlav, ijetEta, ijetPt, ijetBtag});
+                }
+            } else {
+                if (!(ijetFlav == 4)) {
+                    ijetSF = corr_deepJet->evaluate({sys, ijetFlav, ijetEta, ijetPt, ijetBtag});
+                } else {
+                    ijetSF = corr_deepJet->evaluate({"central", ijetFlav, ijetEta, ijetPt, ijetBtag});
+                }
+            }
+
+            if (ijetSF > 0) {
+                sf *= ijetSF;
+            }
+        }
+    }
+    return sf;
+}
+
 Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, TH2D *btagTEff_b, TH2D *btagTEff_c, TH2D *btagTEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3, const Bool_t ifBTagT)
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging

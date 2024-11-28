@@ -112,6 +112,7 @@ Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t> &muon_eta, const TTre
 Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, std::string VsJetWP = "Medium", Bool_t isData = kFALSE, Bool_t isRun3 = kFALSE);
 
 Double_t calBtagShapeWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData, const std::string sys);
+Double_t calBtagShapeWeight(const std::vector<Double_t> &jets_pt, const std::vector<Double_t> &jets_eta, const std::vector<Int_t> &jets_flavour, const std::vector<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, Bool_t isData, const std::string sys);
 
 
 Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, TH2D *btagTEff_b, TH2D *btagTEff_c, TH2D *btagTEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3, const Bool_t ifBTagT=kFALSE);
