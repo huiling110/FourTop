@@ -355,19 +355,19 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
 
     //btag WorkingPoint
     //!!!Not sure if we should vary the BtagWP weight for JES variation as well
-    btagWPMedium_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
-    btagWPMedium_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3) ;
-    btagWPMedium_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3) ;
-    btagWPMT_weight = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3, kTRUE);
-    btagWPMT_weight_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3, kTRUE);
-    btagWPMT_weight_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3, kTRUE);
+    btagWPMedium_weight = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
+    btagWPMedium_weight_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3) ;
+    btagWPMedium_weight_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3) ;
+    btagWPMT_weight = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3, kTRUE);
+    btagWPMT_weight_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3, kTRUE);
+    btagWPMT_weight_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3, kTRUE);
     if(std::isnan(btagWPMT_weight) || std::isinf(btagWPMT_weight)){
         std::cout<<"btagWPMT_weight="<<btagWPMT_weight<<"\n";
     }//!
-    btagWPMT_weight_correlated_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_correlated", m_isRun3, kTRUE);
-    btagWPMT_weight_correlated_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_correlated", m_isRun3, kTRUE);
-    btagWPMT_weight_uncorrelated_up = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_uncorrelated", m_isRun3, kTRUE);
-    btagWPMT_weight_uncorrelated_down = calBtagWPMWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_uncorrelated", m_isRun3, kTRUE);
+    btagWPMT_weight_correlated_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_correlated", m_isRun3, kTRUE);
+    btagWPMT_weight_correlated_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_correlated", m_isRun3, kTRUE);
+    btagWPMT_weight_uncorrelated_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_uncorrelated", m_isRun3, kTRUE);
+    btagWPMT_weight_uncorrelated_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_uncorrelated", m_isRun3, kTRUE);
 
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);

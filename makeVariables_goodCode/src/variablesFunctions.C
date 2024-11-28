@@ -1116,6 +1116,99 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
     return sf;
 }
 
+Double_t calBtagWPMWeight(
+    const std::vector<Double_t>& jets_pt,
+    const std::vector<Double_t>& jets_eta,
+    const std::vector<Int_t>& jets_flavour,
+    const std::vector<Double_t>& jets_btag,
+    correction::CorrectionSet* cset_btag,
+    TH2D* btagEff_b,
+    TH2D* btagEff_c,
+    TH2D* btagEff_l,
+    TH2D* btagTEff_b,
+    TH2D* btagTEff_c,
+    TH2D* btagTEff_l,
+    Bool_t isData,
+    TString era,
+    const std::string sys,
+    const Bool_t isRun3,
+    const Bool_t ifBTagT
+) {
+    Double_t sf = 1.0;
+    if (isData) {
+        return 1.0;
+    }
+
+    std::string btagWPTag = isRun3 ? "robustParticleTransformer_comb" : "deepJet_comb";
+    std::string btagWPLTag = isRun3 ? "robustParticleTransformer_light" : "deepJet_incl";
+    auto corr_deepJet = cset_btag->at(btagWPTag);
+    auto corr_deepJet_light = cset_btag->at(btagWPLTag);
+
+    Double_t p_mc = 1.0;
+    Double_t p_data = 1.0;
+    Double_t btagMWP = isRun3 ? TTTT::particleNetBMT.at(era).at(0) : TTTT::DeepJetM.at(era);
+    Double_t btagTWP = isRun3 ? TTTT::particleNetBMT.at(era).at(1) : TTTT::DeepJetT.at(era);
+
+    for (size_t j = 0; j < jets_pt.size(); ++j) {
+        Double_t ijetSF = 1.0;
+        Double_t ijetSFT = 1.0;
+        Int_t ijetFlav = jets_flavour[j];
+        Double_t ijetEta = std::abs(jets_eta[j]);
+        Double_t ijetPt = jets_pt[j];
+        Double_t ijetBtag = jets_btag[j];
+
+        if (ijetBtag < 0. || ijetBtag > 1.) {
+            std::cout << "!!!Warning: btag value out of range: " << ijetBtag << "\n";
+            return 1.0;
+        }
+
+        if (ijetFlav == 4 || ijetFlav == 5) {
+            // b and c
+            ijetSF = corr_deepJet->evaluate({sys, "M", ijetFlav, ijetEta, ijetPt});
+            ijetSFT = corr_deepJet->evaluate({sys, "T", ijetFlav, ijetEta, ijetPt});
+        } else {
+            ijetSF = corr_deepJet_light->evaluate({sys, "M", ijetFlav, ijetEta, ijetPt});
+            ijetSFT = corr_deepJet_light->evaluate({sys, "T", ijetFlav, ijetEta, ijetPt});
+        }
+
+        Bool_t ifBtagged = ijetBtag > btagMWP;
+        Bool_t ifBtaggedT = ijetBtag > btagTWP;
+
+        Double_t btagEff = getBtagEff(btagEff_b, btagEff_c, btagEff_l, ijetPt, ijetEta, ijetFlav, 0);
+        Double_t btagEffT = getBtagEff(btagTEff_b, btagTEff_c, btagTEff_l, ijetPt, ijetEta, ijetFlav, 0);
+
+        if (!ifBTagT) {
+            if (ifBtagged) {
+                p_mc *= btagEff;
+                p_data *= ijetSF * btagEff;
+            } else {
+                p_mc *= (1. - btagEff);
+                p_data *= (1. - ijetSF * btagEff);
+            }
+        } else {
+            if (ifBtaggedT) {
+                p_mc *= btagEffT;
+                p_data *= ijetSFT * btagEffT;
+            } else if (ifBtagged) {
+                p_mc *= (btagEff - btagEffT);
+                p_data *= (ijetSF * btagEff - ijetSFT * btagEffT);
+            } else {
+                p_mc *= (1. - btagEff);
+                p_data *= (1. - ijetSF * btagEff);
+            }
+        }
+    }
+
+    sf = std::abs(p_mc) < 1e-8 ? 1 : (p_data / p_mc);
+    return sf;
+}
+
+
+
+
+
+
+
 Double_t getBtagEff(TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, Double_t jetPt, Double_t jetEta, Int_t jetFlavor, Int_t sys)
 {
     Double_t btagEff = 1.0;
