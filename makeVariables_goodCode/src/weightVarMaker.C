@@ -223,7 +223,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout << "\n";
 };
 
-void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t jets_num, const Int_t bjetsM_num)
+// void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t jets_num, const Int_t bjetsM_num)
+void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Double_t jets_6pt, const Int_t jets_num, const Int_t bjetsM_num, const JetVarMaker* jetVarMaker)
 {
     reportEntry("WeightVarMaker::makeVariables()");
     clearBranch();
@@ -324,6 +325,10 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
 
     //!!!Todo: here it really speaks for the importance of encapsulated object class
     TTreeReaderArray<Double_t>& jets_btags = e->jets_btags;
+    std::vector<Double_t> jets_pt = jetVarMaker->getJetsPt_vec(); //corrected removed low pt jets
+    std::vector<Double_t> jets_eta = jetVarMaker->getJetsEta_vec();
+    std::vector<Int_t> jets_flavour = jetVarMaker->getJetsFlavour_vec(e->jets_flavour);
+    std::vector<Double_t> jets_btags_vec = jetVarMaker->getJetsBtags_vec();
     btagShape_weight = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "central");
     btagShape_weight_jes_up = calBtagShapeWeight(e->jets_pt, e->jets_eta, e->jets_flavour, jets_btags, cset_btag.get(), m_isData, "up_jes");//!!!should we use this btagShape weight for JES variation? Also the input here has the problem of pt cut at 22 GeV
     //!!!yes: For each JES source used in your analysis, the respective up/down_jesXXX varied SF is to be applied to the JES-varied template instead of the nominal one

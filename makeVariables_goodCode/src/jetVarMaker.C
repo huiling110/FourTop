@@ -241,4 +241,35 @@ Int_t JetVarMaker::getJet_num()
     return muons_num;
 }
 
+std::vector<Double_t> JetVarMaker::getJetsPt_vec() const{
+    //get the vector of jets pt from objsLorentz
+    std::vector<Double_t> jetsPt_vec;
+    for(UInt_t i = 0; i < objsLorentz.size(); i++){
+        jetsPt_vec.push_back(objsLorentz[i].Pt());
+    }
+    return jetsPt_vec;
+}
+
+std::vector<Double_t> JetVarMaker::getJetsBtags_vec() const{
+    return m_jets_btags;
+}
+std::vector<Double_t> JetVarMaker::getJetsEta_vec() const{
+    std::vector<Double_t> jetsEta_vec;
+    for(UInt_t i = 0; i < objsLorentz.size(); i++){
+        jetsEta_vec.push_back(objsLorentz[i].Eta());
+    }
+    return jetsEta_vec;
+}
+std::vector<Int_t> JetVarMaker::getJetsFlavour_vec (const TTreeReaderArray<Int_t> &jetsFlavour) const{
+    // if(m_jes)
+    std::vector<Int_t> jetsFlavour_vec;
+    for(UInt_t i = 0; i < jetsFlavour.GetSize(); i++){
+        std::unordered_set<UInt_t> removedIndicesSet(m_removedIndices.begin(), m_removedIndices.end());
+        if (removedIndicesSet.find(i) == removedIndicesSet.end()) {
+            jetsFlavour_vec.push_back(jetsFlavour.At(i));
+        };
+    }
+    return jetsFlavour_vec;
+}
+    
 JetVarMaker::~JetVarMaker(){};

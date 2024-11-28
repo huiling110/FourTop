@@ -83,7 +83,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         // copy some branches
         copyBranches.makeVariables(e);
         // SF and systematic calculation
-        weightVarMaker.makeVariables(e, jetVarMaker.getHT() , jetVarMaker.getJet_6pt(), jetVarMaker.getJet_num(), bjetM_num);
+        weightVarMaker.makeVariables(e, jetVarMaker.getHT() , jetVarMaker.getJet_6pt(), jetVarMaker.getJet_num(), bjetM_num, &jetVarMaker);
 
         m_cutflow->Fill(1);
 

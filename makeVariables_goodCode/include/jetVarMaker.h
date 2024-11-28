@@ -18,6 +18,10 @@ public:
     Double_t getJet_6pt();
     Int_t getJet_num();
     void getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t &jets_pt, Double_t &jets_eta, Double_t &jets_phi, Double_t &jets_btag);
+    std::vector<Double_t> getJetsPt_vec() const;
+    std::vector<Double_t> getJetsBtags_vec() const;
+    std::vector<Double_t> getJetsEta_vec() const;
+    std::vector<Int_t> getJetsFlavour_vec (const TTreeReaderArray<Int_t> &jetsFlavour) const;
 
 private:
     const UChar_t m_JESVariation = 0; //0: nominal, >=1: variation
