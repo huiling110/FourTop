@@ -23,6 +23,8 @@ private:
     const UChar_t m_JESVariation = 0; //0: nominal, >=1: variation
     const TString m_era = "2018";
     std::vector<UInt_t> m_removedIndices;//!for JES variation only
+    // std::unordered_set<UInt_t> m_removedIndicesSet;//!for JES variation only
+    std::vector<Double_t> m_jets_btags;
 
     Double_t jets_rationHT_4toRest = -99;
     Double_t jets_MHT = -99;

@@ -79,11 +79,15 @@ Double_t deltaR_Leading(const std::vector<ROOT::Math::PtEtaPhiMVector> &taus, co
 
 Double_t AverageDeltaRCal(const std::vector<ROOT::Math::PtEtaPhiMVector> &SelectedJets);
 
-Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
-Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+// Double_t bscoreSumOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+Double_t bscoreSumOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags);
+// Double_t bscoreMultiOf4largestCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+Double_t bscoreMultiOf4largestCal(const std::vector<Double_t> &SelectedJetsBTags);
 
-Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
-Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+// Double_t BScoreAllJetsCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+Double_t BScoreAllJetsCal(const std::vector<Double_t> &SelectedJetsBTags);
+// Double_t bScoreMultiCal(const TTreeReaderArray<Double_t> &SelectedJetsBTags);
+Double_t bScoreMultiCal(const std::vector<Double_t> &SelectedJetsBTags);
 
 Double_t calculateSphericity(const std::vector<ROOT::Math::PtEtaPhiMVector> &particles);
 TVectorD calculateEigenvalues(const std::vector<ROOT::Math::PtEtaPhiMVector> &particles);

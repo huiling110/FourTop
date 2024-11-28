@@ -91,9 +91,12 @@ void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     jets_centrality = jets_HT / jets_invariantMass;
     jets_average_deltaR = AverageDeltaRCal(objsLorentz);
 
-    jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);//!!! the JES variation not reflected in here, need to organize jet variabls into a class
-    jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
-    jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
+    // jets_4largestBscoreSum = bscoreSumOf4largestCal(e->jets_btags);//!!! the JES variation not reflected in here, need to organize jet variabls into a class
+    jets_4largestBscoreSum = bscoreSumOf4largestCal(m_jets_btags);//!!! the JES variation not reflected in here, need to organize jet variabls into a class
+    // jets_4largestBscoreMulti = bscoreMultiOf4largestCal(e->jets_btags);
+    jets_4largestBscoreMulti = bscoreMultiOf4largestCal(m_jets_btags);
+    // jets_bScore = BScoreAllJetsCal((e->jets_btags)); // sum of btags
+    jets_bScore = BScoreAllJetsCal(m_jets_btags); // sum of btags
     jets_rationHT_4toRest = rationHT_4toRestCal(objsLorentz);
 
     // It provides a measure of how much an event is confined to a plane, with higher values indicating events that are more isotropic (spread out in all directions) and lower values suggesting events that are planar or two-dimensional. Aplanarity is derived from the sphericity tensor, similar to the sphericity calculation.
@@ -108,7 +111,8 @@ void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     jets_tausT_invariantMass = InvariantMass2SysCal(objsLorentz, taus);
 
     if(muons_num>1 && m_type==0){
-        jets_1btag = e->jets_btags.At(0);
+        // jets_1btag = e->jets_btags.At(0);
+        jets_1btag = m_jets_btags.at(0);
     }
     getJetLeadingVars(e, 1, jets_2pt, jets_2eta, jets_2phi, jets_2btag);
     getJetLeadingVars(e, 2, jets_3pt, jets_3eta, jets_3phi, jets_3btag);
@@ -128,7 +132,8 @@ void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Do
         jets_eta = fabs(objsLorentz[jetRank].Eta());
         jets_phi = fabs(objsLorentz[jetRank].Phi());
         if(m_type==0){
-            jets_btag = e->jets_btags.At(jetRank);
+            // jets_btag = e->jets_btags.At(jetRank);
+            jets_btag = m_jets_btags.at(jetRank);
         }
     }
 }
@@ -150,14 +155,17 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariati
 
     //!!!Jet pt already JES corrected, but cut at 22 GeV at OS for JES variation
     //write a class to handle the JES variation to jets_pt and jets_mass
-    // if(objsLorentz.size()>0){
-    //     std::cout<<"1st pt before JES variation: "<<objsLorentz[0].Pt()<<"\n";
-    // }
     jesVariation.applyJESVariation(objsLorentz, m_removedIndices);
-    // if(objsLorentz.size()>0){
-    //     std::cout<<"1st pt after JES variation: "<<objsLorentz[0].Pt()<<"\n";
-    // }
-
+    m_jets_btags.clear();
+    for (UInt_t i = 0; i < objsLorentz.size(); i++)
+    {
+       //push_back the index not in m_removedIndices
+            // Convert m_removedIndices to an unordered_set for efficient lookups
+        std::unordered_set<UInt_t> removedIndicesSet(m_removedIndices.begin(), m_removedIndices.end());
+        if (removedIndicesSet.find(i) == removedIndicesSet.end()) {
+            m_jets_btags.push_back(e->jets_btags.At(i));
+        };
+    }
 };
 
 void JetVarMaker::clearBranch()
