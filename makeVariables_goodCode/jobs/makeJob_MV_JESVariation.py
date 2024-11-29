@@ -7,7 +7,8 @@ def main():
     # year = '2016'
     inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     # outVersion = 'v0baselineLep',
-    outVersion = 'v0baselineHadro'
+    # outVersion = 'v0baselineHadro'
+    outVersion = 'v1FixedBtagWeightWhenJES'
     if1tau2l = 0
    
     
