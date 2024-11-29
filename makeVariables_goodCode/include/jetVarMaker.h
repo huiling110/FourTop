@@ -22,6 +22,7 @@ public:
     std::vector<Double_t> getJetsBtags_vec() const;
     std::vector<Double_t> getJetsEta_vec() const;
     std::vector<Int_t> getJetsFlavour_vec (const TTreeReaderArray<Int_t> &jetsFlavour) const;
+    std::vector<Double_t> getJetsPtNom_vec(const TTreeReaderArray<Double_t> &jetsPt) const;
 
 private:
     const UChar_t m_JESVariation = 0; //0: nominal, >=1: variation

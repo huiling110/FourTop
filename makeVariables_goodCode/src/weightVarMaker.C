@@ -325,13 +325,16 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
 
     //!!!Todo: here it really speaks for the importance of encapsulated object class
     TTreeReaderArray<Double_t>& jets_btags = e->jets_btags;
-    std::vector<Double_t> jets_pt = jetVarMaker->getJetsPt_vec(); //corrected removed low pt jets
+    // std::vector<Double_t> jets_pt = jetVarMaker->getJetsPt_vec(); //corrected removed low pt jets
+    std::vector<Double_t> jets_pt = jetVarMaker->getJetsPtNom_vec(e->jets_pt);
     std::vector<Double_t> jets_eta = jetVarMaker->getJetsEta_vec();
     std::vector<Int_t> jets_flavour = jetVarMaker->getJetsFlavour_vec(e->jets_flavour);
     std::vector<Double_t> jets_btags_vec = jetVarMaker->getJetsBtags_vec();
     btagShape_weight = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "central");
     btagShape_weight_jes_up = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "up_jes");//!!!should we use this btagShape weight for JES variation? Also the input here has the problem of pt cut at 22 GeV
     //!!!yes: For each JES source used in your analysis, the respective up/down_jesXXX varied SF is to be applied to the JES-varied template instead of the nominal one
+    //!!!Only use JES variation when consider the JES source of the btag shape weight
+    //!!!no need to use JES variation for nominal btag weight
     btagShape_weight_jes_down = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "down_jes");
     btagShape_weight_lf_up = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "up_lf");
     btagShape_weight_lf_down = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "down_lf");
@@ -350,12 +353,13 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagShape_weight_cferr2_up = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "up_cferr2");
     btagShape_weight_cferr2_down = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "down_cferr2");
     // btagShapeR = calBtagR(e->jets_pt.GetSize(), btagRHist); //!!!When JES variation, the btagR is to be varied as well
-    btagShapeR = calBtagR(jets_num, btagRHist); //!!!When JES variation, the btagR is to be varied as well
+    btagShapeR = calBtagR(jets_pt.size(), btagRHist); //!!!When JES variation, the btagR is to be varied as well
     //!For each JES source used in your analysis the respective up/down_jesXXX varied SF is to be applied to the JES-varied template instead of the nominal one
 
-    //btag WorkingPoint
-    //!!!Not sure if we should vary the BtagWP weight for JES variation as well
-    btagWPMedium_weight = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
+    // btag WorkingPoint
+    //ot sure if we should vary the BtagWP weight for JES variation as well; 
+    //I think we should use nominal jet pt without JES variation to calculate the btagWP weight, as the impact of JES variation is already considered in the btagWP SF
+    btagWPMedium_weight = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
     btagWPMedium_weight_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3) ;
     btagWPMedium_weight_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down", m_isRun3) ;
     btagWPMT_weight = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3, kTRUE);

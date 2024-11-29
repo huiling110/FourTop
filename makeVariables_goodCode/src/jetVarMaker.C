@@ -271,5 +271,15 @@ std::vector<Int_t> JetVarMaker::getJetsFlavour_vec (const TTreeReaderArray<Int_t
     }
     return jetsFlavour_vec;
 }
+std::vector<Double_t> JetVarMaker::getJetsPtNom_vec(const TTreeReaderArray<Double_t> &jetsPt) const{
+    std::vector<Double_t> jetsPtNom_vec;
+    for(UInt_t i = 0; i < jetsPt.GetSize(); i++){
+        std::unordered_set<UInt_t> removedIndicesSet(m_removedIndices.begin(), m_removedIndices.end());
+        if (removedIndicesSet.find(i) == removedIndicesSet.end()) {
+            jetsPtNom_vec.push_back(jetsPt.At(i));
+        };
+    }
+    return jetsPtNom_vec;
+}
     
 JetVarMaker::~JetVarMaker(){};
