@@ -324,18 +324,18 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     tauT_IDSF_weight_new_syst_era_dm11_down = calTau_IDSF_new(e->tausT_pt, e->tausT_eta, e->tausT_decayMode, e->tausT_genPartFlav, cset.get(), ("syst_" + m_eraForTau + "_dm11_down").Data(), "nom", "nom", "Medium", m_isData, m_isRun3);
 
     //!!!Todo: here it really speaks for the importance of encapsulated object class
-    TTreeReaderArray<Double_t>& jets_btags = e->jets_btags;
-    // std::vector<Double_t> jets_pt = jetVarMaker->getJetsPt_vec(); //corrected removed low pt jets
+    // TTreeReaderArray<Double_t>& jets_btags = e->jets_btags;
     std::vector<Double_t> jets_pt = jetVarMaker->getJetsPtNom_vec(e->jets_pt);
     std::vector<Double_t> jets_eta = jetVarMaker->getJetsEta_vec();
     std::vector<Int_t> jets_flavour = jetVarMaker->getJetsFlavour_vec(e->jets_flavour);
     std::vector<Double_t> jets_btags_vec = jetVarMaker->getJetsBtags_vec();
+    std::vector<Double_t> jets_pt_JESVaried = jetVarMaker->getJetsPt_vec(); //corrected removed low pt jets
     btagShape_weight = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "central");
-    btagShape_weight_jes_up = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "up_jes");//!!!should we use this btagShape weight for JES variation? Also the input here has the problem of pt cut at 22 GeV
     //!!!yes: For each JES source used in your analysis, the respective up/down_jesXXX varied SF is to be applied to the JES-varied template instead of the nominal one
     //!!!Only use JES variation when consider the JES source of the btag shape weight
     //!!!no need to use JES variation for nominal btag weight
-    btagShape_weight_jes_down = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "down_jes");
+    btagShape_weight_jes_down = calBtagShapeWeight(jets_pt_JESVaried, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "down_jes");
+    btagShape_weight_jes_up = calBtagShapeWeight(jets_pt_JESVaried, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "up_jes");//!!!should we use this btagShape weight for JES variation? Also the input here has the problem of pt cut at 22 GeV
     btagShape_weight_lf_up = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "up_lf");
     btagShape_weight_lf_down = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "down_lf");
     btagShape_weight_hf_up = calBtagShapeWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), m_isData, "up_hf");
