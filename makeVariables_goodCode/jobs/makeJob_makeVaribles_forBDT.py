@@ -11,8 +11,8 @@ import usefulFunc as uf
 
 def main(
     # year = '2016'
-    # year = '2018',
-    year = '2017',
+    year = '2018',
+    # year = '2017',
     inVersion = 'v88PSWeightFixedHadroPre',
     # inVersion = 'v89HadroPre_JESPt22',#!!!for JES variation only
     # outVersion = 'v0baselineLep',
