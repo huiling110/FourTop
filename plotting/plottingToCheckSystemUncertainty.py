@@ -18,11 +18,17 @@ def StartPlotiing(file_path, base_name, up_name, down_name):
 
     hist_base = root_file.Get(base_name)
 
+    if not hist_base:
+        print(f"{base_name} doesn't exist.")
+        return
     nbins = hist_base.GetNbinsX()
     bin_edges = [hist_base.GetBinLowEdge(i) for i in range(1, nbins + 2)]
     print(bin_edges)
     hist_up = root_file.Get(up_name)
     hist_down = root_file.Get(down_name)
+    if not isinstance(hist_up, ROOT.TH1):
+        print(f"please check the name of {up_name} is correct, or {up_name} is empty.")
+        return
     for i in range(1, hist_base.GetNbinsX() + 1):
         hist_up.SetBinError(i, 0)
         hist_down.SetBinError(i, 0)
@@ -126,21 +132,29 @@ def main():
     # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
     # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
     # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
-    file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+    # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+    file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+    # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
 
     # channel = "1tau2l"
     # channel = "1tau0l"
     channel = '1tau1l'
     
     ProcessNames = gq.proChannelDic[channel][:-1]
+    # ProcessNames.remove('fakeTau')
     SystematicsNames = [
         # 'QCDscale_Re_normalised',
         # 'QCDscale_Fa_normalised',
         # 'pdfAlphaS_normalised',
-        'pdf_normalised',
-        'ISR_normalised',
-        'FSR_normalised',
-        'CMS_pileup',
+        # 'pdf_normalised',
+        # 'ISR_normalised',
+        # 'FSR_normalised',
+        # 'CMS_pileup',
+        # 'CMS_tau_FR_2018',
+        # 'CMS_btag_shape_hf',
+        'CMS_JES_FlavorQCD_AK4PFchs',
+        # 'CMS_JES_RelativeSample_AK4PFchs_2018',
+        'CMS_JES_PileUpDataMC_AK4PFchs',
     ]
     year = '2018'
     for ProcessName in ProcessNames:

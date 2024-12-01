@@ -11,21 +11,24 @@ import usefulFunc as uf
 
 def main(
     # year = '2016'
-    year = '2018',
-    # year = '2017'
-    inVersion = 'v89HadroPre_JESPt22',#!!!for JES variation only
+    # year = '2018',
+    year = '2017',
+    inVersion = 'v88PSWeightFixedHadroPre',
+    # inVersion = 'v89HadroPre_JESPt22',#!!!for JES variation only
     # outVersion = 'v0baselineLep',
-    outVersion = 'v0baselineHadro',
+    # outVersion = 'v0baselineHadro',
+    outVersion = 'v0baselineHadroV2',
+    # outVersion = 'v1FixedBtagWeightWhenJES',
     # MVParameters = [1, 0, 0] ,# if1tau2l, JESVariationType, JESVariation
     if1tau2l = 0, # 0 false, 1 True
-    JESVariationType = 0,
+    # JESVariationType = 2, # 1up, 2 down
+    JESVariationType = 0, # 1up, 2 down
     JESVariation = 0,
 ):
     # inVersion = 'v86LepPreSel'
     # inVersion = 'v87LepPreSel_GammaRemovalBugFixed'
     # inVersion = 'v87addPdfPSWeightSum'
     # inVersion = 'v88PSWeightFixedLepPre'
-    # inVersion = 'v88PSWeightFixedHadroPre'
 
     
     # outVersion = 'v1baselineHardroFRUpdated' 
