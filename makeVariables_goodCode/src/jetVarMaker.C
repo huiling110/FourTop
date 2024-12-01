@@ -155,6 +155,7 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariati
 
     //!!!Jet pt already JES corrected, but cut at 22 GeV at OS for JES variation
     //write a class to handle the JES variation to jets_pt and jets_mass
+    m_removedIndices.clear();
     jesVariation.applyJESVariation(objsLorentz, m_removedIndices);
     m_jets_btags.clear();
     for (UInt_t i = 0; i < e->jets_btags.GetSize(); i++)

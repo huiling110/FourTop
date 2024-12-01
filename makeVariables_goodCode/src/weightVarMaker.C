@@ -326,6 +326,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     //!!!Todo: here it really speaks for the importance of encapsulated object class
     // TTreeReaderArray<Double_t>& jets_btags = e->jets_btags;
     std::vector<Double_t> jets_pt = jetVarMaker->getJetsPtNom_vec(e->jets_pt);
+    // std::cout<<"jets_pt size="<<jets_pt.size()<<" e->jets_pt size="<<e->jets_pt.GetSize()<<"\n";
     std::vector<Double_t> jets_eta = jetVarMaker->getJetsEta_vec();
     std::vector<Int_t> jets_flavour = jetVarMaker->getJetsFlavour_vec(e->jets_flavour);
     std::vector<Double_t> jets_btags_vec = jetVarMaker->getJetsBtags_vec();
