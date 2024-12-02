@@ -134,8 +134,8 @@ def main():
     # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/templatesForCombine1tau2l.root'
     # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
     # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
-    file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
-    # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
+    # file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+    file_path = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 
     # channel = "1tau2l"
     # channel = "1tau0l"
@@ -154,8 +154,10 @@ def main():
         # 'CMS_tau_FR_2018',
         # 'CMS_btag_shape_hf',
         'CMS_JES_FlavorQCD_AK4PFchs',
-        # 'CMS_JES_RelativeSample_AK4PFchs_2018',
+        'CMS_JES_RelativeSample_AK4PFchs_2017',
         'CMS_JES_PileUpDataMC_AK4PFchs',
+        "CMS_JES_PileUpPtRef_AK4PFchs",
+        'CMS_JES_SinglePionECAL_AK4PFchs',
     ]
     year = '2018'
     for ProcessName in ProcessNames:

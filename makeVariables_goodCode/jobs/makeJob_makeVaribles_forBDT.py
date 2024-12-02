@@ -10,9 +10,9 @@ import usefulFunc as uf
 #todo add git co after job submission for version control
 
 def main(
-    # year = '2016'
-    year = '2018',
-    # year = '2017',
+    # year = '2016',
+    # year = '2018',
+    year = '2017',
     inVersion = 'v88PSWeightFixedHadroPre',
     # inVersion = 'v89HadroPre_JESPt22',#!!!for JES variation only
     # outVersion = 'v0baselineLep',

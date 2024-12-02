@@ -231,8 +231,8 @@ int tmvaBDT_training(
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30");
                             // "!H:!V:NTrees=850:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");//trainA: increase MinNodeSize
-                            //"!H:!V:NTrees=1000:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
-                            "!H:!V:NTrees=500:MinNodeSize=5%:MaxDepth=3:BoostType=Grad:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
+                            "!H:!V:NTrees=1000:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
+                            // "!H:!V:NTrees=500:MinNodeSize=5%:MaxDepth=3:BoostType=Grad:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
     // if (Use["BDTB"]) // Bagging
     //   factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTB",
                         //    "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=20" );//default
