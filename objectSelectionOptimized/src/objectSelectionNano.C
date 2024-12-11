@@ -145,6 +145,8 @@ void objectSelection::Terminate()
 
     std::cout << "elesTotal=" << eleMVASel.getTotal() << ";   musTotal=" << muSel.getTotal() << ";   tausTotal=" << m_tausTotal << "; tausF=" << m_tausFTotal << "; tausL=" << m_tausLTotal << ";  jets=" << m_jetsTotal << ";  bjetsM=" << m_bjetsM << "\n";//includes entries not passing selection
 
+    std::cout<<"eleTopMVA_total="<<eleTopMVATSel.getTotal()<<"; eleTopMVA_fakeable="<<eleTopMVAFSel.getTotal()<<"; muTopMVA_total="<<muTopMVATSel.getTotal()<<"; muTopMVA_fakeable="<<muTopMVAFSel.getTotal()<<"\n";
+
     // get Runs tree
     if (!m_isData)
     {

@@ -16,6 +16,7 @@ public:
     Int_t getSize();
 
     void clearBranch();
+    ULong_t getTotal();
 
 private:
     const TString m_era;
@@ -23,6 +24,8 @@ private:
     const Bool_t m_isRun3;
     Int_t m_type = 2;
     BoosterHandle m_booster[1];
+    ULong_t m_muTotal = 0;
+
     // output branches
     std::vector<Double_t> muonsTopMVAT_pt;
     std::vector<Double_t> muonsTopMVAT_eta;

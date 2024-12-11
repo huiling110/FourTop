@@ -52,6 +52,7 @@ void MuTopMVASel::Select(const eventForNano *e)
         Int_t iMu_jetIdx = m_isRun3? std::any_cast<Short_t>(e->Muon_jetIdx.at(j)): std::any_cast<Int_t>(e->Muon_jetIdx.at(j));
         Int_t iMu_tightCharge = m_isRun3? std::any_cast<UChar_t>(e->Muon_tightCharge.at(j)): std::any_cast<Int_t>(e->Muon_tightCharge.at(j));
 
+        Double_t RorSF = RorrectSF();
         if (!(e->Muon_pt.At(j) > 10))
             continue;
         if (!(fabs(e->Muon_eta.At(j)) < 2.4))
@@ -119,6 +120,7 @@ void MuTopMVASel::Select(const eventForNano *e)
             muonsTopMVAT_genPartFlav.push_back(e->Muon_genPartFlav->At(j));
         }
     }
+    m_muTotal += muonsTopMVAT_pt.size();
 };
 
 void MuTopMVASel::clearBranch()
@@ -146,4 +148,19 @@ std::vector<Double_t> &MuTopMVASel::getPhiVec()
 Int_t MuTopMVASel::getSize()
 {
     return muonsTopMVAT_pt.size();
+};
+
+ULong_t MuTopMVASel::getTotal()
+{
+    return m_muTotal;
+};
+
+Double_t MuTopMVASel::RorrectSF()
+{
+//     double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data
+// double mcSF = rc.kSpreadMC(Q, pt, eta, phi, genPt, s=0, m=0); //(recommended), MC scale and resolution correction when matched gen muon is available
+// double mcSF = rc.kSmearMC(Q, pt, eta, phi, nl, u, s=0, m=0); //MC scale and extra smearing when matched ge
+    
+
+    return 1.;
 };

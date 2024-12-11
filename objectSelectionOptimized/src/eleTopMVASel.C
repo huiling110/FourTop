@@ -143,7 +143,7 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
             elesTopMVAT_genPartFlav.push_back(e->Electron_genPartFlav->At(j));
         }
     } //
-
+    m_eleTotal = elesTopMVAT_pt.size();
 };
 
 void EleTopMVASel::clearBranch()
@@ -172,4 +172,8 @@ std::vector<Double_t> &EleTopMVASel::getPhiVec()
 Int_t EleTopMVASel::getSize()
 {
     return elesTopMVAT_pt.size();
+};
+ULong_t EleTopMVASel::getTotal()
+{
+    return m_eleTotal;
 };

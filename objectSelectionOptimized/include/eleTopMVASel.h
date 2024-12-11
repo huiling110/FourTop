@@ -19,6 +19,7 @@ public:
     Int_t getSize();
 
     void clearBranch();
+    ULong_t getTotal();
 
 private:
     Int_t m_type = 2;
@@ -26,6 +27,7 @@ private:
     Bool_t m_isData = kFALSE;
     Bool_t m_isRun3 = kFALSE;
     BoosterHandle m_booster[1];
+    ULong_t m_eleTotal = 0;
     // output branches
     std::vector<Double_t> elesTopMVAT_pt;
     std::vector<Double_t> elesTopMVAT_eta;
