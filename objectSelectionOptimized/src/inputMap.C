@@ -106,6 +106,13 @@ std::map<TString, std::array<TString, 2>> TopMVALeptonMap = {
     {"2022postEE", {"input/TopLeptonMVA/mvaWeights_new/el_TOPUL18_XGB.weights.bin", "input/TopLeptonMVA/mvaWeights_new/mu_TOPUL18_XGB.weights.bin"}},
 };
 
+std::map<TString, TString> muonES = {
+    {"2018", "./../../roccor/RoccoR2018UL.txt"},
+    {"2017", "./../../roccor/RoccoR2017UL.txt"},
+    {"2016postVFP", "./../../roccor/RoccoR2016bUL.txt"},
+    {"2016preVFP", "./../../roccor/RoccoR2016aUL.txt"},
+    
+};
 
 
 

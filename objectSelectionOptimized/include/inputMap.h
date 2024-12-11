@@ -25,6 +25,8 @@ extern std::map<TString, std::array<TString, 4>> pileUpFileMap;
 
 extern std::map<TString, std::array<TString, 2>> TopMVALeptonMap;
 
+extern std::map<TString, TString> muonES;
+
 extern std::map<TString, double> DeepJetL;
 
 extern std::map<TString, double> DeepJetM;

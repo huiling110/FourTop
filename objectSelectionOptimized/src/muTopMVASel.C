@@ -1,4 +1,5 @@
 #include "../include/muTopMVASel.h"
+#include "../../../roccor/RoccoR.cc"
 
 MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,  const Bool_t isRun3,const Int_t m_type) : m_type{m_type}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}
 { // m_type for different electrons
@@ -27,6 +28,10 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,
     // BoosterHandle booster;
     XGBoosterCreate(NULL, 0, &m_booster[0]);
     XGBoosterLoadModel(m_booster[0], muWeight.Data());
+
+    //muon momentum correction
+    // TString roccorPath = baseDir + "roccor/RoccoR2018.txt";
+    RoccoR  rc(muonES.at(m_era).Data());
     std::cout << "Done MuTopMVASel initialization......\n\n";
 };
 
