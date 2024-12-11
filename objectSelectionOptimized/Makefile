@@ -29,6 +29,7 @@ XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-i
 
 # MYLIB = -L/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
 MYLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
+RoccoRLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/ -lRoccoR
 # Directories
 HEADRDIR = .
 SOURCE = src/
@@ -53,6 +54,7 @@ LIBS += $(CORRECTIONLIB_LIB)
 LIBS += $(TMVALIBS)
 LIBS += $(XGBOOST_LIB)
 LIBS += $(MYLIB)
+LIBS += $(RoccoRLIB)
 GLIBS = $(ROOTGLIBS)
 
 

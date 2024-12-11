@@ -1,5 +1,5 @@
 #include "../include/muTopMVASel.h"
-#include "../../../roccor/RoccoR.cc"
+// #include "../../../roccor/RoccoR.cc"
 
 MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,  const Bool_t isRun3,const Int_t m_type) : m_type{m_type}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}
 { // m_type for different electrons
@@ -30,8 +30,10 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,
     XGBoosterLoadModel(m_booster[0], muWeight.Data());
 
     //muon momentum correction
-    // TString roccorPath = baseDir + "roccor/RoccoR2018.txt";
-    RoccoR  rc(muonES.at(m_era).Data());
+    // m_rc = rc(muonES.at(m_era).Data());
+    m_rc = RoccoR(muonES.at(m_era).Data());
+    std::cout<<"muonES="<<muonES.at(m_era).Data()<<"\n";
+
     std::cout << "Done MuTopMVASel initialization......\n\n";
 };
 
@@ -51,8 +53,20 @@ void MuTopMVASel::Select(const eventForNano *e)
         //dealing with differences of nanoAODv9 and nanoAODv12
         Int_t iMu_jetIdx = m_isRun3? std::any_cast<Short_t>(e->Muon_jetIdx.at(j)): std::any_cast<Int_t>(e->Muon_jetIdx.at(j));
         Int_t iMu_tightCharge = m_isRun3? std::any_cast<UChar_t>(e->Muon_tightCharge.at(j)): std::any_cast<Int_t>(e->Muon_tightCharge.at(j));
+ 
+        //energy scale for muons
+        Double_t energyScale = 1.0;
+//     double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data
+    // double mcSF = rc.kSpreadMC(Q, pt, eta, phi, genPt, s=0, m=0); //(recommended), MC scale and resolution correction when matched gen muon is available
+    // double mcSF = rc.kSmearMC(Q, pt, eta, phi, nl, u, s=0, m=0); //MC scale and extra smearing when matched ge
+        if(m_isData){
+            energyScale = m_rc.kScaleDT(e->Muon_charge[j], e->Muon_pt[j], e->Muon_eta[j], e->Muon_phi[j], 0, 0); 
+        }else{
+            energyScale = m_rc.kSpreadMC(e->Muon_charge[j], e->Muon_pt[j], e->Muon_eta[j], e->Muon_phi[j], e->GenPart_pt->At(e->Muon_genPartIdx->At(j)), 0, 0);
+        }
+        std::cout<<"energyScale="<<energyScale<<"\n";
 
-        Double_t RorSF = RorrectSF();
+
         if (!(e->Muon_pt.At(j) > 10))
             continue;
         if (!(fabs(e->Muon_eta.At(j)) < 2.4))
@@ -155,12 +169,13 @@ ULong_t MuTopMVASel::getTotal()
     return m_muTotal;
 };
 
-Double_t MuTopMVASel::RorrectSF()
-{
+// Double_t MuTopMVASel::RorrectSF(Bool_t isData, Double_t pt, Double_t eta, Double_t phi, Double_t genPt, Int_t Q)
+// //nl is trackerLayersWithMeasurement
+// {
 //     double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data
 // double mcSF = rc.kSpreadMC(Q, pt, eta, phi, genPt, s=0, m=0); //(recommended), MC scale and resolution correction when matched gen muon is available
 // double mcSF = rc.kSmearMC(Q, pt, eta, phi, nl, u, s=0, m=0); //MC scale and extra smearing when matched ge
-    
 
-    return 1.;
-};
+
+//     return 1.;
+// };

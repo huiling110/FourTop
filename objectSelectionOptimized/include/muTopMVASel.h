@@ -4,6 +4,8 @@
 #include "usefulFunc.h"
 #include "inputMap.h"
 #include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
+// #include "../../../roccor/RoccoR.cc"
+#include "../../../roccor/RoccoR.h"
 
 class MuTopMVASel
 {
@@ -25,6 +27,7 @@ private:
     Int_t m_type = 2;
     BoosterHandle m_booster[1];
     ULong_t m_muTotal = 0;
+    RoccoR  m_rc;
 
     // output branches
     std::vector<Double_t> muonsTopMVAT_pt;
