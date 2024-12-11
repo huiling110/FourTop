@@ -102,9 +102,9 @@ def main():
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    outVersion = 'v0'
-#    outVersion = 'v1proNormAdd'
+   outVersion = 'v1proNormAdd'
 #    outVersion = 'v3JESadded'
-   outVersion = 'v4NoJESForTTX'
+#    outVersion = 'v4NoJESForTTX'
    
    
 #    channel = '1tau0l'

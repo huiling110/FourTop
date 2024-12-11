@@ -33,9 +33,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
-    channel = '1tau1l' 
+    # channel = '1tau1l' 
     
     #
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/'
@@ -45,12 +45,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
-    # channel = '1tau2l'
+    inputDir = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_VLLm600_5/'
+    channel = '1tau2l'
     
     
     
-    # ifVLL = True
-    ifVLL = False
+    ifVLL = True
+    # ifVLL = False
     
     isRun3 = uf.isRun3(inputDir)
     print('isRun3=', isRun3)
@@ -59,7 +60,8 @@ def main():
     
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
-    templateFile = outDir + 'templatesForCombine'+channel+'.root'
+    # templateFile = outDir + 'templatesForCombine'+channel+'.root'
+    templateFile = './templatesForCombine'+channel+'ttest.root'#!!!testing
     outFile = ROOT.TFile(templateFile, 'RECREATE')
   
    
@@ -72,6 +74,8 @@ def main():
     sumPros = gq.proChannelDic[channel].copy()
     #remove the last one, which is data
     sumPros.pop()
+    if ifVLL:
+        sumPros.append('VLLm600')
     allSubPro = uf.getAllSubPro(era, sumPros, False)
     print('all sub processes: ',allSubPro)
 

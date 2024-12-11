@@ -69,8 +69,11 @@ def main():
     # cardDir = 'combinationV10/run2_1tau0l/'
     # cardDir = 'combinationV10/run2_3channels/'
     # cardDir = 'combinationV11/run2_1tau1l/'
+    # cardDir = 'combinationV11/run2_1tau0l/' # no JES
+    # cardDir = 'combinationV11/run2_1tau2l/' # no JES
+    cardDir = 'combinationV11/run2_3years/' # no JES
     # cardDir = 'combinationV12/run2_1tau0l/'
-    cardDir = 'combinationV12/run2_1tau1l_v2/'
+    # cardDir = 'combinationV12/run2_1tau1l_v2/'
 
      
      
