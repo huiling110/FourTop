@@ -72,7 +72,7 @@ void MuTopMVASel::Select(const eventForNano *e)
             energyScale = m_rc.kScaleDT(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], 0, 0); 
         }else{
             energyScale = m_rc.kSpreadMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->GenPart_pt->At(e->Muon_genPartIdx->At(j)), 0, 0);
-            energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], gRandom->Rndm(), 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
+            // energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], gRandom->Rndm(), 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
             // energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], 0.5, 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
         }
         energyScale = energyScale>0.5?energyScale:1.0;
