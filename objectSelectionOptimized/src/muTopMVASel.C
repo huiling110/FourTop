@@ -67,23 +67,22 @@ void MuTopMVASel::Select(const eventForNano *e)
         Double_t iMu_pt = e->Muon_pt.At(j);
         //energy scale for muons
         Double_t energyScale = 1.0;
+        Double_t energySmear = 1.0;
 //     double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data
     // double mcSF = rc.kSpreadMC(Q, pt, eta, phi, genPt, s=0, m=0); //(recommended), MC scale and resolution correction when matched gen muon is available
     // double mcSF = rc.kSmearMC(Q, pt, eta, phi, nl, u, s=0, m=0); //MC scale and extra smearing when matched ge
         if(m_isData){
-            energyScale = m_rc.kScaleDT(e->Muon_charge[j], e->Muon_pt[j], e->Muon_eta[j], e->Muon_phi[j], 0, 0); 
+            energyScale = m_rc.kScaleDT(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], 0, 0); 
         }else{
-            energyScale = m_rc.kSpreadMC(e->Muon_charge[j], e->Muon_pt[j], e->Muon_eta[j], e->Muon_phi[j], e->GenPart_pt->At(e->Muon_genPartIdx->At(j)), 0, 0);
+            energyScale = m_rc.kSpreadMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->GenPart_pt->At(e->Muon_genPartIdx->At(j)), 0, 0);
         }
         energyScale = energyScale>0.5?energyScale:1.0;
         // std::cout<<"energyScale="<<energyScale<<"\n";//???seems to have values of -0 for some muons, strange
         //this happens when genPt is 0
-        // if(energyScale<0.5){
-        //     std::cout<<"muonCharge="<<e->Muon_charge[j]<<"; muonPt="<<e->Muon_pt[j]<<"; muonEta="<<e->Muon_eta[j]<<"; muonPhi="<<e->Muon_phi[j]<<"; genPt="<<e->GenPart_pt->At(e->Muon_genPartIdx->At(j))<<"\n";
-        // }
+        iMu_pt *= energyScale;
 
 
-        if (!(e->Muon_pt.At(j) > 10))
+        if (!(iMu_pt > 10))
             continue;
         if (!(fabs(e->Muon_eta.At(j)) < 2.4))
             continue;
@@ -113,7 +112,7 @@ void MuTopMVASel::Select(const eventForNano *e)
             Float_t jetPtRatio = 1. / (e->Muon_jetRelIso[j] + 1.);
             Float_t jetBTag = e->Jet_btagDeepFlavB[iMu_jetIdx];
             std::map<TString, Float_t> inputFeatures = {
-                {"pt", e->Muon_pt[j]},
+                {"pt", iMu_pt},
                 {"eta", e->Muon_eta[j]},
                 {"jetNDauCharged", e->Muon_jetNDauCharged[j]}, // number of charged daughters of the closest jet
                 {"miniPFRelIso_chg", e->Muon_miniPFRelIso_chg[j]},
@@ -136,11 +135,12 @@ void MuTopMVASel::Select(const eventForNano *e)
                 Bool_t isFake = jetBTag < 0.025 && jetPtRatio>0.45;
                 if (!(isFake || isTight)) continue;
                 muonsTopMVAF_isTight.push_back(isTight);
-                muonsTopMVAF_ptConeCorreted.push_back(e->Muon_pt[j] * jetPtRatio);
+                muonsTopMVAF_ptConeCorreted.push_back(iMu_pt * jetPtRatio);
             }
         }
 
-        muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));
+        // muonsTopMVAT_pt.push_back(e->Muon_pt.At(j));
+        muonsTopMVAT_pt.push_back(iMu_pt);
         muonsTopMVAT_eta.push_back(e->Muon_eta.At(j));
         muonsTopMVAT_phi.push_back(e->Muon_phi.At(j));
         muonsTopMVAT_mass.push_back(e->Muon_mass.At(j));
