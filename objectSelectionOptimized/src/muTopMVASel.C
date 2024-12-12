@@ -1,5 +1,6 @@
 #include "../include/muTopMVASel.h"
 // #include "../../../roccor/RoccoR.cc"
+// #include <TRandom.h>
 
 MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,  const Bool_t isRun3,const Int_t m_type) : m_type{m_type}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}
 { // m_type for different electrons
@@ -31,8 +32,6 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,
     
 
     // set up xgboost booster
-    // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
-    // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/";
     TString baseDir = "./";
     TString muWeight = baseDir + TopMVALeptonMap[era].at(1);
     std::cout << "muWeight: " << muWeight << "\n";
@@ -41,7 +40,6 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,
     XGBoosterLoadModel(m_booster[0], muWeight.Data());
 
     //muon momentum correction
-    // m_rc = rc(muonES.at(m_era).Data());
     m_rc = RoccoR(muonES.at(m_era).Data());
     std::cout<<"muonES="<<muonES.at(m_era).Data()<<"\n";
 
@@ -65,7 +63,8 @@ void MuTopMVASel::Select(const eventForNano *e)
         Int_t iMu_jetIdx = m_isRun3? std::any_cast<Short_t>(e->Muon_jetIdx.at(j)): std::any_cast<Int_t>(e->Muon_jetIdx.at(j));
         Int_t iMu_tightCharge = m_isRun3? std::any_cast<UChar_t>(e->Muon_tightCharge.at(j)): std::any_cast<Int_t>(e->Muon_tightCharge.at(j));
         Double_t iMu_pt = e->Muon_pt.At(j);
-        //energy scale for muons
+
+        //energy scale for muons; https://gitlab.cern.ch/akhukhun/roccor/-/tree/master
         Double_t energyScale = 1.0;
         Double_t energySmear = 1.0;
 //     double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data
@@ -75,9 +74,12 @@ void MuTopMVASel::Select(const eventForNano *e)
             energyScale = m_rc.kScaleDT(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], 0, 0); 
         }else{
             energyScale = m_rc.kSpreadMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->GenPart_pt->At(e->Muon_genPartIdx->At(j)), 0, 0);
+            energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], gRandom->Rndm(), 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
+            // energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], 0.5, 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
         }
         energyScale = energyScale>0.5?energyScale:1.0;
         // std::cout<<"energyScale="<<energyScale<<"\n";//???seems to have values of -0 for some muons, strange
+        std::cout<<"energySmear="<<energySmear<<"\n";
         //this happens when genPt is 0
         iMu_pt *= energyScale;
 

@@ -76,6 +76,7 @@ public:
                                         Muon_charge(reader, "Muon_charge"),
                                         Muon_miniIsoId(reader, "Muon_miniIsoId"),
                                         Muon_tightCharge(reader, "Muon_tightCharge"),
+                                        Muon_nTrackerLayers(reader, "Muon_nTrackerLayers"),
                                         // tau
                                         Tau_pt(reader, "Tau_pt"),
                                         Tau_mass(reader, "Tau_mass"),
@@ -399,6 +400,7 @@ public:
     TTreeReaderArray<UChar_t> Muon_miniIsoId;
     TTreeReaderArray<UChar_t>* Muon_genPartFlav = nullptr;
     DynamicBranchReader Muon_tightCharge; //!!!
+    TTreeReaderArray<Int_t> Muon_nTrackerLayers;
     // tau
     TTreeReaderArray<Float_t> Tau_pt;
     TTreeReaderArray<Float_t> Tau_mass;

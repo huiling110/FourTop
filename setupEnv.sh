@@ -31,6 +31,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms
 # export LIBRARY_PATH=$LD_LIBRARY_PATH:/publicfs/cms/user/turuobing/CMSSW_10_6_20/src/FourTop/myLibrary/ #complile time
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${current_dir}/myLibrary/
 export LIBRARY_PATH=$LD_LIBRARY_PATH:${current_dir}/myLibrary/ #complile time
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/
+export LIBRARY_PATH=$LD_LIBRARY_PATH:/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/ #complile time
 
 #for xgboost
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/xgboost/1.3.3/lib64/

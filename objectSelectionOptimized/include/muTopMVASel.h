@@ -5,7 +5,8 @@
 #include "inputMap.h"
 #include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
 // #include "../../../roccor/RoccoR.cc"
-#include "../../../roccor/RoccoR.h"
+// #include "../../../roccor/RoccoR.h"
+#include "/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/RoccoR.h"
 
 class MuTopMVASel
 {
