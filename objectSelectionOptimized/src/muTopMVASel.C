@@ -19,6 +19,17 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,
         outTree->Branch("muonsTopMVAF_ptConeCorreted", &muonsTopMVAF_ptConeCorreted);
     }
 
+    //maybe this will save memory usage
+    muonsTopMVAT_pt.reserve(2);
+    muonsTopMVAT_eta.reserve(2);
+    muonsTopMVAT_phi.reserve(2);
+    muonsTopMVAT_mass.reserve(2);
+    muonsTopMVAT_charge.reserve(2);
+    muonsTopMVAT_genPartFlav.reserve(2);
+    muonsTopMVAF_isTight.reserve(2);
+    muonsTopMVAF_ptConeCorreted.reserve(2);
+    
+
     // set up xgboost booster
     // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/objectSelectionOptimized/";
     // TString baseDir = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/";
@@ -53,7 +64,7 @@ void MuTopMVASel::Select(const eventForNano *e)
         //dealing with differences of nanoAODv9 and nanoAODv12
         Int_t iMu_jetIdx = m_isRun3? std::any_cast<Short_t>(e->Muon_jetIdx.at(j)): std::any_cast<Int_t>(e->Muon_jetIdx.at(j));
         Int_t iMu_tightCharge = m_isRun3? std::any_cast<UChar_t>(e->Muon_tightCharge.at(j)): std::any_cast<Int_t>(e->Muon_tightCharge.at(j));
- 
+        Double_t iMu_pt = e->Muon_pt.At(j);
         //energy scale for muons
         Double_t energyScale = 1.0;
 //     double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data
@@ -64,7 +75,12 @@ void MuTopMVASel::Select(const eventForNano *e)
         }else{
             energyScale = m_rc.kSpreadMC(e->Muon_charge[j], e->Muon_pt[j], e->Muon_eta[j], e->Muon_phi[j], e->GenPart_pt->At(e->Muon_genPartIdx->At(j)), 0, 0);
         }
-        std::cout<<"energyScale="<<energyScale<<"\n";
+        energyScale = energyScale>0.5?energyScale:1.0;
+        // std::cout<<"energyScale="<<energyScale<<"\n";//???seems to have values of -0 for some muons, strange
+        //this happens when genPt is 0
+        // if(energyScale<0.5){
+        //     std::cout<<"muonCharge="<<e->Muon_charge[j]<<"; muonPt="<<e->Muon_pt[j]<<"; muonEta="<<e->Muon_eta[j]<<"; muonPhi="<<e->Muon_phi[j]<<"; genPt="<<e->GenPart_pt->At(e->Muon_genPartIdx->At(j))<<"\n";
+        // }
 
 
         if (!(e->Muon_pt.At(j) > 10))
