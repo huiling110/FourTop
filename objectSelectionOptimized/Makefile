@@ -1,4 +1,3 @@
-
 # Source directory
 SRC_DIR = src
 INC_DIR = include
@@ -29,6 +28,7 @@ XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-i
 
 MYLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
 RoccoRLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/ -lRoccoR
+RoccoRInclude = -I/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/
 # Directories
 HEADRDIR = .
 SOURCE = src/
@@ -48,6 +48,7 @@ ARCHFLAGS =
 CXXFLAGS += $(ROOTCFLAGS) -I$(HEADRDIR)
 CXXFLAGS += $(CORRECTIONLIB_FLAGS)
 CXXFLAGS += $(XGBOOST_FLAGS)
+CXXFLAGS += $(RoccoRInclude)
 LIBS = $(ROOTLIBS)
 LIBS += $(CORRECTIONLIB_LIB)
 LIBS += $(TMVALIBS)
@@ -62,6 +63,7 @@ GLIBS = $(ROOTGLIBS)
 
 all: $(TARGET)
 
+# $(CXX) $(LDFLAGS) $(OBJECTS) apps/run_objectSelection.C $(LIBS) -o $(TARGET)
 $(TARGET): $(OBJECTS) apps/run_objectSelection.C
 	$(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/run_objectSelection.C -o $(TARGET)
 
