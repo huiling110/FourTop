@@ -38,7 +38,7 @@ MuTopMVASel::MuTopMVASel(TTree *outTree, const TString era, const Bool_t isData,
     XGBoosterLoadModel(m_booster[0], muWeight.Data());
 
     //muon momentum correction
-    // m_rc = RoccoR(muonES.at(m_era).Data());
+    m_rc = RoccoR(muonES.at(m_era).Data());
     std::cout<<"muonES="<<muonES.at(m_era).Data()<<"\n";
 
     std::cout << "Done MuTopMVASel initialization......\n\n";
@@ -68,13 +68,13 @@ void MuTopMVASel::Select(const eventForNano *e)
 //     double dtSF = rc.kScaleDT(Q, pt, eta, phi, s=0, m=0); //data
     // double mcSF = rc.kSpreadMC(Q, pt, eta, phi, genPt, s=0, m=0); //(recommended), MC scale and resolution correction when matched gen muon is available
     // double mcSF = rc.kSmearMC(Q, pt, eta, phi, nl, u, s=0, m=0); //MC scale and extra smearing when matched ge
-        if(m_isData){
-            energyScale = m_rc.kScaleDT(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], 0, 0); 
-        }else{
-            energyScale = m_rc.kSpreadMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->GenPart_pt->At(e->Muon_genPartIdx->At(j)), 0, 0);
-            // energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], gRandom->Rndm(), 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
-            // energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], 0.5, 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
-        }
+        // if(m_isData){
+        //     energyScale = m_rc.kScaleDT(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], 0, 0); 
+        // }else{
+        //     energyScale = m_rc.kSpreadMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->GenPart_pt->At(e->Muon_genPartIdx->At(j)), 0, 0);
+        //     // energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], gRandom->Rndm(), 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
+        //     // energySmear = m_rc.kSmearMC(e->Muon_charge[j], iMu_pt, e->Muon_eta[j], e->Muon_phi[j], e->Muon_nTrackerLayers[j], 0.5, 0, 0);//u is a random number distributed uniformly between 0 and 1 (gRandom->Rndm());
+        // }
         energyScale = energyScale>0.5?energyScale:1.0;
         // std::cout<<"energyScale="<<energyScale<<"\n";//???seems to have values of -0 for some muons, strange
         std::cout<<"energySmear="<<energySmear<<"\n";

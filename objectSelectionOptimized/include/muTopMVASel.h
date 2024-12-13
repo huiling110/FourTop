@@ -28,8 +28,8 @@ private:
     Int_t m_type = 2;
     BoosterHandle m_booster[1];
     ULong_t m_muTotal = 0;
-    // RoccoR  m_rc;
-    RoccoR m_rc = RoccoR(muonES.at(m_era).Data());
+    RoccoR  m_rc;
+    // RoccoR m_rc = RoccoR(muonES.at(m_era).Data());
 
     // output branches
     std::vector<Double_t> muonsTopMVAT_pt;
