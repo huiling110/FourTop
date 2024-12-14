@@ -55,7 +55,9 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
         Int_t iE_jetIdx = m_isRun3? std::any_cast<Short_t>(e->Electron_jetIdx.at(j)): std::any_cast<Int_t>(e->Electron_jetIdx.at(j));
         Double_t mvaFall17V2noIso = m_isRun3? e->Electron_mvaNoIso->At(j): e->Electron_mvaFall17V2noIso->At(j);
 
-        // if (!(fabs(eta) < 2.5))
+        //Energy scale and resolution corrections
+        //Up to NanoAOD10, residual energy scale and resolution corrections are applied to the stored electrons to match the data
+
         if (!(fabs(eta) < 2.5 && !(fabs(eta)>1.442&&fabs(eta)<1.566)))// 1.4442 and 1.566 are the transition region between the barrel and the endcap
             continue;
         if (!(pt > 10))
@@ -65,7 +67,6 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
         if(removeMu){
             continue;
         }
-
 
         if (m_type == 5)
         {
