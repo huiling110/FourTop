@@ -164,14 +164,18 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     cset_muonHPt = correction::CorrectionSet::from_file( (base + MV::json_muon2022.at(m_era).at(2)).Data()); 
     std::cout << "\n";
 
-    // new SF files from
+    // new SF files from json
     TString tauSF_json = base + MV::json_map.at(m_era).at(1);
     TString btagSF_json = base + MV::json_map.at(m_era).at(2);
     std::cout<<"tauSF json="<<tauSF_json<<"\n";
     std::cout << "btagSF_json=" << btagSF_json << "\n";
     cset = correction::CorrectionSet::from_file(tauSF_json.Data());//for tau
     cset_btag = correction::CorrectionSet::from_file(btagSF_json.Data());
+    cset_muon = correction::CorrectionSet::from_file( (base + MV::json_map.at(m_era).at(3)).Data()); //for muon
+    std::cout<<"muon SF json="<<base + MV::json_map.at(m_era).at(3)<<"\n";  
     m_eraForTau = m_era.Contains("2016") ?  m_era.ReplaceAll("2016P", "2016_p"): m_era;
+
+
     // btagR files
     btagRHist = TTTT::getHistogramFromFile<TH1D>(MV::btagR_map.at(m_era), "btagR");
     std::cout << "b tag R file used: " << MV::btagR_map.at(m_era) << "\n";

@@ -166,6 +166,7 @@ private:
 
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;
+    std::unique_ptr<correction::CorrectionSet> cset_muon;
     std::unique_ptr<correction::CorrectionSet> cset_muonLPt;
     std::unique_ptr<correction::CorrectionSet> cset_muonMPt;
     std::unique_ptr<correction::CorrectionSet> cset_muonHPt;
