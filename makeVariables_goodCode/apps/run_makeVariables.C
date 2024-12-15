@@ -1,6 +1,5 @@
 #include <iostream>
 #include <boost/lexical_cast.hpp>
-
 #include "TStopwatch.h"
 #include "TString.h"
 #include "TChain.h"
@@ -9,32 +8,6 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v77forBtagMeasurement/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/data/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79forHLT/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79forHLT/data/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v79HadroPresel/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79forHLT/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79forHLT/data/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v79HadroPresel/tttt/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v79HadroPresel/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v80addTauJetVar/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v80addTauJetVar/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v80addTauJetVar/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v80addTTExtra/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v81addSysSum/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v82for1tau2l/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v83for1tau2lEleEtaCut/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdate/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdateV2/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84fakeLeptonUpdate/data/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84Pre1tau2lNoLepCut/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84Pre1tau2lLepF2/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v84Pre1tau2lLepF2/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v84Pre1tau2lNoLepCut/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v84Pre1tau2lLepF2V2/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84Pre1tau2lLepF2V2/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v84Pre1tau2lLepF2V2/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v84Pre1tau2lLepF2V2/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v84HadroPresel/mc/",
@@ -54,7 +27,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v88PSWeightFixedHadroPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v89HadroPre_JESPt22/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v89HadroPre_JESPt22/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v89HadroPre_JESPt22/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v89HadroPre_JESPt22/mc/",
+    TString inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v90MuonESHadroPre/mc/',
     TString inputDir = "tttt",
     // TString inputDir = "TTWJetsToLNu",
     // TString inputDir = "TTZToLLNuNu",

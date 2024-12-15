@@ -276,6 +276,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
     eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);
     eleMVAT_IDSF_weight_down = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 2, kFALSE, m_isData);
+    //Electron reco SFs
 
     //sf for run3 muonPOG ID and ISO        
     //!!!suspect this is causing the run time error:  what():  Index above bounds in Binning for input argument 1 value: 1064.129272
