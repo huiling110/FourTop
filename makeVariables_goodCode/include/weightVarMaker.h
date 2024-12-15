@@ -60,6 +60,11 @@ private:
     Double_t elesTopMVAT_weight_stat_down;
     Double_t elesTopMVAT_weight_new = 1.0;
     Double_t musTopMVAT_weight_new = 1.0;
+    Double_t elesTopMVAT_reoSF_weight = 1.0;
+    Double_t elesTopMVAT_reoSF_weight_up = 1.0;
+    Double_t elesTopMVAT_reoSF_weight_down = 1.0;
+
+
     // Double_t tauT_IDSF_weight;
     Double_t tauT_IDSF_weight_new;
     Double_t tauTT_IDSF_weight_new;
@@ -166,7 +171,7 @@ private:
 
     std::unique_ptr<correction::CorrectionSet> cset;
     std::unique_ptr<correction::CorrectionSet> cset_btag;
-    std::unique_ptr<correction::CorrectionSet> cset_muon;
+    std::unique_ptr<correction::CorrectionSet> cset_ele;
     std::unique_ptr<correction::CorrectionSet> cset_muonLPt;
     std::unique_ptr<correction::CorrectionSet> cset_muonMPt;
     std::unique_ptr<correction::CorrectionSet> cset_muonHPt;

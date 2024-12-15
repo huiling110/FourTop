@@ -24,13 +24,17 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("muonIDSF_weight_up", &muonIDSF_weight_up);
     outTree->Branch("muonIDSF_weight_down", &muonIDSF_weight_down);
     outTree->Branch("mounTrackerSF_weight", &mounTrackerSF_weight);
-    outTree->Branch("eleMVAT_IDSF_weight", &eleMVAT_IDSF_weight);
-    outTree->Branch("eleMVAT_IDSF_weight_up", &eleMVAT_IDSF_weight_up);
-    outTree->Branch("eleMVAT_IDSF_weight_down", &eleMVAT_IDSF_weight_down);
-    outTree->Branch("eleMVAT_IDSF_weight_backup", &eleMVAT_IDSF_weight_backup);
+    // outTree->Branch("eleMVAT_IDSF_weight", &eleMVAT_IDSF_weight);
+    // outTree->Branch("eleMVAT_IDSF_weight_up", &eleMVAT_IDSF_weight_up);
+    // outTree->Branch("eleMVAT_IDSF_weight_down", &eleMVAT_IDSF_weight_down);
+    // outTree->Branch("eleMVAT_IDSF_weight_backup", &eleMVAT_IDSF_weight_backup);
     outTree->Branch("elesTopMVAT_weight", &elesTopMVAT_weight);
     outTree->Branch("elesTopMVAT_weight_up", &elesTopMVAT_weight_up);
     outTree->Branch("elesTopMVAT_weight_down", &elesTopMVAT_weight_down);
+    outTree->Branch("elesTopMVAT_reoSF_weight", &elesTopMVAT_reoSF_weight);
+    outTree->Branch("elesTopMVAT_reoSF_weight_up", &elesTopMVAT_reoSF_weight_up);
+    outTree->Branch("elesTopMVAT_reoSF_weight_down", &elesTopMVAT_reoSF_weight_down);
+
     outTree->Branch("musTopMVAT_weight", &musTopMVAT_weight);
     outTree->Branch("musTopMVAT_weight_up", &musTopMVAT_weight_up);
     outTree->Branch("musTopMVAT_weight_down", &musTopMVAT_weight_down);
@@ -171,10 +175,9 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     std::cout << "btagSF_json=" << btagSF_json << "\n";
     cset = correction::CorrectionSet::from_file(tauSF_json.Data());//for tau
     cset_btag = correction::CorrectionSet::from_file(btagSF_json.Data());
-    cset_muon = correction::CorrectionSet::from_file( (base + MV::json_map.at(m_era).at(3)).Data()); //for muon
+    cset_ele = correction::CorrectionSet::from_file( (base + MV::json_map.at(m_era).at(3)).Data()); //for muon
     std::cout<<"muon SF json="<<base + MV::json_map.at(m_era).at(3)<<"\n";  
     m_eraForTau = m_era.Contains("2016") ?  m_era.ReplaceAll("2016P", "2016_p"): m_era;
-
 
     // btagR files
     btagRHist = TTTT::getHistogramFromFile<TH1D>(MV::btagR_map.at(m_era), "btagR");
@@ -277,10 +280,13 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     elesTopMVAT_weight_new = calMuonIDSF_independentSys(eleIDSF_topMVA, eleIDSF_topMVA_stat,  e->elesTopMVAT_eta, e->elesTopMVAT_pt, 0, kFALSE, m_isData, kTRUE);
     musTopMVAT_weight_new = calMuonIDSF_independentSys(muIDSF_topMVA, muIDSF_topMVA_stat,  e->muonsTopMVAT_eta, e->muonsTopMVAT_pt, 0, kTRUE, m_isData, kTRUE);
     //!!!normal leptons
-    eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
-    eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);
-    eleMVAT_IDSF_weight_down = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 2, kFALSE, m_isData);
+    // eleMVAT_IDSF_weight = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 0, kFALSE, m_isData);
+    // eleMVAT_IDSF_weight_up = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 1, kFALSE, m_isData);
+    // eleMVAT_IDSF_weight_down = calMuonIDSF(e->elesMVAT_pt, e->elesMVAT_eta, eleIDSF_topMVA, 2, kFALSE, m_isData);
     //Electron reco SFs
+    elesTopMVAT_reoSF_weight = calEle_IDSF(cset_ele.get(), e->elesTopMVAT_pt, e->elesTopMVAT_eta, "sf", m_isData, m_era);
+    elesTopMVAT_reoSF_weight_up = calEle_IDSF(cset_ele.get(), e->elesTopMVAT_pt, e->elesTopMVAT_eta, "sfup", m_isData, m_era);
+    elesTopMVAT_reoSF_weight_down = calEle_IDSF(cset_ele.get(), e->elesTopMVAT_pt, e->elesTopMVAT_eta, "sfdown", m_isData, m_era);
 
     //sf for run3 muonPOG ID and ISO        
     //!!!suspect this is causing the run time error:  what():  Index above bounds in Binning for input argument 1 value: 1064.129272

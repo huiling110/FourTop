@@ -832,6 +832,30 @@ Double_t calMuonIDSF_json(const TTreeReaderArray<Double_t>& muon_eta, const TTre
     return sf;
 }
 
+Double_t calEle_IDSF(correction::CorrectionSet *cset, const TTreeReaderArray<Double_t> &eles_pt, const TTreeReaderArray<Double_t> &eles_eta, const std::string syst, Bool_t isData, TString era) //syst: sf/sfup/sfdown
+{
+    Double_t sf = 1.0;
+    if(isData){
+        return sf;
+    };
+    auto corr = cset->at("UL-Electron-ID-SF");
+    //Map->evaluate({"2016postVFP", "sf", "wp90iso", std::abs(-2.5), 20.5});
+    for (UInt_t i = 0; i < eles_pt.GetSize(); i++)
+    {
+        Double_t isf = 1.0;
+        if (eles_pt.At(i) < 20)
+        {
+            isf = corr->evaluate({era.Data(), syst, "RecoBelow20", std::abs(eles_eta.At(i)), eles_pt.At(i)});
+        }
+        else
+        {
+            isf = corr->evaluate({era.Data(), syst, "RecoAbove20", std::abs(eles_eta.At(i)), eles_pt.At(i)});
+        }
+        sf = sf * isf;
+    }
+    return sf;
+}
+
 Double_t calTau_IDSF_new(const TTreeReaderArray<Double_t> &taus_pt, const TTreeReaderArray<Double_t> &taus_eta, const TTreeReaderArray<Int_t> &tausT_decayMode, const TTreeReaderArray<UChar_t> &tausT_genPartFlav, correction::CorrectionSet *cset, std::string syst_vsjet, std::string syst_vsmu, std::string syst_vsele, std::string VsJetWP, Bool_t isData, Bool_t isRun3)
 {
     // read from official json file
