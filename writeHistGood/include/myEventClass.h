@@ -165,7 +165,7 @@ public:
     myBranch<Double_t> btagWPMT_weight_uncorrelated_up{"btagWPMT_weight_uncorrelated_up"};
     myBranch<Double_t> btagWPMT_weight_uncorrelated_down{"btagWPMT_weight_uncorrelated_down"};
 
-    myBranch<Double_t> eleMVAT_IDSF_weight{"eleMVAT_IDSF_weight"};
+    // myBranch<Double_t> eleMVAT_IDSF_weight{"eleMVAT_IDSF_weight"};
 
     myBranch<Double_t> elesTopMVAT_weight_new{"elesTopMVAT_weight_new"};
     myBranch<Double_t> musTopMVAT_weight_new{"musTopMVAT_weight_new"};
@@ -177,6 +177,9 @@ public:
     myBranch<Double_t> musTopMVAT_weight_stat_up{"musTopMVAT_weight_stat_up"};
     myBranch<Double_t> elesTopMVAT_weight_stat_down{"elesTopMVAT_weight_stat_down"};
     myBranch<Double_t> musTopMVAT_weight_stat_down{"musTopMVAT_weight_stat_down"};
+    myBranch<Double_t> elesTopMVAT_reoSF_weight{"elesTopMVAT_reoSF_weight"};
+    myBranch<Double_t> elesTopMVAT_reoSF_weight_up{"elesTopMVAT_reoSF_weight_up"};
+    myBranch<Double_t> elesTopMVAT_reoSF_weight_down{"elesTopMVAT_reoSF_weight_down"};
 
     //
     myBranch<Double_t> pdfWeight_up_{"pdfWeight_up_"};
@@ -571,7 +574,7 @@ private:
         {btagWPMT_weight_uncorrelated_up.n(), &btagWPMT_weight_uncorrelated_up},
         {btagWPMT_weight_uncorrelated_down.n(), &btagWPMT_weight_uncorrelated_down},
 
-        {eleMVAT_IDSF_weight.n(), &eleMVAT_IDSF_weight},
+        // {eleMVAT_IDSF_weight.n(), &eleMVAT_IDSF_weight},
 
         {pdfWeight_up_.n(), &pdfWeight_up_},
         {pdfWeight_down_.n(), &pdfWeight_down_},
@@ -861,6 +864,9 @@ private:
         {musTopMVAT_weight_stat_down.n(), &musTopMVAT_weight_stat_down},
         {musTopMVAT_weight_sys_up.n(), &musTopMVAT_weight_sys_up},
         {musTopMVAT_weight_sys_down.n(), &musTopMVAT_weight_sys_down},
+        {elesTopMVAT_reoSF_weight.n(), &elesTopMVAT_reoSF_weight},
+        {elesTopMVAT_reoSF_weight_up.n(), &elesTopMVAT_reoSF_weight_up},
+        {elesTopMVAT_reoSF_weight_down.n(), &elesTopMVAT_reoSF_weight_down},
 
 
         {HLT_PFHT450_SixJet40_BTagCSV_p056.n(), &HLT_PFHT450_SixJet40_BTagCSV_p056},
