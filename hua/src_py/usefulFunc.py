@@ -173,10 +173,9 @@ def getHistFromFile(fileName, histNames):
     for name in histNames:
         # Get the histogram from the file
         histogram = file.Get(name)
-        histogram.Print()
         if not histogram:
-            print("Error: Unable to find the histogram", name, "in the file.")
-            continue
+            raise ValueError(f"Error: Unable to find the histogram '{name}' in the file.")
+        histogram.Print()
         # Clone the histogram to avoid potential issues when the file is closed
         histogram1 = histogram.Clone()
         # histogram1.Print()
