@@ -36,7 +36,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v88PSWeightFixedLepPre/'
 # jobVersionName = 'v88PSWeightFixedHadroPre/'
 # jobVersionName = 'v89HadroPre_JESPt22/'
-jobVersionName = 'v90MuonESHadroPre/'
+# jobVersionName = 'v90MuonESHadroPre/'
+jobVersionName = 'v90MuonESHadroPre_JESPt22/'
 
 
 isRuobing = False
