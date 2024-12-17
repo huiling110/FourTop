@@ -28,7 +28,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v89HadroPre_JESPt22/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v89HadroPre_JESPt22/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v89HadroPre_JESPt22/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v90MuonESHadroPre/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v90MuonESHadroPre/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v90MuonESHadroPre_JESPt22/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "TTWJetsToLNu",
     // TString inputDir = "TTZToLLNuNu",
@@ -53,8 +54,8 @@ void run_objectSelection(
     // Int_t numEntries = 0,
     // Bool_t if1tau2l = kTRUE; //!
     Bool_t if1tau2l = kFALSE, //!!!
-    // UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
-    UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
+    UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
+    // UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariationType = 2, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
     UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
