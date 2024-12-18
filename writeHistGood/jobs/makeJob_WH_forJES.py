@@ -1,15 +1,16 @@
 import makeJob_forWriteHist as mj 
 
 
-# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
-inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
+inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
-# outVersion = 'v0baselineHadro'
-outVersion = 'v1FixedBtagWeightWhenJES'
-# channel = '1tau1l'
-channel = '1tau0l'
+# inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
+inVersion = 'v90MuonESHadroPre_JESPt22'
+outVersion = 'v0baselineHadro'
+# outVersion = 'v1FixedBtagWeightWhenJES'
+channel = '1tau1l'
+# channel = '1tau0l'
 
 
 for i in range(0, 27):
