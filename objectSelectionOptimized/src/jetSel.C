@@ -46,12 +46,12 @@ JetSel::JetSel(TTree *outTree, const TString era, const TString processName, con
     // }
     
     //Maybe this will help with memory management
-    jets_pt.reserve(10);
-    jets_eta.reserve(10);
-    jets_phi.reserve(10);
-    jets_mass.reserve(10);
-    jets_flavour.reserve(10);
-    jets_btags.reserve(10);
+    jets_pt.reserve(4);
+    jets_eta.reserve(4);
+    jets_phi.reserve(4);
+    jets_mass.reserve(4);
+    jets_flavour.reserve(4);
+    jets_btags.reserve(4);
 
 
     std::cout << "Done JetSel initialization......\n";
@@ -285,6 +285,8 @@ Double_t JetSel::calJER_SF_new(Double_t pt, Double_t eta, Double_t phi, Double_t
     // not in a pT-dependent format, strong pT dependency at high eta is however observed to be reduced in UL
 
     Double_t ijet_sf = 1.0;
+    //https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution#Run2_JER_uncertainty_correlation
+    //- in region |eta| < 1.93 use one pT bin: (0,Inf); - in region 1.93 < |eta| < 2.5 use one pT bin: (0,Inf) 
     switch (m_JERSys)
     {
     case 0:

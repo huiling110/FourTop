@@ -8,13 +8,6 @@ import usefulFunc as uf
 
 
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
-# jobVersionName = 'v77ForHLT/'
-# jobVersionName = 'v76WithVLLSample/'
-# jobVersionName = 'v76WithVLLAllMass/'
-# jobVersionName = 'v77forBtagMeasurement/'
-# jobVersionName = 'v77HadroPresel/'
-# jobVersionName = 'v78HadroPresel/'
-# jobVersionName = 'v79HadroPresel/'
 # jobVersionName = 'v79forHLT/'
 # jobVersionName = 'v80addTauJetVar/'
 # jobVersionName = 'v80addTTExtra/'
@@ -37,7 +30,9 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v88PSWeightFixedHadroPre/'
 # jobVersionName = 'v89HadroPre_JESPt22/'
 # jobVersionName = 'v90MuonESHadroPre/'
-jobVersionName = 'v90MuonESHadroPre_JESPt22/'
+# jobVersionName = 'v90MuonESHadroPre_JESPt22/'
+# jobVersionName = 'v90MuonESHadroPre_JERUp/'
+jobVersionName = 'v90MuonESHadroPre_JERDown/'
 
 
 isRuobing = False
