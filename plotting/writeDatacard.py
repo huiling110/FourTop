@@ -87,6 +87,8 @@ MCSys = {
 	"CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111],
 	"CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111],
 	"CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111],
+ 
+    "CMS_JER": [False, 0, 0b111 ],
 	
 }
 
@@ -102,7 +104,8 @@ def main():
 #    outVersion = 'v0'
 #    outVersion = 'v1proNormAdd'
 #    outVersion = 'v2OnlyJES'
-   outVersion = 'v3BasicAndJES'
+#    outVersion = 'v3BasicAndJES'
+   outVersion = 'v4BasicAndJESJER'
    
    
 #    channel = '1tau0l'

@@ -53,7 +53,6 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
       
     era =  uf.getEraFromDir(nominalDir) 
-    inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
     
     channel = '1tau1l'
     regionList = ['1tau1lSR', '1tau1lCR12']#
@@ -66,13 +65,9 @@ def main():
     era = uf.getEraFromDir(nominalDir)
     allSubProcesses = getMCSubPro(channel, era)
     
-    addJERToFile(allSubProcesses, regionList, era, nominalDir)
+    # addJERToFile(allSubProcesses, regionList, era, nominalDir)
     
-    # # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
-    # inVersion = 'v90MuonESHadroPre_JESPt22'
-    # outVersion = 'v0baselineHadro'
-    # # outVersion = 'v1FixedBtagWeightWhenJES'
-    # addJESToFile(allSubProcesses) 
+    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir) 
     
 def addJERToFile(allSubProcesses, regionList, era, nominalDir):
     JERUpDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERUp/mc/variableHists_v0BDT1tau1l/' 
@@ -124,7 +119,13 @@ def getMCSubPro(channel, era):
     return allSubProcesses
     
         
-def addJESToFile(allSubProcesses):
+def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
+    # # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
+    inVersion = 'v90MuonESHadroPre_JESPt22'
+    outVersion = 'v0baselineHadro'
+    # # outVersion = 'v1FixedBtagWeightWhenJES'
+    inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
+    
     JESListUp = {}# 'tttt' = [jestVariationHist]
     JESListDown = {}
     for isub in allSubProcesses:
