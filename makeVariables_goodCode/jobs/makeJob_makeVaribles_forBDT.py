@@ -15,7 +15,9 @@ def main(
     # year = '2017',
     # inVersion = 'v88PSWeightFixedHadroPre',
     # inVersion = 'v89HadroPre_JESPt22',#!!!for JES variation only
-    inVersion = 'v90MuonESHadroPre',
+    # inVersion = 'v90MuonESHadroPre',
+    # inVersion = 'v90MuonESHadroPre_JERUp',
+    inVersion = 'v90MuonESHadroPre_JERDown',
     # outVersion = 'v0baselineLep',
     outVersion = 'v0baselineHadro',
     # outVersion = 'v0baselineHadroV2',

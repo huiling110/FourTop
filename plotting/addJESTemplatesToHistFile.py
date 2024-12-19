@@ -35,6 +35,7 @@ JESVariationList = [
 ]
 
 #add JES variation templates to WH root files 
+#add JER variation templetas to WH root files
 def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
@@ -53,18 +54,61 @@ def main():
       
     era =  uf.getEraFromDir(nominalDir) 
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
-    # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
-    inVersion = 'v90MuonESHadroPre_JESPt22'
-    outVersion = 'v0baselineHadro'
-    # outVersion = 'v1FixedBtagWeightWhenJES'
+    
     channel = '1tau1l'
     regionList = ['1tau1lSR', '1tau1lCR12']#
     # channel = '1tau0l'
     # regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
     
     
+    
      
     era = uf.getEraFromDir(nominalDir)
+    allSubProcesses = getMCSubPro(channel, era)
+    
+    addJERToFile(allSubProcesses, regionList, era, nominalDir)
+    
+    # # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
+    # inVersion = 'v90MuonESHadroPre_JESPt22'
+    # outVersion = 'v0baselineHadro'
+    # # outVersion = 'v1FixedBtagWeightWhenJES'
+    # addJESToFile(allSubProcesses) 
+    
+def addJERToFile(allSubProcesses, regionList, era, nominalDir):
+    JERUpDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERUp/mc/variableHists_v0BDT1tau1l/' 
+    JERDownDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERDown/mc/variableHists_v0BDT1tau1l/'
+    
+    JERListUp = {}
+    JERListDown = {}
+    JERUpName = f'CMS_JER_{era}Up'
+    JERDownName = f'CMS_JER_{era}Down'
+    for isub in allSubProcesses:
+        JERListUp[isub] = []
+        JERListDown[isub] = []
+        JERHistsNameUp = [f'{isub}_{ire}_{JERUpName}_BDT' for ire in regionList] 
+        JERHistsNameDown = [f'{isub}_{ire}_{JERDownName}_BDT' for ire in regionList] 
+        
+        histList = [f'{isub}_{ire}_BDT' for ire in regionList]
+        histsUp = uf.getHistFromFile(f'{JERUpDir}{isub}.root', histList) 
+        histsDown = uf.getHistFromFile(f'{JERDownDir}{isub}.root', histList)
+        for ire, iHist in enumerate(regionList):
+            histsUp[ire].SetName(JERHistsNameUp[ire])
+            histsDown[ire].SetName(JERHistsNameDown[ire]) 
+            JERListUp[isub].append(histsUp[ire])
+            JERListDown[isub].append(histsDown[ire])
+    
+        
+    for isub, histList in JERListUp.items():
+        inominal = f'{nominalDir}{isub}.root'
+        downHists = JERListDown[isub]
+        histToAdd = histList + downHists
+        add_histograms_to_rootfile(histToAdd, inominal) 
+        
+    
+    
+
+
+def getMCSubPro(channel, era):
     sumProcesses = gq.proChannelDic[channel]
     if 'jetHT' in sumProcesses:
         sumProcesses.remove('jetHT')
@@ -77,7 +121,10 @@ def main():
         
     allSubProcesses = uf.getAllSubPro(era, sumProcesses, False) 
     print(allSubProcesses)
-     
+    return allSubProcesses
+    
+        
+def addJESToFile(allSubProcesses):
     JESListUp = {}# 'tttt' = [jestVariationHist]
     JESListDown = {}
     for isub in allSubProcesses:
@@ -107,6 +154,7 @@ def main():
         downHists = JESListDown[isub]
         histToAdd = histList + downHists
         add_histograms_to_rootfile(histToAdd, inominal) 
+    
        
 def add_histograms_to_rootfile(histograms, rootfile_path):
     """
