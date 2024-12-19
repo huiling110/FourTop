@@ -41,7 +41,7 @@ void run_objectSelection(
     // TString singleFileName = "NanoAODv9_10.root",
     // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
     TString outputDir = "./output/",
-    // const UChar_t TES = 0; //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
+    const UChar_t TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
     // const UChar_t TES = 4;
     Int_t eventNum = 1000)
 // Int_t eventNum = 10000)
@@ -67,7 +67,7 @@ void run_objectSelection(
     const UChar_t JERSys = 0; //norminal
     // const UChar_t JERSys = 1; //up
     // const UChar_t JERSys = 2; //down
-    const UChar_t TES = 3;
+    // const UChar_t TES = 3;
     // const Bool_t if1tau2l = kTRUE;//!
     const Bool_t if1tau2l = kFALSE;//!
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) <<" TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
@@ -93,6 +93,7 @@ int main(int argc, char const *argv[])
     TString singleFileName;
     TString outputDir;
     Int_t eventNum = 0;
+    UChar_t TES = 0;
     if (argc < 4)
     {
         std::cout << "not enough input from command line\n";
@@ -104,8 +105,10 @@ int main(int argc, char const *argv[])
         inputDir = boost::lexical_cast<std::string>(argv[1]);
         singleFileName = boost::lexical_cast<std::string>(argv[2]);
         outputDir = boost::lexical_cast<std::string>(argv[3]);
-        eventNum = boost::lexical_cast<Int_t>(argv[4]);
-        run_objectSelection(inputDir, singleFileName, outputDir, eventNum);
+        TES = static_cast<UChar_t>(boost::lexical_cast<int>(argv[4]));
+        eventNum = boost::lexical_cast<Int_t>(argv[5]);
+        // run_objectSelection(inputDir, singleFileName, outputDir, eventNum);
+        run_objectSelection(inputDir, singleFileName, outputDir, TES, eventNum);
     }
 
     return 0;

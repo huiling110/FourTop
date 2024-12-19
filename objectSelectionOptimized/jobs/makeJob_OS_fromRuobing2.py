@@ -34,8 +34,11 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v90MuonESHadroPre_JERUp/'
 # jobVersionName = 'v90MuonESHadroPre_JERDown/'
 # jobVersionName = 'v91TESAddedHadroPre/'
-jobVersionName = 'v91TESAddedHadroPre_TESdm0Up/'
+# jobVersionName = 'v91TESAddedHadroPre_TESdm0Up/'
+jobVersionName = 'v91TESAddedHadroPre_TESdm0Down/'
 
+# TES = 0
+TES = 4 # dm0Down
 isRuobing = False
 #!same version numbers means no change in algrithm but only in selection
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
@@ -219,7 +222,9 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile):
     appDir = codePath.rsplit('/', 2)[0]
     # subFile.write( "cd "+codePath + "\n")
     subFile.write( "cd "+appDir + "\n")
-    subFile.write('./apps/run_objectSelection.out ' + inputDir +' ' + singleFile +' '+ koutputDir  + ' 0' )
+    command = f'.apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} 0'
+    subFile.write(command)
+    # subFile.write('./apps/run_objectSelection.out ' + inputDir +' ' + singleFile +' '+ koutputDir  + ' 0' )
     subFile.close()
     # print( 'done writing the iJob for kProcess: ', shFile )
 
