@@ -84,12 +84,12 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
             iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j), tauVsJetWP.at(m_tauWP)); // TES handled inside the function
         }
         // if(itau_decayMode == 0){
-        //     std::cout<<"iTES="<<iTES<<"\n";
+            std::cout<<"iTES="<<iTES<<"\n";
         // }
         itau_pt *= iTES;
         Double_t itau_mass = e->Tau_mass.At(j)*iTES;
 
-        if (!(itau_pt > 20))
+        if (!(itau_pt > 20.))
             continue;
         if (m_isRun3){
             if(!(TMath::Abs(e->Tau_eta.At(j)) < 2.5))
