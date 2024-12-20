@@ -17,7 +17,8 @@ def main(
     # inVersion = 'v89HadroPre_JESPt22',#!!!for JES variation only
     # inVersion = 'v90MuonESHadroPre',
     # inVersion = 'v90MuonESHadroPre_JERUp',
-    inVersion = 'v90MuonESHadroPre_JERDown',
+    # inVersion = 'v90MuonESHadroPre_JERDown',
+    inVersion = 'v91TESAddedHadroPre',
     # outVersion = 'v0baselineLep',
     outVersion = 'v0baselineHadro',
     # outVersion = 'v0baselineHadroV2',
