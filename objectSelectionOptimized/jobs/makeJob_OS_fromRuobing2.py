@@ -35,11 +35,23 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v90MuonESHadroPre_JERDown/'
 # jobVersionName = 'v91TESAddedHadroPre/'
 # jobVersionName = 'v91TESAddedHadroPre_TESdm0Up/'
-jobVersionName = 'v91TESAddedHadroPre_TESdm0Down/'
+# jobVersionName = 'v91TESAddedHadroPre_TESdm0Down/'
+# jobVersionName = 'v91TESAddedHadroPre_TESdm1Up/'
+# jobVersionName = 'v91TESAddedHadroPre_TESdm1Down/'
+# TES = 7 #dm10Up
+# jobVersionName = 'v91TESAddedHadroPre_TESdm10Up/'
+# TES = 8 #dm10Up
+# jobVersionName = 'v91TESAddedHadroPre_TESdm10Down/'
+# TES = 9 #dm11Down
+# jobVersionName = 'v91TESAddedHadroPre_TESdm11Up/'
+TES = 10 #dm11Down
+jobVersionName = 'v91TESAddedHadroPre_TESdm11Down/'
 
 # TES = 0
-TES = 4 # dm0Down
+# TES = 4 # dm0Down
 # TES = 3 # dm0Up
+# TES = 5 #dm1Up
+# TES = 6 #dm1Down
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
 isRuobing = False
 #!same version numbers means no change in algrithm but only in selection
