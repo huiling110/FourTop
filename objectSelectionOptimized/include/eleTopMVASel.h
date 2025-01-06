@@ -15,6 +15,7 @@ public:
     EleTopMVASel(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3=kFALSE, const Int_t type = 2, const UChar_t eleScale = 0, const UChar_t eleSmear = 0);
     ~EleTopMVASel();
     void Select(const eventForNano *e, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec);
+    Double_t getEleScale(Double_t eta, Int_t gain);
     std::vector<Double_t> &getEtaVec();
     std::vector<Double_t> &getPhiVec();
     Int_t getSize();

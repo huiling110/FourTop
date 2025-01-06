@@ -34,7 +34,7 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isDat
     //energy scale and smearing for run 2:
     //https://github.com/cms-egamma/ScaleFactorsJSON/tree/master
     // TString jsonBase = "../../jsonpog-integration/POG/";
-    // cset_eleScale = correction::CorrectionSet::from_file(eleScaleSmear.at(m_era).at(0).Data());
+    cset_eleScale = correction::CorrectionSet::from_file(eleScaleSmear.at(m_era).at(0).Data());
     std::cout << "eleScale: " <<eleScaleSmear.at(m_era).at(0).Data() << "\n";
     // cset_eleScale = correction::CorrectionSet::from_file((jsonBase + eleScaleSmear.at(m_era).at(0)).Data());
 
@@ -67,6 +67,7 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
 
         //Energy scale and resolution corrections
         //Up to NanoAOD10, residual energy scale and resolution corrections are applied to the stored electrons to match the data
+        Double_t eleScale = getEleScale(eta, e->Electron_seedGain.At(j)); 
 
         if (!(fabs(eta) < 2.5 && !(fabs(eta)>1.442&&fabs(eta)<1.566)))// 1.4442 and 1.566 are the transition region between the barrel and the endcap
             continue;
@@ -156,6 +157,36 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
     } //
     m_eleTotal = elesTopMVAT_pt.size();
 };
+
+Double_t EleTopMVASel::getEleScale(Double_t eta, Int_t gain){
+//https://twiki.cern.ch/twiki/bin/viewauth/CMS/EgammaSFJSON
+//!should probabliy use un-corrected pt for accessing energy scale  uncertainty 
+    Double_t uncer = 0.0;
+    if(m_isRun3){
+        return 1.0;
+    }else{
+        auto corr_eleScale = cset_eleScale->at(eleScaleSmear.at(m_era).at(1).Data());//!!!no need to call for every electron
+        // uncer = corr_eleScale->evaluate({m_era.Data(), "ssup", eta, gain});
+        uncer = corr_eleScale->evaluate({m_era.Data(), "scaleunc", eta, gain});
+        // std::cout<<"eleScale uncer: "<<uncer<<"\n";
+    }
+
+    switch (m_eleScale)
+    {
+    case 0:
+        return 1.0;
+        break;
+    case 1:
+        return 1.0+ uncer;
+        break;
+    case 2:
+        return 1.0- uncer;
+        break;
+    default:
+        return 1.0;
+        break;
+    }
+}
 
 void EleTopMVASel::clearBranch()
 {
