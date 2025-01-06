@@ -36,6 +36,7 @@ JESVariationList = [
 
 #add JES variation templates to WH root files 
 #add JER variation templetas to WH root files
+#add TES variation templates to WH root files
 def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
@@ -45,7 +46,8 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/'    
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/'    
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
@@ -65,18 +67,42 @@ def main():
     era = uf.getEraFromDir(nominalDir)
     allSubProcesses = getMCSubPro(channel, era)
     
+    
     # addJERToFile(allSubProcesses, regionList, era, nominalDir)
     
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir) 
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
+    
+    addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    
+    
+    
+     
+def addTESToFile(allSubProcesses, regionList, era, nominalDir):
+    #/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre_TESdm11Down/mc
+    TESbase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre'
+    for i in (0, 1, 10, 11):
+        iTESUpDir = f'{TESbase}_TESdm{i}Up/mc/variableHists_v0BDT1tau1l/'
+        iTESDownDir = f'{TESbase}_TESdm{i}Down/mc/variableHists_v0BDT1tau1l/'
+        TESName = f'CMS_tau_TES_dm{i}' 
+        addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName)
+         
+    
     
 def addJERToFile(allSubProcesses, regionList, era, nominalDir):
     JERUpDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERUp/mc/variableHists_v0BDT1tau1l/' 
     JERDownDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERDown/mc/variableHists_v0BDT1tau1l/'
+    name = 'CMS_JER'
+    addUpDownToFile(allSubProcesses, regionList, era, nominalDir, JERUpDir, JERDownDir, name)
     
+        
+    
+def addUpDownToFile(allSubProcesses, regionList, era, nominalDir, upDir, downDir, variationName):
     JERListUp = {}
     JERListDown = {}
-    JERUpName = f'CMS_JER_{era}Up'
-    JERDownName = f'CMS_JER_{era}Down'
+    # JERUpName = f'CMS_JER_{era}Up'
+    # JERDownName = f'CMS_JER_{era}Down'
+    JERUpName = f'{variationName}_{era}Up'
+    JERDownName = f'{variationName}_{era}Down'
     for isub in allSubProcesses:
         JERListUp[isub] = []
         JERListDown[isub] = []
@@ -84,8 +110,8 @@ def addJERToFile(allSubProcesses, regionList, era, nominalDir):
         JERHistsNameDown = [f'{isub}_{ire}_{JERDownName}_BDT' for ire in regionList] 
         
         histList = [f'{isub}_{ire}_BDT' for ire in regionList]
-        histsUp = uf.getHistFromFile(f'{JERUpDir}{isub}.root', histList) 
-        histsDown = uf.getHistFromFile(f'{JERDownDir}{isub}.root', histList)
+        histsUp = uf.getHistFromFile(f'{upDir}{isub}.root', histList) 
+        histsDown = uf.getHistFromFile(f'{downDir}{isub}.root', histList)
         for ire, iHist in enumerate(regionList):
             histsUp[ire].SetName(JERHistsNameUp[ire])
             histsDown[ire].SetName(JERHistsNameDown[ire]) 
@@ -98,9 +124,6 @@ def addJERToFile(allSubProcesses, regionList, era, nominalDir):
         downHists = JERListDown[isub]
         histToAdd = histList + downHists
         add_histograms_to_rootfile(histToAdd, inominal) 
-        
-    
-    
 
 
 def getMCSubPro(channel, era):
