@@ -34,7 +34,7 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isDat
     //energy scale and smearing for run 2:
     //https://github.com/cms-egamma/ScaleFactorsJSON/tree/master
     // TString jsonBase = "../../jsonpog-integration/POG/";
-    cset_eleScale = correction::CorrectionSet::from_file(eleScaleSmear.at(m_era).at(0).Data());
+    // cset_eleScale = correction::CorrectionSet::from_file(eleScaleSmear.at(m_era).at(0).Data());
     std::cout << "eleScale: " <<eleScaleSmear.at(m_era).at(0).Data() << "\n";
     // cset_eleScale = correction::CorrectionSet::from_file((jsonBase + eleScaleSmear.at(m_era).at(0)).Data());
 
