@@ -58,6 +58,7 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
     {
         Double_t pt = e->Electron_pt.At(j);
         Double_t eta = e->Electron_eta.At(j);
+        Double_t mass = e->Electron_mass.At(j);
         Double_t topMVAScore = -99.;
         //branches different between run2 and run3
         Int_t iE_cutBased = m_isRun3? std::any_cast<UChar_t>(e->Electron_cutBased.at(j)): std::any_cast<Int_t>(e->Electron_cutBased.at(j));
@@ -68,6 +69,9 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
         //Energy scale and resolution corrections
         //Up to NanoAOD10, residual energy scale and resolution corrections are applied to the stored electrons to match the data
         Double_t eleScale = getEleScale(eta, e->Electron_seedGain.At(j)); 
+        //!(If you want to apply this to pT, transform dE Up/Down by using cosh(eta) to variations in dpT up/down
+        pt *= eleScale;
+        mass *= eleScale;
 
         if (!(fabs(eta) < 2.5 && !(fabs(eta)>1.442&&fabs(eta)<1.566)))// 1.4442 and 1.566 are the transition region between the barrel and the endcap
             continue;
@@ -115,7 +119,8 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
             Float_t jetPtRatio = 1. / (e->Electron_jetRelIso[j] + 1.);
             Float_t jetBTag = e->Jet_btagDeepFlavB[iE_jetIdx];
             std::map<TString, Float_t> inputFeatures = {
-                {"pt", e->Electron_pt[j]},
+                // {"pt", e->Electron_pt[j]},
+                {"pt", pt},
                 {"eta", e->Electron_eta[j]},
                 {"jetNDauCharged", e->Electron_jetNDauCharged.At(j)},
                 {"miniPFRelIso_chg", e->Electron_miniPFRelIso_chg[j]},
@@ -144,10 +149,11 @@ void EleTopMVASel::Select(const eventForNano *e, const std::vector<Double_t>& mu
             }
         }
 
-        elesTopMVAT_pt.push_back(e->Electron_pt.At(j));
+        // elesTopMVAT_pt.push_back(e->Electron_pt.At(j));
+        elesTopMVAT_pt.push_back(pt);
         elesTopMVAT_eta.push_back(e->Electron_eta.At(j));
         elesTopMVAT_phi.push_back(e->Electron_phi.At(j));
-        elesTopMVAT_mass.push_back(e->Electron_mass.At(j));
+        elesTopMVAT_mass.push_back(mass);
         elesTopMVAT_charge.push_back(e->Electron_charge.At(j));
         // elesTopMVAT_index.push_back(j);
         elesTopMVAT_topMVAScore.push_back(topMVAScore);
