@@ -19,12 +19,13 @@ EleMVASel::EleMVASel(TTree *outTree, const TString era, const Bool_t isData, Boo
     outTree->Branch("elesMVA"+typeMap.at(m_type)+"_charge", &muonsTopMVAT_charge);
     outTree->Branch("elesMVA"+typeMap.at(m_type)+"_index", &muonsTopMVAT_index);
 
-    //
-    TString jsonBase = "../../jsonpog-integration/POG/";
-    cset_eleScale = correction::CorrectionSet::from_file((jsonBase + eleScaleSmear.at(m_era).at(0)).Data());
-    std::cout<<"electron scale and smearing files: "<<jsonBase + eleScaleSmear.at(m_era).at(0)<<"\n";
-    for (auto const& corr : *cset_eleScale) {
-        std::cout << "eleScale: " << corr.first << "\n";
+    if (m_isRun3){
+        TString jsonBase = "../../jsonpog-integration/POG/";
+        cset_eleScale = correction::CorrectionSet::from_file((jsonBase + eleScaleSmear.at(m_era).at(0)).Data());
+        std::cout<<"electron scale and smearing files: "<<jsonBase + eleScaleSmear.at(m_era).at(0)<<"\n";
+        for (auto const& corr : *cset_eleScale) {
+            std::cout << "eleScale: " << corr.first << "\n";
+        }
     }
 
     std::cout << "Done EleMVASel initialization......\n\n";
@@ -114,8 +115,10 @@ void EleMVASel::Select( eventForNano *e)
     // 0 for VLoose; 1 for VLooseFO(fakeble object); 2 for tight // 2016 - MVANoIso94XV2, from SUSY
     for (UInt_t j = 0; j < e->Electron_pt.GetSize(); ++j)
     {
-        Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j));//sys variation taken care of in getEleScale
-        Double_t eleSmear = getEleSmear(e->Electron_eta.At(j), e->Electron_r9.At(j));
+        // Double_t eleScale = getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j));//sys variation taken care of in getEleScale
+        // Double_t eleSmear = getEleSmear(e->Electron_eta.At(j), e->Electron_r9.At(j));
+        Double_t eleScale = m_isRun3? getEleScale(e->Electron_seedGain.At(j), *e->run, e->Electron_eta.At(j), e->Electron_r9.At(j), e->Electron_pt.At(j)):1.0;
+        Double_t eleSmear = m_isRun3? getEleSmear(e->Electron_eta.At(j), e->Electron_r9.At(j)):1.0;
         Double_t pt = e->Electron_pt.At(j)*eleScale*eleSmear;
         Double_t mass = e->Electron_mass.At(j)*eleScale*eleSmear;
         // Double_t pt = e->Electron_pt.At(j);
