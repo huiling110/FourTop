@@ -65,10 +65,10 @@ std::map<TString, std::array<TString, 3>> eleScaleSmear = {
     //0: eleJsonFile; 1: scale tag; 2: smearing tag
     {"2022preEE", {"../newRun3/eleScale/2022Re-recoBCD/electronSS.json", "2022Re-recoBCD_ScaleJSON", "2022Re-recoBCD_SmearingJSON"}},
     {"2022postEE", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
-    {"2016preVFP", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
-    {"2016postVFP", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
-    {"2017", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
-    {"2018", {"../newRun3/eleScale/2022Re-recoE+PromptFG/electronSS.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
+    {"2016preVFP", {"../ScaleFactorsJSON/2016preVFP_UL/EGM_ScaleUnc.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
+    {"2016postVFP", {"../ScaleFactorsJSON/2016postVFP_UL/EGM_ScaleUnc.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
+    {"2017", {"/ScaleFactorsJSON/2017_UL/EGM_ScaleUnc.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
+    {"2018", {"../../jsonpog-intergration/POG/EGM/ScaleFactorsJSON/2018_UL/EGM_ScaleUnc.json", "2022Re-recoE+PromptFG_ScaleJSON", "2022Re-recoE+PromptFG_SmearingJSON"}},
 };
 
 std::map<TString, TString> GoldenJSONs = {

@@ -1,10 +1,12 @@
 #include "../include/eleTopMVASel.h"
 #include "../myLibrary/commenFunction.h"
+#include "../include/inputMap.h"
 
-EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3, const Int_t type) : m_type{type}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}
+EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3, const Int_t type, const UChar_t eleScale, const UChar_t eleSmear) : m_type{type}, m_era{era}, m_isData{isData}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}
 { // type for different electrons
     std::cout << "Initializing EleTopMVASel......\n";
     std::cout << "m_era=" << m_era << "  ;m_isRun3=" << m_isRun3 << "  ;m_type=" << m_type << "\n";
+    std::cout<< "m_eleScale="<<static_cast<Int_t>(m_eleScale)<<"  ;m_eleSmear="<<static_cast<Int_t>(m_eleSmear)<<"\n";
 
     outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_pt", &elesTopMVAT_pt);
     outTree->Branch("elesTopMVA" +WPMap.at(m_type)+ "_eta", &elesTopMVAT_eta);
@@ -28,6 +30,14 @@ EleTopMVASel::EleTopMVASel(TTree *outTree, const TString era, const Bool_t isDat
     // BoosterHandle booster;
     XGBoosterCreate(NULL, 0, &m_booster[0]);
     XGBoosterLoadModel(m_booster[0], eleWeight.Data());
+
+    //energy scale and smearing for run 2:
+    //https://github.com/cms-egamma/ScaleFactorsJSON/tree/master
+    // TString jsonBase = "../../jsonpog-integration/POG/";
+    cset_eleScale = correction::CorrectionSet::from_file(eleScaleSmear.at(m_era).at(0).Data());
+    std::cout << "eleScale: " <<eleScaleSmear.at(m_era).at(0).Data() << "\n";
+    // cset_eleScale = correction::CorrectionSet::from_file((jsonBase + eleScaleSmear.at(m_era).at(0)).Data());
+
 
 
     std::cout << "Done EleTopMVASel initialization......\n";

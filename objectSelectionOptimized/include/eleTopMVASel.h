@@ -7,11 +7,12 @@
 #include "usefulFunc.h"
 #include "inputMap.h"
 #include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
+#include "correction.h"
 
 class EleTopMVASel
 {
 public:
-    EleTopMVASel(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3=kFALSE, const Int_t type = 2);
+    EleTopMVASel(TTree *outTree, const TString era, const Bool_t isData, const Bool_t isRun3=kFALSE, const Int_t type = 2, const UChar_t eleScale = 0, const UChar_t eleSmear = 0);
     ~EleTopMVASel();
     void Select(const eventForNano *e, const std::vector<Double_t> &muEtaVec, const std::vector<Double_t> &muPhiVec);
     std::vector<Double_t> &getEtaVec();
@@ -28,7 +29,12 @@ private:
     Bool_t m_isRun3 = kFALSE;
     BoosterHandle m_booster[1];
     ULong_t m_eleTotal = 0;
-    // output branches
+    const UChar_t m_eleScale = 0;
+    const UChar_t m_eleSmear = 0;
+    std::unique_ptr<correction::CorrectionSet> cset_eleScale;
+
+
+        // output branches
     std::vector<Double_t> elesTopMVAT_pt;
     std::vector<Double_t> elesTopMVAT_eta;
     std::vector<Double_t> elesTopMVAT_phi;
