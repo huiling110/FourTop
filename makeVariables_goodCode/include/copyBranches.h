@@ -8,7 +8,8 @@ class CopyBranches
 public:
     CopyBranches(TTree *outTree);
     ~CopyBranches();
-    void makeVariables(EventForMV *e);
+    // void makeVariables(EventForMV *e);
+    void makeVariables(EventForMV *e, const std::pair<Double_t, Double_t> JESdxdy);
     void clearBranch();
     void reportEntry(TString className);
 
@@ -48,8 +49,8 @@ private:
 
 
     //
-    Double_t MET_pt = -99;
-    Double_t MET_phi = -99;
+    // Double_t MET_pt = -99;
+    // Double_t MET_phi = -99;
 
     std::vector<Double_t> jets_pt_;
     std::vector<Double_t> jets_eta_;

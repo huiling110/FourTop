@@ -49,7 +49,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         // bjetPTMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT);
         // bjetPTTVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT);
 
-        topVarMaker.makeVariables(e, jetVarMaker.getLorentzObjs(), bjetMVarMaker.getLorentzObjs(), leptonsMVAT, tauVarMaker.getLorentzObjs());
+        // topVarMaker.makeVariables(e, jetVarMaker.getLorentzObjs(), bjetMVarMaker.getLorentzObjs(), leptonsMVAT, tauVarMaker.getLorentzObjs());
 
         // baseline selection
         // Int_t bjetM_num = m_isRun3? bjetPTMVarMaker.getJet_num(): bjetMVarMaker.getJet_num();
@@ -81,7 +81,7 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         //create hists for b tag efficiency measurement
         createHist.fillHist(e);
         // copy some branches
-        copyBranches.makeVariables(e);
+        copyBranches.makeVariables(e, jetVarMaker.getDxDy());
         // SF and systematic calculation
         weightVarMaker.makeVariables(e, jetVarMaker.getHT() , jetVarMaker.getJet_6pt(), jetVarMaker.getJet_num(), bjetM_num, &jetVarMaker);
 

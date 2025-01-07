@@ -2,6 +2,7 @@
 
 #include "../include/copyBranches.h"
 #include "../include/variablesFunctions.h"
+#include "../include/jetVarMaker.h"
 
 CopyBranches::CopyBranches(TTree *outTree)
 {
@@ -39,8 +40,8 @@ CopyBranches::CopyBranches(TTree *outTree)
     outTree->Branch("HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5", &HLT_PFHT400_FivePFJet_100_100_60_30_30_DoublePFBTagDeepJet_4p5);
     outTree->Branch("HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5", &HLT_PFHT400_FivePFJet_120_120_60_30_30_DoublePFBTagDeepJet_4p5);
 
-    outTree->Branch("MET_pt", &MET_pt);
-    outTree->Branch("MET_phi", &MET_phi);
+    // outTree->Branch("MET_pt", &MET_pt);
+    // outTree->Branch("MET_phi", &MET_phi);
 
     outTree->Branch("jets_pt_", &jets_pt_);
     outTree->Branch("jets_eta_", &jets_eta_);
@@ -53,7 +54,8 @@ CopyBranches::CopyBranches(TTree *outTree)
     std::cout << "\n";
 };
 
-void CopyBranches::makeVariables(EventForMV *e)
+// void CopyBranches::makeVariables(EventForMV *e)
+void CopyBranches::makeVariables(EventForMV *e, const std::pair<Double_t, Double_t> JESdxdy)
 {
     reportEntry("CopyBranch::makeVariables()");
 
@@ -62,8 +64,10 @@ void CopyBranches::makeVariables(EventForMV *e)
     run = *e->run_;
     luminosityBlock = *e->luminosityBlock_;
     event = *e->event_;
-    MET_pt = *e->MET_pt_;
     //get JES variation of MET
+    // std::pair<Double_t, Double_t> JESdxdy = jetVarMaker->getDxDy();
+    // std::cout<<"dx = "<<JESdxdy.first<<", dy = "<<JESdxdy.second<<std::endl;
+    // MET_pt_JESup = 
 
 
     //

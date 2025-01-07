@@ -62,6 +62,11 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type, TString er
     outTree->Branch(objName + "_tausT_minDeltaR", &jets_tausT_minDeltaR);
     outTree->Branch(objName + "_tausT_invariantMass", &jets_tausT_invariantMass);
 
+    outTree->Branch("MET_pt", &MET_pt);
+    outTree->Branch("MET_pt_unclusteredUp_", &MET_pt_unclusteredUp_);
+    outTree->Branch("MET_pt_unclusteredDown_", &MET_pt_unclusteredDown_);
+
+
 
 
 
@@ -123,6 +128,17 @@ void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     getJetLeadingVars(e, 7, jets_8pt, jets_8eta, jets_8phi, jets_8btag);
     getJetLeadingVars(e, 8, jets_9pt, jets_9eta, jets_9phi, jets_9btag);
 
+    //MET variations
+    MET_pt_unclusteredUp_ = *e->MET_pt_unclusteredUp;
+    MET_pt_unclusteredDown_ = *e->MET_pt_unclusteredDown;
+    //consider MET from JES variations
+    if(m_JESVariation ==0){
+        MET_pt = *e->MET_pt_;
+    }else{
+        MET_pt = TMath::Sqrt(TMath::Power(*e->MET_pt_ * TMath::Sin(*e->MET_phi_) * (1 + m_dxdy.first), 2) + TMath::Power(*e->MET_pt_ * TMath::Cos(*e->MET_phi_) * (1 + m_dxdy.second), 2));
+    }
+    // std::cout<<"MET_pt = "<<MET_pt<<"\n";
+
 }
 
 void JetVarMaker::getJetLeadingVars(const EventForMV *e, const Int_t jetRank, Double_t& jets_pt, Double_t& jets_eta, Double_t& jets_phi, Double_t& jets_btag){
@@ -157,7 +173,7 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariati
     //write a class to handle the JES variation to jets_pt and jets_mass
     m_removedIndices.clear();
     m_dxdy = jesVariation.applyJESVariation(objsLorentz, m_removedIndices);//maybe get the variation of vector sum of JES variation in the transverse plane here too for MET 
-    std::cout<<"dx = "<<m_dxdy.first<<" dy = "<<m_dxdy.second<<"\n";
+    // std::cout<<"dx = "<<m_dxdy.first<<" dy = "<<m_dxdy.second<<"\n";
 
     m_jets_btags.clear();
     for (UInt_t i = 0; i < e->jets_btags.GetSize(); i++)
@@ -287,3 +303,7 @@ std::vector<Double_t> JetVarMaker::getJetsPtNom_vec(const TTreeReaderArray<Doubl
 
     
 JetVarMaker::~JetVarMaker(){};
+
+std::pair<Double_t, Double_t> JetVarMaker::getDxDy() const{
+    return m_dxdy;
+}

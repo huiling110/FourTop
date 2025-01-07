@@ -99,7 +99,7 @@ private:
     TauVarMaker tauMVarMaker{m_outTree, "tausM", 5};
     TauVarMaker tauTTTTVarMaker{m_outTree, "tausTTTT", 6};
 
-    JetVarMaker jetVarMaker{m_outTree, "jets", 0};
+    JetVarMaker jetVarMaker{m_outTree, "jets", 0, m_era, m_JESVariation};
     BjetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 0};
     BjetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 1};
     BjetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 2};
@@ -107,7 +107,7 @@ private:
     // BjetVarMaker bjetPTMVarMaker{m_outTree, "bjetsPTM", 4};
     // BjetVarMaker bjetPTTVarMaker{m_outTree, "bjetsPTT", 5};
 
-    TopVarMaker topVarMaker{m_outTree, "topsH", 0};
+    // TopVarMaker topVarMaker{m_outTree, "topsH", 0};
 
     CopyBranches copyBranches{m_outTree};
     // CreateHist createHists{m_output};
