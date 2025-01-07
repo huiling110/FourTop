@@ -58,7 +58,8 @@ void BjetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariat
 
 }
 
-void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausT, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausF, JESVariation& jesVariation)
+void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausT, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausF, JESVariation& jesVariation, const Double_t MET_pt, const Double_t MET_phi)
+//!need to use MET from jetVarMaker to make sure that JES variation propagates to MET
 {
     ObjVarMaker::reportEntry("BjetVarMaker::makeVariables()");
     clearBranch();
@@ -75,17 +76,18 @@ void BjetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::Pt
         ROOT::Math::PtEtaPhiMVector bjets2 = objsLorentz.at(0) + objsLorentz.at(1);
         if(leptons.size()>1){
             ROOT::Math::PtEtaPhiMVector leptons2 = leptons.at(0) + leptons.at(1);
-            bjets_2leptons2_stransMass = calculateMT2(bjets2, leptons2, *e->MET_pt_, *e->MET_phi_);
+            // bjets_2leptons2_stransMass = calculateMT2(bjets2, leptons2, *e->MET_pt_, *e->MET_phi_);
+            bjets_2leptons2_stransMass = calculateMT2(bjets2, leptons2, MET_pt, MET_phi);
         }
         if(tausT.size()>0 && leptons.size()>0){
             ROOT::Math::PtEtaPhiMVector tauLep = tausT.at(0) + leptons.at(0);
-            bjets_2tauT1lep1_stransMass = calculateMT2(bjets2, tauLep, *e->MET_pt_, *e->MET_phi_);
+            bjets_2tauT1lep1_stransMass = calculateMT2(bjets2, tauLep, MET_pt, MET_phi);
         }
         if(tausF.size()>0 && leptons.size()>0){
             ROOT::Math::PtEtaPhiMVector tauLep = tausF.at(0) + leptons.at(0);
-            bjets_2tauF1lep1_stransMass = calculateMT2(bjets2, tauLep, *e->MET_pt_, *e->MET_phi_);
+            bjets_2tauF1lep1_stransMass = calculateMT2(bjets2, tauLep, MET_pt, MET_phi);
         }
-        bjets_2MET_stransMass = calculateMT2(objsLorentz.at(0), objsLorentz.at(1), *e->MET_pt_, *e->MET_phi_);
+        bjets_2MET_stransMass = calculateMT2(objsLorentz.at(0), objsLorentz.at(1), MET_pt, MET_phi);
     }
 
     bjets_leptons_minDeltaR = MinDeltaRCal(objsLorentz, leptons);

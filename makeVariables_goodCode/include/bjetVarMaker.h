@@ -9,7 +9,7 @@ class BjetVarMaker : public ObjVarMaker
 public:
     BjetVarMaker(TTree *outTree, TString objName, Int_t type = 0, UChar_t JESVariation = 0, UChar_t JESType = 0);
     ~BjetVarMaker();
-    void makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausT, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausF, JESVariation& jesVariation);
+    void makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &leptons, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausT, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausF, JESVariation& jesVariation, Double_t METpt, Double_t METphi);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e, JESVariation& jesVariation);
     Int_t getJet_num();

@@ -24,6 +24,8 @@ public:
     std::vector<Int_t> getJetsFlavour_vec (const TTreeReaderArray<Int_t> &jetsFlavour) const;
     std::vector<Double_t> getJetsPtNom_vec(const TTreeReaderArray<Double_t> &jetsPt) const;
     std::pair<Double_t, Double_t> getDxDy() const;
+    Double_t getMET_pt() const;
+    Double_t getMET_phi() const;
 
 private:
     const UChar_t m_JESVariation = 0; //0: nominal, >=1: variation
@@ -89,6 +91,7 @@ private:
     Double_t jets_tausT_invariantMass = -99.0;
 
     Double_t MET_pt = -99;
+    Double_t MET_phi = -99;
     // Double_t MET_pt_
     Double_t MET_pt_unclusteredUp_ = -99;
     Double_t MET_pt_unclusteredDown_ = -99; 
