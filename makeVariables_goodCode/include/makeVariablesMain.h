@@ -99,7 +99,7 @@ private:
     TauVarMaker tauMVarMaker{m_outTree, "tausM", 5};
     TauVarMaker tauTTTTVarMaker{m_outTree, "tausTTTT", 6};
 
-    JetVarMaker jetVarMaker{m_outTree, "jets", 0, m_era, m_JESVariation};
+    JetVarMaker jetVarMaker{m_outTree, "jets", 0, m_era, m_JESVariationType};
     BjetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 0};
     BjetVarMaker bjetLVarMaker{m_outTree, "bjetsL", 1};
     BjetVarMaker bjetTVarMaker{m_outTree, "bjetsT", 2};
