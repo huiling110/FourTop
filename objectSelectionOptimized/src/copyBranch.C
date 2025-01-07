@@ -19,6 +19,8 @@ CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t i
     outTree->Branch("PV_npvsGood_", &PV_npvsGood_);
     outTree->Branch("MET_pt_", &MET_pt_);
     outTree->Branch("MET_phi_", &MET_phi_);
+    outTree->Branch("MET_pt_unclusteredUp", &MET_pt_unclusteredUp);
+    outTree->Branch("MET_pt_unclusteredDown", &MET_pt_unclusteredDown);
 
     outTree->Branch("EVENT_prefireWeight_", &EVENT_prefireWeight_);
     outTree->Branch("EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_);
@@ -42,6 +44,14 @@ Bool_t CopyBranch::Select(eventForNano *e, Bool_t isData)
     luminosityBlock_ = *e->luminosityBlock;
     MET_pt_ = *e->MET_pt;
     MET_phi_ = *e->MET_phi;
+    Double_t Met_YUp = (MET_pt_*TMath::Cos(MET_phi_) + *e->MET_MetUnclustEnUpDeltaY );
+    Double_t Met_YDown = (MET_pt_*TMath::Cos(MET_phi_) - *e->MET_MetUnclustEnUpDeltaY );
+    Double_t Met_XUp = (MET_pt_*TMath::Sin(MET_phi_) + *e->MET_MetUnclustEnUpDeltaX );
+    Double_t Met_XDown = (MET_pt_*TMath::Sin(MET_phi_) - *e->MET_MetUnclustEnUpDeltaX );
+    MET_pt_unclusteredUp = TMath::Sqrt(Met_XUp*Met_XUp + Met_YUp*Met_YUp);
+    MET_pt_unclusteredDown = TMath::Sqrt(Met_XDown*Met_XDown + Met_YDown*Met_YDown);
+
+
 
     if (m_isRun3){
         PV_npvsGood_ = std::any_cast<UChar_t>(e->PV_npvsGood.GetValue());//nanoAODv12

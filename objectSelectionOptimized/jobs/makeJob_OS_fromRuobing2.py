@@ -53,7 +53,9 @@ TES = 0
 # TES = 3 # dm0Up
 # TES = 5 #dm1Up
 # TES = 6 #dm1Down
-jobVersionName = 'v91TESAddedHadroPre_EleScaleUp/'
+# jobVersionName = 'v91TESAddedHadroPre_EleScaleUp/'
+# jobVersionName = 'v91TESAddedHadroPre_EleScaleDown/'
+jobVersionName = 'v91TESAddedHadroPre_JESPt20/'
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
 isRuobing = False

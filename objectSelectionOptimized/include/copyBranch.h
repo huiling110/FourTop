@@ -27,6 +27,9 @@ private:
     Int_t PV_npvsGood_;
     Double_t MET_pt_;
     Double_t MET_phi_;
+    Double_t MET_pt_unclusteredDown;
+    Double_t MET_pt_unclusteredUp;
+
     Double_t EVENT_prefireWeight_;
     Double_t EVENT_prefireWeight_up_;
     Double_t EVENT_prefireWeight_down_;
