@@ -156,7 +156,9 @@ void JetVarMaker::setupLorentzObjs(const EventForMV *e, JESVariation& jesVariati
     //!!!Jet pt already JES corrected, but cut at 22 GeV at OS for JES variation
     //write a class to handle the JES variation to jets_pt and jets_mass
     m_removedIndices.clear();
-    jesVariation.applyJESVariation(objsLorentz, m_removedIndices);
+    m_dxdy = jesVariation.applyJESVariation(objsLorentz, m_removedIndices);//maybe get the variation of vector sum of JES variation in the transverse plane here too for MET 
+    std::cout<<"dx = "<<m_dxdy.first<<" dy = "<<m_dxdy.second<<"\n";
+
     m_jets_btags.clear();
     for (UInt_t i = 0; i < e->jets_btags.GetSize(); i++)
     {
@@ -282,5 +284,6 @@ std::vector<Double_t> JetVarMaker::getJetsPtNom_vec(const TTreeReaderArray<Doubl
     }
     return jetsPtNom_vec;
 }
+
     
 JetVarMaker::~JetVarMaker(){};

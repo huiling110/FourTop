@@ -58,22 +58,29 @@ JESVariation::JESVariation(TString era, const UChar_t JESVariation, const UChar_
 //     }
 // };
 
-void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices) {
+// void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices) {
+std::pair<double, double> JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices) {
     if(m_JESSysUncerType==0){
-        return;
+        return std::make_pair(0.0, 0.0);
     };
 
     removedIndices.clear();
     auto corr_jesUncer = cset_jerSF->at(m_JESTtring.Data());
     // std::cout<<"before removal: particleVec.size()="<<particleVec.size()<<"\n";
+    Double_t pt_dx = 0.;
+    Double_t pt_dy = 0.;
     for (UInt_t i = 0; i < particleVec.size(); ++i) {
         Double_t JES_uncer = corr_jesUncer->evaluate({particleVec.at(i).Eta(), particleVec.at(i).Pt()});
 
         switch (m_JESSysUncerType) {
             case 1:
+                pt_dx += particleVec[i].Pt()*JES_uncer*std::cos(particleVec[i].Phi());
+                pt_dy += particleVec[i].Pt()*JES_uncer*std::sin(particleVec[i].Phi()); 
                 particleVec[i] = particleVec[i] * (1 + JES_uncer);
                 break;
             case 2:
+                pt_dx += particleVec[i].Pt()*(-JES_uncer)*std::cos(particleVec[i].Phi());
+                pt_dy += particleVec[i].Pt()*(-JES_uncer)*std::sin(particleVec[i].Phi());
                 particleVec[i] = particleVec[i] * (1 - JES_uncer);
                 break;
             default:
@@ -91,6 +98,10 @@ void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& p
     for (auto it = removedIndices.rbegin(); it != removedIndices.rend(); ++it) {
         particleVec.erase(particleVec.begin() + *it);
     }
+
+    //get transverse vector
+    return std::make_pair(pt_dx, pt_dy); //explain: 
+    
 }
 
 

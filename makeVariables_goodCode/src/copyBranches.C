@@ -63,6 +63,8 @@ void CopyBranches::makeVariables(EventForMV *e)
     luminosityBlock = *e->luminosityBlock_;
     event = *e->event_;
     MET_pt = *e->MET_pt_;
+    //get JES variation of MET
+
 
     //
     HLT_PFHT450_SixJet40_BTagCSV_p056 = *e->HLT_PFHT450_SixJet40_BTagCSV_p056_;
