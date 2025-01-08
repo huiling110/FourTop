@@ -166,8 +166,10 @@ void LepVarMaker::processingDoubleLep(const EventForMV* e, const UInt_t muonSize
         {
             lepTopMVAF_FRweight = 1.0;
             lepTopMVAF_isAR = kFALSE;
+
             triggerSFLep_weight = triggerCal->getScaleFactor("me", e->muonsTopMVAF_pt.At(0), e->elesTopMVAF_pt.At(0), m_isData, 0);
-            // std::cout<<"triggerSFLep_weight: "<<triggerSFLep_weight<<std::endl;
+            triggerSFLep_weight_up = triggerCal->getScaleFactor("me", e->muonsTopMVAF_pt.At(0), e->elesTopMVAF_pt.At(0), m_isData, 1);
+            triggerSFLep_weight_down = triggerCal->getScaleFactor("me", e->muonsTopMVAF_pt.At(0), e->elesTopMVAF_pt.At(0), m_isData, 2);
         }
         else
         {
@@ -207,6 +209,10 @@ void LepVarMaker::processingDoubleLep(const EventForMV* e, const UInt_t muonSize
         {
             lepTopMVAF_FRweight = 1.0;
             lepTopMVAF_isAR = kFALSE;
+
+            triggerSFLep_weight = triggerCal->getScaleFactor("mm", e->muonsTopMVAF_pt.At(0), e->muonsTopMVAF_pt.At(1), m_isData, 0);
+            triggerSFLep_weight_up = triggerCal->getScaleFactor("mm", e->muonsTopMVAF_pt.At(0), e->muonsTopMVAF_pt.At(1), m_isData, 1);
+            triggerSFLep_weight_down = triggerCal->getScaleFactor("mm", e->muonsTopMVAF_pt.At(0), e->muonsTopMVAF_pt.At(1), m_isData, 2);
         }
         else{
             lepTopMVAF_isAR = kTRUE;
@@ -242,6 +248,11 @@ void LepVarMaker::processingDoubleLep(const EventForMV* e, const UInt_t muonSize
         {
             lepTopMVAF_FRweight = 1.0;
             lepTopMVAF_isAR = kFALSE;
+
+            triggerSFLep_weight = triggerCal->getScaleFactor("ee", e->elesTopMVAF_pt.At(0), e->elesTopMVAF_pt.At(1), m_isData, 0);
+            triggerSFLep_weight_up = triggerCal->getScaleFactor("ee", e->elesTopMVAF_pt.At(0), e->elesTopMVAF_pt.At(1), m_isData, 1);
+            triggerSFLep_weight_down = triggerCal->getScaleFactor("ee", e->elesTopMVAF_pt.At(0), e->elesTopMVAF_pt.At(1), m_isData, 2);
+
         }else{
             lepTopMVAF_isAR = kTRUE;
             if(m_isData){
@@ -303,6 +314,10 @@ void LepVarMaker::clearBranch(){
 
     elesTopMVAF_num = -99;
     muonsTopMVAF_num = -99;
+
+    triggerSFLep_weight = 1.0;
+    triggerSFLep_weight_up = 1.0;
+    triggerSFLep_weight_down = 1.0;
 }
 
 void LepVarMaker::setupLorentzObjs(const EventForMV *e){

@@ -1,4 +1,5 @@
 #include "../include/triggerSFCal.h"
+#include "../../myLibrary/commenFunction.h"
 
 // TriggerScaleFactorCalculator::TriggerScaleFactorCalculator(const std::string& filename) {
 //     file_ = TFile::Open(filename.c_str(), "READ");
@@ -48,15 +49,16 @@ double TriggerScaleFactorCalculator::getScaleFactor(const std::string& channel, 
     // Find the corresponding bin
     Double_t pt1 = ptLeading>ptSubleading ? ptLeading : ptSubleading;
     Double_t pt2 = ptLeading>ptSubleading ? ptSubleading : ptLeading;
-    int binX = hist->GetXaxis()->FindBin(pt1);
-    int binY = hist->GetYaxis()->FindBin(pt2);
+    // int binX = hist->GetXaxis()->FindBin(pt1);
+    // int binY = hist->GetYaxis()->FindBin(pt2);
 
-    // Check if bin exists
-    if (binX <= 0 || binY <= 0 || binX > hist->GetNbinsX() || binY > hist->GetNbinsY()) {
-        // std::cerr << "Warning: pt values are out of histogram range." << std::endl;
-        return 1.0;
-    }
-
+    // // Check if bin exists
+    // if (binX <= 0 || binY <= 0 || binX > hist->GetNbinsX() || binY > hist->GetNbinsY()) {
+    //     // std::cerr << "Warning: pt values are out of histogram range." << std::endl;
+    //     return 1.0;
+    // }
+    Double_t sf = TTTT::get2DSF(pt1, pt2, hist, sysType);
     // Retrieve the scale factor
-    return hist->GetBinContent(binX, binY);
+    // return hist->GetBinContent(binX, binY);
+    return sf;
 }
