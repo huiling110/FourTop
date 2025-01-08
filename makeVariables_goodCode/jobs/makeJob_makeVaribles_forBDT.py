@@ -24,7 +24,8 @@ def main(
     # inVersion = 'v91TESAddedHadroPre_TESdm10Up',
     # inVersion = 'v91TESAddedHadroPre_TESdm11Down',
     inVersion = 'v91TESAddedLepPre',
-    outVersion = 'v0baselineLep',
+    # outVersion = 'v0baselineLep',
+    outVersion = 'v0baselineLepTriggerSF',
     # outVersion = 'v0baselineHadro',
     # if1tau2l = 0, # 0 false, 1 True
     if1tau2l = 1, # 0 false, 1 True
