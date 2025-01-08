@@ -48,6 +48,10 @@ private:
     Int_t muonsTopMVAF_num;
     Bool_t lepTopMVAT_2ifZVeto;
 
+    Double_t triggerSFLep_weight;
+    Double_t triggerSFLep_weight_up;
+    Double_t triggerSFLep_weight_down;
+
 
     std::vector<Double_t> lep_ptConeCorrected;
     std::vector<ROOT::Math::PtEtaPhiMVector> eles;

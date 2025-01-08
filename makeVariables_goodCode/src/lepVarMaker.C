@@ -36,6 +36,10 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
         outTree->Branch("elesTopMVAF_num", &elesTopMVAF_num);
         outTree->Branch("muonsTopMVAF_num", &muonsTopMVAF_num);
 
+        outTree->Branch("triggerSFLep_weight", &triggerSFLep_weight);
+        outTree->Branch("triggerSFLep_weight_up", &triggerSFLep_weight_up);
+        outTree->Branch("triggerSFLep_weight_down", &triggerSFLep_weight_down);
+
 
         std::map<TString, TString> eraHistMap = {
             {"2016preVFP", "2016Merged"},
@@ -162,6 +166,8 @@ void LepVarMaker::processingDoubleLep(const EventForMV* e, const UInt_t muonSize
         {
             lepTopMVAF_FRweight = 1.0;
             lepTopMVAF_isAR = kFALSE;
+            triggerSFLep_weight = triggerCal->getScaleFactor("me", e->muonsTopMVAF_pt.At(0), e->elesTopMVAF_pt.At(0), m_isData, 0);
+            // std::cout<<"triggerSFLep_weight: "<<triggerSFLep_weight<<std::endl;
         }
         else
         {
