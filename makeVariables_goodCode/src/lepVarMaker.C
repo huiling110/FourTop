@@ -49,6 +49,8 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
         std::cout<<"muon FR file used: "<<MV::lepFR_map.at(m_era).at(1)<<"\n";
     }
 
+    triggerCal = new TriggerScaleFactorCalculator(m_era);
+
    std::cout<<"Initialization done\n\n";
 }
 
@@ -315,6 +317,7 @@ void LepVarMaker::setupLorentzObjs(const EventForMV *e){
 }
 
 LepVarMaker::~LepVarMaker(){
+    delete triggerCal;
     std::cout<<"Deleting LepVarMaker"<<std::endl;
 }
 

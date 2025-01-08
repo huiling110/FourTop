@@ -3,6 +3,7 @@
 
 #include <TH2D.h>
 #include "objVarMaker.h"
+#include "triggerSFCal.h"
 
 class LepVarMaker : public ObjVarMaker 
 {
@@ -54,6 +55,9 @@ private:
 
     TH2D *eleFR_h;
     TH2D *muFR_h;
+
+    TriggerScaleFactorCalculator* triggerCal;
+
 };
 
 #endif

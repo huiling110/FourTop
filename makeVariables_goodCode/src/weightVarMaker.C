@@ -202,6 +202,8 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     triggerHist3b = TTTT::getHistogramFromFile<TH2D>(triggerSFdir +"baseline1Muon3b_triggerSF_v0.root", "singleMu_SF");
     std::cout<<"trigger SF: "<<triggerSFdir<<"\n\n";
 
+
+
     //get FR
     TFile *file = new TFile(MV::FR_mapNew.at(m_era), "READ");
     std::cout<<"FR files used: "<<file->GetName()<<"\n"<<file->GetName()<<"\n";
@@ -389,6 +391,8 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
     HLT_weight_stats_up = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 1);
     HLT_weight_stats_down = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 2);
+    //HLT for 1tau2l
+    // HLT_lep_weight = HLTWeightCal() 
 
     Bool_t ifFR = kFALSE;
     if(e->tausF_jetPt.GetSize()>0){
