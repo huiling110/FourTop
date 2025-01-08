@@ -70,9 +70,9 @@ def main():
     
     # addJERToFile(allSubProcesses, regionList, era, nominalDir)
     
-    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
+    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
     
-    addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    # addTESToFile(allSubProcesses, regionList, era, nominalDir)
     
     
     
@@ -144,7 +144,8 @@ def getMCSubPro(channel, era):
         
 def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
     # # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
-    inVersion = 'v90MuonESHadroPre_JESPt22'
+    # inVersion = 'v90MuonESHadroPre_JESPt22'
+    inVersion = 'v91TESAddedHadroPre_JESPt20'
     outVersion = 'v0baselineHadro'
     # # outVersion = 'v1FixedBtagWeightWhenJES'
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'

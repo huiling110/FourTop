@@ -8,16 +8,6 @@ import usefulFunc as uf
 
 
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
-# jobVersionName = 'v79forHLT/'
-# jobVersionName = 'v80addTauJetVar/'
-# jobVersionName = 'v80addTTExtra/'
-# jobVersionName = 'v80addTTExtra1/'
-# jobVersionName = 'v81addSysSum/'
-# jobVersionName = 'v81for1tau2l/'
-# jobVersionName = 'v82for1tau2l/'
-# jobVersionName = 'v83for1tau2lEleEtaCut/'
-# jobVersionName = 'v84fakeLeptonUpdate/'
-# jobVersionName = 'v84Pre1tau2lNoLepCut/'
 # jobVersionName = 'v84Pre1tau2lLepF2/'
 # jobVersionName = 'v84Pre1tau2lLepF2V2/'
 # jobVersionName = 'v84HadroPresel/'
@@ -55,7 +45,8 @@ TES = 0
 # TES = 6 #dm1Down
 # jobVersionName = 'v91TESAddedHadroPre_EleScaleUp/'
 # jobVersionName = 'v91TESAddedHadroPre_EleScaleDown/'
-jobVersionName = 'v91TESAddedHadroPre_JESPt20/'
+# jobVersionName = 'v91TESAddedHadroPre_JESPt20/'
+jobVersionName = 'v91TESAddedLepPre/'
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
 isRuobing = False
@@ -72,8 +63,8 @@ def main():
     # dataList = ['singleMu'] #!for HLT
     # dataList = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #!for 1tau2l  
     
-    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
+    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
 
 
 
