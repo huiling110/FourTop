@@ -6,7 +6,7 @@
 class CopyBranch
 {
 public:
-    CopyBranch(TTree *outTree, const TString processes, const Bool_t isData =kFALSE, const Bool_t isRun3=kFALSE);
+    CopyBranch(TTree *outTree, const TString processes, const Bool_t isData =kFALSE, const Bool_t isRun3=kFALSE, const UChar_t MET_sys=0);
     ~CopyBranch(){};
 
     Bool_t Select(eventForNano *e, Bool_t isData);
@@ -20,6 +20,7 @@ private:
     TString m_processName;
     Bool_t m_isGammaSample;
     Bool_t m_isNotGammaSample;
+    UChar_t m_MET_sys=0;
 
     UInt_t run_;
     ULong64_t event_;
@@ -27,8 +28,8 @@ private:
     Int_t PV_npvsGood_;
     Double_t MET_pt_;
     Double_t MET_phi_;
-    Double_t MET_pt_unclusteredDown;
-    Double_t MET_pt_unclusteredUp;
+    // Double_t MET_pt_unclusteredDown;
+    // Double_t MET_pt_unclusteredUp;
 
     Double_t EVENT_prefireWeight_;
     Double_t EVENT_prefireWeight_up_;

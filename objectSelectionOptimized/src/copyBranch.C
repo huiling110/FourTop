@@ -3,10 +3,10 @@
 #include <iostream>
 #include <any>
 
-CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t isData, const Bool_t isRun3):m_processName{processName}, m_isData{isData}, m_isRun3{isRun3}
+CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t isData, const Bool_t isRun3, const UChar_t MET_sys):m_processName{processName}, m_isData{isData}, m_isRun3{isRun3}, m_MET_sys{MET_sys} 
 {
     std::cout << "Initializing CopyBranch .........\n";
-    std::cout<<"m_isRun3="<<m_isRun3<<"\n";
+    std::cout<<"m_isRun3="<<m_isRun3<<" m_MET_sys="<<m_MET_sys<< "\n";
 
     m_isGammaSample = m_processName=="ttG" || m_processName=="ZGToLLG" || m_processName=="WGToLNuG" || m_processName=="TGJets";
     m_isNotGammaSample = m_processName.Contains("ttbar") || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || m_processName.Contains("st_");
@@ -19,8 +19,8 @@ CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t i
     outTree->Branch("PV_npvsGood_", &PV_npvsGood_);
     outTree->Branch("MET_pt_", &MET_pt_);
     outTree->Branch("MET_phi_", &MET_phi_);
-    outTree->Branch("MET_pt_unclusteredUp", &MET_pt_unclusteredUp);
-    outTree->Branch("MET_pt_unclusteredDown", &MET_pt_unclusteredDown);
+    // outTree->Branch("MET_pt_unclusteredUp", &MET_pt_unclusteredUp);
+    // outTree->Branch("MET_pt_unclusteredDown", &MET_pt_unclusteredDown);
 
     outTree->Branch("EVENT_prefireWeight_", &EVENT_prefireWeight_);
     outTree->Branch("EVENT_prefireWeight_up_", &EVENT_prefireWeight_up_);
@@ -42,14 +42,36 @@ Bool_t CopyBranch::Select(eventForNano *e, Bool_t isData)
     run_ = *e->run;
     event_ = *e->event;
     luminosityBlock_ = *e->luminosityBlock;
-    MET_pt_ = *e->MET_pt;
-    MET_phi_ = *e->MET_phi;
+
+    // MET_pt_ = *e->MET_pt;
+    // MET_phi_ = *e->MET_phi;
     Double_t Met_XUp = (MET_pt_*TMath::Sin(MET_phi_) + *e->MET_MetUnclustEnUpDeltaX );
     Double_t Met_YUp = (MET_pt_*TMath::Cos(MET_phi_) + *e->MET_MetUnclustEnUpDeltaY );
     Double_t Met_XDown = (MET_pt_*TMath::Sin(MET_phi_) - *e->MET_MetUnclustEnUpDeltaX );
     Double_t Met_YDown = (MET_pt_*TMath::Cos(MET_phi_) - *e->MET_MetUnclustEnUpDeltaY );
-    MET_pt_unclusteredUp = TMath::Sqrt(Met_XUp*Met_XUp + Met_YUp*Met_YUp);
-    MET_pt_unclusteredDown = TMath::Sqrt(Met_XDown*Met_XDown + Met_YDown*Met_YDown);
+    // MET_pt_unclusteredUp = TMath::Sqrt(Met_XUp*Met_XUp + Met_YUp*Met_YUp);
+    // MET_pt_unclusteredDown = TMath::Sqrt(Met_XDown*Met_XDown + Met_YDown*Met_YDown);
+    // MET_phi_unclusteredUp = TMath::ATan2(Met_XUp, Met_YUp);
+    // MET_phi_unclusteredDown = TMath::ATan2(Met_XDown, Met_YDown);
+    switch (m_MET_sys)
+    { 
+        case 0:
+            MET_pt_ = *e->MET_pt;
+            MET_phi_ = *e->MET_phi;
+            break;
+        case 1:
+            MET_pt_ = TMath::Sqrt(Met_XUp*Met_XUp + Met_YUp*Met_YUp);
+            MET_phi_ = TMath::ATan2(Met_XUp, Met_YUp);
+            break;
+        case 2:
+            MET_pt_ = TMath::Sqrt(Met_XDown*Met_XDown + Met_YDown*Met_YDown);
+            MET_phi_ = TMath::ATan2(Met_XDown, Met_YDown);
+            break;  
+        default: //error and exit the program
+            std::cerr << "Error: MET_sys is not 0, 1, or 2\n";
+            break;
+    }
+
 
 
 
