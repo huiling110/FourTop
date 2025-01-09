@@ -6,7 +6,7 @@
 CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t isData, const Bool_t isRun3, const UChar_t MET_sys):m_processName{processName}, m_isData{isData}, m_isRun3{isRun3}, m_MET_sys{MET_sys} 
 {
     std::cout << "Initializing CopyBranch .........\n";
-    std::cout<<"m_isRun3="<<m_isRun3<<" m_MET_sys="<<m_MET_sys<< "\n";
+    std::cout<<"m_isRun3="<<m_isRun3<<" m_MET_sys="<<static_cast<Int_t>(m_MET_sys)<<"\n";
 
     m_isGammaSample = m_processName=="ttG" || m_processName=="ZGToLLG" || m_processName=="WGToLNuG" || m_processName=="TGJets";
     m_isNotGammaSample = m_processName.Contains("ttbar") || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || m_processName.Contains("st_");

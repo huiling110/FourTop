@@ -29,7 +29,7 @@
 class objectSelection
 {
 public:
-    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0, const UChar_t JESSys =0, const UChar_t JERSys=0, const UChar_t TES = 0, const Bool_t if1tau2l=kFALSE) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}, m_JESSys{JESSys}, m_JERSys{JERSys}, m_TES{TES}, m_if1tau2l{if1tau2l}
+    objectSelection(TString inputDir, TString singleFileName, TString outputDir, const Bool_t isData, const TString era, const TString processName, Bool_t isRun3, Bool_t m_isTest, const UChar_t eleScale = 0, const UChar_t eleSmear=0, const UChar_t JESSys =0, const UChar_t JERSys=0, const UChar_t TES = 0, const UChar_t METSys=0, const Bool_t if1tau2l=kFALSE) : m_isData{isData}, m_era{era}, m_processName{processName}, m_isRun3{isRun3}, m_eleScale{eleScale}, m_eleSmear{eleSmear}, m_JESSys{JESSys}, m_JERSys{JERSys}, m_TES{TES}, m_MET_sys{METSys}, m_if1tau2l{if1tau2l}
     {
         std::cout << "Initialize objectSelection class..................................\n";
         m_input = new TFile(inputDir + singleFileName, "READ");
@@ -49,15 +49,11 @@ public:
 
             // set up
             std::cout << "m_isData: " << m_isData << ";    m_era: " << m_era << "; m_isRun3="<<m_isRun3<<"  m_processName="<<m_processName<< "\n";
-            std::cout<<"m_eleScale="<<m_eleScale<<" m_eleSmear="<<m_eleSmear<<"\n";
-            std::cout<<"m_JESSys="<<m_JESSys<<" m_JERSys="<<m_JERSys<<"\n";
+            std::cout<<"m_eleScale="<<static_cast<Int_t>(m_eleScale)<<" m_eleSmear="<<static_cast<Int_t>(m_eleSmear)<<" m_JESSys="<<static_cast<Int_t>(m_JESSys)<<" m_JERSys="<<static_cast<Int_t>(m_JERSys)<<" m_MET_sys="<<static_cast<Int_t>(m_MET_sys)<<"\n";
+            std::cout<<"m_TES="<<static_cast<Int_t>(m_TES)<<"\n";
             std::cout<<"m_if1tau2l="<<m_if1tau2l<<"\n";
 
             m_cutflow->SetDirectory(m_output);
-            // CF_initial->SetDirectory(m_output);
-            // CF_met->SetDirectory(m_output);
-            // CF_HLT->SetDirectory(m_output);
-            // CF_pre->SetDirectory(m_output);
         }
         else
         {
@@ -91,8 +87,8 @@ private:
     const UChar_t m_eleSmear = 0;
     const UChar_t m_JESSys = 0;
     const UChar_t m_JERSys = 0;
-    // const Int_t m_JESSysUncerType = 0;
     const UChar_t m_TES = 0;
+    const UChar_t m_MET_sys = 0;
     const Bool_t m_if1tau2l = kFALSE;
 
     LumiAndPVSel lumiAndPVSelection{m_isData, m_era, m_isRun3}; 
@@ -121,7 +117,7 @@ private:
     // JetSel bjetPNMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 15, m_JESSys, m_JERSys};
     // JetSel bjetPTMSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 17, m_JESSys, m_JERSys};
     // JetSel bjetPTTSel{m_outTree, m_era, m_processName, m_isRun3, m_isData, 18, m_JESSys, m_JERSys};
-    CopyBranch copyBranch{m_outTree, m_processName, m_isData, m_isRun3};
+    CopyBranch copyBranch{m_outTree, m_processName, m_isData, m_isRun3, m_MET_sys};
     PUWeightCal puWeightCal{m_outTree, m_isData, m_era, m_isRun3};
     SystWeightCal systWeightCal{m_outTree, m_isData};
 
