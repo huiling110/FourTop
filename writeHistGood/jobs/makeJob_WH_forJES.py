@@ -7,11 +7,13 @@ inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
 # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
 # inVersion = 'v90MuonESHadroPre_JESPt22'
-inVersion = 'v91TESAddedHadroPre_JESPt20'
-outVersion = 'v0baselineHadro'
-# outVersion = 'v1FixedBtagWeightWhenJES'
-channel = '1tau1l'
+# inVersion = 'v91TESAddedHadroPre_JESPt20'
+inVersion = 'v91TESAddedLepPre_JETPt22'
+# outVersion = 'v0baselineHadro'
+outVersion = 'v0baselineLep'
+# channel = '1tau1l'
 # channel = '1tau0l'
+channel = '1tau2l'
 
 
 for i in range(0, 27):
