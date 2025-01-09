@@ -1,2 +1,0 @@
-
-./run_makeVaribles_forBDT.out 0  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v56NoHLTButPre/mc/  st_tW_antitop /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/ 6    
