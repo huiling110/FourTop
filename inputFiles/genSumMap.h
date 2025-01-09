@@ -213,7 +213,9 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 {"VLL_NN_M1000", 3.4763252},
 {"ZJetsToNuNu_HT-600To800", 5726462.973848988},
 {"qcd_1000to1500", 14394786.0},
-{"TTTo2L2Nu9", 4291003926.409401}
+{"TTTo2L2Nu9", 4291003926.409401},
+{"TTT", 500000.0 },
+{"TTTW", 494000.0},
 }
 },
 
@@ -356,6 +358,8 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 {"VLL_NN_M1000", 3.4867113999999995},
 {"ZJetsToNuNu_HT-600To800", 5664642.0},
 {"qcd_1000to1500", 10186734.0},
+{"TTT", 354000.0},
+{"TTTW", 360000.0},
 }
 },
 
@@ -476,6 +480,8 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 {"vbfH_ww_2l", 11257548.8256},
 {"VLL_NN_M1000", 1.5998133724},
 {"qcd_1000to1500", 12254238.0},
+{"TTT", 160000.0},
+{"TTTW", 159000.0},
 
 }
 },
@@ -595,6 +601,8 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 {"VLL_EE_M700", 61.531126019999995},
 {"VLL_NN_M1000", 1.8790077074000004},
 {"qcd_1000to1500", 4773503.0},
+{"TTT", 138000.0},
+{"TTTW", 140000.0},
 
 }
 }

@@ -11,8 +11,8 @@ def getGenSumFromNano():
     inputDir = '/publicfs/cms/data/TopQuark/nanoAOD/2016APV/mc/'
     
     # year = uf.getEraFromDir(inputDir)
-    year = '2016APV'
-    # year = '2018'
+    # year = '2016APV'
+    year = '2018'
     # year = '2017'
     # year = '2016'
     
@@ -21,7 +21,7 @@ def getGenSumFromNano():
     for ipro in os.listdir(inputDir):
         if not os.path.isdir(inputDir+ipro):
             continue
-        # if not ipro == 'WZTo3LNu': continue 
+        if not ('TTT' == ipro or 'TTTW' == ipro): continue
         if 'TTZprime' in ipro: continue
         if 'XToYY' in ipro: continue
         print(ipro)
@@ -29,13 +29,13 @@ def getGenSumFromNano():
         dic[iprocess] = genSum
         
     # save dic into c++ map file
-    outfile = f'../inputFiles/genSumMap{year}.h' 
-    with open(outfile, 'w') as f:
-        f.write('std::map<std::string, double> genSumMap = {\n')
-        for key, value in dic.items():
-            f.write(f'{{"{key}", {value}}},\n')
-        f.write('};\n')
-        print(f'{outfile} is saved')
+    # outfile = f'../inputFiles/genSumMap{year}.h' 
+    # with open(outfile, 'w') as f:
+    #     f.write('std::map<std::string, double> genSumMap = {\n')
+    #     for key, value in dic.items():
+    #         f.write(f'{{"{key}", {value}}},\n')
+    #     f.write('};\n')
+    #     print(f'{outfile} is saved')
     
 def calculate_genSum(directory_path):
     # Initialize the total sum

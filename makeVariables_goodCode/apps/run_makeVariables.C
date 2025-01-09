@@ -34,7 +34,8 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v91TESAddedHadroPre_TESdm0Down/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018//v91TESAddedHadroPre_JESPt20/mc/",
     TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018//v91TESAddedLepPre/mc/",
-    TString inputDir = "tttt",
+    // TString inputDir = "tttt",
+    TString inputDir = "TTT",
     // TString inputDir = "TTWJetsToLNu",
     // TString inputDir = "TTZToLLNuNu",
     // TString inputDir = "ttG",
@@ -50,7 +51,6 @@ void run_objectSelection(
     // TString inputDir = "BTagCSV_2017c",
     // TString inputDir = "singleMu_2018b",
     // TString inputDir = "TTToSemiLeptonic10", //extra ttbar for training
-    // TString inputDir = "TTTo2L2Nu0",
     // TString inputDir = "doubleMu_2018b",
     TString outputDir = "output/",
     // Int_t numEntries = 100)
