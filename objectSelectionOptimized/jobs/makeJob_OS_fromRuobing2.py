@@ -47,7 +47,8 @@ TES = 0
 # jobVersionName = 'v91TESAddedHadroPre_EleScaleDown/'
 # jobVersionName = 'v91TESAddedHadroPre_JESPt20/'
 # jobVersionName = 'v91TESAddedLepPre/'
-jobVersionName = 'v91TESAddedLepPre_JETPt22/'
+# jobVersionName = 'v91TESAddedLepPre_JETPt22/'
+jobVersionName = 'v91TESAddedLepPre_JERUp/'
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
 isRuobing = False
