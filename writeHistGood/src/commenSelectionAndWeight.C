@@ -181,9 +181,6 @@ Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isDat
         switch (channel)
         {
         case 0: // 1tau1lSR
-            // HLTWeight = e->HLT_weight.v();
-            // btagWeight = e->btagWPMT_weight.v();
-            // btagName = e->btagWPMT_weight.n();
             // basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * HLTWeight * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* btagWeight;
             basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v() *e->elesTopMVAT_reoSF_weight.v();
             if(entry==100){
@@ -192,19 +189,17 @@ Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isDat
 
             break;
         case 1: //1tau0l 
-            // HLTWeight = e->HLT_weight.v();
             // btagWeight = e->btagShape_weight.v() * e->btagShapeR.v(); //!!!should apply btagShape_weight_jes_up when it's JES variation
-            // btagName = e->btagShape_weight.n() + "*" + e->btagShapeR.n();
             basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->btagShape_weight.v() * e->btagShapeR.v();
             if(entry==100){
                 std::cout<<"event weight: "<<e->EVENT_genWeight.n() <<"*"<< e->EVENT_prefireWeight.n() <<"*"<< e->PUweight_.n() <<"*"<< e->HLT_weight.n() <<"*"<< e->tauT_IDSF_weight_new.n() <<"*"<< e->btagShape_weight.n() <<"*"<< e->btagShapeR.n()<<"\n";
             }
             break;
         case 2: //1tau2l
-            // HLTWeight = 1.0;//!!!for now
-            // btagWeight = e->btagWPMT_weight.v();
-            // btagName = e->btagWPMT_weight.n();
-            basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v()* e->elesTopMVAT_reoSF_weight.v();
+            basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() *e->triggerSFLep_weight.v() *e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v()* e->elesTopMVAT_reoSF_weight.v();
+            if(entry==100){
+                std::cout<<"event weight: "<<e->EVENT_genWeight.n() <<"*"<< e->EVENT_prefireWeight.n() <<"*"<< e->PUweight_.n() <<"*"<< e->triggerSFLep_weight.n() <<"*"<< e->tauT_IDSF_weight_new.n() <<"*"<< e->elesTopMVAT_weight_new.n() <<"*"<< e->musTopMVAT_weight_new.n()<<"*"<< e->btagWPMT_weight.n() <<"*"<< e->elesTopMVAT_reoSF_weight.n()<<"\n";
+            }
             break; 
         default:
             std::cout<<"channel wrong!\n";

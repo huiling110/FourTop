@@ -196,6 +196,9 @@ public:
     myBranch<Double_t> PSWeightISR_down_{"PSWeightISR_down_"};
     myBranch<Double_t> PSWeightFSR_up_{"PSWeightFSR_up_"};
     myBranch<Double_t> PSWeightFSR_down_{"PSWeightFSR_down_"};
+    myBranch<Double_t> triggerSFLep_weight{"triggerSFLep_weight"};
+    myBranch<Double_t> triggerSFLep_weight_up{"triggerSFLep_weight_up"};
+    myBranch<Double_t> triggerSFLep_weight_down{"triggerSFLep_weight_down"};
 
     myBranch<Int_t> jets_num{"jets_num"};
     myBranch<Double_t> jets_rationHT_4toRest{"jets_rationHT_4toRest"};
@@ -590,6 +593,9 @@ private:
         {PSWeightISR_down_.n(), &PSWeightISR_down_},
         {PSWeightFSR_up_.n(), &PSWeightFSR_up_},
         {PSWeightFSR_down_.n(), &PSWeightFSR_down_},
+        {triggerSFLep_weight.n(), &triggerSFLep_weight},
+        {triggerSFLep_weight_up.n(), &triggerSFLep_weight_up},
+        {triggerSFLep_weight_down.n(), &triggerSFLep_weight_down},
 
     {jets_num.n(), &jets_num},
     {jets_rationHT_4toRest.n(), &jets_rationHT_4toRest},
