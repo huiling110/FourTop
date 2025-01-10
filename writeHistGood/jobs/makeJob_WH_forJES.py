@@ -20,6 +20,7 @@ channel = '1tau2l'
 
 # for i in range(0, 27):
 for i in gq.JESVariationList:
+   if not i == 'RelativeSample_AK4PFchs': continue #!testing
    inputVersionUp = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}/'
    inputVersionDown = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}/'
    

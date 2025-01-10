@@ -63,8 +63,8 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type, TString er
     outTree->Branch(objName + "_tausT_invariantMass", &jets_tausT_invariantMass);
 
     outTree->Branch("MET_pt", &MET_pt);
-    outTree->Branch("MET_pt_unclusteredUp_", &MET_pt_unclusteredUp_);
-    outTree->Branch("MET_pt_unclusteredDown_", &MET_pt_unclusteredDown_);
+    // outTree->Branch("MET_pt_unclusteredUp_", &MET_pt_unclusteredUp_);
+    // outTree->Branch("MET_pt_unclusteredDown_", &MET_pt_unclusteredDown_);
 
 
 
@@ -127,16 +127,36 @@ void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     getJetLeadingVars(e, 8, jets_9pt, jets_9eta, jets_9phi, jets_9btag);
 
     //MET variations
-    MET_pt_unclusteredUp_ = *e->MET_pt_unclusteredUp;
-    MET_pt_unclusteredDown_ = *e->MET_pt_unclusteredDown;
+    // MET_pt_unclusteredUp_ = *e->MET_pt_unclusteredUp;
+    // MET_pt_unclusteredDown_ = *e->MET_pt_unclusteredDown;
     //consider MET from JES variations
-    if(m_JESVariation ==0){
+    // if(m_JESVariation ==0){
+    //     MET_pt = *e->MET_pt_;
+    //     MET_phi = *e->MET_phi_;
+    // }else{
+    //     MET_pt = TMath::Sqrt(TMath::Power(*e->MET_pt_ * TMath::Sin(*e->MET_phi_) * (1 + m_dxdy.first), 2) + TMath::Power(*e->MET_pt_ * TMath::Cos(*e->MET_phi_) * (1 + m_dxdy.second), 2));
+    //     MET_phi = TMath::ATan2(*e->MET_pt_ * TMath::Sin(*e->MET_phi_) * (1 + m_dxdy.first), *e->MET_pt_ * TMath::Cos(*e->MET_phi_) * (1 + m_dxdy.second));
+    // }
+    switch (m_JESVariation)
+    {
+    case 0:
         MET_pt = *e->MET_pt_;
         MET_phi = *e->MET_phi_;
-    }else{
+        break;
+    case 1:
         MET_pt = TMath::Sqrt(TMath::Power(*e->MET_pt_ * TMath::Sin(*e->MET_phi_) * (1 + m_dxdy.first), 2) + TMath::Power(*e->MET_pt_ * TMath::Cos(*e->MET_phi_) * (1 + m_dxdy.second), 2));
         MET_phi = TMath::ATan2(*e->MET_pt_ * TMath::Sin(*e->MET_phi_) * (1 + m_dxdy.first), *e->MET_pt_ * TMath::Cos(*e->MET_phi_) * (1 + m_dxdy.second));
+        break;
+    case 2:
+        MET_pt = TMath::Sqrt(TMath::Power(*e->MET_pt_ * TMath::Sin(*e->MET_phi_) * (1 - m_dxdy.first), 2) + TMath::Power(*e->MET_pt_ * TMath::Cos(*e->MET_phi_) * (1 - m_dxdy.second), 2));
+        MET_phi = TMath::ATan2(*e->MET_pt_ * TMath::Sin(*e->MET_phi_) * (1 - m_dxdy.first), *e->MET_pt_ * TMath::Cos(*e->MET_phi_) * (1 - m_dxdy.second));
+        break;
+    case 3://error and exit
+        std::cerr<<"Error: JetVarMaker::makeVariables() JESVariation not defined\n";
+        exit(1);
+        break;
     }
+
     // std::cout<<"MET_pt = "<<MET_pt<<"\n";
     jets_METDivideHT = MET_pt / jets_HT;
     jets_HTDivideMET = jets_MHT / MET_pt;

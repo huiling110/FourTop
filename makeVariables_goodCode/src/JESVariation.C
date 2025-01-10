@@ -83,7 +83,8 @@ std::pair<double, double> JESVariation::applyJESVariation(std::vector<ROOT::Math
                 pt_dy += particleVec[i].Pt()*(-JES_uncer)*std::sin(particleVec[i].Phi());
                 particleVec[i] = particleVec[i] * (1 - JES_uncer);
                 break;
-            default:
+            default: //error and exit program 
+                std::cerr << "Invalid JES uncertainty type: " << m_JESSysUncerType << std::endl;
                 break;
         }
 
