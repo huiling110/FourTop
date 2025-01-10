@@ -1,4 +1,5 @@
 import makeJob_forWriteHist as mj 
+import ttttGlobleQuantity as gq
 
 
 inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
@@ -10,14 +11,15 @@ inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
 # inVersion = 'v91TESAddedHadroPre_JESPt20'
 inVersion = 'v91TESAddedLepPre_JETPt22'
 # outVersion = 'v0baselineHadro'
-outVersion = 'v0baselineLep'
+# outVersion = 'v0baselineLep'
+outVersion = 'v0baselineLepV2'
 # channel = '1tau1l'
 # channel = '1tau0l'
 channel = '1tau2l'
 
 
-for i in range(0, 27):
-# for i in range(25, 27):
+# for i in range(0, 27):
+for i in gq.JESVariationList:
    inputVersionUp = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}/'
    inputVersionDown = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}/'
    
