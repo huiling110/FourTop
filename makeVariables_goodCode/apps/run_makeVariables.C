@@ -52,15 +52,17 @@ void run_objectSelection(
     // TString inputDir = "singleMu_2018b",
     // TString inputDir = "TTToSemiLeptonic10", //extra ttbar for training
     // TString inputDir = "doubleMu_2018b",
-    TString outputDir = "output/",
-    // Int_t numEntries = 100)
-    Int_t numEntries = 3000,
+    // TString outputDir = "output/",
+    // TString outputDir = "output/JESUp/",
+    TString outputDir = "output/JESDown/",
+    // Int_t numEntries = 100,
+    Int_t numEntries = 5000,
     // Int_t numEntries = 0,
     Bool_t if1tau2l = kTRUE, //!
     // Bool_t if1tau2l = kFALSE, //!!!
+    // UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
-    UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
-    // UChar_t JESVariationType = 2, //!!!0: nominal, 1: up, 2: down
+    UChar_t JESVariationType = 2, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
     UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
     )
