@@ -196,8 +196,7 @@ void treeAnalyzer::LoopTree()
 
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
 
-        // Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
-        Double_t basicWeight = e->EVENT_genWeight.v();
+        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
         //!!!Some FR_weight_final == inf for fakeTau_MC, temporary fix here
         if (std::isnan(basicWeight)|| std::isinf(basicWeight)){
             std::cout<<"!!!! FR_weight_final is NAN\n";

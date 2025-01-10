@@ -12,7 +12,8 @@ inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
 inVersion = 'v91TESAddedLepPre_JETPt22'
 # outVersion = 'v0baselineHadro'
 # outVersion = 'v0baselineLep'
-outVersion = 'v0baselineLepV2'
+# outVersion = 'v0baselineLepV2'
+outVersion = 'v1baselineLepMETFixed'
 # channel = '1tau1l'
 # channel = '1tau0l'
 channel = '1tau2l'
@@ -20,9 +21,11 @@ channel = '1tau2l'
 
 # for i in range(0, 27):
 for i in gq.JESVariationList:
-   if not i == 'RelativeSample_AK4PFchs': continue #!testing
+#    if not i == 'RelativeSample_AK4PFchs': continue #!testing
    inputVersionUp = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}/'
    inputVersionDown = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}/'
+   print('inputVersionUp: ', inputVersionUp)
+   print('inputVersionDown: ', inputVersionDown)
    
    mj.main(inputVersionUp, channel )
    print('submitted WH JES up i: ', i) 

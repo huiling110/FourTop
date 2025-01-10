@@ -26,8 +26,8 @@ def main(
     # channel = '1tau1l',
     # channel = '1tau0l'
     channel = '1tau2l',
-    # version = 'v0BDT1tau2l'
-    version = 'v1BDT1tau2l_OnlyGenWeight'
+    version = 'v0BDT1tau2l'
+    # version = 'v1BDT1tau2l_OnlyGenWeight'
     # version = 'v0BDT1tau1l'
 ):
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/'

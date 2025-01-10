@@ -29,6 +29,8 @@ def main():
         # ioutVersionUp = f'{outVersion}_JESup_{JESVariationList[i]}'
         # ioutVersionDown = f'{outVersion}_JESDown_{JESVariationList[i]}'
         # print('ioutVersionUp: ', ioutVersionUp) 
+        #get i = JESVariationList index
+        i = gq.JESVariationList.index(i)
         mj.main(year, inVersion, ioutVersionUp, if1tau2l, 1, i)
         print('submitted JES up\n')
         mj.main(year, inVersion, ioutVersionDown, if1tau2l, 2, i)
