@@ -696,8 +696,8 @@ def addDataHist(h1, h2):
     
     
     
-def getInputDirUpDown(inVersion, outVersion, i, inputDirBase):
-    # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
-    inputVersionUp = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}/'
-    inputVersionDown = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}/'
-    return inputVersionUp, inputVersionDown
+# def getInputDirUpDown(inVersion, outVersion, i, inputDirBase):
+#     # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+#     inputVersionUp = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}/'
+#     inputVersionDown = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}/'
+#     return inputVersionUp, inputVersionDown

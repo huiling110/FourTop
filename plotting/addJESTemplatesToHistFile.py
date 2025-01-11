@@ -153,7 +153,8 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
     # inVersion = 'v91TESAddedHadroPre_JESPt20'
     # outVersion = 'v0baselineHadro'
     inVersion = 'v91TESAddedLepPre_JETPt22'
-    outVersion = 'v0baselineLep'
+    # outVersion = 'v0baselineLep'
+    outVersion = 'v1baselineLepMETFixed'
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
     
     JESListUp = {}# 'tttt' = [jestVariationHist]
@@ -163,14 +164,18 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
         JESListDown[isub] = []
     
      
-    for i in range(0, 27):
+    # for i in range(0, 27):
     # for i in range(0, 1):
+    for i in gq.JESVariationList:
         # if i==11: continue #!!!Problem with v1FixedBtagWeightWhenJES_JESDown_11_v89HadroPre_JESPt22
-        JESUpDir, JESDownDir = uf.getInputDirUpDown(inVersion, outVersion, i, inputDirBase)
+        # JESUpDir, JESDownDir = uf.getInputDirUpDown(inVersion, outVersion, i, inputDirBase)
+        JESUpDir = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}'
+        JESDownDir = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}'
         JESUpDir = f'{JESUpDir}/mc/variableHists_v0BDT{channel}/'
         JESDownDir = f'{JESDownDir}/mc/variableHists_v0BDT{channel}/'
         print(JESUpDir, JESDownDir)  
-        iJESVariation = JESVariationList[i]
+        # iJESVariation = JESVariationList[i]
+        iJESVariation = i
         ifCorrelated = wd.MCSys[f'CMS_JES_{iJESVariation}'][0]
         if ifCorrelated:
             JESUpName =  f'CMS_JES_{iJESVariation}Up'        

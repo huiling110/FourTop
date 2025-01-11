@@ -66,11 +66,12 @@ void run_objectSelection(
     const UChar_t eleSmear = 0;
     const UChar_t JESSys = 0; //!!! 0:nominal, not 0 means jet pt looser of 22.
     // const UChar_t JESSys = 2; //!!! 0:nominal, not 0 means jet pt looser of 22.
-    const UChar_t JERSys = 0; //norminal
-    // const UChar_t JERSys = 1; //up
+    // const UChar_t JERSys = 0; //norminal
+    const UChar_t JERSys = 1; //up
     // const UChar_t JERSys = 2; //down
-    // const UChar_t MET_UnclusteredEn = 0; //nominal
-    const UChar_t MET_UnclusteredEn = 1; //up
+    const UChar_t MET_UnclusteredEn = 0; //nominal
+    // const UChar_t MET_UnclusteredEn = 1; //up
+    // const UChar_t MET_UnclusteredEn = 2; //down
 
     const Bool_t if1tau2l = kTRUE;//!
     // const Bool_t if1tau2l = kFALSE;//!
