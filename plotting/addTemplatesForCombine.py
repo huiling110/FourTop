@@ -3,6 +3,7 @@ import math
 
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
+import writeDatacard as wd
 
 def main():
     # 1tau0l
@@ -62,12 +63,12 @@ def main():
     
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
-    templateFile = outDir + 'templatesForCombine'+channel+'.root'
+    # templateFile = outDir + 'templatesForCombine'+channel+'.root'
+    templateFile = outDir + 'templatesForCombineTest'+channel+'.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
   
    
     # proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
-    # proList = ['tttt', 'tt', 'ttX', 'singleTop', 'WJets', 'VLLm800'] 
     # proList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #! 1tau1l, for now not considering data
     # allSubPro = uf.getAllSubPro(proList, isRun3)
     # allSubPro = uf.getAllSubPro1(proList, isRun3)
@@ -81,36 +82,12 @@ def main():
     print('all sub processes: ',allSubPro)
 
     summedHistDicAllSys = {}
-    getSumSys(summedHistDicAllSys, inputDir) #summedHistDicAllSys[sys][sumPro]
+    getSumSys(summedHistDicAllSys, inputDir) #summedHistDicAllSys[sys][sumPro]=hist
     
     getSysHist(summedHistDicAllSys, allSubPro, inputDir, outFile, isRun3)
  
     fakeData = addDataHist(summedHistDicAllSys[channel+'SR_BDT'] , outFile, channel, ifVLL)
     
-    
-    #!Energy scale variation; only 1tau1l for now 
-    # jerDic = {
-    #     # '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERup/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERdown/', 'JER'],
-    #     '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERUp_rerun/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERDown_rerun/', 'JER'],
-    #     '2017': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERDown/', 'JER'],#for 1tau1l, b-tag WP weight is used
-    #     '2016': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JERUp/mc/variableHists_v1JERUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JERDown/mc/variableHists_v1JERDown/', 'JER'],#for 1tau1l, b-tag WP weight is used
-    # }
-    # addJERSys(outFile, summedHistDicAllSys, allSubPro, jerDic, era, isRun3)
-    # jesDic = {
-    #     # '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESUp/mc/variableHists_v1JESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESDown/mc/variableHists_v1JESDown/', 'JES'],
-    #     '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESUp/mc/variableHists_v1JESUp_rerun/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_JESDown/mc/variableHists_v1JESDown_rerun/', 'JES'],
-    #     '2017': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JESUp/mc/variableHists_v1JESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_JESDown/mc/variableHists_v1JESDown/', 'JES'],
-    #     '2016': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JESUp/mc/variableHists_v1JESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_JESDown/mc/variableHists_v1JESDown/', 'JES'],
-    # }
-    # addJERSys(outFile, summedHistDicAllSys, allSubPro, jesDic, era, isRun3)
-    # tesDic = {
-    #     # '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_TESUp/mc/variableHists_v1TESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_TESDown/mc/variableHists_v1TESDown/', 'TES'],
-    #     '2018': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_TESUp/mc/variableHists_v1TESUp_rerun/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baseline_v64PreAndHLTSel_TESDown/mc/variableHists_v1TESDown_rerun/', 'TES'],
-    #     '2017': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESUp/mc/variableHists_v1TESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v64PreAndHLTSel_TESDown/mc/variableHists_v1TESDown/', 'TES'],
-    #     '2016': ['/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_TESUp/mc/variableHists_v1TESUp/', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0baseline_v64PreAndHLTSel_TESDown/mc/variableHists_v1TESDown/', 'TES'],
-    # }
-    # addJERSys(outFile, summedHistDicAllSys, allSubPro, tesDic, era, isRun3)
-     
     outFile.Write()
     print('outFile here: ', outFile.GetName())
     outFile.Close()
@@ -143,7 +120,6 @@ def getSumSys(summedHistDicAllSys, inputDir):
         obj = key.ReadObj()
         histName = obj.GetName()
         sysName = histName[histName.find('_')+1: ]
-        # if 'Up' in sysName or 'Down' in sysName: continue #!!!temporidaily shup down for 2022
         if 'cutFlow' in sysName: continue
         print('sysName: ', sysName)
         summedHistDicAllSys[sysName] = {}
@@ -239,22 +215,40 @@ def addDataHist(summedHistSR, outFile, channel, ifVLL=False):
     
     
 def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile, isRun3=False):
-    # iHist.Sumw2()#!already done 
     iHist.SetDirectory(outFile)
     if not isRun3:
         summedName = gq.histoGramPerSample[isub]    
     else:
        summedName = gq.Run3Samples[isub] 
-    # if not gq.histoGramPerSample[isub] in summedHistDic.keys():
     if not summedName in summedHistDic.keys():
         #create first summedHist
         summedHistDic[summedName] = iHist
         summedHistDic[summedName].SetName(summedName+'_'+isysHist)
+        newHistName = getNewNameOnProCorrelation(isysHist, summedName)
+        
     else:
         #add hist to summedHist
         summedHistDic[summedName].Add(iHist)
-        
-        
+    
+def getNewNameOnProCorrelation(isysHist, sumPro):    
+    newHistName = isysHist[:]
+    if 'Up' in isysHist or 'Down' in isysHist:
+        sysName = isysHist.split('_', 1)[1]
+        sysName = sysName.rsplit('_', 1)[0] 
+        sysName = sysName[:-2] if sysName.endswith('Up') else sysName
+        sysName = sysName[:-4] if sysName.endswith('Down')   else sysName
+        sysName = sysName[:-5] if sysName.endswith('2018')   else sysName
+        sysName = sysName[:-6] if sysName.endswith('2017')   else sysName
+        sysName = sysName[:-11] if sysName.endswith('2016preVFP')   else sysName
+        sysName = sysName[:-11] if sysName.endswith('2016postVFP')   else sysName
+        #access MCSys if sysName is not in MCSys, print it out
+        if sysName in wd.MCSys.keys():
+            if not wd.MCSys[sysName][3] :
+                print('!!! sysName rename for process uncorrelated sys: ', sysName)
+                newHistName = newHistName.replace(sysName, sysName+'_'+sumPro) 
+                print('newHistName: ', newHistName)
+    
+    return newHistName 
        
 if __name__=='__main__':
     main() 
