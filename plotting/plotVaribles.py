@@ -176,24 +176,6 @@ def getSysDicPL(ifSys=False, channel='1tau1l', era='2018'):
     
     return sumProSys
         
-    # if channel == '1tau0l': 
-    #     sumProSys = {
-    #         'tt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-    #         'ttX': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-    #         'WJets': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-    #         'singleTop': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-    #         'tttt': ['CMS_pileup', 'CMS_prefiring', 'CMS_eff_t_vsJet', 'CMS_eff_t_vsMu', 'CMS_eff_t_vsEle', 'CMS_tttt_eff_e', 'CMS_tttt_eff_m', 'pdf', 'QCDscale_Re', 'QCDscale_Fa', 'CMS_btag_shape_jes', 'CMS_btag_shape_lf', 'CMS_btag_shape_hf', 'CMS_btag_shape_hfstats1', 'CMS_btag_shape_hfstats2', 'CMS_btag_shape_lfstats1', 'CMS_btag_shape_lfstats2', 'CMS_btag_shape_cferr1', 'CMS_btag_shape_cferr2'],
-    #         'fakeTau': ['CMS_tau_FR'],
-    #     }
-    # elif channel == '1tau1l':
-    #     sumProSys = {
-    #        'tttt': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-    #        'tt': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-    #        'ttX': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-    #        'singleTop': ["CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],#!removed pdfAlphaS_normalised
-    #        'WJets': [ "CMS_pileup", "CMS_prefiring", "CMS_eff_t_vsJet", "CMS_eff_t_vsMu", "CMS_eff_t_vsEle", "CMS_tttt_eff_e", "CMS_tttt_eff_m", "CMS_tttt_eff_hlt_stats",  "CMS_eff_bWPMT", "pdf", "pdfAlphaS_normalised",  "QCDscale_Re_normalised",  "QCDscale_Fa_normalised"],
-    #     }
-    # return sumProSys
        
        
 def plotFakeTau(inputDirDic, variables, regions, plotName, era, isRun3, ifFTau=False):

@@ -183,20 +183,20 @@ histoGramPerSample = {
     'qcd_1500to2000':'qcd',
     'qcd_2000toInf':'qcd',
 
-    # "ttG":"ttX",
-    # "TTZToLLNuNu": "ttX",
-    # "TTZToQQ": "ttX",
-    # "TTWJetsToQQ": "ttX", #!negative yeild in 1tau1lSR
-    # "TTWJetsToLNu": "ttX",
-    # "ttH_bb": "ttX", 
-    # "ttH_nonbb": "ttX", 
-    "ttG": "ttG",
-    "TTZToLLNuNu": "ttZ",
-    "TTZToQQ": "ttZ",
-    "TTWJetsToQQ": "ttW",
-    "TTWJetsToLNu": "ttW",
-    "ttH_bb": "ttH",
-    "ttH_nonbb": "ttH",
+    "ttG":"ttX",
+    "TTZToLLNuNu": "ttX",
+    "TTZToQQ": "ttX",
+    "TTWJetsToQQ": "ttX", #!negative yeild in 1tau1lSR
+    "TTWJetsToLNu": "ttX",
+    "ttH_bb": "ttX", 
+    "ttH_nonbb": "ttX", 
+    # "ttG": "ttG",
+    # "TTZToLLNuNu": "ttZ",
+    # "TTZToQQ": "ttZ",
+    # "TTWJetsToQQ": "ttW",
+    # "TTWJetsToLNu": "ttW",
+    # "ttH_bb": "ttH",
+    # "ttH_nonbb": "ttH",
     
     # "wz":"Minor", #!should probably use wz instead of WZTo3LNu because the 2L part can also pass 1tau2l selection; but non of it passes selection
     "WZTo3LNu":"Minor", #!use this instead of wz
@@ -560,7 +560,12 @@ proChannelDic = {
     '1tau0l':  [ 'fakeTau', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, no Minor in 1tau0l neither
     # '1tau0l':  [ 'qcd', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, for fake tau validation with qcd
     '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
-    # '1tau2l':  ['tt', 'ttX',  'singleTop',  'Minor',  'tttt', 'leptonSum'], #!testing
+    # '1tau2l':  ['tt', 'ttH', 'ttZ', 'ttW', 'ttG', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], #!testing
+}
+proChannelDic_forCombine = {
+    '1tau1l':  ['tt', 'ttZ', 'ttW', 'ttG', 'ttH', 'fakeLepton', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
+    '1tau2l': ['tt', 'ttZ', 'ttW', 'ttG', 'ttH', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'],
+    '1tau0l':  ['fakeTau', 'tt', 'ttZ', 'ttW', 'ttG', 'ttH', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, no Minor in 1tau0l neither
 }
 
 #!copied from inputMAP_MV.H
