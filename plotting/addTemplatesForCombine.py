@@ -223,8 +223,9 @@ def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile, isRun3=False):
     if not summedName in summedHistDic.keys():
         #create first summedHist
         summedHistDic[summedName] = iHist
-        summedHistDic[summedName].SetName(summedName+'_'+isysHist)
         newHistName = getNewNameOnProCorrelation(isysHist, summedName)
+        # summedHistDic[summedName].SetName(summedName+'_'+isysHist)
+        summedHistDic[summedName].SetName(summedName+'_'+ newHistName)
         
     else:
         #add hist to summedHist
