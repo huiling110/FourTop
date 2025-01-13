@@ -37,12 +37,9 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # TES = 10 #dm11Down
 # jobVersionName = 'v91TESAddedHadroPre_TESdm11Down/'
 
-
+#!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
 TES = 0
-# TES = 4 # dm0Down
-# TES = 3 # dm0Up
-# TES = 5 #dm1Up
-# TES = 6 #dm1Down
+
 # jobVersionName = 'v91TESAddedHadroPre_EleScaleUp/'
 # jobVersionName = 'v91TESAddedHadroPre_EleScaleDown/'
 # jobVersionName = 'v91TESAddedHadroPre_JESPt20/'
@@ -52,11 +49,11 @@ TES = 0
 # jobVersionName = 'v91TESAddedLepPre_JERDown/'
 # jobVersionName = 'v91TESAddedLepPre_METUp/'
 # jobVersionName = 'v91TESAddedLepPre_METDown/'
-jobVersionName = 'v91TESAddedLepPre_JERUp/'
+# jobVersionName = 'v91TESAddedLepPre_TESdm11Down/'
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
-isRuobing = False
 #!same version numbers means no change in algrithm but only in selection
+isRuobing = False
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
     # era = '2016'
