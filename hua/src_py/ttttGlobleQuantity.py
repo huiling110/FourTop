@@ -183,15 +183,20 @@ histoGramPerSample = {
     'qcd_1500to2000':'qcd',
     'qcd_2000toInf':'qcd',
 
-    "ttG":"ttX",
-    # "ttZ":"ttX",  
-    # "ttW":"ttX",
-    "TTZToLLNuNu": "ttX",
-    "TTZToQQ": "ttX",
-    "TTWJetsToQQ": "ttX", #!negative yeild in 1tau1lSR
-    "TTWJetsToLNu": "ttX",
-    "ttH_bb": "ttX", 
-    "ttH_nonbb": "ttX", 
+    # "ttG":"ttX",
+    # "TTZToLLNuNu": "ttX",
+    # "TTZToQQ": "ttX",
+    # "TTWJetsToQQ": "ttX", #!negative yeild in 1tau1lSR
+    # "TTWJetsToLNu": "ttX",
+    # "ttH_bb": "ttX", 
+    # "ttH_nonbb": "ttX", 
+    "ttG": "ttG",
+    "TTZToLLNuNu": "ttZ",
+    "TTZToQQ": "ttZ",
+    "TTWJetsToQQ": "ttW",
+    "TTWJetsToLNu": "ttW",
+    "ttH_bb": "ttH",
+    "ttH_nonbb": "ttH",
     
     # "wz":"Minor", #!should probably use wz instead of WZTo3LNu because the 2L part can also pass 1tau2l selection; but non of it passes selection
     "WZTo3LNu":"Minor", #!use this instead of wz
