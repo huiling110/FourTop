@@ -266,7 +266,6 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
             # if 'JES' in sys and ipro=='ttX':#!!!temperory fix 
                 # proSys[ipro] = 0
             if not sysList[3] : # process uncorrelated systematic
-                # proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) and ipro in sys  else 0
                 proName = sys.split('_')[-1]
                 proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) and ipro == proName else 0
             else:
