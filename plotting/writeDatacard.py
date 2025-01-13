@@ -55,39 +55,39 @@ MCSys = {
     
     'pdfAlphaS_normalised': [True, 0, 0b111, True], #!not considering for singleTop 
     'pdf_normalised': [True, 0, 0b111, True],
-    'QCDscale_Re_normalised': [True, 0, 0b111, True],   
-    'QCDscale_Fa_normalised': [True, 0, 0b111, True],  
-    'ISR_normalised': [True, 0, 0b111, True],
+    'QCDscale_Re_normalised': [True, 0, 0b111, False],   
+    'QCDscale_Fa_normalised': [True, 0, 0b111, False],  
+    'ISR_normalised': [True, 0, 0b111, False],
     'FSR_normalised': [True, 0, 0b111, True],
    
     #JES https://docs.google.com/spreadsheets/d/1JZfk78_9SD225bcUuTWVo4i02vwI5FfeVKH-dwzUdhM/edit?gid=1345121349#gid=1345121349 
-    "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
-    "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
-    "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
-    "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
-    "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
-    "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
-    "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
-    "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
+    # "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
+    # "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
+    # "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
+    # "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
+    # "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
+    # "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
+    # "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
  
     # "CMS_JER": [False, 0, 0b111 , True],
  
@@ -114,11 +114,9 @@ def main():
 #    outVersion = 'v1proNormAdd'
 #    outVersion = 'v2OnlyJES'
     # outVersion = 'v3BasicAndJES'
-    outVersion = 'v3BasicAndJESFixed'
+    # outVersion = 'v3BasicAndJESFixed'
     # outVersion = 'v4BasicAndJESJER'
-    # outVersion = 'v5BasicAndTES'
-    # outVersion = 'v6BasicAndTESJES'
-   
+    outVersion = 'v4BasicTheoreyDecorrelated'
    
 #    channel = '1tau0l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
@@ -223,11 +221,22 @@ def getSysDic(processes, channel, era):
     #return: pdf_normalised ['shape', {'tt': 1, 'ttX': 1, 'fakeLepton': 0, 'singleTop': 1, 'Minor': 1, 'tttt': 1}]
     sysDic = {}
     for sys, sysList in MCSys.items():
-        sysName = sys if sysList[0] else f"{sys}_{era}"
-        sysDic[sysName] = []
-        sysDic[sysName].append("shape")     
-        proSysDic = getProSysDic(sysName, sysList, processes, channel)   
-        sysDic[sysName].append(proSysDic)
+        # sysName = sys if sysList[0] else f"{sys}_{era}"
+        sysPre = sys if sysList[0] else f"{sys}_{era}"
+        if not sysList[3] and sysList[1]==0: #!if systematic is correlated between processes
+            sysName = [f"{sysPre}_{ipro}" for ipro in processes if not 'fake' in ipro]
+        else:
+            sysName = [sysPre]
+        for isys in sysName:
+            sysDic[isys] = []
+            sysDic[isys].append("shape")
+            proSysDic = getProSysDic(isys, sysList, processes, channel)
+            sysDic[isys].append(proSysDic)
+            
+             
+    # for sysName in sysDic.keys():    
+    #     proSysDic = getProSysDic(sysName, sysList, processes, channel)   
+    #     sysDic[sysName].append(proSysDic)
 
     return  sysDic
      
@@ -243,6 +252,8 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
     proSys = {}
     for ipro in processes:
         if uf.isData(ipro) : continue
+            
+            
         if ipro=='fakeTau':
             proSys[ipro] = 1 if sysList[1]==1 and ((sysList[2]&channeMask) !=0) else 0
         elif ipro=='fakeLepton':
@@ -250,11 +261,16 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
         elif ipro=='Minor' :#!!!not considering anys systematic for Minor processes
             proSys[ipro] = 0
         else: 
-            proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
             if sys=='pdfAlphaS_normalised' and ipro=='singleTop': #!!!
                 proSys[ipro] = 0
-            if 'JES' in sys and ipro=='ttX':#!!!temperory fix 
-                proSys[ipro] = 0
+            # if 'JES' in sys and ipro=='ttX':#!!!temperory fix 
+                # proSys[ipro] = 0
+            if not sysList[3] : # process uncorrelated systematic
+                # proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) and ipro in sys  else 0
+                proName = sys.split('_')[-1]
+                proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) and ipro == proName else 0
+            else:
+                proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
              
     return proSys            
              

@@ -61,8 +61,8 @@ void run_objectSelection(
     TString m_processName = temp(temp.Last('/')+1, temp.Length()-temp.Last('/'));
 
     // const UChar_t eleScale = 0;//!Only this useful for run 2
-    const UChar_t eleScale = 1;//!Only this useful for run 2, both energy scale and smearing
-    // const UChar_t eleScale = 2;//!Only this useful for run 2
+    // const UChar_t eleScale = 1;//!Only this useful for run 2, both energy scale and smearing
+    const UChar_t eleScale = 2;//!Only this useful for run 2
     const UChar_t eleSmear = 0;
     const UChar_t JESSys = 0; //!!! 0:nominal, not 0 means jet pt looser of 22.
     // const UChar_t JESSys = 2; //!!! 0:nominal, not 0 means jet pt looser of 22.

@@ -50,7 +50,8 @@ TES = 0
 # jobVersionName = 'v91TESAddedLepPre_METUp/'
 # jobVersionName = 'v91TESAddedLepPre_METDown/'
 # jobVersionName = 'v91TESAddedLepPre_TESdm11Down/'
-jobVersionName = 'v91TESAddedLepPre_EleScaleUp/'
+# jobVersionName = 'v91TESAddedLepPre_EleScaleUp/'
+jobVersionName = 'v91TESAddedLepPre_EleScaleDown/'
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
 #!same version numbers means no change in algrithm but only in selection
