@@ -9,19 +9,17 @@ def main():
     # year = '2016'
     # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     # inVersion = 'v90MuonESHadroPre_JESPt22'
-    # inVersion = 'v91TESAddedHadroPre_JESPt20'
-    inVersion = 'v91TESAddedLepPre_JETPt22'
+    inVersion = 'v91TESAddedHadroPre_JESPt20'
+    # inVersion = 'v91TESAddedLepPre_JETPt22'
     # outVersion = 'v0baselineLep'
     # outVersion = 'v0baselineLepV2'
-    outVersion = 'v1baselineLepMETFixed'
-    # outVersion = 'v0baselineHadro'
+    # outVersion = 'v1baselineLepMETFixed'
+    outVersion = 'v0baselineHadro'
     # outVersion = 'v1FixedBtagWeightWhenJES'
-    # if1tau2l = 0
-    if1tau2l = 1
+    if1tau2l = 0
+    # if1tau2l = 1
    
     
-    # for i in range(0, 27):
-    # for i in range(16, 27):
     for i in gq.JESVariationList:
         print('i JESVariation: ', i)
         ioutVersionUp = f'{outVersion}_JESup_{i}'
