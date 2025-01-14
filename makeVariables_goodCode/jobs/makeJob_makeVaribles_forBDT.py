@@ -14,7 +14,6 @@ def main(
     year = '2018',
     # year = '2017',
     # inVersion = 'v88PSWeightFixedHadroPre',
-    # inVersion = 'v89HadroPre_JESPt22',#!!!for JES variation only
     # inVersion = 'v90MuonESHadroPre',
     # inVersion = 'v90MuonESHadroPre_JERUp',
     # inVersion = 'v90MuonESHadroPre_JERDown',
@@ -34,7 +33,7 @@ def main(
     # inVersion = 'v91TESAddedLepPre_TESdm1Down',
     # inVersion = 'v91TESAddedLepPre_TESdm10Up',
     # inVersion = 'v91TESAddedLepPre_TESdm10Down',
-    inVersion = 'v91TESAddedLepPre_TESdm11Down',
+    # inVersion = 'v91TESAddedLepPre_TESdm11Down',
     # inVersion = 'v91TESAddedLepPre_EleScaleUp',
     # inVersion = 'v91TESAddedLepPre_EleScaleDown',
     # outVersion = 'v0baselineLep',

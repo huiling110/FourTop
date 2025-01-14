@@ -38,12 +38,10 @@ void run_objectSelection(
     TString singleFileName = "01D97507-B0BB-234F-A28E-6AD66C3499E9.root",//2018 tttt
     // TString singleFileName = "02151677-7D45-7940-803F-3FA5A101D504.root",//2017, tttt
     // TString singleFileName = "0BF1CAC0-066F-6C41-89EF-6F7B67A8E1D7.root",
-    // TString singleFileName = "NanoAODv9_10.root",
-    // TString singleFileName = "tree_1.root", // run3, output of nanoAOD tool
     TString outputDir = "./output/",
     const UChar_t TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
     // const UChar_t TES = 4;
-    Int_t eventNum = 1000)
+    Int_t eventNum = 5000)
 // Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 {
@@ -60,17 +58,17 @@ void run_objectSelection(
     TString temp = inputDir(0, inputDir.Last('/'));
     TString m_processName = temp(temp.Last('/')+1, temp.Length()-temp.Last('/'));
 
-    // const UChar_t eleScale = 0;//!Only this useful for run 2
+    const UChar_t eleScale = 0;//!Only this useful for run 2
     // const UChar_t eleScale = 1;//!Only this useful for run 2, both energy scale and smearing
-    const UChar_t eleScale = 2;//!Only this useful for run 2
+    // const UChar_t eleScale = 2;//!Only this useful for run 2
     const UChar_t eleSmear = 0;
     const UChar_t JESSys = 0; //!!! 0:nominal, not 0 means jet pt looser of 22.
     // const UChar_t JESSys = 2; //!!! 0:nominal, not 0 means jet pt looser of 22.
     const UChar_t JERSys = 0; //norminal
     // const UChar_t JERSys = 1; //up
     // const UChar_t JERSys = 2; //down
-    const UChar_t MET_UnclusteredEn = 0; //nominal
-    // const UChar_t MET_UnclusteredEn = 1; //up
+    // const UChar_t MET_UnclusteredEn = 0; //nominal
+    const UChar_t MET_UnclusteredEn = 1; //up
     // const UChar_t MET_UnclusteredEn = 2; //down
 
     const Bool_t if1tau2l = kTRUE;//!
