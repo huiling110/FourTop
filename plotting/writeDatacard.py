@@ -117,7 +117,8 @@ def main():
     # outVersion = 'v3BasicAndJESFixed'
     # outVersion = 'v4BasicAndJESJER'
     # outVersion = 'v4BasicTheoreyDecorrelated'
-    outVersion = 'v5BasicTTXDeorrelated'
+    # outVersion = 'v5BasicTTXDeorrelated'
+    outVersion = 'v6AllSys'
    
 #    channel = '1tau0l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
@@ -170,14 +171,14 @@ def addProcessNormalization(sysDic, processes):
     proNormalDic = {
        'tttt':  0.1,
        'tt': 0.05,#https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO
-       'ttX' : 0.11,
+    #    'ttX' : 0.11,
        'singleTop': 0.2,
        'WJets': 0.1,
        'Minor': 0.2, 
        'ttZ': 0.119,
        'ttW': 0.102,
        'ttH': 0.084,
-       'ttG': 0.005,
+    #    'ttG': 0.005,
     }
     for ipro, inorm in proNormalDic.items():
         sysDic[f"norm_{ipro}"] = []

@@ -325,6 +325,8 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
 
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hlt_stats_" + m_era +"Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hlt_stats_" + m_era +"Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hltLep_" + m_era +"Up", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hltLep_" + m_era +"Down", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_down.v(), SR1tau1l, m_isData);
 
         //theorectical uncertainties
         SR1tau1lSys.fillHistVec(region + "_pdfUp", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
