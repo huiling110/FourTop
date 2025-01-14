@@ -61,40 +61,40 @@ MCSys = {
     'FSR_normalised': [True, 0, 0b111, True],
    
     #JES https://docs.google.com/spreadsheets/d/1JZfk78_9SD225bcUuTWVo4i02vwI5FfeVKH-dwzUdhM/edit?gid=1345121349#gid=1345121349 
-    # "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
-    # "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
-    # "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
-    # "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
+    "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
+    "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
+    "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
+    "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
+    "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
+    "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
+    "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
  
-    # "CMS_JER": [False, 0, 0b111 , True],
+    "CMS_JER": [False, 0, 0b111 , True],
  
-    # 'CMS_tau_TES_dm0': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm1': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm10': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm11': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm0': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm1': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm10': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm11': [False, 0, 0b111, True],
     
     'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
     'CMS_e_scale': [False, 0, 0b001, True],
@@ -192,6 +192,22 @@ def addProcessNormalization(sysDic, processes):
             else:
                 proDic[ipro2] = 0
         sysDic[f"norm_{ipro}"].append(proDic)
+    
+    #add FR uncertainty for fakeLepton 
+    sysDic['norm_fakeLepton_sys'] = []
+    sysDic['norm_fakeLepton_sys'].append("lnN")
+    sysDic['norm_fakeLepton_stats'] = []
+    sysDic['norm_fakeLepton_stats'].append("lnN")
+    proDic = {}
+    for ipro in processes:
+        if ipro == 'fakeLepton':
+            proDic[ipro] = 1.2
+        else:
+            proDic[ipro] = 0
+    sysDic['norm_fakeLepton_sys'].append(proDic)
+    sysDic['norm_fakeLepton_stats'].append(proDic)
+            
+    
                 
                 
 
