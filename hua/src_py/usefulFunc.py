@@ -400,8 +400,10 @@ def isBG(sumPro, ifVLL=False):
     return proType
         
         
-def getAllSubPro(era, sumPro, isData=True):
-    all = gq.histoGramPerSample
+def getAllSubPro(era, sumPro, isData=True, ifttXDecorrelate=False):
+    all = gq.histoGramPerSample.copy()
+    if ifttXDecorrelate:
+        all.update(gq.ttX_newMap)
     allSubs = []
     if isData:
         for isub, isum in all.items():

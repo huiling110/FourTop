@@ -41,9 +41,6 @@ def main():
     # channel = '1tau1l' 
     
     channel = '1tau2l'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87LepPreSel_GammaRemovalBugFixed/mc/variableHists_v0BDT1tau2l/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v87addPdfPSWeightSum/mc/variableHists_v0BDT1tau2l_newMCSample/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
@@ -68,17 +65,16 @@ def main():
     outFile = ROOT.TFile(templateFile, 'RECREATE')
   
    
-    # proList = ['tttt', 'tt', 'fakeTau', 'ttX', 'singleTop', 'WJets'] #!1tau0l
-    # proList = ['tt', 'ttX', 'singleTop', 'WJets', 'tttt'] #! 1tau1l, for now not considering data
     # allSubPro = uf.getAllSubPro(proList, isRun3)
     # allSubPro = uf.getAllSubPro1(proList, isRun3)
     # allSubPro = uf.getAllSubPro1(gq.proChannelDic[channel], isRun3)
-    sumPros = gq.proChannelDic[channel].copy()
+    # sumPros = gq.proChannelDic[channel].copy()
+    sumPros = gq.proChannelDic_forCombine[channel].copy()
     #remove the last one, which is data
     sumPros.pop()
     if ifVLL:
         sumPros.append('VLLm600')
-    allSubPro = uf.getAllSubPro(era, sumPros, False)
+    allSubPro = uf.getAllSubPro(era, sumPros, False, True)
     print('all sub processes: ',allSubPro)
 
     summedHistDicAllSys = {}
@@ -108,7 +104,8 @@ def getSysHist(summedHistDicAllSys, allSubPro,inputDir, outFile, isRun3=False):
                 print(isub + '_' + isysHist, 'not existing, skiping it!!!')
                 continue
             iHist = iiHist.Clone()
-            addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile, isRun3) 
+            # addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile, isRun3) 
+            addHistToDic(iHist, summedHistDicAllSys[isysHist], isysHist, isub, outFile, isRun3, True) 
         iroot.Close() 
     print('done adding sys hists to sumPro\n\n')
       
@@ -214,12 +211,18 @@ def addDataHist(summedHistSR, outFile, channel, ifVLL=False):
          
     
     
-def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile, isRun3=False):
+# def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile, isRun3=False):
+def addHistToDic(iHist, summedHistDic, isysHist, isub, outFile, isRun3=False, ifttXDecorrelate=False):
     iHist.SetDirectory(outFile)
     if not isRun3:
-        summedName = gq.histoGramPerSample[isub]    
+        histMap = gq.histoGramPerSample.copy()
+        if ifttXDecorrelate:
+            histMap.update(gq.ttX_newMap)
+        summedName = histMap[isub]   
     else:
-       summedName = gq.Run3Samples[isub] 
+       summedName = gq.Run3Samples[isub]
+        
+         
     if not summedName in summedHistDic.keys():
         #create first summedHist
         summedHistDic[summedName] = iHist
@@ -245,9 +248,9 @@ def getNewNameOnProCorrelation(isysHist, sumPro):
         #access MCSys if sysName is not in MCSys, print it out
         if sysName in wd.MCSys.keys():
             if not wd.MCSys[sysName][3] :
-                print('!!! sysName rename for process uncorrelated sys: ', sysName)
+                # print('!!! sysName rename for process uncorrelated sys: ', sysName)
                 newHistName = newHistName.replace(sysName, sysName+'_'+sumPro) 
-                print('newHistName: ', newHistName)
+                # print('newHistName: ', newHistName)
     
     return newHistName 
        

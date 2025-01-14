@@ -190,13 +190,6 @@ histoGramPerSample = {
     "TTWJetsToLNu": "ttX",
     "ttH_bb": "ttX", 
     "ttH_nonbb": "ttX", 
-    # "ttG": "ttG",
-    # "TTZToLLNuNu": "ttZ",
-    # "TTZToQQ": "ttZ",
-    # "TTWJetsToQQ": "ttW",
-    # "TTWJetsToLNu": "ttW",
-    # "ttH_bb": "ttH",
-    # "ttH_nonbb": "ttH",
     
     # "wz":"Minor", #!should probably use wz instead of WZTo3LNu because the 2L part can also pass 1tau2l selection; but non of it passes selection
     "WZTo3LNu":"Minor", #!use this instead of wz
@@ -207,7 +200,6 @@ histoGramPerSample = {
     'WZZ': 'Minor',
     'ZZZ': 'Minor',
     
-    #!do we miss some single top samples : s-channel, t channel, tW channel
     # "st_tZq":"singleTop", #!seems problom with systematic uncertainty and contribution negative, remove this process
     "st_tW_antitop":"singleTop",
     "st_tW_top":"singleTop",
@@ -476,6 +468,18 @@ histoGramPerSample = {
     'TTToSemiLeptonic20': 'ttExtra',
     'TTToSemiLeptonic21': 'ttExtra',
 }
+
+ttX_newMap = {
+    "ttG": "ttG",
+    "TTZToLLNuNu": "ttZ",
+    "TTZToQQ": "ttZ",
+    "TTWJetsToQQ": "ttW",
+    "TTWJetsToLNu": "ttW",
+    "ttH_bb": "ttH",
+    "ttH_nonbb": "ttH",
+}
+
+
 
 #! maybe it's better to keep it in this format?
 subSumProDic ={
