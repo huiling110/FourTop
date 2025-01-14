@@ -72,12 +72,12 @@ def main():
     
     
     
-    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
+    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
     
     # addJERToFile(allSubProcesses, regionList, era, nominalDir)
     # addMETToFile(allSubProcesses, regionList, era, nominalDir)#!Problem with MET templates maybe
     # addEESToFile(allSubProcesses, regionList, era, nominalDir)
-    addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    # addTESToFile(allSubProcesses, regionList, era, nominalDir)
     
     
     
