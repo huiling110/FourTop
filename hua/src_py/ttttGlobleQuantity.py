@@ -183,7 +183,6 @@ histoGramPerSample = {
     'qcd_1500to2000':'qcd',
     'qcd_2000toInf':'qcd',
 
-    "ttG":"ttX",
     "TTZToLLNuNu": "ttX",
     "TTZToQQ": "ttX",
     "TTWJetsToQQ": "ttX", #!negative yeild in 1tau1lSR
@@ -210,6 +209,7 @@ histoGramPerSample = {
     # "TGJets": "Minor",#"XGamma", #!!!no entries in 1tau2l
     "ZGToLLG": "Minor",#"XGamma",
     # "WGToLNuG": "Minor",#"XGamma",#!!!no entreis in 1tau2l
+    "ttG":"Minor",
    
     
     "ggH_bb": "Minor",#"Higgs",#!not excsi in 2017 nano files

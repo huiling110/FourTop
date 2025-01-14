@@ -60,8 +60,7 @@ def main():
     
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
-    # templateFile = outDir + 'templatesForCombine'+channel+'.root'
-    templateFile = outDir + 'templatesForCombineTest'+channel+'.root'
+    templateFile = outDir + 'templatesForCombine'+channel+'.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
   
    
