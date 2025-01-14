@@ -4,35 +4,35 @@ import ttttGlobleQuantity as gq
 import writeDatacard as wd
 
 #!copied from inputMAP_MV.H
-JESVariationList = [
-    "AbsoluteMPFBias_AK4PFchs",
-    "AbsoluteScale_AK4PFchs",
-    "AbsoluteStat_AK4PFchs",
-    "FlavorQCD_AK4PFchs",
-    "Fragmentation_AK4PFchs",
-    "PileUpDataMC_AK4PFchs",
-    "PileUpPtBB_AK4PFchs",
-    "PileUpPtEC1_AK4PFchs",
-    "PileUpPtEC2_AK4PFchs",
-    "PileUpPtHF_AK4PFchs",
-    "PileUpPtRef_AK4PFchs",
-    "RelativeFSR_AK4PFchs",
-    "RelativeJEREC1_AK4PFchs",
-    "RelativeJEREC2_AK4PFchs",
-    "RelativeJERHF_AK4PFchs",
-    "RelativePtBB_AK4PFchs",
-    "RelativePtEC1_AK4PFchs",
-    "RelativePtEC2_AK4PFchs",
-    "RelativePtHF_AK4PFchs",
-    "RelativeBal_AK4PFchs",
-    "RelativeSample_AK4PFchs",
-    "RelativeStatEC_AK4PFchs",
-    "RelativeStatFSR_AK4PFchs",
-    "RelativeStatHF_AK4PFchs",
-    "SinglePionECAL_AK4PFchs",
-    "SinglePionHCAL_AK4PFchs",
-    "TimePtEta_AK4PFchs",
-]
+# JESVariationList = [
+#     "AbsoluteMPFBias_AK4PFchs",
+#     "AbsoluteScale_AK4PFchs",
+#     "AbsoluteStat_AK4PFchs",
+#     "FlavorQCD_AK4PFchs",
+#     "Fragmentation_AK4PFchs",
+#     "PileUpDataMC_AK4PFchs",
+#     "PileUpPtBB_AK4PFchs",
+#     "PileUpPtEC1_AK4PFchs",
+#     "PileUpPtEC2_AK4PFchs",
+#     "PileUpPtHF_AK4PFchs",
+#     "PileUpPtRef_AK4PFchs",
+#     "RelativeFSR_AK4PFchs",
+#     "RelativeJEREC1_AK4PFchs",
+#     "RelativeJEREC2_AK4PFchs",
+#     "RelativeJERHF_AK4PFchs",
+#     "RelativePtBB_AK4PFchs",
+#     "RelativePtEC1_AK4PFchs",
+#     "RelativePtEC2_AK4PFchs",
+#     "RelativePtHF_AK4PFchs",
+#     "RelativeBal_AK4PFchs",
+#     "RelativeSample_AK4PFchs",
+#     "RelativeStatEC_AK4PFchs",
+#     "RelativeStatFSR_AK4PFchs",
+#     "RelativeStatHF_AK4PFchs",
+#     "SinglePionECAL_AK4PFchs",
+#     "SinglePionHCAL_AK4PFchs",
+#     "TimePtEta_AK4PFchs",
+# ]
 
 #add JES variation templates to WH root files 
 #add JER variation templetas to WH root files
@@ -59,8 +59,6 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
       
-    era =  uf.getEraFromDir(nominalDir) 
-    
     # channel = '1tau1l'
     # regionList = ['1tau1lSR', '1tau1lCR12']#
     # channel = '1tau0l'
@@ -73,31 +71,51 @@ def main():
     allSubProcesses = getMCSubPro(channel, era)
     
     
+    
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
+    
     # addJERToFile(allSubProcesses, regionList, era, nominalDir)
-    
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
-    
-    # addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    # addMETToFile(allSubProcesses, regionList, era, nominalDir)#!Problem with MET templates maybe
+    # addEESToFile(allSubProcesses, regionList, era, nominalDir)
+    addTESToFile(allSubProcesses, regionList, era, nominalDir)
     
     
     
      
 def addTESToFile(allSubProcesses, regionList, era, nominalDir):
     #/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre_TESdm11Down/mc
-    TESbase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre'
+    # TESbase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre'
+    #copy the string from nominalDir
+    # TESbase = nominalDir
     for i in (0, 1, 10, 11):
-        iTESUpDir = f'{TESbase}_TESdm{i}Up/mc/variableHists_v0BDT1tau1l/'
-        iTESDownDir = f'{TESbase}_TESdm{i}Down/mc/variableHists_v0BDT1tau1l/'
+        # iTESUpDir = f'{TESbase}_TESdm{i}Up/mc/variableHists_v0BDT{channel}/'
+        # iTESDownDir = f'{TESbase}_TESdm{i}Down/mc/variableHists_v0BDT{channel}/'
+        iTESUpDir = nominalDir.replace('/mc/', f'_TESdm{i}Up/mc/')
+        iTESDownDir = nominalDir.replace('/mc/', f'_TESdm{i}Down/mc/')
         TESName = f'CMS_tau_TES_dm{i}' 
         addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName)
          
     
     
 def addJERToFile(allSubProcesses, regionList, era, nominalDir):
-    JERUpDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERUp/mc/variableHists_v0BDT1tau1l/' 
-    JERDownDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERDown/mc/variableHists_v0BDT1tau1l/'
+    # JERUpDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERUp/mc/variableHists_v0BDT1tau1l/' 
+    # JERDownDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERDown/mc/variableHists_v0BDT1tau1l/'
+    JERUpDir = nominalDir.replace('/mc/', '_JERUp/mc/')
+    JERDownDir = nominalDir.replace('/mc/', '_JERDown/mc/')
     name = 'CMS_JER'
     addUpDownToFile(allSubProcesses, regionList, era, nominalDir, JERUpDir, JERDownDir, name)
+    
+def addMETToFile(allSubProcesses, regionList, era, nominalDir):
+    METUpDir = nominalDir.replace('/mc/', '_METUp/mc/')
+    METDownDir = nominalDir.replace('/mc/', '_METDown/mc/')
+    name = 'CMS_MET_unclusteredEnergy' 
+    addUpDownToFile(allSubProcesses, regionList, era, nominalDir, METUpDir, METDownDir, name)
+
+def addEESToFile(allSubProcesses, regionList, era, nominalDir):
+    EESUpDir = nominalDir.replace('/mc/', '_EleScaleUp/mc/')
+    EESDownDir = nominalDir.replace('/mc/', '_EleScaleDown/mc/')
+    name = 'CMS_e_scale'
+    addUpDownToFile(allSubProcesses, regionList, era, nominalDir, EESUpDir, EESDownDir, name)
     
         
     

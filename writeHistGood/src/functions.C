@@ -497,6 +497,7 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
 
     sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_tttt_l_FR_" + era + "Up");
 
     sysRegions.push_back(region + "_pdfUp");
     sysRegions.push_back(region + "_pdfDown");

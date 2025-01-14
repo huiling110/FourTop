@@ -10,7 +10,7 @@ MCSys = {
     'CMS_prefiring': [False, 0, 0b111, True],
     
     'CMS_tttt_eff_hlt_stats': [False, 0, 0b110, True],
-    #!Lepton trigger SF for 1tau2l to be added
+    'CMS_tttt_eff_hltLep': [False, 0, 0b001, True],
     
     'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
@@ -96,7 +96,8 @@ MCSys = {
     # 'CMS_tau_TES_dm10': [False, 0, 0b111, True],
     # 'CMS_tau_TES_dm11': [False, 0, 0b111, True],
     
-    # 'CMS_MET_unclustered': [False, 0, 0b111, True],
+    'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
+    'CMS_e_scale': [False, 0, 0b001, True],
     
 }
 
@@ -179,6 +180,7 @@ def addProcessNormalization(sysDic, processes):
        'ttW': 0.102,
        'ttH': 0.084,
     #    'ttG': 0.005,
+        
     }
     for ipro, inorm in proNormalDic.items():
         sysDic[f"norm_{ipro}"] = []
