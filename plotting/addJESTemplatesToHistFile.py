@@ -3,37 +3,6 @@ import usefulFunc as uf
 import ttttGlobleQuantity as gq
 import writeDatacard as wd
 
-#!copied from inputMAP_MV.H
-# JESVariationList = [
-#     "AbsoluteMPFBias_AK4PFchs",
-#     "AbsoluteScale_AK4PFchs",
-#     "AbsoluteStat_AK4PFchs",
-#     "FlavorQCD_AK4PFchs",
-#     "Fragmentation_AK4PFchs",
-#     "PileUpDataMC_AK4PFchs",
-#     "PileUpPtBB_AK4PFchs",
-#     "PileUpPtEC1_AK4PFchs",
-#     "PileUpPtEC2_AK4PFchs",
-#     "PileUpPtHF_AK4PFchs",
-#     "PileUpPtRef_AK4PFchs",
-#     "RelativeFSR_AK4PFchs",
-#     "RelativeJEREC1_AK4PFchs",
-#     "RelativeJEREC2_AK4PFchs",
-#     "RelativeJERHF_AK4PFchs",
-#     "RelativePtBB_AK4PFchs",
-#     "RelativePtEC1_AK4PFchs",
-#     "RelativePtEC2_AK4PFchs",
-#     "RelativePtHF_AK4PFchs",
-#     "RelativeBal_AK4PFchs",
-#     "RelativeSample_AK4PFchs",
-#     "RelativeStatEC_AK4PFchs",
-#     "RelativeStatFSR_AK4PFchs",
-#     "RelativeStatHF_AK4PFchs",
-#     "SinglePionECAL_AK4PFchs",
-#     "SinglePionHCAL_AK4PFchs",
-#     "TimePtEta_AK4PFchs",
-# ]
-
 #add JES variation templates to WH root files 
 #add JER variation templetas to WH root files
 #add TES variation templates to WH root files

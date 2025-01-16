@@ -8,8 +8,6 @@ import usefulFunc as uf
 
 
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
-# jobVersionName = 'v84Pre1tau2lLepF2/'
-# jobVersionName = 'v84Pre1tau2lLepF2V2/'
 # jobVersionName = 'v84HadroPresel/'
 # jobVersionName = 'v85HadroPreselTauOverlap0.5/'
 # jobVersionName = 'v86HadroPreSelWithGammaRemoval/'
@@ -28,27 +26,25 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v91TESAddedHadroPre_TESdm0Down/'
 # jobVersionName = 'v91TESAddedHadroPre_TESdm1Up/'
 # jobVersionName = 'v91TESAddedHadroPre_TESdm1Down/'
-# TES = 7 #dm10Up
 # jobVersionName = 'v91TESAddedHadroPre_TESdm10Up/'
-# TES = 8 #dm10Up
 # jobVersionName = 'v91TESAddedHadroPre_TESdm10Down/'
-# TES = 9 #dm11Down
 # jobVersionName = 'v91TESAddedHadroPre_TESdm11Up/'
-# TES = 10 #dm11Down
 # jobVersionName = 'v91TESAddedHadroPre_TESdm11Down/'
+# jobVersionName = 'v91TESAddedHadroPre_EleScaleUp/'
+# jobVersionName = 'v91TESAddedHadroPre_EleScaleDown/'
+# jobVersionName = 'v91TESAddedHadroPre_JESPt20/'
+# jobVersionName = 'v91TESAddedHadroPre_METUp/'
+jobVersionName = 'v91TESAddedHadroPre_JERDown/'
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
 TES = 0
 
-# jobVersionName = 'v91TESAddedHadroPre_EleScaleUp/'
-# jobVersionName = 'v91TESAddedHadroPre_EleScaleDown/'
-# jobVersionName = 'v91TESAddedHadroPre_JESPt20/'
 # jobVersionName = 'v91TESAddedLepPre/'
 # jobVersionName = 'v91TESAddedLepPre_JETPt22/'
 # jobVersionName = 'v91TESAddedLepPre_JERUp/'
 # jobVersionName = 'v91TESAddedLepPre_JERDown/'
 # jobVersionName = 'v91TESAddedLepPre_METUp/'
-jobVersionName = 'v91TESAddedLepPre_METDown/'
+# jobVersionName = 'v91TESAddedLepPre_METDown/'
 # jobVersionName = 'v91TESAddedLepPre_TESdm11Down/'
 # jobVersionName = 'v91TESAddedLepPre_EleScaleUp/'
 # jobVersionName = 'v91TESAddedLepPre_EleScaleDown/'
@@ -64,12 +60,8 @@ def main():
     era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
-    # dataList = ['jetHT', 'BTagCSV']#!for 1tau1l and 1tau0l
-    # dataList = ['singleMu'] #!for HLT
-    # dataList = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #!for 1tau2l  
-    
-    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
+    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #!1tau1l and 1tau0l , 
 
 
 
