@@ -119,7 +119,8 @@ def main():
     # outVersion = 'v4BasicAndJESJER'
     # outVersion = 'v4BasicTheoreyDecorrelated'
     # outVersion = 'v5BasicTTXDeorrelated'
-    outVersion = 'v6AllSys'
+    # outVersion = 'v6AllSys'
+    outVersion = 'v6AllSys_noFSRSingleTop'
    
 #    channel = '1tau0l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
@@ -287,6 +288,8 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
             proSys[ipro] = 0
         else: 
             if sys=='pdfAlphaS_normalised' and ipro=='singleTop': #!!!
+                proSys[ipro] = 0
+            if sys=='FSR_normalised' and ipro=='singleTop': #!!!
                 proSys[ipro] = 0
             # if 'JES' in sys and ipro=='ttX':#!!!temperory fix 
                 # proSys[ipro] = 0

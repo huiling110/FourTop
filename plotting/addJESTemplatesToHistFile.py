@@ -38,8 +38,9 @@ import writeDatacard as wd
 #add JER variation templetas to WH root files
 #add TES variation templates to WH root files
 def main():
-    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
-    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
+    #!1tau1l
+    channel = '1tau1l'
+    regionList = ['1tau1lSR', '1tau1lCR12']#
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
@@ -47,20 +48,19 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/'    
-    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/' 
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/' 
     
     #1tau2l   
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/'
-    channel = '1tau2l'
-    regionList = ['1tau2lSR', '1tau2lCR3']
-    
+    # channel = '1tau2l'
+    # regionList = ['1tau2lSR', '1tau2lCR3']
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/'
+   
+    #!1tau0l 
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
       
-    # channel = '1tau1l'
-    # regionList = ['1tau1lSR', '1tau1lCR12']#
     # channel = '1tau0l'
     # regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
     
@@ -75,7 +75,7 @@ def main():
     addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
     
     # addJERToFile(allSubProcesses, regionList, era, nominalDir)
-    # addMETToFile(allSubProcesses, regionList, era, nominalDir)#!Problem with MET templates maybe
+    # addMETToFile(allSubProcesses, regionList, era, nominalDir)
     # addEESToFile(allSubProcesses, regionList, era, nominalDir)
     # addTESToFile(allSubProcesses, regionList, era, nominalDir)
     
@@ -166,13 +166,13 @@ def getMCSubPro(channel, era):
     
         
 def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
-    # # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
-    # inVersion = 'v90MuonESHadroPre_JESPt22'
-    # inVersion = 'v91TESAddedHadroPre_JESPt20'
-    # outVersion = 'v0baselineHadro'
-    inVersion = 'v91TESAddedLepPre_JETPt22'
+    # inVersion = 'v91TESAddedLepPre_JETPt22'
     # outVersion = 'v0baselineLep'
-    outVersion = 'v1baselineLepMETFixed'
+    # outVersion = 'v1baselineLepMETFixed'
+    
+    inVersion = 'v91TESAddedHadroPre_JESPt20'
+    outVersion = 'v0baselineHadro'
+    
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
     
     JESListUp = {}# 'tttt' = [jestVariationHist]
@@ -182,11 +182,7 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
         JESListDown[isub] = []
     
      
-    # for i in range(0, 27):
-    # for i in range(0, 1):
     for i in gq.JESVariationList:
-        # if i==11: continue #!!!Problem with v1FixedBtagWeightWhenJES_JESDown_11_v89HadroPre_JESPt22
-        # JESUpDir, JESDownDir = uf.getInputDirUpDown(inVersion, outVersion, i, inputDirBase)
         JESUpDir = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}'
         JESDownDir = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}'
         JESUpDir = f'{JESUpDir}/mc/variableHists_v0BDT{channel}/'

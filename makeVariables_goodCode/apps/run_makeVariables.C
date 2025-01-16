@@ -53,8 +53,8 @@ void run_objectSelection(
     // Int_t numEntries = 100,
     Int_t numEntries = 5000,
     // Int_t numEntries = 0,
-    // Bool_t if1tau2l = kTRUE, //!
-    Bool_t if1tau2l = kFALSE, //!!!
+    Bool_t if1tau2l = kTRUE, //!
+    // Bool_t if1tau2l = kFALSE, //!!!
     UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariationType = 2, //!!!0: nominal, 1: up, 2: down
