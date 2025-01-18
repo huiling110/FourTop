@@ -89,15 +89,15 @@ MCSys = {
     "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
     "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
  
-    # "CMS_JER": [False, 0, 0b111 , True],
+    "CMS_JER": [False, 0, 0b111 , True],
  
-    # 'CMS_tau_TES_dm0': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm1': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm10': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm11': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm0': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm1': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm10': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm11': [False, 0, 0b111, True],
     
-    # 'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
-    # 'CMS_e_scale': [False, 0, 0b001, True],
+    'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
+    'CMS_e_scale': [False, 0, 0b001, True],
     
 }
 
@@ -114,10 +114,9 @@ def main():
 #    outVersion = 'v0'
 #    outVersion = 'v1proNormAdd'
 #    outVersion = 'v2OnlyJES'
-    outVersion = 'v3BasicAndJES'
+    # outVersion = 'v3BasicAndJES'
     # outVersion = 'v5BasicTTXDeorrelated'
-    # outVersion = 'v6AllSys'
-    # outVersion = 'v6AllSys_noFSRSingleTop'
+    outVersion = 'v6AllSys'
    
 #    channel = '1tau0l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'

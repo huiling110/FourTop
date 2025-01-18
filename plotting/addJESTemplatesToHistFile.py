@@ -41,12 +41,12 @@ def main():
     
     
     
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
     
     # addJERToFile(allSubProcesses, regionList, era, nominalDir)
     # addMETToFile(allSubProcesses, regionList, era, nominalDir)
     # addEESToFile(allSubProcesses, regionList, era, nominalDir)
-    # addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    addTESToFile(allSubProcesses, regionList, era, nominalDir)
     
     
     

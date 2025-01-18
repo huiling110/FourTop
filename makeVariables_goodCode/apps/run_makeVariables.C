@@ -28,9 +28,10 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v90MuonESHadroPre_JESPt22/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v91TESAddedHadroPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v91TESAddedHadroPre_TESdm0Down/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018//v91TESAddedHadroPre_JESPt20/mc/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018//v91TESAddedHadroPre_JESPt20/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018//v91TESAddedLepPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v91TESAddedLepPre_JERUp/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v91TESAddedHadroPre_JERDown/mc/",
     TString inputDir = "tttt",
     // TString inputDir = "TTT",
     // TString inputDir = "TTWJetsToLNu",
@@ -53,8 +54,8 @@ void run_objectSelection(
     // Int_t numEntries = 100,
     Int_t numEntries = 5000,
     // Int_t numEntries = 0,
-    Bool_t if1tau2l = kTRUE, //!
-    // Bool_t if1tau2l = kFALSE, //!!!
+    // Bool_t if1tau2l = kTRUE, //!
+    Bool_t if1tau2l = kFALSE, //!!!
     UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariationType = 2, //!!!0: nominal, 1: up, 2: down
