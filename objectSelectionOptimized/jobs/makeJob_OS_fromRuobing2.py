@@ -34,7 +34,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v91TESAddedHadroPre_EleScaleDown/'
 # jobVersionName = 'v91TESAddedHadroPre_JESPt20/'
 # jobVersionName = 'v91TESAddedHadroPre_METUp/'
-jobVersionName = 'v91TESAddedHadroPre_JERDown/'
+# jobVersionName = 'v91TESAddedHadroPre_JERDown/'
+jobVersionName = 'v92HadroPre_NoJetVetoMap/'
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
 TES = 0
