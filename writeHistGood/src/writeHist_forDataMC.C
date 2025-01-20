@@ -19,17 +19,27 @@ void WH_forDataMC::Init()
 
     // regions for hists
     std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR",  "1tau0lCRMR","1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3"};
+    
 
     //regions for FR uncertainty for 1tau0l
-    if(m_isFakeTau){
-        // region + "_CMS_tau_FR_" + era + "Up"
-        regionsForVariables.push_back("1tau0lCRMR_CMS_tau_FR_" + m_era + "Up");
-        regionsForVariables.push_back("1tau0lCRMR_CMS_tau_FR_" + m_era + "Down");
-        regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Up");
-        regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Down");
+    // if(m_isFakeTau){
+    //     // region + "_CMS_tau_FR_" + era + "Up"
+    //     regionsForVariables.push_back("1tau0lCRMR_CMS_tau_FR_" + m_era + "Up");
+    //     regionsForVariables.push_back("1tau0lCRMR_CMS_tau_FR_" + m_era + "Down");
+    //     regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Up");
+    //     regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Down");
+    // }
+    if(m_ifSys){
+        // WH::getChannelSys(sysRegions, "1tau1lSR", m_era);
+        //loop over regionsForVariables
+        std::vector<TString> sysRegions_sys;
+        for(auto region: regionsForVariables){
+            WH::getChannelSys(sysRegions_sys, region, m_era);
+        }
+        WH::initializeHistVec(sysRegions_sys, histsForRegion_vec, m_processName, e);
+    }else{
+        WH::initializeHistVec(regionsForVariables, histsForRegion_vec, m_processName, e);
     }
-
-    WH::initializeHistVec(regionsForVariables, histsForRegion_vec, m_processName, e);
 
     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 

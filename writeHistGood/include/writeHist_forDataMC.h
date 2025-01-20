@@ -74,11 +74,13 @@ private:
     TString m_outputFolder;
     TFile *m_outFile;
     event *e;
+    // const m_ifSys = kFALSE;
+    const Bool_t m_ifSys = kTRUE;
 
     // hists regions
     histsForRegionsMap<Double_t> jets_HT_class; // calls for default constructor
     // std::vector<histsForRegionsMap>
-    std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec;
+    std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec; //histForRegionsBase: vector of one variable in different regions: histsForRegion_vec vector of all variables
 
 
 };
