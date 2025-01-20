@@ -31,8 +31,11 @@ def main(
     # inVersion = 'v91TESAddedLepPre_EleScaleDown',
     # inVersion = 'v91TESAddedHadroPre_JERDown',
     # inVersion = 'v91TESAddedHadroPre_EleScaleDown',
-    inVersion = 'v91TESAddedHadroPre_METDown',
-    # outVersion = 'v0baselineLep',
+    # inVersion = 'v91TESAddedHadroPre_METDown',
+    # inVersion = 'v91TESAddedHadroPre_TESdm0Down',
+    # inVersion = 'v91TESAddedHadroPre_TESdm1Down', 
+    # inVersion = 'v91TESAddedHadroPre_TESdm10Down', 
+    inVersion = 'v91TESAddedHadroPre_TESdm11Down', 
     # outVersion = 'v0baselineLepTriggerSF',
     outVersion = 'v0baselineHadro',
     # if1tau2l = 0, # 0 false, 1 True
