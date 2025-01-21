@@ -41,6 +41,31 @@ void WH_forDataMC::Init()
 
     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
 
+    if(m_ifSys){
+        if(m_isFakeLepton || m_isFakeTau || m_isData){
+            m_scaleRe_normUp_SF = 1;
+            m_scaleRe_normDown_SF = 1;
+            m_scaleFa_normUp_SF = 1;
+            m_scaleFa_normDown_SF = 1;
+            m_pdfAlphaS_normUp_SF = 1;
+            m_pdfAlphaS_normDown_SF = 1;
+        }else{
+            m_scaleRe_normUp_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 7);
+            m_scaleRe_normDown_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 1);
+            m_scaleFa_normUp_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 5);
+            m_scaleFa_normDown_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 3);
+            m_pdfAlphaS_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 0);//!inf big for singleTop process
+            m_pdfAlphaS_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 1);
+            m_pdf_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 2);
+            m_pdf_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 3);
+            m_PSWeightISR_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 4);
+            m_PSWeightISR_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 5);
+            m_PSWeightFSR_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 6);
+            m_PSWeightFSR_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 7);
+        }
+    }
+
+
     std::cout << "Done initializing\n";
     std::cout << "\n";
 }
@@ -139,6 +164,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 void WH_forDataMC::fillHistVec(TString region, Bool_t ifBaseline, Double_t basicWeight){
     WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
     if(m_ifSys){
+        if(!(m_isFakeLepton|| m_isFakeTau || m_isData)){
+
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_pileupUp", (basicWeight/e->PUweight_.v())*e->PUweight_up_.v(), m_isData);
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_pileupDown", (basicWeight/e->PUweight_.v())*e->PUweight_down_.v(), m_isData);
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_prefiring_" + m_era + "Up", (basicWeight/e->EVENT_prefireWeight.v())*e->EVENT_prefireWeight_up.v(), m_isData);
@@ -222,8 +249,23 @@ void WH_forDataMC::fillHistVec(TString region, Bool_t ifBaseline, Double_t basic
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_hltLep_"+m_era+"Down", (basicWeight/e->triggerSFLep_weight.v())*e->triggerSFLep_weight_down.v(), m_isData);
 
         //theoretical uncertainties
-        // WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_QCDScale_Re_normalisedUp", (basicWeight/e->QCDScale_Re_weight.v())*
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_QCDscale_Re_normalisedUp", basicWeight*e->scaleWeightRe_up_.v()*m_scaleRe_normUp_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_QCDscale_Re_normalisedDown", basicWeight*e->scaleWeightRe_down_.v()*m_scaleRe_normDown_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_QCDscale_Fa_normalisedUp", basicWeight*e->scaleWeightFa_up_.v()*m_scaleFa_normUp_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_QCDscale_Fa_normalisedDown", basicWeight*e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_pdfAlphaS_normalisedUp", basicWeight*e->pdfWeightAlphaS_up_.v()*m_pdfAlphaS_normUp_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_pdfAlphaS_normalisedDown", basicWeight*e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_pdf_normalisedUp", basicWeight*e->pdfWeight_up_.v()*m_pdf_normUp_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_pdf_normalisedDown", basicWeight*e->pdfWeight_down_.v()*m_pdf_normDown_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_ISR_normalisedUp", basicWeight*e->PSWeightISR_up_.v()*m_PSWeightISR_normUp_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_ISR_normalisedDown", basicWeight*e->PSWeightISR_down_.v()*m_PSWeightISR_normDown_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_FSR_normalisedUp", basicWeight*e->PSWeightFSR_up_.v()*m_PSWeightFSR_normUp_SF, m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_FSR_normalisedDown", basicWeight*e->PSWeightFSR_down_.v()*m_PSWeightFSR_normDown_SF, m_isData); 
 
+        }else if(m_isFakeTau){
+            WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tau_FR_" + m_era + "Up", e->FR_weight_final_up, m_isData);
+            WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tau_FR_" + m_era + "Down", e->FR_weight_final_down, m_isData);
+        }
 
 
 

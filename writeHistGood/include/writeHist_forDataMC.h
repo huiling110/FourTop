@@ -83,6 +83,18 @@ private:
     // std::vector<histsForRegionsMap>
     std::vector<std::shared_ptr<histForRegionsBase>> histsForRegion_vec; //histForRegionsBase: vector of one variable in different regions: histsForRegion_vec vector of all variables
 
+    Double_t m_scaleRe_normUp_SF = 1.0;
+    Double_t m_scaleRe_normDown_SF = 1.0;
+    Double_t m_scaleFa_normUp_SF = 1.0;
+    Double_t m_scaleFa_normDown_SF = 1.0;
+    Double_t m_pdf_normUp_SF = 1.0;
+    Double_t m_pdf_normDown_SF = 1.0;
+    Double_t m_pdfAlphaS_normUp_SF = 1.0;
+    Double_t m_pdfAlphaS_normDown_SF = 1.0;
+    Double_t m_PSWeightISR_normUp_SF = 1.0;
+    Double_t m_PSWeightISR_normDown_SF = 1.0;
+    Double_t m_PSWeightFSR_normUp_SF = 1.0;
+    Double_t m_PSWeightFSR_normDown_SF = 1.0;
 
 };
 
