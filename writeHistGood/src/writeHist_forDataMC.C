@@ -19,7 +19,7 @@ void WH_forDataMC::Init()
 
     // regions for hists
     // std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR",  "1tau0lCRMR","1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3"};
-    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR",  "1tau0lCRMR","1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR3", "1tau1lCR12", "1tau2lSR", "1tau2lCR3"};
+    std::vector<TString> regionsForVariables = {"1tau0lSR",  "1tau0lVR", "1tau0lCR", "1tau0lMR",  "1tau0lCRMR","1tau1lCR1", "1tau1lCR2", "1tau1lSR", "baseline", "1tau1lCR12", "1tau2lSR", "1tau2lCR3"};
     
 
     //regions for FR uncertainty for 1tau0l
@@ -173,7 +173,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 };
 
 void WH_forDataMC::fillHistVec(TString region, Bool_t ifBaseline, Double_t basicWeight){
-    WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
+    // WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
+    WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region, basicWeight, m_isData);
     if(m_ifSys){
         if(!(m_isFakeLepton|| m_isFakeTau || m_isData)){
 
