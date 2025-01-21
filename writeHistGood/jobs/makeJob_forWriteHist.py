@@ -38,7 +38,9 @@ def main(
     # channel = '1tau2l',
     # version = 'v0BDT1tau2l'
     # version = 'v0BDT1tau1l'
-    version = 'v0BDT1tau0l'
+    # version = 'v0BDT1tau0l'
+    #dataMC 
+    version = 'v0DataMC_sys'
 ):
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/'
 # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/'
@@ -54,8 +56,8 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/'
     
-    # exe = './apps/run_WH_forDataMC.out'
-    exe = './apps/run_treeAnalyzer.out' 
+    exe = './apps/run_WH_forDataMC.out'
+    # exe = './apps/run_treeAnalyzer.out' 
     
     #!fakerate
     # version = 'v0FRMeasure'
