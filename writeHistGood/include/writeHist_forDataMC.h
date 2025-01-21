@@ -57,6 +57,7 @@ public:
     void Init();
     void LoopTree(UInt_t entry =0);
     void Terminate();
+    void fillHistVec(TString region, Bool_t ifBaseline, Double_t basicWeight);
 
 private:
     TString m_inputDir;

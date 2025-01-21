@@ -233,6 +233,8 @@ void treeAnalyzer::LoopTree()
     std::cout << "\n";
 };
 
+
+//!!!put it into functions
 void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region){
 //!correlated uncertainties are the same NP for 3 years, no need to add era in the name
     SR1tau1lSys.fillHistVec(region, bdtScore, basicWeight, SR1tau1l, m_isData);

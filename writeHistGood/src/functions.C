@@ -319,6 +319,7 @@ void readVariableList(TString variableListCsv, std::vector<TString> &variablesNa
     fin.close();
 };
 
+// void histRegionVectFill(std::vector<std::shared_ptr<histForRegionsBase>> &histForRegion_vec, Bool_t isRegion, TString region, Double_t weight, Bool_t isData)
 void histRegionVectFill(std::vector<std::shared_ptr<histForRegionsBase>> &histForRegion_vec, Bool_t isRegion, TString region, Double_t weight, Bool_t isData)
 {
     // for (UInt_t i = 0; i < histForRegion_vec.size(); i++)
@@ -618,4 +619,12 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
     return scale;
 }
 
+
+
+
+
+
 };
+
+
+

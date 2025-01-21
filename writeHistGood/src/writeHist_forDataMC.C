@@ -30,8 +30,6 @@ void WH_forDataMC::Init()
     //     regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Down");
     // }
     if(m_ifSys){
-        // WH::getChannelSys(sysRegions, "1tau1lSR", m_era);
-        //loop over regionsForVariables
         std::vector<TString> sysRegions_sys;
         for(auto region: regionsForVariables){
             WH::getChannelSys(sysRegions_sys, region, m_era);
@@ -82,7 +80,12 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v(); //!!!without HLT weight
 
-        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
+        // WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
+        // if(m_ifSys){
+        //     // sysRegionsFill(bdtScore, basicWeight, SR1tau0l, "1tau0lSR");
+        //     WH::sysRegionsFill()
+        // }
+        fillHistVec("baseline", ifBaseline, basicWeight);
 
         // SR
         if (!m_isData)
@@ -132,6 +135,13 @@ void WH_forDataMC::LoopTree(UInt_t entry)
     std::cout << "end of event loop\n";
     std::cout << "\n";
 };
+
+void WH_forDataMC::fillHistVec(TString region, Bool_t ifBaseline, Double_t basicWeight){
+    WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
+    if(m_ifSys){
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_pileupUp", (basicWeight/e->PUweight_.v())*e->PUweight_up_.v(), m_isData);
+    }
+}
 
 void WH_forDataMC::Terminate()
 {
