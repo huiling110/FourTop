@@ -140,6 +140,93 @@ void WH_forDataMC::fillHistVec(TString region, Bool_t ifBaseline, Double_t basic
     WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
     if(m_ifSys){
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_pileupUp", (basicWeight/e->PUweight_.v())*e->PUweight_up_.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_pileupDown", (basicWeight/e->PUweight_.v())*e->PUweight_down_.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_prefiring_" + m_era + "Up", (basicWeight/e->EVENT_prefireWeight.v())*e->EVENT_prefireWeight_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_prefiring_" + m_era + "Down", (basicWeight/e->EVENT_prefireWeight.v())*e->EVENT_prefireWeight_down.v(), m_isData);
+
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_vsjet_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_vsjet_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsMu_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_vsmu_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsMu_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_vsmu_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsEle_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_vsele_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsEle_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_vsele_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat1_dm0_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat1_dm0_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat1_dm0_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat1_dm0_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat1_dm1_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat1_dm1_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat1_dm1_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat1_dm1_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat1_dm10_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat1_dm10_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat1_dm10_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat1_dm10_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat1_dm11_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat1_dm11_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat1_dm11_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat1_dm11_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat2_dm0_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat2_dm0_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat2_dm0_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat2_dm0_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat2_dm1_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat2_dm1_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat2_dm1_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat2_dm1_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat2_dm10_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat2_dm10_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat2_dm10_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat2_dm10_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat2_dm11_" + m_era + "Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat2_dm11_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_stat2_dm11_" + m_era + "Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_stat2_dm11_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_allerasUp", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_alleras_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_allerasDown", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_alleras_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_"+m_era+"Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_"+m_era+"Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_dm0_"+m_era+"Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_dm0_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_dm0_"+m_era+"Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_dm0_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_dm1_"+m_era+"Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_dm1_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_dm1_"+m_era+"Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_dm1_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_dm10_"+m_era+"Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_dm10_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_dm10_"+m_era+"Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_dm10_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_dm11_"+m_era+"Up", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_dm11_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_t_vsJet_syst_dm11_"+m_era+"Down", (basicWeight/e->tauT_IDSF_weight_new.v())*e->tauT_IDSF_weight_new_syst_era_dm11_down.v(), m_isData);
+
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_e_systUp", (basicWeight/e->elesTopMVAT_weight_new.v())*e->elesTopMVAT_weight_sys_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_e_systDown", (basicWeight/e->elesTopMVAT_weight_new.v())*e->elesTopMVAT_weight_sys_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_m_systUp", (basicWeight/e->musTopMVAT_weight_new.v())*e->musTopMVAT_weight_sys_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_m_systDown", (basicWeight/e->musTopMVAT_weight_new.v())*e->musTopMVAT_weight_sys_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_m_stat_"+m_era+"Up", (basicWeight/e->musTopMVAT_weight_new.v())*e->musTopMVAT_weight_stat_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_m_stat_"+m_era+"Down", (basicWeight/e->musTopMVAT_weight_new.v())*e->musTopMVAT_weight_stat_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_e_stat_"+m_era+"Up", (basicWeight/e->elesTopMVAT_weight_new.v())*e->elesTopMVAT_weight_stat_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_e_stat_"+m_era+"Down", (basicWeight/e->elesTopMVAT_weight_new.v())*e->elesTopMVAT_weight_stat_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_e_Reco_"+m_era+"Up", (basicWeight/e->elesTopMVAT_reoSF_weight.v())*e->elesTopMVAT_reoSF_weight_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_e_Reco_"+m_era+"Down", (basicWeight/e->elesTopMVAT_reoSF_weight.v())*e->elesTopMVAT_reoSF_weight_down.v(), m_isData);
+
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_jesUp", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_jes_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_jesDown", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_jes_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_hfUp", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_hf_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_hfDown", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_hf_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_lfUp", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_lf_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_lfDown", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_lf_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_hfstats1_"+m_era+"Up", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_hfstats1_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_hfstats1_"+m_era+"Down", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_hfstats1_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_hfstats2_"+m_era+"Up", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_hfstats2_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_hfstats2_"+m_era+"Down", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_hfstats2_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_lfstats1_"+m_era+"Up", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_lfstats1_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_lfstats1_"+m_era+"Down", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_lfstats1_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_lfstats2_"+m_era+"Up", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_lfstats2_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_lfstats2_"+m_era+"Down", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_lfstats2_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_cferr1Up", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_cferr1_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_cferr1Down", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_cferr1_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_cferr2Up", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_cferr2_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_shape_cferr2Down", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_cferr2_down.v(), m_isData);
+
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_bWPM_"+m_era+"Up", (basicWeight/e->btagWPMedium_weight.v())*e->btagWPMedium_weight_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_bWPM_"+m_era+"Down", (basicWeight/e->btagWPMedium_weight.v())*e->btagWPMedium_weight_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_bWPMT_correlatedUp", (basicWeight/e->btagWPMT_weight.v())*e->btagWPMT_weight_correlated_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_bWPMT_correlatedDown", (basicWeight/e->btagWPMT_weight.v())*e->btagWPMT_weight_correlated_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_bWPMT_uncorrelated_"+m_era+"Up", (basicWeight/e->btagWPMT_weight.v())*e->btagWPMT_weight_uncorrelated_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_bWPMT_uncorrelated_"+m_era+"Down", (basicWeight/e->btagWPMT_weight.v())*e->btagWPMT_weight_uncorrelated_down.v(), m_isData); 
+
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_hlt_stats_"+m_era+"Up", (basicWeight/e->HLT_weight.v())*e->HLT_weight_stats_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_hlt_stats_"+m_era+"Down", (basicWeight/e->HLT_weight.v())*e->HLT_weight_stats_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_hltLep_"+m_era+"Up", (basicWeight/e->triggerSFLep_weight.v())*e->triggerSFLep_weight_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_hltLep_"+m_era+"Down", (basicWeight/e->triggerSFLep_weight.v())*e->triggerSFLep_weight_down.v(), m_isData);
+
+        //theoretical uncertainties
+        // WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_QCDScale_Re_normalisedUp", (basicWeight/e->QCDScale_Re_weight.v())*
+
+
+
+
     }
 }
 
