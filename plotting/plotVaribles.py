@@ -21,14 +21,13 @@ def main():
     # ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    ifPrintSB = True
-    # ifPrintSB = False
-    # ifSystematic = True #!Only for BDT
-    ifSystematic = False  
+    # ifPrintSB = True
+    ifPrintSB = False
+    ifSystematic = True #!Only for BDT
+    # ifSystematic = False  
     ifFTau = False
     # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     plotName = 'dataVsMC_v4'
-    # plotName = 'dataVsMC_v5WithJES'#!!!
    
     #!1tau2l 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/'
@@ -40,20 +39,20 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/'
-    channel = '1tau2l'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/'
+    # channel = '1tau2l'
     # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
     # variables = ['lepTopMVAF_num', 'lepTopMVAT_num', 'muonsTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAF_num', 'elesTopMVAF_num', 'jets_num', 'bjetsT_num', 'bjetsM_num']
     # variables = ['elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'elesTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_1pt', 'muonsTopMVAT_2pt', 'muonsTopMVAT_1eta', 'muonsTopMVAT_2eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt']
     # variables = ['lepTopMVAF_num']
-    variables = ['BDT']
+    # variables = ['BDT']
     # input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
     # variables = read_csv_as_lines(input1tau2l)
-    regionList = ['1tau2lSR', '1tau2lCR3']
+    # regionList = ['1tau2lSR', '1tau2lCR3']
 
 
     #1tau1l
-    # channel = '1tau1l'
+    channel = '1tau1l'
     # ifFTau = False
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
@@ -65,10 +64,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/'
-    # variables = ['jets_num']
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0DataMC_sys/'
+    variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     # variables = ['BDT']
-    # regionList = ['1tau1lSR', '1tau1lCR12']
+    regionList = ['1tau1lSR', '1tau1lCR12']
     # regionList = ['1tau1lSR']
   
     #1tau0l
