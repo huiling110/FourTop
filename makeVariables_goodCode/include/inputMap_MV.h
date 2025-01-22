@@ -55,9 +55,9 @@ namespace MV
     };
 
     inline const std::map<TString, std::array<TString, 4>> json_map = {
-        {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json", "EGM/2018_UL/electron.json"}},
-        {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json", "EGM/2018_UL/electron.json"}},
-        {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json", "BTV/2017_UL/btagging.json", "EGM/2018_UL/electron.json"}},
+        {"2016preVFP", {"JME/2016preVFP_UL/jet_jerc.json", "TAU/2016preVFP_UL/tau.json", "BTV/2016preVFP_UL/btagging.json", "EGM/2016preVFP_UL/electron.json"}},
+        {"2016postVFP", {"JME/2016postVFP_UL/jet_jerc.json", "TAU/2016postVFP_UL/tau.json", "BTV/2016postVFP_UL/btagging.json", "EGM/2016postVFP_UL/electron.json"}},
+        {"2017", {"JME/2017_UL/jet_jerc.json", "TAU/2017_UL/tau.json", "BTV/2017_UL/btagging.json", "EGM/2017_UL/electron.json"}},
         {"2018", {"JME/2018_UL/jet_jerc.json", "TAU/2018_UL/tau.json", "BTV/2018_UL/btagging.json", "EGM/2018_UL/electron.json"}},
         {"2022preEE", {"JME/2018_UL/jet_jerc.json", "../newRun3/TAU/2022_preEE/tau_DeepTau2018v2p5_2022_preEE.json", "BTV/2022_Summer22/btagging.json", "EGM/2018_UL/electron.json"}},
         {"2022postEE", {"JME/2018_UL/jet_jerc.json", "../newRun3/TAU/2022_postEE/tau_DeepTau2018v2p5_2022_postEE.json", "BTV/2022_Summer22EE/btagging.json", "EGM/2018_UL/electron.json"}},
