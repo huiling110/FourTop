@@ -106,8 +106,11 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             continue;
         if (!(ijet_jetID >= 2)) // run2: jetID=0; 2=tight;6; //run3:bit2 is tight, bit3 is tightLepVeto
             continue;          // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
-        //pileup ID
-
+        //pileup ID: https://twiki.cern.ch/twiki/bin/view/CMS/PileupJetIDUL
+        if(jetpt<50.){
+            if (!(e->Jet_puId.At(j) > 0))
+                continue;
+        }
 
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
         if (m_jetType == 1)

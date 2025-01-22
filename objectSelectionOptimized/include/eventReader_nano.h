@@ -103,6 +103,7 @@ public:
                                         Jet_jetId(reader, "Jet_jetId"),
                                         Jet_hadronFlavour(reader, "Jet_hadronFlavour"),
                                         Jet_area(reader, "Jet_area"),
+                                        Jet_puId(reader, "Jet_puId"),
                                         MET_pt(reader, "MET_pt"),
                                         MET_phi(reader, "MET_phi"),
                                         MET_MetUnclustEnUpDeltaX(reader, "MET_MetUnclustEnUpDeltaX"),
@@ -434,6 +435,7 @@ public:
     TTreeReaderArray<Float_t> Jet_area;
     TTreeReaderValue<Float_t> *fixedGridRhoFastjetAll = nullptr;    //!!!not existing in nanoAOD v12
     TTreeReaderValue<Float_t>* Rho_fixedGridRhoFastjetAll = nullptr;//nanoAODv12
+    TTreeReaderArray<Int_t> Jet_puId;
 
     TTreeReaderValue<Float_t> MET_pt;
     TTreeReaderValue<Float_t> MET_phi;
