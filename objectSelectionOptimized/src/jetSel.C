@@ -106,6 +106,9 @@ void JetSel::Select(eventForNano *e, const Bool_t isData, const std::vector<Doub
             continue;
         if (!(ijet_jetID >= 2)) // run2: jetID=0; 2=tight;6; //run3:bit2 is tight, bit3 is tightLepVeto
             continue;          // Jet ID flags bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto
+        //pileup ID
+
+
         // passlooseID*1+passtightID*2+passtightLepVetoID*4
         if (m_jetType == 1)
         {
@@ -463,17 +466,18 @@ Double_t JetSel::get6thPt(){
 
 Bool_t JetSel::jetVetoMap(Double_t eta, Double_t phi){
 //    https://cms-jerc.web.cern.ch/Recommendations/#jet-veto-maps
-    if(!m_isRun3){
-        return kFALSE;
-    }
+    // if(!m_isRun3){
+    //     return kFALSE;
+    // }
 
     //!json file can not handle |phi|>3.14159; veto it mannually
-    if(TMath::Abs(phi)>3.1159){
+    if(TMath::Abs(phi)>3.14159){
         return kTRUE;
     }
 
     auto corr_jetVeto = cset_jetVeto->at(corr_SF_map[m_era].at(3).Data());
-    Double_t veto = corr_jetVeto->evaluate({"jetvetomap", eta, phi});
+    Double_t veto = corr_jetVeto->evaluate({"jetvetomap", eta, phi}); //"Non-zero value for (eta, phi) indicates that the region is vetoed."
+    //compare veto with 0.
     if(TMath::Abs(veto)>1e-9){
         return kTRUE;
     }else{

@@ -3,10 +3,10 @@
 std::map<TString, std::array<TString, 4>> corr_SF_map{
     //  Summer19UL17_JRV2_MC.db ,, Summer19UL18_JRV2_MC.db
     // array[0]: JERSF, array[1]: JECuncertainty_MC, array[2]:JERpt resolution; array[3]:vetoMap
-    {"2016preVFP", {"Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16APV_V7_MC_Total_AK4PFchs", "Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
-    {"2016postVFP", {"Summer20UL16_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16_V7_MC_Total_AK4PFchs", "Summer20UL16_JRV3_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
-    {"2017", {"Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL17_V5_MC_Total_AK4PFchs", "Summer19UL17_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
-    {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},
+    {"2016preVFP", {"Summer20UL16APV_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16APV_V7_MC_Total_AK4PFchs", "Summer20UL16APV_JRV3_MC_PtResolution_AK4PFchs", "Summer19UL16_V1"}},
+    {"2016postVFP", {"Summer20UL16_JRV3_MC_ScaleFactor_AK4PFchs", "Summer19UL16_V7_MC_Total_AK4PFchs", "Summer20UL16_JRV3_MC_PtResolution_AK4PFchs", "Summer19UL16_V1"}},
+    {"2017", {"Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL17_V5_MC_Total_AK4PFchs", "Summer19UL17_JRV2_MC_PtResolution_AK4PFchs", "Summer19UL17_V1"}},
+    {"2018", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer19UL18_V1"}},
     {"2022", {"Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs", "Summer22_23Sep2023_RunCD_V1"}},//!!!
     {"2022preEE", {"Summer22_22Sep2023_JRV1_MC_ScaleFactor_AK4PFPuppi", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer22_22Sep2023_JRV1_MC_PtResolution_AK4PFPuppi", "Summer22_23Sep2023_RunCD_V1" }},//!!!
     {"2022postEE", {"Summer22EE_22Sep2023_JRV1_MC_ScaleFactor_AK4PFPuppi", "Summer19UL18_V5_MC_Total_AK4PFchs", "Summer22EE_22Sep2023_JRV1_MC_PtResolution_AK4PFPuppi", "Summer22EE_23Sep2023_RunEFG_V1"}}, //!!!1

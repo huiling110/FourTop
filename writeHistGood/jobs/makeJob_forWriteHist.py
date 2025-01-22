@@ -39,7 +39,8 @@ def main(
     # version = 'v0BDT1tau1l'
     # version = 'v0BDT1tau0l'
     #dataMC 
-    version = 'v0DataMC_sys'
+    # version = 'v0DataMC_sys'
+    version = 'v1DataMC_sys'
 ):
     
     exe = './apps/run_WH_forDataMC.out'
