@@ -17,14 +17,14 @@ def main():
     
     ifVLL = ''
     # ifVLL = 'VLLm800'
-    ifLogy = True
-    # ifLogy = False
+    # ifLogy = True
+    ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
     # ifPrintSB = True
     ifPrintSB = False
-    ifSystematic = True #!Only for BDT
-    # ifSystematic = False  
+    # ifSystematic = True #!Only for BDT
+    ifSystematic = False  
     ifFTau = False
     # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     plotName = 'dataVsMC_v4'
@@ -64,7 +64,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0DataMC_sys/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v1DataMC_sys/'
     variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     # variables = ['BDT']
@@ -406,10 +406,9 @@ def getHistToData( dataHist, sumHist):
         sumHistoData.Reset()
     sumHistoData.GetYaxis().SetTitle("Data/pred.")
     # sumHistoData.GetYaxis().SetTitleOffset(1.3)
-    sumHistoData.SetMinimum(0.5)
+    sumHistoData.SetMinimum(0.45)
     # sumHistoData.SetMaximum(1.2)
-    sumHistoData.SetMaximum(1.5)
-    # sumHistoData.GetXaxis().SetTitle(dataHist.GetTitle())
+    sumHistoData.SetMaximum(1.55)
     sumHistoData.GetXaxis().SetTitle(sumHist.GetTitle())
     sumHistoData.GetXaxis().SetTitleSize(0.05)
     sumHistoData.GetYaxis().SetNdivisions(6)

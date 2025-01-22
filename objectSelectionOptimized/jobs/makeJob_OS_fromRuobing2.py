@@ -58,8 +58,8 @@ isRuobing = False
 def main():
     # era = '2016'
     # era = '2016APV'
-    era = '2017'
-    # era = '2018'
+    # era = '2017'
+    era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
