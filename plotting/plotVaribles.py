@@ -23,8 +23,8 @@ def main():
     # ifStackSignal = False
     # ifPrintSB = True
     ifPrintSB = False
-    # ifSystematic = True #!Only for BDT
-    ifSystematic = False  
+    ifSystematic = True #!Only for BDT
+    # ifSystematic = False  
     ifFTau = False
     # ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     plotName = 'dataVsMC_v4'
@@ -64,12 +64,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v1DataMC_sys/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v1DataMC_sys/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/variableHists_v1DataMC_sys/'
     variables = ['jets_num']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     # variables = ['BDT']
-    regionList = ['1tau1lSR', '1tau1lCR12']
-    # regionList = ['1tau1lSR']
+    # regionList = ['1tau1lSR', '1tau1lCR12']
+    regionList = ['1tau1lCR12']
   
     #1tau0l
     # channel = '1tau0l' 
@@ -128,22 +129,12 @@ def read_csv_as_lines(file_path, delimiter=','):
 
 
 def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='',  channel='1tau1l',  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifDoSystmatic=False):
-    # if is1tau0l:
-    #     if ifFakeTau:
-    #         sumProList.insert(1, 'fakeTau')
-    #         plotName = plotName + 'fakeTau'
-    #     else:
-    #         sumProList.append('qcd')
     sumProList = gq.proChannelDic[channel]
     if ifVLL:
         sumProList.append(ifVLL)
     print(sumProList) 
     sumProSys = getSysDicPL(ifDoSystmatic, channel, era)    
     [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
-    # if ifFakeTau:
-    #     sumProSys = {
-    #         'fakeTau': ['CMS_tau_FR'],
-    #     }
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
    
     plotDir = inputDirDic['mc']+'results/'

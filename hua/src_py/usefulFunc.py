@@ -161,7 +161,7 @@ def getSameValues(diction, value):
             subList.append(ikey)
     return subList
             
-def getHistFromFile(fileName, histNames):
+def getHistFromFile(fileName, histNames, ifPrint=False):
     file = ROOT.TFile.Open(fileName)
 
     if not file or file.IsZombie():
@@ -175,7 +175,8 @@ def getHistFromFile(fileName, histNames):
         histogram = file.Get(name)
         if not histogram:
             raise ValueError(f"Error: Unable to find the histogram '{name}' in the file.")
-        histogram.Print()
+        if ifPrint:
+            histogram.Print()
         # Clone the histogram to avoid potential issues when the file is closed
         histogram1 = histogram.Clone()
         # histogram1.Print()
@@ -238,7 +239,7 @@ def print_dict_structure(dictionary, indent=0):
             print_dict_structure(value, indent + 1)
     # print('\n')
 
-def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018', isRun3=False):
+def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018', isRun3=False, ifDebug=False):
 #!new and better
     #return sumProHists[var][region][sumPro]
     #return sumProHistSys[var][region][sumPro]['sys'] 
@@ -253,12 +254,13 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
         isdata = isData(isub)
         if not allDic[isub] in sumProList: continue # not getting
         if checkIfOtherYear(isub, era, isdata): continue
-        print('getting: ', isub)
+        if ifDebug:
+            print('getting: ', isub)
         if isdata:
             rootFile = inputDirDic['data'] + isub + '.root'
         else:
             rootFile = inputDirDic['mc'] + isub +'.root'
-        print('opening file:', rootFile)
+        # print('opening file:', rootFile)
         isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
         print_dict_structure(isubProHist)
         toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
