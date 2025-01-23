@@ -55,10 +55,10 @@ MCSys = {
     
     'pdfAlphaS_normalised': [True, 0, 0b111, True], #!not considering for singleTop 
     'pdf_normalised': [True, 0, 0b111, True],
-    # 'QCDscale_Re_normalised': [True, 0, 0b111, False],   #!not in data/MC
-    # 'QCDscale_Fa_normalised': [True, 0, 0b111, False],  
-    # 'ISR_normalised': [True, 0, 0b111, False],
-    # 'FSR_normalised': [True, 0, 0b111, True],
+    'QCDscale_Re_normalised': [True, 0, 0b111, False],   #!not in data/MC
+    'QCDscale_Fa_normalised': [True, 0, 0b111, False],  
+    'ISR_normalised': [True, 0, 0b111, False],
+    'FSR_normalised': [True, 0, 0b111, True],
    
     #JES https://docs.google.com/spreadsheets/d/1JZfk78_9SD225bcUuTWVo4i02vwI5FfeVKH-dwzUdhM/edit?gid=1345121349#gid=1345121349 
     # "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
@@ -239,14 +239,18 @@ def addLumi(sysDic, era, processes):
              
               
 
-def getSysDic(processes, channel, era):
+def getSysDic(processes, channel, era, ifForPlot=False):
     #return: pdf_normalised ['shape', {'tt': 1, 'ttX': 1, 'fakeLepton': 0, 'singleTop': 1, 'Minor': 1, 'tttt': 1}]
+    #ifForPlot: not decorrelate systematic for different processes
     sysDic = {}
     for sys, sysList in MCSys.items():
         # sysName = sys if sysList[0] else f"{sys}_{era}"
         sysPre = sys if sysList[0] else f"{sys}_{era}"
         if not sysList[3] and sysList[1]==0: #!if systematic is correlated between processes
-            sysName = [f"{sysPre}_{ipro}" for ipro in processes if not 'fake' in ipro]
+            if ifForPlot:
+                sysName = [sysPre]
+            else:
+                sysName = [f"{sysPre}_{ipro}" for ipro in processes if not 'fake' in ipro]
         else:
             sysName = [sysPre]
         for isys in sysName:
