@@ -61,33 +61,33 @@ MCSys = {
     'FSR_normalised': [True, 0, 0b111, True],
    
     #JES https://docs.google.com/spreadsheets/d/1JZfk78_9SD225bcUuTWVo4i02vwI5FfeVKH-dwzUdhM/edit?gid=1345121349#gid=1345121349 
-    # "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
-    # "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
-    # "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
-    # "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
+    "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
+    "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
+    "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
+    "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
+    "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
+    "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
+    "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
+    "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
+    "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
+    "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
  
     # "CMS_JER": [False, 0, 0b111 , True],
  
@@ -110,13 +110,13 @@ def main():
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    outVersion = 'v0'
 #    outVersion = 'v1proNormAdd'
 #    outVersion = 'v2OnlyJES'
-    # outVersion = 'v3BasicAndJES'
-    # outVersion = 'v5BasicTTXDeorrelated'
-    outVersion = 'v6AllSys'
+    outVersion = 'v3BasicAndJES'
+    # outVersion = 'v6AllSys'
    
 #    channel = '1tau0l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'

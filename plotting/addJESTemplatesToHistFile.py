@@ -17,7 +17,8 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/'    
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/' 
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/' 
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/variableHists_v0BDT1tau1l/'
     
     #1tau2l   
     # channel = '1tau2l'
@@ -41,12 +42,12 @@ def main():
     
     
     
-    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)
+    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)#!need to modify dir inside this function
     
     # addJERToFile(allSubProcesses, regionList, era, nominalDir)
     # addMETToFile(allSubProcesses, regionList, era, nominalDir)
     # addEESToFile(allSubProcesses, regionList, era, nominalDir)
-    addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    # addTESToFile(allSubProcesses, regionList, era, nominalDir)
     
     
     
@@ -139,7 +140,8 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
     # outVersion = 'v0baselineLep'
     # outVersion = 'v1baselineLepMETFixed'
     
-    inVersion = 'v91TESAddedHadroPre_JESPt20'
+    # inVersion = 'v91TESAddedHadroPre_JESPt20'
+    inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
     outVersion = 'v0baselineHadro'
     
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'

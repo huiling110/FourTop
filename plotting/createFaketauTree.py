@@ -5,14 +5,6 @@ import pandas as pd
 import os
 
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450AddTauProng_v75OverlapRemovalFTau/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3baselineAddFRWeight_v75OverlapRemovalFTau/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_newTriSFBinD_v75OverlapRemovalFTau/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2baselineHardro_FRweightSys_v76WithVLLSample/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v79HadroPresel/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/'
@@ -56,13 +48,13 @@ def main():
     
     
     #!obsolete 
-    cut1tau0l = 'tausF_num==1' #!no channel specific selection
-    tauF = 'tausF_num==1'
-    # tauT = 'tausT_num!=0'
-    tauT = 'tausF_1isTight'
-    branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
-    createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
+    # cut1tau0l = 'tausF_num==1' #!no channel specific selection
+    # tauF = 'tausF_num==1'
+    # # tauT = 'tausT_num!=0'
+    # tauT = 'tausF_1isTight'
+    # branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
+    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
+    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
     
      
@@ -120,13 +112,14 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
     print(inputDirDic['mc']+ 'fakeTau_tauTGen.root' + ' done')
    
     
-def createFakeTauTree(inputDirDic, era):
+def createFakeTauTree(inputDirDic, era, extraSel='leptonTopMVAT_num==0'):
     allDataFiles = uf.getAllSubPro(era, ['jetHT'])
     allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
     print('all data files: ', allDataFiles)
     
     dataDF = ROOT.RDataFrame('newtree', allDataFiles)
-    dataAR  = dataDF.Filter('tausF_num==1 && !tausF_1isTight && lepTopMVAT_num==0') #!not prompt tau and prompt e or mu
+    # dataAR  = dataDF.Filter('tausF_num==1 && !tausF_1isTight && lepTopMVAT_num==0') #!not prompt tau and prompt e or mu
+    dataAR  = dataDF.Filter(f'tausF_num==1 && !tausF_1isTight && {extraSel}') #!not prompt tau and prompt e or mu
     
     print('AR entries: ', dataAR.Count().GetValue())
     
@@ -143,7 +136,6 @@ def createFakeTauTree(inputDirDic, era):
     # dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1jetPhi')
     dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1pt')
     dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1eta')
-    # dataAR_new = dataAR_new.Define('tausT_1mass', 'tausF_1mass')
     dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1phi')
     dataAR_new = dataAR_new.Define('tausT_1decayMode', 'tausF_1decayMode')
     
@@ -155,7 +147,7 @@ def createFakeTauTree(inputDirDic, era):
     print('fakeTau_data file: ', inputDirDic['mc']+ 'fakeTau_data.root', ' done')
      
   
-def createFakeTauTree_mc(inputDirDic, era): 
+def createFakeTauTree_mc(inputDirDic, era, extraSel='leptonTopMVAT_num==0'): 
     #creat MC fake tau tree
     #todo: consider more filtering, currently 4Million events afrer filtering
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
@@ -206,7 +198,7 @@ def createFakeTauTree_mc(inputDirDic, era):
      
 
     
-def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = []): 
+def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = [], extraPostfix = ''): 
 #!maybe make the tauF kenimatic into tauT variables
     allDataFiles = uf.getAllSubPro(era, 'jetHT') 
     #!for 2017 must consider BtagCSV too
@@ -231,9 +223,9 @@ def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = 
     #!in FnotT region, remove tauT variables and replace with tauF variables
     
     
-    tauF_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauF.root')
+    tauF_data.Snapshot('newtree', inputDirDic['mc']+ f'fakeTau_tauF{extraPostfix}.root')
     print(inputDirDic['mc']+ 'fakeTau_tauF.root' + ' done')
-    tauT_data.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauT.root')
+    tauT_data.Snapshot('newtree', inputDirDic['mc']+ f'fakeTau_tauT{extraPostfix}.root')
     print(inputDirDic['mc']+ 'fakeTau_tauT.root' + ' done')
     
     print('initial entries in data: ', dataDF.Count().GetValue())

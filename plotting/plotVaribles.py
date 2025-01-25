@@ -17,12 +17,12 @@ def main():
     
     ifVLL = ''
     # ifVLL = 'VLLm800'
-    # ifLogy = True
-    ifLogy = False
+    ifLogy = True
+    # ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    # ifPrintSB = True
-    ifPrintSB = False
+    ifPrintSB = True
+    # ifPrintSB = False
     ifSystematic = True 
     # ifSystematic = False  
     ifFTau = False
@@ -72,7 +72,7 @@ def main():
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     variables = ['BDT']
     regionList = ['1tau1lSR', '1tau1lCR12']
-    regionList = ['1tau1lCR12']
+    # regionList = ['1tau1lCR12']
   
     #1tau0l
     # channel = '1tau0l' 
