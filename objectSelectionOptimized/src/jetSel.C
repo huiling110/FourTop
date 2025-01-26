@@ -479,7 +479,8 @@ Bool_t JetSel::jetVetoMap(Double_t eta, Double_t phi){
     }
 
     auto corr_jetVeto = cset_jetVeto->at(corr_SF_map[m_era].at(3).Data());
-    Double_t veto = corr_jetVeto->evaluate({"jetvetomap", eta, phi}); //"Non-zero value for (eta, phi) indicates that the region is vetoed."
+    // Double_t veto = corr_jetVeto->evaluate({"jetvetomap", eta, phi}); //"Non-zero value for (eta, phi) indicates that the region is vetoed."
+    Double_t veto = corr_jetVeto->evaluate({"jetvetomap_hem1516", eta, phi}); //"Non-zero value for (eta, phi) indicates that the region is vetoed."
     //compare veto with 0.
     if(TMath::Abs(veto)>1e-9){
         return kTRUE;

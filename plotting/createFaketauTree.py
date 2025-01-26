@@ -32,17 +32,21 @@ def main():
    
    
     
-   
-   
     
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    createFakeTauTree(inputDirDic, era) #!with leptopMVAT_num=0
-    createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
+    # createFakeTauTree(inputDirDic, era) #!with leptopMVAT_num=0
+    # createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
-    
+   
+    #!For testing fake tau in 1tau1l and 1tau2l
+    # Bool_t isTight_1L = e->elesTopMVAF_1isTight.v() || e->muonsTopMVAF_1isTight.v();
+    lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight || lepTopMVAF_num==1)'
+    channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'   
+    # createFakeTauTree(inputDirDic, era, extraSel=channelSel, extraPostfix='_1tau1lSR')
+    createFakeTauTree_mc(inputDirDic, era, extraSel=channelSel, extraPostfix='_1tau1lSR')
     
     
     
@@ -112,7 +116,7 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
     print(inputDirDic['mc']+ 'fakeTau_tauTGen.root' + ' done')
    
     
-def createFakeTauTree(inputDirDic, era, extraSel='leptonTopMVAT_num==0'):
+def createFakeTauTree(inputDirDic, era, extraSel='leptonTopMVAT_num==0', extraPostfix = ''):
     allDataFiles = uf.getAllSubPro(era, ['jetHT'])
     allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
     print('all data files: ', allDataFiles)
@@ -130,11 +134,7 @@ def createFakeTauTree(inputDirDic, era, extraSel='leptonTopMVAT_num==0'):
     dataAR.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_data.root', columns_to_keep)
     
     dataAR_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_data.root')
-    # dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1jetPt')
-    # dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1jetEtaAbs')
-    # dataAR_new = dataAR_new.Define('tausT_1mass', 'tausF_1jetMass')
-    # dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1jetPhi')
-    dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1pt')
+    dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1pt') #!No need for this, as from data tauF quantities are tauT quantities
     dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1eta')
     dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1phi')
     dataAR_new = dataAR_new.Define('tausT_1decayMode', 'tausF_1decayMode')
@@ -143,11 +143,12 @@ def createFakeTauTree(inputDirDic, era, extraSel='leptonTopMVAT_num==0'):
     dataAR_new = dataAR_new.Define('FR_weight_final_up', 'FR_weight_up')
     dataAR_new = dataAR_new.Define('FR_weight_final_down', 'FR_weight_down')
     
-    dataAR_new.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_data.root')
-    print('fakeTau_data file: ', inputDirDic['mc']+ 'fakeTau_data.root', ' done')
+    outFile = inputDirDic['mc'] + f'fakeTau_data{extraPostfix}.root' 
+    dataAR_new.Snapshot('newtree', outFile)
+    print('fakeTau_data file: ', outFile, ' done')
      
   
-def createFakeTauTree_mc(inputDirDic, era, extraSel='leptonTopMVAT_num==0'): 
+def createFakeTauTree_mc(inputDirDic, era, extraSel='leptonTopMVAT_num==0', extraPostfix = ''): 
     #creat MC fake tau tree
     #todo: consider more filtering, currently 4Million events afrer filtering
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
@@ -158,9 +159,9 @@ def createFakeTauTree_mc(inputDirDic, era, extraSel='leptonTopMVAT_num==0'):
     print(allMCFiles)
     
     df = ROOT.RDataFrame('newtree', allMCFiles)
-    tauFCut = 'tausF_num==1 && !tausF_1isTight && tausF_1genFlavour!=0' #not prompt tau and prompt e or mu 
-    lepCut = 'lepTopMVAT_num==0'
-    df_tauF = df.Filter(tauFCut + '&&' + lepCut)
+    # lepCut = 'lepTopMVAT_num==0'
+    tauFCut = f'tausF_num==1 && !tausF_1isTight && tausF_1genFlavour!=0 && {extraSel}' #not prompt tau and prompt e or mu 
+    df_tauF = df.Filter(tauFCut)
     
     print('all entries: ', df.Count().GetValue())
     print('tauF entries: ', df_tauF.Count().GetValue())
@@ -179,7 +180,6 @@ def createFakeTauTree_mc(inputDirDic, era, extraSel='leptonTopMVAT_num==0'):
     # df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1jetPhi')
     df_tauF_new = df_tauF_new.Define('tausT_1pt', 'tausF_1pt') #!use tausF kinematic for tauT
     df_tauF_new = df_tauF_new.Define('tausT_1eta', 'tausF_1eta')
-    # df_tauF_new = df_tauF_new.Define('tausT_1mass', 'tausF_1mass')
     df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1phi')
     df_tauF_new = df_tauF_new.Define('tausT_1decayMode', 'tausF_1decayMode')
     
@@ -188,11 +188,15 @@ def createFakeTauTree_mc(inputDirDic, era, extraSel='leptonTopMVAT_num==0'):
     df_tauF_new = df_tauF_new.Define('FR_weight_final_down', '-1.*FR_weight_down*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
     
     df_tauF_new = df_tauF_new.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
-    df_tauF_new.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_MC.root')
-    print(inputDirDic['mc']+ 'fakeTau_MC.root' + ' done') 
+    
+    outFile = inputDirDic['mc'] + f'fakeTau_MC{extraPostfix}.root'
+    df_tauF_new.Snapshot('newtree', outFile)
+    print(inputDirDic['mc']+ outFile) 
     
     
+def createFaketauFromMC(inputDirDic, era, extraSel=''):
     
+
     
     
      
