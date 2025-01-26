@@ -10,7 +10,8 @@ def main():
     # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     # inVersion = 'v90MuonESHadroPre_JESPt22'
     # inVersion = 'v91TESAddedHadroPre_JESPt20'
-    inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
+    # inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
+    inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
     # inVersion = 'v91TESAddedLepPre_JETPt22'
     # outVersion = 'v0baselineLep'
     # outVersion = 'v0baselineLepV2'

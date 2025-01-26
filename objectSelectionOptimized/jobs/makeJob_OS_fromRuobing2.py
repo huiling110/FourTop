@@ -38,7 +38,9 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_METDown/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_TESdm0Up/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly/'
-jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/'
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/'
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleUp/'
+jobVersionName = 'v94HadroPreJetVetoHemOnly_JERUp/'
 
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
@@ -49,7 +51,6 @@ TES = 0 #!!!
 # jobVersionName = 'v91TESAddedLepPre_JERUp/'
 # jobVersionName = 'v91TESAddedLepPre_METDown/'
 # jobVersionName = 'v91TESAddedLepPre_TESdm11Down/'
-# jobVersionName = 'v91TESAddedLepPre_EleScaleUp/'
 # jobVersionName = 'v91TESAddedLepPre_EleScaleDown/'
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
@@ -57,10 +58,10 @@ TES = 0 #!!!
 isRuobing = False
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
-    # era = '2016'
+    era = '2016'
     # era = '2016APV'
     # era = '2017'
-    era = '2018'
+    # era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
