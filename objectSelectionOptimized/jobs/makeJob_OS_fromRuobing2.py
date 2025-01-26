@@ -37,7 +37,8 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_JERDown/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_METDown/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_TESdm0Up/'
-jobVersionName = 'v94HadroPreJetVetoHemOnly/'
+# jobVersionName = 'v94HadroPreJetVetoHemOnly/'
+jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/'
 
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
@@ -63,7 +64,7 @@ def main():
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #!1tau1l and 1tau0l , 
+    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'Minor'] #!1tau1l and 1tau0l , 
 
 
 
