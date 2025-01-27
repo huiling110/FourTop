@@ -37,7 +37,7 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    # createFakeTauTree(inputDirDic, era) #!with lepTopMVAT_num=0
+    createFakeTauTree(inputDirDic, era) #!with lepTopMVAT_num=0
     createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau

@@ -37,7 +37,8 @@ def main(
     # inVersion = 'v91TESAddedHadroPre_TESdm10Down', 
     # inVersion = 'v91TESAddedHadroPre_TESdm11Down', 
     # inVersion = 'v93HadroPreJetVetoPileupID',
-    inVersion = 'v94HadroPreJetVetoHemOnly',
+    # inVersion = 'v94HadroPreJetVetoHemOnly',
+    inVersion = 'v94HadroPreJetVetoHemOnly_JERUp',
     # outVersion = 'v0baselineLepTriggerSF',
     outVersion = 'v0baselineHadro',
     # if1tau2l = 0, # 0 false, 1 True

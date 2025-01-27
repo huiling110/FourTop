@@ -37,14 +37,19 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_JERDown/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_METDown/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_TESdm0Up/'
-# jobVersionName = 'v94HadroPreJetVetoHemOnly/'
+jobVersionName = 'v94HadroPreJetVetoHemOnly/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleUp/'
-jobVersionName = 'v94HadroPreJetVetoHemOnly_JERUp/'
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_JERDown/'#3 years submitted
 
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
 TES = 0 #!!!
+eleScale = 0 #!!! 0: no correction; 1: up; 2: down
+JERSys = 0 #!!! 0: no correction; 1: up; 2: down
+JESSys = 0 #!!! nominal: 0; 
+METSys = 0 #!!! nominal: 0; 1: up; 2: down
+
 
 # jobVersionName = 'v91TESAddedLepPre/'
 # jobVersionName = 'v91TESAddedLepPre_JETPt22/'
