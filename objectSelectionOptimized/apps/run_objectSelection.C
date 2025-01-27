@@ -96,7 +96,11 @@ int main(int argc, char const *argv[])
     TString outputDir;
     Int_t eventNum = 0;
     UChar_t TES = 0;
-    if (argc < 4)
+    UChar_t eleScale = 0;
+    UChar_t JESSys = 0;
+    UChar_t JERSys = 0;
+    UChar_t MET_UnclusteredEn = 0;
+    if (argc < 9)
     {
         std::cout << "not enough input from command line\n";
         run_objectSelection();
@@ -108,9 +112,12 @@ int main(int argc, char const *argv[])
         singleFileName = boost::lexical_cast<std::string>(argv[2]);
         outputDir = boost::lexical_cast<std::string>(argv[3]);
         TES = static_cast<UChar_t>(boost::lexical_cast<int>(argv[4]));
-        eventNum = boost::lexical_cast<Int_t>(argv[5]);
-        // run_objectSelection(inputDir, singleFileName, outputDir, eventNum);
-        run_objectSelection(inputDir, singleFileName, outputDir, TES, eventNum);
+        eleScale = static_cast<UChar_t>(boost::lexical_cast<int>(argv[5]));
+        JESSys = static_cast<UChar_t>(boost::lexical_cast<int>(argv[6]));
+        JERSys = static_cast<UChar_t>(boost::lexical_cast<int>(argv[7]));
+        MET_UnclusteredEn = static_cast<UChar_t>(boost::lexical_cast<int>(argv[8]));
+        eventNum = boost::lexical_cast<Int_t>(argv[9]);
+        run_objectSelection(inputDir, singleFileName, outputDir, TES, eleScale, JESSys, JERSys, MET_UnclusteredEn, eventNum);
     }
 
     return 0;
