@@ -25,20 +25,17 @@ def main(
     # inVersion = 'v91TESAddedLepPre_JERDown',
     # inVersion = 'v91TESAddedLepPre_METDown',
     # inVersion = 'v91TESAddedLepPre_TESdm0Down',
-    # inVersion = 'v91TESAddedLepPre_TESdm1Down',
-    # inVersion = 'v91TESAddedLepPre_TESdm10Down',
-    # inVersion = 'v91TESAddedLepPre_TESdm11Down',
     # inVersion = 'v91TESAddedLepPre_EleScaleDown',
     # inVersion = 'v91TESAddedHadroPre_JERDown',
     # inVersion = 'v91TESAddedHadroPre_EleScaleDown',
     # inVersion = 'v91TESAddedHadroPre_METDown',
-    # inVersion = 'v91TESAddedHadroPre_TESdm0Down',
-    # inVersion = 'v91TESAddedHadroPre_TESdm1Down', 
-    # inVersion = 'v91TESAddedHadroPre_TESdm10Down', 
     # inVersion = 'v91TESAddedHadroPre_TESdm11Down', 
     # inVersion = 'v93HadroPreJetVetoPileupID',
     # inVersion = 'v94HadroPreJetVetoHemOnly',
-    inVersion = 'v94HadroPreJetVetoHemOnly_JERUp',
+    # inVersion = 'v94HadroPreJetVetoHemOnly_JERDown',
+    # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown',
+    # inVersion = 'v94HadroPreJetVetoHemOnly_METDown',
+    inVersion = 'v94HadroPreJetVetoHemOnly_TESdm11Down',
     # outVersion = 'v0baselineLepTriggerSF',
     outVersion = 'v0baselineHadro',
     # if1tau2l = 0, # 0 false, 1 True
@@ -48,13 +45,6 @@ def main(
     JESVariationType = 0, # 1up, 2 down
     JESVariation = 0,
 ):
-    # inVersion = 'v86LepPreSel'
-    # inVersion = 'v87LepPreSel_GammaRemovalBugFixed'
-    # inVersion = 'v87addPdfPSWeightSum'
-    # inVersion = 'v88PSWeightFixedLepPre'
-
-    
-    # outVersion = 'v1baselineHardroFRUpdated' 
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau2lSR'
    

@@ -6,52 +6,50 @@ MCSys = {
     #sys: [isCorrelated, whichProces, channelBits, isCorrelatedProcess] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
     #!Channlebits information for each channel, bit 100:1tau1l; bit 010:1tau0l; bit 001: 1tau2l
     #: if the systematic is correlated between processes
-    'CMS_pileup': [True, 0, 0b111 , True],
-    'CMS_prefiring': [False, 0, 0b111, True],
+    # 'CMS_pileup': [True, 0, 0b111 , True],
+    # 'CMS_prefiring': [False, 0, 0b111, True],
     
-    'CMS_tttt_eff_hlt_stats': [False, 0, 0b110, True],
-    'CMS_tttt_eff_hltLep': [False, 0, 0b001, True],
+    # 'CMS_tttt_eff_hlt_stats': [False, 0, 0b110, True],
+    # 'CMS_tttt_eff_hltLep': [False, 0, 0b001, True],
     
-    'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
-    'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
-    'CMS_eff_t_vsJet_stat1_dm0': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat1_dm1': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat1_dm10': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat1_dm11': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat2_dm0': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat2_dm1': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat2_dm10': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat2_dm11': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_alleras': [True, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_dm0': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_dm1': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
+    # 'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
+    # 'CMS_eff_t_vsJet_stat1_dm0': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_stat1_dm1': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_stat1_dm10': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_stat1_dm11': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_stat2_dm0': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_stat2_dm1': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_stat2_dm10': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_stat2_dm11': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_syst_alleras': [True, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_syst': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_syst_dm0': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_syst_dm1': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111, True],
+    # 'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111, True],
     
-    'CMS_tttt_eff_e_syst': [True, 0, 0b101, True],
-    'CMS_tttt_eff_m_syst': [True, 0, 0b101, True],
-    'CMS_tttt_eff_e_stat': [False, 0, 0b101, True],
-    'CMS_tttt_eff_m_stat': [False, 0, 0b101, True],
-    'CMS_eff_e_Reco': [False, 0, 0b101, True],
+    # 'CMS_tttt_eff_e_syst': [True, 0, 0b101, True],
+    # 'CMS_tttt_eff_m_syst': [True, 0, 0b101, True],
+    # 'CMS_tttt_eff_e_stat': [False, 0, 0b101, True],
+    # 'CMS_tttt_eff_m_stat': [False, 0, 0b101, True],
+    # 'CMS_eff_e_Reco': [False, 0, 0b101, True],
     
-    #!btagWP for 1tau1l and 1tau2l
-    'CMS_eff_bWPMT_correlated': [True, 0, 0b101, True],
-    'CMS_eff_bWPMT_uncorrelated': [False, 0, 0b101, True],
+    # #!btagWP for 1tau1l and 1tau2l
+    # 'CMS_eff_bWPMT_correlated': [True, 0, 0b101, True],
+    # 'CMS_eff_bWPMT_uncorrelated': [False, 0, 0b101, True],
     
-    #btagShape information, only in 1tau0l
-    'CMS_btag_shape_hf': [True, 0, 0b010, True], 
-    'CMS_btag_shape_lf': [True, 0, 0b010, True],
-    'CMS_btag_shape_cferr1': [True, 0, 0b010, True],
-    'CMS_btag_shape_cferr2': [True, 0, 0b010, True],
-    'CMS_btag_shape_hfstats1': [False, 0, 0b010, True],
-    'CMS_btag_shape_hfstats2': [False, 0, 0b010, True],
-    'CMS_btag_shape_lfstats1': [False, 0, 0b010, True],
-    'CMS_btag_shape_lfstats2': [False, 0, 0b010, True],
+    # #btagShape information, only in 1tau0l
+    # 'CMS_btag_shape_hf': [True, 0, 0b010, True], 
+    # 'CMS_btag_shape_lf': [True, 0, 0b010, True],
+    # 'CMS_btag_shape_cferr1': [True, 0, 0b010, True],
+    # 'CMS_btag_shape_cferr2': [True, 0, 0b010, True],
+    # 'CMS_btag_shape_hfstats1': [False, 0, 0b010, True],
+    # 'CMS_btag_shape_hfstats2': [False, 0, 0b010, True],
+    # 'CMS_btag_shape_lfstats1': [False, 0, 0b010, True],
+    # 'CMS_btag_shape_lfstats2': [False, 0, 0b010, True],
    
-    'CMS_tau_FR': [False, 1, 0b010, True],
-    
-    #!fakeLepton systematic to be added
+    # 'CMS_tau_FR': [False, 1, 0b010, True],
     
     'pdfAlphaS_normalised': [True, 0, 0b111, True], #!not considering for singleTop 
     'pdf_normalised': [True, 0, 0b111, True],
@@ -104,26 +102,29 @@ MCSys = {
 
 
 def main():
-    channel = '1tau1l'
+    # channel = '1tau1l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
-#    outVersion = 'v0'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
+    outVersion = 'v0'
 #    outVersion = 'v1proNormAdd'
 #    outVersion = 'v2OnlyJES'
-    outVersion = 'v3BasicAndJES'
+    # outVersion = 'v3BasicAndJES'
     # outVersion = 'v6AllSys'
    
-#    channel = '1tau0l'
+    channel = '1tau0l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/'
 
 
     # channel = '1tau2l'
@@ -279,7 +280,6 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
     for ipro in processes:
         if uf.isData(ipro) : continue
             
-            
         if ipro=='fakeTau':
             proSys[ipro] = 1 if sysList[1]==1 and ((sysList[2]&channeMask) !=0) else 0
         elif ipro=='fakeLepton':
@@ -287,17 +287,13 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
         elif ipro=='Minor' :#!!!not considering anys systematic for Minor processes
             proSys[ipro] = 0
         else: 
-            if sys=='pdfAlphaS_normalised' and ipro=='singleTop': #!!!
-                proSys[ipro] = 0
-            if sys=='FSR_normalised' and ipro=='singleTop': #!!!
-                proSys[ipro] = 0
-            # if 'JES' in sys and ipro=='ttX':#!!!temperory fix 
-                # proSys[ipro] = 0
             if not sysList[3] : # process uncorrelated systematic
                 proName = sys.split('_')[-1]
                 proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) and ipro == proName else 0
             else:
                 proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
+            if ipro=='singleTop' and (sys=='pdfAlphaS_normalised' or sys=='pdf_normalised' or sys=='QCDscale_Re_normalised' or sys=='QCDscale_Fa_normalised' or sys=='ISR_normalised' or sys=='FSR_normalised'):
+                proSys[ipro] = 0
              
     return proSys            
              

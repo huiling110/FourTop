@@ -100,8 +100,8 @@ def main():
     # variables = [ 'tausF_prongNum', 'tausF_charge', 'tausF_1decayMode', 'tausL_1ptFRWeight', 'tausL_1etaAbsFRWeight' , 'tausF_1jetPtFRWeight', 'tausF_1eta', 'PV_npvs', 'tausF_1pt', 'jets_HT', 'jets_bScore', 'jets_bScoreMultiply', 'jets_4largestBscoreSum', 'jets_4largestBscoreMulti', 'bjetsM_invariantMass', 'jets_1pt', 'jets_2pt','jets_3pt', 'jets_4pt', 'jets_5pt', 'jets_6pt', 'jets_num', 'bjetsM_num']  
     # variables = ['tausF_1jetPt', 'tausF_jet_invariantMass', 'tausF_jet1_Met_transMass']
     variables = ['BDT']
-    # regionList = ['1tau0lSR']
-    regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
+    regionList = ['1tau0lVR']
+    # regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
 
     
     era = uf.getEraFromDir(inputDir)
@@ -165,6 +165,7 @@ def getSysDicPL(ifSys=False, channel='1tau1l', era='2018'):
     for ipro in processes:
         sumProSys[ipro] = [] 
         for isys, sysList in proSys.items():
+            print(isys, sysList)
             if sysList[1][ipro]==1:
                 sumProSys[ipro].append(isys)
     
@@ -615,7 +616,7 @@ def getSystVariation(nominalHist,systHists):
                 systHistUp.SetBinContent(i,systHistUp.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
             else:
                 systHistDown.SetBinContent(i,systHistDown.GetBinContent(i)+(syst.GetBinContent(i) * syst.GetBinContent(i)))
-            if abs(syst.GetBinContent(i)/nominalHist.GetBinContent(i))>0.2:
+            if abs(syst.GetBinContent(i)/nominalHist.GetBinContent(i))>0.9:
                 print('!!! sytematic variation too big: ', syst.GetName(), ' in bin i: ', i)
 
     return systHistUp,systHistDown
