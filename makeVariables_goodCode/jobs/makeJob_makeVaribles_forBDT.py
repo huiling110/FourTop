@@ -11,8 +11,8 @@ import usefulFunc as uf
 
 def main(
     # year = '2016',
-    year = '2018',
-    # year = '2017',
+    # year = '2018',
+    year = '2017',
     # inVersion = 'v90MuonESHadroPre',
     # inVersion = 'v90MuonESHadroPre_JERUp',
     # inVersion = 'v90MuonESHadroPre_JERDown',
@@ -31,11 +31,11 @@ def main(
     # inVersion = 'v91TESAddedHadroPre_METDown',
     # inVersion = 'v91TESAddedHadroPre_TESdm11Down', 
     # inVersion = 'v93HadroPreJetVetoPileupID',
-    # inVersion = 'v94HadroPreJetVetoHemOnly',
+    inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERDown',
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown',
     # inVersion = 'v94HadroPreJetVetoHemOnly_METDown',
-    inVersion = 'v94HadroPreJetVetoHemOnly_TESdm11Down',
+    # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm11Down',
     # outVersion = 'v0baselineLepTriggerSF',
     outVersion = 'v0baselineHadro',
     # if1tau2l = 0, # 0 false, 1 True

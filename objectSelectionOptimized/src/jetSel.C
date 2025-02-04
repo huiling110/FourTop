@@ -472,6 +472,9 @@ Bool_t JetSel::jetVetoMap(Double_t eta, Double_t phi){
     // if(!m_isRun3){
     //     return kFALSE;
     // }
+    if(m_era!="2018"){
+        return kFALSE;
+    }
 
     //!json file can not handle |phi|>3.14159; veto it mannually
     if(TMath::Abs(phi)>3.14159){
