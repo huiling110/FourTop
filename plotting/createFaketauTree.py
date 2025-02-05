@@ -30,6 +30,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/'
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
    
    
     
@@ -37,18 +40,18 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    createFakeTauTree(inputDirDic, era) #!with lepTopMVAT_num=0
-    createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
+    # createFakeTauTree(inputDirDic, era) #!with lepTopMVAT_num=0
+    # createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
     #!For testing fake tau in 1tau1l and 1tau2l
     # Bool_t isTight_1L = e->elesTopMVAF_1isTight.v() || e->muonsTopMVAF_1isTight.v();
-    # lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight || lepTopMVAF_num==1)'
-    # channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'   
+    lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
+    channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
     # createFakeTauTree(inputDirDic, era, extraSel=channelSel, extraPostfix='_1tau1lSR')
     # createFakeTauTree_mc(inputDirDic, era, extraSel=channelSel, extraPostfix='_1tau1lSR')
-    
+    createFakeTauTree_Gen(inputDirDic, era, channelSel)#fakeTau from gen tau, to be compared with faketau from data-driven
     
     
     
@@ -195,10 +198,24 @@ def createFakeTauTree_mc(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPo
     print(inputDirDic['mc']+ outFile) 
     
     
-# def createFaketauFromMC(inputDirDic, era, extraSel=''):
+def createFakeTauTree_Gen(inputDirDic, era, extraSel='lepTopMVAT_num==0', postfix = '_1tau1l'):
+    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
+    allMC = []
+    for iMC in MCSum:
+        allMC += uf.getAllSubPro(era, iMC, False)
+    allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC] 
+    print(allMCFiles)
+   
+    df = ROOT.RDataFrame('newtree', allMCFiles)
+    tauFCut = f'tausF_num==1 && tausF_1isTight && tausF_1genFlavour!=0 && {extraSel}' #prompt tau and prompt e or mu  
+    df_tauF = df.Filter(tauFCut)
     
-
-    
+    # basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v() *e->elesTopMVAT_reoSF_weight.v();
+    df_tauF = df_tauF.Define('event_allWeight_1tau1l', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight_new*musTopMVAT_weight_new*btagWPMT_weight*elesTopMVAT_reoSF_weight')#!1tau1l
+                             
+                             
+    df_tauF.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_fromGen.root')
+    print(inputDirDic['mc']+ 'fakeTau_fromGen.root' + ' done')    
     
      
 
