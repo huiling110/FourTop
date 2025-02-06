@@ -48,10 +48,13 @@ def main():
     #!For testing fake tau in 1tau1l and 1tau2l
     # Bool_t isTight_1L = e->elesTopMVAF_1isTight.v() || e->muonsTopMVAF_1isTight.v();
     lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
-    channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
-    # createFakeTauTree(inputDirDic, era, extraSel=channelSel, extraPostfix='_1tau1lSR')
-    # createFakeTauTree_mc(inputDirDic, era, extraSel=channelSel, extraPostfix='_1tau1lSR')
-    createFakeTauTree_Gen(inputDirDic, era, channelSel)#fakeTau from gen tau, to be compared with faketau from data-driven
+    # channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
+    channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'
+    postFix = '_1tau1lSR'
+    # createFakeTauTree(inputDirDic, era, channelSel, postFix)
+    # xtraPostfix='_1tau1lSR')
+    createFakeTauTree_mc(inputDirDic, era, channelSel, postFix)
+    # createFakeTauTree_Gen(inputDirDic, era, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
     
     
     
@@ -199,7 +202,8 @@ def createFakeTauTree_mc(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPo
     
     
 def createFakeTauTree_Gen(inputDirDic, era, extraSel='lepTopMVAT_num==0', postfix = '_1tau1l'):
-    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
+    # MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
+    MCSum = ['tt', 'ttX']
     allMC = []
     for iMC in MCSum:
         allMC += uf.getAllSubPro(era, iMC, False)
@@ -207,15 +211,15 @@ def createFakeTauTree_Gen(inputDirDic, era, extraSel='lepTopMVAT_num==0', postfi
     print(allMCFiles)
    
     df = ROOT.RDataFrame('newtree', allMCFiles)
-    tauFCut = f'tausF_num==1 && tausF_1isTight && tausF_1genFlavour!=0 && {extraSel}' #prompt tau and prompt e or mu  
+    tauFCut = f'tausF_num==1 && tausF_1isTight && tausF_1genFlavour==0 && {extraSel}' #prompt tau and prompt e or mu  
     df_tauF = df.Filter(tauFCut)
     
     # basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->HLT_weight.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v() *e->elesTopMVAT_reoSF_weight.v();
     df_tauF = df_tauF.Define('event_allWeight_1tau1l', 'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight_new*musTopMVAT_weight_new*btagWPMT_weight*elesTopMVAT_reoSF_weight')#!1tau1l
                              
-                             
-    df_tauF.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_fromGen.root')
-    print(inputDirDic['mc']+ 'fakeTau_fromGen.root' + ' done')    
+    outFile = inputDirDic['mc']+ f'fakeTau_fromGen{postfix}.root'
+    df_tauF.Snapshot('newtree', outFile)
+    print(inputDirDic['mc']+ outFile)    
     
      
 

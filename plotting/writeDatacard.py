@@ -87,7 +87,7 @@ MCSys = {
     "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
     "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
  
-    # "CMS_JER": [False, 0, 0b111 , True],
+    "CMS_JER": [False, 0, 0b111 , True],
  
     # 'CMS_tau_TES_dm0': [False, 0, 0b111, True],
     # 'CMS_tau_TES_dm1': [False, 0, 0b111, True],
