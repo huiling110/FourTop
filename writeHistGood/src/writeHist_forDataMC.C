@@ -112,10 +112,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // Double_t basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v(); //!!!without HLT weight
 
         // WH::histRegionVectFill(histsForRegion_vec, ifBaseline, "baseline", basicWeight, m_isData);
-        // if(m_ifSys){
-        //     // sysRegionsFill(bdtScore, basicWeight, SR1tau0l, "1tau0lSR");
-        //     WH::sysRegionsFill()
-        // }
         // fillHistVec("baseline", ifBaseline, basicWeight);
 
         // SR
