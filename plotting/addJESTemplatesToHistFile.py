@@ -22,7 +22,7 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/'
     nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sys/'
     # variables = ['BDT']
-    variables = ['jets_HT', 'jets_num', 'jets_6pt', 'bjetsM_num', 'bjetsT_num', 'tausT_1pt', 'tausT_1eta', '' ]
+    variables = ['jets_num', 'jets_HT', 'jets_1pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     
     #1tau2l   
     # channel = '1tau2l'
@@ -46,10 +46,10 @@ def main():
     
     
     
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!need to modify dir inside this function
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!need to modify dir inside this function
     #!have to make the JES hist the same dir name as nominal hist
     
-    # addJERToFile(allSubProcesses, regionList, era, nominalDir)
+    addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
     # addMETToFile(allSubProcesses, regionList, era, nominalDir)
     # addEESToFile(allSubProcesses, regionList, era, nominalDir)
     # addTESToFile(allSubProcesses, regionList, era, nominalDir)
@@ -72,13 +72,14 @@ def addTESToFile(allSubProcesses, regionList, era, nominalDir):
          
     
     
-def addJERToFile(allSubProcesses, regionList, era, nominalDir):
+def addJERToFile(allSubProcesses, regionList, era, nominalDir, variables=['BDT']):
     # JERUpDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERUp/mc/variableHists_v0BDT1tau1l/' 
     # JERDownDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERDown/mc/variableHists_v0BDT1tau1l/'
     JERUpDir = nominalDir.replace('/mc/', '_JERUp/mc/')
     JERDownDir = nominalDir.replace('/mc/', '_JERDown/mc/')
     name = 'CMS_JER'
-    addUpDownToFile(allSubProcesses, regionList, era, nominalDir, JERUpDir, JERDownDir, name)
+    for ivariable in variables:
+        addUpDownToFile(allSubProcesses, regionList, era, nominalDir, JERUpDir, JERDownDir, name, ivariable)
     
 def addMETToFile(allSubProcesses, regionList, era, nominalDir):
     METUpDir = nominalDir.replace('/mc/', '_METUp/mc/')
@@ -94,20 +95,18 @@ def addEESToFile(allSubProcesses, regionList, era, nominalDir):
     
         
     
-def addUpDownToFile(allSubProcesses, regionList, era, nominalDir, upDir, downDir, variationName):
+def addUpDownToFile(allSubProcesses, regionList, era, nominalDir, upDir, downDir, variationName, variable='BDT'):
     JERListUp = {}
     JERListDown = {}
-    # JERUpName = f'CMS_JER_{era}Up'
-    # JERDownName = f'CMS_JER_{era}Down'
     JERUpName = f'{variationName}_{era}Up'
     JERDownName = f'{variationName}_{era}Down'
     for isub in allSubProcesses:
         JERListUp[isub] = []
         JERListDown[isub] = []
-        JERHistsNameUp = [f'{isub}_{ire}_{JERUpName}_BDT' for ire in regionList] 
-        JERHistsNameDown = [f'{isub}_{ire}_{JERDownName}_BDT' for ire in regionList] 
+        JERHistsNameUp = [f'{isub}_{ire}_{JERUpName}_{variable}' for ire in regionList] 
+        JERHistsNameDown = [f'{isub}_{ire}_{JERDownName}_{variable}' for ire in regionList] 
         
-        histList = [f'{isub}_{ire}_BDT' for ire in regionList]
+        histList = [f'{isub}_{ire}_{variable}' for ire in regionList]
         histsUp = uf.getHistFromFile(f'{upDir}{isub}.root', histList) 
         histsDown = uf.getHistFromFile(f'{downDir}{isub}.root', histList)
         for ire, iHist in enumerate(regionList):
@@ -115,7 +114,6 @@ def addUpDownToFile(allSubProcesses, regionList, era, nominalDir, upDir, downDir
             histsDown[ire].SetName(JERHistsNameDown[ire]) 
             JERListUp[isub].append(histsUp[ire])
             JERListDown[isub].append(histsDown[ire])
-    
         
     for isub, histList in JERListUp.items():
         inominal = f'{nominalDir}{isub}.root'
