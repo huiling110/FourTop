@@ -35,18 +35,17 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
-    # channel = '1tau1l',
+    channel = '1tau1l',
     # channel = '1tau0l',
     # channel = '1tau2l',
     # version = 'v0BDT1tau2l'
     # version = 'v0BDT1tau1l'
     # version = 'v0BDT1tau0l'
-    #dataMC 
-    version = 'v0DataMC_sys'
-):
-    
+    version = 'v0DataMC_sys',
     exe = './apps/run_WH_forDataMC.out'
     # exe = './apps/run_treeAnalyzer.out' 
+):
+    
     
     #!fakerate
     # version = 'v0FRMeasure'

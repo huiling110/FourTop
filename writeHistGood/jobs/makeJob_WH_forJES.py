@@ -2,8 +2,8 @@ import makeJob_forWriteHist as mj
 import ttttGlobleQuantity as gq
 
 
-# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
-inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
+inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
 # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
@@ -19,7 +19,10 @@ outVersion = 'v0baselineHadro'
 channel = '1tau1l'
 # channel = '1tau0l'
 # channel = '1tau2l'
-version = f'v0BDT{channel}'
+# version = f'v0BDT{channel}'
+version = f'v0DataMC_sys'
+exe = './apps/run_WH_forDataMC.out'
+# exe = './apps/run_treeAnalyzer.out' 
 
 
 
@@ -30,8 +33,8 @@ for i in gq.JESVariationList:
    print('inputVersionUp: ', inputVersionUp)
    print('inputVersionDown: ', inputVersionDown)
    
-   mj.main(inputVersionUp, channel , version)
+   mj.main(inputVersionUp, channel , version, exe)
    print('submitted WH JES up i: ', i) 
-   mj.main(inputVersionDown, channel, version)
+   mj.main(inputVersionDown, channel, version, exe)
    print('submitted WH JES down i: ', i)
      

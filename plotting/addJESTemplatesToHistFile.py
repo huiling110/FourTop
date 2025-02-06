@@ -19,7 +19,10 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/variableHists_v0BDT1tau1l/'    
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/variableHists_v0BDT1tau1l/' 
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/variableHists_v0BDT1tau1l/'
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/'
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/'
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sys/'
+    # variables = ['BDT']
+    variables = ['jets_HT', 'jets_num', 'jets_6pt', ]
     
     #1tau2l   
     # channel = '1tau2l'
@@ -43,7 +46,8 @@ def main():
     
     
     
-    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir)#!need to modify dir inside this function
+    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!need to modify dir inside this function
+    #!have to make the JES hist the same dir name as nominal hist
     
     # addJERToFile(allSubProcesses, regionList, era, nominalDir)
     # addMETToFile(allSubProcesses, regionList, era, nominalDir)
@@ -136,7 +140,7 @@ def getMCSubPro(channel, era):
     return allSubProcesses
     
         
-def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
+def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT']):
     # inVersion = 'v91TESAddedLepPre_JETPt22'
     # outVersion = 'v0baselineLep'
     # outVersion = 'v1baselineLepMETFixed'
@@ -147,6 +151,8 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
     outVersion = 'v0baselineHadro'
     
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
+    nominalHistDir = nominalDir.split('mc/', 1)[1]
+    
     
     JESListUp = {}# 'tttt' = [jestVariationHist]
     JESListDown = {}
@@ -157,8 +163,10 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
     for i in gq.JESVariationList:
         JESUpDir = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}'
         JESDownDir = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}'
-        JESUpDir = f'{JESUpDir}/mc/variableHists_v0BDT{channel}/'
-        JESDownDir = f'{JESDownDir}/mc/variableHists_v0BDT{channel}/'
+        # JESUpDir = f'{JESUpDir}/mc/variableHists_v0BDT{channel}/'
+        # JESDownDir = f'{JESDownDir}/mc/variableHists_v0BDT{channel}/'
+        JESUpDir = f'{JESUpDir}/mc/{nominalHistDir}'
+        JESDownDir = f'{JESDownDir}/mc/{nominalHistDir}'
         print(JESUpDir, JESDownDir)  
         # iJESVariation = JESVariationList[i]
         iJESVariation = i
@@ -169,7 +177,8 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir):
         else:
             JESUpName =  f'CMS_JES_{iJESVariation}_{era}Up'        
             JESDownName =  f'CMS_JES_{iJESVariation}_{era}Down'        
-        getJESHistForDir(JESUpDir, JESDownDir, JESListUp, JESListDown, JESUpName, JESDownName, regionList) 
+        for ivariable in variables:
+            getJESHistForDir(JESUpDir, JESDownDir, JESListUp, JESListDown, JESUpName, JESDownName, regionList, ivariable) 
         
     for isub, histList in JESListUp.items():
         inominal = f'{nominalDir}{isub}.root'
@@ -204,11 +213,12 @@ def add_histograms_to_rootfile(histograms, rootfile_path):
     print(f"Histograms added to {rootfile_path}") 
         
           
-def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList):
+# def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList):
+def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList, variable='BDT'):
     for isub in JESListUP.keys():
-        histList = [f'{isub}_{ire}_BDT' for ire in regionList]
-        JESHistsNameUp = [f'{isub}_{ire}_{JESUpName}_BDT' for ire in regionList] 
-        JESHistsNameDown = [f'{isub}_{ire}_{JESDownName}_BDT' for ire in regionList] 
+        histList = [f'{isub}_{ire}_{variable}' for ire in regionList]
+        JESHistsNameUp = [f'{isub}_{ire}_{JESUpName}_{variable}' for ire in regionList] 
+        JESHistsNameDown = [f'{isub}_{ire}_{JESDownName}_{variable}' for ire in regionList] 
         gotHistsUp = uf.getHistFromFile(f'{JESUpDir}{isub}.root', histList)   
         gotHistsDown = uf.getHistFromFile(f'{JESDownDir}{isub}.root', histList)   
         # for iHist in gotHists:
