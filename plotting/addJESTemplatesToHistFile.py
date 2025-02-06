@@ -22,7 +22,7 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/'
     nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sys/'
     # variables = ['BDT']
-    variables = ['jets_HT', 'jets_num', 'jets_6pt', ]
+    variables = ['jets_HT', 'jets_num', 'jets_6pt', 'bjetsM_num', 'bjetsT_num', 'tausT_1pt', 'tausT_1eta', '' ]
     
     #1tau2l   
     # channel = '1tau2l'
