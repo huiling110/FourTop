@@ -44,6 +44,7 @@ eleScale = 0 #!!! 0: nominal; 1: up; 2: down
 JESSys = 0 #!!! nominal: 0; 
 JERSys = 0 #!!! 0: no correction; 1: up; 2: down
 METSys = 0 #!!! nominal: 0; 1: up; 2: down
+if1tau2l = 1 #True 
 
 
 # jobVersionName = 'v91TESAddedLepPre/'
@@ -234,7 +235,8 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile):
     appDir = codePath.rsplit('/', 2)[0]
     # subFile.write( "cd "+codePath + "\n")
     subFile.write( "cd "+appDir + "\n")
-    command = f'./apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} {eleScale} {JESSys} {JERSys} {METSys} 0'
+    # command = f'./apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} {eleScale} {JESSys} {JERSys} {METSys} 0'
+    command = f'./apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} {eleScale} {JESSys} {JERSys} {METSys} {if1tau2l} 0'
     subFile.write(command)
     subFile.close()
     # print( 'done writing the iJob for kProcess: ', shFile )
