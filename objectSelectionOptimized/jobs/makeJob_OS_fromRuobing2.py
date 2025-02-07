@@ -32,7 +32,7 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_TESdm0Up/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/' #3 years submitted
-jobVersionName = 'v94HadroPreJetVetoHemOnly_JERDown/'#3 years submitted
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_JERDown/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm10Up/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleDown/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_METUp/'
@@ -41,8 +41,8 @@ jobVersionName = 'v94HadroPreJetVetoHemOnly_JERDown/'#3 years submitted
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
 TES = 0#!!!
 eleScale = 0 #!!! 0: nominal; 1: up; 2: down
-JERSys = 2 #!!! 0: no correction; 1: up; 2: down
 JESSys = 0 #!!! nominal: 0; 
+JERSys = 0 #!!! 0: no correction; 1: up; 2: down
 METSys = 0 #!!! nominal: 0; 1: up; 2: down
 
 
@@ -52,20 +52,21 @@ METSys = 0 #!!! nominal: 0; 1: up; 2: down
 # jobVersionName = 'v91TESAddedLepPre_METDown/'
 # jobVersionName = 'v91TESAddedLepPre_TESdm11Down/'
 # jobVersionName = 'v91TESAddedLepPre_EleScaleDown/'
+jobVersionName = 'v94LepPreJetVetoHemOnly/'#3 years submitted
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
 #!same version numbers means no change in algrithm but only in selection
 isRuobing = False
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
-    era = '2016'
+    # era = '2016'
     # era = '2016APV'
     # era = '2017'
-    # era = '2018'
+    era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
-    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'Minor'] #!1tau1l and 1tau0l , 
+    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'Minor'] #!1tau1l and 1tau0l , 
 
 
 
@@ -233,8 +234,7 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile):
     appDir = codePath.rsplit('/', 2)[0]
     # subFile.write( "cd "+codePath + "\n")
     subFile.write( "cd "+appDir + "\n")
-    # command = f'./apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} 0'
-    command = f'./apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} {eleScale} {JERSys} {JESSys} {METSys} 0'
+    command = f'./apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} {eleScale} {JESSys} {JERSys} {METSys} 0'
     subFile.write(command)
     subFile.close()
     # print( 'done writing the iJob for kProcess: ', shFile )

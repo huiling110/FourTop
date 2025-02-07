@@ -47,6 +47,8 @@ void run_objectSelection(
     const UChar_t MET_UnclusteredEn = 0, //nominal
     // const UChar_t MET_UnclusteredEn = 1, //up
     // const UChar_t MET_UnclusteredEn = 2, //down
+    Bool_t if1tau2l = kTRUE,///!!!
+    // Bool_t if1tau2l = kFALSE,///!!!
     Int_t eventNum = 1000) // Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 {
@@ -66,7 +68,7 @@ void run_objectSelection(
     const UChar_t eleSmear = 0;
 
     // const Bool_t if1tau2l = kTRUE;//!
-    const Bool_t if1tau2l = kFALSE;//!!!
+    // const Bool_t if1tau2l = kFALSE;//!!!
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) <<" TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES, MET_UnclusteredEn, if1tau2l);
 
@@ -95,6 +97,7 @@ int main(int argc, char const *argv[])
     UChar_t JESSys = 0;
     UChar_t JERSys = 0;
     UChar_t MET_UnclusteredEn = 0;
+    Bool_t if1tau2l = kTRUE;
     if (argc < 9)
     {
         std::cout << "not enough input from command line\n";
@@ -111,8 +114,9 @@ int main(int argc, char const *argv[])
         JESSys = static_cast<UChar_t>(boost::lexical_cast<int>(argv[6]));
         JERSys = static_cast<UChar_t>(boost::lexical_cast<int>(argv[7]));
         MET_UnclusteredEn = static_cast<UChar_t>(boost::lexical_cast<int>(argv[8]));
-        eventNum = boost::lexical_cast<Int_t>(argv[9]);
-        run_objectSelection(inputDir, singleFileName, outputDir, TES, eleScale, JESSys, JERSys, MET_UnclusteredEn, eventNum);
+        if1tau2l = boost::lexical_cast<Bool_t>(argv[9]);
+        eventNum = boost::lexical_cast<Int_t>(argv[10]);
+        run_objectSelection(inputDir, singleFileName, outputDir, TES, eleScale, JESSys, JERSys, MET_UnclusteredEn, if1tau2l, eventNum);
     }
 
     return 0;
