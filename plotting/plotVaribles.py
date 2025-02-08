@@ -21,8 +21,8 @@ def main():
     # ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    ifPrintSB = True
-    # ifPrintSB = False
+    # ifPrintSB = True
+    ifPrintSB = False
     ifSystematic = True 
     # ifSystematic = False  
     ifFTau = False

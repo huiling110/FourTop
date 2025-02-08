@@ -19,10 +19,10 @@ outVersion = 'v0baselineHadro'
 channel = '1tau1l'
 # channel = '1tau0l'
 # channel = '1tau2l'
-version = f'v0BDT{channel}'
-# version = f'v0DataMC_sys'
-# exe = './apps/run_WH_forDataMC.out'
-exe = './apps/run_treeAnalyzer.out' 
+# version = f'v0BDT{channel}'
+version = f'v0DataMC_sys'
+exe = './apps/run_WH_forDataMC.out'
+# exe = './apps/run_treeAnalyzer.out' 
 
 
 

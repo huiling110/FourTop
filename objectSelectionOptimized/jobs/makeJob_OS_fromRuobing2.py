@@ -54,16 +54,18 @@ if1tau2l = 1 #True
 # jobVersionName = 'v91TESAddedLepPre_TESdm11Down/'
 # jobVersionName = 'v91TESAddedLepPre_EleScaleDown/'
 jobVersionName = 'v94LepPreJetVetoHemOnly/'#3 years submitted
+# jobVersionName = 'v94LepPreJetVetoHemOnly_JESPt22/'
+# jobVersionName = 'v94LepPreJetVetoHemOnly_JERDown/'#3 years submitted
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
 #!same version numbers means no change in algrithm but only in selection
 isRuobing = False
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
-    # era = '2016'
+    era = '2016'
     # era = '2016APV'
     # era = '2017'
-    era = '2018'
+    # era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
     sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
