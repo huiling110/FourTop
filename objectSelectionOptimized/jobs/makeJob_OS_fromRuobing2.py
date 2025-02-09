@@ -33,18 +33,18 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/' #3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JERDown/'#3 years submitted
-# jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm10Up/'
+jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm10/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleDown/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_METUp/'
 
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
 TES = 0#!!!
-eleScale = 0 #!!! 0: nominal; 1: up; 2: down
+eleScale = 2 #!!! 0: nominal; 1: up; 2: down
 JESSys = 0 #!!! nominal: 0; 
-JERSys = 1 #!!! 0: no correction; 1: up; 2: down
+JERSys = 0 #!!! 0: no correction; 1: up; 2: down
 METSys = 0 #!!! nominal: 0; 1: up; 2: down
-if1tau2l = 1 #True 
+if1tau2l = 0 #!!!True 
 
 
 # jobVersionName = 'v91TESAddedLepPre/'
@@ -55,7 +55,7 @@ if1tau2l = 1 #True
 # jobVersionName = 'v91TESAddedLepPre_EleScaleDown/'
 # jobVersionName = 'v94LepPreJetVetoHemOnly/'#3 years submitted
 # jobVersionName = 'v94LepPreJetVetoHemOnly_JESPt22/' #3 years submitted
-jobVersionName = 'v94LepPreJetVetoHemOnly_JERUp/'#3 years submitted
+# jobVersionName = 'v94LepPreJetVetoHemOnly_JERUp/'#3 years submitted
 
 #!Have to submit one version at one time. It seems job sricpts can not be overwriten
 #!same version numbers means no change in algrithm but only in selection
@@ -68,8 +68,8 @@ def main():
     # era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
-    sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'Minor'] #!1tau1l and 1tau0l , 
+    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'Minor'] #!1tau1l and 1tau0l , 
 
 
 

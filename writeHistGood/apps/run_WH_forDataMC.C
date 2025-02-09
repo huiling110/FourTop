@@ -37,8 +37,8 @@ void run_treeAnalyzer(
     TString channel = "1tau1l",
     // TString channel = "1tau0l",
     TString histVersion = "v0_test",
-    Bool_t isTest = kTRUE)
-// Bool_t isTest = kFALSE)
+// Bool_t isTest = kTRUE)
+Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();

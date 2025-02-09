@@ -408,7 +408,7 @@ TString getProcessName(const TString processName, Bool_t isRun3){
 void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau){
     sysRegions.push_back(region);
 
-    if(!isFaketau){
+    // if(!isFaketau){
 
     sysRegions.push_back(region + "_CMS_pileupUp");// 100% correlated
     sysRegions.push_back(region + "_CMS_pileupDown");
@@ -525,10 +525,10 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_FSRUp");
     sysRegions.push_back(region + "_FSRDown");
 
-    }else{
+    // }else{
     sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
-    }
+    // }
 }
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
