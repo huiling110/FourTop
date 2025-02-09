@@ -10,8 +10,8 @@ import usefulFunc as uf
 #todo add git co after job submission for version control
 
 def main(
-    year = '2016',
-    # year = '2018',
+    # year = '2016',
+    year = '2018',
     # year = '2017',
     # inVersion = 'v90MuonESHadroPre',
     # inVersion = 'v90MuonESHadroPre_JERUp',
@@ -32,15 +32,16 @@ def main(
     # inVersion = 'v91TESAddedHadroPre_TESdm11Down', 
     # inVersion = 'v93HadroPreJetVetoPileupID',
     # inVersion = 'v94HadroPreJetVetoHemOnly',
-    inVersion = 'v94HadroPreJetVetoHemOnly_JERUp',
+    # inVersion = 'v94HadroPreJetVetoHemOnly_JERUp',
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown',
     # inVersion = 'v94HadroPreJetVetoHemOnly_METDown',
     # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm11Down',
-    # outVersion = 'v0baselineLepTriggerSF',
-    outVersion = 'v0baselineHadro',
+    inVersion = 'v94LepPreJetVetoHemOnly',
+    outVersion = 'v0baselineLep',
+    # outVersion = 'v0baselineHadro',
     # if1tau2l = 0, # 0 false, 1 True
-    # if1tau2l = 1, # 0 false, 1 True
-    if1tau2l = 0, # 0 false, 1 True
+    if1tau2l = 1, #!!! 0 false, 1 True
+    # if1tau2l = 0, # 0 false, 1 True
     # JESVariationType = 2, # 1up, 2 down
     JESVariationType = 0, # 1up, 2 down
     JESVariation = 0,

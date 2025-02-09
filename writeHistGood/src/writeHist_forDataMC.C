@@ -28,13 +28,6 @@ void WH_forDataMC::Init()
     }
 
     //regions for FR uncertainty for 1tau0l
-    // if(m_isFakeTau){
-    //     // region + "_CMS_tau_FR_" + era + "Up"
-    //     regionsForVariables.push_back("1tau0lCRMR_CMS_tau_FR_" + m_era + "Up");
-    //     regionsForVariables.push_back("1tau0lCRMR_CMS_tau_FR_" + m_era + "Down");
-    //     regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Up");
-    //     regionsForVariables.push_back("1tau0lVR_CMS_tau_FR_" + m_era + "Down");
-    // }
     if(m_ifSys){
         std::vector<TString> sysRegions_sys;
         for(auto region: regionsForVariables){
