@@ -41,19 +41,19 @@ def main():
     era = uf.getEraFromDir(inputDir)
     print(era)
     # createFakeTauTree(inputDirDic, era) #!with lepTopMVAT_num=0
-    # createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
+    createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
     #!For testing fake tau in 1tau1l and 1tau2l
     # Bool_t isTight_1L = e->elesTopMVAF_1isTight.v() || e->muonsTopMVAF_1isTight.v();
-    lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
+    # lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
     # channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
-    channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'
-    postFix = '_1tau1lSR'
+    # channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'
+    # postFix = '_1tau1lSR'
     # createFakeTauTree(inputDirDic, era, channelSel, postFix)
     # xtraPostfix='_1tau1lSR')
-    createFakeTauTree_mc(inputDirDic, era, channelSel, postFix)
+    # createFakeTauTree_mc(inputDirDic, era, channelSel, postFix)
     # createFakeTauTree_Gen(inputDirDic, era, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
     
     
@@ -160,8 +160,8 @@ def createFakeTauTree_mc(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPo
     #todo: consider more filtering, currently 4Million events afrer filtering
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
     allMC = []
-    for iMC in MCSum:
-        allMC += uf.getAllSubPro(era, iMC, False)
+    # for iMC in MCSum:
+    allMC += uf.getAllSubPro(era, MCSum, False)
     allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
     print(allMCFiles)
     
