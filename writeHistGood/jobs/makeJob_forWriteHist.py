@@ -27,7 +27,7 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre_TESdm11Down/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v93HadroPreJetVetoPileupID/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/',
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/', #!!V13
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly_JERDown/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly_EleScaleDown/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly_METDown/',
@@ -44,12 +44,12 @@ def main(
     # channel = '1tau2l',
     # version = 'v0BDT1tau2l',
     # version = 'v0BDT1tau1l',
-    # version = 'v0BDT1tau0l',
+    version = 'v0BDT1tau0l',
     # version = 'v0DataMC_sys',
-    version = 'v0DataMC_sysV2',
+    # version = 'v0DataMC_sysV2',
     # version = 'v1DataMC_noHLTSF',
-    exe = './apps/run_WH_forDataMC.out'
-    # exe = './apps/run_treeAnalyzer.out' 
+    # exe = './apps/run_WH_forDataMC.out'
+    exe = './apps/run_treeAnalyzer.out' 
 ):
     
     
