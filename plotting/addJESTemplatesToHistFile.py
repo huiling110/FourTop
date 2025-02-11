@@ -59,10 +59,10 @@ def main():
     
     
     
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!need to modify dir inside this function
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!need to modify dir inside this function
     #!have to make the JES hist the same dir name as nominal hist
     
-    # addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
+    addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
     # addMETToFile(allSubProcesses, regionList, era, nominalDir)
     # addEESToFile(allSubProcesses, regionList, era, nominalDir)
     # addTESToFile(allSubProcesses, regionList, era, nominalDir)
