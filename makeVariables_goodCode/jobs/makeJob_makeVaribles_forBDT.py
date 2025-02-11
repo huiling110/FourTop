@@ -36,7 +36,8 @@ def main(
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown',
     # inVersion = 'v94HadroPreJetVetoHemOnly_METDown',
     # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm11Down',
-    inVersion = 'v94LepPreJetVetoHemOnly',
+    # inVersion = 'v94LepPreJetVetoHemOnly',
+    inVersion = 'v94LepPreJetVetoHemOnly_JERDown',
     outVersion = 'v0baselineLep',
     # outVersion = 'v0baselineHadro',
     # if1tau2l = 0, # 0 false, 1 True

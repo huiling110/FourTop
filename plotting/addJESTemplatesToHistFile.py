@@ -27,9 +27,11 @@ def main():
     # variables = ['jets_num', 'jets_HT', 'jets_1pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     
     #1tau2l   
-    # channel = '1tau2l'
-    # regionList = ['1tau2lSR', '1tau2lCR3']
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/'
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/'
+    channel = '1tau2l'
+    variables = ['BDT']
+    regionList = ['1tau2lSR', '1tau2lCR3']
    
     #!1tau0l 
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
@@ -39,10 +41,15 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
-    variables = ['BDT']
-    channel = '1tau0l'
-    regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sysV2/'
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sysV2/'
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sysV2/'
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sysV2/'
+    # variables = ['BDT']
+    # variables = ['jets_num', 'jets_HT',  'jets_6pt', 'bjetsM_num','jets_bScore', 'tausF_1decayMode',  'tausF_1jetPt', 'tausF_1jetEta', 'tausF_1prongNum', 'tausF_num']#!fake rate validation
+    # channel = '1tau0l'
+    # regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
     
     
     
@@ -151,8 +158,15 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variable
     
     # inVersion = 'v91TESAddedHadroPre_JESPt20'
     # inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
-    inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
-    outVersion = 'v0baselineHadro'
+    
+    Version = nominalDir.split('/')[-4]
+    print(Version)
+    inVersion = Version.split('_')[-1]+'_JESPt22'
+    outVersion = Version.split('_')[0]
+    print(inVersion, outVersion)
+    
+    # inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
+    # outVersion = 'v0baselineHadro'
     
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
     nominalHistDir = nominalDir.split('mc/', 1)[1]
@@ -167,12 +181,9 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variable
     for i in gq.JESVariationList:
         JESUpDir = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}'
         JESDownDir = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}'
-        # JESUpDir = f'{JESUpDir}/mc/variableHists_v0BDT{channel}/'
-        # JESDownDir = f'{JESDownDir}/mc/variableHists_v0BDT{channel}/'
         JESUpDir = f'{JESUpDir}/mc/{nominalHistDir}'
         JESDownDir = f'{JESDownDir}/mc/{nominalHistDir}'
         print(JESUpDir, JESDownDir)  
-        # iJESVariation = JESVariationList[i]
         iJESVariation = i
         ifCorrelated = wd.MCSys[f'CMS_JES_{iJESVariation}'][0]
         if ifCorrelated:
