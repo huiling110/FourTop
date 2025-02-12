@@ -34,6 +34,7 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v5BasicTTXDeorrelated/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v6AllSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v6AllSys_noFSRSingleTop/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v4BasicAndJESJER/'
     
 
     #combination
@@ -59,7 +60,8 @@ def main():
     # cardDir = 'combinationV12/run2_1tau0l/'
     # cardDir = 'combinationV12/run2_1tau1l_v2/'
     # cardDir = 'combinationV13/run2_1tau1l/'
-    cardDir = 'combinationV13/run2_1tau0l/'
+    # cardDir = 'combinationV13/run2_1tau0l/'
+    cardDir = 'combinationV13/run2_1tau2l_JESJER/'
 
      
      

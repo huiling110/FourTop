@@ -49,10 +49,15 @@ cardDic_1tau2l = {
     # 'SR1tau2l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/combine/datacard_sys/datacard_1tau1lSys.txt',
     # 'SR1tau2l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/combine/datacard_sys/datacard_1tau1lSys.txt',
     # 'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v84Pre1tau2lLepF2V2/mc/variableHists_v1BDT1tau2lBinC/combine/datacard_sys/datacard_1tau1lSys.txt',
-    'SR1tau2l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/datacardSys_v1proNormAdd/datacard_1tau2l.txt',
-    'SR1tau2l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v1proNormAdd/datacard_1tau2l.txt',
-    'SR1tau2l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v1proNormAdd/datacard_1tau2l.txt',
-    'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v1proNormAdd/datacard_1tau2l.txt',
+    # 'SR1tau2l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l_newMCSample/combine/datacardSys_v1proNormAdd/datacard_1tau2l.txt',
+    # 'SR1tau2l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v1proNormAdd/datacard_1tau2l.txt',
+    # 'SR1tau2l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v1proNormAdd/datacard_1tau2l.txt',
+    # 'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v1proNormAdd/datacard_1tau2l.txt',
+    
+    'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v4BasicAndJESJER/datacard_1tau2l.txt',
+    'SR1tau2l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v4BasicAndJESJER/datacard_1tau2l.txt',
+    'SR1tau2l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v4BasicAndJESJER/datacard_1tau2l.txt',
+    'SR1tau2l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/datacardSys_v4BasicAndJESJER/datacard_1tau2l.txt',
 }
 
 
@@ -61,8 +66,9 @@ def main():
     # combinationVersion = 'V12'
     combinationVersion = 'V13'
     # cardDir = 'run2_1tau1l'
-    cardDir = 'run2_1tau0l'
+    # cardDir = 'run2_1tau0l'
     # cardDir = 'run2_1tau2l'
+    cardDir = 'run2_1tau2l_JESJER'
     # cardDir = 'run2_3years'
     # cardDic1tau1l.update(cardDic_1tau0l)
     # cardDic1tau1l.update(cardDic_1tau2l)
@@ -75,8 +81,8 @@ def main():
     
     # outCard = f'combination{combinationVersion}/{cardDir}/datacard.txt'
     # comDatacard(cardDic1tau1l, directory_path+'datacard.txt')#!!!
-    comDatacard(cardDic_1tau0l, directory_path+'datacard.txt')
-    # comDatacard(cardDic_1tau2l, directory_path+'datacard.txt')
+    # comDatacard(cardDic_1tau0l, directory_path+'datacard.txt')
+    comDatacard(cardDic_1tau2l, directory_path+'datacard.txt')
 
 def comDatacard(cardDic, outCard):
     # command = 'combineCards.py SR1tau0l_2016={} SR1tau0l_2017={} SR1tau0l_2018={} > Run2_1tau0l_datacard.txt'.format(SR1tau0l_2016, SR1tau0l_2017, SR1tau0l_2018)

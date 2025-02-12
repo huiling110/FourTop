@@ -33,19 +33,17 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/' #3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JERDown/'#3 years submitted
-jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm10/'
-# jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleDown/'
-# jobVersionName = 'v94HadroPreJetVetoHemOnly_METUp/'
-
+jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleUp/'
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_METDown/'
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm10Down/'
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
 TES = 0#!!!
-eleScale = 2 #!!! 0: nominal; 1: up; 2: down
+eleScale = 1 #!!! 0: nominal; 1: up; 2: down
 JESSys = 0 #!!! nominal: 0; 
 JERSys = 0 #!!! 0: no correction; 1: up; 2: down
 METSys = 0 #!!! nominal: 0; 1: up; 2: down
 if1tau2l = 0 #!!!True 
-
 
 # jobVersionName = 'v91TESAddedLepPre/'
 # jobVersionName = 'v91TESAddedLepPre_JETPt22/'
@@ -63,13 +61,25 @@ isRuobing = False
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main():
     # era = '2016'
-    # era = '2016APV'
-    era = '2017'
+    era = '2016APV'
+    # era = '2017'
     # era = '2018'
     # era = '2022_13p6/crabNanoPost_2022postEE_v3'
     # era = '2022_13p6/crabNanoPost_2022preEE_v3'
-    # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'Minor'] #!1tau1l and 1tau0l , 
+    
+    ifSys = any(substring in jobVersionName for substring in ['Up', 'Down', 'JES'])
+    print('ifSys=', ifSys)
+    if if1tau2l:
+        sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
+        if ifSys:
+            toadd = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG']
+            sumProToSkip = sumProToSkip + toadd        
+    else:
+        sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'Minor'] #!1tau1l and 1tau0l , 
+        if ifSys:
+            toadd = ['jetHT', 'BTagCSV', 'qcd']
+            sumProToSkip = sumProToSkip + toadd
+    print('sumProToSkip=', sumProToSkip)
 
 
 

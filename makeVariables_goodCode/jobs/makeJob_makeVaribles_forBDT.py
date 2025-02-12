@@ -11,11 +11,8 @@ import usefulFunc as uf
 
 def main(
     # year = '2016',
-    year = '2018',
-    # year = '2017',
-    # inVersion = 'v90MuonESHadroPre',
-    # inVersion = 'v90MuonESHadroPre_JERUp',
-    # inVersion = 'v90MuonESHadroPre_JERDown',
+    # year = '2018',
+    year = '2017',
     # inVersion = 'v91TESAddedHadroPre',
     # inVersion = 'v91TESAddedHadroPre_TESdm0Up',
     # inVersion = 'v91TESAddedHadroPre_TESdm1Down',
@@ -33,24 +30,24 @@ def main(
     # inVersion = 'v93HadroPreJetVetoPileupID',
     # inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERUp',
-    # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown',
-    # inVersion = 'v94HadroPreJetVetoHemOnly_METDown',
-    # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm11Down',
+    # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2017, 2018 done
+    # inVersion = 'v94HadroPreJetVetoHemOnly_METDown', #2017, 2018 done
+    inVersion = 'v94HadroPreJetVetoHemOnly_TESdm10Down', #!10Down needs to be resubmited
     # inVersion = 'v94LepPreJetVetoHemOnly',
-    inVersion = 'v94LepPreJetVetoHemOnly_JERDown',
-    outVersion = 'v0baselineLep',
-    # outVersion = 'v0baselineHadro',
+    # inVersion = 'v94LepPreJetVetoHemOnly_JERDown',
+    # outVersion = 'v0baselineLep',
+    outVersion = 'v0baselineHadro',
     # if1tau2l = 0, # 0 false, 1 True
-    if1tau2l = 1, #!!! 0 false, 1 True
-    # if1tau2l = 0, # 0 false, 1 True
+    # if1tau2l = 1, #!!! 0 false, 1 True
+    if1tau2l = 0, # 0 false, 1 True
     # JESVariationType = 2, # 1up, 2 down
     JESVariationType = 0, # 1up, 2 down
     JESVariation = 0,
 ):
     # outVersion = 'v1cut1tau1lSR'
     # outVersion = 'v2cut1tau2lSR'
-   
     
+        
     
     isRun3 = uf.isRun3Era(year)
     justMC = False

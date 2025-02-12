@@ -47,10 +47,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/data/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/data/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/data/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/data/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/data/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/data/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/data/'
 
-    dataPDs = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #for 2018
-    # dataPDs = ['doubleMu', 'doubleEG', 'muonEG', 'singleMu', 'singleE' ] #!for 2017 and 2016
+    # dataPDs = ['doubleMu', 'muonEG', 'eGamma', 'singleMu'] #for 2018
+    dataPDs = ['doubleMu', 'doubleEG', 'muonEG', 'singleMu', 'singleE' ] #!for 2017 and 2016
    
    
    
