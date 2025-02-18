@@ -23,10 +23,10 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v91TESAddedHadroPre/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/",
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/",
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/",
-    // TString process = "tttt",
-    TString process = "fakeTau_data",
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/",
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/",
+    TString process = "tttt",
+    // TString process = "fakeTau_data",
     // TString process = "WZTo3LNu",
     // TString process = "fakeTau_tauF",
     // TString process = "jetHT_2018d",
@@ -46,8 +46,8 @@ Bool_t isTest = kTRUE)
     Bool_t is1tau2l = channel=="1tau2l";
     std::cout<<"is1tau2l in run_WH_forDataMC="<<is1tau2l<<"\n"; 
     // WH_forDataMC writeHist(inputDir, process, kTRUE, histVersion, isTest, is1tau2l); //!m_ifFakeTau=True as default for 1tau0l, only impacts 1tau0l tau selection. For 1tau1l and 1tau2l, tauT=1
-    WH_forDataMC writeHist(inputDir, process, kTRUE, histVersion, isTest, is1tau2l, kTRUE); //!m_ifSys=True
-    // WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);//!not asking tau to be genuine, validation check for not estimating fakeTau bg, but use all MC(qcd)
+    // WH_forDataMC writeHist(inputDir, process, kTRUE, histVersion, isTest, is1tau2l, kTRUE); //!m_ifSys=True
+    WH_forDataMC writeHist(inputDir, process, kFALSE, histVersion, isTest, is1tau2l);//!not asking tau to be genuine, validation check for not estimating fakeTau bg, but use all MC(qcd)
     // WriteHist_btagEff writeHist(inputDir, process, histVersion, isTest);
     // WriteHist_btagShapeR writeHist(inputDir, process, histVersion, isTest);
     // WH_fakeRate writeHist(inputDir, process, histVersion, isTest);

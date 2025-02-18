@@ -89,20 +89,25 @@ MCSys = {
  
     "CMS_JER": [False, 0, 0b111 , True],
  
-    # 'CMS_tau_TES_dm0': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm1': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm10': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm11': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm0': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm1': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm10': [False, 0, 0b111, True],
+    'CMS_tau_TES_dm11': [False, 0, 0b111, True],
     
-    # 'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
-    # 'CMS_e_scale': [False, 0, 0b001, True],
+    'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
+    'CMS_e_scale': [False, 0, 0b001, True],
     
 }
 
 
+# outVersion = 'v0'
+#    outVersion = 'v1proNormAdd'
+#    outVersion = 'v2OnlyJES'
+# outVersion = 'v3BasicAndJES'
+# outVersion = 'v4BasicAndJESJER'
+outVersion = 'v6AllSys'
 
 def main():
-    # channel = '1tau1l'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
@@ -114,13 +119,7 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
-    # outVersion = 'v0'
-#    outVersion = 'v1proNormAdd'
-#    outVersion = 'v2OnlyJES'
-    # outVersion = 'v3BasicAndJES'
-    outVersion = 'v4BasicAndJESJER'
-    # outVersion = 'v6AllSys'
-    # outVersion = 'v7OnlyTauFR'
+    # channel = '1tau1l'
    
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
@@ -142,10 +141,10 @@ def main():
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v88PSWeightFixedLepPre/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
     # inputTemplate ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLepTriggerSF_v91TESAddedLepPre/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
-    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
     channel = '1tau2l'
 
 
@@ -161,6 +160,7 @@ def main():
     processes = gq.proChannelDic_forCombine[channel]
     if channel== '1tau2l':
         processes.remove('leptonSum')
+        processes.remove('singleTop')#!!!
     else: 
         processes.remove('jetHT')  
     print(processes)
@@ -305,6 +305,8 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
                 proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
             if ipro=='singleTop' and (sys=='pdfAlphaS_normalised' or sys=='pdf_normalised' or sys=='QCDscale_Re_normalised' or sys=='QCDscale_Fa_normalised' or sys=='ISR_normalised' or sys=='FSR_normalised'):
                 proSys[ipro] = 0
+            if ipro=='singleTop' and (channe=='1tau2l'):
+                proSys[ipro] = 0 
              
     return proSys            
              
