@@ -58,12 +58,13 @@ def main():
     
     #overlay of MC truth efficiency, MC reference efficiency and data reference efficiency
     # plotEfficiencyHLT(inputDirDic, '', isRun3)
-    plotEfficiencyHLT(inputDirDic, '2b', isRun3)
-    plotEfficiencyHLT(inputDirDic, '3b', isRun3)
-    plotEfficiencyHLT(inputDirDic, '4b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '2b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '3b', isRun3)
+    # plotEfficiencyHLT(inputDirDic, '4b', isRun3)
     
     #plotSF
-    plotSF(inputDirDic, False, isRun3)
+    # plotSF(inputDirDic, False, isRun3)
+    plotSF(inputDirDic, True, isRun3)
     
     
    
@@ -80,13 +81,13 @@ def plotSF(inputDirDic, ifOnlyDraw=False, isRun3=False):
         sumProList = ['TT', 'singleMu']
     
     era = uf.getEraFromDir(inputDirDic['mc'])
-    sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variableList, era, isRun3)
+    # sumProcessPerVar = uf.getSumHist(inputDirDic, regionList, sumProList, variableList, era, isRun3)
+    sumProcessPerVar, sumProcessPerVarsYY = uf.getSumHist(inputDirDic, regionList, sumProList, {}, variableList, era, isRun3)
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir(plotDir)
   
     bRegions = ['baseline1Muon4b', 'baseline1Muon2b', 'baseline1Muon3b']
-    # bRegions = [ 'baseline1Muon2b', 'baseline1Muon3b']
     regionTitleDic = {
         'baseline1Muon4b': 'b jets number > 3',
         'baseline1Muon2b': 'b jets number = 2',

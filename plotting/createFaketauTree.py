@@ -29,10 +29,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
    
    
     
@@ -41,20 +41,22 @@ def main():
     era = uf.getEraFromDir(inputDir)
     print(era)
     # createFakeTauTree(inputDirDic, era) #!with lepTopMVAT_num=0
-    createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
+    # createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
     #!For testing fake tau in 1tau1l and 1tau2l
-    # Bool_t isTight_1L = e->elesTopMVAF_1isTight.v() || e->muonsTopMVAF_1isTight.v();
-    # lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
-    # channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
+    lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
+    channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
     # channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'
-    # postFix = '_1tau1lSR'
+    postFix = '_1tau1lAllRegion'
+    
+    # channelSel = '(elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>=6 && bjetsM_num==2'
+    # postFix = '_1tau0lMR'
+    
     # createFakeTauTree(inputDirDic, era, channelSel, postFix)
-    # xtraPostfix='_1tau1lSR')
     # createFakeTauTree_mc(inputDirDic, era, channelSel, postFix)
-    # createFakeTauTree_Gen(inputDirDic, era, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
+    createFakeTauTree_Gen(inputDirDic, era, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
     
     
     
@@ -129,12 +131,12 @@ def createFakeTauTree(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPostf
     print('all data files: ', allDataFiles)
     
     dataDF = ROOT.RDataFrame('newtree', allDataFiles)
-    # dataAR  = dataDF.Filter('tausF_num==1 && !tausF_1isTight && lepTopMVAT_num==0') #!not prompt tau and prompt e or mu
-    dataAR  = dataDF.Filter(f'tausF_num==1 && !tausF_1isTight && {extraSel}') #!not prompt tau and prompt e or mu
+    dataAR  = dataDF.Filter(f'tausF_num==1 && !tausF_1isTight && {extraSel}') 
     
     print('AR entries: ', dataAR.Count().GetValue())
     
     #!!!replace tausT variables with tausF' matched jet variables  
+    #!!!Maybe the pt of mother jet is a better estimate of pt
     all_columns = dataAR.GetColumnNames() 
     columns_to_remove = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi', 'tausT_1decayMode']
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
@@ -145,12 +147,14 @@ def createFakeTauTree(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPostf
     dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1eta')
     dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1phi')
     dataAR_new = dataAR_new.Define('tausT_1decayMode', 'tausF_1decayMode')
+    # dataAR_new = dataAR_new.Define('tausT_
     
     dataAR_new = dataAR_new.Define('FR_weight_final', 'FR_weight')
     dataAR_new = dataAR_new.Define('FR_weight_final_up', 'FR_weight_up')
     dataAR_new = dataAR_new.Define('FR_weight_final_down', 'FR_weight_down')
     
     outFile = inputDirDic['mc'] + f'fakeTau_data{extraPostfix}.root' 
+    # outFile = inputDirDic['mc'] + f'fakeTau_dataNew{extraPostfix}.root' 
     dataAR_new.Snapshot('newtree', outFile)
     print('fakeTau_data file: ', outFile, ' done')
      
@@ -205,8 +209,8 @@ def createFakeTauTree_Gen(inputDirDic, era, extraSel='lepTopMVAT_num==0', postfi
     # MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
     MCSum = ['tt', 'ttX']
     allMC = []
-    for iMC in MCSum:
-        allMC += uf.getAllSubPro(era, iMC, False)
+    # for iMC in MCSum:
+    # allMC += uf.getAllSubPro(era, iMC, False)#!
     allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC] 
     print(allMCFiles)
    

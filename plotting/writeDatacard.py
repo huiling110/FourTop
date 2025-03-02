@@ -105,7 +105,8 @@ MCSys = {
 #    outVersion = 'v2OnlyJES'
 # outVersion = 'v3BasicAndJES'
 # outVersion = 'v4BasicAndJESJER'
-outVersion = 'v6AllSys'
+# outVersion = 'v6AllSys'
+outVersion = 'v6AllSys_noMinor'
 
 def main():
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
@@ -155,12 +156,14 @@ def main():
     outDir = f"{inputDir}/datacardSys_{outVersion}/"
     uf.checkMakeDir(outDir)
     outCard = f"{outDir}datacard_{channel}.txt"
-        
+    era = uf.getEraFromDir(inputTemplate) 
     # processes = gq.proChannelDic[channel]
     processes = gq.proChannelDic_forCombine[channel]
     if channel== '1tau2l':
         processes.remove('leptonSum')
-        processes.remove('singleTop')#!!!
+        processes.remove('Minor')
+        if era == '2016postVFP':
+            processes.remove('singleTop')#!!!
     else: 
         processes.remove('jetHT')  
     print(processes)
