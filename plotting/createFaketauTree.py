@@ -42,8 +42,8 @@ def main():
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    createFakeTauTree(inputDirDic, era, is1tau2l ) 
-    # createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
+    # createFakeTauTree(inputDirDic, era, is1tau2l ) 
+    createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
@@ -164,19 +164,19 @@ def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPost
     print('fakeTau_data file: ', outFile, ' done')
      
   
-def createFakeTauTree_mc(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPostfix = ''): 
+# def createFakeTauTree_mc(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPostfix = ''): 
+def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPostfix = ''): 
     #creat MC fake tau tree
     #todo: consider more filtering, currently 4Million events afrer filtering
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
     allMC = []
-    # for iMC in MCSum:
     allMC += uf.getAllSubPro(era, MCSum, False)
     allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
     print(allMCFiles)
     
     df = ROOT.RDataFrame('newtree', allMCFiles)
-    # lepCut = 'lepTopMVAT_num==0'
-    tauFCut = f'tausF_num==1 && !tausF_1isTight && tausF_1genFlavour!=0 && {extraSel}' #not prompt tau and prompt e or mu 
+    # tauFCut = f'tausF_num==1 && !tausF_1isTight && tausF_1genFlavour!=0 && {extraSel}' #not prompt tau and prompt e or mu 
+    tauFCut = f'tausF_num==1 && !tausF_1isTight && tausF_1genFlavour!=0' #not prompt tau and prompt e or mu 
     df_tauF = df.Filter(tauFCut)
     
     print('all entries: ', df.Count().GetValue())
@@ -199,10 +199,12 @@ def createFakeTauTree_mc(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPo
     df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1phi')
     df_tauF_new = df_tauF_new.Define('tausT_1decayMode', 'tausF_1decayMode')
     
-    df_tauF_new = df_tauF_new.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    df_tauF_new = df_tauF_new.Define('FR_weight_final_up', '-1.*FR_weight_up*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    df_tauF_new = df_tauF_new.Define('FR_weight_final_down', '-1.*FR_weight_down*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    
+    btagHLTWeight = 'triggerSFLep_weight*btagWPMT_weight*elesTopMVAT_weight_new*musTopMVAT_weight_new' if is1tau2l else  'btagShape_weight*btagShapeR*HLT_weight'
+    # df_tauF_new = df_tauF_new.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
+    # df_tauF_new = df_tauF_new.Define('FR_weight_final_up', '-1.*FR_weight_up*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
+    # df_tauF_new = df_tauF_new.Define('FR_weight_final_down', '-1.*FR_weight_down*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
+    df_tauF_new = df_tauF_new.Define('FR_weight_final', f'-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*tauT_IDSF_weight_new*{btagHLTWeight}')
+     
     df_tauF_new = df_tauF_new.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
     
     outFile = inputDirDic['mc'] + f'fakeTau_MC{extraPostfix}.root'

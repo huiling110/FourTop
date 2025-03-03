@@ -56,17 +56,6 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     Int_t bjetsMNum = isRun3? e->bjetsPTM_num.v() : e->bjetsM_num.v();
     Int_t tausTNum = isFakeTau ? e->tausF_num.v() : e->tausT_num.v();
 
-    //fakeTau estimation for 1tau0l
-    Bool_t tauCut = kFALSE;
-    if(isMC && ifFakeTau){
-        if(isFakeTau){
-            tauCut = e->tausF_num.v()==1 && !e->tausF_1isTight.v() ;
-        }else{
-            tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v() && e->tausF_1genFlavour.v()!=0;
-        }
-    }else{
-        tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v();
-    }
 
     // const Int_t lepF_num = e->elesTopMVAF_num.v() + e->muonsTopMVAF_num.v();
     const Int_t lepF_num = e->lepTopMVAF_num.v();//lepTopMVAF_num
@@ -79,23 +68,54 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     Bool_t lepCut2L = kFALSE;
     Bool_t eleCut = kFALSE;//testing, l electron region
     Bool_t muonCut = kFALSE;
-    if(isMC){
+
+    //fakeTau estimation for 1tau0l
+    Bool_t tauCut = kFALSE;
+    // if(isMC && ifFakeTau){
+    //     if(isFakeTau){
+    //         tauCut = e->tausF_num.v()==1 && !e->tausF_1isTight.v() ;
+    //     }else{
+    //         tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v() && e->tausF_1genFlavour.v()!=0;
+    //     }
+    // }else{
+    //     tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v();
+    // }
+
+    if(isMC && !isFakeLepton && !isFakeTau){
+        // if(isFakeLepton){
+            // lepCut = e->lepTopMVAF_isAR.v() && lepF_num == 1; 
+            // lepCut2L = e->lepTopMVAF_isAR.v() && lepF_num == 2;
+            // eleCut = !e->elesTopMVAF_1isTight.v() && e->elesTopMVAF_num.v() == 1;
+            // muonCut = !e->muonsTopMVAF_1isTight.v() && e->muonsTopMVAF_num.v() == 1;
+        // }else{
+            //!what shouldbe the lepton cut for fake tau? same as data
+            lepCut = (lepF_num == 1) && isTightPrompt_1L;
+            lepCut2L = (lepF_num == 2) && isTightPrompt_2L;
+            eleCut = e->elesTopMVAF_num.v() == 1 && e->elesTopMVAF_1isTightPrompt.v();
+            muonCut = e->muonsTopMVAF_num.v() == 1 && e->muonsTopMVAF_1isTightPrompt.v();
+            tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v() && e->tausF_1genFlavour.v()!=0;
+        // }
+        
+
+    }else{//data or fakeLepton or fakeTau
+            lepCut = (lepF_num == 1) && isTight_1L;
+            lepCut2L = (lepF_num == 2) && isTight_2L;
+            eleCut = e->elesTopMVAF_num.v() == 1 && e->elesTopMVAF_1isTight.v();
+            muonCut = e->muonsTopMVAF_num.v() == 1 && e->muonsTopMVAF_1isTight.v();
+            tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v(); //!!!update, for 1tau1l and 1tau2l fake tau too
+
         if(isFakeLepton){
             lepCut = e->lepTopMVAF_isAR.v() && lepF_num == 1; 
             lepCut2L = e->lepTopMVAF_isAR.v() && lepF_num == 2;
             eleCut = !e->elesTopMVAF_1isTight.v() && e->elesTopMVAF_num.v() == 1;
             muonCut = !e->muonsTopMVAF_1isTight.v() && e->muonsTopMVAF_num.v() == 1;
-        }else{
-            lepCut = (lepF_num == 1) && isTightPrompt_1L;
-            lepCut2L = (lepF_num == 2) && isTightPrompt_2L;
-            eleCut = e->elesTopMVAF_num.v() == 1 && e->elesTopMVAF_1isTightPrompt.v();
-            muonCut = e->muonsTopMVAF_num.v() == 1 && e->muonsTopMVAF_1isTightPrompt.v();
         }
-    }else{//data
-        lepCut = (lepF_num == 1) && isTight_1L;
-        lepCut2L = (lepF_num == 2) && isTight_2L;
-        eleCut = e->elesTopMVAF_num.v() == 1 && e->elesTopMVAF_1isTight.v();
-        muonCut = e->muonsTopMVAF_num.v() == 1 && e->muonsTopMVAF_1isTight.v();
+        if(isFakeTau){
+            tauCut = e->tausF_num.v()==1 && !e->tausF_1isTight.v();
+        }
+
+        // if(!isFakeLepton && !isFakeTau){//data
+        // }
     } 
 
     Bool_t isPass = kFALSE;
