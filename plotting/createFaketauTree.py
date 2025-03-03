@@ -29,34 +29,36 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
-   
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/mc/'
+    # is1tau2l = False 
+    is1tau2l = True 
    
     
     
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    # createFakeTauTree(inputDirDic, era) #!with lepTopMVAT_num=0
+    createFakeTauTree(inputDirDic, era, is1tau2l ) 
     # createFakeTauTree_mc(inputDirDic, era) #!with leptopMVAT_num=0
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
     #!For testing fake tau in 1tau1l and 1tau2l
-    lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
-    channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
+    # lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
+    # channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
     # channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'
-    postFix = '_1tau1lAllRegion'
+    # postFix = '_1tau1lAllRegion'
     
     # channelSel = '(elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>=6 && bjetsM_num==2'
     # postFix = '_1tau0lMR'
     
     # createFakeTauTree(inputDirDic, era, channelSel, postFix)
     # createFakeTauTree_mc(inputDirDic, era, channelSel, postFix)
-    createFakeTauTree_Gen(inputDirDic, era, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
+    # createFakeTauTree_Gen(inputDirDic, era, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
     
     
     
@@ -125,13 +127,17 @@ def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT):
     print(inputDirDic['mc']+ 'fakeTau_tauTGen.root' + ' done')
    
     
-def createFakeTauTree(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPostfix = ''):
-    allDataFiles = uf.getAllSubPro(era, ['jetHT'])
+# def createFakeTauTree(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPostfix = ''):
+def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPostfix = ''):
+    sumData='leptonSum' if is1tau2l else 'jetHT' 
+    # allDataFiles = uf.getAllSubPro(era, ['jetHT'])
+    print('sumData: ', sumData)
+    allDataFiles = uf.getAllSubPro(era, [sumData])
     allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
     print('all data files: ', allDataFiles)
     
     dataDF = ROOT.RDataFrame('newtree', allDataFiles)
-    dataAR  = dataDF.Filter(f'tausF_num==1 && !tausF_1isTight && {extraSel}') 
+    dataAR  = dataDF.Filter(f'tausF_num==1 && !tausF_1isTight{extraSel}') 
     
     print('AR entries: ', dataAR.Count().GetValue())
     
@@ -154,7 +160,6 @@ def createFakeTauTree(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPostf
     dataAR_new = dataAR_new.Define('FR_weight_final_down', 'FR_weight_down')
     
     outFile = inputDirDic['mc'] + f'fakeTau_data{extraPostfix}.root' 
-    # outFile = inputDirDic['mc'] + f'fakeTau_dataNew{extraPostfix}.root' 
     dataAR_new.Snapshot('newtree', outFile)
     print('fakeTau_data file: ', outFile, ' done')
      
