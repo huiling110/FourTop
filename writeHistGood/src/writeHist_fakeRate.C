@@ -218,8 +218,9 @@ void WH_fakeRate::Init()
         //ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
         // tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
         // std::vector<Double_t> bins = {0., 10, 15, 20., 25, 30, 40, 50., 70., 100., 300.};
-        // std::vector<Double_t> bins = {0. , 20., 25, 30, 35., 40, 50., 70., 100., 300.};
-        std::vector<Double_t> bins = {0., 25, 30, 35., 40, 50., 70., 100., 300.};//BinB
+        // std::vector<Double_t> bins = {0. , 20., 25, 30, 35., 40, 50., 70., 100., 300.};//BinA
+        // std::vector<Double_t> bins = {0., 25, 30, 35., 40, 50., 70., 100., 300.};//BinB
+        std::vector<Double_t> bins = {0., 22, 27, 31,  35., 40, 50., 70., 100., 300.};//BinC
         // tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 0., 300, regionsEtaDivided, &(e->tausF_1jetPt));
         tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, bins, regionsEtaDivided, &(e->tausF_1jetPt));
         tausF_1jetPt_class.setDir(m_outFile);

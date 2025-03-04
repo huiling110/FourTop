@@ -67,7 +67,8 @@ def main(
     # version = 'v1DataMC_noHLTSF',
     # version = 'v1dataMC_fakeTauMC',
     # version = 'v0FRMeasure',
-    version = 'v0FRMeasureBinB',
+    # version = 'v0FRMeasureBinB',
+    version = 'v0FRMeasureBinC',
     exe = './apps/run_WH_forDataMC.out'
     # exe = './apps/run_treeAnalyzer.out' 
 ):
