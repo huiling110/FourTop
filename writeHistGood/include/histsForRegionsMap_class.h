@@ -42,6 +42,9 @@ public:
         // std::cout << "m_branch=" << m_branch->n() << "\n";
     };
 
+    histsForRegionsMap(TString variableName, TString histTitle, TString processName, const std::vector<Double_t>& bins, std::vector<TString>& regions, myBranch<T> *branch): histForRegionsBase(variableName, histTitle, processName, bins, regions), m_branch{branch}
+    {};
+
     virtual ~histsForRegionsMap(){
     };
 
