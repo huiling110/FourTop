@@ -34,7 +34,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFR_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFR_v94HadroPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/mc/'
     is1tau2l = False 
     # is1tau2l = True 
    
@@ -165,7 +166,6 @@ def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPost
     print('fakeTau_data file: ', outFile, ' done')
      
   
-# def createFakeTauTree_mc(inputDirDic, era, extraSel='lepTopMVAT_num==0', extraPostfix = ''): 
 def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPostfix = ''): 
     #creat MC fake tau tree
     #todo: consider more filtering, currently 4Million events afrer filtering
