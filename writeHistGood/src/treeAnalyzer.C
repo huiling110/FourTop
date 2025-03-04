@@ -162,7 +162,7 @@ void treeAnalyzer::LoopTree()
     Long64_t allEvent = m_tree->GetEntries();
     if (m_isTest)
     {
-        allEvent = 50000;
+        allEvent = 10000;
     }
     std::cout << "looping over trees of " << allEvent << "\n";
 
@@ -222,7 +222,7 @@ void treeAnalyzer::LoopTree()
             sysRegionsFill(bdtScore, basicWeight, CR21tau1l, "1tau1lCR2");
             sysRegionsFill(bdtScore, basicWeight, CR11tau1l||CR21tau1l, "1tau1lCR12");
         }else if (m_channel=="1tau2l"){
-            Bool_t SR1tau2l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
+            Bool_t SR1tau2l = SR1tau1lSel(e, 2, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
             Bool_t CR31tau2l = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
             sysRegionsFill(bdtScore, basicWeight, SR1tau2l, "1tau2lSR");
             sysRegionsFill(bdtScore, basicWeight, CR31tau2l, "1tau2lCR3");
