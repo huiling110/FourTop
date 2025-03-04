@@ -25,10 +25,12 @@ def main():
 # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v85HadroPreselTauOverlap0.5/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0FRMeasure/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0FRMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasureBinB/'
     
    
     
@@ -49,24 +51,24 @@ def plotFRNew(inputDirDic, era):
     FR_eta1 = plotFRPerEta( inputDirDic, regionList, era, '_Eta1', tauProng1, 'FR' + tauProng1 + 'Eta1')
     FR_eta2 = plotFRPerEta( inputDirDic, regionList, era, '_Eta2', tauProng1, 'FR' + tauProng1 + 'Eta2')
     FR_eta3 = plotFRPerEta( inputDirDic, regionList, era, '_Eta3', tauProng1, 'FR' + tauProng1 + 'Eta3')
-    uf.plotOverlay([FR_eta1, FR_eta2, FR_eta3],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.4'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCR' + tauProng1 + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3]) 
+    uf.plotOverlay([FR_eta1, FR_eta2, FR_eta3],  ['0<|#eta|<0.8', '0.8<|#eta|<1.5', '1.5<|#eta|<2.4'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCR' + tauProng1 + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.4]) 
     
     tauProng3 = '_3prong'
     FR_tauProng3 = plotFRPerEta( inputDirDic, regionList, era, '_EtaAll', tauProng3, 'FR' + tauProng3 + 'EtaAll')
-    uf.plotOverlay([FR_tauProng3],  ['0<|#eta| <2.4'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng3 + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.3])
+    uf.plotOverlay([FR_tauProng3],  ['0<|#eta| <2.4'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCR_' + tauProng3 + '', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.4])
     
     histNameList = ['_Eta1Prong1', '_Eta2Prong1', '_Eta3Prong1', '_EtaAllProng3'] 
-    # writeFRToFileNew([FR_eta1, FR_eta2, FR_eta3, FR_tauProng3], histNameList, inputDirDic)
+    writeFRToFileNew([FR_eta1, FR_eta2, FR_eta3, FR_tauProng3], histNameList, inputDirDic)
    
-    regionList_VR = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTau', '1tau0lVRLTauGen'] 
-    FR_eta1_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta1', tauProng1, 'FR' + tauProng1 + 'Eta1_VR')
-    FR_eta2_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta2', tauProng1, 'FR' + tauProng1 + 'Eta2_VR')
-    FR_eta3_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta3', tauProng1, 'FR' + tauProng1 + 'Eta3_VR')
-    FR_tauProng3_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_EtaAll', tauProng3, 'FR' + tauProng3 + 'EtaAll_VR')
-    uf.plotOverlay([FR_eta1_VR, FR_eta1], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    uf.plotOverlay([FR_eta2_VR, FR_eta2], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    uf.plotOverlay([FR_eta3_VR, FR_eta3], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
-    uf.plotOverlay([FR_tauProng3_VR, FR_tauProng3], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng3 + 'EtaAll', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3]) 
+    # regionList_VR = ['1tau0lVR', '1tau0lVRGen', '1tau0lVRLTau', '1tau0lVRLTauGen'] 
+    # FR_eta1_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta1', tauProng1, 'FR' + tauProng1 + 'Eta1_VR')
+    # FR_eta2_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta2', tauProng1, 'FR' + tauProng1 + 'Eta2_VR')
+    # FR_eta3_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_Eta3', tauProng1, 'FR' + tauProng1 + 'Eta3_VR')
+    # FR_tauProng3_VR = plotFRPerEta( inputDirDic, regionList_VR, era, '_EtaAll', tauProng3, 'FR' + tauProng3 + 'EtaAll_VR')
+    # uf.plotOverlay([FR_eta1_VR, FR_eta1], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta1', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_eta2_VR, FR_eta2], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta2', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_eta3_VR, FR_eta3], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng1 + 'Eta3', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3])
+    # uf.plotOverlay([FR_tauProng3_VR, FR_tauProng3], ['VR', 'MR'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRVR_' + tauProng3 + 'EtaAll', 'AP', [0.4, 0.7, 0.9, 0.9], [0, 0.3]) 
    
     
     
@@ -118,7 +120,6 @@ def writeFRToFileNew(FR_ptInEtaList, histNameList, inputDirDic, tauProng='1prong
     
     
     
-# def plotFRPerEta(inputDirDic, regionList, era, eta, plotName):
 def plotFRPerEta(inputDirDic, regionList, era, eta, prong, plotName):
     regionList_eta1 = addEta(regionList, eta, prong)
     variable = ['tausF_1jetPt']
@@ -130,14 +131,17 @@ def plotFRPerEta(inputDirDic, regionList, era, eta, prong, plotName):
     h_TTau.Print()
     h_FTau = dataMinusGenBG(sumProcessPerVar['tausF_1jetPt'], regionList_eta1[2], regionList_eta1[3]) 
     h_FTau.Print()
-    ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
-    h_TTau_rebin = h_TTau.Rebin(len(ptBins)-1, 'h_TTau_rebin', ptBins)
-    h_FTau_rebin = h_FTau.Rebin(len(ptBins)-1, 'h_FTau_rebin', ptBins)
+    # ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
+    # h_TTau_rebin = h_TTau.Rebin(len(ptBins)-1, 'h_TTau_rebin', ptBins)
+    # h_FTau_rebin = h_FTau.Rebin(len(ptBins)-1, 'h_FTau_rebin', ptBins)
+    h_FTau_rebin = h_FTau.Clone()
+    h_TTau_rebin = h_TTau.Clone()
    
     plotDir = inputDirDic['mc'] + 'results/'
     uf.checkMakeDir( plotDir )
     plotName = plotDir + plotName
-    FR = uf.plotEffTEff( h_TTau_rebin, h_FTau_rebin, plotName, era, 'tau fake rate', [0., 0.3], 'Fake rate')
+    # FR = uf.plotEffTEff( h_TTau_rebin, h_FTau_rebin, plotName, era, 'tau fake rate', [0., 0.3], 'Fake rate')
+    FR = uf.plotEffTEff( h_TTau_rebin, h_FTau_rebin, plotName, era, 'tau fake rate', [0., 0.4], 'Fake rate')
     
     return FR
     
