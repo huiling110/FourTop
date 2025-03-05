@@ -21,7 +21,6 @@
 class WH_forDataMC
 {
 public:
-    // WH_forDataMC(const TString inputDir, const TString process, const Bool_t ifFakeTau = kTRUE, TString outVersion = "v0", Bool_t isTest = kTRUE, Bool_t is1tau2l=kFALSE) : m_inputDir{inputDir}, m_processName{process}, m_ifFakeTau{ifFakeTau},  m_isTest{isTest}, m_is1tau2l{is1tau2l}
     WH_forDataMC(const TString inputDir, const TString process, const Bool_t ifFakeTau = kTRUE, TString outVersion = "v0", Bool_t isTest = kTRUE, Bool_t is1tau2l=kFALSE, const Bool_t ifSys=kFALSE) : m_inputDir{inputDir}, m_processName{process}, m_ifFakeTau{ifFakeTau},  m_isTest{isTest}, m_is1tau2l{is1tau2l}, m_ifSys{ifSys}
     {
         m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization

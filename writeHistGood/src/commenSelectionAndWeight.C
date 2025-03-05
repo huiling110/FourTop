@@ -113,10 +113,11 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
         if(isFakeTau){
             tauCut = e->tausF_num.v()==1 && !e->tausF_1isTight.v();
         }
+    }
 
-        // if(!isFakeLepton && !isFakeTau){//data
-        // }
-    } 
+    if(!ifFakeTau){//!!!if not fakeTau from data driven, overwrite the tauCut for both data and MC
+        tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v();
+    }
 
     Bool_t isPass = kFALSE;
     switch (channel)
@@ -168,7 +169,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     case 12: //1tau2lCR3 
         // isPass = tausTNum == 1 && lepCut2L && e->jets_num.v() < 4 && bjetsMNum < 2 ;//!!!seems wrong!
         // isPass = tausTNum == 1 && lepCut2L && !(e->jets_num.v() >= 4 && bjetsMNum >= 2) ;
-        isPass = tauCut && lepCut2L && !(e->jets_num.v() >= 4 && bjetsMNum >= 2) ;
+        // isPass = tauCut && lepCut2L && !(e->jets_num.v() >= 4 && bjetsMNum >= 2) ;
+        isPass = tauCut && lepCut2L && !(e->jets_num.v() >= 4 && bjetsMNum >= 2) && e->jets_num.v()>=4; //!!!testing
         break;
     case 13: //1tau2lCR3+ele
         isPass = tausTNum == 1 && eleCut && e->jets_num.v() < 4 && bjetsMNum < 2 ;
