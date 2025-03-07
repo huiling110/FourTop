@@ -35,8 +35,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFR_v94HadroPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinC_v94LepPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/mc/'
     is1tau2l = False 
     # is1tau2l = True 
    
@@ -72,14 +73,6 @@ def main():
     
     
     
-    #!obsolete 
-    # cut1tau0l = 'tausF_num==1' #!no channel specific selection
-    # tauF = 'tausF_num==1'
-    # # tauT = 'tausT_num!=0'
-    # tauT = 'tausF_1isTight'
-    # branchesToExclude = ['jets_pt_', 'jets_eta_', 'jets_btags_', 'jets_btagsPN_', 'jets_btags_PN_', 'jets_btags_PT_', 'jets_flavour_', 'HLT_PF*']
-    # createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude)
-    # createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT)
   
     
      
@@ -105,36 +98,6 @@ def makeOtherMCGen(inputDirDic, era):
    
     
     
-def createMCGenTree(inputDirDic, era, cut1tau0l, tauF, tauT): 
-    #!MC needs to be properly scaled
-    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt']
-    allMC = []
-    for iMC in MCSum:
-        allMC += uf.getAllSubPro(era, iMC, False)
-    allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
-    print(allMCFiles)
-    
-    mcDF = ROOT.RDataFrame('newtree', allMCFiles) 
-    basicCut = mcDF.Filter(cut1tau0l+'&& tausF_genTauNum==1')
-    tauF_mc = basicCut.Filter(tauF)
-    tauT_mc = tauF_mc.Filter(tauT) 
-    
-    tauF_mc = tauF_mc.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    tauT_mc = tauT_mc.Define('FR_weight_final', 'FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    
-    tauF_mc = tauF_mc.Define('FR_weight_final_up', '-1.*FR_weight_up*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    tauF_mc = tauF_mc.Define('FR_weight_final_down', '-1.*FR_weight_down*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    tauT_mc = tauT_mc.Define('FR_weight_final_up', 'FR_weight_up*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    tauT_mc = tauT_mc.Define('FR_weight_final_down', 'FR_weight_down*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    
-    
-    tauF_mc = tauF_mc.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
-    tauT_mc = tauT_mc.Define('event_allWeight_1tau0l', 'FR_weight_final')
-    
-    tauF_mc.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauFGen.root')
-    print(inputDirDic['mc']+ 'fakeTau_tauFGen.root' + ' done')
-    tauT_mc.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tauTGen.root')
-    print(inputDirDic['mc']+ 'fakeTau_tauTGen.root' + ' done')
    
     
 def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPostfix = ''):
@@ -251,40 +214,6 @@ def createFakeTauTree_Gen(inputDirDic, era, is1tau2l=False, extraSel='lepTopMVAT
      
 
     
-def createDataTree(inputDirDic, era, cut1tau0l, tauF, tauT, branchesToExclude = [], extraPostfix = ''): 
-#!maybe make the tauF kenimatic into tauT variables
-    allDataFiles = uf.getAllSubPro(era, 'jetHT') 
-    #!for 2017 must consider BtagCSV too
-    allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
-    print('all data files: ', allDataFiles)
-    dataDF = ROOT.RDataFrame('newtree', allDataFiles) 
-    basicCut = dataDF.Filter(cut1tau0l)
-    tauF_data = basicCut.Filter(tauF)
-    tauT_data = tauF_data.Filter(tauT)
-    
-    tauF_data = tauF_data.Define('FR_weight_final', "FR_weight")
-    tauT_data = tauT_data.Define('FR_weight_final', '-1.* FR_weight')
-    
-    tauF_data = tauF_data.Define('FR_weight_final_up', "FR_weight_up")
-    tauF_data = tauF_data.Define('FR_weight_final_down', "FR_weight_down")
-    tauT_data = tauT_data.Define('FR_weight_final_up', '-1.* FR_weight_up')
-    tauT_data = tauT_data.Define('FR_weight_final_down', '-1.* FR_weight_down')
-    
-    tauF_data = tauF_data.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
-    tauT_data = tauT_data.Define('event_allWeight_1tau0l', 'FR_weight_final')
-    
-    #!in FnotT region, remove tauT variables and replace with tauF variables
-    
-    
-    tauF_data.Snapshot('newtree', inputDirDic['mc']+ f'fakeTau_tauF{extraPostfix}.root')
-    print(inputDirDic['mc']+ 'fakeTau_tauF.root' + ' done')
-    tauT_data.Snapshot('newtree', inputDirDic['mc']+ f'fakeTau_tauT{extraPostfix}.root')
-    print(inputDirDic['mc']+ 'fakeTau_tauT.root' + ' done')
-    
-    print('initial entries in data: ', dataDF.Count().GetValue())
-    print('tauF_data entries: ', tauF_data.Count().GetValue())
-    print('tauT_data entries: ', tauT_data.Count().GetValue())
-    print('\n')
     
  
     
