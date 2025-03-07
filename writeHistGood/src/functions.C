@@ -84,7 +84,7 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_d tausT_1Met_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1Met_transMass", "m_{T}^{#tau and MET}", m_processName, 10, 0, 500, regionsForVariables, &(e->tausT_1Met_transMass));
     SP_d tausT_1lepton1Met1_stransMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausT_1lepton1Met1_stransMass", "m_{T2}^{#tau and lep and MET}", m_processName, 10, 0, 250, regionsForVariables, &(e->tausT_1lepton1Met1_stransMass));
 
-    SP_d tausF_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1pt", "p_{T}^{1st fakeble#tau}", m_processName, 18, 20, 200, regionsForVariables, &(e->tausF_1pt)); //!should be tauT variables in FT region
+    SP_d tausF_1pt_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1pt", "p_{T}^{1st fakeble#tau}", m_processName, 26, 20, 150, regionsForVariables, &(e->tausF_1pt)); //!should be tauT variables in FT region
     SP_d tausF_1jetEta_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1jetEta", "#eta^{tau's mother jet}", m_processName, 10, -2.4, 2.4, regionsForVariables, &(e->tausF_1jetEta));
     SP_d tausF_1jetPt_class = std::make_shared<histsForRegionsMap<Double_t>>( "tausF_1jetPt", "p_{T}^{#tau's mother jet}", m_processName, 20, 0, 200, regionsForVariables, &(e->tausF_1jetPt));
     SP_d tausF_1Met_transMass_class = std::make_shared<histsForRegionsMap<Double_t>>("tausF_1Met_transMass", "m_{T}^{#tau and MET}", m_processName, 10, 0, 250, regionsForVariables, &(e->tausF_1Met_transMass));
@@ -135,7 +135,6 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     SP_i tausT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1genFlavour", "gen flavour^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1genFlavour));
     SP_i tausF_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1genFlavour", "gen flavour^{F#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausF_1genFlavour));
     SP_i tausTT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTT_1genFlavour", "gen flavour^{TT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTT_1genFlavour));
-    SP_i tausTTT_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausTTT_1genFlavour", "gen flavour^{TTT#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausTTT_1genFlavour));
     SP_i tausM_1genFlavour_class = std::make_shared<histsForRegionsMap<Int_t>>("tausM_1genFlavour", "gen flavour^{M#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausM_1genFlavour));
     SP_i tausT_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausT_1decayMode", "decay mode^{T#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausT_1decayMode));
     SP_i tausF_1decayMode_class = std::make_shared<histsForRegionsMap<Int_t>>("tausF_1decayMode", "decay mode^{#tau}", m_processName, 12, -0.5, 11.5, regionsForVariables, &(e->tausF_1decayMode));
@@ -269,7 +268,6 @@ void initializeHistVec(const std::vector<TString>& regionsForVariables, std::vec
     histsForRegion_vec.push_back(tausT_1genFlavour_class);
     histsForRegion_vec.push_back(tausF_1genFlavour_class);
     histsForRegion_vec.push_back(tausTT_1genFlavour_class);
-    histsForRegion_vec.push_back(tausTTT_1genFlavour_class);
     histsForRegion_vec.push_back(tausM_1genFlavour_class);
     histsForRegion_vec.push_back(tausT_1decayMode_class);
     histsForRegion_vec.push_back(tausF_1decayMode_class);

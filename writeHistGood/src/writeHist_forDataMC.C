@@ -139,7 +139,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         }else{
 
         //1tau2l CR3
-        Bool_t is1tau2lCR3 = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, kFALSE);
+        Bool_t is1tau2lCR3 = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
         fillHistVec("1tau2lCR3", is1tau2lCR3, eventWeight_1tau2l);
         }
 

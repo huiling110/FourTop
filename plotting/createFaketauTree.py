@@ -35,17 +35,17 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFR_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinC_v94LepPreJetVetoHemOnly/mc/'
-    # is1tau2l = False 
-    is1tau2l = True 
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinC_v94LepPreJetVetoHemOnly/mc/'
+    is1tau2l = False 
+    # is1tau2l = True 
    
     
     
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
     print(era)
-    # createFakeTauTree(inputDirDic, era, is1tau2l ) 
+    createFakeTauTree(inputDirDic, era, is1tau2l ) 
     # createFakeTauTree_mc(inputDirDic, era, is1tau2l) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
@@ -59,20 +59,16 @@ def main():
     # channelSel = '(elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>=6 && bjetsM_num==2'
     # postFix = '_1tau0lMR'
     
-            # lepCut2L = (lepF_num == 2) && isTight_2L;
-    # Bool_t isTight_2L = (e->elesTopMVAF_1isTight.v() && e->elesTopMVAF_2isTight.v()) || (e->muonsTopMVAF_1isTight.v() && e->muonsTopMVAF_2isTight.v()) || (e->elesTopMVAF_1isTight.v() && e->muonsTopMVAF_1isTight.v()) || (e->elesTopMVAF_2isTight.v() && e->muonsTopMVAF_2isTight.v());
-    # const Int_t lepF_num = e->lepTopMVAF_num.v();//lepTopMVAF_num
-            # pass = event->jets_num.v() >= 2 && event->bjetsM_num.v() >= 1 && event->jets_HT.v() > 200. && event->lepTopMVAT_1pt.v()>25. && event->lepTopMVAT_2pt.v()>13.  && !event->lepTopMVAT_2ifZVeto.v();//leptonPt selection should be weighed lepton cone corrected pt for fakeLepton; done in createFakeLepton.py
-    lepPreSel = 'jets_num>=2 && bjetsM_num>=1 && jets_HT>200. && lepTopMVAT_1pt>25. && lepTopMVAT_2pt>13.  && !lepTopMVAT_2ifZVeto'
-    isTight_2L = '(elesTopMVAF_1isTight && elesTopMVAF_2isTight) || (muonsTopMVAF_1isTight && muonsTopMVAF_2isTight) || (elesTopMVAF_1isTight && muonsTopMVAF_1isTight) || (elesTopMVAF_2isTight && muonsTopMVAF_2isTight)'
-    lep2Cut = f'lepTopMVAF_num==2 && ({isTight_2L})'
-    channelSel = f'&& {lep2Cut} && jets_num>=4 && bjetsM_num>=2 && {lepPreSel}'
-    postFix = '_1tau2lSR'
+    # lepPreSel = 'jets_num>=2 && bjetsM_num>=1 && jets_HT>200. && lepTopMVAT_1pt>25. && lepTopMVAT_2pt>13.  && !lepTopMVAT_2ifZVeto'
+    # isTight_2L = '(elesTopMVAF_1isTight && elesTopMVAF_2isTight) || (muonsTopMVAF_1isTight && muonsTopMVAF_2isTight) || (elesTopMVAF_1isTight && muonsTopMVAF_1isTight) || (elesTopMVAF_2isTight && muonsTopMVAF_2isTight)'
+    # lep2Cut = f'lepTopMVAF_num==2 && ({isTight_2L})'
+    # channelSel = f'&& {lep2Cut} && jets_num>=4 && bjetsM_num>=2 && {lepPreSel}'
+    # postFix = '_1tau2lSR'
     # channelSel = f'&& {lep2Cut} && !(jets_num>=4 && bjetsM_num>=2) && {lepPreSel}'
     # postFix = '_1tau2lCR2'
-    createFakeTauTree(inputDirDic, era, is1tau2l, channelSel, postFix)
-    createFakeTauTree_mc(inputDirDic, era, is1tau2l, channelSel, postFix)
-    createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
+    # createFakeTauTree(inputDirDic, era, is1tau2l, channelSel, postFix)
+    # createFakeTauTree_mc(inputDirDic, era, is1tau2l, channelSel, postFix)
+    # createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
     
     
     
@@ -167,11 +163,16 @@ def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPost
     dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1eta')
     dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1phi')
     dataAR_new = dataAR_new.Define('tausT_1decayMode', 'tausF_1decayMode')
-    # dataAR_new = dataAR_new.Define('tausT_
     
     dataAR_new = dataAR_new.Define('FR_weight_final', 'FR_weight')
     dataAR_new = dataAR_new.Define('FR_weight_final_up', 'FR_weight_up')
     dataAR_new = dataAR_new.Define('FR_weight_final_down', 'FR_weight_down')
+    #!!!Reweight fake tau based on tau pt to account for the residual dependance of tau pt
+    #create a new branch depending on tau pt, and reweight the fake tau based on this branch
+    #tauF_1pt[0, 25], FR_tauPtReweight=0.8, tauF_1pt[30, 75], FR_tauPtReweight= 1.4 
+    # dataAR_new
+    # correctTausF_1pt(inputDirDic, era)
+    correctTausF_1pt(dataAR_new)
     
     outFile = inputDirDic['mc'] + f'fakeTau_data{extraPostfix}.root' 
     dataAR_new.Snapshot('newtree', outFile)
@@ -317,6 +318,37 @@ def countFR(tauF_data):
     print(pd_tauF.head(30)[['tausF_1jetEtaAbs', 'tausF_1jetPt', 'TauF_eta_region', 'TauF_jetPt_region', 'tausF_prongNum', 'FRCount', 'combination_code']])
     
     return pd_tauF
-   
+
+# def correctTausF_1pt(inputDirDic, era, mapping_expression = '', extraPostfix = ''):
+def correctTausF_1pt(df_tauF_data_new):
+    mapping_expression = (
+    f"tausF_1pt * (TMath::Exp({0.00034} + {0.00172}*tausF_1pt) + {0.00172}) + {0.00172}"
+    )
+    # inputMCFile = inputDirDic['mc']+ f'fakeTau_MC{extraPostfix}.root'
+    # inputDataFile = inputDirDic['data']+ f'fakeTau_data{extraPostfix}.root'
+
+    # df_tauF = ROOT.RDataFrame('newtree', inputMCFile)
+    # all_columns = list(df_tauF_new.GetColumnNames()) + ['tausF_1pt_corrected']
+    # df_tauF = df_tauF.Define('tausF_1pt_corrected', mapping_expression)
+    # columns_to_remove = ['tausF_1pt']
+    # columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
+    # df_tauF.Snapshot('newtree', inputMCFile, columns_to_keep)
+    # df_tauF_new = ROOT.RDataFrame('newtree', inputMCFile)
+    # df_tauF_new = df_tauF_new.Define('tausF_1pt', 'tausF_1pt_corrected')
+    # df_tauF_new.Snapshot('newtree', inputMCFile)
+
+    # df_tauF_data = ROOT.RDataFrame('newtree', inputDataFile)
+    # all_columns = list(df_tauF_data.GetColumnNames()) + ['tausF_1pt_corrected']
+    df_tauF_data = df_tauF_data.Define('tausF_1pt_corrected', mapping_expression)
+    # columns_to_remove = ['tausF_1pt']
+    # columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
+    # df_tauF_data.Snapshot('newtree', inputDataFile, columns_to_keep)
+    # df_tauF_data_new = ROOT.RDataFrame('newtree', inputDataFile)
+    # df_tauF_data_new = df_tauF_data_new.Define('tausF_1pt', 'tausF_1pt_corrected')
+    # df_tauF_data_new.Snapshot('newtree', inputDataFile)
+
+
+
+ 
 if __name__=='__main__':
     main()
