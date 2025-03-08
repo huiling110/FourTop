@@ -108,7 +108,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         {   
             if(!m_is1tau2l){
                 Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
-                Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, kFALSE); //!m_isData = isMC
+                // Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, kFALSE); //!m_isData = isMC
+                Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau); //!m_isData = isMC
                 // WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", eventWeight_1tau0l, m_isData);
                 // WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
                 // WH::histRegionVectFill(histsForRegion_vec, is1tau2lSRTest, "1tau2lSR", eventWeight_1tau2l, m_isData);
@@ -129,10 +130,11 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         fillHistVec("1tau0lCRMR", is1tau0lCR||is1tau0lMR, eventWeight_1tau0l);
 
         // 1tau1lCR
-        Bool_t is1tau1lCR1 = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData); 
-        Bool_t is1tau1lCR2 = SR1tau1lSel(e, 4, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData); 
+        // Bool_t is1tau1lCR1 = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData); 
+        // Bool_t is1tau1lCR2 = SR1tau1lSel(e, 4, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData); 
         //1tau1lCR1+CR2
-        Bool_t is1tau1lCR12 = SR1tau1lSel(e, 3, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, kFALSE); 
+        // Bool_t is1tau1lCR12 = SR1tau1lSel(e, 3, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, kFALSE); 
+        Bool_t is1tau1lCR12 = SR1tau1lSel(e, 3, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau); 
         Bool_t is1tau1lSRL = SR1tau1lSel(e, 11, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, kFALSE);
         fillHistVec("1tau1lCR12", is1tau1lCR12, basicWeight);
 
