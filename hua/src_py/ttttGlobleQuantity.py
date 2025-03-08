@@ -238,12 +238,10 @@ histoGramPerSample = {
     
     "fakeLepton": "fakeLepton",
     
-    # "fakeTau_tauF": "fakeTau",
-    # "fakeTau_tauT": "fakeTau",
-    # "fakeTau_tauFGen": "fakeTau",
-    # "fakeTau_tauTGen": "fakeTau",
-    "fakeTau_data": "fakeTau", #!update
-    "fakeTau_MC": "fakeTau",
+    # "fakeTau_data": "fakeTau", #!update
+    # "fakeTau_MC": "fakeTau",
+    "fakeTau_data_ptMorphed": "fakeTau",
+    "fakeTau_MC_ptMorphed": "fakeTau",
 
     "VLL_EE_M500": "VLLm500",
     "VLL_EN_M500": "VLLm500",
@@ -560,7 +558,8 @@ dataDict = {
 
 proChannelDic = {
     # '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets', 'Minor',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
-    '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
+    # '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
+    '1tau1l':  ['fakeTau', 'tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
     '1tau0l':  [ 'fakeTau', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, no Minor in 1tau0l neither
     # '1tau0l':  [ 'qcd', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, for fake tau validation with qcd
     # '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 

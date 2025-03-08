@@ -102,6 +102,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // if(std::isinf(e->btagWPMT_weight.v()) || std::isnan(e->btagWPMT_weight.v())){
         //     std::cout<<"btagWPMT_weight="<<e->btagWPMT_weight.v()<<"\n";
         // }//!!!todo: handle this in MV
+        std::cout << "eventWeight_1tau0l=" << eventWeight_1tau0l << "\n";
 
         // SR
         if (!m_isData)
@@ -110,9 +111,6 @@ void WH_forDataMC::LoopTree(UInt_t entry)
                 Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
                 // Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, kFALSE); //!m_isData = isMC
                 Bool_t is1tau1lSR = SR1tau1lSel(e, 0, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau); //!m_isData = isMC
-                // WH::histRegionVectFill(histsForRegion_vec, is1tau0lSR, "1tau0lSR", eventWeight_1tau0l, m_isData);
-                // WH::histRegionVectFill(histsForRegion_vec, is1tau1lSR, "1tau1lSR", basicWeight, m_isData);
-                // WH::histRegionVectFill(histsForRegion_vec, is1tau2lSRTest, "1tau2lSR", eventWeight_1tau2l, m_isData);
                 fillHistVec("1tau0lSR", is1tau0lSR, eventWeight_1tau0l);
                 fillHistVec("1tau1lSR", is1tau1lSR, basicWeight);
             }else{

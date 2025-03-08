@@ -40,8 +40,8 @@ def main():
     inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/mc/'
     is1tau2l = False 
     # is1tau2l = True 
-    ifMorphTauPt = False
-    # ifMorphTauPt = True
+    # ifMorphTauPt = False
+    ifMorphTauPt = True
    
     
     
@@ -50,8 +50,9 @@ def main():
     
     print(era)
     
-    postFix = '_ptNotMorphed'
-    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
+    # postFix = '_ptNotMorphed'
+    postFix = '_ptMorphed' if ifMorphTauPt else ''
+    # createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
     createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
@@ -118,26 +119,28 @@ def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPost
     
     print('AR entries: ', dataAR.Count().GetValue())
     
-    all_columns = dataAR.GetColumnNames() 
-    columns_to_remove = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi', 'tausT_1decayMode']
-    columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
+    # all_columns = dataAR.GetColumnNames() 
+    # columns_to_remove = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi', 'tausT_1decayMode']
+    # columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
     
-    dataAR.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_data.root', columns_to_keep)
+    # dataAR.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_data.root', columns_to_keep)
+    # dataAR.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_tempData.root', columns_to_keep)
     
-    dataAR_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_data.root')
-    dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1pt') #!No need for this, as from data tauF quantities are tauT quantities
-    dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1eta')
-    dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1phi')
-    dataAR_new = dataAR_new.Define('tausT_1decayMode', 'tausF_1decayMode')
+    # # dataAR_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_data.root')
+    # dataAR_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_tempData.root')
+    # dataAR_new = dataAR_new.Define('tausT_1pt', 'tausF_1pt') #!No need for this, as from data tauF quantities are tauT quantities
+    # dataAR_new = dataAR_new.Define('tausT_1eta', 'tausF_1eta')
+    # dataAR_new = dataAR_new.Define('tausT_1phi', 'tausF_1phi')
+    # dataAR_new = dataAR_new.Define('tausT_1decayMode', 'tausF_1decayMode')
     
-    dataAR_new = dataAR_new.Define('FR_weight_final', 'FR_weight')
-    dataAR_new = dataAR_new.Define('FR_weight_final_up', 'FR_weight_up')
-    dataAR_new = dataAR_new.Define('FR_weight_final_down', 'FR_weight_down')
+    dataAR = dataAR.Define('FR_weight_final', 'FR_weight')
+    dataAR = dataAR.Define('FR_weight_final_up', 'FR_weight_up')
+    dataAR = dataAR.Define('FR_weight_final_down', 'FR_weight_down')
     #!!!Reweight fake tau based on tau pt to account for the residual dependance of tau pt
     #create a new branch depending on tau pt, and reweight the fake tau based on this branch
     
     outFile = inputDirDic['mc'] + f'fakeTau_data{extraPostfix}.root' 
-    dataAR_new.Snapshot('newtree', outFile)
+    dataAR.Snapshot('newtree', outFile)
     
     if ifMorphTauPt:
         correctTausF_1pt(outFile)
@@ -161,27 +164,28 @@ def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPos
     print('tauF entries: ', df_tauF.Count().GetValue())
     
     #have to replace tauT varibles for MC too
-    all_columns = df_tauF.GetColumnNames() 
-    columns_to_remove = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi', 'tausT_1decayMode']
-    columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
-    df_tauF.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_MC.root', columns_to_keep)
-    
-    df_tauF_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_MC.root') 
-    df_tauF_new = df_tauF_new.Define('tausT_1pt', 'tausF_1pt') #!use tausF kinematic for tauT
-    df_tauF_new = df_tauF_new.Define('tausT_1eta', 'tausF_1eta')
-    df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1phi')
-    df_tauF_new = df_tauF_new.Define('tausT_1decayMode', 'tausF_1decayMode')
+    # all_columns = df_tauF.GetColumnNames() 
+    # columns_to_remove = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi', 'tausT_1decayMode']
+    # columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
+    # df_tauF.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_MC.root', columns_to_keep)
+    # df_tauF_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_MC.root') 
+    # df_tauF_new = df_tauF_new.Define('tausT_1pt', 'tausF_1pt') #!use tausF kinematic for tauT
+    # df_tauF_new = df_tauF_new.Define('tausT_1eta', 'tausF_1eta')
+    # df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1phi')
+    # df_tauF_new = df_tauF_new.Define('tausT_1decayMode', 'tausF_1decayMode')
     
     btagHLTWeight = 'triggerSFLep_weight*btagWPMT_weight*elesTopMVAT_weight_new*musTopMVAT_weight_new' if is1tau2l else  'btagShape_weight*btagShapeR*HLT_weight'
     # df_tauF_new = df_tauF_new.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
     # df_tauF_new = df_tauF_new.Define('FR_weight_final_up', '-1.*FR_weight_up*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
     # df_tauF_new = df_tauF_new.Define('FR_weight_final_down', '-1.*FR_weight_down*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
-    df_tauF_new = df_tauF_new.Define('FR_weight_final', f'-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*tauT_IDSF_weight_new*{btagHLTWeight}')
+    df_tauF = df_tauF.Define('FR_weight_final', f'-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*tauT_IDSF_weight_new*{btagHLTWeight}')
+    df_tauF = df_tauF.Define('FR_weight_final_up', f'-1.*FR_weight_up*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*tauT_IDSF_weight_new*{btagHLTWeight}')
+    df_tauF = df_tauF.Define('FR_weight_final_down', f'-1.*FR_weight_down*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*tauT_IDSF_weight_new*{btagHLTWeight}')
      
-    df_tauF_new = df_tauF_new.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
+    df_tauF = df_tauF.Define('event_allWeight_1tau0l', 'FR_weight_final')#for later BDT training
     
     outFile = inputDirDic['mc'] + f'fakeTau_MC{extraPostfix}.root'
-    df_tauF_new.Snapshot('newtree', outFile)
+    df_tauF.Snapshot('newtree', outFile)
     
     if ifMorphTauPt:
         correctTausF_1pt(outFile)
