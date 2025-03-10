@@ -38,7 +38,8 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinC_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_v94LepPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_v94LepPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
     # is1tau2l = False 
     is1tau2l = True 
     # ifMorphTauPt = False
@@ -52,7 +53,7 @@ def main():
     
     postFix = '_ptMorphed' if ifMorphTauPt else ''
     createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
-    createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
+    # createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
@@ -217,9 +218,6 @@ def createFakeTauTree_Gen(inputDirDic, era, is1tau2l=False, extraSel='lepTopMVAT
 
     
     
- 
-    
-    
 def countFR(tauF_data):    
     df_pd = tauF_data.AsNumpy()
     pd_tauF = pd.DataFrame(df_pd) 
@@ -257,25 +255,36 @@ def correctTausF_1pt(fakeTauFile):
     # mapping_expression = (
     # f"tausF_1pt * (TMath::Exp({-0.00036} + {0.00105}*tausF_1pt) + {0.00105}) + {0.00105}"
     # )
-    mapping_expression = (
-    f"tausF_1pt *((-{33.24302} * TMath::Exp(-{0.30112} * tausF_1pt)) + {1.08058})"
-    )
+    # mapping_expression = (
+    # f"tausF_1pt *((-{33.24302} * TMath::Exp(-{0.30112} * tausF_1pt)) + {1.08058})"
+    # )# tausF pt and related variables morphed in MV step 
 
     df_tauF = ROOT.RDataFrame('newtree', fakeTauFile)
-    all_columns = list(df_tauF.GetColumnNames()) + ['tausF_1pt_corrected']
-    df_tauF = df_tauF.Define('tausF_1pt_corrected', mapping_expression)
-    columns_to_remove = ['tausF_1pt']
+    # df_tauF = df_tauF.Define('tausF_1pt_corrected', mapping_expression)
+    
+    #!replace tauF pt related variables with tausFMophed relatec variables
+    #!replace tausT variables with tausFMorphed variabels too, so that fakeTau can be used in BDT application
+    # ['tausT_1lepton1_charge', 'tausT_leptons_charge', 'tausT_1lepton1_deltaR', 'tausT_1phi']
+    # all_columns = list(df_tauF.GetColumnNames()) + ['tausF_1pt_corrected']
+    # df_tauF_new = df_tauF_new.Define('tausF_1pt', 'tausF_1pt_corrected')
+    all_columns = df_tauF.GetColumnNames() 
+    columns_to_remove = ['tausF_1pt', 'tausF_leptonsT_invariantMass', 'tausF_invariantMass', 'tausF_1Met_transMass', 'tausF_1lepton1Met1_stransMass', 'tausF_1jetEtaAbs', 'tausF_1pt', 'tausF_invariantMass', 'tausF_1lepton1Met1_stransMass']#rariables to be replaced with tausFMorphed variables
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
+    print('all columns now: ', df_tauF.GetColumnNames())
     df_tauF.Snapshot('newtree', fakeTauFile, columns_to_keep)
     
+    
     df_tauF_new = ROOT.RDataFrame('newtree', fakeTauFile)
-    df_tauF_new = df_tauF_new.Define('tausF_1pt', 'tausF_1pt_corrected')
+    for itauV in columns_to_remove:
+        newBranch = itauV.replace('tausF', 'tausFMorph')
+        df_tauF_new = df_tauF_new.Define(itauV, newBranch)
     df_tauF_new.Snapshot('newtree', fakeTauFile)
+    print('tausF variables replaced with tausFMorphed variables!!!')
 
     # df_tauF_data = ROOT.RDataFrame('newtree', inputDataFile)
     # all_columns = list(df_tauF_data.GetColumnNames()) + ['tausF_1pt_corrected']
     # df_tauF_data_new = df_tauF_data_new.Define('tausF_1pt_corrected', mapping_expression)
-    print('tausF_1pt morphed!!!' )
+    # print('tausF_1pt morphed!!!' )
 
 
 
