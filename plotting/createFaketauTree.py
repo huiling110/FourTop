@@ -273,7 +273,6 @@ def correctTausF_1pt(fakeTauFile):
     print('all columns now: ', df_tauF.GetColumnNames())
     df_tauF.Snapshot('newtree', fakeTauFile, columns_to_keep)
     
-    
     df_tauF_new = ROOT.RDataFrame('newtree', fakeTauFile)
     for itauV in columns_to_remove:
         newBranch = itauV.replace('tausF', 'tausFMorph')
