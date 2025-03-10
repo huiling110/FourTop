@@ -196,12 +196,21 @@ void treeAnalyzer::LoopTree()
 
         Double_t bdtScore = reader->EvaluateMVA("BDT method");
 
+
+
         Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
         //!!!Some FR_weight_final == inf for fakeTau_MC, temporary fix here
         if (std::isnan(basicWeight)|| std::isinf(basicWeight)){
             std::cout<<"!!!! FR_weight_final is NAN\n";
             continue;
         }
+        //!!!testing 
+        if(m_isFakeTau){
+            if(e->jets_num.v()<4){
+                basicWeight*= 1.2;
+            }
+        }
+
 
         if(m_channel=="1tau0l"){
             Bool_t SR1tau0l = SR1tau1lSel(e, 1, m_isRun3, m_isFakeTau);

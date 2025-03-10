@@ -5,21 +5,6 @@ import pandas as pd
 import os
 
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHardro_FRweightSys_v79HadroPresel/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardro_btagMTWeight_v76WithVLLAllMass/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v80addTauJetVar/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v80addTauJetVar/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v80addTauJetVar/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHardroFRUpdated_v85HadroPreselTauOverlap0.5/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithGammaRemoval/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHardroFRUpdated_v86HadroPreSelWithTTWTTZNLO/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/'
@@ -52,8 +37,8 @@ def main():
     print(era)
     
     postFix = '_ptMorphed' if ifMorphTauPt else ''
-    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
-    # createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
+    # createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
+    createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
@@ -163,16 +148,6 @@ def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPos
     print('all entries: ', df.Count().GetValue())
     print('tauF entries: ', df_tauF.Count().GetValue())
     
-    #have to replace tauT varibles for MC too
-    # all_columns = df_tauF.GetColumnNames() 
-    # columns_to_remove = ['tausT_1pt', 'tausT_1eta', 'tausT_1mass', 'tausT_1phi', 'tausT_1decayMode']
-    # columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
-    # df_tauF.Snapshot('newtree', inputDirDic['mc']+ 'fakeTau_MC.root', columns_to_keep)
-    # df_tauF_new = ROOT.RDataFrame('newtree', inputDirDic['mc']+ 'fakeTau_MC.root') 
-    # df_tauF_new = df_tauF_new.Define('tausT_1pt', 'tausF_1pt') #!use tausF kinematic for tauT
-    # df_tauF_new = df_tauF_new.Define('tausT_1eta', 'tausF_1eta')
-    # df_tauF_new = df_tauF_new.Define('tausT_1phi', 'tausF_1phi')
-    # df_tauF_new = df_tauF_new.Define('tausT_1decayMode', 'tausF_1decayMode')
     
     btagHLTWeight = 'triggerSFLep_weight*btagWPMT_weight*elesTopMVAT_weight_new*musTopMVAT_weight_new' if is1tau2l else  'btagShape_weight*btagShapeR*HLT_weight'
     # df_tauF_new = df_tauF_new.Define('FR_weight_final', '-1.*FR_weight*global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR')
@@ -266,20 +241,25 @@ def correctTausF_1pt(fakeTauFile):
     # all_columns = list(df_tauF.GetColumnNames()) + ['tausF_1pt_corrected']
     # df_tauF_new = df_tauF_new.Define('tausF_1pt', 'tausF_1pt_corrected')
     
-    #!replace tauF pt related variables with tausFMophed relatec variables
-    #!replace tausT variables with tausFMorphed variabels too, so that fakeTau can be used in BDT application
+    #!replace tauT pt related variables with tausFMophed relatec variables
     all_columns = df_tauF.GetColumnNames() 
-    columns_to_remove = [ 'tausF_leptonsT_invariantMass', 'tausF_invariantMass', 'tausF_1Met_transMass', 'tausF_1lepton1Met1_stransMass', 'tausF_1jetEtaAbs']#rariables to be replaced with tausFMorphed variables
+    columns_to_remove = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1jetEtaAbs', 'tausT_1pt']#rariables to be replaced with tausTMorphed variables
+    extraVars = ['tausT_1lepton1_deltaR', 'tausT_leptons_charge', 'tausT_1phi', 'tausT_1lepton1_charge' ] 
+    columns_to_remove += extraVars
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
     # print('all columns now: ', df_tauF.GetColumnNames())
     df_tauF.Snapshot('newtree', fakeTauFile, columns_to_keep)
     
     df_tauF_new = ROOT.RDataFrame('newtree', fakeTauFile)
     for itauV in columns_to_remove:
-        newBranch = itauV.replace('tausF', 'tausFMorph')
+        newBranch = itauV.replace('tausT', 'tausFMorph')
         df_tauF_new = df_tauF_new.Define(itauV, newBranch)
     df_tauF_new.Snapshot('newtree', fakeTauFile)
     print('tausF variables replaced with tausFMorphed variables!!!')
+    
+    #!replace tausT variables with tausFMorphed variabels too, so that fakeTau can be used in BDT application
+    
+    
 
     # df_tauF_data = ROOT.RDataFrame('newtree', inputDataFile)
     # all_columns = list(df_tauF_data.GetColumnNames()) + ['tausF_1pt_corrected']

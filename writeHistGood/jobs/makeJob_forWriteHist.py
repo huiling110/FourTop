@@ -58,12 +58,13 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinC_v94LepPreJetVetoHemOnly/',
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_v94LepPreJetVetoHemOnly/',
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_v94LepPreJetVetoHemOnly/',
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/',
     # channel = '1tau1l',
     # channel = '1tau0l',
     channel = '1tau2l',
     # version = 'v0BDT1tau2l',
-    # version = 'v0BDT1tau2l_fakeTau',
+    version = 'v0BDT1tau2l_fakeTau',
     # version = 'v0BDT1tau1l',
     # version = 'v0BDT1tau0l',
     # version = 'v0DataMC_sys',
@@ -71,12 +72,12 @@ def main(
     # version = 'v1DataMC_noHLTSF',
     # version = 'v1dataMC_fakeTauMC',
     # version = 'v1dataMC_fakeTauDataDriven',
-    version = 'v1dataMC_fakeTauDataDriven_fakeTauScaled',
+    # version = 'v1dataMC_fakeTauDataDriven_fakeTauScaled',
     # version = 'v0FRMeasure',
     # version = 'v0FRMeasureBinB',
     # version = 'v0FRMeasureBinC',
-    exe = './apps/run_WH_forDataMC.out'
-    # exe = './apps/run_treeAnalyzer.out' 
+    # exe = './apps/run_WH_forDataMC.out'
+    exe = './apps/run_treeAnalyzer.out' 
 ):
     
     
