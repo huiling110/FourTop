@@ -37,9 +37,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFR_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinC_v94LepPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/mc/'
-    is1tau2l = False 
-    # is1tau2l = True 
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_v94LepPreJetVetoHemOnly/mc/'
+    # is1tau2l = False 
+    is1tau2l = True 
     # ifMorphTauPt = False
     ifMorphTauPt = True
    
@@ -47,12 +48,10 @@ def main():
     
     inputDirDic = uf.getDirDic(inputDir)  
     era = uf.getEraFromDir(inputDir)
-    
     print(era)
     
-    # postFix = '_ptNotMorphed'
     postFix = '_ptMorphed' if ifMorphTauPt else ''
-    # createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
+    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
     createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
@@ -251,13 +250,15 @@ def countFR(tauF_data):
     
     return pd_tauF
 
-# def correctTausF_1pt(df_tauF_data_new, inputDirDic):
 def correctTausF_1pt(fakeTauFile):
     # mapping_expression = (
     # f"tausF_1pt * (TMath::Exp({0.00034} + {0.00172}*tausF_1pt) + {0.00172}) + {0.00172}"
     # )
+    # mapping_expression = (
+    # f"tausF_1pt * (TMath::Exp({-0.00036} + {0.00105}*tausF_1pt) + {0.00105}) + {0.00105}"
+    # )
     mapping_expression = (
-    f"tausF_1pt * (TMath::Exp({-0.00036} + {0.00105}*tausF_1pt) + {0.00105}) + {0.00105}"
+    f"tausF_1pt *((-{33.24302} * TMath::Exp(-{0.30112} * tausF_1pt)) + {1.08058})"
     )
 
     df_tauF = ROOT.RDataFrame('newtree', fakeTauFile)

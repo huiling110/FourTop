@@ -394,6 +394,8 @@ public:
     myBranch<Int_t> tausF_num{"tausF_num"};
     myBranch<Int_t> tausF_1charge{"tausF_1charge"};
     myBranch<Double_t> tausF_1pt{"tausF_1pt"};
+    myBranch<Double_t> tausF_1lepton1Met1_stransMass{"tausF_1lepton1Met1_stransMass"};
+
     myBranch<Int_t> tausF_1genFlavour{"tausF_1genFlavour"};
     myBranch<Int_t> tausF_1decayMode{"tausF_1decayMode"};
     myBranch<Int_t> tausF_1prongNum{"tausF_1prongNum"};
@@ -408,6 +410,7 @@ public:
     myBranch<Int_t> tausT_1decayMode{"tausT_1decayMode"};
     myBranch<Int_t> tausM_1lepton1_charge{"tausM_1lepton1_charge"};
     myBranch<Int_t> tausT_leptonsTopMVA_chargeMulti{"tausT_leptonsTopMVA_chargeMulti"};
+    myBranch<Int_t> tausF_leptons_charge{"tausF_leptons_charge"};
 
     // weight variations
     myBranch<Double_t> EVENT_prefireWeight_up{"EVENT_prefireWeight_up"};
@@ -557,6 +560,9 @@ private:
         {lepTopMVAT_2ifZVeto.n(), &lepTopMVAT_2ifZVeto},
 
         {tausT_leptonsTopMVA_chargeMulti.n(), &tausT_leptonsTopMVA_chargeMulti},
+        {tausF_leptons_charge.n(), &tausF_leptons_charge},
+
+
         {EVENT_genWeight.n(), &EVENT_genWeight},
         {EVENT_prefireWeight.n(), &EVENT_prefireWeight},
         {PUweight_.n(), &PUweight_},
@@ -783,6 +789,7 @@ private:
         {tausTTT_1lepton1_charge.n(), &tausTTT_1lepton1_charge},
         {tausM_1lepton1_charge.n(), &tausM_1lepton1_charge},
         {tausF_1pt.n(), &tausF_1pt},
+        {tausF_1lepton1Met1_stransMass.n(), &tausF_1lepton1Met1_stransMass},
 
         {tausT_1genFlavour.n(), &tausT_1genFlavour},
         {tausT_prongNum.n(), &tausT_prongNum},
