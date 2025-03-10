@@ -36,18 +36,16 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         tauFVarMaker.makeVariables(e, leptonsMVAT);
         tauLVarMaker.makeVariables(e, leptonsMVAT);
         tauTTVarMaker.makeVariables(e, leptonsMVAT);
-        tauTTTVarMaker.makeVariables(e, leptonsMVAT);
-        tauTTTTVarMaker.makeVariables(e, leptonsMVAT);
+        // tauTTTVarMaker.makeVariables(e, leptonsMVAT);
+        // tauTTTTVarMaker.makeVariables(e, leptonsMVAT);
         tauMVarMaker.makeVariables(e, leptonsMVAT);
+        tauFMorphMaker.makeVariables(e, leptonsMVAT);
 
         jetVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), jesVariation);
         //bjet variables
         bjetMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT, jesVariation, jetVarMaker.getMET_pt(), jetVarMaker.getMET_phi());
         bjetLVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT, jesVariation, jetVarMaker.getMET_pt(), jetVarMaker.getMET_phi());
         bjetTVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT, jesVariation, jetVarMaker.getMET_pt(), jetVarMaker.getMET_phi());
-        // bjetPNMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT);
-        // bjetPTMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT);
-        // bjetPTTVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT);
 
 
         // baseline selection

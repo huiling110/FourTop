@@ -81,7 +81,6 @@ void TauVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
         //     tausF_1isTightPrompt = tausF_1isTight && e->tausF_genPartFlav.At(0) == 5;
         // }
     }
-    // tausF_1isTightPrompt
 
     switch (m_type)
     {//!!!todo: better make each object a compact object
@@ -197,6 +196,20 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
         break;
     case 6:
         getLorentzVec(e->tausTTTT_pt, e->tausTTTT_eta, e->tausTTTT_phi, e->tausTTTT_mass, objsLorentz);
+        break;
+    case 9: //!!!Morph tauF pt for fakeTau only
+        getLorentzVec(e->tausF_pt, e->tausF_eta, e->tausF_phi, e->tausF_mass, objsLorentz);
+        for (auto &obj : objsLorentz)
+        {
+            Double_t originalPt = obj.Pt();
+            // f"tausF_1pt *((-{33.24302} * TMath::Exp(-{0.30112} * tausF_1pt)) + {1.08058})"
+            Double_t morphedPt = originalPt * ((-33.24302 * TMath::Exp(-0.30112 * originalPt)) + 1.08058);
+            // auto newObj = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(morphedPt, obj.Eta(), obj.Phi(), obj.M());
+            obj = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(morphedPt, obj.Eta(), obj.Phi(), obj.M());
+            // obj.SetPtEtaPhiM(morphedPt, obj.Eta(), obj.Phi(), obj.M());
+            std::cout << "Morphed tauF pt from " << originalPt << " to " << morphedPt << "\n";
+        }
+
         break;
     default:
         std::cout<<"!!!tau type not wrong!<<\n";

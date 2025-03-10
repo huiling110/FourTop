@@ -414,7 +414,6 @@ void WeightVarMaker::clearBranch()
     FR_weight = -99;
     FR_weight_up = -99;
     FR_weight_down = -99;
-    FR_weight_scaled = -99;
 
     btagWPMT_weight = 1.;
     btagWPMT_weight_up = 1.;

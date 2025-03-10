@@ -106,7 +106,7 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         //!!!testing 
         if(m_isFakeTau){
             if(e->jets_num.v()<4){
-                eventWeight_1tau2l*= 2;
+                eventWeight_1tau2l*= 1.2;
             }
         }
 

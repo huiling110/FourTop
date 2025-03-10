@@ -95,9 +95,10 @@ private:
     TauVarMaker tauFVarMaker{m_outTree, "tausF", 1};
     TauVarMaker tauLVarMaker{m_outTree, "tausL", 2};
     TauVarMaker tauTTVarMaker{m_outTree, "tausTT", 3};
-    TauVarMaker tauTTTVarMaker{m_outTree, "tausTTT", 4};
     TauVarMaker tauMVarMaker{m_outTree, "tausM", 5};
-    TauVarMaker tauTTTTVarMaker{m_outTree, "tausTTTT", 6};
+    TauVarMaker tauFMorphMaker{m_outTree, "tausFMorph", 9};
+    // TauVarMaker tauTTTVarMaker{m_outTree, "tausTTT", 4};
+    // TauVarMaker tauTTTTVarMaker{m_outTree, "tausTTTT", 6};
 
     JetVarMaker jetVarMaker{m_outTree, "jets", 0, m_era, m_JESVariationType};
     BjetVarMaker bjetMVarMaker{m_outTree, "bjetsM", 0};
