@@ -262,15 +262,16 @@ def correctTausF_1pt(fakeTauFile):
     df_tauF = ROOT.RDataFrame('newtree', fakeTauFile)
     # df_tauF = df_tauF.Define('tausF_1pt_corrected', mapping_expression)
     
-    #!replace tauF pt related variables with tausFMophed relatec variables
-    #!replace tausT variables with tausFMorphed variabels too, so that fakeTau can be used in BDT application
     # ['tausT_1lepton1_charge', 'tausT_leptons_charge', 'tausT_1lepton1_deltaR', 'tausT_1phi']
     # all_columns = list(df_tauF.GetColumnNames()) + ['tausF_1pt_corrected']
     # df_tauF_new = df_tauF_new.Define('tausF_1pt', 'tausF_1pt_corrected')
+    
+    #!replace tauF pt related variables with tausFMophed relatec variables
+    #!replace tausT variables with tausFMorphed variabels too, so that fakeTau can be used in BDT application
     all_columns = df_tauF.GetColumnNames() 
-    columns_to_remove = ['tausF_1pt', 'tausF_leptonsT_invariantMass', 'tausF_invariantMass', 'tausF_1Met_transMass', 'tausF_1lepton1Met1_stransMass', 'tausF_1jetEtaAbs', 'tausF_1pt', 'tausF_invariantMass', 'tausF_1lepton1Met1_stransMass']#rariables to be replaced with tausFMorphed variables
+    columns_to_remove = [ 'tausF_leptonsT_invariantMass', 'tausF_invariantMass', 'tausF_1Met_transMass', 'tausF_1lepton1Met1_stransMass', 'tausF_1jetEtaAbs']#rariables to be replaced with tausFMorphed variables
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
-    print('all columns now: ', df_tauF.GetColumnNames())
+    # print('all columns now: ', df_tauF.GetColumnNames())
     df_tauF.Snapshot('newtree', fakeTauFile, columns_to_keep)
     
     df_tauF_new = ROOT.RDataFrame('newtree', fakeTauFile)
