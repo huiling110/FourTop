@@ -125,6 +125,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("FR_weight", &FR_weight);
     outTree->Branch("FR_weight_up", &FR_weight_up);
     outTree->Branch("FR_weight_down", &FR_weight_down);
+    // outTree->Branch("FR_weight_scaled", &FR_weight_scaled);
 
     outTree->Branch("global_weight", &global_weight);
 
@@ -401,6 +402,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
         FR_weight = nominal / (1. - nominal);
         FR_weight_up = (nominal+errUp)/(1. - (nominal+errUp));
         FR_weight_down = (nominal-errDown)/(1. - (nominal-errDown));
+        // FR_weight_scaled = nominal*2/(1. - nominal*2);
         // std::cout<<"FR_weight="<<FR_weight<<" FR_weight_up="<<FR_weight_up<<" FR_weight_down="<<FR_weight_down<<"\n";
     }
 
@@ -412,6 +414,7 @@ void WeightVarMaker::clearBranch()
     FR_weight = -99;
     FR_weight_up = -99;
     FR_weight_down = -99;
+    FR_weight_scaled = -99;
 
     btagWPMT_weight = 1.;
     btagWPMT_weight_up = 1.;

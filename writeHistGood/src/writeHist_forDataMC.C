@@ -91,7 +91,8 @@ void WH_forDataMC::LoopTree(UInt_t entry)
 
         // Double_t    basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() * e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v() *e->elesTopMVAT_reoSF_weight.v();//!!!without HLT weight
         const Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, 0, m_isFakeTau, m_isFakeLepton);//!1tau1l
-        const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2, m_isFakeTau, m_isFakeLepton);
+        // const Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2, m_isFakeTau, m_isFakeLepton);
+        Double_t eventWeight_1tau2l = baseWeightCal(e, i, m_isRun3, m_isData, 2, m_isFakeTau, m_isFakeLepton);
         const Double_t eventWeight_1tau0l = baseWeightCal(e, i, m_isRun3, m_isData, 1, m_isFakeTau, m_isFakeLepton);//!1tau0l
         //!!!Some FR_weight_final == inf for fakeTau_MC, temporary fix here
         // if (std::isnan(eventWeight_1tau0l)|| std::isinf(eventWeight_1tau0l)){
@@ -102,6 +103,12 @@ void WH_forDataMC::LoopTree(UInt_t entry)
         // if(std::isinf(e->btagWPMT_weight.v()) || std::isnan(e->btagWPMT_weight.v())){
         //     std::cout<<"btagWPMT_weight="<<e->btagWPMT_weight.v()<<"\n";
         // }//!!!todo: handle this in MV
+        //!!!testing 
+        if(m_isFakeTau){
+            if(e->jets_num.v()<4){
+                eventWeight_1tau2l*= 2;
+            }
+        }
 
         // SR
         if (!m_isData)
