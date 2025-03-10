@@ -36,8 +36,6 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         tauFVarMaker.makeVariables(e, leptonsMVAT);
         tauLVarMaker.makeVariables(e, leptonsMVAT);
         tauTTVarMaker.makeVariables(e, leptonsMVAT);
-        // tauTTTVarMaker.makeVariables(e, leptonsMVAT);
-        // tauTTTTVarMaker.makeVariables(e, leptonsMVAT);
         tauMVarMaker.makeVariables(e, leptonsMVAT);
         tauFMorphMaker.makeVariables(e, leptonsMVAT);
 

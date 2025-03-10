@@ -27,7 +27,8 @@ def main(
     # inVersion = 'v94LepPreJetVetoHemOnly_TESdm11Down',#2018, 2017
     # outVersion = 'v0baselineLep',
     # outVersion = 'v0baselineLep_tauF1',
-    outVersion = 'v0baselineLep_tauF1NewFRBinA',
+    # outVersion = 'v0baselineLep_tauF1NewFRBinA',
+    outVersion = 'v0baselineLep_tauF1NewFRBinA_tauFMorph',
     # outVersion = 'v0baselineHadro',
     # outVersion = 'v0baselineHadro_newFR',
     # outVersion = 'v0baselineHadro_newFRBinA',

@@ -207,7 +207,7 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
             // auto newObj = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(morphedPt, obj.Eta(), obj.Phi(), obj.M());
             obj = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(morphedPt, obj.Eta(), obj.Phi(), obj.M());
             // obj.SetPtEtaPhiM(morphedPt, obj.Eta(), obj.Phi(), obj.M());
-            std::cout << "Morphed tauF pt from " << originalPt << " to " << morphedPt << "\n";
+            // std::cout << "Morphed tauF pt from " << originalPt << " to " << morphedPt << "\n";
         }
 
         break;
