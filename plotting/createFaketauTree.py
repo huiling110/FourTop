@@ -37,8 +37,8 @@ def main():
     print(era)
     
     postFix = '_ptMorphed' if ifMorphTauPt else ''
-    # createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
-    createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
+    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
+    # createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
@@ -128,7 +128,8 @@ def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPost
     dataAR.Snapshot('newtree', outFile)
     
     if ifMorphTauPt:
-        correctTausF_1pt(outFile)
+        # correctTausF_1pt(outFile)
+        replaceTauTVar(outFile)
     print('fakeTau_data file: ', outFile, ' done')
      
   
@@ -163,7 +164,8 @@ def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPos
     df_tauF.Snapshot('newtree', outFile)
     
     if ifMorphTauPt:
-        correctTausF_1pt(outFile)
+        # correctTausF_1pt(outFile)
+        replaceTauTVar(outFile)
     print(inputDirDic['mc']+ outFile) 
     
     
@@ -241,21 +243,6 @@ def correctTausF_1pt(fakeTauFile):
     # all_columns = list(df_tauF.GetColumnNames()) + ['tausF_1pt_corrected']
     # df_tauF_new = df_tauF_new.Define('tausF_1pt', 'tausF_1pt_corrected')
     
-    #!replace tauT pt related variables with tausFMophed relatec variables
-    all_columns = df_tauF.GetColumnNames() 
-    columns_to_remove = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1jetEtaAbs', 'tausT_1pt']#rariables to be replaced with tausTMorphed variables
-    extraVars = ['tausT_1lepton1_deltaR', 'tausT_leptons_charge', 'tausT_1phi', 'tausT_1lepton1_charge' ] 
-    columns_to_remove += extraVars
-    columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
-    # print('all columns now: ', df_tauF.GetColumnNames())
-    df_tauF.Snapshot('newtree', fakeTauFile, columns_to_keep)
-    
-    df_tauF_new = ROOT.RDataFrame('newtree', fakeTauFile)
-    for itauV in columns_to_remove:
-        newBranch = itauV.replace('tausT', 'tausFMorph')
-        df_tauF_new = df_tauF_new.Define(itauV, newBranch)
-    df_tauF_new.Snapshot('newtree', fakeTauFile)
-    print('tausF variables replaced with tausFMorphed variables!!!')
     
     #!replace tausT variables with tausFMorphed variabels too, so that fakeTau can be used in BDT application
     
@@ -266,6 +253,29 @@ def correctTausF_1pt(fakeTauFile):
     # df_tauF_data_new = df_tauF_data_new.Define('tausF_1pt_corrected', mapping_expression)
     # print('tausF_1pt morphed!!!' )
 
+
+def replaceTauTVar(fakeTauFile):
+    df_tauF = ROOT.RDataFrame('newtree', fakeTauFile)
+    #!replace tauT pt related variables with tausFMophed relatec variables
+    all_columns = df_tauF.GetColumnNames() 
+    VarToTausFMorph = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1pt']#rariables to be replaced with tausTMorphed variables
+    extraVarsFromF = ['tausT_1lepton1_deltaR', 'tausT_leptons_charge', 'tausT_1phi', 'tausT_1lepton1_charge', 'tausT_1jetEtaAbs' ] 
+    columns_to_remove = VarToTausFMorph + extraVarsFromF
+    columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
+    # print('all columns now: ', df_tauF.GetColumnNames())
+    df_tauF.Snapshot('newtree', fakeTauFile, columns_to_keep)
+    
+    df_tauF_new = ROOT.RDataFrame('newtree', fakeTauFile)
+    for itauV in VarToTausFMorph:
+        newBranch = itauV.replace('tausT', 'tausFMorph')
+        df_tauF_new = df_tauF_new.Define(itauV, newBranch)
+    for ivar in extraVarsFromF:
+        newBranch = ivar.replace('tausT', 'tausF')
+        df_tauF_new = df_tauF_new.Define(ivar, newBranch)
+    df_tauF_new.Snapshot('newtree', fakeTauFile)
+    print('tausT variables replaced with tausFMorphed variables!!!')
+    print('tausT variables replaced with tausF variables!!!')
+    
 
 
  

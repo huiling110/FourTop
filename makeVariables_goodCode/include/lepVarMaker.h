@@ -52,6 +52,7 @@ private:
     Double_t triggerSFLep_weight_up;
     Double_t triggerSFLep_weight_down;
 
+    Int_t leptons_2charge;
 
     std::vector<Double_t> lep_ptConeCorrected;
     std::vector<ROOT::Math::PtEtaPhiMVector> eles;

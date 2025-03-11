@@ -12,8 +12,10 @@ LepVarMaker::LepVarMaker(TTree* outTree, TString era, const Bool_t isData, TStri
     outTree->Branch(objName+ "_2phi", &lepTopMVAT_2phi);
     outTree->Branch(objName+ "_2charge", &lepTopMVAT_2charge);
 
+    //!!!There might be some bug here involving fakeLepton
     if(m_type ==0){
         outTree->Branch("lepTopMVAT_2ifZVeto", &lepTopMVAT_2ifZVeto);
+        outTree->Branch("leptons_2charge", &leptons_2charge);//!Have to complile with the BDT input variables naming
     }
 
     if(type==1){
@@ -84,6 +86,9 @@ void LepVarMaker::makeVariables(const EventForMV* e){
                 }
             }
         }
+
+        leptons_2charge =  chargeMulCalNew(e->elesTopMVAT_charge, e->muonsTopMVAT_charge);
+
     };
 
     if(m_type==1){//fakeble lepton
@@ -294,6 +299,8 @@ void LepVarMaker::clearBranch(){
     lepTopMVAT_2eta = -99;
     lepTopMVAT_2phi = -99;
     lepTopMVAF_isAR = kFALSE;
+    
+    leptons_2charge = -99;
 
     lepTopMVAF_1ptCorrected = -99;
     lepTopMVAF_2ptCorrected = -99;

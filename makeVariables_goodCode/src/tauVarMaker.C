@@ -27,7 +27,7 @@ TauVarMaker::TauVarMaker(TTree *outTree, TString objName, Int_t type) : ObjVarMa
     outTree->Branch(objName + "_jet_invariantMass", &taus_jet_invariantMass);
     outTree->Branch(objName + "_jet1_Met_transMass", &taus_jet1_Met_transMass);
 
-    outTree->Branch("leptons_2charge", &leptons_2charge);
+    // outTree->Branch("leptons_2charge", &leptons_2charge);
 
     //Variables for tau FR 
     outTree->Branch(objName + "_genTauNum", &taus_genTauNum);
@@ -105,6 +105,8 @@ void TauVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     case 6:
         tauVariables(e->tausTTTT_jetPt, e->tausTTTT_jetEta, e->tausTTTT_jetPhi, e->tausTTTT_jetMass, e->tausTTTT_genPartFlav, e->tausTTTT_decayMode, e->tausTTTT_charge, e->elesTopMVAT_charge, e->muonsTopMVAT_charge, *e->MET_pt_, *e->MET_phi_);
         break;
+    // case 9:
+    //     tauVariables(e->tausF_jetPt, e->tausF_jetEta, e->tausF_jetPhi, e->tausF_jetMass, e->tausF_genPartFlav, e->tausF_decayMode, e->tausF_charge, e->elesTopMVAT_charge, e->muonsTopMVAT_charge, *e->MET_pt_, *e->MET_phi_);
     default:
         break;
     }
@@ -123,15 +125,17 @@ void TauVarMaker::tauVariables(const TTreeReaderArray<Double_t>& tau_jetPt, cons
         taus_1decayMode = tau_decayMode.At(0);
         taus_1prongNum = (tau_decayMode.At(0)/5) + 1;
         taus_leptons_charge = chargeMulCalNew(tau_charge, ele_charge, muon_charge);
-        taus_1lepton1_charge = (ele_charge.GetSize()+muon_charge.GetSize() ==1 && tau_charge.GetSize()==1) ? chargeMulCalNew(tau_charge, muon_charge, muon_charge) : -99;
+        // taus_1lepton1_charge = (ele_charge.GetSize()+muon_charge.GetSize() ==1 && tau_charge.GetSize()==1) ? chargeMulCalNew(tau_charge, muon_charge, muon_charge) : -99;
+        taus_1lepton1_charge = chargeMulCalNew(tau_charge, ele_charge, muon_charge);
 
 
         std::vector<ROOT::Math::PtEtaPhiMVector> tauJets;
         getLorentzVec(tau_jetPt, tau_jetEta, tau_jetPhi, tau_jetMass, tauJets);
         taus_jet_invariantMass = InvariantMassCalculator(tauJets);
         taus_jet1_Met_transMass = tauJets.size() > 0 ? calculateTransverseMass(tauJets.at(0), MET_pt, MET_phi) : -99.;
-
-        leptons_2charge = ele_charge.GetSize() + muon_charge.GetSize()==2 ? chargeMulCalNew(ele_charge, muon_charge) : -99;
+        
+        //!!!This branch gets overwritten with multiple instances of the class
+        // leptons_2charge = ele_charge.GetSize() + muon_charge.GetSize()==2 ? chargeMulCalNew(ele_charge, muon_charge) : -99;
 
 
     }
@@ -165,7 +169,7 @@ void TauVarMaker::clearBranch()
     taus_1lepton1Met1_stransMass = -99.;
     taus_jet_invariantMass = -99;
     taus_jet1_Met_transMass = -99.;
-    leptons_2charge = -99;
+    // leptons_2charge = -99;
 
     tausF_1isTight = kFALSE;
     // tausF_1isTightPrompt = kFALSE;
