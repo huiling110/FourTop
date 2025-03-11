@@ -10,8 +10,8 @@ class JetVarMaker : public ObjVarMaker
 public:
     JetVarMaker(TTree *outTree, TString objName, Int_t type = 0, TString era="2018", UChar_t JESVariation = 0);
     ~JetVarMaker();
-    // void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus);
-    void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus, JESVariation& jesVariation);
+    // void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus, JESVariation& jesVariation);
+    void makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &taus, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausFMorph, JESVariation &jesVariation);
     void clearBranch();
     void setupLorentzObjs(const EventForMV *e, JESVariation& JESVariation);
     Double_t getHT();
@@ -89,6 +89,8 @@ private:
     Double_t jets_tausF_minDeltaR = -99;
     Double_t jets_tausT_minDeltaR = -99.0;
     Double_t jets_tausT_invariantMass = -99.0;
+    Double_t jets_tausFMorph_invariantMass = -99.0;
+    Double_t jets_tausFMorph_minDeltaR = -99.0;
 
     Double_t MET_pt = -99;
     Double_t MET_phi = -99;

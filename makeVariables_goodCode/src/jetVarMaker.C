@@ -61,21 +61,17 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type, TString er
     outTree->Branch(objName + "_leptonsMVAT_minDeltaR", &jets_leptonsMVAT_minDeltaR);
     outTree->Branch(objName + "_tausT_minDeltaR", &jets_tausT_minDeltaR);
     outTree->Branch(objName + "_tausT_invariantMass", &jets_tausT_invariantMass);
+    outTree->Branch(objName + "_tausFMorph_invariantMass", &jets_tausFMorph_invariantMass);
+    outTree->Branch(objName + "_tausFMorph_minDeltaR", &jets_tausFMorph_minDeltaR);
 
     outTree->Branch("MET_pt", &MET_pt);
-    // outTree->Branch("MET_pt_unclusteredUp_", &MET_pt_unclusteredUp_);
-    // outTree->Branch("MET_pt_unclusteredDown_", &MET_pt_unclusteredDown_);
-
-
-
-
 
     std::cout << "Done initialization.............\n";
     std::cout << "\n";
 };
 
-// void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus)
-void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus, JESVariation& jesVariation)
+// void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector>& taus, JESVariation& jesVariation)
+void JetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtEtaPhiMVector> &taus, const std::vector<ROOT::Math::PtEtaPhiMVector> &tausFMorph, JESVariation &jesVariation)
 {
     // for derived class, I also need the function to be a exetention, what to do?
     // Answer: write the same function in derived class and then call the base part with base::function()
@@ -112,6 +108,8 @@ void JetVarMaker::makeVariables( EventForMV *e, const std::vector<ROOT::Math::Pt
     // jets_leptonsMVAT_minDeltaR = MinDeltaRCal(jets, leptonsMVAT);
     // jets_tausT_minDeltaR = MinDeltaRCal(jets, tausT);
     jets_tausT_invariantMass = InvariantMass2SysCal(objsLorentz, taus);
+    jets_tausFMorph_invariantMass = InvariantMass2SysCal(objsLorentz, tausFMorph);
+    // jets_tausFMorph_minDeltaR = MinDeltaRSingleCal(objsLorentz, tausFMorph);
 
     if(muons_num>1 && m_type==0){
         // jets_1btag = e->jets_btags.At(0);
@@ -264,6 +262,8 @@ void JetVarMaker::clearBranch()
     jets_leptonsMVAT_minDeltaR = -99;
     jets_tausT_minDeltaR = -99.0;
     jets_tausT_invariantMass = -99.0;
+    jets_tausFMorph_invariantMass = -99.0;
+    jets_tausFMorph_minDeltaR = -99.0;
 }
 
 Double_t JetVarMaker::getHT()
