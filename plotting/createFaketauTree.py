@@ -258,7 +258,7 @@ def replaceTauTVar(fakeTauFile):
     df_tauF = ROOT.RDataFrame('newtree', fakeTauFile)
     #!replace tauT pt related variables with tausFMophed relatec variables
     all_columns = df_tauF.GetColumnNames() 
-    VarToTausFMorph = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1pt']#rariables to be replaced with tausTMorphed variables
+    VarToTausFMorph = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1pt', 'jets_tausT_invariantMass']#rariables to be replaced with tausTMorphed variables
     extraVarsFromF = ['tausT_1lepton1_deltaR', 'tausT_leptons_charge', 'tausT_1phi', 'tausT_1lepton1_charge', 'tausT_1jetEtaAbs' ] 
     columns_to_remove = VarToTausFMorph + extraVarsFromF
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
