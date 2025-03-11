@@ -10,12 +10,12 @@ import writeDatacard as wd
 
 def main():
     ifVLL = ''
-    ifLogy = True
-    # ifLogy = False
+    # ifLogy = True
+    ifLogy = False
     ifStackSignal = True
     # ifStackSignal = False
-    ifPrintSB = True
-    # ifPrintSB = False
+    # ifPrintSB = True
+    ifPrintSB = False
     # ifSystematic = True 
     ifSystematic = False  
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
@@ -74,16 +74,19 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sys/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sys/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/mc/variableHists_v1dataMC_fakeTauDataDriven_ptMorphed1tau1l/'
-    inputDir ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
+    # inputDir ='/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/mc/variableHists_v1dataMC_fakeTauDataDriven/'
     channel = '1tau1l'
-    # variables = ['jets_6pt']
-    # variables = ['tausF_1pt']
+    # variables = ['tausT_1pt']
+    variables = ['MET_pt', 'jets_HT']
     # variables = ['tausF_leptons_charge']
     # variables = ['tausF_1Met_transMass', 'tausF_jet1_Met_transMass']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausF_1decayMode', 'tausF_1pt', 'tausF_1prongNum', 'tausF_1jetPt', 'tausF_1jetEta', 'tausF_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     # variables = ['jets_num', 'jets_HT', 'jets_1pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']# 
-    variables = ['BDT']
+    # inputList = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv' 
+    # variables = read_csv_as_lines(inputList)
+    # variables = ['BDT']
     regionList = ['1tau1lSR', '1tau1lCR12']
     # regionList = ['1tau1lCR12']
   

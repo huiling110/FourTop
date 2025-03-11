@@ -67,19 +67,19 @@ def main(
     # version = 'v0BDT1tau2l',
     # version = 'v0BDT1tau2l_fakeTau',
     # version = 'v0BDT1tau1l',
-    version = 'v0BDT1tau1lFakeTau',
+    # version = 'v0BDT1tau1lFakeTau',
     # version = 'v0BDT1tau0l',
     # version = 'v0DataMC_sys',
     # version = 'v0DataMC',
     # version = 'v1DataMC_noHLTSF',
     # version = 'v1dataMC_fakeTauMC',
-    # version = 'v1dataMC_fakeTauDataDriven',
+    version = 'v1dataMC_fakeTauDataDriven',
     # version = 'v1dataMC_fakeTauDataDriven_fakeTauScaled',
     # version = 'v0FRMeasure',
     # version = 'v0FRMeasureBinB',
     # version = 'v0FRMeasureBinC',
-    # exe = './apps/run_WH_forDataMC.out'
-    exe = './apps/run_treeAnalyzer.out' 
+    exe = './apps/run_WH_forDataMC.out'
+    # exe = './apps/run_treeAnalyzer.out' 
 ):
     
     
