@@ -31,7 +31,8 @@ def main(
     # outVersion = 'v0baselineLep_tauF1NewFRBinA_tauFMorph',
     # outVersion = 'v0baselineHadro',
     # outVersion = 'v0baselineHadro_newFR',
-    outVersion = 'v0baselineHadro_newFRBinATauFMorph',
+    # outVersion = 'v0baselineHadro_newFRBinATauFMorph',
+    outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
     if1tau2l = 0, # !!!0 false, 1 True
     # if1tau2l = 1, #!!! 0 false, 1 True
     # if1tau2l = 0, # 0 false, 1 True
