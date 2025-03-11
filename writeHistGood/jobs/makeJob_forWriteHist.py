@@ -64,7 +64,7 @@ def main(
     # channel = '1tau0l',
     channel = '1tau2l',
     # version = 'v0BDT1tau2l',
-    # version = 'v0BDT1tau2l_fakeTau',
+    version = 'v0BDT1tau2l_fakeTau',
     # version = 'v0BDT1tau1l',
     # version = 'v0BDT1tau0l',
     # version = 'v0DataMC_sys',
@@ -72,12 +72,12 @@ def main(
     # version = 'v1DataMC_noHLTSF',
     # version = 'v1dataMC_fakeTauMC',
     # version = 'v1dataMC_fakeTauDataDriven',
-    version = 'v1dataMC_fakeTauDataDriven_fakeTauScaled',
+    # version = 'v1dataMC_fakeTauDataDriven_fakeTauScaled',
     # version = 'v0FRMeasure',
     # version = 'v0FRMeasureBinB',
     # version = 'v0FRMeasureBinC',
-    exe = './apps/run_WH_forDataMC.out'
-    # exe = './apps/run_treeAnalyzer.out' 
+    # exe = './apps/run_WH_forDataMC.out'
+    exe = './apps/run_treeAnalyzer.out' 
 ):
     
     
