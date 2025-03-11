@@ -143,10 +143,12 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
         break;
     case 4: // 1tau1lCR2
         // isPass = tausTNum == 1 && lepNum == 1 && e->jets_num.v() == 6 && bjetsMNum >= 3;
-        isPass = tausTNum == 1 && lepCut && e->jets_num.v() == 6 && bjetsMNum >= 3;
+        // isPass = tausTNum == 1 && lepCut && e->jets_num.v() == 6 && bjetsMNum >= 3;
+        isPass = tauCut && lepCut && e->jets_num.v() == 6 && bjetsMNum >= 3;
         break;
     case 5: // 1tau1lCR1
-        isPass = tausTNum == 1 && lepCut && e->jets_num.v() >=6 && bjetsMNum ==2 ;
+        // isPass = tausTNum == 1 && lepCut && e->jets_num.v() >=6 && bjetsMNum ==2 ;
+        isPass = tauCut && lepCut && e->jets_num.v() >=6 && bjetsMNum ==2 ;
         break;
     case 6: // 1tau0lCR
         isPass = tauCut && lepNum == 0 && e->jets_num.v() >= 8 && bjetsMNum == 0 ;

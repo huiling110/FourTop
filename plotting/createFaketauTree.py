@@ -25,9 +25,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
-    # is1tau2l = False 
-    is1tau2l = True 
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/mc/'
+    is1tau2l = False 
+    # is1tau2l = True 
     # ifMorphTauPt = False
     ifMorphTauPt = True
    
@@ -38,7 +39,7 @@ def main():
     print(era)
     
     postFix = '_ptMorphed' if ifMorphTauPt else ''
-    # createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
+    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
     createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
@@ -260,7 +261,7 @@ def replaceTauTVar(fakeTauFile):
     #!replace tauT pt related variables with tausFMophed relatec variables
     all_columns = df_tauF.GetColumnNames() 
     VarToTausFMorph = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1pt', 'jets_tausT_invariantMass']#rariables to be replaced with tausTMorphed variables
-    extraVarsFromF = ['tausT_1lepton1_deltaR', 'tausT_leptons_charge', 'tausT_1phi', 'tausT_1lepton1_charge', 'tausT_1jetEtaAbs' ] 
+    extraVarsFromF = ['tausT_1lepton1_deltaR', 'tausT_leptons_charge', 'tausT_1phi', 'tausT_1lepton1_charge', 'tausT_1jetEtaAbs' , 'bjetsM_tausT_minDeltaR'] #Variables to be replaced with tausF variables
     columns_to_remove = VarToTausFMorph + extraVarsFromF
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
     # print('all columns now: ', df_tauF.GetColumnNames())
