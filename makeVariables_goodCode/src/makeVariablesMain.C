@@ -39,7 +39,6 @@ void MakeVariablesMain::EventLoop(Bool_t baselineSel, Bool_t  tau1e1Sel, ULong_t
         tauMVarMaker.makeVariables(e, leptonsMVAT);
         tauFMorphMaker.makeVariables(e, leptonsMVAT);
 
-        // jetVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), jesVariation);
         jetVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFMorphMaker.getLorentzObjs(), jesVariation);
         //bjet variables
         // bjetMVarMaker.makeVariables(e, tauVarMaker.getLorentzObjs(), tauFVarMaker.getLorentzObjs(), leptonsMVAT, jesVariation, jetVarMaker.getMET_pt(), jetVarMaker.getMET_phi());
