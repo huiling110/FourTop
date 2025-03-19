@@ -11,16 +11,15 @@ import usefulFunc as uf
 
 def main(
     # year = '2016',
-    # year = '2017',
-    year = '2018',
-    # inVersion = 'v91TESAddedHadroPre_TESdm11Down', 
+    year = '2017',
+    # year = '2018',
     # inVersion = 'v93HadroPreJetVetoPileupID',
-    # inVersion = 'v94HadroPreJetVetoHemOnly',
+    inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERUp',
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2017, 2018, 2016 done
     # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2017, 2018, 2016 done
     # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm11Down', #2017, 2018, 2016 done
-    inVersion = 'v94LepPreJetVetoHemOnly',
+    # inVersion = 'v94LepPreJetVetoHemOnly',
     # inVersion = 'v94LepPreJetVetoHemOnly_JERDown',
     # inVersion = 'v94LepPreJetVetoHemOnly_EleScaleDown',#2018, 2017, 2016
     # inVersion = 'v94LepPreJetVetoHemOnly_METDown',#2018, 2017, 2016
@@ -29,13 +28,11 @@ def main(
     # outVersion = 'v0baselineLep_tauF1',
     # outVersion = 'v0baselineLep_tauF1NewFRBinA',
     # outVersion = 'v0baselineLep_tauF1NewFRBinA_tauFMorph',
+    # outVersion = 'v0baselineLep_newFRBinATauFMorphBugFix',
     # outVersion = 'v0baselineHadro',
-    # outVersion = 'v0baselineHadro_newFR',
-    # outVersion = 'v0baselineHadro_newFRBinATauFMorph',
-    # outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
-    outVersion = 'v0baselineLep_newFRBinATauFMorphBugFix',
-    # if1tau2l = 0, # !!!0 false, 1 True
-    if1tau2l = 1, #!!! 0 false, 1 True
+    outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
+    if1tau2l = 0, # !!!0 false, 1 True
+    # if1tau2l = 1, #!!! 0 false, 1 True
     # if1tau2l = 0, # 0 false, 1 True
     # JESVariationType = 2, # 1up, 2 down
     JESVariationType = 0, # 1up, 2 down
@@ -149,7 +146,8 @@ def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False, if1tau2l=Fals
         uf.checkMakeDir(inOutList[1] +"log/")
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
-        subDirJobs.write( 'hep_sub -os CentOS7 -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        # subDirJobs.write( 'hep_sub -os CentOS7 -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        subDirJobs.write( 'hep_sub -os CentOS7 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
 
     subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
     subprocess.run( 'chmod 777 ' + subDirName, shell = True)

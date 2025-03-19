@@ -13,7 +13,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v93HadroPreJetVetoPileupID/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
@@ -26,11 +26,12 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/'
     is1tau2l = False 
     # is1tau2l = True 
-    ifMorphTauPt = False
-    # ifMorphTauPt = True
+    # ifMorphTauPt = False
+    ifMorphTauPt = True
    
     
     
@@ -262,7 +263,8 @@ def replaceTauTVar(fakeTauFile):
     all_columns = df_tauF.GetColumnNames() 
     VarToTausFMorph = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1pt', 'jets_tausT_invariantMass']#rariables to be replaced with tausTMorphed variables
     extraVarsFromF = ['tausT_1lepton1_deltaR', 'tausT_leptons_charge', 'tausT_1phi', 'tausT_1lepton1_charge', 'tausT_1jetEtaAbs' , 'bjetsM_tausT_minDeltaR'] #Variables to be replaced with tausF variables
-    columns_to_remove = VarToTausFMorph + extraVarsFromF
+    tausF_features = ["tausF_1pt", "tausF_MHT", "tausF_HT", "tausF_invariantMass", "tausF_1Met_transMass"]#for 1tau0l BDT
+    columns_to_remove = VarToTausFMorph + extraVarsFromF + tausF_features
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
     # print('all columns now: ', df_tauF.GetColumnNames())
     df_tauF.Snapshot('newtree', fakeTauFile, columns_to_keep)
@@ -274,6 +276,14 @@ def replaceTauTVar(fakeTauFile):
     for ivar in extraVarsFromF:
         newBranch = ivar.replace('tausT', 'tausF')
         df_tauF_new = df_tauF_new.Define(ivar, newBranch)
+        
+    for iVar in tausF_features:
+        newBranch = iVar.replace('tausF', 'tausFMorph')
+        df_tauF_new = df_tauF_new.Define(iVar, newBranch)
+        
+    #!Might have to replace the tauF variables with tauFMorphed variables too, because the tauF variables used in BDT in 1tau0l
+# tausF_jet1_Met_transMass, tausF_1jetPt, tausF_1jetEtaAbs
+        
     df_tauF_new.Snapshot('newtree', fakeTauFile)
     print('tausT variables replaced with tausFMorphed variables!!!')
     print('tausT variables replaced with tausF variables!!!')
