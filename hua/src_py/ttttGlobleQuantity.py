@@ -567,7 +567,8 @@ proChannelDic = {
     # '1tau2l':  ['tt', 'ttH', 'ttZ', 'ttW', 'ttG', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], #!testing
 }
 proChannelDic_forCombine = {
-    '1tau1l':  ['tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
+    # '1tau1l':  ['tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
+    '1tau1l':  ['fakeTau', 'tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! fakeTau from data-driven, WJets:0
     '1tau2l': ['tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'],
     '1tau0l':  ['fakeTau', 'tt', 'ttZ', 'ttW', 'ttH', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, no Minor in 1tau0l neither
 }

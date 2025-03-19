@@ -59,12 +59,12 @@ def main():
     
     
     
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!make sure JES OS dir with _JESPt22 in the end
-    # addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!make sure JES OS dir with _JESPt22 in the end
+    addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
     
-    # addMETToFile(allSubProcesses, regionList, era, nominalDir)
-    # addEESToFile(allSubProcesses, regionList, era, nominalDir)
-    # addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    addMETToFile(allSubProcesses, regionList, era, nominalDir)
+    addEESToFile(allSubProcesses, regionList, era, nominalDir)
+    addTESToFile(allSubProcesses, regionList, era, nominalDir)
     
     
     
