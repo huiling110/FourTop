@@ -11,8 +11,8 @@ import usefulFunc as uf
 
 def main(
     # year = '2016',
-    year = '2017',
-    # year = '2018',
+    # year = '2017',
+    year = '2018',
     # inVersion = 'v93HadroPreJetVetoPileupID',
     inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERUp',
@@ -30,7 +30,8 @@ def main(
     # outVersion = 'v0baselineLep_tauF1NewFRBinA_tauFMorph',
     # outVersion = 'v0baselineLep_newFRBinATauFMorphBugFix',
     # outVersion = 'v0baselineHadro',
-    outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
+    # outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
+    outVersion = 'v0baselineHadro_tauFMorphMass',
     if1tau2l = 0, # !!!0 false, 1 True
     # if1tau2l = 1, #!!! 0 false, 1 True
     # if1tau2l = 0, # 0 false, 1 True
