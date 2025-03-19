@@ -28,7 +28,44 @@ exe = './apps/run_treeAnalyzer.out'
 
 
 def main():
-    subJES(inputDirBase, inVersion, outVersion, channel, version, exe)
+    # subJES(inputDirBase, inVersion, outVersion, channel, version, exe)
+    # subJER(inputDirBase, inVersion, outVersion, channel, version, exe)
+    # subMET(inputDirBase, inVersion, outVersion, channel, version, exe)
+    # subEleES(inputDirBase, inVersion, outVersion, channel, version, exe)
+    subTES(inputDirBase, inVersion, outVersion, channel, version, exe)
+    
+def subTES(inputDirBase, inVersion, outVersion, channel, version, exe):
+    for i in (0, 1, 10, 11):
+        inputVersionUp = f'{inputDirBase}{outVersion}_{inVersion}_TESdm{i}Up/'
+        inputVersionDown = f'{inputDirBase}{outVersion}_{inVersion}_TESdm{i}Down/'
+        mj.main(inputVersionUp, channel , version, exe)
+        print('submitted WH TES up i: ', i)
+        mj.main(inputVersionDown, channel, version, exe)
+        print('submitted WH TES down i: ', i)    
+    
+def subEleES(inputDirBase, inVersion, outVersion, channel, version, exe):
+    inputVersionUp = f'{inputDirBase}{outVersion}_{inVersion}_EleScaleUp/'
+    inputVersionDown = f'{inputDirBase}{outVersion}_{inVersion}_EleScaleDown/'
+    mj.main(inputVersionUp, channel , version, exe)
+    mj.main(inputVersionDown, channel, version, exe)
+    print('submitted WH EleScale up')
+    print('submitted WH EleScale down')
+    
+def subMET(inputDirBase, inVersion, outVersion, channel, version, exe):
+    inputVersionUp = f'{inputDirBase}{outVersion}_{inVersion}_METUp/' 
+    inputVersionDown = f'{inputDirBase}{outVersion}_{inVersion}_METDown/'
+    mj.main(inputVersionUp, channel , version, exe)
+    mj.main(inputVersionDown, channel, version, exe)
+    print('submitted WH MET up')
+    print('submitted WH MET down')
+    
+def subJER(inputDirBase, inVersion, outVersion, channel, version, exe):
+   inputVersionUp = f'{inputDirBase}{outVersion}_{inVersion}_JERUp/' 
+   inputVersionDown = f'{inputDirBase}{outVersion}_{inVersion}_JERDown/'
+   mj.main(inputVersionUp, channel , version, exe)
+   mj.main(inputVersionDown, channel, version, exe)
+   print('submitted WH JER up')
+   print('submitted WH JER down')
 
 def subJES(inputDirBase, inVersion, outVersion, channel, version, exe):
     inVersionJES = inVersion + '_JESPt22'
