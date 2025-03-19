@@ -26,8 +26,11 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
     is1tau2l = False 
     # is1tau2l = True 
     # ifMorphTauPt = False
@@ -40,7 +43,7 @@ def main():
     print(era)
     
     postFix = '_ptMorphed' if ifMorphTauPt else ''
-    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
+    # createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
     createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
@@ -138,8 +141,11 @@ def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPost
   
 def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPostfix = '', ifMorphTauPt = False): 
     #creat MC fake tau tree
-    #todo: consider more filtering, currently 4Million events afrer filtering
+    #!Should probably add tttt to be subtracted too
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'Minor']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
+    # MCSum = ['tt', 'ttX', 'WJets', 'singleTop']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
+    # if is1tau2l:
+        # MCSum.append('Minor')
     allMC = []
     allMC += uf.getAllSubPro(era, MCSum, False)
     allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
@@ -287,6 +293,8 @@ def replaceTauTVar(fakeTauFile):
     df_tauF_new.Snapshot('newtree', fakeTauFile)
     print('tausT variables replaced with tausFMorphed variables!!!')
     print('tausT variables replaced with tausF variables!!!')
+    print('tauF variables replaced with tauFMorphed variables!!!')
+    print('file: ', fakeTauFile)
     
 
 
