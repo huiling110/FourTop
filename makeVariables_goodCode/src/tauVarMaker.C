@@ -210,21 +210,10 @@ void TauVarMaker::setupLorentzObjs(const EventForMV *e)
             // f"tausF_1pt *((-{33.24302} * TMath::Exp(-{0.30112} * tausF_1pt)) + {1.08058})"
             Double_t morphedPt = originalPt * ((-33.24302 * TMath::Exp(-0.30112 * originalPt)) + 1.08058);
 
-            Double_t pTSF = morphedPt / originalPt;
-            
-
-            //propagate the pt change to mass 
-             // Calculate pz from eta
-            // // double theta = 2.0 * atan(exp(-eta));
-            // double theta = 2.0 * atan(exp(-obj.Eta()));
-            // double pz = morphedPt / tan(theta);
-            // Double_t px = morphedPt * cos(obj.Phi());
-            // Double_t py = morphedPt * sin(obj.Phi());
-            // // Calculate the new energy taking the corrected pt into account
-            // double energy = sqrt(morphedPt * morphedPt + pz * pz + obj.M() * obj.M());
-            
+            // Double_t pTSF = morphedPt / originalPt;
             // obj = ROOT::Math::PxPyPzE4D<double>(px, py, pz, energy);
-            obj = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(morphedPt, obj.Eta(), obj.Phi(), obj.M()*pTSF);
+            // obj = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(morphedPt, obj.Eta(), obj.Phi(), obj.M()*pTSF);
+            obj = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(morphedPt, obj.Eta(), obj.Phi(), obj.M());
             // obj.SetPtEtaPhiM(morphedPt, obj.Eta(), obj.Phi(), obj.M());
             // std::cout << "Morphed tauF pt from " << originalPt << " to " << morphedPt << "\n";
             std::cout << "Morphed tauF pt from " << originalPt << " to " << obj.Pt() << "\n";
