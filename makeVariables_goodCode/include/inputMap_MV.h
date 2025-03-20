@@ -149,12 +149,15 @@ namespace MV
     //     {"2016preVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/results/fakeRateInPtEtaProng.root"},
     //     {"2016postVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/results/fakeRateInPtEtaProng.root"},
         // {"2018", "../inputFiles/tauFR/2018/fakeRateInPtEtaProng.root"},
-        {"2017", "../inputFiles/tauFR/2017/fakeRateInPtEtaProng.root"},
-        {"2016preVFP", "../inputFiles/tauFR/2016preVFP/fakeRateInPtEtaProng.root"},
-        {"2016postVFP", "../inputFiles/tauFR/2016postVFP/fakeRateInPtEtaProng.root"},
+        // {"2017", "../inputFiles/tauFR/2017/fakeRateInPtEtaProng.root"},
+        // {"2016preVFP", "../inputFiles/tauFR/2016preVFP/fakeRateInPtEtaProng.root"},
+        // {"2016postVFP", "../inputFiles/tauFR/2016postVFP/fakeRateInPtEtaProng.root"},
         // {"2018", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasureBinB/results/fakeRateInPtEtaProng.root"},
         // {"2018", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasureBinC/results/fakeRateInPtEtaProng.root"},
         {"2018", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/results/fakeRateInPtEtaProng.root"},
+        {"2017", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/results/fakeRateInPtEtaProng.root"},
+        {"2016preVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/results/fakeRateInPtEtaProng.root"},
+        {"2016postVFP", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/results/fakeRateInPtEtaProng.root"},
     };
 
     inline const std::map<TString, std::array<TString, 2>> lepFR_map = {

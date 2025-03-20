@@ -10,11 +10,11 @@ import writeDatacard as wd
 
 def main():
     ifVLL = ''
-    ifLogy = True
-    # ifLogy = False
+    # ifLogy = True
+    ifLogy = False
     # ifStackSignal = False
-    ifPrintSB = True
-    # ifPrintSB = False
+    # ifPrintSB = True
+    ifPrintSB = False
     # ifSystematic = True 
     ifSystematic = False  
     ifStackSignal = True
@@ -38,20 +38,22 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/mc/variableHists_v1dataMC_fakeTauDataDriven_fakeTauScaled/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/variableHists_v1dataMC_fakeTauDataDriven_fakeTauScaled/'
     channel = '1tau2l'
-    # variables = ['tausF_1pt']
+    # variables = ['tausT_invariantMass']
     # variables = ['tausF_1pt', 'tausT_1pt']
-    # variables = ['jets_num']
+    # variables = ['MET_pt']
     # variables = ['tausF_leptons_charge', 'tausF_1lepton1Met1_stransMass']
     # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
     # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour',  'lepTopMVAT_1pt', 'lepTopMVAT_2pt', 'tausF_1pt', 'tausF_1jetEta', 'tausF_1decayMode', 'tausF_1prongNum', 'tausF_1eta']
     # variables = ['elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'elesTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_1pt', 'muonsTopMVAT_2pt', 'muonsTopMVAT_1eta', 'muonsTopMVAT_2eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt']
-    variables = ['BDT']
+    # variables = ['BDT']
     # input1tau2l = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv'
     # variables = read_csv_as_lines(input1tau2l)
-    regionList = ['1tau2lSR', '1tau2lCR3']
-    # regionList = ['1tau2lCR3']
+    # variables.remove('tausT_1jetEtaAbs')
+    # regionList = ['1tau2lSR', '1tau2lCR3']
+    regionList = ['1tau2lCR3']
 
 
     #!1tau1l
