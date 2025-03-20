@@ -32,8 +32,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_tauFMorphMass_v94HadroPreJetVetoHemOnly/mc/'
-    is1tau2l = False 
-    # is1tau2l = True 
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/'
+    # is1tau2l = False 
+    is1tau2l = True 
     # ifMorphTauPt = False
     ifMorphTauPt = True
    
@@ -45,7 +46,7 @@ def main():
     
     postFix = '_ptMorphed' if ifMorphTauPt else ''
     createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
-    # createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
+    createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
@@ -102,6 +103,7 @@ def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPost
     sumData='leptonSum' if is1tau2l else 'jetHT' 
     print('sumData: ', sumData)
     allDataFiles = uf.getAllSubPro(era, [sumData])
+    print('all data files: ', allDataFiles)
     allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
     print('all data files: ', allDataFiles)
     

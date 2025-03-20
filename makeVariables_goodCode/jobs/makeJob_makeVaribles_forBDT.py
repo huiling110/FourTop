@@ -10,16 +10,15 @@ import usefulFunc as uf
 #todo add git co after job submission for version control
 
 def main(
-    # year = '2016',
+    year = '2016',
     # year = '2017',
-    year = '2018',
-    # inVersion = 'v93HadroPreJetVetoPileupID',
-    inVersion = 'v94HadroPreJetVetoHemOnly',
+    # year = '2018',
+    # inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERUp',
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2017, 2018, 2016 done
     # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2017, 2018, 2016 done
     # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm11Down', #2017, 2018, 2016 done
-    # inVersion = 'v94LepPreJetVetoHemOnly',
+    inVersion = 'v94LepPreJetVetoHemOnly',
     # inVersion = 'v94LepPreJetVetoHemOnly_JERDown',
     # inVersion = 'v94LepPreJetVetoHemOnly_EleScaleDown',#2018, 2017, 2016
     # inVersion = 'v94LepPreJetVetoHemOnly_METDown',#2018, 2017, 2016
@@ -28,12 +27,13 @@ def main(
     # outVersion = 'v0baselineLep_tauF1',
     # outVersion = 'v0baselineLep_tauF1NewFRBinA',
     # outVersion = 'v0baselineLep_tauF1NewFRBinA_tauFMorph',
+    outVersion = 'v0baselineLep_newFRBinATauFMorphBugFix',
     # outVersion = 'v0baselineLep_newFRBinATauFMorphBugFix',
     # outVersion = 'v0baselineHadro',
     # outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
-    outVersion = 'v0baselineHadro_tauFMorphMass',
-    if1tau2l = 0, # !!!0 false, 1 True
-    # if1tau2l = 1, #!!! 0 false, 1 True
+    # outVersion = 'v0baselineHadro_tauFMorphMass',
+    # if1tau2l = 0, # !!!0 false, 1 True
+    if1tau2l = 1, #!!! 0 false, 1 True
     # if1tau2l = 0, # 0 false, 1 True
     # JESVariationType = 2, # 1up, 2 down
     JESVariationType = 0, # 1up, 2 down
