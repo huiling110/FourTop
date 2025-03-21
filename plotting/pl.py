@@ -13,10 +13,10 @@ def main():
     ifLogy = True
     # ifLogy = False
     # ifStackSignal = False
-    # ifPrintSB = True
-    ifPrintSB = False
-    ifSystematic = True 
-    # ifSystematic = False  
+    ifPrintSB = True
+    # ifPrintSB = False
+    # ifSystematic = True 
+    ifSystematic = False  
     ifStackSignal = True
     # ifFTau = False #!use qcd instead of fakeTau
     plotName = 'dataVsMC_v5'
@@ -41,7 +41,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/variableHists_v1dataMC_fakeTauDataDriven_fakeTauScaled/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/variableHists_v1dataMC_fakeTauMC/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
     channel = '1tau2l'
     # variables = ['tausT_invariantMass']
     # variables = ['MET_pt']
