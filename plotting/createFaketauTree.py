@@ -32,9 +32,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_tauFMorphMass_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/'
     # is1tau2l = False 
     is1tau2l = True 
     # ifMorphTauPt = False
@@ -272,8 +273,12 @@ def replaceTauTVar(fakeTauFile):
     df_tauF = ROOT.RDataFrame('newtree', fakeTauFile)
     #!replace tauT pt related variables with tausFMophed relatec variables
     all_columns = df_tauF.GetColumnNames() 
-    VarToTausFMorph = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1pt', 'jets_tausT_invariantMass']#rariables to be replaced with tausTMorphed variables
+    VarToTausFMorph = [ 'tausT_leptonsT_invariantMass', 'tausT_invariantMass', 'tausT_1Met_transMass', 'tausT_1lepton1Met1_stransMass', 'tausT_1pt', 'jets_tausT_invariantMass', 'tausT_MHT', 'tausT_HT', 'tausT_jet1_Met_transMass', 'tausT_jet_invariantMass', 'tausT_leptonsT_transMass']#rariables to be replaced with tausFMorphed variables
+    
     extraVarsFromF = ['tausT_1lepton1_deltaR', 'tausT_leptons_charge', 'tausT_1phi', 'tausT_1lepton1_charge', 'tausT_1jetEtaAbs' , 'bjetsM_tausT_minDeltaR'] #Variables to be replaced with tausF variables
+    exex = [  'tausT_1eta',  'tausT_leptonsTMVA_minDeltaR', 'tausT_leptonsTopMVA_chargeMulti',  'tausT_1decayMode', 'tausT_1prongNum',   'tausT_1jetPt',  'tausT_1charge', 'tausT_1neutralIso']
+    extraVarsFromF = extraVarsFromF + exex
+    
     tausF_features = ["tausF_1pt", "tausF_MHT", "tausF_HT", "tausF_invariantMass", "tausF_1Met_transMass"]#for 1tau0l BDT
     columns_to_remove = VarToTausFMorph + extraVarsFromF + tausF_features
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]

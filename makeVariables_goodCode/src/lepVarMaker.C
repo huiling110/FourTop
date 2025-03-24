@@ -272,14 +272,14 @@ void LepVarMaker::processingDoubleLep(const EventForMV* e, const UInt_t muonSize
                 else if (!e->elesTopMVAF_isTight.At(0) && e->elesTopMVAF_isTight.At(1))
                 {
                     lepTopMVAF_FRweight = FR1 / (1. - FR1);
-                    lepTopMVAF_isAR = kTRUE;
+                    // lepTopMVAF_isAR = kTRUE;
                     elesTopMVAF_1ptCorrected = e->elesTopMVAF_ptConeCorreted.At(0);
                     elesTopMVAF_2ptCorrected = e->elesTopMVAT_pt.At(1);
                 }
                 else
                 {
                     lepTopMVAF_FRweight = -(FR1 * FR2 / (1. - FR1) / (1. - FR2));
-                    lepTopMVAF_isAR = kTRUE;
+                    // lepTopMVAF_isAR = kTRUE;
                     elesTopMVAF_1ptCorrected = e->elesTopMVAF_ptConeCorreted.At(0);
                     elesTopMVAF_2ptCorrected = e->elesTopMVAF_ptConeCorreted.At(1);
                 }
