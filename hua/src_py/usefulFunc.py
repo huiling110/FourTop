@@ -318,7 +318,7 @@ def sumProDic(subProHists, sumProDic):
                 
 
 def merge_dicts(dict1, dict2):
-    #to study
+    #to stud
     merged_dict = {}
     for key in dict1.keys() | dict2.keys():
         if key in dict1 and key in dict2:

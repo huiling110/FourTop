@@ -20,12 +20,13 @@ def main():
     # inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
     # inputDir2016postVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
     # inputDir2016preVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
-    inputDir2018 = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
-    inputDir2017 = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
-    inputDir2016postVFP = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
-    inputDir2016preVFP = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
-    channel = '1tau1l'
-    regionList = ['1tau1lCR12', '1tau1lSR']
+    # inputDir2018 = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
+    # inputDir2017 = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
+    # inputDir2016postVFP = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
+    # inputDir2016preVFP = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
+    # channel = '1tau1l'
+    # regionList = ['1tau1lCR12', '1tau1lSR']
+    # regionList = ['1tau1lCR12']
    
    
     
@@ -41,8 +42,12 @@ def main():
     # inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/'
     # inputDir2016postVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/'
     # inputDir2016preVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/'
-    # channel = '1tau2l'
-    # regionList = ['1tau2lSR', '1tau2lCR3'] 
+    inputDir2018 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    inputDir2016postVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    inputDir2016preVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lFakeTau/'
+    channel = '1tau2l'
+    regionList = ['1tau2lSR', '1tau2lCR3'] 
     
     # inputDir2018 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
     # inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
@@ -72,8 +77,8 @@ def main():
     
     
     
-    # variables = ['BDT']
-    variables = ['jets_1pt'] 
+    variables = ['BDT']
+    # variables = ['jets_1pt'] 
     sumPros = gq.proChannelDic[channel]
     print(sumPros)
     
@@ -84,6 +89,7 @@ def main():
 
     for iVar in variables:
         plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar)    
+        # plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, './', iVar)    
     
 def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar):
     combineHists = {}
@@ -100,12 +106,15 @@ def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSy
                 combineHists[ire][isumPro].Add(sumProHists2017[iVar][ire][isumPro])
                 combineHists[ire][isumPro].Add(sumProHists2016preVFP[iVar][ire][isumPro])
                 combineHists[ire][isumPro].Add(sumProHists2016postVFP[iVar][ire][isumPro])
-                combineHistSys[ire][isumPro] = addSys(sumProHistsSys2018[iVar][ire][isumPro], sumProHistsSys2017['BDT'][ire][isumPro], sumProHistsSys2016preVFP['BDT'][ire][isumPro], sumProHistsSys2016postVFP['BDT'][ire][isumPro])
+                combineHistSys[ire][isumPro] = addSys(sumProHistsSys2018[iVar][ire][isumPro], sumProHistsSys2017[iVar][ire][isumPro], sumProHistsSys2016preVFP[iVar][ire][isumPro], sumProHistsSys2016postVFP[iVar][ire][isumPro])
             else:
-                combineHists[ire][isumPro]
-                uf.addDataHist(combineHists[ire][isumPro], sumProHists2017[iVar][ire][isumPro])
-                uf.addDataHist(combineHists[ire][isumPro], sumProHists2016preVFP[iVar][ire][isumPro])
-                uf.addDataHist(combineHists[ire][isumPro], sumProHists2016postVFP[iVar][ire][isumPro])
+                # combineHists[ire][isumPro]
+                # uf.addDataHist(combineHists[ire][isumPro], sumProHists2017[iVar][ire][isumPro])
+                # uf.addDataHist(combineHists[ire][isumPro], sumProHists2016preVFP[iVar][ire][isumPro])
+                # uf.addDataHist(combineHists[ire][isumPro], sumProHists2016postVFP[iVar][ire][isumPro])
+                combineHists[ire][isumPro].Add(sumProHists2017[iVar][ire][isumPro])
+                combineHists[ire][isumPro].Add(sumProHists2016preVFP[iVar][ire][isumPro])
+                combineHists[ire][isumPro].Add(sumProHists2016postVFP[iVar][ire][isumPro])
     
     plotDir = inputDir2018+'results/'
     uf.checkMakeDir(plotDir)
@@ -135,8 +144,8 @@ def getSumHistPerYear(inputDir2018, regionList, variables, sumPros, channel):
     inputDirDic = uf.getInputDicNew( inputDir2018)
     uf.checkMakeDir( inputDirDic['mc']+'results/')
     
-    # sumProSys = pl.getSysDicPL(True, channel, era)    
-    sumProSys = pl.getSysDicPL(False, channel, era)    
+    sumProSys = pl.getSysDicPL(True, channel, era)    
+    # sumProSys = pl.getSysDicPL(False, channel, era)    
     sumProHists, sumProHistsSys = uf.getSumHist(inputDirDic, regionList, sumPros, sumProSys,  variables, era, False)
     return sumProHists, sumProHistsSys
     

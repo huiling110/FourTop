@@ -71,6 +71,7 @@ private:
     event *e;
     Bool_t m_isFakeLepton = kFALSE;
     Bool_t m_isFakeTau = kFALSE;
+    Bool_t m_ifFakeTau = kTRUE;
 
     // for TMVA reader
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");

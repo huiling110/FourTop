@@ -19,10 +19,6 @@ cardDic_1tau0l = {
     
 }
 cardDic1tau1l = {
-    # 'SR1tau1l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/combine/datacard_sys/datacard_1tau1lSys.txt',
-    # 'SR1tau1l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/combine/datacard_sys/datacard_1tau1lSys.txt',
-    # 'SR1tau1l_28FP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAO8/2016postVFP/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/combine/datacard_sys/datacard_1tau1lSys.txt',
-    
     # 'SR1tau1l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v1proNormAdd/datacard_1tau1l.txt', 
     # 'SR1tau1l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v1proNormAdd/datacard_1tau1l.txt', 
     # 'SR1tau1l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v1proNormAdd/datacard_1tau1l.txt', 
@@ -42,10 +38,14 @@ cardDic1tau1l = {
     # 'SR1tau1l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v4BasicAndJESJER/datacard_1tau1l.txt',
     # 'SR1tau1l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v4BasicAndJESJER/datacard_1tau1l.txt',
     # 'SR1tau1l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v4BasicAndJESJER/datacard_1tau1l.txt',
-    'SR1tau1l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/datacard_1tau1l.txt',
-    'SR1tau1l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/datacard_1tau1l.txt',
-    'SR1tau1l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/datacard_1tau1l.txt',
-    'SR1tau1l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/datacard_1tau1l.txt',
+    # 'SR1tau1l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/datacard_1tau1l.txt',
+    # 'SR1tau1l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/datacard_1tau1l.txt',
+    # 'SR1tau1l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/datacard_1tau1l.txt',
+    # 'SR1tau1l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/datacard_1tau1l.txt',
+    'SR1tau1l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/datacardSys_v6AllSysWithFR/datacard_1tau1l.txt',
+    'SR1tau1l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/datacardSys_v6AllSysWithFR/datacard_1tau1l.txt',
+    # 'SR1tau1l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/datacardSys_v6AllSysWithFR/datacard_1tau1l.txt',
+    'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/datacardSys_v6AllSysWithFR/datacard_1tau1l.txt',
 }
 
 cardDic_1tau2l = {
@@ -76,8 +76,9 @@ def main():
     # combinationVersion = 'V13'
     combinationVersion = 'V13_fakeTau'
     # cardDir = 'run2_1tau1l'
+    cardDir = 'run2_1tau1l_no2016preVFP'
     # cardDir = 'run2_1tau0l'
-    cardDir = 'run2_1tau2l'
+    # cardDir = 'run2_1tau2l'
     # cardDir = 'run2_3years'
     # cardDic1tau1l.update(cardDic_1tau0l)
     # cardDic1tau1l.update(cardDic_1tau2l)
@@ -89,9 +90,9 @@ def main():
         print("Directory created:", directory_path)
     
     # outCard = f'combination{combinationVersion}/{cardDir}/datacard.txt'
-    # comDatacard(cardDic1tau1l, directory_path+'datacard.txt')#!!!
+    comDatacard(cardDic1tau1l, directory_path+'datacard.txt')#!!!
     # comDatacard(cardDic_1tau0l, directory_path+'datacard.txt')
-    comDatacard(cardDic_1tau2l, directory_path+'datacard.txt')
+    # comDatacard(cardDic_1tau2l, directory_path+'datacard.txt')
 
 def comDatacard(cardDic, outCard):
     # command = 'combineCards.py SR1tau0l_2016={} SR1tau0l_2017={} SR1tau0l_2018={} > Run2_1tau0l_datacard.txt'.format(SR1tau0l_2016, SR1tau0l_2017, SR1tau0l_2018)
