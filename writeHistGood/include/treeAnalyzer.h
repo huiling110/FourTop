@@ -41,6 +41,7 @@ public:
         m_isFakeLepton = m_processName.Contains("fakeLepton");
         m_isFakeTau = m_processName.Contains("fakeTau");
         std::cout << "m_isFakeLepton=" << m_isFakeLepton << " m_isFakeTau=" << m_isFakeTau << "\n";
+        std::cout<<"m_ifFakeTau="<<m_ifFakeTau<<"\n";
 
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
@@ -71,7 +72,8 @@ private:
     event *e;
     Bool_t m_isFakeLepton = kFALSE;
     Bool_t m_isFakeTau = kFALSE;
-    Bool_t m_ifFakeTau = kTRUE;
+    // Bool_t m_ifFakeTau = kTRUE;
+    Bool_t m_ifFakeTau = kFALSE;//!!!
 
     // for TMVA reader
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");

@@ -231,8 +231,8 @@ void treeAnalyzer::LoopTree()
             sysRegionsFill(bdtScore, basicWeight, CR21tau1l, "1tau1lCR2");
             sysRegionsFill(bdtScore, basicWeight, CR11tau1l||CR21tau1l, "1tau1lCR12");
         }else if (m_channel=="1tau2l"){
-            Bool_t SR1tau2l = SR1tau1lSel(e, 2, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
-            Bool_t CR31tau2l = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
+            Bool_t SR1tau2l = SR1tau1lSel(e, 2, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
+            Bool_t CR31tau2l = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau2l, "1tau2lSR");
             sysRegionsFill(bdtScore, basicWeight, CR31tau2l, "1tau2lCR3");
         }
