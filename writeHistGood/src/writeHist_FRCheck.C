@@ -39,6 +39,10 @@ void WH_FRCheck::Init()
 
         getRegions1(regionsEtaDivided, "1tau0lMRCR", "allProng", "allEta");
 
+        //measure FR with MC
+        regionsEtaDivided.push_back("1tau0lMRCRGenJetLTau_allEta_allProng");
+        regionsEtaDivided.push_back("1tau0lMRCRGenJet_allEta_allProng");
+
         std::vector<Double_t> bins = {25., 30, 35, 40., 50., 70., 100., 300.};
         tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausT_1pt", "pT^{#tau}(GeV)", m_processName, bins, regionsEtaDivided, &(e->tausT_1pt));
         tausF_1jetPt_class.setDir(m_outFile);
@@ -72,7 +76,8 @@ void WH_FRCheck::LoopTree(UInt_t entry)
 
         const Bool_t isTauLNum = (e->tausF_num.v() == 1);
         const Bool_t isTauFT = (e->tausF_num.v() == 1) && e->tausF_1isTight.v();
-        const Bool_t isTauTNumGen = e->tausF_1genFlavour.v() != 0  ; //Flavour of genParticle for MC matching to status==2 taus: 1 = prompt electron, 2 = prompt muon, 3 = tau->e decay, 4 = tau->mu decay, 5 = hadronic tau decay, 0 = unknown or unmatched
+        // const Bool_t isTauTNumGen = e->tausF_1genFlavour.v() != 0  ; //Flavour of genParticle for MC matching to status==2 taus: 1 = prompt electron, 2 = prompt muon, 3 = tau->e decay, 4 = tau->mu decay, 5 = hadronic tau decay, 0 = unknown or unmatched
+        const Bool_t isTauTNumGen = e->tausT_1genFlavour.v() != 0  ; //Flavour of genParticle for MC matching to status==2 taus: 1 = prompt electron, 2 = prompt muon, 3 = tau->e decay, 4 = tau->mu decay, 5 = hadronic tau decay, 0 = unknown or unmatched
         const Bool_t isTauLNumGen = e->tausF_1genFlavour.v() != 0;
         Int_t jetsNum = e->jets_num.v();
         Int_t bjetsNum = e->bjetsM_num.v();
@@ -110,6 +115,7 @@ void WH_FRCheck::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCR_EtaAll_3prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  (!isProng1), m_isData);
 
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCR_allEta_allProng", basicWeight, (is1tau0lMR || is1tau0lCR), m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRJetLTau_allEta_allProng", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau), m_isData);
 
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTau_Eta1_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta1 && isProng1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTau_Eta2_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta2 && isProng1, m_isData);
@@ -126,13 +132,14 @@ void WH_FRCheck::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta1_1prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta1&& isProng1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta2_1prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta2&& isProng1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_Eta3_1prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isEta3&& isProng1 && isTauLNumGen, m_isData);
-                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_EtaAll_3prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  (!isProng1) && isTauTNumGen, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRLTauGen_EtaAll_3prong", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  (!isProng1) && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_Eta1_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta1 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_Eta2_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta2 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_Eta3_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta3 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_EtaAll_3prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  (!isProng1) && isTauTNumGen, m_isData);
 
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_allEta_allProng", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isTauTNumGen, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRGenJetLTau_allEta_allProng", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  isTauLNumGen, m_isData);
 
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTauGen_Eta1_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta1 && isProng1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTauGen_Eta2_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta2 && isProng1 && isTauLNumGen, m_isData);
@@ -142,6 +149,11 @@ void WH_FRCheck::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lVRGen_Eta2_1prong", basicWeight, (is1tau0lVR) &&  isEta2 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRGen_Eta3_1prong", basicWeight, (is1tau0lVR) &&  isEta3 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRGen_EtaAll_3prong", basicWeight, (is1tau0lVR) &&  (!isProng1) && isTauTNumGen, m_isData);
+
+                //measure FR with MC 
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRGenJetLTau_allEta_allProng", basicWeight, (is1tau0lMRLTau || is1tau0lCRLTau) &&  (!isTauLNumGen) && isTauLNum, m_isData);
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRGenJet_allEta_allProng", basicWeight, (is1tau0lMR || is1tau0lCR) &&  (!isTauTNumGen)&& isTauFT, m_isData);
+
             }
 
 
