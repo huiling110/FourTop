@@ -37,50 +37,12 @@ void WH_FRCheck::Init()
         getRegions1(regionsEtaDivided, "1tau0lVR", "1prong", "Eta3");
         getRegions1(regionsEtaDivided, "1tau0lVR", "3prong", "EtaAll");
 
-        //ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
-        // tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 20, 300, regionsEtaDivided, &(e->tausF_1jetPt));
-        // std::vector<Double_t> bins = {0., 10, 15, 20., 25, 30, 40, 50., 70., 100., 300.};
-        std::vector<Double_t> bins = {0. , 20., 25, 30, 35., 40, 50., 70., 100., 300.};//BinA
-        // std::vector<Double_t> bins = {0., 25, 30, 35., 40, 50., 70., 100., 300.};//BinB
-        // std::vector<Double_t> bins = {0., 22, 27, 31,  35., 40, 50., 70., 100., 300.};//BinC
-        // tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, 28, 0., 300, regionsEtaDivided, &(e->tausF_1jetPt));
-        tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1jetPt", "pT^{#tau's mother jet}(GeV)", m_processName, bins, regionsEtaDivided, &(e->tausF_1jetPt));
+        getRegions1(regionsEtaDivided, "1tau0lMRCR", "allProng", "allEta");
+
+        std::vector<Double_t> bins = {25., 30, 35, 40., 50., 70., 100., 300.};
+        tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausT_1pt", "pT^{#tau}(GeV)", m_processName, bins, regionsEtaDivided, &(e->tausT_1pt));
         tausF_1jetPt_class.setDir(m_outFile);
 
-    // }else{
-    //     std::vector<TString> regionsForApplyingFR = {
-    //         "1tau0lMRLTauNotT_Weighted",  
-    //         "1tau0lMRLTauNotTGen_Weighted",
-    //         "1tau0lMRGen",
-    //         "1tau0lMR",
-    //         "1tau0lVRLTauNotT_Weighted",
-    //         "1tau0lVRLTauNotTGen_Weighted",
-    //         "1tau0lVRGen",
-    //         "1tau0lVR",
-    //         "1tau0lCRLTauNotT_Weighted",
-    //         "1tau0lCRLTauNotTGen_Weighted",
-    //         "1tau0lCRGen",
-    //         "1tau0lCR",
-    //         "1tau0lSRLTauNotT_Weighted",
-    //         "1tau0lSRLTauNotTGen_Weighted",
-    //         "1tau0lSRGen",
-    //         "1tau0lSR",
-    //     };
-    //     WH::initializeHistVec( regionsForApplyingFR, histsForRegion_vec, m_processName, e);
-    //     WH::histRegionsVectSetDir(histsForRegion_vec, m_outFile);
-
-    //     //get FR
-    //     TFile* file=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measure1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
-    //     TFile* file3Prong=new TFile("/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHT450_v75OverlapRemovalFTau/mc/variableHists_v0FR_measureNot1prong_jetEta/results/fakeRateInPtEta.root", "READ"); 
-    //     std::cout<<"FR files used: "<<file->GetName()<<"\n"<<file3Prong->GetName()<<"\n";
-    //     // Assuming these graphs are already created and stored in the ROOT file
-    //     m_graphs.emplace_back(0.0, 0.8, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta1")));
-    //     m_graphs.emplace_back(0.8, 1.5, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta2")));
-    //     m_graphs.emplace_back(1.5, 2.3, 1, dynamic_cast<TGraphAsymmErrors*>(file->Get("fakeRate_Eta3")));
-    //     m_graphs.emplace_back(0.0, 0.8, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta1"))); //!3 is not 3 but not 1
-    //     m_graphs.emplace_back(0.8, 1.5, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta2")));
-    //     m_graphs.emplace_back(1.5, 2.3, 3, dynamic_cast<TGraphAsymmErrors*>(file3Prong->Get("fakeRate_Eta3")));
-    // }
 
      std::cout<< "Initialization done\n\n";
 }
@@ -147,6 +109,8 @@ void WH_FRCheck::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCR_Eta3_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta3 && isProng1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCR_EtaAll_3prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  (!isProng1), m_isData);
 
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCR_allEta_allProng", basicWeight, (is1tau0lMR || is1tau0lCR), m_isData);
+
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTau_Eta1_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta1 && isProng1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTau_Eta2_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta2 && isProng1, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTau_Eta3_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta3 && isProng1, m_isData);
@@ -167,6 +131,8 @@ void WH_FRCheck::LoopTree(UInt_t entry)
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_Eta2_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta2 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_Eta3_1prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isEta3 && isProng1 && isTauTNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_EtaAll_3prong", basicWeight, (is1tau0lMR || is1tau0lCR) &&  (!isProng1) && isTauTNumGen, m_isData);
+
+                tausF_1jetPt_class.fillHistVec("1tau0lMRCRGen_allEta_allProng", basicWeight, (is1tau0lMR || is1tau0lCR) &&  isTauTNumGen, m_isData);
 
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTauGen_Eta1_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta1 && isProng1 && isTauLNumGen, m_isData);
                 tausF_1jetPt_class.fillHistVec("1tau0lVRLTauGen_Eta2_1prong", basicWeight, (is1tau0lVRLTau) &&  isEta2 && isProng1 && isTauLNumGen, m_isData);
