@@ -5,7 +5,7 @@ import usefulFunc as uf
 #!For jobs of energy scale variaion, make the outut version the same of the nominal one
 
 def main(
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/', #!!V13
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/', #!!V13
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
@@ -14,7 +14,7 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/',
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/',
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/',
@@ -28,10 +28,10 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
     # channel = '1tau1l',
-    # channel = '1tau0l',
-    channel = '1tau2l',
+    channel = '1tau0l',
+    # channel = '1tau2l',
     # version = 'v0BDT1tau2l', 
-    version = 'v0BDT1tau2lNewCR', 
+    # version = 'v0BDT1tau2lNewCR', 
     # version = 'v0BDT1tau2lFakeTau', #v0_v94 replace with new MV
     # version = 'v0BDT1tau1l',
     # version = 'v0BDT1tau1lFakeTau',
@@ -45,10 +45,10 @@ def main(
     # version = 'v1dataMC_fakeTauDataDriven',
     # version = 'v1dataMC_fakeTauDataDriven_fakeTauScaled',
     # version = 'v0FRMeasure',
-    # version = 'v0FRMeasureBinB',
-    # version = 'v0FRMeasureBinC',
-    # exe = './apps/run_WH_forDataMC.out',
-    exe = './apps/run_treeAnalyzer.out' ,
+    # version = 'v2FRMeasureCheckMC',
+    version = 'v2FRMeasureCheckMC_v2',
+    exe = './apps/run_WH_forDataMC.out',
+    # exe = './apps/run_treeAnalyzer.out' ,
     justMC = False
 ):
     

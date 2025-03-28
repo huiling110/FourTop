@@ -29,25 +29,67 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0FRMeasure/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasureBinB/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasureBinC/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/'
     
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v2FRMeasureCheckMC/' 
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v2FRMeasureCheckMC_v2/' 
    
     
   
     inputDirDic = uf.getDirDic(inputDir)
     era = uf.getEraFromDir(inputDir)
-    plotFRNew(inputDirDic, era)
+    # plotFRNew(inputDirDic, era)
+    
+    checkFRDataMC(inputDirDic, era)
+    
+def checkFRDataMC(inputDirDic, era):    
+    regionList = ['1tau0lMRCR', '1tau0lMRCRGen', '1tau0lMRCRLTau', '1tau0lMRCRLTauGen']
+    FR_data = plotFRPerEta( inputDirDic, regionList, era, "_allEta", "_allProng", 'FR_data', 'tausF_1pt', [0, 0.2]) 
+    
+    regionsMC = ['1tau0lMRCRGenJet', '1tau0lMRCRGenJetLTau']
+    MCSum = ['tt', 'ttX', 'singleTop', 'WJets', 'qcd']
+    # MCSum = ['tt', 'ttX' ,'qcd']
+    # MCSum = ['tt']
+    # MCSum = ['qcd']
+    allMCList = uf.getAllSubPro(era, MCSum, False)
+    allMCList.remove('qcd_50to100')
+    allMCList.remove('qcd_100to200')
+    allMCList.remove('qcd_200to300')
+    allMCList.remove('qcd_300to500')
+    print('allMCList:', allMCList)
+   
+    de_h = None
+    du_h = None 
+    for iMC in allMCList:
+        print('ifile', inputDirDic['mc']+iMC+'.root')
+        ide, inu = uf.getHistFromFile(inputDirDic['mc']+iMC+'.root', [f'{iMC}_1tau0lMRCRGenJetLTau_allEta_allProng_tausF_1pt', f'{iMC}_1tau0lMRCRGenJet_allEta_allProng_tausF_1pt'], False) 
+            # Initialize de_h and du_h with the first pair of histograms
+        if de_h is None and du_h is None:
+            de_h = ide.Clone("de_h")  # Clone the first histogram to initialize
+            du_h = inu.Clone("du_h")  # Clone the first histogram to initialize
+        else:
+            # Add the histograms to the accumulated histograms
+            de_h.Add(ide)
+            du_h.Add(inu)
+    de_h.Print()
+    du_h.Print() 
+    
+    # postFix = 'onlyQCD'
+    # postFix = 'onlyTT'
+    postFix = 'all'
+    # plotName = inputDirDic['mc'] + 'results/FR_MRCRGenJet'
+    plotName = inputDirDic['mc'] + 'results/FR_MRCRGenJet_' + postFix
+    FR_MC = uf.plotEffTEff(  du_h, de_h, plotName, era, 'tau fake rate', [0., 0.2], 'Fake rate')
     
     
+    # uf.plotOverlay([FR_MC, FR_data], ['MC', 'Data'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCRGenJet_dataMC', 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.2])
+    uf.plotOverlay([FR_MC, FR_data], ['MC', 'Data'], era, 'Fake rate of #tau_{h}', inputDirDic['mc'] + 'results/FR_MRCRGenJet_dataMC_'+postFix, 'AP', [0.5, 0.7, 0.9, 0.9], [0, 0.2])
     
-    # plotFR(inputDirDic, era, '1prong')
-    # plotFR(inputDirDic, era, '3prong')
-    # plotFRNew(inputDirDic, era, '3prong')
    
 def plotFRNew(inputDirDic, era):
     tauProng1 = '_1prong'
@@ -124,16 +166,18 @@ def writeFRToFileNew(FR_ptInEtaList, histNameList, inputDirDic, tauProng='1prong
     
     
     
-def plotFRPerEta(inputDirDic, regionList, era, eta, prong, plotName):
+# def plotFRPerEta(inputDirDic, regionList, era, eta, prong, plotName):
+def plotFRPerEta(inputDirDic, regionList, era, eta, prong, plotName, ivar='tausF_1jetPt', yRange=[0, 0.4]):
     regionList_eta1 = addEta(regionList, eta, prong)
-    variable = ['tausF_1jetPt']
+    # variable = ['tausF_1jetPt='tausF_1jetPt'):']
+    variable = [ivar]
     processList = ['jetHT', 'tt', 'ttX', 'singleTop', 'WJets']
     # sumProcessPerVar = uf.getSumHist(inputDirDic, regionList_eta1, processList, variable, era, False)#sumProcessPerVar[ivar][region][sumPro]
     sumProcessPerVar, sys = uf.getSumHist(inputDirDic, regionList_eta1, processList,{}, variable, era, False)#sumProcessPerVar[ivar][region][sumPro]
 
-    h_TTau = dataMinusGenBG(sumProcessPerVar['tausF_1jetPt'], regionList_eta1[0], regionList_eta1[1])
+    h_TTau = dataMinusGenBG(sumProcessPerVar[ivar], regionList_eta1[0], regionList_eta1[1])
     h_TTau.Print()
-    h_FTau = dataMinusGenBG(sumProcessPerVar['tausF_1jetPt'], regionList_eta1[2], regionList_eta1[3]) 
+    h_FTau = dataMinusGenBG(sumProcessPerVar[ivar], regionList_eta1[2], regionList_eta1[3]) 
     h_FTau.Print()
     # ptBins = np.array( [20.0, 30, 40.0, 50, 70.0, 90.0, 120.0,  300.0] )
     # h_TTau_rebin = h_TTau.Rebin(len(ptBins)-1, 'h_TTau_rebin', ptBins)
@@ -145,7 +189,8 @@ def plotFRPerEta(inputDirDic, regionList, era, eta, prong, plotName):
     uf.checkMakeDir( plotDir )
     plotName = plotDir + plotName
     # FR = uf.plotEffTEff( h_TTau_rebin, h_FTau_rebin, plotName, era, 'tau fake rate', [0., 0.3], 'Fake rate')
-    FR = uf.plotEffTEff( h_TTau_rebin, h_FTau_rebin, plotName, era, 'tau fake rate', [0., 0.4], 'Fake rate')
+    # FR = uf.plotEffTEff( h_TTau_rebin, h_FTau_rebin, plotName, era, 'tau fake rate', [0., 0.4], 'Fake rate')
+    FR = uf.plotEffTEff( h_TTau_rebin, h_FTau_rebin, plotName, era, 'tau fake rate', yRange, 'Fake rate')
     
     return FR
     
