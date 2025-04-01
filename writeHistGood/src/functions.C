@@ -411,9 +411,8 @@ TString getProcessName(const TString processName, Bool_t isRun3){
 };
 
 void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau){
+//https://gitlab.cern.ch/cms-analysis/general/systematics/-/blob/master/systematics_master.yml
     sysRegions.push_back(region);
-
-    // if(!isFaketau){
 
     sysRegions.push_back(region + "_CMS_pileupUp");// 100% correlated
     sysRegions.push_back(region + "_CMS_pileupDown");
@@ -502,6 +501,15 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_eff_bWPMT_correlatedDown");
     sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Up");
     sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Down");
+    // update to naming convention 
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_correlatedUp");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_correlatedDown");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_uncorrelatedUp");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_uncorrelatedDown");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_correlatedUp");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_correlatedDown");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_uncorrelatedUp");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_uncorrelatedDown");
 
 
     sysRegions.push_back(region + "_pdfUp");

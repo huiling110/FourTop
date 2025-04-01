@@ -136,6 +136,14 @@ private:
     Double_t btagWPMT_weight_correlated_down = 1.0;
     Double_t btagWPMT_weight_uncorrelated_up = 1.0;
     Double_t btagWPMT_weight_uncorrelated_down = 1.0;
+    Double_t btagWPMT_weight_bc_correlated_up = 1.0;
+    Double_t btagWPMT_weight_bc_correlated_down = 1.0;
+    Double_t btagWPMT_weight_bc_uncorrelated_up = 1.0;
+    Double_t btagWPMT_weight_bc_uncorrelated_down = 1.0;
+    Double_t btagWPMT_weight_l_correlated_up = 1.0;
+    Double_t btagWPMT_weight_l_correlated_down = 1.0;
+    Double_t btagWPMT_weight_l_uncorrelated_up = 1.0;
+    Double_t btagWPMT_weight_l_uncorrelated_down = 1.0;
 
     Double_t HLT_weight = 1.0;
     Double_t HLT_weight_stats_up = 1.0;

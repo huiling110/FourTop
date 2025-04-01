@@ -1049,6 +1049,7 @@ Double_t calBtagShapeWeight(
 }
 
 Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTreeReaderArray<Double_t> &jets_eta, const TTreeReaderArray<Int_t> &jets_flavour, const TTreeReaderArray<Double_t> &jets_btag, correction::CorrectionSet *cset_btag, TH2D *btagEff_b, TH2D *btagEff_c, TH2D *btagEff_l, TH2D *btagTEff_b, TH2D *btagTEff_c, TH2D *btagTEff_l, Bool_t isData, TString era, const std::string sys, const Bool_t isRun3, const Bool_t ifBTagT)
+// ifBC: 0: not distinguish b/c and l; 1: b/c; 2: l
 { // https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation
     // https://twiki.cern.ch/twiki/bin/view/CMS/TopSystematics#b_tagging
     //https://btv-wiki.docs.cern.ch/PerformanceCalibration/SFUncertaintiesAndCorrelations/#working-point-based-sfs-fixedwp-sfs
@@ -1065,6 +1066,9 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
     Double_t p_data = 1.0;
     Double_t btagMWP = isRun3 ? TTTT::particleNetBMT.at(era).at(0) : TTTT::DeepJetM.at(era);
     Double_t btagTWP = isRun3 ? TTTT::particleNetBMT.at(era).at(1) : TTTT::DeepJetT.at(era);
+
+
+
     for (UInt_t j = 0; j < jets_pt.GetSize(); j++)
     {
         Double_t ijetSF = 1.0;
@@ -1082,6 +1086,7 @@ Double_t calBtagWPMWeight(const TTreeReaderArray<Double_t> &jets_pt, const TTree
         if (ijetFlav == 4 || ijetFlav == 5)
         {
             // b and c
+
             ijetSF = corr_deepJet->evaluate({sys, "M", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
             ijetSFT = corr_deepJet->evaluate({sys, "T", jets_flavour.At(j), std::abs(jets_eta.At(j)), jets_pt.At(j)});
         }
@@ -1156,7 +1161,8 @@ Double_t calBtagWPMWeight(
     TString era,
     const std::string sys,
     const Bool_t isRun3,
-    const Bool_t ifBTagT
+    const Bool_t ifBTagT,
+     UChar_t ifBC
 ) {
     Double_t sf = 1.0;
     if (isData) {
@@ -1167,6 +1173,7 @@ Double_t calBtagWPMWeight(
     std::string btagWPLTag = isRun3 ? "robustParticleTransformer_light" : "deepJet_incl";
     auto corr_deepJet = cset_btag->at(btagWPTag);
     auto corr_deepJet_light = cset_btag->at(btagWPLTag);
+        std::string isys = sys;
 
     Double_t p_mc = 1.0;
     Double_t p_data = 1.0;
@@ -1188,11 +1195,17 @@ Double_t calBtagWPMWeight(
 
         if (ijetFlav == 4 || ijetFlav == 5) {
             // b and c
-            ijetSF = corr_deepJet->evaluate({sys, "M", ijetFlav, ijetEta, ijetPt});
-            ijetSFT = corr_deepJet->evaluate({sys, "T", ijetFlav, ijetEta, ijetPt});
+            if (ifBC ==2){ //only consider light jet systematic variation
+                isys = "central"; 
+            } // skip if consider systematic for light jets
+            ijetSF = corr_deepJet->evaluate({isys, "M", ijetFlav, ijetEta, ijetPt});
+            ijetSFT = corr_deepJet->evaluate({isys, "T", ijetFlav, ijetEta, ijetPt});
         } else {
-            ijetSF = corr_deepJet_light->evaluate({sys, "M", ijetFlav, ijetEta, ijetPt});
-            ijetSFT = corr_deepJet_light->evaluate({sys, "T", ijetFlav, ijetEta, ijetPt});
+            if (ifBC == 1){ 
+               isys = "central"; 
+            } 
+            ijetSF = corr_deepJet_light->evaluate({isys, "M", ijetFlav, ijetEta, ijetPt});
+            ijetSFT = corr_deepJet_light->evaluate({isys, "T", ijetFlav, ijetEta, ijetPt});
         }
 
         Bool_t ifBtagged = ijetBtag > btagMWP;

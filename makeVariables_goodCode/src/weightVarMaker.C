@@ -119,6 +119,15 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("btagWPMT_weight_uncorrelated_up", &btagWPMT_weight_uncorrelated_up);
     outTree->Branch("btagWPMT_weight_uncorrelated_down", &btagWPMT_weight_uncorrelated_down);
 
+    outTree->Branch("btagWPMT_weight_bc_correlated_up", &btagWPMT_weight_bc_correlated_up);
+    outTree->Branch("btagWPMT_weight_bc_correlated_down", &btagWPMT_weight_bc_correlated_down);
+    outTree->Branch("btagWPMT_weight_bc_uncorrelated_up", &btagWPMT_weight_bc_uncorrelated_up);
+    outTree->Branch("btagWPMT_weight_bc_uncorrelated_down", &btagWPMT_weight_bc_uncorrelated_down);
+    outTree->Branch("btagWPMT_weight_l_correlated_up", &btagWPMT_weight_l_correlated_up);
+    outTree->Branch("btagWPMT_weight_l_correlated_down", &btagWPMT_weight_l_correlated_down);
+    outTree->Branch("btagWPMT_weight_l_uncorrelated_up", &btagWPMT_weight_l_uncorrelated_up);
+    outTree->Branch("btagWPMT_weight_l_correlated_up", &btagWPMT_weight_l_correlated_up);
+
     outTree->Branch("HLT_weight", &HLT_weight);
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
     outTree->Branch("HLT_weight_stats_down", &HLT_weight_stats_down);
@@ -365,7 +374,6 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     //!For each JES source used in your analysis the respective up/down_jesXXX varied SF is to be applied to the JES-varied template instead of the nominal one
 
     // btag WorkingPoint
-    //ot sure if we should vary the BtagWP weight for JES variation as well; 
     //I think we should use nominal jet pt without JES variation to calculate the btagWP weight, as the impact of JES variation is already considered in the btagWP SF
     btagWPMedium_weight = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "central", m_isRun3);
     btagWPMedium_weight_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l, btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up", m_isRun3) ;
@@ -380,6 +388,16 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
     btagWPMT_weight_correlated_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_correlated", m_isRun3, kTRUE);
     btagWPMT_weight_uncorrelated_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_uncorrelated", m_isRun3, kTRUE);
     btagWPMT_weight_uncorrelated_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_uncorrelated", m_isRun3, kTRUE);
+
+    btagWPMT_weight_bc_correlated_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_correlated", m_isRun3, kTRUE, 1);
+    btagWPMT_weight_bc_correlated_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_correlated", m_isRun3, kTRUE, 1);
+    btagWPMT_weight_bc_uncorrelated_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_uncorrelated", m_isRun3, kTRUE, 1);
+    btagWPMT_weight_bc_uncorrelated_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_uncorrelated", m_isRun3, kTRUE, 1);
+    btagWPMT_weight_l_correlated_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_correlated", m_isRun3, kTRUE, 2);
+    btagWPMT_weight_l_correlated_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_correlated", m_isRun3, kTRUE, 2);
+    btagWPMT_weight_l_uncorrelated_up = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "up_uncorrelated", m_isRun3, kTRUE, 2);
+    btagWPMT_weight_l_uncorrelated_down = calBtagWPMWeight(jets_pt, jets_eta, jets_flavour, jets_btags_vec, cset_btag.get(), btagEffHist_b, btagEffHist_c, btagEffHist_l,  btagTEffHist_b, btagTEffHist_l, btagTEffHist_c, m_isData, m_era, "down_uncorrelated", m_isRun3, kTRUE, 2);
+    // btagWP
 
 
     HLT_weight = HLTWeightCal(jets_HT, jets_6pt, bjetsM_num, triggerHist1b, triggerHist2b, triggerHist3b, m_isData, 0);
@@ -422,6 +440,16 @@ void WeightVarMaker::clearBranch()
     btagWPMT_weight_correlated_down = 1.;
     btagWPMT_weight_uncorrelated_up = 1.;
     btagWPMT_weight_uncorrelated_down = 1.;
+
+    btagWPMT_weight_bc_correlated_up = 1.;
+    btagWPMT_weight_bc_correlated_down = 1.;
+    btagWPMT_weight_bc_uncorrelated_up = 1.;
+    btagWPMT_weight_bc_uncorrelated_down = 1.;
+    btagWPMT_weight_l_correlated_up = 1.;
+    btagWPMT_weight_l_correlated_down = 1.;
+    btagWPMT_weight_l_uncorrelated_up = 1.;
+    btagWPMT_weight_l_uncorrelated_down = 1.;
+
 
     pdfWeight_up_ = 1.;
     pdfWeight_down_ = 1.;

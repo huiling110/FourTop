@@ -58,6 +58,8 @@ JetVarMaker::JetVarMaker(TTree *outTree, TString objName, Int_t type, TString er
     outTree->Branch(objName + "_9eta", &jets_9eta);
     outTree->Branch(objName + "_9phi", &jets_9phi);
 
+
+
     outTree->Branch(objName + "_leptonsMVAT_minDeltaR", &jets_leptonsMVAT_minDeltaR);
     outTree->Branch(objName + "_tausT_minDeltaR", &jets_tausT_minDeltaR);
     outTree->Branch(objName + "_tausT_invariantMass", &jets_tausT_invariantMass);
@@ -123,6 +125,8 @@ void JetVarMaker::makeVariables(EventForMV *e, const std::vector<ROOT::Math::PtE
     getJetLeadingVars(e, 6, jets_7pt, jets_7eta, jets_7phi, jets_7btag);
     getJetLeadingVars(e, 7, jets_8pt, jets_8eta, jets_8phi, jets_8btag);
     getJetLeadingVars(e, 8, jets_9pt, jets_9eta, jets_9phi, jets_9btag);
+
+    // jets_isBC = 
 
     //MET variations
     // std::cout<<"m_dxdy.first="<<m_dxdy.first<<" m_dxdy.second="<<m_dxdy.second<<"\n";
@@ -258,6 +262,7 @@ void JetVarMaker::clearBranch()
     jets_9pt = -99.0;
     jets_9eta = -99.0;
     jets_9phi = -99.0;
+
 
     jets_leptonsMVAT_minDeltaR = -99;
     jets_tausT_minDeltaR = -99.0;
