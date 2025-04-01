@@ -37,7 +37,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0FRMeasure/'
     
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v2FRMeasureCheckMC/' 
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v2FRMeasureCheckMC_v2/' 
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v2FRMeasureCheckMCBin3/' 
    
     
   
@@ -52,15 +52,15 @@ def checkFRDataMC(inputDirDic, era):
     FR_data = plotFRPerEta( inputDirDic, regionList, era, "_allEta", "_allProng", 'FR_data', 'tausF_1pt', [0, 0.2]) 
     
     regionsMC = ['1tau0lMRCRGenJet', '1tau0lMRCRGenJetLTau']
-    MCSum = ['tt', 'ttX', 'singleTop', 'WJets', 'qcd']
+    # MCSum = ['tt', 'ttX', 'singleTop', 'WJets', 'qcd']
     # MCSum = ['tt', 'ttX' ,'qcd']
-    # MCSum = ['tt']
+    MCSum = ['tt']
     # MCSum = ['qcd']
     allMCList = uf.getAllSubPro(era, MCSum, False)
-    allMCList.remove('qcd_50to100')
-    allMCList.remove('qcd_100to200')
-    allMCList.remove('qcd_200to300')
-    allMCList.remove('qcd_300to500')
+    # allMCList.remove('qcd_50to100')
+    # allMCList.remove('qcd_100to200')
+    # allMCList.remove('qcd_200to300')
+    # allMCList.remove('qcd_300to500')
     print('allMCList:', allMCList)
    
     de_h = None
@@ -80,8 +80,8 @@ def checkFRDataMC(inputDirDic, era):
     du_h.Print() 
     
     # postFix = 'onlyQCD'
-    # postFix = 'onlyTT'
-    postFix = 'all'
+    postFix = 'onlyTT'
+    # postFix = 'all'
     # plotName = inputDirDic['mc'] + 'results/FR_MRCRGenJet'
     plotName = inputDirDic['mc'] + 'results/FR_MRCRGenJet_' + postFix
     FR_MC = uf.plotEffTEff(  du_h, de_h, plotName, era, 'tau fake rate', [0., 0.2], 'Fake rate')

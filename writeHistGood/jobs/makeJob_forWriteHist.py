@@ -46,7 +46,8 @@ def main(
     # version = 'v1dataMC_fakeTauDataDriven_fakeTauScaled',
     # version = 'v0FRMeasure',
     # version = 'v2FRMeasureCheckMC',
-    version = 'v2FRMeasureCheckMC_v2',
+    # version = 'v2FRMeasureCheckMC_v2',
+    version = 'v2FRMeasureCheckMCBin3',
     exe = './apps/run_WH_forDataMC.out',
     # exe = './apps/run_treeAnalyzer.out' ,
     justMC = False

@@ -61,10 +61,15 @@ def main():
     # postFix = '_1tau2lCR2'
     # createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
     # channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num<8 && bjetsM_num>2'
+    # postFix = '_1tau0lVRHTCut500'
+    channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>7 && bjetsM_num>2'
+    postFix = '_1tau0lSRHTCut500'
     # postFix = '_1tau0lMR'
     # postFix = '_1tau0lMRHTCut300'
-    channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>=6 && bjetsM_num==2'
-    postFix = '_1tau0lMRHTCut500'
+    # channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>=6 && bjetsM_num==2'
+    # postFix = '_1tau0lMRHTCut500'
+    # postFix = postFix + '_onlyTT'
+    # postFix = postFix + '_onlyQCD'
     createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
     createFakeTauTree(inputDirDic, era, is1tau2l, channelSel, postFix, True)
     createFakeTauTree_mc(inputDirDic, era, is1tau2l, channelSel, postFix, True)
@@ -169,9 +174,9 @@ def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPos
 def createFakeTauTree_Gen(inputDirDic, era, is1tau2l=False, extraSel='lepTopMVAT_num==0', postfix = '_1tau1l'):
     MCSum = ['tt', 'ttX', 'qcd', 'WJets', 'singleTop'] 
     # MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt', 'Minor']
+    # MCSum = ['qcd']
     allMCList = uf.getAllSubPro(era, MCSum, False)
     #remove qcd low HT files
-    # for iMC in allMCList:
     allMCList.remove('qcd_50to100')
     allMCList.remove('qcd_100to200')
     allMCList.remove('qcd_200to300')
@@ -191,7 +196,8 @@ def createFakeTauTree_Gen(inputDirDic, era, is1tau2l=False, extraSel='lepTopMVAT
         btagHLTWeight = 'HLT_weight'
     df_tauF = df_tauF.Define('event_allWeight_1tau1l', f'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*{btagHLTWeight}*tauT_IDSF_weight_new*elesTopMVAT_weight_new*musTopMVAT_weight_new*btagWPMT_weight*elesTopMVAT_reoSF_weight')#!1tau1l
     print('eventWeight: ', f'global_weight*EVENT_genWeight*EVENT_prefireWeight*PUweight_*{btagHLTWeight}*tauT_IDSF_weight_new*elesTopMVAT_weight_new*musTopMVAT_weight_new*btagWPMT_weight*elesTopMVAT_reoSF_weight')
-                             
+     
+                        
     outFile = inputDirDic['mc']+ f'fakeTau_fromGen{postfix}.root'
     df_tauF.Snapshot('newtree', outFile)
     print(inputDirDic['mc']+ outFile)    

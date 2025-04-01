@@ -44,7 +44,8 @@ void WH_FRCheck::Init()
         regionsEtaDivided.push_back("1tau0lMRCRGenJet_allEta_allProng");
 
         // std::vector<Double_t> bins = {25., 30, 35, 40., 50., 70., 100., 300.};
-        std::vector<Double_t> bins = {25., 35 , 45., 55., 70., 100., 300.};
+        // std::vector<Double_t> bins = {25., 35 , 45., 55., 70., 100., 300.};
+        std::vector<Double_t> bins = {25., 35 , 45., 55., 70., 100., 150.};
         // tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausT_1pt", "pT^{#tau}(GeV)", m_processName, bins, regionsEtaDivided, &(e->tausT_1pt));
         tausF_1jetPt_class = histsForRegionsMap<Double_t>("tausF_1pt", "pT^{#tau}(GeV)", m_processName, bins, regionsEtaDivided, &(e->tausF_1pt));
         tausF_1jetPt_class.setDir(m_outFile);
