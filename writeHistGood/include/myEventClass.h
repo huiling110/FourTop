@@ -164,6 +164,14 @@ public:
     myBranch<Double_t> btagWPMT_weight_correlated_down{"btagWPMT_weight_correlated_down"};
     myBranch<Double_t> btagWPMT_weight_uncorrelated_up{"btagWPMT_weight_uncorrelated_up"};
     myBranch<Double_t> btagWPMT_weight_uncorrelated_down{"btagWPMT_weight_uncorrelated_down"};
+    myBranch<Double_t> btagWPMT_weight_bc_correlated_up{"btagWPMT_weight_bc_correlated_up"};
+    myBranch<Double_t> btagWPMT_weight_bc_correlated_down{"btagWPMT_weight_bc_correlated_down"};
+    myBranch<Double_t> btagWPMT_weight_bc_uncorrelated_up{"btagWPMT_weight_bc_uncorrelated_up"};
+    myBranch<Double_t> btagWPMT_weight_bc_uncorrelated_down{"btagWPMT_weight_bc_uncorrelated_down"};
+    myBranch<Double_t> btagWPMT_weight_l_correlated_up{"btagWPMT_weight_l_correlated_up"};
+    myBranch<Double_t> btagWPMT_weight_l_correlated_down{"btagWPMT_weight_l_correlated_down"};
+    myBranch<Double_t> btagWPMT_weight_l_uncorrelated_up{"btagWPMT_weight_l_uncorrelated_up"};
+    myBranch<Double_t> btagWPMT_weight_l_uncorrelated_down{"btagWPMT_weight_l_uncorrelated_down"};
 
     // myBranch<Double_t> eleMVAT_IDSF_weight{"eleMVAT_IDSF_weight"};
 
@@ -582,6 +590,14 @@ private:
         {btagWPMT_weight_correlated_down.n(), &btagWPMT_weight_correlated_down},
         {btagWPMT_weight_uncorrelated_up.n(), &btagWPMT_weight_uncorrelated_up},
         {btagWPMT_weight_uncorrelated_down.n(), &btagWPMT_weight_uncorrelated_down},
+        {btagWPMT_weight_bc_correlated_up.n(), &btagWPMT_weight_bc_correlated_up},
+        {btagWPMT_weight_bc_correlated_down.n(), &btagWPMT_weight_bc_correlated_down},
+        {btagWPMT_weight_bc_uncorrelated_up.n(), &btagWPMT_weight_bc_uncorrelated_up},
+        {btagWPMT_weight_bc_uncorrelated_down.n(), &btagWPMT_weight_bc_uncorrelated_down},
+        {btagWPMT_weight_l_correlated_up.n(), &btagWPMT_weight_l_correlated_up},
+        {btagWPMT_weight_l_correlated_down.n(), &btagWPMT_weight_l_correlated_down},
+        {btagWPMT_weight_l_uncorrelated_up.n(), &btagWPMT_weight_l_uncorrelated_up},
+        {btagWPMT_weight_l_uncorrelated_down.n(), &btagWPMT_weight_l_uncorrelated_down},
 
         // {eleMVAT_IDSF_weight.n(), &eleMVAT_IDSF_weight},
 

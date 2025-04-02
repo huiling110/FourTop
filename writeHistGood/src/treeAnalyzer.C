@@ -251,8 +251,9 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
 
         SR1tau1lSys.fillHistVec(region + "_CMS_pileupUp", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_pileupDown", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_prefiring_" + m_era +"Up", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_prefiring_" + m_era +"Down", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_down.v(), SR1tau1l, m_isData);
+
+        SR1tau1lSys.fillHistVec(region + "_CMS_l1_ecal_prefiring_" + m_era +"Up", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_l1_ecal_prefiring_" + m_era +"Down", bdtScore, (basicWeight / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_down.v(), SR1tau1l, m_isData);
 
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_t_vsJet_" + m_era +"Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_t_vsJet_" + m_era +"Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_down.v(), SR1tau1l, m_isData);
@@ -292,16 +293,16 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_t_vsJet_syst_dm11_" + m_era +"Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_era_dm11_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_eff_t_vsJet_syst_dm11_"+ m_era +"Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_era_dm11_down.v(), SR1tau1l, m_isData);
 
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_systUp", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_systDown", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_systUp", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_systDown", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_stat_" + m_era +"Up", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_m_stat_" + m_era +"Down", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_stat_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_e_stat_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_e_Reco_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_e_Reco_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_e_systUp", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_e_systDown", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_m_systUp", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_m_systDown", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_m_stat_" + m_era +"Up", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_m_stat_" + m_era +"Down", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_e_stat_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_e_stat_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(), SR1tau1l, m_isData);
 
 
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_jesUp", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);//!JES part should only be considered with the corresponding JES variation
@@ -323,51 +324,60 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr2Up", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(), SR1tau1l, m_isData);
         SR1tau1lSys.fillHistVec(region + "_CMS_btag_shape_cferr2Down", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(), SR1tau1l, m_isData);
 
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era +"Up", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era +"Down", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_down.v(), SR1tau1l, m_isData);
-        //Btag WP medium and tight uncertainty
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_" + m_era +"Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_" + m_era +"Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_correlatedUp", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_correlated_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_correlatedDown", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_correlated_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_uncorrelated_"+ m_era +"Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_uncorrelated_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_uncorrelated_"+ m_era +"Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_uncorrelated_down.v(), SR1tau1l, m_isData); 
+        // SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era +"Up", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_up.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPM_" + m_era +"Down", bdtScore, (basicWeight / e->btagWPMedium_weight.v()) * e->btagWPMedium_weight_down.v(), SR1tau1l, m_isData);
+        // //Btag WP medium and tight uncertainty
+        // SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_" + m_era +"Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_up.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_" + m_era +"Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_down.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_correlatedUp", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_correlated_up.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_correlatedDown", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_correlated_down.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_uncorrelated_"+ m_era +"Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_uncorrelated_up.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_CMS_eff_bWPMT_uncorrelated_"+ m_era +"Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_uncorrelated_down.v(), SR1tau1l, m_isData); 
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_fixedWP_comb_bc_correlatedUp", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_bc_correlated_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_fixedWP_comb_bc_correlatedDown", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_bc_correlated_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_fixedWP_comb_bc_uncorrelated_" + m_era +"Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_bc_uncorrelated_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_fixedWP_comb_bc_uncorrelated_" + m_era +"Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_bc_uncorrelated_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_fixedWP_incl_light_correlatedUp", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_l_correlated_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_fixedWP_incl_light_correlatedDown", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_l_correlated_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_fixedWP_incl_light_uncorrelated_" + m_era +"Up", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_l_uncorrelated_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_btag_fixedWP_incl_light_uncorrelated_" + m_era +"Down", bdtScore, (basicWeight / e->btagWPMT_weight.v()) * e->btagWPMT_weight_l_uncorrelated_down.v(), SR1tau1l, m_isData); 
+
         
 
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hlt_stats_" + m_era +"Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hlt_stats_" + m_era +"Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hltLep_" + m_era +"Up", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_CMS_tttt_eff_hltLep_" + m_era +"Down", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(tau)_eff_hlt_stats_" + m_era +"Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(tau)_eff_hlt_stats_" + m_era +"Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_hltLep_" + m_era +"Up", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_CMS_tttt(SS)_eff_hltLep_" + m_era +"Down", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_down.v(), SR1tau1l, m_isData);
 
         //theorectical uncertainties
-        SR1tau1lSys.fillHistVec(region + "_pdfUp", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfDown", bdtScore, basicWeight* e->pdfWeight_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfAlphaSUp", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfAlphaSDown", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_ReUp", bdtScore, basicWeight* e->scaleWeightRe_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_ReDown", bdtScore, basicWeight* e->scaleWeightRe_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_FaUp", bdtScore, basicWeight* e->scaleWeightFa_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_FaDown", bdtScore, basicWeight* e->scaleWeightFa_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_normalisedUp", bdtScore, basicWeight* e->scaleWeightRe_up_.v()*m_scaleRe_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Re_normalisedDown", bdtScore, basicWeight* e->scaleWeightRe_down_.v()*m_scaleRe_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_normalisedUp", bdtScore, basicWeight* e->scaleWeightFa_up_.v()*m_scaleFa_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_QCDscale_Fa_normalisedDown", bdtScore, basicWeight* e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalisedUp", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v()*m_pdfAlphaS_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdfAlphaS_normalisedDown", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdf_normalisedUp", bdtScore, basicWeight* e->pdfWeight_up_.v()*m_pdf_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_pdf_normalisedDown", bdtScore, basicWeight* e->pdfWeight_down_.v()*m_pdf_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_ISR_normalisedUp", bdtScore, basicWeight* e->PSWeightISR_up_.v()*m_PSWeightISR_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_ISR_normalisedDown", bdtScore, basicWeight* e->PSWeightISR_down_.v()*m_PSWeightISR_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_FSR_normalisedUp", bdtScore, basicWeight* e->PSWeightFSR_up_.v()*m_PSWeightFSR_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_FSR_normalisedDown", bdtScore, basicWeight* e->PSWeightFSR_down_.v()*m_PSWeightFSR_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_ISRUp", bdtScore, basicWeight* e->PSWeightISR_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_ISRDown", bdtScore, basicWeight* e->PSWeightISR_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_FSRUp", bdtScore, basicWeight* e->PSWeightFSR_up_.v(), SR1tau1l, m_isData);
-        SR1tau1lSys.fillHistVec(region + "_FSRDown", bdtScore, basicWeight* e->PSWeightFSR_down_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_pdfUp", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_pdfDown", bdtScore, basicWeight* e->pdfWeight_down_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_pdf_alphasUp", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_pdf_alphasDown", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_QCDscale_renUp", bdtScore, basicWeight* e->scaleWeightRe_up_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_QCDscale_renDown", bdtScore, basicWeight* e->scaleWeightRe_down_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_QCDscale_facUp", bdtScore, basicWeight* e->scaleWeightFa_up_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_QCDscale_facDown", bdtScore, basicWeight* e->scaleWeightFa_down_.v(), SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_renUp", bdtScore, basicWeight* e->scaleWeightRe_up_.v()*m_scaleRe_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_renDown", bdtScore, basicWeight* e->scaleWeightRe_down_.v()*m_scaleRe_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_facUp", bdtScore, basicWeight* e->scaleWeightFa_up_.v()*m_scaleFa_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_QCDscale_facDown", bdtScore, basicWeight* e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdf_alphasUp", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v()*m_pdfAlphaS_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdf_alphasDown", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdfUp", bdtScore, basicWeight* e->pdfWeight_up_.v()*m_pdf_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_pdfDown", bdtScore, basicWeight* e->pdfWeight_down_.v()*m_pdf_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ps_isrUp", bdtScore, basicWeight* e->PSWeightISR_up_.v()*m_PSWeightISR_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ps_isrDown", bdtScore, basicWeight* e->PSWeightISR_down_.v()*m_PSWeightISR_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ps_fsrUp", bdtScore, basicWeight* e->PSWeightFSR_up_.v()*m_PSWeightFSR_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSys.fillHistVec(region + "_ps_fsrDown", bdtScore, basicWeight* e->PSWeightFSR_down_.v()*m_PSWeightFSR_normDown_SF, SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_ISRUp", bdtScore, basicWeight* e->PSWeightISR_up_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_ISRDown", bdtScore, basicWeight* e->PSWeightISR_down_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_FSRUp", bdtScore, basicWeight* e->PSWeightFSR_up_.v(), SR1tau1l, m_isData);
+        // SR1tau1lSys.fillHistVec(region + "_FSRDown", bdtScore, basicWeight* e->PSWeightFSR_down_.v(), SR1tau1l, m_isData);
         
         }else if(m_isFakeTau){
-            SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era +"Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);
-            SR1tau1lSys.fillHistVec(region + "_CMS_tau_FR_"+m_era +"Down", bdtScore, e->FR_weight_final_down, SR1tau1l, m_isData);
+            SR1tau1lSys.fillHistVec(region + "_CMS_fake_t_"+m_era +"Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);
+            SR1tau1lSys.fillHistVec(region + "_CMS_fake_t_"+m_era +"Down", bdtScore, e->FR_weight_final_down, SR1tau1l, m_isData);
         }
 
 }

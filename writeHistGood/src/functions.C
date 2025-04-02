@@ -459,14 +459,22 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era +"Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era + "Down"); 
 
-    sysRegions.push_back(region + "_CMS_tttt_eff_e_systUp");
-    sysRegions.push_back(region + "_CMS_tttt_eff_e_systDown");
-    sysRegions.push_back(region + "_CMS_tttt_eff_m_systUp");
-    sysRegions.push_back(region + "_CMS_tttt_eff_m_systDown");
-    sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_e_systUp");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_e_systDown");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_m_systUp");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_m_systDown");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt(SS)_eff_e_systUp");
+    sysRegions.push_back(region + "_CMS_tttt(SS)_eff_e_systDown");
+    sysRegions.push_back(region + "_CMS_tttt(SS)_eff_m_systUp");
+    sysRegions.push_back(region + "_CMS_tttt(SS)_eff_m_systDown");
+    sysRegions.push_back(region + "_CMS_tttt(SS)_eff_m_stat_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt(SS)_eff_m_stat_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt(SS)_eff_e_stat_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt(SS)_eff_e_stat_" + era + "Down");
     // sysRegions.push_back(region + "_CMS_eff_e_Reco_" + era + "Up");
     // sysRegions.push_back(region + "_CMS_eff_e_Reco_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Up");
@@ -501,23 +509,23 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_hltLep_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_hltLep_" + era + "Down");
 
-    sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_correlatedUp");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_correlatedDown");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Up");
-    sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Down");
+    // sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_eff_bWPMT_correlatedUp");
+    // sysRegions.push_back(region + "_CMS_eff_bWPMT_correlatedDown");
+    // sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Up");
+    // sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Down");
     // update to naming convention 
     sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_correlatedUp");
     sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_correlatedDown");
-    sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_uncorrelatedUp");
-    sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_uncorrelatedDown");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_uncorrelated_"+era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_uncorrelated_"+era + "Down");
     sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_correlatedUp");
     sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_correlatedDown");
-    sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_uncorrelatedUp");
-    sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_uncorrelatedDown");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_uncorrelated_"+era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_uncorrelated_"+era + "Down");
 
 
     sysRegions.push_back(region + "_pdfUp");
