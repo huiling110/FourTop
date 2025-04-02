@@ -416,8 +416,10 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
 
     sysRegions.push_back(region + "_CMS_pileupUp");// 100% correlated
     sysRegions.push_back(region + "_CMS_pileupDown");
-    sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_prefiring_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_prefiring_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_l1_ecal_prefiring_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_l1_ecal_prefiring_" + era + "Down");
 
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Down");
@@ -465,8 +467,10 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "Down");
     sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_e_Reco_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_e_Reco_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_eff_e_Reco_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_eff_e_Reco_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Down");
 
     sysRegions.push_back(region + "_CMS_btag_shape_jesUp");
     sysRegions.push_back(region + "_CMS_btag_shape_jesDown");
@@ -514,33 +518,45 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
 
     sysRegions.push_back(region + "_pdfUp");
     sysRegions.push_back(region + "_pdfDown");
-    sysRegions.push_back(region + "_pdfAlphaSUp");
-    sysRegions.push_back(region + "_pdfAlphaSDown");
-    sysRegions.push_back(region + "_QCDscale_ReUp");
-    sysRegions.push_back(region + "_QCDscale_ReDown");
-    sysRegions.push_back(region + "_QCDscale_FaUp");
-    sysRegions.push_back(region + "_QCDscale_FaDown");
+    // sysRegions.push_back(region + "_pdfAlphaSUp");
+    // sysRegions.push_back(region + "_pdfAlphaSDown");
+    sysRegions.push_back(region + "_pdf_alphasUp");
+    sysRegions.push_back(region + "_pdf_alphasDown");
+    // sysRegions.push_back(region + "_QCDscale_ReUp");
+    // sysRegions.push_back(region + "_QCDscale_ReDown");
+    // sysRegions.push_back(region + "_QCDscale_FaUp");
+    // sysRegions.push_back(region + "_QCDscale_FaDown");
+    sysRegions.push_back(region + "_QCDscale_renUp");
+    sysRegions.push_back(region + "_QCDscale_renDown");
+    sysRegions.push_back(region + "_QCDscale_facUp");
+    sysRegions.push_back(region + "_QCDscale_facDown");
 
-    sysRegions.push_back(region + "_QCDscale_Re_normalisedUp");
-    sysRegions.push_back(region + "_QCDscale_Re_normalisedDown");
-    sysRegions.push_back(region + "_QCDscale_Fa_normalisedUp");
-    sysRegions.push_back(region + "_QCDscale_Fa_normalisedDown");
-    sysRegions.push_back(region + "_pdf_normalisedUp");
-    sysRegions.push_back(region + "_pdf_normalisedDown");
-    sysRegions.push_back(region + "_pdfAlphaS_normalisedUp");
-    sysRegions.push_back(region + "_pdfAlphaS_normalisedDown");
-    sysRegions.push_back(region + "_ISR_normalisedUp");
-    sysRegions.push_back(region + "_ISR_normalisedDown");
-    sysRegions.push_back(region + "_FSR_normalisedUp");
-    sysRegions.push_back(region + "_FSR_normalisedDown");
-    sysRegions.push_back(region + "_ISRUp");
-    sysRegions.push_back(region + "_ISRDown");
-    sysRegions.push_back(region + "_FSRUp");
-    sysRegions.push_back(region + "_FSRDown");
+    // sysRegions.push_back(region + "_QCDscale_Re_normalisedUp");
+    // sysRegions.push_back(region + "_QCDscale_Re_normalisedDown");
+    // sysRegions.push_back(region + "_QCDscale_Fa_normalisedUp");
+    // sysRegions.push_back(region + "_QCDscale_Fa_normalisedDown");
+    // sysRegions.push_back(region + "_pdf_normalisedUp");
+    // sysRegions.push_back(region + "_pdf_normalisedDown");
+    // sysRegions.push_back(region + "_pdfAlphaS_normalisedUp");
+    // sysRegions.push_back(region + "_pdfAlphaS_normalisedDown");
+    // sysRegions.push_back(region + "_ISR_normalisedUp");
+    // sysRegions.push_back(region + "_ISR_normalisedDown");
+    // sysRegions.push_back(region + "_FSR_normalisedUp");
+    // sysRegions.push_back(region + "_FSR_normalisedDown");
+    // sysRegions.push_back(region + "_ISRUp");
+    // sysRegions.push_back(region + "_ISRDown");
+    // sysRegions.push_back(region + "_FSRUp");
+    // sysRegions.push_back(region + "_FSRDown");
+    sysRegions.push_back(region + "_ps_isrUp");
+    sysRegions.push_back(region + "_ps_isrDown");
+    sysRegions.push_back(region + "_ps_fsrUp");
+    sysRegions.push_back(region + "_ps_fsrDown");
 
     // }else{
-    sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_fake_t_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_fake_t_" + era + "Down");
     // }
 }
 
