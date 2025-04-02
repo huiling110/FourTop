@@ -27,10 +27,10 @@ void treeAnalyzer::Init()
     if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
 
-        WH::getChannelSys(sysRegions, "1tau1lSR", m_era);
-        WH::getChannelSys(sysRegions, "1tau1lCR1", m_era);
-        WH::getChannelSys(sysRegions, "1tau1lCR2", m_era);
-        WH::getChannelSys(sysRegions, "1tau1lCR12", m_era);
+        WH::getChannelSys(sysRegions, "1tau1lSR", m_era, m_isFakeTau, m_isFakeLepton);
+        // WH::getChannelSys(sysRegions, "1tau1lCR1", m_era, m_isFakeTau, m_isFakeLepton);
+        // WH::getChannelSys(sysRegions, "1tau1lCR2", m_era, m_isFakeTau, m_isFakeLepton);
+        WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton);
 
         // std::vector<Double_t> bins1tau1l =  {-0.25, -0.1036, -0.0731, -0.0487, -0.030, -0.012, 0.013, 0.037, 0.06, 0.122, 0.36}; //roughly 15 bg in each bin
         // std::vector<Double_t> bins1tau1l = {-0.25, -0.0914, -0.0548, -0.0243, 0.0062, 0.0367, 0.0855, 0.135, 0.36}; //roughly 22 bg in each bin
@@ -51,11 +51,11 @@ void treeAnalyzer::Init()
         std::cout << "training input: " << weightfile << "\n";
     }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
-        WH::getChannelSys(sysRegions, "1tau0lSR", m_era);
-        WH::getChannelSys(sysRegions, "1tau0lCR", m_era);
-        WH::getChannelSys(sysRegions, "1tau0lMR", m_era);
-        WH::getChannelSys(sysRegions, "1tau0lVR", m_era);
-        WH::getChannelSys(sysRegions, "1tau0lCRMR", m_era);
+        WH::getChannelSys(sysRegions, "1tau0lSR",  m_era, m_isFakeTau, m_isFakeLepton);
+        // WH::getChannelSys(sysRegions, "1tau0lCR",  m_era, m_isFakeTau, m_isFakeLepton);
+        // WH::getChannelSys(sysRegions, "1tau0lMR",  m_era, m_isFakeTau, m_isFakeLepton);
+        WH::getChannelSys(sysRegions, "1tau0lVR",  m_era, m_isFakeTau, m_isFakeLepton);
+        WH::getChannelSys(sysRegions, "1tau0lCRMR",  m_era, m_isFakeTau, m_isFakeLepton);
 
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.15,  0.19,  0.23,  0.35};
         // std::vector<Double_t> bins1tau0l = {-0.35, -0.25, -0.23, -0.21, -0.19, -0.17, -0.15, -0.13, -0.11, -0.09, -0.07, -0.05, -0.03, -0.01, 0.01, 0.03, 0.05, 0.07, 0.09, 0.11,  0.13,  0.18,  0.35};
@@ -75,8 +75,8 @@ void treeAnalyzer::Init()
 
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";
-        WH::getChannelSys(sysRegions, "1tau2lSR", m_era);
-        WH::getChannelSys(sysRegions, "1tau2lCR3", m_era);
+        WH::getChannelSys(sysRegions, "1tau2lSR",  m_era, m_isFakeTau, m_isFakeLepton);
+        WH::getChannelSys(sysRegions, "1tau2lCR3",  m_era, m_isFakeTau, m_isFakeLepton);
 
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau2l
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.4, sysRegions);//!For optimization binnning
@@ -218,8 +218,8 @@ void treeAnalyzer::LoopTree()
             Bool_t MR1tau0l = SR1tau1lSel(e, 7, m_isRun3, m_isFakeTau);
             Bool_t VR1tau0l = SR1tau1lSel(e, 8, m_isRun3, m_isFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau0l, "1tau0lSR");
-            sysRegionsFill(bdtScore, basicWeight, CR1tau0l, "1tau0lCR");
-            sysRegionsFill(bdtScore, basicWeight, MR1tau0l, "1tau0lMR");
+            // sysRegionsFill(bdtScore, basicWeight, CR1tau0l, "1tau0lCR");
+            // sysRegionsFill(bdtScore, basicWeight, MR1tau0l, "1tau0lMR");
             sysRegionsFill(bdtScore, basicWeight, VR1tau0l, "1tau0lVR");
             sysRegionsFill(bdtScore, basicWeight, CR1tau0l||MR1tau0l, "1tau0lCRMR");
         }else if(m_channel=="1tau1l"){
@@ -227,8 +227,8 @@ void treeAnalyzer::LoopTree()
             Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
             Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
             sysRegionsFill(bdtScore, basicWeight, SR1tau1l, "1tau1lSR");
-            sysRegionsFill(bdtScore, basicWeight, CR11tau1l, "1tau1lCR1");
-            sysRegionsFill(bdtScore, basicWeight, CR21tau1l, "1tau1lCR2");
+            // sysRegionsFill(bdtScore, basicWeight, CR11tau1l, "1tau1lCR1");
+            // sysRegionsFill(bdtScore, basicWeight, CR21tau1l, "1tau1lCR2");
             sysRegionsFill(bdtScore, basicWeight, CR11tau1l||CR21tau1l, "1tau1lCR12");
         }else if (m_channel=="1tau2l"){
             Bool_t SR1tau2l = SR1tau1lSel(e, 2, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);

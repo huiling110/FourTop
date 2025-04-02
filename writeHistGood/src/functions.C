@@ -410,10 +410,13 @@ TString getProcessName(const TString processName, Bool_t isRun3){
     "QCD_PT-600to800",
 };
 
-void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau){
+// void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau){
+void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau, Bool_t isFakeLep){
 //https://gitlab.cern.ch/cms-analysis/general/systematics/-/blob/master/systematics_master.yml
     sysRegions.push_back(region);
 
+    if(!(isFaketau || isFakeLep)){
+        
     sysRegions.push_back(region + "_CMS_pileupUp");// 100% correlated
     sysRegions.push_back(region + "_CMS_pileupDown");
     // sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
@@ -564,12 +567,10 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_ps_fsrUp");
     sysRegions.push_back(region + "_ps_fsrDown");
 
-    // }else{
-    // sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_tau_FR_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_fake_t_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_fake_t_" + era + "Down");
-    // }
+    }else if(isFaketau){
+        sysRegions.push_back(region + "_CMS_fake_t_" + era + "Up");
+        sysRegions.push_back(region + "_CMS_fake_t_" + era + "Down");
+    }
 }
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index){
