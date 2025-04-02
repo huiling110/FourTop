@@ -116,7 +116,8 @@ Bool_t SR1tau1lSel(event *e, const Int_t channel, Bool_t isRun3, Bool_t isFakeTa
     }
 
     if(!ifFakeTau){//!!!if not fakeTau from data driven, overwrite the tauCut for both data and MC
-        tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v();
+        // tauCut = e->tausF_num.v()==1 && e->tausF_1isTight.v();
+        tauCut = e->tausT_num.v() == 1; //!!!
     }
 
     Bool_t isPass = kFALSE;

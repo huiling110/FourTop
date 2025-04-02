@@ -39,6 +39,8 @@ void treeAnalyzer::Init()
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions); 
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.36, sysRegions);//!For optimization binnning
 
+
+
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l.csv"; 
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3cut1tau1lSR6thJetpt34_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLSample/mc/BDTTrain/v0allVar/dataset/weight/TMVAClassification_BDT.weights.xml";//!weight file for VLL in 1tau1l
@@ -211,6 +213,7 @@ void treeAnalyzer::LoopTree()
             }
         }
 
+        Bool_t isMCFT = e->tausT_1genFlavour.v() == 0;
 
         if(m_channel=="1tau0l"){
             Bool_t SR1tau0l = SR1tau1lSel(e, 1, m_isRun3, m_isFakeTau);
@@ -218,18 +221,22 @@ void treeAnalyzer::LoopTree()
             Bool_t MR1tau0l = SR1tau1lSel(e, 7, m_isRun3, m_isFakeTau);
             Bool_t VR1tau0l = SR1tau1lSel(e, 8, m_isRun3, m_isFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau0l, "1tau0lSR");
-            // sysRegionsFill(bdtScore, basicWeight, CR1tau0l, "1tau0lCR");
-            // sysRegionsFill(bdtScore, basicWeight, MR1tau0l, "1tau0lMR");
             sysRegionsFill(bdtScore, basicWeight, VR1tau0l, "1tau0lVR");
             sysRegionsFill(bdtScore, basicWeight, CR1tau0l||MR1tau0l, "1tau0lCRMR");
         }else if(m_channel=="1tau1l"){
-            Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
-            Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
-            Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData);
+            Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
+            Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
+            Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau1l, "1tau1lSR");
             // sysRegionsFill(bdtScore, basicWeight, CR11tau1l, "1tau1lCR1");
             // sysRegionsFill(bdtScore, basicWeight, CR21tau1l, "1tau1lCR2");
             sysRegionsFill(bdtScore, basicWeight, CR11tau1l||CR21tau1l, "1tau1lCR12");
+
+            //m_isMCFake
+            SR1tau1lSys.fillHistVec("_isMCFTau_1tau1lCR12", bdtScore, basicWeight, (CR11tau1l||CR21tau1l)&&isMCFT, m_isData);
+            SR1tau1lSys.fillHistVec("_isNotMCFTau_1tau1lCR12", bdtScore, basicWeight, (CR11tau1l||CR21tau1l)&&!isMCFT, m_isData);
+
+
         }else if (m_channel=="1tau2l"){
             Bool_t SR1tau2l = SR1tau1lSel(e, 2, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
             Bool_t CR31tau2l = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);

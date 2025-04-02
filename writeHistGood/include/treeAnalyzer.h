@@ -74,6 +74,7 @@ private:
     Bool_t m_isFakeTau = kFALSE;
     // Bool_t m_ifFakeTau = kTRUE;
     Bool_t m_ifFakeTau = kFALSE;//!!!
+    Bool_t m_ifMCFakeTau = kTRUE;//!!! create seperate MC fake tau hists for bg
 
     // for TMVA reader
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
@@ -85,6 +86,7 @@ private:
     // hists regions
     // histsForRegionsMap<Double_t> SR1tau1lSys; // calls for default constructor
     histForRegionsBase SR1tau1lSys; // calls for default constructor
+    // histForRegionsBase SR1tau1l
 
     Double_t m_scaleRe_normUp_SF = 1.0;
     Double_t m_scaleRe_normDown_SF = 1.0;
