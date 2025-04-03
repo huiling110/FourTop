@@ -34,7 +34,8 @@ def main(
     # version = 'v0BDT1tau2l', 
     # version = 'v0BDT1tau2lNewCR', 
     # version = 'v0BDT1tau2lFakeTau', #v0_v94 replace with new MV
-    version = 'v0BDT1tau1l',
+    # version = 'v0BDT1tau1l',
+    version = 'v0BDT1tau1lAddMCFakeT',
     # version = 'v0BDT1tau1lFakeTau',
     # version = 'v0BDT1tau0l',
     # version = 'v0BDT1tau0lFakeTauPtMorphed',

@@ -52,8 +52,8 @@ public:
 
     void Init();
     void LoopTree();
-    // void sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, Bool_t CR11tau1l, Bool_t CR21tau1l);
-    void sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region);
+    // void sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region);
+    void sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region, histForRegionsBase &SR1tau1lSysF);
     void Terminate();
 
 private:
@@ -84,9 +84,9 @@ private:
     std::vector<std::variant<Int_t, Double_t>> variablesOriginAll;
 
     // hists regions
-    // histsForRegionsMap<Double_t> SR1tau1lSys; // calls for default constructor
     histForRegionsBase SR1tau1lSys; // calls for default constructor
-    // histForRegionsBase SR1tau1l
+    histForRegionsBase SR1tau1lSys_MCFT;
+    histForRegionsBase SR1tau1lSys_NotMCFT;
 
     Double_t m_scaleRe_normUp_SF = 1.0;
     Double_t m_scaleRe_normDown_SF = 1.0;
