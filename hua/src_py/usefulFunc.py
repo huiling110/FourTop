@@ -187,7 +187,8 @@ def getHistFromFile(fileName, histNames, ifPrint=False):
 
     return histograms
     
-def getHistFromFileDic(fileName, regionList, varList, subPro, sumProSys, era):
+# def getHistFromFileDic(fileName, regionList, varList, subPro, sumProSys, era):
+def getHistFromFileDic(fileName, regionList, varList, subPro, sumProSys, era, sumPro=''):
     file = ROOT.TFile.Open(fileName)
     if not file or file.IsZombie():
         print("Error: Unable to open the file.")
@@ -205,14 +206,16 @@ def getHistFromFileDic(fileName, regionList, varList, subPro, sumProSys, era):
             subProHist[ivar][ire][subPro] = getHistFromFile(fileName, [histName])[0]
             subProHistSys[ivar][ire] = {}
             subProHistSys[ivar][ire][subPro] = {}
-            subProHistSys[ivar][ire][subPro] = getSysHistNames(sumProSys, subPro, ire, ivar, era, fileName)
+            # subProHistSys[ivar][ire][subPro] = getSysHistNames(sumProSys, subPro, ire, ivar, era, fileName)
+            subProHistSys[ivar][ire][subPro] = getSysHistNames(sumProSys, subPro, ire, ivar, era, fileName, sumPro)
             
     return subProHist, subProHistSys
              
-def getSysHistNames(sumProSys, subPro, region, var, era, fileName):
+# def getSysHistNames(sumProSys, subPro, region, var, era, fileName):
+def getSysHistNames(sumProSys, subPro, region, var, era, fileName, sumPro=''):
     # sysHistNames = []
     sysDic = {}
-    sumPro = gq.histoGramPerSample[subPro]
+    # sumPro = gq.histoGramPerSample[subPro]
     if sumPro in sumProSys.keys():
         for isys in sumProSys[sumPro]:
             # isysUp = f"{subPro}_{region}_{isys}_{era}Up_{var}"
@@ -239,15 +242,20 @@ def print_dict_structure(dictionary, indent=0):
             print_dict_structure(value, indent + 1)
     # print('\n')
 
-def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018', isRun3=False, ifDebug=False):
+def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018', isRun3=False, ifDebug=False, ifMCFTau=False):
 #!new and better
     #return sumProHists[var][region][sumPro]
     #return sumProHistSys[var][region][sumPro]['sys'] 
+    #!ifMCFTau=True: 
     print('start to get hists and add them from root files')
-    allDic = gq.histoGramPerSample
+    allDic = gq.histoGramPerSample.copy()
     if isRun3: 
         allDic = gq.Run3Samples
+    if ifMCFTau:
+        modifyDicForMCFTau(allDic, sumProList)    
+    
     allSubPro = list(allDic.keys())
+    print('allSubPro: ', allSubPro)
     toGetSubHist = {} 
     toGetSubHistSys = {}
     for isub in allSubPro:
@@ -256,12 +264,27 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
         if checkIfOtherYear(isub, era, isdata): continue
         if ifDebug:
             print('getting: ', isub)
-        if isdata:
-            rootFile = inputDirDic['data'] + isub + '.root'
+        inputDir = inputDirDic['data'] if isdata else inputDirDic['mc']
+        # if isdata:
+        #     rootFile = inputDirDic['data'] + isub + '.root'
+        # else:
+        #     rootFile = inputDirDic['mc'] + isub +'.root'
+        
+        # rootFile = inputDir + isub + '.root' 
+        # if ifMCFTau and 'MCFT' in isub:
+           #remove '_MCFT' or '_NotMCFT' from isub without chaning the original isub
+        if isub.endswith('_MCFT'):
+            iroot = isub.removesuffix('_MCFT')
+        elif isub.endswith('_NotMCFT'):
+            iroot = isub.removesuffix('_NotMCFT')
         else:
-            rootFile = inputDirDic['mc'] + isub +'.root'
-        # print('opening file:', rootFile)
-        isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
+            iroot = isub
+        rootFile = inputDir + iroot + '.root'
+        
+        print('opening file:', rootFile)
+        # isubToGet = isub if not ifMCFTau else isub+ '_MCFT'
+        # isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
+        isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era, allDic[isub]) #isubProHist[var][region][subPro]
         print_dict_structure(isubProHist)
         toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
         toGetSubHistSys = merge_dicts(toGetSubHistSys, isubProHistSys)
@@ -273,6 +296,33 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
     print_dict_structure(sumProHists)
     print_dict_structure(sumProHistsSys)
     return sumProHists, sumProHistsSys
+
+
+def modifyDicForMCFTau(allDic, sumList):
+    updatedDic = {}
+    for isub, sumPro in allDic.items():
+        if isData(isub): continue
+        if sumPro=='fakeTau' or sumPro == 'fakeLepton': continue
+        if sumPro == 'tttt': continue
+        if not sumPro in sumList: continue
+        #update isub in allDic with postfix ['_MCFT']
+        updatedDic[isub + '_NotMCFT'] = sumPro
+        updatedDic[isub + '_MCFT'] = 'fakeTauMC'
+        
+    for isub in updatedDic:
+        original_key = isub[:-len('_MCFT')]
+        if original_key in allDic:
+            del allDic[original_key]
+
+    
+    # allDic = updatedDic
+    allDic.update(updatedDic)
+    print('proDic updated with MCFTau')
+    print('allDic: ', allDic)
+        
+        
+
+     
    
 def checkIfOtherYear(isub, era, isData):
     if not isData:

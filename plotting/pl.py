@@ -19,9 +19,12 @@ def main():
     ifSystematic = False  
     ifStackSignal = True
     # ifFTau = False #!use qcd instead of fakeTau
-    plotName = 'dataVsMC_v5'
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     ifMCFTau = True #!
+    # ifMCFTau = False #!
+    plotName = 'dataVsMC_v5'
+    if ifMCFTau:
+        plotName = 'dataVsMC_v5_MCFTau'
    
     #!1tau2l 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/'
@@ -140,7 +143,7 @@ def main():
     inputDirDic = uf.getInputDicNew( inputDir)
     uf.checkMakeDir( inputDirDic['mc']+'results/')
     
-    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL,  channel, ifLogy, ifPrintSB, ifStackSignal, ifSystematic)
+    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL,  channel, ifLogy, ifPrintSB, ifStackSignal, ifSystematic, ifMCFTau)
 
     # plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau) # for using fakeTau 2 hists application 
    
@@ -170,10 +173,12 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         sumProList.remove('fakeTau')
         #add qcd to the front 
         sumProList.insert(0, 'qcd')
+    if ifMCFTau:
+        sumProList.insert(0, 'fakeTauMC')
     print(sumProList) 
     sumProSys = getSysDicPL(ifDoSystmatic, channel, era)    
     [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
-    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
     
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
@@ -531,6 +536,7 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
         'ttW': TColor.GetColor("#f03b20"),
         'ttZ': TColor.GetColor("#f03b20"),
         'ttG': TColor.GetColor("#f03b20"),
+        'fakeTauMC': TColor.GetColor("#ffeda0"),
     }
     
     sumHist = nominal[keyList[0]].Clone()
