@@ -164,8 +164,8 @@ def read_csv_as_lines(file_path, delimiter=','):
     return lines
 
 
-def getSumList(channel, ifFakeTau, ifVLL, ifMCFTau):
-    sumProList = gq.proChannelDic[channel]
+def getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, ifCombine=False):
+    sumProList = gq.proChannelDic[channel] if not ifCombine else gq.proChannelDic_forCombine[channel]
     if ifVLL:
         sumProList.append(ifVLL)
     if not ifFakeTau:
@@ -189,14 +189,14 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         for iRegion in regionList:       
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
     
-def getSysDicPL(ifSys=False, channel='1tau1l', era='2018'):
+def getSysDicPL(ifSys=False, channel='1tau1l', era='2018', ifCombine=False):
     #todo: add funcionality of getting systematics from datacard
     #!Lumi uncertainty to be added mannually
     if not ifSys:
         return {}
     sumProSys = {} 
     print('staring to get process systematic')
-    processes = gq.proChannelDic[channel][:]
+    processes = gq.proChannelDic[channel][:] if not ifCombine else gq.proChannelDic_forCombine[channel][:]
     print('processes in getSysDicPL(): ', processes) #?not 'jetHT' already
     if channel=='1tau2l':
         processes.remove('leptonSum')
