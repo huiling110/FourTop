@@ -7,7 +7,8 @@ MCSys = {
     #!Channlebits information for each channel, bit 100:1tau1l; bit 010:1tau0l; bit 001: 1tau2l
     #: if the systematic is correlated between processes
     'CMS_pileup': [True, 0, 0b111 , True],
-    'CMS_prefiring': [False, 0, 0b111, True],
+    # 'CMS_prefiring': [False, 0, 0b111, True],
+    'CMS_l1_ecal_prefiring': [False, 0, 0b111, True],
     
     'CMS_tttt_eff_hlt_stats': [False, 0, 0b110, True],
     'CMS_tttt_eff_hltLep': [False, 0, 0b001, True],
@@ -29,15 +30,17 @@ MCSys = {
     'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111, True],
     'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111, True],
     
-    'CMS_tttt_eff_e_syst': [True, 0, 0b101, True],
-    'CMS_tttt_eff_m_syst': [True, 0, 0b101, True],
-    'CMS_tttt_eff_e_stat': [False, 0, 0b101, True],
-    'CMS_tttt_eff_m_stat': [False, 0, 0b101, True],
-    'CMS_eff_e_Reco': [False, 0, 0b101, True],
+    'CMS_tttt(SS)_eff_e_syst': [True, 0, 0b101, True],
+    'CMS_tttt(SS)_eff_m_syst': [True, 0, 0b101, True],
+    'CMS_tttt(SS)_eff_e_stat': [False, 0, 0b101, True],
+    'CMS_tttt(SS)_eff_m_stat': [False, 0, 0b101, True],
+    'CMS_eff_e_reco': [False, 0, 0b101, True],
     
     #!btagWP for 1tau1l and 1tau2l
-    'CMS_eff_bWPMT_correlated': [True, 0, 0b101, True],
-    'CMS_eff_bWPMT_uncorrelated': [False, 0, 0b101, True],
+    'CMS_btag_fixedWP_comb_bc_correlated': [True, 0, 0b101, True],
+    'CMS_btag_fiexdWP_comb_bc_uncorrelated': [False, 0, 0b101, True],
+    'CMS_btag_fixedWP_comb_light_correlated': [True, 0, 0b101, True],
+    'CMS_btag_fixedWP_comb_light_uncorrelated': [False, 0, 0b101, True],
     
     #btagShape information, only in 1tau0l
     'CMS_btag_shape_hf': [True, 0, 0b010, True], 
@@ -50,53 +53,54 @@ MCSys = {
     'CMS_btag_shape_lfstats2': [False, 0, 0b010, True],
    
     # 'CMS_tau_FR': [False, 1, 0b010, True],
-    'CMS_tau_FR': [False, 1, 0b111, True],#!Considering FR for 1tau1l and 1tau2l too
+    'CMS_fake_t_': [False, 1, 0b010, True], #!considering FR for 1tau0l
+    # 'CMS_tau_FR': [False, 1, 0b111, True],#!Considering FR for 1tau1l and 1tau2l too
     
-    'pdfAlphaS_normalised': [True, 0, 0b111, True], #!not considering for singleTop 
-    'pdf_normalised': [True, 0, 0b111, True],
-    'QCDscale_Re_normalised': [True, 0, 0b111, False],   #!not in data/MC
-    'QCDscale_Fa_normalised': [True, 0, 0b111, False],  
-    'ISR_normalised': [True, 0, 0b111, False],
-    'FSR_normalised': [True, 0, 0b111, True],
+    'pdf_alphas': [True, 0, 0b111, True], #!not considering for singleTop 
+    'pdf': [True, 0, 0b111, True],
+    'QCDscale_ren': [True, 0, 0b111, False],   #!not in data/MC
+    'QCDscale_fac': [True, 0, 0b111, False],  
+    'ps_isr': [True, 0, 0b111, False],
+    'ps_fsr': [True, 0, 0b111, True],
    
     #JES https://docs.google.com/spreadsheets/d/1JZfk78_9SD225bcUuTWVo4i02vwI5FfeVKH-dwzUdhM/edit?gid=1345121349#gid=1345121349 
-    "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
-    "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
-    "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
-    "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
-    "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
-    "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
-    "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
-    "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
-    "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
-    "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
-    "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
+    # "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
+    # "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
+    # "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
+    # "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
+    # "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
+    # "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
+    # "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
+    # "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
+    # "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
+    # "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
  
-    "CMS_JER": [False, 0, 0b111 , True],
+    # "CMS_JER": [False, 0, 0b111 , True],
  
-    'CMS_tau_TES_dm0': [False, 0, 0b111, True],
-    'CMS_tau_TES_dm1': [False, 0, 0b111, True],
-    'CMS_tau_TES_dm10': [False, 0, 0b111, True],
-    'CMS_tau_TES_dm11': [False, 0, 0b111, True],
+    # 'CMS_tau_TES_dm0': [False, 0, 0b111, True],
+    # 'CMS_tau_TES_dm1': [False, 0, 0b111, True],
+    # 'CMS_tau_TES_dm10': [False, 0, 0b111, True],
+    # 'CMS_tau_TES_dm11': [False, 0, 0b111, True],
     
-    'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
-    'CMS_e_scale': [False, 0, 0b001, True],
+    # 'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
+    # 'CMS_e_scale': [False, 0, 0b001, True],
     
 }
 

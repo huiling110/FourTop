@@ -20,8 +20,8 @@ def main():
     ifStackSignal = True
     # ifFTau = False #!use qcd instead of fakeTau
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
-    ifMCFTau = True #!
-    # ifMCFTau = False #!
+    # ifMCFTau = True #!
+    ifMCFTau = False #!
     plotName = 'dataVsMC_v5'
     if ifMCFTau:
         plotName = 'dataVsMC_v5_MCFTau'
@@ -103,8 +103,8 @@ def main():
     variables = ['BDT']
     # inputList = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv' 
     # variables = read_csv_as_lines(inputList)
-    # regionList = ['1tau1lSR', '1tau1lCR12']
-    regionList = ['1tau1lCR12']
+    regionList = ['1tau1lSR', '1tau1lCR12']
+    # regionList = ['1tau1lCR12']
   
     #!1tau0l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
