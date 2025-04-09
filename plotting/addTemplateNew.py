@@ -24,7 +24,27 @@ def main():
     
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
     
-    # 
+    #add fake data for SR
+    for ivar in variables:
+        for region in regionList:
+            dataHist = None
+            if 'SR' in region:
+                for sumPro in sumProList:
+                    if not uf.isData(sumPro): continue
+                    if dataHist == None:
+                        dataHist = sumProcessPerVar[ivar][region][sumPro].Clone()  
+                    else:
+                        dataHist.Add(sumProcessPerVar)    # 
+                sumProcessPerVar[ivar][region]['jetHT'] = dataHist
+            # dataName = dataHist.GetName().replace('jetHT', 'data_obs')
+            dataName = sumProcessPerVar[ivar][region]['jetHT'].GetName().replace('jetHT', 'data_obs')
+            sumProcessPerVar[ivar][region]['jetHT'].SetName(dataName)
+          
+             
+            
+                    
+                    
+                    
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
     templateFile = outDir + 'templatesForCombine'+channel+'_new.root'
