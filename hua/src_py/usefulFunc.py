@@ -255,7 +255,7 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
         modifyDicForMCFTau(allDic, sumProList)    
     
     allSubPro = list(allDic.keys())
-    print('allSubPro: ', allSubPro)
+    # print('allSubPro: ', allSubPro)
     toGetSubHist = {} 
     toGetSubHistSys = {}
     for isub in allSubPro:
@@ -316,7 +316,7 @@ def modifyDicForMCFTau(allDic, sumList):
 
     
     print('proDic updated with MCFTau')
-    print('allDic: ', allDic)
+    # print('allDic: ', allDic)
         
         
 

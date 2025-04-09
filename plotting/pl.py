@@ -20,8 +20,8 @@ def main():
     ifStackSignal = True
     # ifFTau = False #!use qcd instead of fakeTau
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
-    # ifMCFTau = True #!
-    ifMCFTau = False #!
+    ifMCFTau = True #!
+    # ifMCFTau = False #!
     plotName = 'dataVsMC_v5'
     if ifMCFTau:
         plotName = 'dataVsMC_v5_MCFTau'
@@ -103,8 +103,8 @@ def main():
     variables = ['BDT']
     # inputList = '/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv' 
     # variables = read_csv_as_lines(inputList)
-    regionList = ['1tau1lSR', '1tau1lCR12']
-    # regionList = ['1tau1lCR12']
+    # regionList = ['1tau1lSR', '1tau1lCR12']
+    regionList = ['1tau1lCR12']
   
     #!1tau0l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
@@ -164,8 +164,7 @@ def read_csv_as_lines(file_path, delimiter=','):
     return lines
 
 
-def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='',  channel='1tau1l',  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifDoSystmatic=False, ifMCFTau=False):
-    #ifFakeTau: if not, replace fakeTau with qcd
+def getSumList(channel, ifFakeTau, ifVLL, ifMCFTau):
     sumProList = gq.proChannelDic[channel]
     if ifVLL:
         sumProList.append(ifVLL)
@@ -176,6 +175,10 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     if ifMCFTau:
         sumProList.insert(0, 'fakeTauMC')
     print(sumProList) 
+    return sumProList
+
+def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='',  channel='1tau1l',  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifDoSystmatic=False, ifMCFTau=False):
+    sumProList = getSumList(channel, ifFakeTau, ifVLL, ifMCFTau)    
     sumProSys = getSysDicPL(ifDoSystmatic, channel, era)    
     [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
@@ -549,7 +552,6 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
     stack = THStack( 'stack', 'stack' )
     legendOrder.reverse()
     for i in legendOrder:
-        # if i == 'jetHT':
         if uf.isData(i):
             if not ifBlind:
                 dataHist = nominal["jetHT"].Clone() if not if1tau2l else nominal['leptonSum'].Clone()

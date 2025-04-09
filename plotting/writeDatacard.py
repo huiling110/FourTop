@@ -10,8 +10,8 @@ MCSys = {
     # 'CMS_prefiring': [False, 0, 0b111, True],
     'CMS_l1_ecal_prefiring': [False, 0, 0b111, True],
     
-    'CMS_tttt_eff_hlt_stats': [False, 0, 0b110, True],
-    'CMS_tttt_eff_hltLep': [False, 0, 0b001, True],
+    'CMS_tttt(tau)_eff_hlt_stats': [False, 0, 0b110, True],
+    'CMS_tttt(SS)_eff_hltLep': [False, 0, 0b001, True],
     
     'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
@@ -38,9 +38,9 @@ MCSys = {
     
     #!btagWP for 1tau1l and 1tau2l
     'CMS_btag_fixedWP_comb_bc_correlated': [True, 0, 0b101, True],
-    'CMS_btag_fiexdWP_comb_bc_uncorrelated': [False, 0, 0b101, True],
-    'CMS_btag_fixedWP_comb_light_correlated': [True, 0, 0b101, True],
-    'CMS_btag_fixedWP_comb_light_uncorrelated': [False, 0, 0b101, True],
+    'CMS_btag_fixedWP_comb_bc_uncorrelated': [False, 0, 0b101, True],
+    # 'CMS_btag_fixedWP_incl_light_correlated': [True, 0, 0b101, True],
+    # 'CMS_btag_fixedWP_incl_light_uncorrelated': [False, 0, 0b101, True],
     
     #btagShape information, only in 1tau0l
     'CMS_btag_shape_hf': [True, 0, 0b010, True], 
