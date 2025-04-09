@@ -187,7 +187,6 @@ def getHistFromFile(fileName, histNames, ifPrint=False):
 
     return histograms
     
-# def getHistFromFileDic(fileName, regionList, varList, subPro, sumProSys, era):
 def getHistFromFileDic(fileName, regionList, varList, subPro, sumProSys, era, sumPro=''):
     file = ROOT.TFile.Open(fileName)
     if not file or file.IsZombie():
@@ -282,8 +281,6 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
         rootFile = inputDir + iroot + '.root'
         
         print('opening file:', rootFile)
-        # isubToGet = isub if not ifMCFTau else isub+ '_MCFT'
-        # isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era) #isubProHist[var][region][subPro]
         isubProHist, isubProHistSys = getHistFromFileDic(rootFile, regionList, varList, isub, sumProSys, era, allDic[isub]) #isubProHist[var][region][subPro]
         print_dict_structure(isubProHist)
         toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
@@ -345,20 +342,22 @@ def sumProDic(subProHists, sumProDic):
         for ire, subProDic in reDic.items():
             sumProHists[ivar][ire] = {}
             #!careful here
-            # for isub, hist in subProDic.items():
-            # if isinstance(subProDic, dict):
             for isub, systs in subProDic.items():
                 if isinstance(systs, dict):
                     if sumProDic[isub] not in sumProHists[ivar][ire].keys():
                         sumProHists[ivar][ire][sumProDic[isub]] = {}
                         for isys, hist in systs.items():
                             sumProHists[ivar][ire][sumProDic[isub]][isys] = hist.Clone()
+                            sumName = sumProHists[ivar][ire][sumProDic[isub]][isys].GetName().replace(isub, sumProDic[isub])
+                            sumProHists[ivar][ire][sumProDic[isub]][isys].SetName(sumName)
                     else:
                         for isys, hist in systs.items():
                             sumProHists[ivar][ire][sumProDic[isub]][isys].Add(hist)
                 else:
                     if sumProDic[isub] not in sumProHists[ivar][ire].keys():
                         sumProHists[ivar][ire][sumProDic[isub]] = systs.Clone()
+                        sumHistName = sumProHists[ivar][ire][sumProDic[isub]].GetName().replace(isub, sumProDic[isub])
+                        sumProHists[ivar][ire][sumProDic[isub]].SetName(sumHistName)
                     else:
                         sumProHists[ivar][ire][sumProDic[isub]].Add(systs)
                             
