@@ -126,7 +126,7 @@ WeightVarMaker::WeightVarMaker(TTree *outTree, TString era, Bool_t isData, const
     outTree->Branch("btagWPMT_weight_l_correlated_up", &btagWPMT_weight_l_correlated_up);
     outTree->Branch("btagWPMT_weight_l_correlated_down", &btagWPMT_weight_l_correlated_down);
     outTree->Branch("btagWPMT_weight_l_uncorrelated_up", &btagWPMT_weight_l_uncorrelated_up);
-    outTree->Branch("btagWPMT_weight_l_correlated_up", &btagWPMT_weight_l_correlated_up);
+    outTree->Branch("btagWPMT_weight_l_uncorrelated_down", &btagWPMT_weight_l_uncorrelated_down);
 
     outTree->Branch("HLT_weight", &HLT_weight);
     outTree->Branch("HLT_weight_stats_up", &HLT_weight_stats_up);
