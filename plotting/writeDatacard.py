@@ -181,6 +181,7 @@ def main():
     
     era = uf.getEraFromDir(inputTemplate) 
     sysDic = getSysDic(processes, channel, era) 
+    print(sysDic, '\n')
     #sysDic
     
     addLumi(sysDic, era, processes)

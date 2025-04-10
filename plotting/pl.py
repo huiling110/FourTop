@@ -15,8 +15,8 @@ def main():
     # ifStackSignal = False
     ifPrintSB = True
     # ifPrintSB = False
-    # ifSystematic = True 
-    ifSystematic = False  
+    ifSystematic = True 
+    # ifSystematic = False  
     ifStackSignal = True
     # ifFTau = False #!use qcd instead of fakeTau
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
@@ -202,8 +202,8 @@ def getSysDicPL(ifSys=False, channel='1tau1l', era='2018', ifCombine=False):
         processes.remove('leptonSum')
     else:
         processes.remove('jetHT')
-    proSys = wd.getSysDic(processes, channel, era, True)          
-    # print(proSys)
+    proSys = wd.getSysDic(processes, channel, era)          
+    print(proSys)
     
     for ipro in processes:
         sumProSys[ipro] = [] 
