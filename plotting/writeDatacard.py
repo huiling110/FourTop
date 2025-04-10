@@ -10,8 +10,8 @@ MCSys = {
     'CMS_pileup': [True, 0, 0b111 , True],
     'CMS_l1_ecal_prefiring': [False, 0, 0b111, True],
     
-    'CMS_tttt_tau_eff_hlt_stats': [False, 0, 0b110, True],
-    'CMS_tttt_SS_eff_hlt': [False, 0, 0b001, True],
+    'CMS_tttt_tau_eff_trigger_stats': [False, 0, 0b110, True],
+    'CMS_tttt_SS_eff_trigger': [False, 0, 0b001, True],
     
     'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
@@ -56,7 +56,7 @@ MCSys = {
     'CMS_fake_t': [False, 1, 0b010, True], #!considering FR for 1tau0l
     # 'CMS_tau_FR': [False, 1, 0b111, True],#!Considering FR for 1tau1l and 1tau2l too
     
-    'tttt_tau_fake_t_MC': [True, 3, 0b011, True], #!only for fakeTauMC
+    'tttt_tau_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
     
     'pdf_alphas': [True, 0, 0b111, True], #!not considering for singleTop 
     'pdf': [True, 0, 0b111, True],
@@ -66,43 +66,43 @@ MCSys = {
     'ps_fsr': [True, 0, 0b111, True],
    
     #JES https://docs.google.com/spreadsheets/d/1JZfk78_9SD225bcUuTWVo4i02vwI5FfeVKH-dwzUdhM/edit?gid=1345121349#gid=1345121349 
-    'CMS_scale_j_AbsoluteMPFBias': [True, 0, 0b111, True],
-    'CMS_scale_j_AbsoluteScale': [True, 0, 0b111, True],
-    'CMS_scale_j_AbsoluteStat': [False, 0, 0b111, True],
-    'CMS_scale_j_FlavorQCD': [True, 0, 0b111, True],
-    'CMS_scale_j_Fragmentation': [True, 0, 0b111, True],
-    'CMS_scale_j_PileUpDataMC': [True, 0, 0b111, True],
-    'CMS_scale_j_PileUpPtBB': [True, 0, 0b111, True],
-    'CMS_scale_j_PileUpPtEC1': [True, 0, 0b111, True],
-    'CMS_scale_j_PileUpPtEC2': [True, 0, 0b111, True],
-    'CMS_scale_j_PileUpPtHF': [True, 0, 0b111, True],
-    'CMS_scale_j_PileUpPtRef': [True, 0, 0b111, True],
-    'CMS_scale_j_RelativeFSR': [True, 0, 0b111, True],
-    'CMS_scale_j_RelativeJEREC1': [False, 0, 0b111, True],
-    'CMS_scale_j_RelativeJEREC2': [False, 0, 0b111, True],
-    'CMS_scale_j_RelativeJERHF': [True, 0, 0b111, True],
-    'CMS_scale_j_RelativePtBB': [True, 0, 0b111, True],
-    'CMS_scale_j_RelativePtEC1': [False, 0, 0b111, True],
-    'CMS_scale_j_RelativePtEC2': [False, 0, 0b111, True],
-    'CMS_scale_j_RelativePtHF': [True, 0, 0b111, True],
-    'CMS_scale_j_RelativeBal': [True, 0, 0b111, True],
-    'CMS_scale_j_RelativeSample': [False, 0, 0b111, True],
-    'CMS_scale_j_RelativeStatEC': [False, 0, 0b111, True],
-    'CMS_scale_j_RelativeStatFSR': [False, 0, 0b111, True],
-    'CMS_scale_j_RelativeStatHF': [False, 0, 0b111, True],
-    'CMS_scale_j_SinglePionECAL': [True, 0, 0b111, True],
-    'CMS_scale_j_SinglePionHCAL': [True, 0, 0b111, True],
-    'CMS_scale_j_TimePtEta': [True, 0, 0b111, True],   
+    # 'CMS_scale_j_AbsoluteMPFBias': [True, 0, 0b111, True],
+    # 'CMS_scale_j_AbsoluteScale': [True, 0, 0b111, True],
+    # 'CMS_scale_j_AbsoluteStat': [False, 0, 0b111, True],
+    # 'CMS_scale_j_FlavorQCD': [True, 0, 0b111, True],
+    # 'CMS_scale_j_Fragmentation': [True, 0, 0b111, True],
+    # 'CMS_scale_j_PileUpDataMC': [True, 0, 0b111, True],
+    # 'CMS_scale_j_PileUpPtBB': [True, 0, 0b111, True],
+    # 'CMS_scale_j_PileUpPtEC1': [True, 0, 0b111, True],
+    # 'CMS_scale_j_PileUpPtEC2': [True, 0, 0b111, True],
+    # 'CMS_scale_j_PileUpPtHF': [True, 0, 0b111, True],
+    # 'CMS_scale_j_PileUpPtRef': [True, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeFSR': [True, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeJEREC1': [False, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeJEREC2': [False, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeJERHF': [True, 0, 0b111, True],
+    # 'CMS_scale_j_RelativePtBB': [True, 0, 0b111, True],
+    # 'CMS_scale_j_RelativePtEC1': [False, 0, 0b111, True],
+    # 'CMS_scale_j_RelativePtEC2': [False, 0, 0b111, True],
+    # 'CMS_scale_j_RelativePtHF': [True, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeBal': [True, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeSample': [False, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeStatEC': [False, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeStatFSR': [False, 0, 0b111, True],
+    # 'CMS_scale_j_RelativeStatHF': [False, 0, 0b111, True],
+    # 'CMS_scale_j_SinglePionECAL': [True, 0, 0b111, True],
+    # 'CMS_scale_j_SinglePionHCAL': [True, 0, 0b111, True],
+    # 'CMS_scale_j_TimePtEta': [True, 0, 0b111, True],   
  
-    'CMS_res_j': [False, 0, 0b111 , True],
+    # 'CMS_res_j': [False, 0, 0b111 , True],
  
-    'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    'CMS_scale_t_DM11': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
-    'CMS_scale_e': [False, 0, 0b001, True],
+    # 'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    # 'CMS_scale_e': [False, 0, 0b001, True],
     
     
 }
@@ -340,6 +340,8 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l', ifCombine=False):
                 proSys[ipro] = 0
             if ipro=='singleTop' and (channe=='1tau2l'):
                 proSys[ipro] = 0 
+            if ipro=='fakeTauMC' and sysList[1] == 3 and ((sysList[2]&channeMask) !=0):
+                proSys[ipro] = 1    
         
         #set 
              
