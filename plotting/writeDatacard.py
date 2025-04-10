@@ -4,7 +4,7 @@ import usefulFunc as uf
 import ttttGlobleQuantity as gq
 
 MCSys = {
-    #sys: [isCorrelated, whichProces, channelBits, isCorrelatedProcess] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton
+    #sys: [isCorrelated, whichProces, channelBits, isCorrelatedProcess] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton; whichProcess=3:faketauMC
     #!Channlebits information for each channel, bit 100:1tau1l; bit 010:1tau0l; bit 001: 1tau2l
     #: if the systematic is correlated between processes
     'CMS_pileup': [True, 0, 0b111 , True],
@@ -56,6 +56,8 @@ MCSys = {
     'CMS_fake_t': [False, 1, 0b010, True], #!considering FR for 1tau0l
     # 'CMS_tau_FR': [False, 1, 0b111, True],#!Considering FR for 1tau1l and 1tau2l too
     
+    'tttt_tau_fake_t_MC': [True, 3, 0b011, True], #!only for fakeTauMC
+    
     'pdf_alphas': [True, 0, 0b111, True], #!not considering for singleTop 
     'pdf': [True, 0, 0b111, True],
     'QCDscale_ren': [True, 0, 0b111, False],   #!not in data/MC
@@ -64,33 +66,6 @@ MCSys = {
     'ps_fsr': [True, 0, 0b111, True],
    
     #JES https://docs.google.com/spreadsheets/d/1JZfk78_9SD225bcUuTWVo4i02vwI5FfeVKH-dwzUdhM/edit?gid=1345121349#gid=1345121349 
-    # "CMS_JES_AbsoluteMPFBias_AK4PFchs": [True, 0, 0b111, True], 
-    # "CMS_JES_AbsoluteScale_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_AbsoluteStat_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_FlavorQCD_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_Fragmentation_AK4PFchs": [True, 0, 0b111, True], 
-    # "CMS_JES_PileUpDataMC_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtBB_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtEC1_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtEC2_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_PileUpPtRef_AK4PFchs": [ True, 0, 0b111, True],
-    # "CMS_JES_RelativeFSR_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeJEREC1_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeJEREC2_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativeJERHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativePtBB_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativePtEC1_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativePtEC2_AK4PFchs": [False, 0, 0b111, True],
-    # "CMS_JES_RelativePtHF_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeBal_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_RelativeSample_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatEC_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatFSR_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_RelativeStatHF_AK4PFchs":  [False, 0, 0b111, True],
-    # "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
-    # "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
-    # "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
     'CMS_scale_j_AbsoluteMPFBias': [True, 0, 0b111, True],
     'CMS_scale_j_AbsoluteScale': [True, 0, 0b111, True],
     'CMS_scale_j_AbsoluteStat': [False, 0, 0b111, True],
@@ -119,20 +94,13 @@ MCSys = {
     'CMS_scale_j_SinglePionHCAL': [True, 0, 0b111, True],
     'CMS_scale_j_TimePtEta': [True, 0, 0b111, True],   
  
-    # "CMS_JER": [False, 0, 0b111 , True],
     'CMS_res_j': [False, 0, 0b111 , True],
  
-    # 'CMS_tau_TES_dm0': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm1': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm10': [False, 0, 0b111, True],
-    # 'CMS_tau_TES_dm11': [False, 0, 0b111, True],
     'CMS_scale_t_DM0': [False, 0, 0b111, True],
     'CMS_scale_t_DM1': [False, 0, 0b111, True],
     'CMS_scale_t_DM10': [False, 0, 0b111, True],
     'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    # 'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
-    # 'CMS_e_scale': [False, 0, 0b001, True],
     'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
     'CMS_scale_e': [False, 0, 0b001, True],
     
