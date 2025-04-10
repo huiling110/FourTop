@@ -309,14 +309,14 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSysF.fillHistVec(region + "_CMS_eff_t_vsJet_syst_dm11_" + m_era +"Up", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_era_dm11_up.v(), SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_CMS_eff_t_vsJet_syst_dm11_"+ m_era +"Down", bdtScore, (basicWeight / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_era_dm11_down.v(), SR1tau1l, m_isData);
 
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_e_systUp", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_e_systDown", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_m_systUp", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_m_systDown", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_m_stat_" + m_era +"Up", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_m_stat_" + m_era +"Down", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_e_stat_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_e_stat_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_e_systUp", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_e_systDown", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_m_systUp", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_m_systDown", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_sys_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_m_stat_" + m_era +"Up", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_m_stat_" + m_era +"Down", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_e_stat_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_e_stat_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(), SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(), SR1tau1l, m_isData);
 
@@ -360,10 +360,10 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
 
         
 
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(tau)_eff_hlt_stats_" + m_era +"Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(tau)_eff_hlt_stats_" + m_era +"Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_hltLep_" + m_era +"Up", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt(SS)_eff_hltLep_" + m_era +"Down", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_tau_eff_hlt_stats_" + m_era +"Up", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_tau_eff_hlt_stats_" + m_era +"Down", bdtScore, (basicWeight / e->HLT_weight.v()) * e->HLT_weight_stats_down.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_hltLep_" + m_era +"Up", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_up.v(), SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_CMS_tttt_SS_eff_hltLep_" + m_era +"Down", bdtScore, (basicWeight /  e->triggerSFLep_weight.v()) * e->triggerSFLep_weight_down.v(), SR1tau1l, m_isData);
 
         //theorectical uncertainties
         // SR1tau1lSysF.fillHistVec(region + "_pdfUp", bdtScore, basicWeight* e->pdfWeight_up_.v(), SR1tau1l, m_isData);
