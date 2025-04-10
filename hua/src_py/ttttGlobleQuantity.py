@@ -190,12 +190,12 @@ histoGramPerSample = {
     "ttH_bb": "ttX", 
     "ttH_nonbb": "ttX", 
     
-    "TTZToLLNuNu": "ttZ",
-    "TTZToQQ": "ttZ",
-    "TTWJetsToQQ": "ttW",
-    "TTWJetsToLNu": "ttW",
-    "ttH_bb": "ttH",
-    "ttH_nonbb": "ttH",
+    # "TTZToLLNuNu": "ttZ",
+    # "TTZToQQ": "ttZ",
+    # "TTWJetsToQQ": "ttW",
+    # "TTWJetsToLNu": "ttW",
+    # "ttH_bb": "ttH",
+    # "ttH_nonbb": "ttH",
     
     # "wz":"Minor", #!should probably use wz instead of WZTo3LNu because the 2L part can also pass 1tau2l selection; but non of it passes selection
     "WZTo3LNu":"Minor", #!use this instead of wz

@@ -248,6 +248,8 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
     #!ifMCFTau=True: 
     print('start to get hists and add them from root files')
     allDic = gq.histoGramPerSample.copy()
+    if 'ttX' not in sumProList:
+        allDic.update(gq.ttX_newMap)
     if isRun3: 
         allDic = gq.Run3Samples
     if ifMCFTau:

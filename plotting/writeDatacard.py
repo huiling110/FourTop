@@ -10,8 +10,8 @@ MCSys = {
     # 'CMS_prefiring': [False, 0, 0b111, True],
     'CMS_l1_ecal_prefiring': [False, 0, 0b111, True],
     
-    'CMS_tttt(tau)_eff_hlt_stats': [False, 0, 0b110, True],
-    'CMS_tttt(SS)_eff_hltLep': [False, 0, 0b001, True],
+    # 'CMS_tttt(tau)_eff_hlt_stats': [False, 0, 0b110, True],
+    # 'CMS_tttt(SS)_eff_hltLep': [False, 0, 0b001, True],
     
     'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
@@ -30,10 +30,10 @@ MCSys = {
     'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111, True],
     'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111, True],
     
-    'CMS_tttt(SS)_eff_e_syst': [True, 0, 0b101, True],
-    'CMS_tttt(SS)_eff_m_syst': [True, 0, 0b101, True],
-    'CMS_tttt(SS)_eff_e_stat': [False, 0, 0b101, True],
-    'CMS_tttt(SS)_eff_m_stat': [False, 0, 0b101, True],
+    # 'CMS_tttt(SS)_eff_e_syst': [True, 0, 0b101, True],
+    # 'CMS_tttt(SS)_eff_m_syst': [True, 0, 0b101, True],
+    # 'CMS_tttt(SS)_eff_e_stat': [False, 0, 0b101, True],
+    # 'CMS_tttt(SS)_eff_m_stat': [False, 0, 0b101, True],
     'CMS_eff_e_reco': [False, 0, 0b101, True],
     
     #!btagWP for 1tau1l and 1tau2l
