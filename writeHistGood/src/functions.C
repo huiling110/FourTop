@@ -523,6 +523,9 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_ps_fsrUp");
     sysRegions.push_back(region + "_ps_fsrDown");
 
+    sysRegions.push_back(region + "_tttt_tau_fake_t_MCUp");
+    sysRegions.push_back(region + "_tttt_tau_fake_t_MCDown");
+
     }else if(isFaketau){
         sysRegions.push_back(region + "_CMS_fake_t_" + era + "Up");
         sysRegions.push_back(region + "_CMS_fake_t_" + era + "Down");

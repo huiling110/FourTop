@@ -11,7 +11,7 @@ MCSys = {
     'CMS_l1_ecal_prefiring': [False, 0, 0b111, True],
     
     'CMS_tttt_tau_eff_hlt_stats': [False, 0, 0b110, True],
-    'CMS_tttt_SS_eff_hltLep': [False, 0, 0b001, True],
+    'CMS_tttt_SS_eff_hlt': [False, 0, 0b001, True],
     
     'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
@@ -39,7 +39,7 @@ MCSys = {
     #!btagWP for 1tau1l and 1tau2l
     'CMS_btag_fixedWP_comb_bc_correlated': [True, 0, 0b101, True],
     'CMS_btag_fixedWP_comb_bc_uncorrelated': [False, 0, 0b101, True],
-    'CMS_btag_fixedWP_incl_light_correlated': [True, 0, 0b101, True], #!!!
+    'CMS_btag_fixedWP_incl_light_correlated': [True, 0, 0b101, True],
     'CMS_btag_fixedWP_incl_light_uncorrelated': [False, 0, 0b101, True],
     
     #btagShape information, only in 1tau0l
@@ -144,7 +144,6 @@ MCSys = {
 # outVersion = 'v4BasicAndJESJER'
 # outVersion = 'v6AllSys'
 outVersion = 'v0basic'
-# outVersion = 'v6AllSysWithFR'
 
 def main():
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadroV2_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'

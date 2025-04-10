@@ -390,6 +390,14 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         // SR1tau1lSysF.fillHistVec(region + "_ISRDown", bdtScore, basicWeight* e->PSWeightISR_down_.v(), SR1tau1l, m_isData);
         // SR1tau1lSysF.fillHistVec(region + "_FSRUp", bdtScore, basicWeight* e->PSWeightFSR_up_.v(), SR1tau1l, m_isData);
         // SR1tau1lSysF.fillHistVec(region + "_FSRDown", bdtScore, basicWeight* e->PSWeightFSR_down_.v(), SR1tau1l, m_isData);
+
+        if(e->tausT_1pt.v()< 25.){
+            SR1tau1lSysF.fillHistVec(region + "_tttt_tau_fake_t_MCUp", bdtScore, basicWeight*1.2, SR1tau1l, m_isData);
+            SR1tau1lSysF.fillHistVec(region + "_tttt_tau_fake_t_MCDown", bdtScore, basicWeight*0.8, SR1tau1l, m_isData);
+        }else{
+            SR1tau1lSysF.fillHistVec(region + "_tttt_tau_fake_t_MCUp", bdtScore, basicWeight*1.1, SR1tau1l, m_isData);
+            SR1tau1lSysF.fillHistVec(region + "_tttt_tau_fake_t_MCDown", bdtScore, basicWeight*0.9, SR1tau1l, m_isData);
+        }
         
         }else if(m_isFakeTau){
             SR1tau1lSysF.fillHistVec(region + "_CMS_fake_t_"+m_era +"Up", bdtScore, e->FR_weight_final_up, SR1tau1l, m_isData);
