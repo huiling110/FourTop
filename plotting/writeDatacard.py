@@ -170,6 +170,7 @@ def main():
     uf.checkMakeDir(outDir)
     outCard = f"{outDir}datacard_{channel}.txt"
     era = uf.getEraFromDir(inputTemplate) 
+    
     processes = gq.proChannelDic_forCombine[channel]
     if channel== '1tau2l':
         processes.remove('leptonSum')
