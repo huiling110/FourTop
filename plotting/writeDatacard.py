@@ -283,17 +283,12 @@ def getSysDic(processes, channel, era, ifForPlot=False):
         for isys in sysName:
             sysDic[isys] = []
             sysDic[isys].append("shape")
-            proSysDic = getProSysDic(isys, sysList, processes, channel)
+            proSysDic = getProSysDic(isys, sysList, processes, channel, ifForPlot)
             sysDic[isys].append(proSysDic)
             
-             
-    # for sysName in sysDic.keys():    
-    #     proSysDic = getProSysDic(sysName, sysList, processes, channel)   
-    #     sysDic[sysName].append(proSysDic)
-
     return  sysDic
      
-def getProSysDic(sys, sysList, processes, channe='1tau1l'):
+def getProSysDic(sys, sysList, processes, channe='1tau1l', ifCombine=False):
     #return porSys: {'tt': 1, 'ttX': 1, 'fakeLepton': 0, 'singleTop': 1, 'Minor': 1, 'tttt': 1}
     if channe=='1tau1l':
         channeMask = 0b100
@@ -314,8 +309,11 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l'):
             proSys[ipro] = 0
         else: 
             if not sysList[3] : # process uncorrelated systematic
-                proName = sys.split('_')[-1]
-                proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) and ipro == proName else 0
+                if not ifCombine:
+                    proName = sys.split('_')[-1]
+                    proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) and ipro == proName else 0
+                else:
+                    proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
             else:
                 proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
             if ipro=='singleTop' and (sys=='pdfAlphaS_normalised' or sys=='pdf_normalised' or sys=='QCDscale_Re_normalised' or sys=='QCDscale_Fa_normalised' or sys=='ISR_normalised' or sys=='FSR_normalised'):

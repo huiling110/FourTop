@@ -202,7 +202,7 @@ def getSysDicPL(ifSys=False, channel='1tau1l', era='2018', ifCombine=False):
         processes.remove('leptonSum')
     else:
         processes.remove('jetHT')
-    proSys = wd.getSysDic(processes, channel, era)          
+    proSys = wd.getSysDic(processes, channel, era, ifCombine)          
     print(proSys)
     
     for ipro in processes:
