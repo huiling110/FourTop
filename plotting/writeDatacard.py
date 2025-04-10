@@ -1,4 +1,5 @@
 import os
+import ROOT
 import usefulFunc as uf
 import ttttGlobleQuantity as gq
 
@@ -179,6 +180,8 @@ def main():
         processes.remove('jetHT')  
     print(processes)
     
+    remove0Process(processes, inputTemplate, channel)
+    
     era = uf.getEraFromDir(inputTemplate) 
     sysDic = getSysDic(processes, channel, era) 
     print(sysDic, '\n')
@@ -191,6 +194,21 @@ def main():
         print(i, iv)
         
     write_shape_datacard(outCard, inputTemplate, channel, processes,  sysDic, era) 
+    
+    
+def remove0Process(processes, inputTemplate, channel):
+    rootFile = ROOT.TFile(inputTemplate, "READ")
+    for ipro in processes:
+        histName = f"{ipro}_{channel}SR_BDT"
+        hist = rootFile.Get(histName)
+        if hist == None:
+            print('hist is None:', histName)
+        else: 
+            if hist.Integral() < 0.00000001:
+                print(f"remove {ipro} process")
+                processes.remove(ipro) 
+    
+    rootFile.Close() 
    
 def addProcessNormalization(sysDic, processes):
     proNormalDic = {
@@ -320,6 +338,8 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l', ifCombine=False):
                 proSys[ipro] = 0
             if ipro=='singleTop' and (channe=='1tau2l'):
                 proSys[ipro] = 0 
+        
+        #set 
              
     return proSys            
              
