@@ -62,11 +62,11 @@ def main():
                     for sys in sumProcessPerVarSys[ivar][region][sumPro]:
                         hist = sumProcessPerVarSys[ivar][region][sumPro][sys]
                         #! rename process-uncorrelated sys for combine 
-                        #sysName is sys remove '_up" or '_down'
                         sysName = sys.replace('_up', '').replace('_down', '') 
                         sysName = sysName.replace('_2018', '').replace('_2017', '').replace('_2016preVFP', '').replace('_2016postVFP', '')
+                        #sysName is sys remove '_up" or '_down'
                         if not wd.MCSys[sysName][3]: # process-uncorrelated sys 
-                            sysNameNew = sys + '_' + sumPro
+                            sysNameNew = sysName + '_' + sumPro
                             hist.SetName(hist.GetName().replace(sysName, sysNameNew))
                             
                         hist.Write(hist.GetName())

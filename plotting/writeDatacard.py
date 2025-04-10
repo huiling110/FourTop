@@ -10,8 +10,8 @@ MCSys = {
     # 'CMS_prefiring': [False, 0, 0b111, True],
     'CMS_l1_ecal_prefiring': [False, 0, 0b111, True],
     
-    # 'CMS_tttt(tau)_eff_hlt_stats': [False, 0, 0b110, True],
-    # 'CMS_tttt(SS)_eff_hltLep': [False, 0, 0b001, True],
+    'CMS_tttt_tau_eff_hlt_stats': [False, 0, 0b110, True],
+    'CMS_tttt_SS_eff_hltLep': [False, 0, 0b001, True],
     
     'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
@@ -53,7 +53,7 @@ MCSys = {
     'CMS_btag_shape_lfstats2': [False, 0, 0b010, True],
    
     # 'CMS_tau_FR': [False, 1, 0b010, True],
-    'CMS_fake_t_': [False, 1, 0b010, True], #!considering FR for 1tau0l
+    'CMS_fake_t': [False, 1, 0b010, True], #!considering FR for 1tau0l
     # 'CMS_tau_FR': [False, 1, 0b111, True],#!Considering FR for 1tau1l and 1tau2l too
     
     'pdf_alphas': [True, 0, 0b111, True], #!not considering for singleTop 
