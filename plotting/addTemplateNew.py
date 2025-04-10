@@ -1,5 +1,6 @@
 import ROOT
 import usefulFunc as uf
+import writeDatacard as wd
 import pl as pl
 
 
@@ -60,6 +61,14 @@ def main():
                 if sumPro in sumProcessPerVarSys[ivar][region]:
                     for sys in sumProcessPerVarSys[ivar][region][sumPro]:
                         hist = sumProcessPerVarSys[ivar][region][sumPro][sys]
+                        #! rename process-uncorrelated sys for combine 
+                        #sysName is sys remove '_up" or '_down'
+                        sysName = sys.replace('_up', '').replace('_down', '') 
+                        sysName = sysName.replace('_2018', '').replace('_2017', '').replace('_2016preVFP', '').replace('_2016postVFP', '')
+                        if not wd.MCSys[sysName][3]: # process-uncorrelated sys 
+                            sysNameNew = sys + '_' + sumPro
+                            hist.SetName(hist.GetName().replace(sysName, sysNameNew))
+                            
                         hist.Write(hist.GetName())
     outFile.Write()
     outFile.Close()
