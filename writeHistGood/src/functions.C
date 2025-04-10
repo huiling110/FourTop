@@ -493,10 +493,10 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_btag_shape_cferr2Down");
 
 
-    sysRegions.push_back(region + "_CMS_tttt_tau_eff_hlt_stats_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_tau_eff_hlt_stats_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_hltLep_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_hltLep_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_tau_eff_trigger_stats_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt_tau_eff_trigger_stats_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_tttt_SS_eff_trigger_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_tttt_SS_eff_trigger_" + era + "Down");
 
     // update to naming convention 
     sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_correlatedUp");
