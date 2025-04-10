@@ -8,7 +8,6 @@ MCSys = {
     #!Channlebits information for each channel, bit 100:1tau1l; bit 010:1tau0l; bit 001: 1tau2l
     #: if the systematic is correlated between processes
     'CMS_pileup': [True, 0, 0b111 , True],
-    # 'CMS_prefiring': [False, 0, 0b111, True],
     'CMS_l1_ecal_prefiring': [False, 0, 0b111, True],
     
     'CMS_tttt_tau_eff_hlt_stats': [False, 0, 0b110, True],

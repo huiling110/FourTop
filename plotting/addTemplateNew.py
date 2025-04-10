@@ -31,13 +31,15 @@ def main():
             dataHist = None
             if 'SR' in region:
                 for sumPro in sumProList:
-                    if not uf.isData(sumPro): continue
+                    if uf.isData(sumPro): continue
+                    print('fake data: ', sumPro)
                     if dataHist == None:
                         dataHist = sumProcessPerVar[ivar][region][sumPro].Clone()  
+                        dataHist.SetName(dataHist.GetName().replace(sumPro, 'data_obs'))
                     else:
-                        dataHist.Add(sumProcessPerVar)    # 
+                        dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # 
                 sumProcessPerVar[ivar][region]['jetHT'] = dataHist
-            # dataName = dataHist.GetName().replace('jetHT', 'data_obs')
+                print('fake data hist:', dataHist.GetName())
             dataName = sumProcessPerVar[ivar][region]['jetHT'].GetName().replace('jetHT', 'data_obs')
             sumProcessPerVar[ivar][region]['jetHT'].SetName(dataName)
           

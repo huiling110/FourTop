@@ -172,7 +172,7 @@ def getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, ifCombine=False):
         sumProList.remove('fakeTau')
         #add qcd to the front 
         sumProList.insert(0, 'qcd')
-    if ifMCFTau:
+    if ifMCFTau and (not ifCombine):
         sumProList.insert(0, 'fakeTauMC')
     print(sumProList) 
     return sumProList
