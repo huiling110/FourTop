@@ -39,8 +39,8 @@ MCSys = {
     #!btagWP for 1tau1l and 1tau2l
     'CMS_btag_fixedWP_comb_bc_correlated': [True, 0, 0b101, True],
     'CMS_btag_fixedWP_comb_bc_uncorrelated': [False, 0, 0b101, True],
-    # 'CMS_btag_fixedWP_incl_light_correlated': [True, 0, 0b101, True], #!!!
-    # 'CMS_btag_fixedWP_incl_light_uncorrelated': [False, 0, 0b101, True],
+    'CMS_btag_fixedWP_incl_light_correlated': [True, 0, 0b101, True], #!!!
+    'CMS_btag_fixedWP_incl_light_uncorrelated': [False, 0, 0b101, True],
     
     #btagShape information, only in 1tau0l
     'CMS_btag_shape_hf': [True, 0, 0b010, True], 
@@ -91,16 +91,51 @@ MCSys = {
     # "CMS_JES_SinglePionECAL_AK4PFchs":  [True, 0, 0b111, True],
     # "CMS_JES_SinglePionHCAL_AK4PFchs": [True, 0, 0b111, True],
     # "CMS_JES_TimePtEta_AK4PFchs": [True, 0, 0b111, True],
+    'CMS_scale_j_AbsoluteMPFBias': [True, 0, 0b111, True],
+    'CMS_scale_j_AbsoluteScale': [True, 0, 0b111, True],
+    'CMS_scale_j_AbsoluteStat': [False, 0, 0b111, True],
+    'CMS_scale_j_FlavorQCD': [True, 0, 0b111, True],
+    'CMS_scale_j_Fragmentation': [True, 0, 0b111, True],
+    'CMS_scale_j_PileUpDataMC': [True, 0, 0b111, True],
+    'CMS_scale_j_PileUpPtBB': [True, 0, 0b111, True],
+    'CMS_scale_j_PileUpPtEC1': [True, 0, 0b111, True],
+    'CMS_scale_j_PileUpPtEC2': [True, 0, 0b111, True],
+    'CMS_scale_j_PileUpPtHF': [True, 0, 0b111, True],
+    'CMS_scale_j_PileUpPtRef': [True, 0, 0b111, True],
+    'CMS_scale_j_RelativeFSR': [True, 0, 0b111, True],
+    'CMS_scale_j_RelativeJEREC1': [False, 0, 0b111, True],
+    'CMS_scale_j_RelativeJEREC2': [False, 0, 0b111, True],
+    'CMS_scale_j_RelativeJERHF': [True, 0, 0b111, True],
+    'CMS_scale_j_RelativePtBB': [True, 0, 0b111, True],
+    'CMS_scale_j_RelativePtEC1': [False, 0, 0b111, True],
+    'CMS_scale_j_RelativePtEC2': [False, 0, 0b111, True],
+    'CMS_scale_j_RelativePtHF': [True, 0, 0b111, True],
+    'CMS_scale_j_RelativeBal': [True, 0, 0b111, True],
+    'CMS_scale_j_RelativeSample': [False, 0, 0b111, True],
+    'CMS_scale_j_RelativeStatEC': [False, 0, 0b111, True],
+    'CMS_scale_j_RelativeStatFSR': [False, 0, 0b111, True],
+    'CMS_scale_j_RelativeStatHF': [False, 0, 0b111, True],
+    'CMS_scale_j_SinglePionECAL': [True, 0, 0b111, True],
+    'CMS_scale_j_SinglePionHCAL': [True, 0, 0b111, True],
+    'CMS_scale_j_TimePtEta': [True, 0, 0b111, True],   
  
     # "CMS_JER": [False, 0, 0b111 , True],
+    'CMS_res_j': [False, 0, 0b111 , True],
  
     # 'CMS_tau_TES_dm0': [False, 0, 0b111, True],
     # 'CMS_tau_TES_dm1': [False, 0, 0b111, True],
     # 'CMS_tau_TES_dm10': [False, 0, 0b111, True],
     # 'CMS_tau_TES_dm11': [False, 0, 0b111, True],
+    'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
     # 'CMS_MET_unclusteredEnergy': [False, 0, 0b111, True],
     # 'CMS_e_scale': [False, 0, 0b001, True],
+    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    'CMS_scale_e': [False, 0, 0b001, True],
+    
     
 }
 
@@ -127,7 +162,7 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeT/combine/templatesForCombine1tau1l_new.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/combine/templatesForCombine1tau1l_new.root'
     channel = '1tau1l'
    
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
