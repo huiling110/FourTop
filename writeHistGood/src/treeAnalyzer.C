@@ -27,10 +27,10 @@ void treeAnalyzer::Init()
     if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
 
-        WH::getChannelSys(sysRegions, "1tau1lSR", m_era, m_isFakeTau, m_isFakeLepton);
+        WH::getChannelSys(sysRegions, "1tau1lSR", m_era, m_isFakeTau, m_isFakeLepton, m_processName);
         // WH::getChannelSys(sysRegions, "1tau1lCR1", m_era, m_isFakeTau, m_isFakeLepton);
         // WH::getChannelSys(sysRegions, "1tau1lCR2", m_era, m_isFakeTau, m_isFakeLepton);
-        WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton);
+        WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton, m_processName);
 
         // std::vector<Double_t> bins1tau1l =  {-0.25, -0.1036, -0.0731, -0.0487, -0.030, -0.012, 0.013, 0.037, 0.06, 0.122, 0.36}; //roughly 15 bg in each bin
         // std::vector<Double_t> bins1tau1l = {-0.25, -0.0914, -0.0548, -0.0243, 0.0062, 0.0367, 0.0855, 0.135, 0.36}; //roughly 22 bg in each bin
@@ -374,16 +374,16 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         // SR1tau1lSysF.fillHistVec(region + "_QCDscale_renDown", bdtScore, basicWeight* e->scaleWeightRe_down_.v(), SR1tau1l, m_isData);
         // SR1tau1lSysF.fillHistVec(region + "_QCDscale_facUp", bdtScore, basicWeight* e->scaleWeightFa_up_.v(), SR1tau1l, m_isData);
         // SR1tau1lSysF.fillHistVec(region + "_QCDscale_facDown", bdtScore, basicWeight* e->scaleWeightFa_down_.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_QCDscale_renUp", bdtScore, basicWeight* e->scaleWeightRe_up_.v()*m_scaleRe_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_QCDscale_renDown", bdtScore, basicWeight* e->scaleWeightRe_down_.v()*m_scaleRe_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_QCDscale_facUp", bdtScore, basicWeight* e->scaleWeightFa_up_.v()*m_scaleFa_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_QCDscale_facDown", bdtScore, basicWeight* e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_QCDscale_ren_"+ m_processName+"Up", bdtScore, basicWeight* e->scaleWeightRe_up_.v()*m_scaleRe_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_QCDscale_ren_"+ m_processName+"Down", bdtScore, basicWeight* e->scaleWeightRe_down_.v()*m_scaleRe_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_QCDscale_fac_"+ m_processName+"Up", bdtScore, basicWeight* e->scaleWeightFa_up_.v()*m_scaleFa_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_QCDscale_fac_"+ m_processName+"Down", bdtScore, basicWeight* e->scaleWeightFa_down_.v()*m_scaleFa_normDown_SF, SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_pdf_alphasUp", bdtScore, basicWeight* e->pdfWeightAlphaS_up_.v()*m_pdfAlphaS_normUp_SF, SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_pdf_alphasDown", bdtScore, basicWeight* e->pdfWeightAlphaS_down_.v()*m_pdfAlphaS_normDown_SF, SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_pdfUp", bdtScore, basicWeight* e->pdfWeight_up_.v()*m_pdf_normUp_SF, SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_pdfDown", bdtScore, basicWeight* e->pdfWeight_down_.v()*m_pdf_normDown_SF, SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_ps_isrUp", bdtScore, basicWeight* e->PSWeightISR_up_.v()*m_PSWeightISR_normUp_SF, SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_ps_isrDown", bdtScore, basicWeight* e->PSWeightISR_down_.v()*m_PSWeightISR_normDown_SF, SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_ps_isr_"+m_processName+"Up", bdtScore, basicWeight* e->PSWeightISR_up_.v()*m_PSWeightISR_normUp_SF, SR1tau1l, m_isData);
+        SR1tau1lSysF.fillHistVec(region + "_ps_isr_"+m_processName+"Down", bdtScore, basicWeight* e->PSWeightISR_down_.v()*m_PSWeightISR_normDown_SF, SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_ps_fsrUp", bdtScore, basicWeight* e->PSWeightFSR_up_.v()*m_PSWeightFSR_normUp_SF, SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_ps_fsrDown", bdtScore, basicWeight* e->PSWeightFSR_down_.v()*m_PSWeightFSR_normDown_SF, SR1tau1l, m_isData);
         // SR1tau1lSysF.fillHistVec(region + "_ISRUp", bdtScore, basicWeight* e->PSWeightISR_up_.v(), SR1tau1l, m_isData);

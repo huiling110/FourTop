@@ -410,8 +410,8 @@ TString getProcessName(const TString processName, Bool_t isRun3){
     "QCD_PT-600to800",
 };
 
-// void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau){
-void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau, Bool_t isFakeLep){
+// void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau, Bool_t isFakeLep){
+void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau, Bool_t isFakeLep, TString process){
 //https://gitlab.cern.ch/cms-analysis/general/systematics/-/blob/master/systematics_master.yml
     sysRegions.push_back(region);
     // sysRegions.push_back("isMCFTau_" + region);
@@ -421,8 +421,6 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
         
     sysRegions.push_back(region + "_CMS_pileupUp");// 100% correlated
     sysRegions.push_back(region + "_CMS_pileupDown");
-    // sysRegions.push_back(region + "_CMS_prefiring_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_prefiring_" + era + "Down");
     sysRegions.push_back(region + "_CMS_l1_ecal_prefiring_" + era + "Up");
     sysRegions.push_back(region + "_CMS_l1_ecal_prefiring_" + era + "Down");
 
@@ -464,14 +462,6 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era +"Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era + "Down"); 
 
-    // sysRegions.push_back(region + "_CMS_tttt_eff_e_systUp");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_e_systDown");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_m_systUp");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_m_systDown");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_m_stat_" + era + "Down");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_e_stat_" + era + "Down");
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_e_systUp");
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_e_systDown");
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_m_systUp");
@@ -480,8 +470,6 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_m_stat_" + era + "Down");
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_e_stat_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_e_stat_" + era + "Down");
-    // sysRegions.push_back(region + "_CMS_eff_e_Reco_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_eff_e_Reco_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Down");
 
@@ -505,23 +493,11 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_btag_shape_cferr2Down");
 
 
-    // sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_hlt_stats_" + era + "Down");
     sysRegions.push_back(region + "_CMS_tttt(tau)_eff_hlt_stats_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tttt(tau)_eff_hlt_stats_" + era + "Down");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_hltLep_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_tttt_eff_hltLep_" + era + "Down");
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_hltLep_" + era + "Up");
     sysRegions.push_back(region + "_CMS_tttt(SS)_eff_hltLep_" + era + "Down");
 
-    // sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_eff_bWPM_" + era + "Down");
-    // sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Up");
-    // sysRegions.push_back(region + "_CMS_eff_bWPMT_" + era + "Down");
-    // sysRegions.push_back(region + "_CMS_eff_bWPMT_correlatedUp");
-    // sysRegions.push_back(region + "_CMS_eff_bWPMT_correlatedDown");
-    // sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Up");
-    // sysRegions.push_back(region + "_CMS_eff_bWPMT_uncorrelated_"+era+"Down");
     // update to naming convention 
     sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_correlatedUp");
     sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_correlatedDown");
@@ -535,37 +511,15 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
 
     sysRegions.push_back(region + "_pdfUp");
     sysRegions.push_back(region + "_pdfDown");
-    // sysRegions.push_back(region + "_pdfAlphaSUp");
-    // sysRegions.push_back(region + "_pdfAlphaSDown");
     sysRegions.push_back(region + "_pdf_alphasUp");
     sysRegions.push_back(region + "_pdf_alphasDown");
-    // sysRegions.push_back(region + "_QCDscale_ReUp");
-    // sysRegions.push_back(region + "_QCDscale_ReDown");
-    // sysRegions.push_back(region + "_QCDscale_FaUp");
-    // sysRegions.push_back(region + "_QCDscale_FaDown");
-    sysRegions.push_back(region + "_QCDscale_renUp");
-    sysRegions.push_back(region + "_QCDscale_renDown");
-    sysRegions.push_back(region + "_QCDscale_facUp");
-    sysRegions.push_back(region + "_QCDscale_facDown");
+    sysRegions.push_back(region + "_QCDscale_ren_"+process+"Up"); //! un-correlated between processes
+    sysRegions.push_back(region + "_QCDscale_ren_"+process+"Down");
+    sysRegions.push_back(region + "_QCDscale_fac_"+process+"Up");
+    sysRegions.push_back(region + "_QCDscale_fac_"+process+"Down");
 
-    // sysRegions.push_back(region + "_QCDscale_Re_normalisedUp");
-    // sysRegions.push_back(region + "_QCDscale_Re_normalisedDown");
-    // sysRegions.push_back(region + "_QCDscale_Fa_normalisedUp");
-    // sysRegions.push_back(region + "_QCDscale_Fa_normalisedDown");
-    // sysRegions.push_back(region + "_pdf_normalisedUp");
-    // sysRegions.push_back(region + "_pdf_normalisedDown");
-    // sysRegions.push_back(region + "_pdfAlphaS_normalisedUp");
-    // sysRegions.push_back(region + "_pdfAlphaS_normalisedDown");
-    // sysRegions.push_back(region + "_ISR_normalisedUp");
-    // sysRegions.push_back(region + "_ISR_normalisedDown");
-    // sysRegions.push_back(region + "_FSR_normalisedUp");
-    // sysRegions.push_back(region + "_FSR_normalisedDown");
-    // sysRegions.push_back(region + "_ISRUp");
-    // sysRegions.push_back(region + "_ISRDown");
-    // sysRegions.push_back(region + "_FSRUp");
-    // sysRegions.push_back(region + "_FSRDown");
-    sysRegions.push_back(region + "_ps_isrUp");
-    sysRegions.push_back(region + "_ps_isrDown");
+    sysRegions.push_back(region + "_ps_isr_"+process+"Up");
+    sysRegions.push_back(region + "_ps_isr_"+process+"Down");
     sysRegions.push_back(region + "_ps_fsrUp");
     sysRegions.push_back(region + "_ps_fsrDown");
 
