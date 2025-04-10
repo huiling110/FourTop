@@ -513,13 +513,13 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_pdfDown");
     sysRegions.push_back(region + "_pdf_alphasUp");
     sysRegions.push_back(region + "_pdf_alphasDown");
-    sysRegions.push_back(region + "_QCDscale_ren_"+process+"Up"); //! un-correlated between processes
-    sysRegions.push_back(region + "_QCDscale_ren_"+process+"Down");
-    sysRegions.push_back(region + "_QCDscale_fac_"+process+"Up");
-    sysRegions.push_back(region + "_QCDscale_fac_"+process+"Down");
+    sysRegions.push_back(region + "_QCDscale_renUp"); //! un-correlated between processes
+    sysRegions.push_back(region + "_QCDscale_renDown");
+    sysRegions.push_back(region + "_QCDscale_facUp");
+    sysRegions.push_back(region + "_QCDscale_facDown");
 
-    sysRegions.push_back(region + "_ps_isr_"+process+"Up");
-    sysRegions.push_back(region + "_ps_isr_"+process+"Down");
+    sysRegions.push_back(region + "_ps_isrUp");
+    sysRegions.push_back(region + "_ps_isrDown");
     sysRegions.push_back(region + "_ps_fsrUp");
     sysRegions.push_back(region + "_ps_fsrDown");
 

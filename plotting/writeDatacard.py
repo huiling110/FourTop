@@ -30,16 +30,16 @@ MCSys = {
     'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111, True],
     'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111, True],
     
-    # 'CMS_tttt(SS)_eff_e_syst': [True, 0, 0b101, True],
-    # 'CMS_tttt(SS)_eff_m_syst': [True, 0, 0b101, True],
-    # 'CMS_tttt(SS)_eff_e_stat': [False, 0, 0b101, True],
-    # 'CMS_tttt(SS)_eff_m_stat': [False, 0, 0b101, True],
+    'CMS_tttt_SS_eff_e_syst': [True, 0, 0b101, True],
+    'CMS_tttt_SS_eff_m_syst': [True, 0, 0b101, True],
+    'CMS_tttt_SS_eff_e_stat': [False, 0, 0b101, True],
+    'CMS_tttt_SS_eff_m_stat': [False, 0, 0b101, True],
     'CMS_eff_e_reco': [False, 0, 0b101, True],
     
     #!btagWP for 1tau1l and 1tau2l
     'CMS_btag_fixedWP_comb_bc_correlated': [True, 0, 0b101, True],
     'CMS_btag_fixedWP_comb_bc_uncorrelated': [False, 0, 0b101, True],
-    # 'CMS_btag_fixedWP_incl_light_correlated': [True, 0, 0b101, True],
+    # 'CMS_btag_fixedWP_incl_light_correlated': [True, 0, 0b101, True], #!!!
     # 'CMS_btag_fixedWP_incl_light_uncorrelated': [False, 0, 0b101, True],
     
     #btagShape information, only in 1tau0l
