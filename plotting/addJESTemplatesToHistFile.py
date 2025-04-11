@@ -21,9 +21,10 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
-    # channel = '1tau1l'
-    # regionList = ['1tau1lSR', '1tau1lCR12']#
-    # variables = ['BDT']
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
+    channel = '1tau1l'
+    regionList = ['1tau1lSR', '1tau1lCR12']#
+    variables = ['BDT']
     # variables = ['jets_num', 'jets_HT', 'jets_1pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     
     #1tau2l   
@@ -39,10 +40,10 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lNewCR/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lNewCR/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lNewCR/'
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lNewCR/'
-    channel = '1tau2l'
-    variables = ['BDT']
-    regionList = ['1tau2lSR', '1tau2lCR3']
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lNewCR/'
+    # channel = '1tau2l'
+    # variables = ['BDT']
+    # regionList = ['1tau2lSR', '1tau2lCR3']
    
     #!1tau0l 
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/'    
@@ -71,11 +72,11 @@ def main():
     
     
     addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!make sure JES OS dir with _JESPt22 in the end
-    addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
+    # addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
     
-    addMETToFile(allSubProcesses, regionList, era, nominalDir)
-    addEESToFile(allSubProcesses, regionList, era, nominalDir)
-    addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    # addMETToFile(allSubProcesses, regionList, era, nominalDir)
+    # addEESToFile(allSubProcesses, regionList, era, nominalDir)
+    # addTESToFile(allSubProcesses, regionList, era, nominalDir)
     
     
     
@@ -158,13 +159,6 @@ def getMCSubPro(channel, era):
     
         
 def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT']):
-    # inVersion = 'v91TESAddedLepPre_JETPt22'
-    # outVersion = 'v0baselineLep'
-    # outVersion = 'v1baselineLepMETFixed'
-    
-    # inVersion = 'v91TESAddedHadroPre_JESPt20'
-    # inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
-    
     Version = nominalDir.split('/')[-4]
     print(Version)
     inVersion = Version.split('_')[-1]+'_JESPt22'
@@ -190,14 +184,14 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variable
         JESUpDir = f'{JESUpDir}/mc/{nominalHistDir}'
         JESDownDir = f'{JESDownDir}/mc/{nominalHistDir}'
         print(JESUpDir, JESDownDir)  
-        iJESVariation = i
-        ifCorrelated = wd.MCSys[f'CMS_JES_{iJESVariation}'][0]
+        iJESVariation = i.split('_')[0]
+        ifCorrelated = wd.MCSys[f'CMS_scale_j_{iJESVariation}'][0]
         if ifCorrelated:
-            JESUpName =  f'CMS_JES_{iJESVariation}Up'        
-            JESDownName =  f'CMS_JES_{iJESVariation}Down'        
+            JESUpName =  f'CMS_scale_j_{iJESVariation}Up'        
+            JESDownName =  f'CMS_scale_j_{iJESVariation}Down'        
         else:
-            JESUpName =  f'CMS_JES_{iJESVariation}_{era}Up'        
-            JESDownName =  f'CMS_JES_{iJESVariation}_{era}Down'        
+            JESUpName =  f'CMS_scale_j_{iJESVariation}_{era}Up'        
+            JESDownName =  f'CMS_scale_j_{iJESVariation}_{era}Down'        
         for ivariable in variables:
             getJESHistForDir(JESUpDir, JESDownDir, JESListUp, JESListDown, JESUpName, JESDownName, regionList, ivariable) 
         
