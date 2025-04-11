@@ -64,6 +64,7 @@ def main():
     # regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
     
     
+    ifMCFTau = True 
     
      
     era = uf.getEraFromDir(nominalDir)
@@ -71,7 +72,9 @@ def main():
     
     
     
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!make sure JES OS dir with _JESPt22 in the end
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!make sure JES OS dir with _JESPt22 in the end
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_MCFT')#!make sure JES OS dir with _JESPt22 in the end
+    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT')#!make sure JES OS dir with _JESPt22 in the end
     # addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
     
     # addMETToFile(allSubProcesses, regionList, era, nominalDir)
@@ -87,30 +90,32 @@ def addTESToFile(allSubProcesses, regionList, era, nominalDir):
         # iTESDownDir = f'{TESbase}_TESdm{i}Down/mc/variableHists_v0BDT{channel}/'
         iTESUpDir = nominalDir.replace('/mc/', f'_TESdm{i}Up/mc/')
         iTESDownDir = nominalDir.replace('/mc/', f'_TESdm{i}Down/mc/')
-        TESName = f'CMS_tau_TES_dm{i}' 
+        # TESName = f'CMS_tau_TES_dm{i}' 
+        TESName = f'CMS_scale_t_DM{i}'
         addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName)
          
     
     
 def addJERToFile(allSubProcesses, regionList, era, nominalDir, variables=['BDT']):
-    # JERUpDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERUp/mc/variableHists_v0BDT1tau1l/' 
-    # JERDownDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v90MuonESHadroPre_JERDown/mc/variableHists_v0BDT1tau1l/'
     JERUpDir = nominalDir.replace('/mc/', '_JERUp/mc/')
     JERDownDir = nominalDir.replace('/mc/', '_JERDown/mc/')
-    name = 'CMS_JER'
+    # name = 'CMS_JER'
+    name = 'CMS_res_j'
     for ivariable in variables:
         addUpDownToFile(allSubProcesses, regionList, era, nominalDir, JERUpDir, JERDownDir, name, ivariable)
     
 def addMETToFile(allSubProcesses, regionList, era, nominalDir):
     METUpDir = nominalDir.replace('/mc/', '_METUp/mc/')
     METDownDir = nominalDir.replace('/mc/', '_METDown/mc/')
-    name = 'CMS_MET_unclusteredEnergy' 
+    # name = 'CMS_MET_unclusteredEnergy' 
+    name = 'CMS_scale_met_unclustered_energy'
     addUpDownToFile(allSubProcesses, regionList, era, nominalDir, METUpDir, METDownDir, name)
 
 def addEESToFile(allSubProcesses, regionList, era, nominalDir):
     EESUpDir = nominalDir.replace('/mc/', '_EleScaleUp/mc/')
     EESDownDir = nominalDir.replace('/mc/', '_EleScaleDown/mc/')
-    name = 'CMS_e_scale'
+    # name = 'CMS_e_scale'
+    name = 'CMS_scale_e'
     addUpDownToFile(allSubProcesses, regionList, era, nominalDir, EESUpDir, EESDownDir, name)
     
         
@@ -158,15 +163,14 @@ def getMCSubPro(channel, era):
     return allSubProcesses
     
         
-def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT']):
+# def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT']):
+def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT'], proPostFix=''):
     Version = nominalDir.split('/')[-4]
     print(Version)
     inVersion = Version.split('_')[-1]+'_JESPt22'
     outVersion = Version.split('_')[0]
     print(inVersion, outVersion)
     
-    # inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
-    # outVersion = 'v0baselineHadro'
     
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
     nominalHistDir = nominalDir.split('mc/', 1)[1]
@@ -193,7 +197,7 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variable
             JESUpName =  f'CMS_scale_j_{iJESVariation}_{era}Up'        
             JESDownName =  f'CMS_scale_j_{iJESVariation}_{era}Down'        
         for ivariable in variables:
-            getJESHistForDir(JESUpDir, JESDownDir, JESListUp, JESListDown, JESUpName, JESDownName, regionList, ivariable) 
+            getJESHistForDir(JESUpDir, JESDownDir, JESListUp, JESListDown, JESUpName, JESDownName, regionList, ivariable, proPostFix) 
         
     for isub, histList in JESListUp.items():
         inominal = f'{nominalDir}{isub}.root'
@@ -228,12 +232,16 @@ def add_histograms_to_rootfile(histograms, rootfile_path):
     print(f"Histograms added to {rootfile_path}") 
         
           
-# def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList):
-def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList, variable='BDT'):
+# def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList, variable='BDT'):
+def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList, variable='BDT', subPostfix=''):
     for isub in JESListUP.keys():
-        histList = [f'{isub}_{ire}_{variable}' for ire in regionList]
-        JESHistsNameUp = [f'{isub}_{ire}_{JESUpName}_{variable}' for ire in regionList] 
-        JESHistsNameDown = [f'{isub}_{ire}_{JESDownName}_{variable}' for ire in regionList] 
+        isubHistName = isub + subPostfix
+        # histList = [f'{isub}_{ire}_{variable}' for ire in regionList]
+        # JESHistsNameUp = [f'{isub}_{ire}_{JESUpName}_{variable}' for ire in regionList] 
+        # JESHistsNameDown = [f'{isub}_{ire}_{JESDownName}_{variable}' for ire in regionList] 
+        histList = [f'{isubHistName}_{ire}_{variable}' for ire in regionList]
+        JESHistsNameUp = [f'{isubHistName}_{ire}_{JESUpName}_{variable}' for ire in regionList]
+        JESHistsNameDown = [f'{isubHistName}_{ire}_{JESDownName}_{variable}' for ire in regionList]
         gotHistsUp = uf.getHistFromFile(f'{JESUpDir}{isub}.root', histList)   
         gotHistsDown = uf.getHistFromFile(f'{JESDownDir}{isub}.root', histList)   
         # for iHist in gotHists:
