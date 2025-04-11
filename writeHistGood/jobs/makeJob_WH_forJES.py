@@ -32,10 +32,10 @@ justMC = True # for energy scale variation, only need to run MC
 
 def main():
     subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     
 def subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC):
     for i in (0, 1, 10, 11):
@@ -80,9 +80,9 @@ def subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC):
         print('inputVersionUp: ', inputVersionUp)
         print('inputVersionDown: ', inputVersionDown)
         
-        mj.main(inputVersionUp, channel , version, exe, justMC)
+        mj.main(inputVersionUp, channel , version, 0, exe, justMC)
         print('submitted WH JES up i: ', i) 
-        mj.main(inputVersionDown, channel, version, exe, justMC)
+        mj.main(inputVersionDown, channel, version, 0, exe, justMC)
         print('submitted WH JES down i: ', i)
 
 if __name__ == '__main__':

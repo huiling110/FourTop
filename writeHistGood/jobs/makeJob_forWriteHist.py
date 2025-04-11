@@ -53,6 +53,7 @@ def main(
     # version = 'v2FRMeasureCheckMCBin3',
     # exe = './apps/run_WH_forDataMC.out',
     exe = './apps/run_treeAnalyzer.out' ,
+    ifSys = 1,
     justMC = False
 ):
     
@@ -111,15 +112,15 @@ def main(
     subAllProcess.write('#!/bin/bash\n')
 
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, channel , exe)
-        # makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, exe, channel )
+        # makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, channel , exe)
+        makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe)
     subAllProcess.close()
 
     uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
 
-def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out'):
+def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out'):
     jobDir = Jobsubmitpath +'jobSH/'
     uf.checkMakeDir(jobDir) 
     outputDir = inputDir + 'variableHists_' + version +'/'
@@ -128,8 +129,6 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
     uf.checkMakeDir(outputDir)
     uf.checkMakeDir(logDir)
     
-    # exeDir = Jobsubmitpath.rsplit('/', 2)[0]+'/apps/'
-    # exeDir = Jobsubmitpath.rsplit('/', 2)[0]+'/'
     exeDir = (os.path.dirname( os.path.abspath(__file__) ) +'/').rsplit('/', 2)[0] + '/'
     
 
@@ -138,7 +137,8 @@ def makeJobsforDir( inputDir, version, isTest, subAllProcess, Jobsubmitpath , ch
             iProcess = iFile.split('.root')[0]
             print(iProcess)
             iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            run = f"{exe} {inputDir} {iProcess} {channel} {version} {isTest}"
+            # run = f"{exe} {inputDir} {iProcess} {channel} {version} {isTest}"
+            run = f"{exe} {inputDir} {iProcess} {channel} {version} {ifSys} {isTest}"
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
 
             logFile = logDir + iProcess + ".log"

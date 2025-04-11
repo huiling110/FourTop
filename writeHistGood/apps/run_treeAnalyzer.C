@@ -27,12 +27,13 @@ void run_treeAnalyzer(
     // TString channel = "1tau0l",//
     // TString channel = "1tau2l",//
     TString histVersion = "v0_test",//
+    Bool_t ifSys = kTRUE,
     Bool_t isTest = kTRUE)
     // Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();
-    treeAnalyzer writeBDTHist(inputDir, process, histVersion, channel, isTest);
+    treeAnalyzer writeBDTHist(inputDir, process, histVersion, channel, isTest, ifSys);
     writeBDTHist.Init();
     writeBDTHist.LoopTree(); //!!!maybe provide cut and weight as parameter here
     writeBDTHist.Terminate();
@@ -47,6 +48,7 @@ int main(int argc, char const *argv[])
     TString inputProcess;
     TString version;
     TString channel;
+    Bool_t ifSys = kTRUE;
     Bool_t isTest = kFALSE;
     if (argc < 4)
     {
@@ -60,8 +62,9 @@ int main(int argc, char const *argv[])
         inputProcess = boost::lexical_cast<std::string>(argv[2]);
         channel = boost::lexical_cast<std::string>(argv[3]);
         version = boost::lexical_cast<std::string>(argv[4]);
-        isTest = boost::lexical_cast<Bool_t>(argv[5]);
-        run_treeAnalyzer(inputDir, inputProcess,   channel, version, isTest);
+        ifSys = boost::lexical_cast<Bool_t>(argv[5]);
+        isTest = boost::lexical_cast<Bool_t>(argv[6]);
+        run_treeAnalyzer(inputDir, inputProcess,   channel, version, isTest, ifSys);
     }
 
     return 0;

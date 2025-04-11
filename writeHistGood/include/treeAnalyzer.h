@@ -21,7 +21,7 @@
 class treeAnalyzer
 {
 public:
-    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", TString channel="1tau1l", Bool_t isTest = kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}
+    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", TString channel="1tau1l", Bool_t isTest = kTRUE, Bool_t ifSys=kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}, m_ifSys{ifSys}
     {
         m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
@@ -42,6 +42,7 @@ public:
         m_isFakeTau = m_processName.Contains("fakeTau");
         std::cout << "m_isFakeLepton=" << m_isFakeLepton << " m_isFakeTau=" << m_isFakeTau << "\n";
         std::cout<<"m_ifFakeTau="<<m_ifFakeTau<<"\n";
+        std::cout<<"m_ifSys="<<m_ifSys<<"\n";
 
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
@@ -75,8 +76,7 @@ private:
     // Bool_t m_ifFakeTau = kTRUE;
     Bool_t m_ifFakeTau = kFALSE;//!!!
     Bool_t m_ifMCFakeTau = kTRUE;//!!! create seperate MC fake tau hists for bg
-    // Bool_t m_ifSys = kTRUE;
-    Bool_t m_ifSys = kFALSE;
+    Bool_t m_ifSys = kTRUE;
 
     // for TMVA reader
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
