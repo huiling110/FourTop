@@ -27,10 +27,10 @@ void treeAnalyzer::Init()
     if(m_channel=="1tau1l"){
         std::cout << "initializing for 1tau1l\n";
 
-        WH::getChannelSys(sysRegions, "1tau1lSR", m_era, m_isFakeTau, m_isFakeLepton, m_processName);
+        WH::getChannelSys(sysRegions, "1tau1lSR", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
         // WH::getChannelSys(sysRegions, "1tau1lCR1", m_era, m_isFakeTau, m_isFakeLepton);
         // WH::getChannelSys(sysRegions, "1tau1lCR2", m_era, m_isFakeTau, m_isFakeLepton);
-        WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton, m_processName);
+        WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
 
         // std::vector<Double_t> bins1tau1l =  {-0.25, -0.1036, -0.0731, -0.0487, -0.030, -0.012, 0.013, 0.037, 0.06, 0.122, 0.36}; //roughly 15 bg in each bin
         // std::vector<Double_t> bins1tau1l = {-0.25, -0.0914, -0.0548, -0.0243, 0.0062, 0.0367, 0.0855, 0.135, 0.36}; //roughly 22 bg in each bin
@@ -238,8 +238,8 @@ void treeAnalyzer::LoopTree()
             if(!(m_isFakeLepton || m_isFakeTau||m_isData)){
                 sysRegionsFill(bdtScore, basicWeight, SR1tau1l&&isMCFT, "1tau1lSR", SR1tau1lSys_MCFT);
                 sysRegionsFill(bdtScore, basicWeight, SR1tau1l&&!isMCFT, "1tau1lSR", SR1tau1lSys_NotMCFT);
-                sysRegionsFill(bdtScore, basicWeight, CR11tau1l&&isMCFT, "1tau1lCR12", SR1tau1lSys_MCFT);
-                sysRegionsFill(bdtScore, basicWeight, CR11tau1l&&!isMCFT, "1tau1lCR12", SR1tau1lSys_NotMCFT);
+                sysRegionsFill(bdtScore, basicWeight,  (CR11tau1l||CR21tau1l)&&isMCFT, "1tau1lCR12", SR1tau1lSys_MCFT);
+                sysRegionsFill(bdtScore, basicWeight,  (CR11tau1l||CR21tau1l)&&!isMCFT, "1tau1lCR12", SR1tau1lSys_NotMCFT);
             }
 
 
@@ -263,6 +263,10 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
 {
 //!correlated uncertainties are the same NP for 3 years, no need to add era in the name
     SR1tau1lSysF.fillHistVec(region, bdtScore, basicWeight, SR1tau1l, m_isData);
+    if(!m_ifSys){
+        return;
+    }
+
     if(!(m_isFakeLepton || m_isFakeTau||m_isData)){
 
         SR1tau1lSysF.fillHistVec(region + "_CMS_pileupUp", bdtScore, (basicWeight / e->PUweight_.v()) * e->PUweight_up_.v(), SR1tau1l, m_isData);

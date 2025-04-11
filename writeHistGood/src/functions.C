@@ -411,11 +411,14 @@ TString getProcessName(const TString processName, Bool_t isRun3){
 };
 
 // void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau, Bool_t isFakeLep){
-void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau, Bool_t isFakeLep, TString process){
+void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau, Bool_t isFakeLep, TString process, Bool_t ifSys){
 //https://gitlab.cern.ch/cms-analysis/general/systematics/-/blob/master/systematics_master.yml
     sysRegions.push_back(region);
     // sysRegions.push_back("isMCFTau_" + region);
     // sysRegions.push_back("isNotMCFTau_" + region);
+    if(!ifSys){
+        return;
+    }
 
     if(!(isFaketau || isFakeLep)){
         

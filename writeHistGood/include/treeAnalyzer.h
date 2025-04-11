@@ -75,6 +75,8 @@ private:
     // Bool_t m_ifFakeTau = kTRUE;
     Bool_t m_ifFakeTau = kFALSE;//!!!
     Bool_t m_ifMCFakeTau = kTRUE;//!!! create seperate MC fake tau hists for bg
+    // Bool_t m_ifSys = kTRUE;
+    Bool_t m_ifSys = kFALSE;
 
     // for TMVA reader
     TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
