@@ -74,17 +74,17 @@ def main():
     
     # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!make sure JES OS dir with _JESPt22 in the end
     # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_MCFT')#!make sure JES OS dir with _JESPt22 in the end
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT')#!make sure JES OS dir with _JESPt22 in the end
-    # addJERToFile(allSubProcesses, regionList, era, nominalDir, variables)
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT')#!make sure JES OS dir with _JESPt22 in the end
+    # addJERToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau)
     
-    # addMETToFile(allSubProcesses, regionList, era, nominalDir)
-    # addEESToFile(allSubProcesses, regionList, era, nominalDir)
-    # addTESToFile(allSubProcesses, regionList, era, nominalDir)
+    # addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+    addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+    addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
     
     
     
      
-def addTESToFile(allSubProcesses, regionList, era, nominalDir):
+def addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau=False):
     for i in (0, 1, 10, 11):
         # iTESUpDir = f'{TESbase}_TESdm{i}Up/mc/variableHists_v0BDT{channel}/'
         # iTESDownDir = f'{TESbase}_TESdm{i}Down/mc/variableHists_v0BDT{channel}/'
@@ -93,34 +93,47 @@ def addTESToFile(allSubProcesses, regionList, era, nominalDir):
         # TESName = f'CMS_tau_TES_dm{i}' 
         TESName = f'CMS_scale_t_DM{i}'
         addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName)
+        if ifMCFTau:
+            addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName, 'BDT', '_MCFT')
+            addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName, 'BDT', '_NotMCFT')
          
     
     
-def addJERToFile(allSubProcesses, regionList, era, nominalDir, variables=['BDT']):
+def addJERToFile(allSubProcesses, regionList, era, nominalDir, variables=['BDT'], ifMCFTau=False):
     JERUpDir = nominalDir.replace('/mc/', '_JERUp/mc/')
     JERDownDir = nominalDir.replace('/mc/', '_JERDown/mc/')
     # name = 'CMS_JER'
     name = 'CMS_res_j'
     for ivariable in variables:
         addUpDownToFile(allSubProcesses, regionList, era, nominalDir, JERUpDir, JERDownDir, name, ivariable)
+        if ifMCFTau:
+            addUpDownToFile(allSubProcesses, regionList, era, nominalDir, JERUpDir, JERDownDir, name, ivariable, '_MCFT')
+            addUpDownToFile(allSubProcesses, regionList, era, nominalDir, JERUpDir, JERDownDir, name, ivariable, '_NotMCFT')
     
-def addMETToFile(allSubProcesses, regionList, era, nominalDir):
+def addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau=False):
     METUpDir = nominalDir.replace('/mc/', '_METUp/mc/')
     METDownDir = nominalDir.replace('/mc/', '_METDown/mc/')
     # name = 'CMS_MET_unclusteredEnergy' 
     name = 'CMS_scale_met_unclustered_energy'
     addUpDownToFile(allSubProcesses, regionList, era, nominalDir, METUpDir, METDownDir, name)
+    if ifMCFTau:
+        addUpDownToFile(allSubProcesses, regionList, era, nominalDir, METUpDir, METDownDir, name, 'BDT', '_MCFT')
+        addUpDownToFile(allSubProcesses, regionList, era, nominalDir, METUpDir, METDownDir, name, 'BDT', '_NotMCFT')
 
-def addEESToFile(allSubProcesses, regionList, era, nominalDir):
+def addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau=False):
     EESUpDir = nominalDir.replace('/mc/', '_EleScaleUp/mc/')
     EESDownDir = nominalDir.replace('/mc/', '_EleScaleDown/mc/')
     # name = 'CMS_e_scale'
     name = 'CMS_scale_e'
     addUpDownToFile(allSubProcesses, regionList, era, nominalDir, EESUpDir, EESDownDir, name)
+    if ifMCFTau:
+        addUpDownToFile(allSubProcesses, regionList, era, nominalDir, EESUpDir, EESDownDir, name, 'BDT', '_MCFT')
+        addUpDownToFile(allSubProcesses, regionList, era, nominalDir, EESUpDir, EESDownDir, name, 'BDT', '_NotMCFT')
     
         
     
-def addUpDownToFile(allSubProcesses, regionList, era, nominalDir, upDir, downDir, variationName, variable='BDT'):
+# def addUpDownToFile(allSubProcesses, regionList, era, nominalDir, upDir, downDir, variationName, variable='BDT'):
+def addUpDownToFile(allSubProcesses, regionList, era, nominalDir, upDir, downDir, variationName, variable='BDT', postFix=''):
     JERListUp = {}
     JERListDown = {}
     JERUpName = f'{variationName}_{era}Up'
@@ -128,10 +141,13 @@ def addUpDownToFile(allSubProcesses, regionList, era, nominalDir, upDir, downDir
     for isub in allSubProcesses:
         JERListUp[isub] = []
         JERListDown[isub] = []
-        JERHistsNameUp = [f'{isub}_{ire}_{JERUpName}_{variable}' for ire in regionList] 
-        JERHistsNameDown = [f'{isub}_{ire}_{JERDownName}_{variable}' for ire in regionList] 
+        # JERHistsNameUp = [f'{isub}_{ire}_{JERUpName}_{variable}' for ire in regionList] 
+        # JERHistsNameDown = [f'{isub}_{ire}_{JERDownName}_{variable}' for ire in regionList] 
+        JERHistsNameUp = [f'{isub}{postFix}_{ire}_{JERUpName}_{variable}' for ire in regionList]
+        JERHistsNameDown = [f'{isub}{postFix}_{ire}_{JERDownName}_{variable}' for ire in regionList]
         
-        histList = [f'{isub}_{ire}_{variable}' for ire in regionList]
+        # histList = [f'{isub}_{ire}_{variable}' for ire in regionList]
+        histList = [f'{isub}{postFix}_{ire}_{variable}' for ire in regionList]
         histsUp = uf.getHistFromFile(f'{upDir}{isub}.root', histList) 
         histsDown = uf.getHistFromFile(f'{downDir}{isub}.root', histList)
         for ire, iHist in enumerate(regionList):
