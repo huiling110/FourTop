@@ -6,14 +6,21 @@ import pl as pl
 
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
-    channel = '1tau1l'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
+    # channel = '1tau1l'
+    # variables = ['BDT']
+    # regionList = ['1tau1lSR', '1tau1lCR12']
+    
+    #1tau0l
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV2/'
+    channel = '1tau0l'
     variables = ['BDT']
-    regionList = ['1tau1lSR', '1tau1lCR12']
+    regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
     
     
     ifFakeTau = True
-    ifMCFTau = True #!
+    # ifMCFTau = True #!
+    ifMCFTau = False #!
 
 
     era = uf.getEraFromDir(inputDir)
