@@ -5,8 +5,8 @@
 #include "../include/functions.h"
 
 void run_treeAnalyzer(
-    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/",//!Updated with new MV
-    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_JESup_RelativeSample_AK4PFchs_v94HadroPreJetVetoHemOnly_JESPt22/mc/",//!Updated with new MV
+    TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/",//!Updated with new MV
+    // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_JESup_RelativeSample_AK4PFchs_v94HadroPreJetVetoHemOnly_JESPt22/mc/",//!Updated with new MV
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/mc/",
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/",
@@ -23,12 +23,12 @@ void run_treeAnalyzer(
     // TString process = "ttbar_2l",
     // TString process = "jetHT_2018a",
     // Int_t channel = 0,//0: 1tau1l
-    TString channel = "1tau1l",//
-    // TString channel = "1tau0l",//
+    // TString channel = "1tau1l",//
+    TString channel = "1tau0l",//
     // TString channel = "1tau2l",//
     TString histVersion = "v0_test",//
-    // Bool_t ifSys = kTRUE,
-    Bool_t ifSys = kFALSE,
+    Bool_t ifSys = kTRUE,
+    // Bool_t ifSys = kFALSE,
     Bool_t isTest = kTRUE)
     // Bool_t isTest = kFALSE)
 {
@@ -65,7 +65,8 @@ int main(int argc, char const *argv[])
         version = boost::lexical_cast<std::string>(argv[4]);
         ifSys = boost::lexical_cast<Bool_t>(argv[5]);
         isTest = boost::lexical_cast<Bool_t>(argv[6]);
-        run_treeAnalyzer(inputDir, inputProcess,   channel, version, isTest, ifSys);
+        run_treeAnalyzer(inputDir, inputProcess,   channel, version,  ifSys, isTest);
+
     }
 
     return 0;

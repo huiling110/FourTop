@@ -44,6 +44,11 @@ public:
         std::cout<<"m_ifFakeTau="<<m_ifFakeTau<<"\n";
         std::cout<<"m_ifSys="<<m_ifSys<<"\n";
 
+        if(m_channel=="1tau0l"){
+            m_ifMCFakeTau = kFALSE;
+        }
+        std::cout<<"m_ifMCFakeTau="<<m_ifMCFakeTau<<"\n";
+
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
 

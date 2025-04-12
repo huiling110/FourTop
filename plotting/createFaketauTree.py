@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
@@ -18,7 +18,7 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
@@ -31,7 +31,7 @@ def main():
     is1tau2l = False 
     # is1tau2l = True 
     # ifMorphTauPt = False
-    # ifMorphTauPt = True
+    ifMorphTauPt = True
    
     
     
@@ -39,9 +39,9 @@ def main():
     era = uf.getEraFromDir(inputDir)
     print(era)
     
-    # postFix = '_ptMorphed' if ifMorphTauPt else ''
-    # createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
-    # createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
+    postFix = '_ptMorphed' if ifMorphTauPt else ''
+    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
+    createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
     
     # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
    
@@ -50,7 +50,6 @@ def main():
     # channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
     # channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'
     # postFix = '_1tau1lAllRegion'
-    
     
     # lepPreSel = 'jets_num>=2 && bjetsM_num>=1 && jets_HT>200. && lepTopMVAT_1pt>25. && lepTopMVAT_2pt>13.  && !lepTopMVAT_2ifZVeto'
     # isTight_2L = '(elesTopMVAF_1isTight && elesTopMVAF_2isTight) || (muonsTopMVAF_1isTight && muonsTopMVAF_2isTight) || (elesTopMVAF_1isTight && muonsTopMVAF_1isTight) || (elesTopMVAF_2isTight && muonsTopMVAF_2isTight)'
@@ -62,17 +61,17 @@ def main():
     # createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
     # channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num<8 && bjetsM_num>2'
     # postFix = '_1tau0lVRHTCut500'
-    channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>7 && bjetsM_num>2'
-    postFix = '_1tau0lSRHTCut500'
+    # channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>7 && bjetsM_num>2'
+    # postFix = '_1tau0lSRHTCut500'
     # postFix = '_1tau0lMR'
     # postFix = '_1tau0lMRHTCut300'
     # channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>=6 && bjetsM_num==2'
     # postFix = '_1tau0lMRHTCut500'
     # postFix = postFix + '_onlyTT'
     # postFix = postFix + '_onlyQCD'
-    createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
-    createFakeTauTree(inputDirDic, era, is1tau2l, channelSel, postFix, True)
-    createFakeTauTree_mc(inputDirDic, era, is1tau2l, channelSel, postFix, True)
+    # createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
+    # createFakeTauTree(inputDirDic, era, is1tau2l, channelSel, postFix, True)
+    # createFakeTauTree_mc(inputDirDic, era, is1tau2l, channelSel, postFix, True)
     
     
   
