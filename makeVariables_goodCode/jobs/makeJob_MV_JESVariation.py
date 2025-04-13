@@ -17,7 +17,6 @@ def main():
     # outVersion = 'v0baselineLep'
     # outVersion = 'v0baselineHadro'
     outVersion = 'v1baselineHadroBtagWeightAdded'
-    # outVersion = 'v1FixedBtagWeightWhenJES'
     if1tau2l = 0
     # if1tau2l = 1
    
@@ -26,10 +25,7 @@ def main():
         print('i JESVariation: ', i)
         ioutVersionUp = f'{outVersion}_JESup_{i}'
         ioutVersionDown = f'{outVersion}_JESDown_{i}'
-        # ioutVersionUp = f'{outVersion}_JESup_{JESVariationList[i]}'
-        # ioutVersionDown = f'{outVersion}_JESDown_{JESVariationList[i]}'
         # print('ioutVersionUp: ', ioutVersionUp) 
-        #get i = JESVariationList index
         i = gq.JESVariationList.index(i)
         mj.main(year, inVersion, ioutVersionUp, if1tau2l, 1, i)
         print('submitted JES up\n')
