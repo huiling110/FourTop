@@ -20,14 +20,14 @@ def main():
     
     
     ifFakeTau = True
-    # ifMCFTau = True #!
-    ifMCFTau = False #!
+    ifMCFTau = True #!
+    # ifMCFTau = False #!
 
 
     era = uf.getEraFromDir(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
 
-    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, True)    
+    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, False)    
     print('sumProList:', sumProList) 
     sumProSys = pl.getSysDicPL(sumProList, True, channel, era, True)    
     

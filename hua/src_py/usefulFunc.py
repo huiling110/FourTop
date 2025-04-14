@@ -314,8 +314,9 @@ def modifyDicForMCFTau(allDic, sumList):
             del allDic[original_key]
 
     allDic.update(updatedDic) 
-    print('proDic updated with MCFTau')
     # print('allDic: ', allDic)
+    # [print(isub, sumPro) for isub, sumPro in allDic.items()]
+    print('proDic updated with MCFTau\n')
         
         
 
