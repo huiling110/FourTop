@@ -45,7 +45,7 @@ def main():
     era = uf.getEraFromDir(inputDir)
     # plotFRNew(inputDirDic, era)
     
-    checkFRDataMC(inputDirDic, era)
+    # checkFRDataMC(inputDirDic, era)
     
 def checkFRDataMC(inputDirDic, era):    
     regionList = ['1tau0lMRCR', '1tau0lMRCRGen', '1tau0lMRCRLTau', '1tau0lMRCRLTauGen']
