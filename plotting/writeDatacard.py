@@ -2,6 +2,7 @@ import os
 import ROOT
 import usefulFunc as uf
 import ttttGlobleQuantity as gq
+import pl as pl
 
 MCSys = {
     #sys: [isCorrelated, whichProces, channelBits, isCorrelatedProcess] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton; whichProcess=3:faketauMC
@@ -167,7 +168,8 @@ def main():
     outCard = f"{outDir}datacard_{channel}.txt"
     era = uf.getEraFromDir(inputTemplate) 
     
-    processes = gq.proChannelDic_forCombine[channel]
+    # processes = gq.proChannelDic_forCombine[channel]
+    processes = pl.getSumList(channel, True, False, False, True)    
     if channel== '1tau2l':
         processes.remove('leptonSum')
         processes.remove('Minor')

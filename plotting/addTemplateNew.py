@@ -27,7 +27,7 @@ def main():
     era = uf.getEraFromDir(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
 
-    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, False)    
+    sumProList = pl.getSumList(channel, ifFakeTau, False, False, True)    
     print('sumProList:', sumProList) 
     sumProSys = pl.getSysDicPL(sumProList, True, channel, era, True)    
     
