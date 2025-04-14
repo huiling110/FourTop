@@ -24,7 +24,9 @@ def main():
     # ifMCFTau = False #!
     plotName = 'dataVsMC_v5'
     if ifMCFTau:
-        plotName = 'dataVsMC_v5_MCFTau'
+        plotName = f'{plotName}_MCFTau'
+    if ifSystematic:
+        plotName = f'{plotName}_sys'
    
     #!1tau2l 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/'
@@ -169,6 +171,7 @@ def read_csv_as_lines(file_path, delimiter=','):
 
 
 def getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, ifCombine=False):
+    #ifCombine: if combine, the ttX processes are split
     sumProList = gq.proChannelDic[channel] if not ifCombine else gq.proChannelDic_forCombine[channel]
     if ifVLL:
         sumProList.append(ifVLL)
@@ -176,14 +179,15 @@ def getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, ifCombine=False):
         sumProList.remove('fakeTau')
         #add qcd to the front 
         sumProList.insert(0, 'qcd')
-    if ifMCFTau and (not ifCombine):
+    # if ifMCFTau and (not ifCombine):
+    if ifMCFTau :
         sumProList.insert(0, 'fakeTauMC')
-    print(sumProList) 
+    print('sum pro', sumProList) 
     return sumProList
 
 def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='',  channel='1tau1l',  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifDoSystmatic=False, ifMCFTau=False):
     sumProList = getSumList(channel, ifFakeTau, ifVLL, ifMCFTau)    
-    sumProSys = getSysDicPL(ifDoSystmatic, channel, era, True)    
+    sumProSys = getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)    
     [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
     
@@ -193,14 +197,16 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
         for iRegion in regionList:       
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
     
-def getSysDicPL(ifSys=False, channel='1tau1l', era='2018', ifCombine=False):
+# def getSysDicPL(ifSys=False, channel='1tau1l', era='2018', ifCombine=False):
+def getSysDicPL(inProcess, ifSys=False, channel='1tau1l', era='2018', ifCombine=False):
     #todo: add funcionality of getting systematics from datacard
     #!Lumi uncertainty to be added mannually
     if not ifSys:
         return {}
     sumProSys = {} 
     print('staring to get process systematic')
-    processes = gq.proChannelDic[channel][:] if not ifCombine else gq.proChannelDic_forCombine[channel][:]
+    # processes = gq.proChannelDic[channel][:] if not ifCombine else gq.proChannelDic_forCombine[channel][:]
+    processes = inProcess[:] 
     print('processes in getSysDicPL(): ', processes) #?not 'jetHT' already
     if channel=='1tau2l':
         processes.remove('leptonSum')

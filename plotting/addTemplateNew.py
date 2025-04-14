@@ -27,9 +27,9 @@ def main():
     era = uf.getEraFromDir(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
 
-    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau)    
+    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, True)    
     print('sumProList:', sumProList) 
-    sumProSys = pl.getSysDicPL(True, channel, era, True)    
+    sumProSys = pl.getSysDicPL(sumProList, True, channel, era, True)    
     
     
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
