@@ -94,23 +94,23 @@ MCSys = {
     'CMS_scale_j_SinglePionHCAL': [True, 0, 0b111, True],
     'CMS_scale_j_TimePtEta': [True, 0, 0b111, True],   
  
-    'CMS_res_j': [False, 0, 0b111 , True],
+    # 'CMS_res_j': [False, 0, 0b111 , True],
  
-    'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    'CMS_scale_t_DM11': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
-    'CMS_scale_e': [False, 0, 0b001, True],
+    # 'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    # 'CMS_scale_e': [False, 0, 0b001, True],
     
     
 }
 
 
-# outVersion = 'v3BasicAndJES'
+outVersion = 'v3BasicAndJES'
 # outVersion = 'v4BasicAndJESJER'
-outVersion = 'v6AllSys'
+# outVersion = 'v6AllSys'
 # outVersion = 'v0basic'
 
 def main():
