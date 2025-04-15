@@ -71,7 +71,7 @@ def main():
     # regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
     
     
-    ifMCFTau = True 
+    ifMCFTau = True  #!for 1tau1l and 1tau2l MC
     # ifMCFTau = False
     
      
