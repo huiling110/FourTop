@@ -10,9 +10,9 @@ import usefulFunc as uf
 #todo add git co after job submission for version control
 
 def main(
-    year = '2016',
+    # year = '2016',
     # year = '2017',
-    # year = '2018',
+    year = '2018',
     # inVersion = 'v94HadroPreJetVetoHemOnly',
     inVersion = 'v94HadroPreJetVetoHemOnly_JERDown', #2018, 2017
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2017, 2018, 2016 done

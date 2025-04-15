@@ -18,15 +18,14 @@ inVersion = 'v94HadroPreJetVetoHemOnly'
 # outVersion = 'v0baselineHadro'
 # outVersion = 'v0baselineLep'
 outVersion = 'v1baselineHadroBtagWeightAdded'
-# channel = '1tau1l'
-channel = '1tau0l'
+channel = '1tau1l'
+# channel = '1tau0l'
 # channel = '1tau2l'
-version = f'v0BDT{channel}'
+# version = f'v0BDT{channel}'
 # version = f'v0BDT{channel}FakeTau'
 # version = f'v0DataMC_sys'
 # version = f'v0DataMC_sysV2'
-# version = 'v0BDT1tau1lAddMCFakeTV2'
-# version = 'v0BDT1tau1lAddMCFakeTV3'
+version = 'v0BDT1tau1lAddMCFakeTV3'
 # version = 'v0BDT1tau0lV2'
 # exe = './apps/run_WH_forDataMC.out'
 exe = './apps/run_treeAnalyzer.out' 
@@ -34,7 +33,7 @@ justMC = True # for energy scale variation, only need to run MC
 
 
 def main():
-    subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     # subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     # subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
