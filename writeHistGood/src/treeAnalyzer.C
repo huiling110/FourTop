@@ -28,8 +28,6 @@ void treeAnalyzer::Init()
         std::cout << "initializing for 1tau1l\n";
 
         WH::getChannelSys(sysRegions, "1tau1lSR", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
-        // WH::getChannelSys(sysRegions, "1tau1lCR1", m_era, m_isFakeTau, m_isFakeLepton);
-        // WH::getChannelSys(sysRegions, "1tau1lCR2", m_era, m_isFakeTau, m_isFakeLepton);
         WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
 
         std::vector<Double_t> bins1tau1l = {-0.25, -0.067, -0.024, 0.018, 0.06, 0.1 ,0.145, 0.36 }; //BinF; roughly 30 bg in each bin
@@ -41,11 +39,6 @@ void treeAnalyzer::Init()
             SR1tau1lSys_NotMCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_NotMCFT", bins1tau1l, sysRegions);
         }
 
-        // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l.csv"; 
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v3cut1tau1lSR6thJetpt34_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLSample/mc/BDTTrain/v0allVar/dataset/weight/TMVAClassification_BDT.weights.xml";//!weight file for VLL in 1tau1l
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v1VLLM800/dataset/weight/TMVAClassification_BDT.weights.xml";//!VLL 800
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v76WithVLLAllMass/mc/BDTTrain/v1VLLM700/dataset/weight/TMVAClassification_BDT.weights.xml";//!VLL700
         variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
         // weightfile = "./input/BDTTraining_1tau1l_27Var/TMVAClassification_BDT.weights.xml";
@@ -67,17 +60,18 @@ void treeAnalyzer::Init()
 
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";
-        WH::getChannelSys(sysRegions, "1tau2lSR",  m_era, m_isFakeTau, m_isFakeLepton);
-        WH::getChannelSys(sysRegions, "1tau2lCR3",  m_era, m_isFakeTau, m_isFakeLepton);
+        WH::getChannelSys(sysRegions, "1tau2lSR",  m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
+        WH::getChannelSys(sysRegions, "1tau2lCR3",  m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
 
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 3, -0.3, 0.4, sysRegions);//1tau2l
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.4, sysRegions);//!For optimization binnning
-        // std::vector<Double_t> bins1tau2l = {-0.25, -0.094, -0.068, -0.049, -0.035, -0.022, -0.003, 0.01, 0.03, 0.05, 0.07, 0.11, 0.4 }; //binA
-        // std::vector<Double_t> bins1tau2l = {-0.25, -0.094, -0.068, -0.049, -0.035, -0.022, -0.003, 0.01, 0.03, 0.05, 0.07, 0.11, 0.15, 0.4 }; //binA
-        // std::vector<Double_t> bins1tau2l = {-0.25, -0.068, -0.049,  -0.022,  0.01,  0.05,  0.11, 0.15, 0.4 }; //binA
-        // std::vector<Double_t> bins1tau2l = {-0.25, -0.068, -0.049,  -0.022,  0.01,  0.05,  0.11, 0.155, 0.4 }; //binB
         std::vector<Double_t> bins1tau2l = { -0.25,  -0.15, -0.12, -0.093, -0.068, -0.042, -0.009, 0.04, 0.12, 0.4 }; //BinC
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau2l, sysRegions);//1tau2l
+
+        if(!(m_isData || m_isFakeLepton || m_isFakeTau) && m_ifMCFakeTau){
+            SR1tau1lSys_MCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_MCFT", bins1tau2l, sysRegions);
+            SR1tau1lSys_NotMCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_NotMCFT", bins1tau2l, sysRegions);
+        }
+
+
         // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau2l_v76For1tau2l/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
         variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_final.csv";
@@ -236,6 +230,13 @@ void treeAnalyzer::LoopTree()
             Bool_t CR31tau2l = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau2l, "1tau2lSR", SR1tau1lSys);
             sysRegionsFill(bdtScore, basicWeight, CR31tau2l, "1tau2lCR3", SR1tau1lSys);
+
+            if(!(m_isFakeLepton || m_isFakeTau||m_isData)){
+                sysRegionsFill(bdtScore, basicWeight, SR1tau2l&&isMCFT, "1tau2lSR", SR1tau1lSys_MCFT);
+                sysRegionsFill(bdtScore, basicWeight, SR1tau2l&&!isMCFT, "1tau2lSR", SR1tau1lSys_NotMCFT);
+                sysRegionsFill(bdtScore, basicWeight, CR31tau2l&&isMCFT, "1tau2lCR3", SR1tau1lSys_MCFT);
+                sysRegionsFill(bdtScore, basicWeight, CR31tau2l&&!isMCFT, "1tau2lCR3", SR1tau1lSys_NotMCFT);
+            }
         }
 
     }
