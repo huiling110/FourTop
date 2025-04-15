@@ -45,8 +45,8 @@ JERSys = 1 #!!! 0: no correction; 1: up; 2: down
 METSys = 0 #!!! nominal: 0; 1: up; 2: down
 if1tau2l = 1 #!!!True 
 # era = '2016'
-era = '2016APV'
-# era = '2017'
+# era = '2016APV'
+era = '2017'
 # era = '2018'
 
 # jobVersionName = 'v91TESAddedLepPre/'

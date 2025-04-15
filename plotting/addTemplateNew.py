@@ -20,27 +20,35 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
-    channel = '1tau0l'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
+    # channel = '1tau0l'
+    # variables = ['BDT']
+    # regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
+    
+    #1tau2l 
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
+    channel = '1tau2l'
     variables = ['BDT']
-    regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
+    regionList = ['1tau2lSR', '1tau2lCR3']
     
     
     ifFakeTau = True
-    # ifMCFTau = True #!
-    ifMCFTau = False #!
+    ifMCFTau = True #!
+    # ifMCFTau = False #!
 
 
     era = uf.getEraFromDir(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
+    is1tau2l = True if channel == '1tau2l' else False
 
-    sumProList = pl.getSumList(channel, ifFakeTau, False, False, True)    
+    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, True)    
     print('sumProList:', sumProList) 
     sumProSys = pl.getSysDicPL(sumProList, True, channel, era, True)    
     
     
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
     
+    dataName = 'leptonSum' if is1tau2l else 'jetHT' 
     #add fake data for SR
     for ivar in variables:
         for region in regionList:
@@ -59,10 +67,10 @@ def main():
                         dataHist.SetName(dataHist.GetName().replace(sumPro, 'data_obs'))
                     else:
                         dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # some process has negative bins, set them to 0 
-                sumProcessPerVar[ivar][region]['jetHT'] = dataHist
+                sumProcessPerVar[ivar][region][dataName] = dataHist
                 print('fake data hist:', dataHist.GetName())
-            dataName = sumProcessPerVar[ivar][region]['jetHT'].GetName().replace('jetHT', 'data_obs')
-            sumProcessPerVar[ivar][region]['jetHT'].SetName(dataName)
+            dataHistName = sumProcessPerVar[ivar][region][dataName].GetName().replace(dataName, 'data_obs')
+            sumProcessPerVar[ivar][region][dataName].SetName(dataHistName)
           
              
             
