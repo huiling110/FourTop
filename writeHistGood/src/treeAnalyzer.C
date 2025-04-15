@@ -32,9 +32,6 @@ void treeAnalyzer::Init()
         // WH::getChannelSys(sysRegions, "1tau1lCR2", m_era, m_isFakeTau, m_isFakeLepton);
         WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
 
-        // std::vector<Double_t> bins1tau1l =  {-0.25, -0.1036, -0.0731, -0.0487, -0.030, -0.012, 0.013, 0.037, 0.06, 0.122, 0.36}; //roughly 15 bg in each bin
-        // std::vector<Double_t> bins1tau1l = {-0.25, -0.0914, -0.0548, -0.0243, 0.0062, 0.0367, 0.0855, 0.135, 0.36}; //roughly 22 bg in each bin
-        // std::vector<Double_t> bins1tau1l = {-0.25, -0.067, -0.024, 0.018, 0.06, 0.14, 0.36 }; //BinF; roughly 30 bg in each bin
         std::vector<Double_t> bins1tau1l = {-0.25, -0.067, -0.024, 0.018, 0.06, 0.1 ,0.145, 0.36 }; //BinF; roughly 30 bg in each bin
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions); 
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.36, sysRegions);//!For optimization binnning
@@ -56,9 +53,9 @@ void treeAnalyzer::Init()
         std::cout << "training input: " << weightfile << "\n";
     }else if(m_channel=="1tau0l"){
         std::cout << "1tau0l \n";
-        WH::getChannelSys(sysRegions, "1tau0lSR",  m_era, m_isFakeTau, m_isFakeLepton);
-        WH::getChannelSys(sysRegions, "1tau0lVR",  m_era, m_isFakeTau, m_isFakeLepton);
-        WH::getChannelSys(sysRegions, "1tau0lCRMR",  m_era, m_isFakeTau, m_isFakeLepton);
+        WH::getChannelSys(sysRegions, "1tau0lSR",  m_era, m_isFakeTau,  m_isFakeLepton, m_processName, m_ifSys);
+        WH::getChannelSys(sysRegions, "1tau0lVR",  m_era, m_isFakeTau,  m_isFakeLepton, m_processName, m_ifSys);
+        WH::getChannelSys(sysRegions, "1tau0lCRMR",  m_era, m_isFakeTau,  m_isFakeLepton, m_processName, m_ifSys);
 
         std::vector<Double_t> bins1tau0l = {-0.35, -0.16, -0.12, -0.105, -0.084, -0.063, -0.042, -0.021, 0.0, 0.021, 0.049, 0.091, 0.35} ; //Bin C, optimized,
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
