@@ -2,19 +2,14 @@ import makeJob_forWriteHist as mj
 import ttttGlobleQuantity as gq
 
 
-# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-# inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
-# inVersion = 'v90MuonESHadroPre_JESPt22'
-# inVersion = 'v91TESAddedHadroPre_JESPt20'
-# inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
-# inVersion = 'v91TESAddedLepPre_JETPt22'
-inVersion = 'v94HadroPreJetVetoHemOnly'
+# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+# inVersion = 'v94HadroPreJetVetoHemOnly'
 # inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
+inVersion = 'v94LepPreJetVetoHemOnly'
 # inVersion = 'v94LepPreJetVetoHemOnly_JESPt22'
-# inVersion = 'v94LepPreJetVetoHemOnly'
 # outVersion = 'v0baselineHadro'
 # outVersion = 'v0baselineLep'
 outVersion = 'v1baselineHadroBtagWeightAdded'
