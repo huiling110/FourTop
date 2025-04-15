@@ -31,8 +31,13 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_METDown/'
 # jobVersionName = 'v93HadroPreJetVetoPileupID_TESdm0Up/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly/'#3 years submitted
+<<<<<<< HEAD
 jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/' # 2018, 2017
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JERUp/'#2018
+=======
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/' #2018, 2017, 2016
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_JERDown/'#2018, 2017, 2016
+>>>>>>> master
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleDown/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_METDown/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm11Down/'
@@ -43,7 +48,7 @@ eleScale = 0 #!!! 0: nominal; 1: up; 2: down
 JESSys = 1 #!!! nominal: 0;
 JERSys = 0 #!!! 0: no correction; 1: up; 2: down
 METSys = 0 #!!! nominal: 0; 1: up; 2: down
-if1tau2l = 0 #!!!True 
+if1tau2l = 1 #!!!True 
 # era = '2016'
 # era = '2016APV'
 era = '2017'
@@ -56,8 +61,8 @@ era = '2017'
 # jobVersionName = 'v91TESAddedLepPre_TESdm11Down/'
 # jobVersionName = 'v91TESAddedLepPre_EleScaleDown/'
 # jobVersionName = 'v94LepPreJetVetoHemOnly/'#3 years submitted
-# jobVersionName = 'v94LepPreJetVetoHemOnly_JESPt22/' #2018;
-# jobVersionName = 'v94LepPreJetVetoHemOnly_JERUp/'#2018
+jobVersionName = 'v94LepPreJetVetoHemOnly_JESPt22/' #2018; 2017
+# jobVersionName = 'v94LepPreJetVetoHemOnly_JERDown/'#2018
 # jobVersionName = 'v94LepPreJetVetoHemOnly_METDown/' # 3 years submitted
 # jobVersionName = 'v94LepPreJetVetoHemOnly_EleScalHeDown/'
 # jobVersionName = 'v94LepPreJetVetoHemOnly_TESdm11Down/' #dm0 3years down
@@ -224,16 +229,12 @@ def makeJobsInDir( inputDir, outputDir, jobScriptsFolder, isData, era, isRun3,  
                 prepareCshJob( sampleDir, koutputDir, smallFilejob, entry)
                 _idx_tmp += 1
                 
-                #logFile = kOutDirLog + smallFile + ".log"
-                #errFile = kOutDirLog + smallFile + ".err"
-                # sub_oneProcess.write( "hep_sub -os CentOS7 " + iSmallJobName + " -o " + logFile + " -e " + errFile + "\n")
         if len(sample_file_path)!=0:
-            #smallFile_forSub = sample_file_name[0].replace( ".root", "")
-            #smallFile_forSub = re.sub(r'_(\d+)$', r'''_"%{ProcId}"''', smallFile_forSub)
             iSmallJobName_forSub = 'OS_'+ era + sample_k + '_' + '''"%{ProcId}"''' + ".sh"
             logFile = kOutDirLog + '''_"%{ProcId}"''' + ".log"
             errFile = kOutDirLog + '''_"%{ProcId}"''' + ".err"
-            sub_oneProcess.write( "hep_sub -os CentOS7 -mem 8000 " + iSmallJobName_forSub + " -o " + logFile + " -e " + errFile + f" -n {len(sample_file_path)}" + "\n")#!Memory comsuption is too high, need to be understood
+            # sub_oneProcess.write( "hep_sub -os CentOS7 -mem 8000 " + iSmallJobName_forSub + " -o " + logFile + " -e " + errFile + f" -n {len(sample_file_path)}" + "\n")#!Memory comsuption is too high, need to be understood
+            sub_oneProcess.write( "hep_sub -os CentOS7 " + iSmallJobName_forSub + " -o " + logFile + " -e " + errFile + f" -n {len(sample_file_path)}" + "\n")#!Memory comsuption is too high, need to be understood
 
         os.popen('chmod 777 '+ jobScriptsFolder + sample_k + "/*sh")
         sub_oneProcess.close()

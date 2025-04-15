@@ -7,7 +7,10 @@ import pl as pl
 def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
     channel = '1tau1l'
     variables = ['BDT']
     regionList = ['1tau1lSR', '1tau1lCR12']
@@ -42,11 +45,16 @@ def main():
                 for sumPro in sumProList:
                     if uf.isData(sumPro): continue
                     print('fake data: ', sumPro)
+                    
+                    hist = sumProcessPerVar[ivar][region][sumPro]
+                    resetNegtiveBins(hist)
+                    
+                    
                     if dataHist == None:
                         dataHist = sumProcessPerVar[ivar][region][sumPro].Clone()  
                         dataHist.SetName(dataHist.GetName().replace(sumPro, 'data_obs'))
                     else:
-                        dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # 
+                        dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # some process has negative bins, set them to 0 
                 sumProcessPerVar[ivar][region]['jetHT'] = dataHist
                 print('fake data hist:', dataHist.GetName())
             dataName = sumProcessPerVar[ivar][region]['jetHT'].GetName().replace('jetHT', 'data_obs')
@@ -85,7 +93,13 @@ def main():
     outFile.Close()
     print('template file created:', templateFile)
     
-    
+
+def resetNegtiveBins(hist):
+    for i in range(1, hist.GetNbinsX()+1):
+        if hist.GetBinContent(i) < 0.:
+            hist.SetBinContent(i, 0)
+            hist.SetBinError(i, 0)
+    return hist
     
     
 if __name__ == "__main__":

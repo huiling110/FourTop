@@ -95,7 +95,7 @@ MCSys = {
     'CMS_scale_j_SinglePionHCAL': [True, 0, 0b111, True],
     'CMS_scale_j_TimePtEta': [True, 0, 0b111, True],   
  
-    # 'CMS_res_j': [False, 0, 0b111 , True],
+    'CMS_res_j': [False, 0, 0b111 , True],
  
     # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
     # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
@@ -109,8 +109,8 @@ MCSys = {
 }
 
 
-outVersion = 'v3BasicAndJES'
-# outVersion = 'v4BasicAndJESJER'
+# outVersion = 'v3BasicAndJES'
+outVersion = 'v4BasicAndJESJER'
 # outVersion = 'v6AllSys'
 # outVersion = 'v0basic'
 
@@ -132,7 +132,10 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/combine/templatesForCombine1tau1l_new.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
     channel = '1tau1l'
    
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
@@ -159,7 +162,7 @@ def main():
     # channel = '1tau2l'
 
 
-
+    ifFTauMC = True
    
    
     inputDir = os.path.dirname(inputTemplate) 
@@ -364,7 +367,7 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
     # signal_index = -1  # Assuming the first process is the signal
     signal_index = processes.index('tttt')
     
-    process_col_width = 52
+    process_col_width = 60
     value_col_width = 22
     channelNameName = f"SR{channel_name}_{era}"
     
