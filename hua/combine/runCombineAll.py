@@ -81,7 +81,8 @@ def main():
     # cardDir = 'combinationV13_fakeTau/run2_1tau1l/'
     # cardDir = 'combinationV13_fakeTau/run2_1tau1l_no2016preVFP/'
     # cardDir = 'combinationV14/run2_1tau1l/'
-    cardDir = 'combinationV14/run2_3years/'
+    cardDir = 'combinationV14/run2_1tau2l/'
+    # cardDir = 'combinationV14/run2_3years/'
 
      
      
@@ -108,7 +109,7 @@ def runImpact(cardDir):
                 os.mkdir(impacDir)
             step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1  '.format(wf)
             # step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits  '.format(wf) 
-            # step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits --parallel 8 --job-mode "interactive"'.format(wf) 
+            step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits --parallel 8 --job-mode "interactive"'.format(wf) 
             step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json '.format(wf, impacDir)
             step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(impacDir)
             mv = 'mv higgsCombine_paramFit*.root impacts.pdf combine_logger.out {}'.format(impacDir)

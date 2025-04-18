@@ -35,19 +35,19 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JERUp/'#2018
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleDown/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_METDown/'#3 years submitted
-# jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm11Down/'
+jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm10Up/'
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
-TES = 0 #!!!
+TES = 7 #!!!
 eleScale = 0 #!!! 0: nominal; 1: up; 2: down
 JESSys = 0 #!!! nominal: 0;
-JERSys = 2 #!!! 0: no correction; 1: up; 2: down
+JERSys = 0 #!!! 0: no correction; 1: up; 2: down
 METSys = 0 #!!! nominal: 0; 1: up; 2: down
-if1tau2l = 1 #!!!True 
-era = '2016'
+if1tau2l = 0 #!!!True 
+# era = '2016'
 # era = '2016APV'
 # era = '2017'
-# era = '2018'
+era = '2018'
 
 # jobVersionName = 'v91TESAddedLepPre/'
 # jobVersionName = 'v91TESAddedLepPre_JETPt22/'
@@ -57,7 +57,7 @@ era = '2016'
 # jobVersionName = 'v91TESAddedLepPre_EleScaleDown/'
 # jobVersionName = 'v94LepPreJetVetoHemOnly/'#3 years submitted
 # jobVersionName = 'v94LepPreJetVetoHemOnly_JESPt22/' #2018; 2017, 2016
-jobVersionName = 'v94LepPreJetVetoHemOnly_JERDown/'#2018
+# jobVersionName = 'v94LepPreJetVetoHemOnly_JERDown/'#2018
 # jobVersionName = 'v94LepPreJetVetoHemOnly_METDown/' # 3 years submitted
 # jobVersionName = 'v94LepPreJetVetoHemOnly_EleScalHeDown/'
 # jobVersionName = 'v94LepPreJetVetoHemOnly_TESdm11Down/' #dm0 3years down
@@ -91,7 +91,8 @@ def main():
 #better not modify anything afer this
     inputDir, outputDir, eraOut = getInputOutDir(jobVersionName, era)
 
-    jobsDir = codePath + 'jobs_eachYear/'
+    # jobsDir = codePath + 'jobs_eachYear/'
+    jobsDir = outputDir + 'jobs_eachYear/'
     uf.checkMakeDir(jobsDir)
     isRun3 = uf.isRun3(inputDir)
     print( "era: ", era, 'isRun3=', isRun3 )
@@ -112,7 +113,10 @@ def main():
     makeJobsInDir( inputDirData, outputDir, jobScriptsFolder, True, eraOut , isRun3, sumProToSkip)
 
     makeSubAllJobs( jobsDir , eraOut)
-    subprocess.run('chmod 777 '+jobScriptsFolder + "*sh", shell=True )
+    # subprocess.run('chmod 777 '+jobScriptsFolder + "*sh", shell=True )
+    subprocess.run(f"nohup python3 /workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/jobs/speedOS.py {jobScriptsFolder}/cluster_logs.csv > {jobScriptsFolder}output.log 2>&1 &", shell=True )
+    # subprocess.Popen(f"python3 /workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/jobs/speedOS.py {jobScriptsFolder}/cluster_logs.csv", shell=True )
+    # subprocess.Popen(f"python3 /workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/objectSelectionOptimized/jobs/speedOS.py {jobScriptsFolder}/cluster_logs.csv", shell=True )
 
     
 
@@ -230,11 +234,32 @@ def makeJobsInDir( inputDir, outputDir, jobScriptsFolder, isData, era, isRun3,  
             errFile = kOutDirLog + '''_"%{ProcId}"''' + ".err"
             # sub_oneProcess.write( "hep_sub -os CentOS7 -mem 8000 " + iSmallJobName_forSub + " -o " + logFile + " -e " + errFile + f" -n {len(sample_file_path)}" + "\n")#!Memory comsuption is too high, need to be understood
             sub_oneProcess.write( "hep_sub -os CentOS7 " + iSmallJobName_forSub + " -o " + logFile + " -e " + errFile + f" -n {len(sample_file_path)}" + "\n")#!Memory comsuption is too high, need to be understood
+            
+            #!!!
+            # submit_cmd = "hep_sub -os CentOS7 " + iSmallJobName_forSub + " -o " + logFile + " -e " + errFile + f" -n {len(sample_file_path)}" + "\n"
+            submit_cmd = "hep_sub -os CentOS7 " + kProcessDir + iSmallJobName_forSub + " -o " + logFile + " -e " + errFile + f" -n {len(sample_file_path)}" + "\n"
+            result = subprocess.run(submit_cmd, shell=True, capture_output=True, text=True)
+            cluster_id = None
+            if result.returncode == 0:
+                match = re.search(r'submitted to cluster (\d+)', result.stdout)
+                if match:
+                    cluster_id = match.group(1)
+                    print(f"Submitted cluster: {cluster_id}")
+                    
+                    # 保存 clusterid 和日志路径到文件
+                    with open(os.path.join(jobScriptsFolder, 'cluster_logs.csv'), 'a') as f:
+                        f.write(f"{cluster_id},{kOutDirLog},{kProcessDir},0\n")
+            else:
+                print(f"提交失败: {result.stderr}")
 
         os.popen('chmod 777 '+ jobScriptsFolder + sample_k + "/*sh")
         sub_oneProcess.close()
         print( 'done with kProcess: ', k )
         print( '\n')
+            
+            
+            
+
 
 
 

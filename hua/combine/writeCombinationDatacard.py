@@ -98,10 +98,10 @@ def main():
     # cardDir = 'run2_1tau1l'
     # cardDir = 'run2_1tau1l_no2016preVFP'
     # cardDir = 'run2_1tau0l'
-    # cardDir = 'run2_1tau2l'
-    cardDir = 'run2_3years'
-    cardDic1tau1l.update(cardDic_1tau0l)
-    cardDic1tau1l.update(cardDic_1tau2l)
+    cardDir = 'run2_1tau2l'
+    # cardDir = 'run2_3years'
+    # cardDic1tau1l.update(cardDic_1tau0l)
+    # cardDic1tau1l.update(cardDic_1tau2l)
     
     
     directory_path = 'combination'+combinationVersion+'/'+cardDir +'/'
@@ -109,9 +109,9 @@ def main():
         os.makedirs(directory_path)
         print("Directory created:", directory_path)
     
-    comDatacard(cardDic1tau1l, directory_path+'datacard.txt')#!!!
+    # comDatacard(cardDic1tau1l, directory_path+'datacard.txt')#!!!
     # comDatacard(cardDic_1tau0l, directory_path+'datacard.txt')
-    # comDatacard(cardDic_1tau2l, directory_path+'datacard.txt')
+    comDatacard(cardDic_1tau2l, directory_path+'datacard.txt')
 
 def comDatacard(cardDic, outCard):
     # command = 'combineCards.py SR1tau0l_2016={} SR1tau0l_2017={} SR1tau0l_2018={} > Run2_1tau0l_datacard.txt'.format(SR1tau0l_2016, SR1tau0l_2017, SR1tau0l_2018)
