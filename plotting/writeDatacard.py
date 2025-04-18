@@ -231,29 +231,29 @@ def addProcessNormalization(sysDic, processes):
         
     }
     for ipro, inorm in proNormalDic.items():
-        sysDic[f"norm_{ipro}"] = []
-        sysDic[f"norm_{ipro}"].append("lnN")
+        sysDic[f"CMS_tttt_tau_norm_{ipro}"] = []
+        sysDic[f"CMS_tttt_tau_norm_{ipro}"].append("lnN")
         proDic = {}
         for ipro2 in processes:
             if ipro2 == ipro:
                 proDic[ipro2] = 1+inorm
             else:
                 proDic[ipro2] = 0
-        sysDic[f"norm_{ipro}"].append(proDic)
+        sysDic[f"CMS_tttt_tau_norm_{ipro}"].append(proDic)
     
     #add FR uncertainty for fakeLepton 
-    sysDic['norm_fakeLepton_sys'] = []
-    sysDic['norm_fakeLepton_sys'].append("lnN")
-    sysDic['norm_fakeLepton_stats'] = []
-    sysDic['norm_fakeLepton_stats'].append("lnN")
+    sysDic['CMS_tttt_tau_norm_fakeLepton_sys'] = []
+    sysDic['CMS_tttt_tau_norm_fakeLepton_sys'].append("lnN")
+    sysDic['CMS_tttt_tau_norm_fakeLepton_stats'] = []
+    sysDic['CMS_tttt_tau_norm_fakeLepton_stats'].append("lnN")
     proDic = {}
     for ipro in processes:
         if ipro == 'fakeLepton':
             proDic[ipro] = 1.2
         else:
             proDic[ipro] = 0
-    sysDic['norm_fakeLepton_sys'].append(proDic)
-    sysDic['norm_fakeLepton_stats'].append(proDic)
+    sysDic['CMS_tttt_tau_norm_fakeLepton_sys'].append(proDic)
+    sysDic['CMS_tttt_tau_norm_fakeLepton_stats'].append(proDic)
             
     
                 
