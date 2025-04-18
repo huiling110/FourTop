@@ -97,22 +97,22 @@ MCSys = {
  
     'CMS_res_j': [False, 0, 0b111 , True],
  
-    # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM11': [False, 0, 0b111, True],
+    'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    # 'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
-    # 'CMS_scale_e': [False, 0, 0b001, True],
+    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    'CMS_scale_e': [False, 0, 0b001, True],
     
     
 }
 
 
-# outVersion = 'v3BasicAndJES'
-outVersion = 'v4BasicAndJESJER'
-# outVersion = 'v6AllSys'
 # outVersion = 'v0basic'
+# outVersion = 'v3BasicAndJES'
+# outVersion = 'v4BasicAndJESJER'
+outVersion = 'v6AllSys'
 
 def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
@@ -125,11 +125,11 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/combine/templatesForCombine1tau1l_new.root'
-    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
-    # channel = '1tau1l'
+    channel = '1tau1l'
    
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
@@ -161,8 +161,8 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/combine/templatesForCombine1tau2l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/combine/templatesForCombine1tau2l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/combine/templatesForCombine1tau2l_new.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/combine/templatesForCombine1tau2l_new.root'
-    channel = '1tau2l'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/combine/templatesForCombine1tau2l_new.root'
+    # channel = '1tau2l'
 
 
     ifFTauMC = True
@@ -260,12 +260,15 @@ def addProcessNormalization(sysDic, processes):
                 
 
 def addLumi(sysDic, era, processes):
-    sysDic['lumi_13TeV'] = [] # correlated 3 years
+    # sysDic['lumi_13TeV'] = [] # correlated 3 years
+    # sysDic[f'lumi_13TeV_{era}'] = []
+    # sysDic['lumi_13TeV_20172018'] = []
+    sysDic['lumi_13TeV_correlated'] = [] # correlated 
     sysDic[f'lumi_13TeV_{era}'] = []
-    sysDic['lumi_13TeV_20172018'] = []
-    sysDic['lumi_13TeV'].append("lnN")
+    sysDic['lumi_13TeV_1718'] = [] # correlated 2017 and 2018
+    sysDic['lumi_13TeV_correlated'].append("lnN")
     sysDic[f'lumi_13TeV_{era}'].append("lnN")
-    sysDic['lumi_13TeV_20172018'].append("lnN")
+    sysDic['lumi_13TeV_1718'].append("lnN")
      
     lumiMap = {
         #[uncorrelated, correlated 3 years, correlated 2017 and 2018]
@@ -283,9 +286,9 @@ def addLumi(sysDic, era, processes):
             iDicUncorrelated[ipro] = lumiMap[era][0]
             iDic20172018[ipro] = lumiMap[era][2] 
     
-    sysDic['lumi_13TeV'].append(iDicCorrelated)
+    sysDic['lumi_13TeV_correlated'].append(iDicCorrelated)
     sysDic[f'lumi_13TeV_{era}'].append(iDicUncorrelated)
-    sysDic['lumi_13TeV_20172018'].append(iDic20172018)        
+    sysDic['lumi_13TeV_1718'].append(iDic20172018)        
             
              
               

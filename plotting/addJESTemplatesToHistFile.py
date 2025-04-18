@@ -23,13 +23,13 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
-    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
-    # channel = '1tau1l'
-    # regionList = ['1tau1lSR', '1tau1lCR12']#
-    # variables = ['BDT']
+    channel = '1tau1l'
+    regionList = ['1tau1lSR', '1tau1lCR12']#
+    variables = ['BDT']
     # variables = ['jets_num', 'jets_HT', 'jets_1pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     
     #1tau2l   
@@ -51,10 +51,10 @@ def main():
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
-    channel = '1tau2l'
-    variables = ['BDT']
-    regionList = ['1tau2lSR', '1tau2lCR3']
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
+    # channel = '1tau2l'
+    # variables = ['BDT']
+    # regionList = ['1tau2lSR', '1tau2lCR3']
    
     #!1tau0l 
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0l/'
@@ -85,14 +85,14 @@ def main():
     
     
     
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!make sure JES OS dir with _JESPt22 in the end
-    if ifMCFTau:
-        addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_MCFT')#!make sure JES OS dir with _JESPt22 in the end
-        addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT')#!make sure JES OS dir with _JESPt22 in the end
-    addJERToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau)
+    # addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)#!make sure JES OS dir with _JESPt22 in the end
+    # if ifMCFTau:
+    #     addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_MCFT')#!make sure JES OS dir with _JESPt22 in the end
+    #     addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT')#!make sure JES OS dir with _JESPt22 in the end
+    # addJERToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau)
     
-    # addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
-    # addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+    addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+    addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
     # addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
     
     
@@ -100,8 +100,6 @@ def main():
      
 def addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau=False):
     for i in (0, 1, 10, 11):
-        # iTESUpDir = f'{TESbase}_TESdm{i}Up/mc/variableHists_v0BDT{channel}/'
-        # iTESDownDir = f'{TESbase}_TESdm{i}Down/mc/variableHists_v0BDT{channel}/'
         iTESUpDir = nominalDir.replace('/mc/', f'_TESdm{i}Up/mc/')
         iTESDownDir = nominalDir.replace('/mc/', f'_TESdm{i}Down/mc/')
         # TESName = f'CMS_tau_TES_dm{i}' 
