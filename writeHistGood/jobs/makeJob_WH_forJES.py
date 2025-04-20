@@ -19,7 +19,8 @@ channel = '1tau1l'
 # version = f'v0BDT{channel}FakeTau'
 # version = f'v0DataMC_sys'
 # version = f'v0DataMC_sysV2'
-version = 'v0BDT1tau1lAddMCFakeTV3'
+# version = 'v0BDT1tau1lAddMCFakeTV3'
+version = 'v0BDT1tau1lV15'
 # version = 'v0BDT1tau0lV2'
 # version = 'v3BDT1tau2lV14'
 # exe = './apps/run_WH_forDataMC.out'
@@ -30,9 +31,9 @@ justMC = True # for energy scale variation, only need to run MC
 def main():
     # subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     # subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    # subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     
 def subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC):
     for i in (0, 1, 10, 11):

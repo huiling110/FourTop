@@ -13,14 +13,28 @@ def main():
     # inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
     # inVersion = 'v91TESAddedLepPre_JETPt22'
     # inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
-    inVersion = 'v94LepPreJetVetoHemOnly_JESPt22'
+    # inVersion = 'v94LepPreJetVetoHemOnly_JESPt22'
+    inVersion = 'v94HadroPreJetVetoHemOnly'
+    # inVersion = 'v94LepPreJetVetoHemOnly'
     # outVersion = 'v0baselineLep'
     # outVersion = 'v0baselineHadro'
     outVersion = 'v1baselineHadroBtagWeightAdded'
-    # if1tau2l = 0
-    if1tau2l = 1
-   
+    if1tau2l = 0
+    # if1tau2l = 1
+  
+  
+    # MV_JES(year, inVersion, outVersion, if1tau2l)
+    MV_TES(year, inVersion, outVersion, if1tau2l)
     
+    
+def MV_TES(year, inVersion, outVersion, if1tau2l):
+    for i in (0, 1, 10, 11):
+        iInVersionUp = f'{inVersion}_TESdm{i}Up'
+        iInVersionDown = f'{inVersion}_TESdm{i}Down'
+        mj.main(year, iInVersionUp, outVersion, if1tau2l, 0, 0)
+        mj.main(year, iInVersionDown, outVersion, if1tau2l, 0, 0)
+
+def MV_JES(year, inVersion, outVersion, if1tau2l):    
     for i in gq.JESVariationList:
         print('i JESVariation: ', i)
         ioutVersionUp = f'{outVersion}_JESup_{i}'

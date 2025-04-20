@@ -8,11 +8,6 @@ import usefulFunc as uf
 
 
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
-# jobVersionName = 'v87addPdfPSWeightSum/'# with new downloaded MC samples actuaclly
-# jobVersionName = 'v88PSWeightFixedLepPre/'
-# jobVersionName = 'v88PSWeightFixedHadroPre/'
-# jobVersionName = 'v89HadroPre_JESPt22/'
-# jobVersionName = 'v90MuonESHadroPre/'
 # jobVersionName = 'v90MuonESHadroPre_JESPt22/'
 # jobVersionName = 'v90MuonESHadroPre_JERUp/'
 # jobVersionName = 'v90MuonESHadroPre_JERDown/'
@@ -33,21 +28,21 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 # jobVersionName = 'v94HadroPreJetVetoHemOnly/'#3 years submitted
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JESPt22/' # 2018, 2017
 # jobVersionName = 'v94HadroPreJetVetoHemOnly_JERUp/'#2018
-# jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleDown/'#2018
-jobVersionName = 'v94HadroPreJetVetoHemOnly_METDown/'#3 years submitted
-# jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm10Up/'
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_EleScaleDown/'#2018, 2017
+# jobVersionName = 'v94HadroPreJetVetoHemOnly_METDown/' #2018
+jobVersionName = 'v94HadroPreJetVetoHemOnly_TESdm11Down/'
 
 #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
-TES = 0 #!!!
+TES = 10 #!!!
 eleScale = 0 #!!! 0: nominal; 1: up; 2: down
 JESSys = 0 #!!! nominal: 0;
 JERSys = 0 #!!! 0: no correction; 1: up; 2: down
-METSys = 2 #!!! nominal: 0; 1: up; 2: down
+METSys = 0 #!!! nominal: 0; 1: up; 2: down
 if1tau2l = 0 #!!!True 
 # era = '2016'
-# era = '2016APV'
+era = '2016APV'
 # era = '2017'
-era = '2018'
+# era = '2018'
 
 # jobVersionName = 'v91TESAddedLepPre/'
 # jobVersionName = 'v91TESAddedLepPre_JETPt22/'
