@@ -24,12 +24,12 @@ def main():
     # inputDir2017 = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
     # inputDir2016postVFP = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
     # inputDir2016preVFP = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_Varibles_1tau1l_VLLm600_5_FakeTau/'
-    # inputDir2018 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
-    # inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
-    # inputDir2016postVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
-    # inputDir2016preVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
-    # channel = '1tau1l'
-    # regionList = ['1tau1lCR12', '1tau1lSR']
+    inputDir2018 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    inputDir2016postVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    inputDir2016preVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
+    channel = '1tau1l'
+    regionList = ['1tau1lCR12', '1tau1lSR']
     # regionList = ['1tau1lCR12']
    
    
@@ -55,13 +55,13 @@ def main():
     # inputDir2016postVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lNewCR/'
     # inputDir2016preVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lNewCR/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/combine/datacardSys_v4BasicAndJESJER/'
-    inputDir2018 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
-    inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
-    inputDir2016postVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
-    inputDir2016preVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
+    # inputDir2018 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
+    # inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
+    # inputDir2016postVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
+    # inputDir2016preVFP = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
     
-    channel = '1tau2l'
-    regionList = ['1tau2lSR', '1tau2lCR3'] 
+    # channel = '1tau2l'
+    # regionList = ['1tau2lSR', '1tau2lCR3'] 
     
     # inputDir2018 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
     # inputDir2017 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHardro_v84HadroPresel/mc/variableHists_v0BDT1tau1lBinGv2/'
@@ -91,11 +91,12 @@ def main():
     
     
     ifMCFTau = True #!
+    # ifMCFTau = False #!
     
     variables = ['BDT']
     # variables = ['jets_1pt'] 
     # sumPros = gq.proChannelDic[channel]
-    sumPros = pl.getSumList(channel, ifMCFTau, False, ifMCFTau)
+    sumPros = pl.getSumList(channel, True, False, ifMCFTau)
     print(sumPros)
     
     sumProHists2018, sumProHistsSys2018 = getSumHistPerYear(inputDir2018, regionList, variables, sumPros, channel, ifMCFTau)
@@ -104,10 +105,10 @@ def main():
     sumProHists2016postVFP, sumProHistsSys2016postVFP = getSumHistPerYear(inputDir2016postVFP, regionList, variables,  sumPros, channel, ifMCFTau)
 
     for iVar in variables:
-        plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar)    
+        plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar, ifMCFTau)    
         # plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, './', iVar)    
     
-def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar):
+def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar, ifMCFTau=False):
     combineHists = {}
     combineHistSys = {}
     for ire in sumProHists2018[iVar].keys():
@@ -134,7 +135,7 @@ def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSy
     
     plotDir = inputDir2018+'results/'
     uf.checkMakeDir(plotDir)
-    plotName = 'combination_withSys' 
+    plotName = 'combination_withSys' if not ifMCFTau else 'combination_withSys_MCFTau'
     for ire in combineHists.keys():
         # pl.makeStackPlotNew(combineHists[ire], sumPros, iVar, ire, plotDir, False, plotName, 'Run2', True, 100, True, True, True, False ) 
         pl.makeStackPlotNew(combineHists[ire], sumPros, iVar, ire, plotDir, False, plotName, 'Run2', True, 100, True, True, True, False, combineHistSys[ire], True ) 

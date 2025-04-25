@@ -57,7 +57,8 @@ MCSys = {
     'CMS_fake_t': [False, 1, 0b010, True], #!considering FR for 1tau0l
     # 'CMS_tau_FR': [False, 1, 0b111, True],#!Considering FR for 1tau1l and 1tau2l too
     
-    'CMS_tttt_tau_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
+    # 'CMS_tttt_tau_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
+    'tttt_tau_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
     
     'pdf_alphas': [True, 0, 0b111, True], #!not considering for singleTop 
     'pdf': [True, 0, 0b111, True],
@@ -97,13 +98,13 @@ MCSys = {
  
     'CMS_res_j': [False, 0, 0b111 , True],
  
-    'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    'CMS_scale_t_DM11': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
-    'CMS_scale_e': [False, 0, 0b101, True],
+    # 'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    # 'CMS_scale_e': [False, 0, 0b101, True],
     
     
 }

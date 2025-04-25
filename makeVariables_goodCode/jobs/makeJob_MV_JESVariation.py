@@ -23,8 +23,23 @@ def main():
     # if1tau2l = 1
   
   
+    # MV_TES(year, inVersion, outVersion, if1tau2l)
+    # MV_EES(year, inVersion, outVersion, if1tau2l)
+    MV_MET(year, inVersion, outVersion, if1tau2l)
     # MV_JES(year, inVersion, outVersion, if1tau2l)
-    MV_TES(year, inVersion, outVersion, if1tau2l)
+
+def MV_MET(year, inVersion, outVersion, if1tau2l):
+    inVersionUp = f'{inVersion}_METUp'
+    inVersionDown = f'{inVersion}_METDown'
+    # mj.main(year, inVersionUp, outVersion, if1tau2l, 0, 0)
+    mj.main(year, inVersionDown, outVersion, if1tau2l, 0, 0) 
+
+def MV_EES(year, inVersion, outVersion, if1tau2l):
+    inVersionUp = f'{inVersion}_EleScaleUp'
+    inVersionDown = f'{inVersion}_EleScaleDown'
+    mj.main(year, inVersionUp, outVersion, if1tau2l, 0, 0)
+    mj.main(year, inVersionDown, outVersion, if1tau2l, 0, 0)
+
     
     
 def MV_TES(year, inVersion, outVersion, if1tau2l):

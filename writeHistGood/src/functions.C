@@ -414,8 +414,6 @@ TString getProcessName(const TString processName, Bool_t isRun3){
 void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era, Bool_t isFaketau, Bool_t isFakeLep, TString process, Bool_t ifSys){
 //https://gitlab.cern.ch/cms-analysis/general/systematics/-/blob/master/systematics_master.yml
     sysRegions.push_back(region);
-    // sysRegions.push_back("isMCFTau_" + region);
-    // sysRegions.push_back("isNotMCFTau_" + region);
     if(!ifSys){
         return;
     }
@@ -465,14 +463,14 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era +"Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era + "Down"); 
 
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_e_systUp");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_e_systDown");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_m_systUp");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_m_systDown");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_m_stat_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_m_stat_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_e_stat_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_e_stat_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_e_systUp");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_e_systDown");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_m_systUp");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_m_systDown");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_m_stat_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_m_stat_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_e_stat_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_e_stat_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Down");
 
@@ -496,10 +494,10 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_btag_shape_cferr2Down");
 
 
-    sysRegions.push_back(region + "_CMS_tttt_tau_eff_trigger_stats_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_tau_eff_trigger_stats_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_trigger_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_tttt_SS_eff_trigger_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_TOP24017_eff_trigger_stats_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_TOP24017_eff_trigger_stats_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_trigger_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_trigger_" + era + "Down");
 
     // update to naming convention 
     sysRegions.push_back(region + "_CMS_btag_fixedWP_comb_bc_correlatedUp");
@@ -512,8 +510,8 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_uncorrelated_"+era + "Down");
 
 
-    sysRegions.push_back(region + "_pdfUp");
-    sysRegions.push_back(region + "_pdfDown");
+    sysRegions.push_back(region + "_pdf_envelopeUp");
+    sysRegions.push_back(region + "_pdf_envelopeDown");
     sysRegions.push_back(region + "_pdf_alphasUp");
     sysRegions.push_back(region + "_pdf_alphasDown");
     sysRegions.push_back(region + "_QCDscale_renUp"); //! un-correlated between processes
@@ -526,8 +524,8 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_ps_fsrUp");
     sysRegions.push_back(region + "_ps_fsrDown");
 
-    sysRegions.push_back(region + "_CMS_tttt_tau_fake_t_MCUp");
-    sysRegions.push_back(region + "_CMS_tttt_tau_fake_t_MCDown");
+    sysRegions.push_back(region + "_CMS_TOP24017_fake_t_MCUp");
+    sysRegions.push_back(region + "_CMS_TOP24017_fake_t_MCDown");
 
     }else if(isFaketau){
         sysRegions.push_back(region + "_CMS_fake_t_" + era + "Up");
