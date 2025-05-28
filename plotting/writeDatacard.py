@@ -11,8 +11,8 @@ MCSys = {
     'CMS_pileup': [True, 0, 0b111 , True],
     'CMS_l1_ecal_prefiring': [False, 0, 0b111, True],
     
-    'CMS_tttt_tau_eff_trigger_stats': [False, 0, 0b110, True],
-    'CMS_tttt_SS_eff_trigger': [False, 0, 0b001, True],
+    'CMS_TOP24017_eff_trigger_stats': [False, 0, 0b110, True],
+    'CMS_TOP24017_ttttSS_eff_trigger': [False, 0, 0b001, True],
     
     'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
     'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
@@ -31,10 +31,10 @@ MCSys = {
     'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111, True],
     'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111, True],
     
-    'CMS_tttt_SS_eff_e_syst': [True, 0, 0b101, True],
-    'CMS_tttt_SS_eff_m_syst': [True, 0, 0b101, True],
-    'CMS_tttt_SS_eff_e_stat': [False, 0, 0b101, True],
-    'CMS_tttt_SS_eff_m_stat': [False, 0, 0b101, True],
+    'CMS_TOP24017_ttttSS_eff_e_syst': [True, 0, 0b101, True],
+    'CMS_TOP24017_ttttSS_eff_m_syst': [True, 0, 0b101, True],
+    'CMS_TOP24017_ttttSS_eff_e_stat': [False, 0, 0b101, True],
+    'CMS_TOP24017_ttttSS_eff_m_stat': [False, 0, 0b101, True],
     'CMS_eff_e_reco': [False, 0, 0b101, True],
     
     #!btagWP for 1tau1l and 1tau2l
@@ -53,15 +53,13 @@ MCSys = {
     'CMS_btag_shape_lfstats1': [False, 0, 0b010, True],
     'CMS_btag_shape_lfstats2': [False, 0, 0b010, True],
    
-    # 'CMS_tau_FR': [False, 1, 0b010, True],
     'CMS_fake_t': [False, 1, 0b010, True], #!considering FR for 1tau0l
     # 'CMS_tau_FR': [False, 1, 0b111, True],#!Considering FR for 1tau1l and 1tau2l too
     
-    # 'CMS_tttt_tau_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
-    'tttt_tau_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
+    'CMS_TOP24017_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
     
     'pdf_alphas': [True, 0, 0b111, True], #!not considering for singleTop 
-    'pdf': [True, 0, 0b111, True],
+    'pdf_envelope': [True, 0, 0b111, True],
     'QCDscale_ren': [True, 0, 0b111, False],   #!not in data/MC
     'QCDscale_fac': [True, 0, 0b111, False],  
     'ps_isr': [True, 0, 0b111, False],
@@ -98,13 +96,13 @@ MCSys = {
  
     'CMS_res_j': [False, 0, 0b111 , True],
  
-    # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM11': [False, 0, 0b111, True],
+    'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    # 'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
-    # 'CMS_scale_e': [False, 0, 0b101, True],
+    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    'CMS_scale_e': [False, 0, 0b101, True],
     
     
 }
@@ -130,7 +128,9 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV15/combine/templatesForCombine1tau1l_new.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV15/combine/templatesForCombine1tau1l_new.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/templatesForCombine1tau1l_new.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/templatesForCombine1tau1l_new.root'
     channel = '1tau1l'
    
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
@@ -233,29 +233,29 @@ def addProcessNormalization(sysDic, processes):
         
     }
     for ipro, inorm in proNormalDic.items():
-        sysDic[f"CMS_tttt_tau_norm_{ipro}"] = []
-        sysDic[f"CMS_tttt_tau_norm_{ipro}"].append("lnN")
+        sysDic[f"CMS_TOP24017_norm_{ipro}"] = []
+        sysDic[f"CMS_TOP24017_norm_{ipro}"].append("lnN")
         proDic = {}
         for ipro2 in processes:
             if ipro2 == ipro:
                 proDic[ipro2] = 1+inorm
             else:
                 proDic[ipro2] = 0
-        sysDic[f"CMS_tttt_tau_norm_{ipro}"].append(proDic)
+        sysDic[f"CMS_TOP24017_norm_{ipro}"].append(proDic)
     
     #add FR uncertainty for fakeLepton 
-    sysDic['CMS_tttt_tau_norm_fakeLepton_sys'] = []
-    sysDic['CMS_tttt_tau_norm_fakeLepton_sys'].append("lnN")
-    sysDic['CMS_tttt_tau_norm_fakeLepton_stats'] = []
-    sysDic['CMS_tttt_tau_norm_fakeLepton_stats'].append("lnN")
+    sysDic['CMS_TOP24017_norm_fakeLepton_sys'] = []
+    sysDic['CMS_TOP24017_norm_fakeLepton_sys'].append("lnN")
+    sysDic['CMS_TOP24017_norm_fakeLepton_stats'] = []
+    sysDic['CMS_TOP24017_norm_fakeLepton_stats'].append("lnN")
     proDic = {}
     for ipro in processes:
         if ipro == 'fakeLepton':
             proDic[ipro] = 1.2
         else:
             proDic[ipro] = 0
-    sysDic['CMS_tttt_tau_norm_fakeLepton_sys'].append(proDic)
-    sysDic['CMS_tttt_tau_norm_fakeLepton_stats'].append(proDic)
+    sysDic['CMS_TOP24017_norm_fakeLepton_sys'].append(proDic)
+    sysDic['CMS_TOP24017_norm_fakeLepton_stats'].append(proDic)
             
     
                 

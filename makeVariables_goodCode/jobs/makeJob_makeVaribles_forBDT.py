@@ -5,18 +5,17 @@ import ttttGlobleQuantity as GQ
 import usefulFunc as uf
 
 
-#???make the makeJobs code some functions and stuff to make it reusable
 #???make this job submisssion and checking and resubmit and addHist automatized
 #todo add git co after job submission for version control
 
 def main(
-    # year = '2016',
-    year = '2017',
+    year = '2016',
+    # year = '2017',
     # year = '2018',
-    # inVersion = 'v94HadroPreJetVetoHemOnly',
+    inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERDown', #2018, 2017
-    # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2018
-    # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2018
+    # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2018, 2017
+    # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2018, 
     # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm10Up', #2018 
     # inVersion = 'v94LepPreJetVetoHemOnly',
     # inVersion = 'v94LepPreJetVetoHemOnly_JERDown', #2018, 2017

@@ -23,25 +23,13 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
 {
     std::map<TString, std::vector<TString>> allProcesses = {
         {"1tau1l", {    
-                    //"VLL_EE_M600", //VLLm600
-                    //"VLL_EN_M600",
-                    //"VLL_NN_M600",
                     "tttt",
-                       // "VLL_EE_M600", //VLLm600
-                       // "VLL_EN_M600",
-                       // "VLL_NN_M600",
-                       // "VLL_EE_M800",
-                       // "VLL_EN_M800",
-                       // "VLL_NN_M800",
-                       // "VLL_EE_M700",
-                       // "VLL_EN_M700",
-                       // "VLL_NN_M700",
-                       "ttbar_0l",
-                       "ttbar_2l",
-                       "ttbar_1l",
-                    // "TTToHadronic",//! only for training
-                    // "TTToSemiLeptonic",//!
-                    // "TTTo2L2Nu",//!
+                    //    "ttbar_0l",
+                    //    "ttbar_2l",
+                    //    "ttbar_1l",
+                    "TTToHadronic",//! only for training
+                    "TTToSemiLeptonic",//!
+                    "TTTo2L2Nu",//!
                        "ttG",
                        "ttZ",
                        "ttW",
@@ -141,7 +129,9 @@ int tmvaBDT_training(
     // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv",
     // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv",
     // TString variableListCsv = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l.csv",
-    TString variableListCsv = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final30.csv",
+    // TString variableListCsv = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final30.csv",
+    // TString variableListCsv = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv",
+    TString variableListCsv = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputlist_1tau1l_leading7.csv",
     // TString variableListCsv = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau2l_all.csv",
 // const TCut g_weight = "EVENT_genWeight *EVENT_prefireWeight *PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagShape_weight * btagShapeR ";
     const TString g_weight = "global_weight*EVENT_genWeight *EVENT_prefireWeight *PUweight_*tauT_IDSF_weight_new*elesTopMVAT_weight * musTopMVAT_weight * btagWPMT_weight",//1tau2l

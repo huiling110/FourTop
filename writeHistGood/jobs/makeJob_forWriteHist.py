@@ -28,8 +28,8 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/', #!v14
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/', #!moved v14 to v13 nominal
@@ -46,12 +46,15 @@ def main(
     # version = 'v0BDT1tau2lFakeTau', #v0_v94 replace with new MV
     # version = 'v0BDT1tau1l',
     # version = 'v0BDT1tau1lAddMCFakeTV3',
-    version = 'v0BDT1tau1lV15',
+    # version = 'v0BDT1tau1lV15',
+    # version = 'v0BDT1tau1lV16', # some systemaic names updated
+    # version = 'v1BDT1tau1lTestLeading7',
     # version = 'v0BDT1tau1lFakeTau',
     # version = 'v0BDT1tau0l',
     # version = 'v0BDT1tau0lFakeTauPtMorphed',
     # version = 'v0BDT1tau0lFakeTau',
     # version = 'v0BDT1tau0lV2',
+    version = 'v0BDT1tau1lV16',
     # version = 'v0DataMC_sys',
     # version = 'v0DataMC',
     # version = 'v1DataMC_noHLTSF',

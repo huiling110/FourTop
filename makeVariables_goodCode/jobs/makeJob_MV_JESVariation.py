@@ -5,8 +5,8 @@ import ttttGlobleQuantity as gq
 
 def main():
     # year = '2018'
-    year = '2017'
-    # year = '2016'
+    # year = '2017'
+    year = '2016'
     # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     # inVersion = 'v90MuonESHadroPre_JESPt22'
     # inVersion = 'v91TESAddedHadroPre_JESPt20'
@@ -31,7 +31,7 @@ def main():
 def MV_MET(year, inVersion, outVersion, if1tau2l):
     inVersionUp = f'{inVersion}_METUp'
     inVersionDown = f'{inVersion}_METDown'
-    # mj.main(year, inVersionUp, outVersion, if1tau2l, 0, 0)
+    mj.main(year, inVersionUp, outVersion, if1tau2l, 0, 0)
     mj.main(year, inVersionDown, outVersion, if1tau2l, 0, 0) 
 
 def MV_EES(year, inVersion, outVersion, if1tau2l):
