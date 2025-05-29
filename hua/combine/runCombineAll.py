@@ -20,9 +20,11 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/datacardSys_v4BasicAndJESJER/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/datacardSys_v4BasicAndJESJER/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/datacardSys_v4BasicAndJESJER/'
-    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV15/combine/datacardSys_v6AllSys/'
+# cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV15/combine/datacardSys_v6AllSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/datacardSys_v6AllSys/'
-    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/datacardSys_v6AllSys/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/datacardSys_v6AllSys/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/datacardSys_v6AllSys/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/datacardSys_v6AllSys/'
 
     #!1tau0l
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/datacardSys_v2JESadded/'
@@ -54,20 +56,6 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/combine/datacardSys_v4BasicAndJESJER/'
 
     #combination
-    # cardDir = 'combinationV6/run2_1tau0l/'
-    # cardDir = 'combinationV6/run2_bothChannels/'
-    # cardDir = 'combinationV6/combinationRun2andRun3/'
-    # cardDir = 'combinationV8/1tau1lCom/'
-    # cardDir = 'combinationV8/run2_1tau1lAnd1tau0l/'
-    # cardDir = 'combinationV8/run2_1tau0l/'
-    # cardDir = 'combinationV9/run2_1tau1l/'
-    # cardDir = 'combinationV9/run2_1tau0l/'
-    # cardDir = 'combinationV9/run2/'
-    # cardDir = 'combinationV9/2022_1tau1l/'
-    # cardDir = 'combinationV9/run2AndRun3/'
-    # cardDir = 'combinationV10/run2_1tau2l/'
-    # cardDir = 'combinationV10/run2_1tau1l/'
-    # cardDir = 'combinationV10/run2_1tau0l/'
     # cardDir = 'combinationV10/run2_3channels/'
     # cardDir = 'combinationV11/run2_1tau1l/'
     # cardDir = 'combinationV11/run2_1tau0l/' # no JES
@@ -86,10 +74,10 @@ def main():
     # cardDir = 'combinationV14/run2_1tau1l/'
     # cardDir = 'combinationV14/run2_1tau2l/'
     # cardDir = 'combinationV14/run2_3years/'
+    cardDir = 'combinationV16/run2_1tau1l/'
 
      
      
-        
     cardToWorkspaces( cardDir )
     runCombineSig( cardDir, True )
     runCombineSig( cardDir, False )

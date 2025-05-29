@@ -4,8 +4,8 @@ import ttttGlobleQuantity as gq
 
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
-inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
+inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
 inVersion = 'v94HadroPreJetVetoHemOnly'
 # inVersion = 'v94LepPreJetVetoHemOnly'
 # outVersion = 'v0baselineHadro'
@@ -30,11 +30,11 @@ justMC = True # for energy scale variation, only need to run MC
 
 
 def main():
-    # subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    # subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    # subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    # subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     
 def subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC):
     for i in (0, 1, 10, 11):
