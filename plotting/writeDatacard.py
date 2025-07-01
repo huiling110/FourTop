@@ -35,7 +35,7 @@ MCSys = {
     'CMS_TOP24017_ttttSS_eff_m_syst': [True, 0, 0b101, True],
     'CMS_TOP24017_ttttSS_eff_e_stat': [False, 0, 0b101, True],
     'CMS_TOP24017_ttttSS_eff_m_stat': [False, 0, 0b101, True],
-    'CMS_eff_e_reco': [False, 0, 0b101, True],
+    'CMS_eff_e_reco': [False, 0, 0b101, True], #CMS_eff_e_reco_2016preVFP and CMS_eff_e_reco_2016postVFP should be correlated 
     
     #!btagWP for 1tau1l and 1tau2l
     'CMS_btag_fixedWP_comb_bc_correlated': [True, 0, 0b101, True],
@@ -96,13 +96,13 @@ MCSys = {
  
     'CMS_res_j': [False, 0, 0b111 , True],
  
-    # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM11': [False, 0, 0b111, True],
+    'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    # 'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
-    # 'CMS_scale_e': [False, 0, 0b101, True],
+    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    'CMS_scale_e': [False, 0, 0b101, True],
     
     
 }
@@ -112,7 +112,8 @@ MCSys = {
 # outVersion = 'v3BasicAndJES'
 # outVersion = 'v4BasicAndJESJER'
 # outVersion = 'v6AllSys'
-outVersion = 'v5BasicAndJESJER' #For v16 1tau2l
+# outVersion = 'v5BasicAndJESJER' #For v16 1tau2l
+outVersion = 'v7AllSys_combineReview'
 
 def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
@@ -130,9 +131,9 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV15/combine/templatesForCombine1tau1l_new.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/templatesForCombine1tau1l_new.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/templatesForCombine1tau1l_new.root'
-    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/templatesForCombine1tau1l_new.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/templatesForCombine1tau1l_new.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/templatesForCombine1tau1l_new.root'
     channel = '1tau1l'
    
@@ -188,7 +189,6 @@ def main():
     outCard = f"{outDir}datacard_{channel}.txt"
     era = uf.getEraFromDir(inputTemplate) 
     
-    # processes = gq.proChannelDic_forCombine[channel]
     processes = pl.getSumList(channel, True, False, ifFTauMC, True)    
     if channel== '1tau2l':
         processes.remove('leptonSum')
@@ -311,8 +311,10 @@ def getSysDic(processes, channel, era, ifForPlot=False):
     #ifForPlot: not decorrelate systematic for different processes
     sysDic = {}
     for sys, sysList in MCSys.items():
-        # sysName = sys if sysList[0] else f"{sys}_{era}"
         sysPre = sys if sysList[0] else f"{sys}_{era}"
+        #for 'CMS_eff_e_reco', 2016preVFP and 2016postVFP are correlated
+        if sys == 'CMS_eff_e_reco' and era in ['2016preVFP', '2016postVFP']:
+            sysPre = f"{sys}_2016"    
         if not sysList[3] and sysList[1]==0: #!if systematic is correlated between processes
             if ifForPlot:
                 sysName = [sysPre]
