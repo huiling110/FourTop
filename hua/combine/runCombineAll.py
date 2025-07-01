@@ -61,21 +61,9 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/'
-    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/'
+    # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/'
 
     #combination
-    # cardDir = 'combinationV10/run2_3channels/'
-    # cardDir = 'combinationV11/run2_1tau1l/'
-    # cardDir = 'combinationV11/run2_1tau0l/' # no JES
-    # cardDir = 'combinationV11/run2_1tau2l/' # no JES
-    # cardDir = 'combinationV11/run2_3years/' # no JES
-    # cardDir = 'combinationV12/run2_1tau0l/'
-    # cardDir = 'combinationV12/run2_1tau1l_v2/'
-    # cardDir = 'combinationV13/run2_1tau1l/'
-    # cardDir = 'combinationV13/run2_1tau0l/'
-    # cardDir = 'combinationV13/run2_1tau2l_JESJER/'
-    # cardDir = 'combinationV13/run2_1tau2l/'
-    # cardDir = 'combinationV13/run2_3years/'
     # cardDir = 'combinationV13_fakeTau/run2_1tau2l/'
     # cardDir = 'combinationV13_fakeTau/run2_1tau1l/'
     # cardDir = 'combinationV13_fakeTau/run2_1tau1l_no2016preVFP/'
@@ -83,6 +71,7 @@ def main():
     # cardDir = 'combinationV14/run2_1tau2l/'
     # cardDir = 'combinationV14/run2_3years/'
     # cardDir = 'combinationV16/run2_1tau1l/'
+    cardDir = 'combinationV16/run2_3years/'
 
      
      
