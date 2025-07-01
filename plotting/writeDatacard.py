@@ -59,7 +59,8 @@ MCSys = {
     'CMS_TOP24017_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
     
     'pdf_alphas': [True, 0, 0b111, True], #!not considering for singleTop 
-    'pdf_envelope': [True, 0, 0b111, True],
+    # 'pdf_envelope': [True, 0, 0b111, True],
+    'pdf_00': [True, 0, 0b111, True], # pdf envelope, change to 00 to fit the combine naming convention
     'QCDscale_ren': [True, 0, 0b111, False],   #!not in data/MC
     'QCDscale_fac': [True, 0, 0b111, False],  
     'ps_isr': [True, 0, 0b111, False],
