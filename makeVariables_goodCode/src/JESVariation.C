@@ -17,7 +17,7 @@ JESVariation::JESVariation(TString era, const UChar_t JESVariation, const UChar_
         {"2016preVFP", "Summer19UL16APV_V7_MC_"},
         {"2016postVFP", "Summer19UL16_V7_MC_"},
     };
-    m_JESTtring = m_JESMap.at(m_era)+ MV::JES_uncer.at(m_JESVariation);
+    m_JESTtring = m_JESMap.at(m_era)+ MV::JES_uncer.at(m_JESVariation); //!!!The JES uncertainty source substracted here
     std::cout<<"JES string: "<<m_JESTtring<<"\n";
     std::cout<<"!!!m_JESVariationType: "<<static_cast<int>(m_JESSysUncerType)<<"\n";
 
@@ -58,7 +58,6 @@ JESVariation::JESVariation(TString era, const UChar_t JESVariation, const UChar_
 //     }
 // };
 
-// void JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices) {
 std::pair<double, double> JESVariation::applyJESVariation(std::vector<ROOT::Math::PtEtaPhiMVector>& particleVec, std::vector<UInt_t>& removedIndices) {
     if(m_JESSysUncerType==0){
         return std::make_pair(0.0, 0.0);

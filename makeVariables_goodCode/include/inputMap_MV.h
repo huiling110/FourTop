@@ -168,11 +168,11 @@ namespace MV
     };
 
 
-inline const std::array<TString, 27> JES_uncer = {
+inline const std::array<TString, 28> JES_uncer = {
     "AbsoluteMPFBias_AK4PFchs",
     "AbsoluteScale_AK4PFchs",
     "AbsoluteStat_AK4PFchs",
-    "FlavorQCD_AK4PFchs",
+    "FlavorQCD_AK4PFchs", //
     "Fragmentation_AK4PFchs",
     "PileUpDataMC_AK4PFchs",
     "PileUpPtBB_AK4PFchs",
@@ -196,6 +196,7 @@ inline const std::array<TString, 27> JES_uncer = {
     "SinglePionECAL_AK4PFchs",
     "SinglePionHCAL_AK4PFchs",
     "TimePtEta_AK4PFchs",
+    "FlavorPureGluon_AK4PFchs", //!Expanded for FlavorQCD
 };
 
 

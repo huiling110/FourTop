@@ -8,9 +8,6 @@
 #include "../../myLibrary/commenFunction.h"
 
 void run_objectSelection(
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v86HadroPreSelWithTTWTTZNLO/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v86LepPreSel/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v87LepPreSel_GammaRemovalBugFixed/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v87addPdfPSWeightSum/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedLepPre/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v88PSWeightFixedHadroPre/mc/",
@@ -29,7 +26,7 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v91TESAddedHadroPre_JERDown/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v93HadroPreJetVetoPileupID/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v93HadroPreJetVetoPileupID_JESPt22/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v94HadroPreJetVetoHemOnly/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v94LepPreJetVetoHemOnly/mc/",
     TString inputDir = "tttt",
@@ -52,11 +49,12 @@ void run_objectSelection(
     // Int_t numEntries = 0,
     // Bool_t if1tau2l = kTRUE, //!
     Bool_t if1tau2l = kFALSE, //!!!
-    UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
-    // UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
+    // UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
+    UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariationType = 2, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
-    UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
+    // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
+    UChar_t JESVariation = 27 //ordering of the source of systematic uncertainties for  JES
     )
 {
     TStopwatch t;
