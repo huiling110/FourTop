@@ -54,7 +54,7 @@ void run_objectSelection(
     // UChar_t JESVariationType = 2, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
     // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
-    UChar_t JESVariation = 27 //ordering of the source of systematic uncertainties for  JES
+    UChar_t JESVariation = 28 //ordering of the source of systematic uncertainties for  JES
     )
 {
     TStopwatch t;
