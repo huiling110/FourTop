@@ -611,4 +611,8 @@ JESVariationList = [
     "SinglePionECAL_AK4PFchs",
     "SinglePionHCAL_AK4PFchs",
     "TimePtEta_AK4PFchs",
+    "FlavorPureGluon_AK4PFchs", #!Expanded for FlavorQCD
+    "FlavorPureQuark_AK4PFchs", #!Expanded for FlavorQCD, uds
+    "FlavorPureCharm_AK4PFchs", #!Expanded for FlavorQCD
+    "FlavorPureBottom_AK4PFchs", #!Expanded for FlavorQCD
 ]

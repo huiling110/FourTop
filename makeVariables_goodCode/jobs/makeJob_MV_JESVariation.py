@@ -51,11 +51,14 @@ def MV_TES(year, inVersion, outVersion, if1tau2l):
 
 def MV_JES(year, inVersion, outVersion, if1tau2l):    
     for i in gq.JESVariationList:
-        print('i JESVariation: ', i)
+        #only for element > 27
         ioutVersionUp = f'{outVersion}_JESup_{i}'
         ioutVersionDown = f'{outVersion}_JESDown_{i}'
         # print('ioutVersionUp: ', ioutVersionUp) 
-        i = gq.JESVariationList.index(i)
+        index = gq.JESVariationList.index(i)
+        if index < 27: #!!!
+            continue
+        print('i JESVariation: ', i)
         mj.main(year, inVersion, ioutVersionUp, if1tau2l, 1, i)
         print('submitted JES up\n')
         mj.main(year, inVersion, ioutVersionDown, if1tau2l, 2, i)
