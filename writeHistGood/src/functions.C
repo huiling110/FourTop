@@ -510,8 +510,10 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_btag_fixedWP_incl_light_uncorrelated_"+era + "Down");
 
 
-    sysRegions.push_back(region + "_pdf_envelopeUp");
-    sysRegions.push_back(region + "_pdf_envelopeDown");
+    // sysRegions.push_back(region + "_pdf_envelopeUp");
+    // sysRegions.push_back(region + "_pdf_envelopeDown");
+    sysRegions.push_back(region + "_pdf_00Up");
+    sysRegions.push_back(region + "_pdf_00Down");
     sysRegions.push_back(region + "_pdf_alphasUp");
     sysRegions.push_back(region + "_pdf_alphasDown");
     sysRegions.push_back(region + "_QCDscale_renUp"); //! un-correlated between processes
