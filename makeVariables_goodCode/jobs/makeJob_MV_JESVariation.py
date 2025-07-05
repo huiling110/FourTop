@@ -12,9 +12,9 @@ def main():
     # inVersion = 'v91TESAddedHadroPre_JESPt20'
     # inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
     # inVersion = 'v91TESAddedLepPre_JETPt22'
-    # inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
+    inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
     # inVersion = 'v94LepPreJetVetoHemOnly_JESPt22'
-    inVersion = 'v94HadroPreJetVetoHemOnly'
+    # inVersion = 'v94HadroPreJetVetoHemOnly'
     # inVersion = 'v94LepPreJetVetoHemOnly'
     # outVersion = 'v0baselineLep'
     # outVersion = 'v0baselineHadro'
@@ -59,9 +59,9 @@ def MV_JES(year, inVersion, outVersion, if1tau2l):
         if index < 27: #!!!
             continue
         print('i JESVariation: ', i)
-        mj.main(year, inVersion, ioutVersionUp, if1tau2l, 1, i)
+        mj.main(year, inVersion, ioutVersionUp, if1tau2l, 1, index)
         print('submitted JES up\n')
-        mj.main(year, inVersion, ioutVersionDown, if1tau2l, 2, i)
+        mj.main(year, inVersion, ioutVersionDown, if1tau2l, 2, index)
         print('submitted JES down\n\n\n')
         
    

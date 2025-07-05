@@ -39,14 +39,14 @@ void treeAnalyzer::Init()
             SR1tau1lSys_NotMCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_NotMCFT", bins1tau1l, sysRegions);
         }
 
-        // variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv";
+        variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
         // weightfile = "./input/BDTTraining_1tau1l_27Var/TMVAClassification_BDT.weights.xml";
         // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
-        // weightfile = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final/dataset/weight/TMVAClassification_BDT.weights.xml";
+        weightfile = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final/dataset/weight/TMVAClassification_BDT.weights.xml";
         //!testing
-        variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputlist_1tau1l_leading7.csv";
-        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/withLeading7/inputlist_1tau1l_leading7.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
+        // variableList = "/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputlist_1tau1l_leading7.csv";
+        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/withLeading7/inputlist_1tau1l_leading7.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
 
         std::cout << "training input: " << weightfile << "\n";
     }else if(m_channel=="1tau0l"){
