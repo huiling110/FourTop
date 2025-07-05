@@ -70,7 +70,7 @@ MCSys = {
     'CMS_scale_j_AbsoluteMPFBias': [True, 0, 0b111, True],
     'CMS_scale_j_AbsoluteScale': [True, 0, 0b111, True],
     'CMS_scale_j_AbsoluteStat': [False, 0, 0b111, True],
-    'CMS_scale_j_FlavorQCD': [True, 0, 0b111, True],
+    # 'CMS_scale_j_FlavorQCD': [True, 0, 0b111, True],
     'CMS_scale_j_Fragmentation': [True, 0, 0b111, True],
     'CMS_scale_j_PileUpDataMC': [True, 0, 0b111, True],
     'CMS_scale_j_PileUpPtBB': [True, 0, 0b111, True],
@@ -94,16 +94,20 @@ MCSys = {
     'CMS_scale_j_SinglePionECAL': [True, 0, 0b111, True],
     'CMS_scale_j_SinglePionHCAL': [True, 0, 0b111, True],
     'CMS_scale_j_TimePtEta': [True, 0, 0b111, True],   
+    'CMS_scale_j_FlavorPureGluon': [True, 0, 0b111, True],
+    'CMS_scale_j_FlavorPureQuark': [True, 0, 0b111, True],
+    'CMS_scale_j_FlavorPureCharm': [True, 0, 0b111, True],
+    'CMS_scale_j_FlavorPureBottom': [True, 0, 0b111, True],
  
-    'CMS_res_j': [False, 0, 0b111 , True],
+    # 'CMS_res_j': [False, 0, 0b111 , True],
  
-    'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    'CMS_scale_t_DM11': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    # 'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
-    'CMS_scale_e': [False, 0, 0b101, True],
+    # 'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    # 'CMS_scale_e': [False, 0, 0b101, True],
     
     
 }
@@ -114,7 +118,8 @@ MCSys = {
 # outVersion = 'v4BasicAndJESJER'
 # outVersion = 'v6AllSys'
 # outVersion = 'v5BasicAndJESJER' #For v16 1tau2l
-outVersion = 'v7AllSys_combineReview'
+# outVersion = 'v7AllSys_combineReview'
+outVersion = 'v8JESFlavorSplit'
 
 def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'

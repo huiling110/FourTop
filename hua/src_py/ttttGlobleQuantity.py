@@ -587,7 +587,7 @@ JESVariationList = [
     "AbsoluteMPFBias_AK4PFchs",
     "AbsoluteScale_AK4PFchs",
     "AbsoluteStat_AK4PFchs",
-    "FlavorQCD_AK4PFchs",
+    # "FlavorQCD_AK4PFchs", #!!!
     "Fragmentation_AK4PFchs",
     "PileUpDataMC_AK4PFchs",
     "PileUpPtBB_AK4PFchs",
