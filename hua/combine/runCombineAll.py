@@ -25,6 +25,7 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/datacardSys_v6AllSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/datacardSys_v6AllSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV16/combine/datacardSys_v6AllSys/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/datacardSys_v8JESFlavorSplit/'
 
     #!1tau0l
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/datacardSys_v2JESadded/'
@@ -71,7 +72,7 @@ def main():
     # cardDir = 'combinationV14/run2_1tau2l/'
     # cardDir = 'combinationV14/run2_3years/'
     # cardDir = 'combinationV16/run2_1tau1l/'
-    cardDir = 'combinationV16/run2_3years/'
+    # cardDir = 'combinationV16/run2_3years/'
 
      
      
