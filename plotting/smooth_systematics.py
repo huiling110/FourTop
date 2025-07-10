@@ -225,6 +225,7 @@ def smooth_systematic_global(syst_df, nom_df, syst, reco_bins, aux_bins, alt_sys
                 add_compatibility_and_norm( single_alt_hist_df, alt_compatibility, alt_norm)
 
 def smooth_systematic(syst_df, nom_df, syst, reco_bins, aux_bins, alt_syst_df=None):
+    #!!!do_alf: for what
     do_alt = alt_syst_df is not None
     # get bin centers and bin numbers
     bin_centers = get_bin_centers(np.array(reco_bins))
