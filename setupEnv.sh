@@ -21,6 +21,9 @@ export PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin/:$PATH
 export ROOTSYS=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/lcg/root/6.22.08-8d9ab2b279c3f35e6100d909611c3c2f
 export PATH=$ROOTSYS/bin/:$PATH
 
+#setup correct pip3
+export PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_12_2_4/external/slc7_amd64_gcc900/bin/:$PATH
+
 export LD_LIBRARY_PATH=/usr/lib/:/usr/lib64/:${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=$ROOTSYS/lib/:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib64/:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib/:$LD_LIBRARY_PATH
 
@@ -50,7 +53,7 @@ export PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/cmake/3.18.2/bin/:$PAT
 # export PATH=$PYTHONUSERBASE/bin:$PATH
 
 #for the vscode to run python due to limited process in IHEP cluster
- export OPENBLAS_NUM_THREADS=10
+export OPENBLAS_NUM_THREADS=10
 
 #
 export VALGRIND_LIB=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/valgrind/3.15.0/lib/valgrind
