@@ -3,6 +3,7 @@ import numpy as np
 import uproot
 import statsmodels.api as sm
 import os
+import matplotlib.pyplot as plt
 
 import usefulFunc as uf
 #!!!source use setEnv_newNew.sh to set up the environment
@@ -70,7 +71,7 @@ def main():
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
     print(outDir)
-    # plot_smoothed_systematics(nominal_hist, up_hist, down_hist, new_up, new_down, outDir, sys)
+    plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys)
 
 
 
@@ -97,43 +98,78 @@ def getHist_uproot(input_template, nom_name, up_name, down_name):
     # Convert uproot histograms to ROOT TH1 objects
         return nominal_hist, up_hist, down_hist
 
-def plot_smoothed_systematics(nominal_hist, up_hist, down_hist, new_up, new_down, outDir, sys_name=''):
-    # Create a canvas
-    canvas = ROOT.TCanvas("canvas", "Systematics Comparison", 800, 600)
-    canvas.SetLogy()  # Set y-axis to logarithmic scale
+# def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys_name=''):
+#     # Create a canvas
+#     canvas = ROOT.TCanvas("canvas", "Systematics Comparison", 800, 600)
+#     canvas.SetLogy()  # Set y-axis to logarithmic scale
 
-    # Set drawing style for histograms
-    up_hist.SetLineColor(ROOT.kRed)  # Original up: red
-    down_hist.SetLineColor(ROOT.kBlue)  # Original down: blue
-    new_up.SetLineColor(ROOT.kGreen+2)  # Smoothed up: green
-    new_down.SetLineColor(ROOT.kMagenta+2)  # Smoothed down: magenta
+#     # Set drawing style for histograms
+#     up_hist.SetLineColor(ROOT.kRed)  # Original up: red
+#     down_hist.SetLineColor(ROOT.kBlue)  # Original down: blue
+#     new_up.SetLineColor(ROOT.kGreen+2)  # Smoothed up: green
+#     new_down.SetLineColor(ROOT.kMagenta+2)  # Smoothed down: magenta
 
-    # Set line width for better visibility
-    up_hist.SetLineWidth(2)
-    down_hist.SetLineWidth(2)
-    new_up.SetLineWidth(2)
-    new_down.SetLineWidth(2)
+#     # Set line width for better visibility
+#     up_hist.SetLineWidth(2)
+#     down_hist.SetLineWidth(2)
+#     new_up.SetLineWidth(2)
+#     new_down.SetLineWidth(2)
 
-    # Draw all histograms
-    nominal_hist.Draw("HIST")  # Draw nominal histogram
-    up_hist.Draw("HIST SAME")  # Draw original "up" variation
-    down_hist.Draw("HIST SAME")  # Draw original "down" variation
-    new_up.Draw("HIST SAME")  # Draw smoothed "up" variation
-    new_down.Draw("HIST SAME")  # Draw smoothed "down" variation
+#     # Draw all histograms
+#     nominal_hist.Draw("HIST")  # Draw nominal histogram
+#     up_hist.Draw("HIST SAME")  # Draw original "up" variation
+#     down_hist.Draw("HIST SAME")  # Draw original "down" variation
+#     new_up.Draw("HIST SAME")  # Draw smoothed "up" variation
+#     new_down.Draw("HIST SAME")  # Draw smoothed "down" variation
 
-    # Add legend
-    legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
-    legend.AddEntry(up_hist, "Original Up", "l")
-    legend.AddEntry(down_hist, "Original Down", "l")
-    legend.AddEntry(new_up, "Smoothed Up", "l")
-    legend.AddEntry(new_down, "Smoothed Down", "l")
-    legend.Draw()
+#     # Add legend
+#     legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+#     legend.AddEntry(up_hist, "Original Up", "l")
+#     legend.AddEntry(down_hist, "Original Down", "l")
+#     legend.AddEntry(new_up, "Smoothed Up", "l")
+#     legend.AddEntry(new_down, "Smoothed Down", "l")
+#     legend.Draw()
 
-    # Save the canvas
-    canvas.SaveAs(f"{outDir}/systematics_comparison.png")
-    canvas.Close()
+#     # Save the canvas
+#     canvas.SaveAs(f"{outDir}/systematics_comparison.png")
+#     canvas.Close()
 
+ 
+def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys_name=''):
+    # Extract the nominal histogram values, variabilities (errors), and bin edges
+    nominal_values, bin_edges = nominal_hist.to_numpy()
+    nominal_errors = np.sqrt(nominal_values)  # Statistical uncertainty
+
+    # Calculate bin centers for plotting
+    bin_centers = 0.5 * (bin_edges[:-1] + bin_edges[1:])
+
+    plt.figure(figsize=(10, 8))
     
+    # Plot nominal histogram with error bars
+    plt.errorbar(bin_centers, nominal_values, yerr=nominal_errors, fmt='o', label='Nominal', color='black')
+
+    # Plot original up and down variations
+    plt.step(bin_centers, up, where='mid', label=f'{sys_name} Up', linewidth=2, color='red', alpha=0.7)
+    plt.step(bin_centers, down, where='mid', label=f'{sys_name} Down', linewidth=2, color='blue', alpha=0.7)
+
+    # Plot smoothed up and down variations
+    plt.step(bin_centers, new_up, where='mid', label=f'Smoothed {sys_name} Up', linewidth=2, color='green', linestyle='--', alpha=0.8)
+    plt.step(bin_centers, new_down, where='mid', label=f'Smoothed {sys_name} Down', linewidth=2, color='magenta', linestyle='--', alpha=0.8)
+
+    # Set y-axis to log scale
+    plt.yscale('log')
+    
+    # Add legend and labels
+    plt.xlabel('Bin Centers')
+    plt.ylabel('Counts')
+    plt.title(f'Systematic Variations and Smoothed ({sys_name})')
+    plt.legend(loc='best')
+
+    # Save the figure
+    plt.tight_layout()
+    plt.savefig(f'{outDir}/systematics_comparison_{sys_name}.png')
+    plt.close()    
+    print(f'Smoothed systematics plot saved to {outDir}/systematics_comparison_{sys_name}.png')
     
  
     
