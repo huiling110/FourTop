@@ -3,16 +3,15 @@ import numpy as np
 import uproot
 import statsmodels.api as sm
 
+import usefulFunc as uf
 #!!!source use setEnv_newNew.sh to set up the environment
+
 def main():
     input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/templatesForCombine1tau1l_new.root'
     
-    # print('smooth_systematics')
-    # print(sm.__version__) 
-    
+#!!!Modify the moothing algorithm     
 
 # def process_systematics(input_file, output_file):
-
     process = 'tt'
     channel = '1tau1lSR'
     sys = 'ps_fsr'
@@ -55,18 +54,64 @@ def main():
         n_reco_bins,
         ratio_only=False
     )
+   
+    # outDir = uf.
+    inputDirDic = uf.getInputDicNew( input_template)
+    print(inputDirDic)
+    # plot_smoothed_systematics(nominal_hist, up_hist, down_hist, new_up, new_down, outDir, sys_name)
 
-    output_file = input_template.replace('.root', f'_smoothed.root')
-    # Write results to new ROOT file
-    with uproot.recreate(output_file) as f:
-        # Use original bin edges
-        edges = nominal_hist.axis().edges()
+
+
+    # output_file = input_template.replace('.root', f'_smoothed.root')
+    # # Write results to new ROOT file
+    # with uproot.recreate(output_file) as f:
+    #     # Use original bin edges
+    #     edges = nominal_hist.axis().edges()
         
-        # Store smoothed histograms
-        f['smoothed_up'] = (new_up, edges)
-        f['smoothed_down'] = (new_down, edges)
-        f['nominal'] = (nominal, edges)  # Copy original nominal
-    print(f'Smoothed histograms saved to {output_file}')
+    #     # Store smoothed histograms
+    #     f[up_name] = (new_up, edges)
+    #     f[down_name] = (new_down, edges)
+    #     f[nom_name] = nominal_hist  # Copy original nominal
+    # print(f'Smoothed histograms saved to {output_file}')
+
+
+
+
+def plot_smoothed_systematics(nominal_hist, up_hist, down_hist, new_up, new_down, outDir, sys_name):
+    # Create a canvas
+    canvas = ROOT.TCanvas("canvas", "Systematics Comparison", 800, 600)
+    canvas.SetLogy()  # Set y-axis to logarithmic scale
+
+    # Set drawing style for histograms
+    up_hist.SetLineColor(ROOT.kRed)  # Original up: red
+    down_hist.SetLineColor(ROOT.kBlue)  # Original down: blue
+    new_up.SetLineColor(ROOT.kGreen+2)  # Smoothed up: green
+    new_down.SetLineColor(ROOT.kMagenta+2)  # Smoothed down: magenta
+
+    # Set line width for better visibility
+    up_hist.SetLineWidth(2)
+    down_hist.SetLineWidth(2)
+    new_up.SetLineWidth(2)
+    new_down.SetLineWidth(2)
+
+    # Draw all histograms
+    nominal_hist.Draw("HIST")  # Draw nominal histogram
+    up_hist.Draw("HIST SAME")  # Draw original "up" variation
+    down_hist.Draw("HIST SAME")  # Draw original "down" variation
+    new_up.Draw("HIST SAME")  # Draw smoothed "up" variation
+    new_down.Draw("HIST SAME")  # Draw smoothed "down" variation
+
+    # Add legend
+    legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+    legend.AddEntry(up_hist, "Original Up", "l")
+    legend.AddEntry(down_hist, "Original Down", "l")
+    legend.AddEntry(new_up, "Smoothed Up", "l")
+    legend.AddEntry(new_down, "Smoothed Down", "l")
+    legend.Draw()
+
+    # Save the canvas
+    canvas.SaveAs(f"{outDir}/systematics_comparison.png")
+    canvas.Close()
 
     
     
@@ -81,7 +126,7 @@ def smooth_ratio(ratio, bin_centers, n_aux_bins, n_reco_bins):
         sel_bins = slice(iaux * n_reco_bins, (iaux+1) * n_reco_bins) #explain: 
         if len(ratio.shape) == 1:
             # background processes are separate
-            if n_reco_bins > 5:
+            if n_reco_bins > 5:#???Why only smooth if more than 5 bins? doesn't make sense to me
                 ratio[sel_bins] = sm.nonparametric.lowess(ratio[sel_bins], bin_centers, xvals=bin_centers)
                 # Locally Weighted Scatterplot Smoothing (LOWESS);
         else:
