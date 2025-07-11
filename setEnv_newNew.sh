@@ -21,6 +21,8 @@ source /cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6
 # export PYTHONPATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/cms/cmssw-tool-conf/100.0/lib/python3.9/site-packages:$PYTHONPATH # still 
 #!!!Install with pip install correctionlib
 
+#Gcc
+# export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9
 
 #Set up python
 export PYTHONPATH=$PYTHONPATH:${current_dir}/hua/src_py/ #Python can find the custom modules: usefulFunc....

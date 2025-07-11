@@ -17,10 +17,13 @@ TARGET = $(BIN_DIR)/run_makeVariables.out
 
 
 ROOTCFLAGS = $(shell root-config --cflags)
-ROOTLIBS = $(shell root-config --libs)
+# ROOTLIBS = $(shell root-config --libs)
+ROOTLIBS = -I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include -L/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/lib -lcorrectionlib
 ROOTGLIBS = $(shell root-config --glibs)
 
-CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
+# CORRECTIONLIB_FLAGS = $(shell correction config --cflags) #-I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include 
+#-std=c++17 -I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include
+CORRECTIONLIB_FLAGS = -I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include 
 CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
 TMVALIBS = -lTMVA
 
@@ -35,7 +38,9 @@ SOURCE = src/
 
 
 CXX = g++
-CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
+# CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
+#!!!-std=c++20 already set in ROOTCFLAGS
+CXXFLAGS = -O3 -Wall -fPIC -g 
 # CXXFLAGS = -O3 -Wall -fPIC -g 
 LD = g++
 LDFLAGS = -O3 -Wall -g 
@@ -57,8 +62,9 @@ LIBS += $(MYLIB)
 
 all: $(TARGET)
 
+# $(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/run_makeVariables.C -o $(TARGET)
 $(TARGET): $(OBJECTS) apps/run_makeVariables.C
-	$(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/run_makeVariables.C -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) $(LIBS) apps/run_makeVariables.C -o $(TARGET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.C $(INC_DIR)/%.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
