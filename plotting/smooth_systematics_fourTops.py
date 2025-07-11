@@ -10,10 +10,11 @@ import usefulFunc as uf
 
 def main():
     input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/templatesForCombine1tau1l_new.root'
+    #!!!1tau1l: CMS_scale_j_FlavorPureGluon, ps_fsr， CMS_scale_j_PileUpDataMC，CMS_scale_j_RelativeSample_2018， CMS_scale_j_TimePtEta，CMS_scale_j_TimePtEta 
+    #!!!1tau0l: 
+    #!!!1tau2l:
     
-#!!!Modify the moothing algorithm     
 
-# def process_systematics(input_file, output_file):
     process = 'tt'
     channel = '1tau1lSR'
     sys = 'ps_fsr'
@@ -30,27 +31,6 @@ def main():
     down = down_hist.values()
     down_var = down_hist.variances()
     bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
-    # Read input ROOT file
-    # with uproot.open(input_template) as f:
-    #     # Get nominal histogram (replace 'nominal_hist' with your actual hist name)
-    #     nominal_hist = f[nom_name]
-    #     # print(type(nominal_hist)) #<class 'uproot.models.TH.Model_TH1D_v3'>
-    #     nominal = nominal_hist.values()
-    #     nominal_var = nominal_hist.variances()
-        
-    #     # Get up variation (replace 'up_hist' with your actual hist name)
-    #     up_hist = f[up_name] 
-    #     up = up_hist.values()
-    #     up_var = up_hist.variances()
-        
-    #     # Get down variation (replace 'down_hist' with your actual hist name)
-    #     down_hist = f[down_name]
-    #     down = down_hist.values()
-    #     down_var = down_hist.variances()
-
-    #     # Get bin centers from nominal histogram
-    #     edges = nominal_hist.axis().edges()
-    #     bin_centers = (edges[:-1] + edges[1:]) / 2
 
     # Set parameters for smoothing
     n_aux_bins = 1  # Number of auxiliary bins for smoothing, I think it the sub binning of the hist
@@ -74,7 +54,7 @@ def main():
     plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys)
 
 
-
+    #???What about fakeTauMC? 
     output_file = input_template.replace('.root', f'_smoothed.root')
     # Write results to new ROOT file
     with uproot.recreate(output_file) as f:
@@ -98,41 +78,6 @@ def getHist_uproot(input_template, nom_name, up_name, down_name):
     # Convert uproot histograms to ROOT TH1 objects
         return nominal_hist, up_hist, down_hist
 
-# def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys_name=''):
-#     # Create a canvas
-#     canvas = ROOT.TCanvas("canvas", "Systematics Comparison", 800, 600)
-#     canvas.SetLogy()  # Set y-axis to logarithmic scale
-
-#     # Set drawing style for histograms
-#     up_hist.SetLineColor(ROOT.kRed)  # Original up: red
-#     down_hist.SetLineColor(ROOT.kBlue)  # Original down: blue
-#     new_up.SetLineColor(ROOT.kGreen+2)  # Smoothed up: green
-#     new_down.SetLineColor(ROOT.kMagenta+2)  # Smoothed down: magenta
-
-#     # Set line width for better visibility
-#     up_hist.SetLineWidth(2)
-#     down_hist.SetLineWidth(2)
-#     new_up.SetLineWidth(2)
-#     new_down.SetLineWidth(2)
-
-#     # Draw all histograms
-#     nominal_hist.Draw("HIST")  # Draw nominal histogram
-#     up_hist.Draw("HIST SAME")  # Draw original "up" variation
-#     down_hist.Draw("HIST SAME")  # Draw original "down" variation
-#     new_up.Draw("HIST SAME")  # Draw smoothed "up" variation
-#     new_down.Draw("HIST SAME")  # Draw smoothed "down" variation
-
-#     # Add legend
-#     legend = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
-#     legend.AddEntry(up_hist, "Original Up", "l")
-#     legend.AddEntry(down_hist, "Original Down", "l")
-#     legend.AddEntry(new_up, "Smoothed Up", "l")
-#     legend.AddEntry(new_down, "Smoothed Down", "l")
-#     legend.Draw()
-
-#     # Save the canvas
-#     canvas.SaveAs(f"{outDir}/systematics_comparison.png")
-#     canvas.Close()
 
  
 def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys_name=''):

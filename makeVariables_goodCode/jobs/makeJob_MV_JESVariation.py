@@ -4,8 +4,8 @@ import ttttGlobleQuantity as gq
 #generate all 54 up and down JES variation job version for  MV  
 
 def main():
-    year = '2018'
-    # year = '2017'
+    # year = '2018'
+    year = '2017'
     # year = '2016'
     # inVersion = 'v89HadroPre_JESPt22'#!!!for JES variation only
     # inVersion = 'v90MuonESHadroPre_JESPt22'
@@ -51,7 +51,6 @@ def MV_TES(year, inVersion, outVersion, if1tau2l):
 
 def MV_JES(year, inVersion, outVersion, if1tau2l):    
     for i in gq.JESVariationList:
-        #only for element > 27
         ioutVersionUp = f'{outVersion}_JESup_{i}'
         ioutVersionDown = f'{outVersion}_JESDown_{i}'
         # print('ioutVersionUp: ', ioutVersionUp) 
