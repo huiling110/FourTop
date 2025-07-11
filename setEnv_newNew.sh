@@ -12,4 +12,4 @@ source /cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6
 
 
 #Set up python
-export PYTHONPATH=$PYTHONPATH:${current_dir}/hua/src_py/
+export PYTHONPATH=$PYTHONPATH:${current_dir}/hua/src_py/ #Python can find the custom modules: usefulFunc....

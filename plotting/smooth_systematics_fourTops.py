@@ -2,6 +2,7 @@ import ROOT
 import numpy as np
 import uproot
 import statsmodels.api as sm
+import os
 
 import usefulFunc as uf
 #!!!source use setEnv_newNew.sh to set up the environment
@@ -18,27 +19,37 @@ def main():
     nom_name = f'{process}_{channel}_BDT'
     up_name = f'{process}_{channel}_{sys}Up_BDT'
     down_name = f'{process}_{channel}_{sys}Down_BDT'
+   
     
+    nominal_hist, up_hist, down_hist = getHist_uproot(input_template, nom_name, up_name, down_name) 
+    nominal = nominal_hist.values()
+    nominal_var = nominal_hist.variances()
+    up = up_hist.values()
+    up_var = up_hist.variances()
+    down = down_hist.values()
+    down_var = down_hist.variances()
+    bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
     # Read input ROOT file
-    with uproot.open(input_template) as f:
-        # Get nominal histogram (replace 'nominal_hist' with your actual hist name)
-        nominal_hist = f[nom_name]
-        nominal = nominal_hist.values()
-        nominal_var = nominal_hist.variances()
+    # with uproot.open(input_template) as f:
+    #     # Get nominal histogram (replace 'nominal_hist' with your actual hist name)
+    #     nominal_hist = f[nom_name]
+    #     # print(type(nominal_hist)) #<class 'uproot.models.TH.Model_TH1D_v3'>
+    #     nominal = nominal_hist.values()
+    #     nominal_var = nominal_hist.variances()
         
-        # Get up variation (replace 'up_hist' with your actual hist name)
-        up_hist = f[up_name] 
-        up = up_hist.values()
-        up_var = up_hist.variances()
+    #     # Get up variation (replace 'up_hist' with your actual hist name)
+    #     up_hist = f[up_name] 
+    #     up = up_hist.values()
+    #     up_var = up_hist.variances()
         
-        # Get down variation (replace 'down_hist' with your actual hist name)
-        down_hist = f[down_name]
-        down = down_hist.values()
-        down_var = down_hist.variances()
+    #     # Get down variation (replace 'down_hist' with your actual hist name)
+    #     down_hist = f[down_name]
+    #     down = down_hist.values()
+    #     down_var = down_hist.variances()
 
-        # Get bin centers from nominal histogram
-        edges = nominal_hist.axis().edges()
-        bin_centers = (edges[:-1] + edges[1:]) / 2
+    #     # Get bin centers from nominal histogram
+    #     edges = nominal_hist.axis().edges()
+    #     bin_centers = (edges[:-1] + edges[1:]) / 2
 
     # Set parameters for smoothing
     n_aux_bins = 1  # Number of auxiliary bins for smoothing, I think it the sub binning of the hist
@@ -56,28 +67,37 @@ def main():
     )
    
     # outDir = uf.
-    inputDirDic = uf.getInputDicNew( input_template)
-    print(inputDirDic)
-    # plot_smoothed_systematics(nominal_hist, up_hist, down_hist, new_up, new_down, outDir, sys_name)
+    outDir = os.path.dirname(input_template) + '/results/'
+    uf.checkMakeDir(outDir)
+    print(outDir)
+    # plot_smoothed_systematics(nominal_hist, up_hist, down_hist, new_up, new_down, outDir, sys)
 
 
 
-    # output_file = input_template.replace('.root', f'_smoothed.root')
-    # # Write results to new ROOT file
-    # with uproot.recreate(output_file) as f:
-    #     # Use original bin edges
-    #     edges = nominal_hist.axis().edges()
+    output_file = input_template.replace('.root', f'_smoothed.root')
+    # Write results to new ROOT file
+    with uproot.recreate(output_file) as f:
+        # Use original bin edges
+        edges = nominal_hist.axis().edges()
         
-    #     # Store smoothed histograms
-    #     f[up_name] = (new_up, edges)
-    #     f[down_name] = (new_down, edges)
-    #     f[nom_name] = nominal_hist  # Copy original nominal
-    # print(f'Smoothed histograms saved to {output_file}')
+        # Store smoothed histograms
+        f[up_name] = (new_up, edges)
+        f[down_name] = (new_down, edges)
+        f[nom_name] = nominal_hist  # Copy original nominal
+    print(f'Smoothed histograms saved to {output_file}')
 
+def getHist_uproot(input_template, nom_name, up_name, down_name):
+    with uproot.open(input_template) as f:
+        # Get nominal histogram
+        nominal_hist = f[nom_name]
+        # Get up variation histogram
+        up_hist = f[up_name]
+        # Get down variation histogram
+        down_hist = f[down_name]
+    # Convert uproot histograms to ROOT TH1 objects
+        return nominal_hist, up_hist, down_hist
 
-
-
-def plot_smoothed_systematics(nominal_hist, up_hist, down_hist, new_up, new_down, outDir, sys_name):
+def plot_smoothed_systematics(nominal_hist, up_hist, down_hist, new_up, new_down, outDir, sys_name=''):
     # Create a canvas
     canvas = ROOT.TCanvas("canvas", "Systematics Comparison", 800, 600)
     canvas.SetLogy()  # Set y-axis to logarithmic scale
