@@ -25,7 +25,8 @@ ROOTGLIBS = $(shell root-config --glibs)
 # CORRECTIONLIB_FLAGS = $(shell correction config --cflags) #-I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include 
 #-std=c++17 -I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include
 CORRECTIONLIB_FLAGS = -I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include 
-CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
+# CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
+CORRECTIONLIB_LIB = $(shell correction config --ldflags )
 
 
 # TMVALIBS = -lTMVA
@@ -56,8 +57,10 @@ ARCHFLAGS =
 CXXFLAGS += $(ROOTCFLAGS) -I$(HEADRDIR)
 CXXFLAGS += $(CORRECTIONLIB_FLAGS)
 CXXFLAGS += $(XGBOOST_FLAGS)
-LIBS = $(ROOTLIBS)
-LIBS += $(CORRECTIONLIB_LIB)
+# LIBS = $(ROOTLIBS)
+# LIBS += $(CORRECTIONLIB_LIB)
+LIBS = $(CORRECTIONLIB_LIB)
+LIBS += $(ROOTGLIBS)
 LIBS += $(TMVALIBS)
 LIBS += $(MYLIB)
 
