@@ -9,8 +9,8 @@ import usefulFunc as uf
 #todo add git co after job submission for version control
 
 def main(
-    year = '2016',
-    # year = '2017',
+    # year = '2016',
+    year = '2017',
     # year = '2018',
     inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERDown', #2018, 2017
@@ -31,7 +31,8 @@ def main(
     # outVersion = 'v0baselineHadro',
     # outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
     # outVersion = 'v0baselineHadro_tauFMorphMass',
-    outVersion = 'v1baselineHadroBtagWeightAdded', #!v13
+    # outVersion = 'v1baselineHadroBtagWeightAdded', #!v13
+    outVersion = 'v1baselineHadroBtagWeightAdded_test', #!v13
     if1tau2l = 0, # !!!0 false, 1 True
     # if1tau2l = 1, #!!! 0 false, 1 True
     # if1tau2l = 0, # 0 false, 1 True
@@ -148,7 +149,8 @@ def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False, if1tau2l=Fals
         logFile = inOutList[1] +   "log/" + entry + ".log"
         errFile = inOutList[1] +  "log/" + entry +".err"
         # subDirJobs.write( 'hep_sub -os CentOS7 -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
-        subDirJobs.write( 'hep_sub -os CentOS7 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        subDirJobs.write( 'hep_sub '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
+        # subDirJobs.write( 'hep_sub -os CentOS7 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
 
     subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
     subprocess.run( 'chmod 777 ' + subDirName, shell = True)
