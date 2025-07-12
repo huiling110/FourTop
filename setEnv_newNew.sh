@@ -15,19 +15,23 @@ export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214
 
 #Correction
 #Install: python3 -m pip install --no-binary=correctionlib  correctionlib 
+#!!!Install with pip install correctionlib
 #/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-correctionlib/2.7.0-9912d66ec994fb1e89c22fe7b5d17bf5/lib/python3.9/site-packages/correctionlib/include/correction.h
 # export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-correctionlib/2.7.0-9912d66ec994fb1e89c22fe7b5d17bf5/lib/python3.9/site-packages/correctionlib/include:$LD_LIBRARY_PATH
 # export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-correctionlib/2.7.0-9912d66ec994fb1e89c22fe7b5d17bf5/bin:$PATH #for correction executable
 # export LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-correctionlib/2.7.0-9912d66ec994fb1e89c22fe7b5d17bf5/lib/python3.9/site-packages/correctionlib/include:$LD_LIBRARY_PATH
 # export PYTHONPATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-correctionlib/2.7.0-9912d66ec994fb1e89c22fe7b5d17bf5/lib/python3.9/site-packages:$PYTHONPATH #for correction python module; 
 # export PYTHONPATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/cms/cmssw-tool-conf/100.0/lib/python3.9/site-packages:$PYTHONPATH # still 
-#!!!Install with pip install correctionlib
+export LD_LIBRARY_PATH=/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/lib:$LD_LIBRARY_PATH #For run time linking
 
 #TMVA: problem during linking
 # ROOTSYS: set up by thhisroot.sh
 
+#libcommenFunction 
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${current_dir}/myLibrary/ #For run time linking
+
 #Gcc
-# export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9
+export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9ded8fcd995/bin:$PATH
 
 #Set up python
 export PYTHONPATH=$PYTHONPATH:${current_dir}/hua/src_py/ #Python can find the custom modules: usefulFunc....
