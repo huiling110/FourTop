@@ -9,6 +9,7 @@ export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-72
 export TBB=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/tbb/v2022.0.0-343819c0b5b8954dc26b2f24bfd56a37/lib #ROOT needs TBB 
 export LD_LIBRARY_PATH=$TBB:$LD_LIBRARY_PATH
 source /cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/bin/thisroot.sh
+export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/lib:$LD_LIBRARY_PATH # for linking: TMVA
 
 
 
@@ -20,6 +21,9 @@ source /cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6
 # export PYTHONPATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-correctionlib/2.7.0-9912d66ec994fb1e89c22fe7b5d17bf5/lib/python3.9/site-packages:$PYTHONPATH #for correction python module; 
 # export PYTHONPATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/cms/cmssw-tool-conf/100.0/lib/python3.9/site-packages:$PYTHONPATH # still 
 #!!!Install with pip install correctionlib
+
+#TMVA: problem during linking
+# ROOTSYS: set up by thhisroot.sh
 
 #Gcc
 # export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9
