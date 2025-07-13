@@ -26,6 +26,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${current_dir}/myLibrary/ #For run time
 
 #Gcc
 export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9ded8fcd995/bin:$PATH
+#gdb
+export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gdb/16.2-2ed00494471f1b4b58da009025d09935/bin:$PATH
+
 
 #Set up python
 export PYTHONPATH=$PYTHONPATH:${current_dir}/hua/src_py/ #Python can find the custom modules: usefulFunc....

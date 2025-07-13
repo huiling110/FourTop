@@ -161,7 +161,8 @@ def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpa
             logFile = logDir + iProcess + ".log"
             errFile = logDir + iProcess +".err"
             # subAllProcess.write('hep_sub -os CentOS7 -mem 6000 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
-            subAllProcess.write('hep_sub -os CentOS7  '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
+            # subAllProcess.write('hep_sub -os CentOS7  '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
+            subAllProcess.write('hep_sub  '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
 
 
     subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True)
