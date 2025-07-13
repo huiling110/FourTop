@@ -38,7 +38,8 @@ SOURCE = src/
 
 CXX = g++
 # CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
-CXXFLAGS = -O0 -Wall -fPIC -g -std=c++17 #lower optimization for debugging
+# CXXFLAGS = -O0 -Wall -fPIC -g -std=c++17 #lower optimization for debugging
+CXXFLAGS = -O0 -Wall -fPIC -g #lower optimization for debugging
 LD = g++
 # LDFLAGS = -O3 -Wall -g 
 LDFLAGS = -O0 -Wall -g 
