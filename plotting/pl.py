@@ -3,7 +3,8 @@ from array import array
 import csv
 
 import usefulFunc as uf
-from ROOT import *
+# from ROOT import * #!!!Bad proctice, disables in latest ROOT versions
+import ROOT
 import setTDRStyle as st
 import ttttGlobleQuantity as gq
 import writeDatacard as wd
