@@ -16,8 +16,8 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/", //!v14
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/", //!v14
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_JESDown_AbsoluteMPFBias_AK4PFchs_v94HadroPreJetVetoHemOnly_JESPt22/mc/", 
-    // TString process = "tttt",
-    TString process = "ttbar_1l",
+    TString process = "tttt",
+    // TString process = "ttbar_1l",
     // TString process = "fakeLepton",
     // TString process  = "fakeTau_data",
     // TString process  = "fakeTau_data_ptMorphed",
