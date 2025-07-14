@@ -52,6 +52,9 @@ LIBS = $(ROOTLIBS)
 LIBS += $(TMVALIBS)
 LIBS += $(MYLIB)
 
+#!!!for checking memory leak
+# LDFLAGS += -fsanitize=address
+# CXXFLAGS += -fsanitize=address
 
 
 .PHONY: all clean

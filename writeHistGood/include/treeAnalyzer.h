@@ -23,7 +23,7 @@ class treeAnalyzer
 public:
     treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", TString channel="1tau1l", Bool_t isTest = kTRUE, Bool_t ifSys=kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}, m_ifSys{ifSys}
     {
-        m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
+        // m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
         {
             std::cout << "Error: could not open file!" << m_file->GetName() << std::endl;
@@ -68,7 +68,11 @@ private:
     TString m_channel;
     Bool_t m_isTest = kTRUE;
     TTree *m_tree;
-    TFile *m_file;
+    // TFile *m_file;
+    // std::unique_ptr<TFile> *m_file;  // RAII for ownership
+    // std::unique_ptr<TFile> ;
+    std::unique_ptr<TFile> m_file = std::make_unique<TFile>(m_inputDir + m_processName + ".root", "READ"); // RAII for ownership
+
     TString m_era = "2016";
     Bool_t m_isData = kFALSE;
     Bool_t m_isRun3 = kFALSE;

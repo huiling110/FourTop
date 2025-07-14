@@ -27,7 +27,8 @@ def zip_and_remove_directory(directory_path):
 if __name__ == '__main__':
     # List your directories here
     
-    base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/'
+    # base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/'
+    base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/'
     
     directories_to_process = [
         # '/path/to/first/directory',
@@ -36,13 +37,17 @@ if __name__ == '__main__':
         # Add more paths as needed
         # f'{base}v94LepPreJetVetoHemOnly_EleScaleDown',
         # f'{base}v94LepPreJetVetoHemOnly_EleScaleUp',
-        'v94HadroPreJetVetoHemOnly_TESdm0Down',
+        # 'v94HadroPreJetVetoHemOnly_TESdm0Down',
         'v94HadroPreJetVetoHemOnly_TESdm0Up',
         'v94HadroPreJetVetoHemOnly_TESdm1Down',
         'v94HadroPreJetVetoHemOnly_TESdm1Up',
         'v94HadroPreJetVetoHemOnly_TESdm10Down',
         'v94HadroPreJetVetoHemOnly_TESdm11Up',
         'v94HadroPreJetVetoHemOnly_TESdm11Down',
+        'v94HadroPreJetVetoHemOnly_METUp',
+        'v94HadroPreJetVetoHemOnly_METDown',
+        'v94HadroPreJetVetoHemOnly_EleScaleDown',
+        'v94HadroPreJetVetoHemOnly_EleScaleUp',
     ]
 
     for directory in directories_to_process:

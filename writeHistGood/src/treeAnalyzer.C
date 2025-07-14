@@ -409,6 +409,6 @@ void treeAnalyzer::Terminate()
 treeAnalyzer::~treeAnalyzer()
 {
     // code to free any dynamically allocated resources
-    m_file->Close();
-    m_outFile->Close();
+    // m_file->Close();
+    // m_outFile->Close();
 }  
