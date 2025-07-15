@@ -23,6 +23,7 @@ Bool_t isRun3(TString era);
 void fillHist(TH1D *&hist, Double_t value, Double_t weight, Bool_t isData);
 
     Double_t getGenSum(TString inputFile);
+Double_t getGenSum(TFile* existingFile) ;
 
 Double_t get2DSF(Double_t x, Double_t y,const TH2D *hist, UInt_t sys=0);
 

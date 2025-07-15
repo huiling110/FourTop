@@ -51,6 +51,7 @@ public:
 
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
+        // m_outFile = std::make_unique<TFile>(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
 
         e = new event(m_tree);
     };
@@ -78,6 +79,8 @@ private:
     Bool_t m_isRun3 = kFALSE;
     TString m_outputFolder;
     TFile *m_outFile;
+    // std::unique_ptr<TFile> m_outFile; // RAII for ownership
+    // std::unique_ptr<TFile> m_outFile = std::make_unique<TFile>(m_inputDir + "variableHists" + "_" + "v0" + "/" + m_processName + ".root", "RECREATE"); // RAII for ownership
     TH1D *cutFlowHist = new TH1D("cutFlow", "cutFlow", 3, 0, 3);
     event *e;
     Bool_t m_isFakeLepton = kFALSE;

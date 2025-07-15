@@ -389,7 +389,8 @@ void treeAnalyzer::Terminate()
     std::cout << "Termintate: ..........................................\n";
 
     if(!(m_isFakeTau || m_isFakeLepton || m_isData)){
-            Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
+            // Double_t genWeightSum = TTTT::getGenSum(m_inputDir + m_processName + ".root");
+            Double_t genWeightSum = TTTT::getGenSum(m_file);
             const Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_processName)) / genWeightSum);
             SR1tau1lSys.scale(processScale);
             std::cout<<"processScale: "<<processScale<<"\n";

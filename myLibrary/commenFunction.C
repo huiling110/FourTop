@@ -136,25 +136,83 @@ namespace TTTT
     }
 
 
-    Double_t getGenSum(TString inputFile)
-    {
-        Double_t genWeightSumInitial = 1.0;
-        TFile *m_file = new TFile(inputFile, "READ");
-        TTree *Runs = (TTree *)m_file->Get("Runs");
-        Double_t igen;
-        Runs->SetBranchAddress("genEventSumw", &igen);
-        genWeightSumInitial = 0.0;
-        for (int iEntry = 0; Runs->LoadTree(iEntry) >= 0; ++iEntry)
-        {
-            Runs->GetEntry(iEntry);
-            genWeightSumInitial += igen;
-        }
-        m_file->Close();
-        std::cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
-        return genWeightSumInitial;
+    // Double_t getGenSum(TString inputFile)
+    // {
+    //     Double_t genWeightSumInitial = 1.0;
+    //     TFile *m_file = new TFile(inputFile, "READ");
+    //     TTree *Runs = (TTree *)m_file->Get("Runs");
+    //     Double_t igen;
+    //     Runs->SetBranchAddress("genEventSumw", &igen);
+    //     genWeightSumInitial = 0.0;
+    //     for (int iEntry = 0; Runs->LoadTree(iEntry) >= 0; ++iEntry)
+    //     {
+    //         Runs->GetEntry(iEntry);
+    //         genWeightSumInitial += igen;
+    //     }
+    //     m_file->Close();
+    //     std::cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
+    //     return genWeightSumInitial;
+    // }
+Double_t getGenSum(TString inputFile) {
+    Double_t genWeightSumInitial = 0.0;
+    
+    // Open file with RAII (no explicit Close() needed)
+    std::unique_ptr<TFile> m_file = std::make_unique<TFile>(inputFile, "READ");
+    if (!m_file || m_file->IsZombie()) {
+        std::cerr << "Error opening file: " << inputFile << std::endl;
+        return 0.0;
     }
 
+    // Get the TTree and validate
+    TTree* _Runs = (TTree*)m_file->Get("Runs");
+    if (!_Runs) {
+        std::cerr << "Tree 'Runs' not found in " << inputFile << std::endl;
+        return 0.0;
+    }
 
+    // Read the branch
+    Double_t igen = 0.0;
+    _Runs->SetBranchAddress("genEventSumw", &igen);
+    
+    // Iterate entries safely
+    Long64_t nEntries = _Runs->GetEntries();
+    for (Long64_t iEntry = 0; iEntry < nEntries; ++iEntry) {
+        _Runs->GetEntry(iEntry);
+        genWeightSumInitial += igen;
+    }
+
+    std::cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
+    return genWeightSumInitial;
+}
+
+Double_t getGenSum(TFile* existingFile) {
+  if (!existingFile || existingFile->IsZombie()) {
+    // Handle error
+    return 0.0;
+  }
+    Double_t genWeightSumInitial = 0.0;
+  TTree* _Runs = (TTree*)existingFile->Get("Runs");
+  // ... (rest of your logic)
+    if (!_Runs) {
+        std::cerr << "Tree 'Runs' not found in " << existingFile->GetName() << std::endl;
+        return 0.0;
+    }
+
+    // Read the branch
+    Double_t igen = 0.0;
+    _Runs->SetBranchAddress("genEventSumw", &igen);
+    
+    // Iterate entries safely
+    Long64_t nEntries = _Runs->GetEntries();
+    for (Long64_t iEntry = 0; iEntry < nEntries; ++iEntry) {
+        _Runs->GetEntry(iEntry);
+        genWeightSumInitial += igen;
+    }
+
+    std::cout << "genWeightSumInitial: " << genWeightSumInitial << "\n";
+  // DO NOT close existingFile here!
+  return genWeightSumInitial;
+}
 
 // TH1D *getHistogramFromFile(TString filename, const char *histname)
 // {
