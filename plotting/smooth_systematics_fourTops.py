@@ -6,6 +6,7 @@ import os
 import matplotlib.pyplot as plt
 
 import usefulFunc as uf
+import writeDatacard as wd
 #!!!source use setEnv_newNew.sh to set up the environment
 
 def main():
@@ -16,44 +17,39 @@ def main():
     
 
     process = 'tt'
+    # sys = 'ps_fsr'
+    sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon']
     channel = '1tau1lSR'
-    sys = 'ps_fsr'
     
     
     nom_name = f'{process}_{channel}_BDT'
-    up_name = f'{process}_{channel}_{sys}Up_BDT'
-    down_name = f'{process}_{channel}_{sys}Down_BDT'
     # ifCorrelated = False
-    ifCorrelated = True
+    # ifCorrelated = True
     years = ['2016preVFP', '2016postVFP', '2017', '2018']
    
-    
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
-    
-    nominal_hist, up_hist, down_hist = getHist_uproot(input_template, nom_name, up_name, down_name) 
-    
-    combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var = getForSmooth(input_template, nominal_hist, up_hist, down_hist, nom_name, up_name, down_name, sys, years, ifCorrelated)
-    
-    bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
-    up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, len(bin_centers), True)
-    # up_ratio, down_ratio = get_smoothed_up_and_down_new( hist_forSmoothing, up_forSmoothing, down_forSmoothing)
-    
-    #apply the ratio to the nominal histogram
-    # nominal = nominal_hist.values()
-    # new_up = nominal * np.nan_to_num(up_ratio, nan=1.0)
-    # new_down = nominal * np.nan_to_num(down_ratio, nan=1.0)
-    #apply to each year separately
-    for year in years:
-        file_path = input_template.replace('2018', year)
-        nominal_hist_year, up_hist_year, down_hist_year = getHist_uproot(file_path, nom_name, up_name, down_name)
-        new_up_year = nominal_hist_year.values() * np.nan_to_num(up_ratio, nan=1.0)
-        new_down_year = nominal_hist_year.values() * np.nan_to_num(down_ratio, nan=1.0)
-    
-        postfix = 'correlated' if ifCorrelated else 'uncorrelated'
-        postfix += year
-        # plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), new_up, new_down, outDir, sys, postfix)
-        plot_smoothed_systematics(nominal_hist_year, up_hist_year.values(), down_hist_year.values(), new_up_year, new_down_year, outDir, sys, postfix)
+   
+    dic_sys = {} 
+    for sys in sysList:
+        up_name = f'{process}_{channel}_{sys}Up_BDT'
+        down_name = f'{process}_{channel}_{sys}Down_BDT'
+        ifCorrelated = wd.MCSys[sys][2]
+        print(f'Processing systematic: {sys}, correlated: {ifCorrelated}')
+        
+        
+        nominal_hist, up_hist, down_hist = getHist_uproot(input_template, nom_name, up_name, down_name) 
+        
+        combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var = getForSmooth(input_template, nominal_hist, up_hist, down_hist, nom_name, up_name, down_name, sys, years, ifCorrelated)
+        
+        bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
+        up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, len(bin_centers), True)
+        # up_ratio, down_ratio = get_smoothed_up_and_down_new( hist_forSmoothing, up_forSmoothing, down_forSmoothing)
+        
+        # dic_sys[sys] = {} 
+        dic_sys[sys] = applyRatioEachYear(input_template, nom_name, up_name, down_name, up_ratio, down_ratio, years, ifCorrelated, outDir, sys) 
+   
+   
     
     # output_file = input_template.replace('.root', f'_smoothed.root')
     # with uproot.recreate(output_file) as f:
@@ -65,7 +61,26 @@ def main():
     #     f[down_name] = (new_down, edges)
     #     f[nom_name] = nominal_hist  # Copy original nominal
     # print(f'Smoothed histograms saved to {output_file}')
-  
+ 
+ 
+def applyRatioEachYear(input_template, nom_name, up_name, down_name, up_ratio, down_ratio, years, ifCorrelated, outDir, sys) :
+    #apply to each year separately
+    dict_years = {}
+    for year in years:
+        file_path = input_template.replace('2018', year)
+        nominal_hist_year, up_hist_year, down_hist_year = getHist_uproot(file_path, nom_name, up_name, down_name)
+        new_up_year = nominal_hist_year.values() * np.nan_to_num(up_ratio, nan=1.0)
+        new_down_year = nominal_hist_year.values() * np.nan_to_num(down_ratio, nan=1.0)
+    
+        postfix = 'correlated' if ifCorrelated else 'uncorrelated'
+        postfix += year
+        # plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), new_up, new_down, outDir, sys, postfix)
+        plot_smoothed_systematics(nominal_hist_year, up_hist_year.values(), down_hist_year.values(), new_up_year, new_down_year, outDir, sys, postfix)
+        
+        dict_years[year] = (new_up_year, new_down_year)
+        
+    return dict_years 
+    
   
 def getForSmooth(input_template, nominal_hist, up_hist, down_hist, nom_name, up_name, down_name, sys, years, ifCorrelated=True):
     if not ifCorrelated:
