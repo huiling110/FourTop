@@ -471,8 +471,15 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
     sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_m_stat_" + era + "Down");
     sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_e_stat_" + era + "Up");
     sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_e_stat_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Down");
+    // sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Up");
+    // sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Down");
+    if(era.Contains("2016")){
+        sysRegions.push_back(region + "_CMS_eff_e_reco_2016Up");
+        sysRegions.push_back(region + "_CMS_eff_e_reco_2016Down");
+    }else{
+        sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Up");
+        sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Down");
+    }
 
     sysRegions.push_back(region + "_CMS_btag_shape_jesUp");
     sysRegions.push_back(region + "_CMS_btag_shape_jesDown");

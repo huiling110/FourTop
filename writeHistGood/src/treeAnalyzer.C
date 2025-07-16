@@ -315,8 +315,15 @@ void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_
         SR1tau1lSysF.fillHistVec(region + "_CMS_TOP24017_ttttSS_eff_m_stat_" + m_era +"Down", bdtScore, (basicWeight / e->musTopMVAT_weight_new.v()) * e->musTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_CMS_TOP24017_ttttSS_eff_e_stat_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_up.v(), SR1tau1l, m_isData);
         SR1tau1lSysF.fillHistVec(region + "_CMS_TOP24017_ttttSS_eff_e_stat_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_weight_new.v()) * e->elesTopMVAT_weight_stat_down.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(), SR1tau1l, m_isData);
-        SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(), SR1tau1l, m_isData);
+        // SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(), SR1tau1l, m_isData);
+        // SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(), SR1tau1l, m_isData);
+        if(m_era.Contains("2016")){
+            SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + "2016" +"Up", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(), SR1tau1l, m_isData);
+            SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + "2016" +"Down", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(), SR1tau1l, m_isData);
+        }else{
+            SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Up", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(), SR1tau1l, m_isData);
+            SR1tau1lSysF.fillHistVec(region + "_CMS_eff_e_reco_" + m_era +"Down", bdtScore, (basicWeight / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(), SR1tau1l, m_isData);
+        }
 
 
         SR1tau1lSysF.fillHistVec(region + "_CMS_btag_shape_jesUp", bdtScore, (basicWeight / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(), SR1tau1l, m_isData);//!JES part should only be considered with the corresponding JES variation

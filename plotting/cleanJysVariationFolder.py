@@ -39,10 +39,11 @@ def find_and_process_directories(base_path):
 
 if __name__ == '__main__':
     # Define the base directory to search in
-    base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
-    # idir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_JESup_RelativePtHF_AK4PFchs_v94LepPreJetVetoHemOnly_JESPt22' 
+    # base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+    base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
 
-    keywords = ['v1baselineHadroBtagWeightAdded_JESup', 'v1baselineHadroBtagWeightAdded_JESdown']
+    # keywords = ['v1baselineHadroBtagWeightAdded_JESup', 'v1baselineHadroBtagWeightAdded_JESDown']
+    keywords = ['Up', 'Down']
     matched_dirs = []
     for item in os.listdir(base_dir):
         item_path = os.path.join(base_dir, item)
