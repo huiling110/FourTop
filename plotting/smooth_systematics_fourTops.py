@@ -88,7 +88,8 @@ def main():
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
     print(outDir)
-    plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), new_up, new_down, outDir, sys)
+    postfix = 'correlated' if ifCorrelated else 'uncorrelated'
+    plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), new_up, new_down, outDir, sys, postfix)
 
 
     #???What about fakeTauMC? 
@@ -206,7 +207,7 @@ def getHist_uproot(input_template, nom_name, up_name, down_name):
 
 
  
-def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys_name=''):
+def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys_name='', postfix=''):
     # Extract the nominal histogram values, variabilities (errors), and bin edges
     nominal_values, bin_edges = nominal_hist.to_numpy()
     nominal_errors = np.sqrt(nominal_values)  # Statistical uncertainty
@@ -240,7 +241,7 @@ def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, 
     plt.tight_layout()
     plt.savefig(f'{outDir}/systematics_comparison_{sys_name}.png')
     plt.close()    
-    print(f'Smoothed systematics plot saved to {outDir}/systematics_comparison_{sys_name}.png')
+    print(f'Smoothed systematics plot saved to {outDir}/systematics_comparison_{sys_name}_{postfix}.png')
     
  
     
