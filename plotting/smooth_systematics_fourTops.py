@@ -22,19 +22,28 @@ def main():
     up_name = f'{process}_{channel}_{sys}Up_BDT'
     down_name = f'{process}_{channel}_{sys}Down_BDT'
     ifCorrelated = False
+    # ifCorrelated = True
    
     
     
     nominal_hist, up_hist, down_hist = getHist_uproot(input_template, nom_name, up_name, down_name) 
     
     if not ifCorrelated:
-        hist_forSmoothing = nominal_hist# hists for smoothing
-        up_forSmoothing = up_hist
-        down_forSmoothing = down_hist
+        # hist_forSmoothing = nominal_hist# hists for smoothing
+        # up_forSmoothing = up_hist
+        # down_forSmoothing = down_hist
+        combined_nominal = nominal_hist.values()
+        combined_up = up_hist.values()
+        combined_down = down_hist.values()
+        combined_var = nominal_hist.variances()
+        combined_up_var = up_hist.variances()
+        combined_down_var = down_hist.variances()
+        print(f'{sys} not correlated for smoothing')
     else:
         # If correlated, we need to combine the histograms across years
         years = ['2016preVFP', '2016postVFP', '2017', '2018']
         combined_nominal, combined_up, combined_down = None, None, None
+        combined_var, combined_up_var, combined_down_var = None, None, None
         
         for year in years:
             file_path = input_template.replace('2018', year)
@@ -43,15 +52,22 @@ def main():
                 combined_nominal = nominal_hist_year.values()
                 combined_up = up_hist_year.values()
                 combined_down = down_hist_year.values()
+                combined_var = nominal_hist_year.variances()
+                combined_up_var = up_hist_year.variances()
+                combined_down_var = down_hist_year.variances()
             else:
                 combined_nominal += nominal_hist_year.values()
                 combined_up += up_hist_year.values()
                 combined_down += down_hist_year.values()
+                combined_var += nominal_hist_year.variances()
+                combined_up_var += up_hist_year.variances()
+                combined_down_var += down_hist_year.variances()
 
+        print(f'{sys} correlated for smoothing across years: {years}')
         # Create new histograms for smoothing
-        nominal_hist = uproot.newhistogram(nominal_hist.axis(), values=combined_nominal)
-        up_hist = uproot.newhistogram(up_hist.axis(), values=combined_up)
-        down_hist = uproot.newhistogram(down_hist.axis(), values=combined_down)
+        # hist_forSmoothing = uproot.newhistogram(nominal_hist.axis(), values=combined_nominal)
+        # up_forSmoothing = uproot.newhistogram(up_hist.axis(), values=combined_up)
+        # down_forSmoothing = uproot.newhistogram(down_hist.axis(), values=combined_down)
     
     # nominal = nominal_hist.values()
     # nominal_var = nominal_hist.variances()
@@ -76,7 +92,9 @@ def main():
     #     n_reco_bins,
     #     ratio_only=False
     # )
-    up_ratio, down_ratio = get_smoothed_up_and_down_new( hist_forSmoothing, up_forSmoothing, down_forSmoothing)
+    bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
+    up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, True)
+    # up_ratio, down_ratio = get_smoothed_up_and_down_new( hist_forSmoothing, up_forSmoothing, down_forSmoothing)
     
     #apply the ratio to the nominal histogram
     nominal = nominal_hist.values()
@@ -87,14 +105,12 @@ def main():
    
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
-    print(outDir)
     postfix = 'correlated' if ifCorrelated else 'uncorrelated'
     plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), new_up, new_down, outDir, sys, postfix)
 
 
     #???What about fakeTauMC? 
     # plotName = 'smoothed_'
-    # output_file = input_template.replace('.root', f'_smoothed.root')
     output_file = input_template.replace('.root', f'_smoothed.root')
     # Write results to new ROOT file
     with uproot.recreate(output_file) as f:
@@ -239,9 +255,9 @@ def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, 
 
     # Save the figure
     plt.tight_layout()
-    plt.savefig(f'{outDir}/systematics_comparison_{sys_name}.png')
+    plt.savefig(f'{outDir}systematics_comparison_{sys_name}_{postfix}.png')
     plt.close()    
-    print(f'Smoothed systematics plot saved to {outDir}/systematics_comparison_{sys_name}_{postfix}.png')
+    print(f'Smoothed systematics plot saved to {outDir}systematics_comparison_{sys_name}_{postfix}.png')
     
  
     
