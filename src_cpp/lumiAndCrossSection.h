@@ -35,7 +35,7 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"TTZToLLNuNu", 0.281}, //ttZ 0.856
     {"TTZToQQ", 0.578}, //0.859-0.281=0.578 //ttZ to 859 ± 80 fb
     {"TTWJetsToQQ", 0.357}, //592fb //!!!722 ± 74 fb from SS/ML analysis
-    {"TTWJetsToLNu", 0.235 },
+    {"TTWJetsToLNu", 0.235 },//722*0.33=
     {"ttH_bb", 0.2897},   // 0.2897//!!!504 ± 39 fb
     {"ttH_nonbb", 0.209}, // 0.20
     {"ttWW", 0.00698},

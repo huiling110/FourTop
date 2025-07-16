@@ -21,40 +21,79 @@ def main():
     nom_name = f'{process}_{channel}_BDT'
     up_name = f'{process}_{channel}_{sys}Up_BDT'
     down_name = f'{process}_{channel}_{sys}Down_BDT'
+    ifCorrelated = False
    
+    
     
     nominal_hist, up_hist, down_hist = getHist_uproot(input_template, nom_name, up_name, down_name) 
-    nominal = nominal_hist.values()
-    nominal_var = nominal_hist.variances()
-    up = up_hist.values()
-    up_var = up_hist.variances()
-    down = down_hist.values()
-    down_var = down_hist.variances()
-    bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
-
-    # Set parameters for smoothing
-    n_aux_bins = 1  # Number of auxiliary bins for smoothing, I think it the sub binning of the hist
-    n_reco_bins = len(bin_centers)  # Should match number of bins in histogram
     
-    # Apply smoothing
-    new_up, new_down = get_smoothed_up_and_down(
-        nominal, nominal_var,
-        up, up_var,
-        down, down_var,
-        bin_centers,
-        n_aux_bins,
-        n_reco_bins,
-        ratio_only=False
-    )
+    if not ifCorrelated:
+        hist_forSmoothing = nominal_hist# hists for smoothing
+        up_forSmoothing = up_hist
+        down_forSmoothing = down_hist
+    else:
+        # If correlated, we need to combine the histograms across years
+        years = ['2016preVFP', '2016postVFP', '2017', '2018']
+        combined_nominal, combined_up, combined_down = None, None, None
+        
+        for year in years:
+            file_path = input_template.replace('2018', year)
+            nominal_hist_year, up_hist_year, down_hist_year = getHist_uproot(file_path, nom_name, up_name, down_name)
+            if combined_nominal is None:
+                combined_nominal = nominal_hist_year.values()
+                combined_up = up_hist_year.values()
+                combined_down = down_hist_year.values()
+            else:
+                combined_nominal += nominal_hist_year.values()
+                combined_up += up_hist_year.values()
+                combined_down += down_hist_year.values()
+
+        # Create new histograms for smoothing
+        nominal_hist = uproot.newhistogram(nominal_hist.axis(), values=combined_nominal)
+        up_hist = uproot.newhistogram(up_hist.axis(), values=combined_up)
+        down_hist = uproot.newhistogram(down_hist.axis(), values=combined_down)
+    
+    # nominal = nominal_hist.values()
+    # nominal_var = nominal_hist.variances()
+    # up = up_hist.values()
+    # up_var = up_hist.variances()
+    # down = down_hist.values()
+    # down_var = down_hist.variances()
+    # bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
+
+    # # Set parameters for smoothing
+    # n_aux_bins = 1  # Number of auxiliary bins for smoothing, I think it the sub binning of the hist
+    # n_reco_bins = len(bin_centers)  # Should match number of bins in histogram
    
-    # outDir = uf.
+    
+    # # Apply smoothing
+    # new_up, new_down = get_smoothed_up_and_down(
+    #     nominal, nominal_var,
+    #     up, up_var,
+    #     down, down_var,
+    #     bin_centers,
+    #     n_aux_bins,
+    #     n_reco_bins,
+    #     ratio_only=False
+    # )
+    up_ratio, down_ratio = get_smoothed_up_and_down_new( hist_forSmoothing, up_forSmoothing, down_forSmoothing)
+    
+    #apply the ratio to the nominal histogram
+    nominal = nominal_hist.values()
+    new_up = nominal * np.nan_to_num(up_ratio, nan=1.0)
+    new_down = nominal * np.nan_to_num(down_ratio, nan=1.0)
+    
+    
+   
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
     print(outDir)
-    plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys)
+    plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), new_up, new_down, outDir, sys)
 
 
     #???What about fakeTauMC? 
+    # plotName = 'smoothed_'
+    # output_file = input_template.replace('.root', f'_smoothed.root')
     output_file = input_template.replace('.root', f'_smoothed.root')
     # Write results to new ROOT file
     with uproot.recreate(output_file) as f:
@@ -66,6 +105,94 @@ def main():
         f[down_name] = (new_down, edges)
         f[nom_name] = nominal_hist  # Copy original nominal
     print(f'Smoothed histograms saved to {output_file}')
+    
+   
+
+# def process_year(input_template, year, nom_name, up_name, down_name, bin_centers, n_aux_bins, n_reco_bins, smoothing_ratio):
+#     # Load histograms for a given year
+#     file_path = input_template.replace('2018', year)
+#     nominal_hist, up_hist, down_hist = getHist_uproot(file_path, nom_name, up_name, down_name)
+#     nominal = nominal_hist.values()
+#     nominal_var = nominal_hist.variances()
+#     up = up_hist.values()
+#     up_var = up_hist.variances()
+#     down = down_hist.values()
+#     down_var = down_hist.variances()
+    
+#     # Apply smooth ratio obtained from the combined years
+#     new_up = nominal * np.nan_to_num(1 + smoothing_ratio * (up - nominal) / nominal, nan=1.0)
+#     new_down = nominal * np.nan_to_num(1 + smoothing_ratio * (down - nominal) / nominal, nan=1.0)
+    
+#     # Output directory setup
+#     outDir = os.path.dirname(file_path) + '/results/'
+#     uf.checkMakeDir(outDir)
+#     plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, sys)
+    
+#     # Write results to new ROOT file
+#     output_file = file_path.replace('.root', f'_smoothed.root')
+#     with uproot.recreate(output_file) as f:
+#         edges = nominal_hist.axis().edges()
+#         f[up_name] = (new_up, edges)
+#         f[down_name] = (new_down, edges)
+#         f[nom_name] = nominal_hist  # Copy original nominal
+#     print(f'Smoothed histograms saved to {output_file}')
+
+# def smooth_correlated(input_template, nom_name, up_name, down_name, ifCorrelated):
+#     # Define years to process
+#     years = ['2016preVFP', '2016postVFP', '2017', '2018']
+
+#     if ifCorrelated:
+#         # Combine histograms across years
+#         combined_nominal, combined_nominal_var = None, None
+#         combined_up, combined_up_var = None, None
+#         combined_down, combined_down_var = None, None
+        
+#         for year in years:
+#             file_path = input_template.replace('2018', year)
+#             nominal_hist, up_hist, down_hist = getHist_uproot(file_path, nom_name, up_name, down_name)
+#             if combined_nominal is None:
+#                 combined_nominal = nominal_hist.values()
+#                 combined_nominal_var = nominal_hist.variances()
+#                 combined_up = up_hist.values()
+#                 combined_up_var = up_hist.variances()
+#                 combined_down = down_hist.values()
+#                 combined_down_var = down_hist.variances()
+#             else:
+#                 combined_nominal += nominal_hist.values()
+#                 combined_nominal_var += nominal_hist.variances()
+#                 combined_up += up_hist.values()
+#                 combined_up_var += up_hist.variances()
+#                 combined_down += down_hist.values()
+#                 combined_down_var += down_hist.variances()
+        
+#         # Calculate smoothed ratio based on combined data
+#         bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
+#         n_aux_bins = 1
+#         n_reco_bins = len(bin_centers)
+#         smoothing_ratio = get_smoothed_up_and_down(
+#             combined_nominal, combined_nominal_var,
+#             combined_up, combined_up_var,
+#             combined_down, combined_down_var,
+#             bin_centers, n_aux_bins, n_reco_bins,
+#             ratio_only=True
+#         )[0]  # Assuming up and down have similar smoothing ratios
+        
+#         # Process each year with the obtained smoothing_ratio
+#         for year in years:
+#             process_year(input_template, year, nom_name, up_name, down_name, bin_centers, n_aux_bins, n_reco_bins, smoothing_ratio)
+#     else:
+#         # Process each year independently without correlation
+#         for year in years:
+#             process_year(input_template, year, nom_name, up_name, down_name, None, None, None, None)
+
+   
+   
+   
+   
+   
+    
+    
+    
 
 def getHist_uproot(input_template, nom_name, up_name, down_name):
     with uproot.open(input_template) as f:
@@ -75,7 +202,6 @@ def getHist_uproot(input_template, nom_name, up_name, down_name):
         up_hist = f[up_name]
         # Get down variation histogram
         down_hist = f[down_name]
-    # Convert uproot histograms to ROOT TH1 objects
         return nominal_hist, up_hist, down_hist
 
 
@@ -162,6 +288,32 @@ def get_smoothed_up_and_down( nom_hist, nom_variance, up_hist, up_variance, down
     new_var_up = nom_hist * np.nan_to_num(up_ratio, nan=1.0)
     new_var_down = nom_hist * np.nan_to_num(down_ratio, nan=1.0)
     return new_var_up, new_var_down
+
+
+
+def get_smoothed_up_and_down_new(nom_hist, up_hist, down_hist):
+    nom = nom_hist.values()
+    nom_var = nom_hist.variances()
+    up = up_hist.values()
+    up_var = up_hist.variances()
+    down = down_hist.values()
+    down_var = down_hist.variances()
+    
+    bin_centers = (nom_hist.axis().edges()[:-1] + nom_hist.axis().edges()[1:]) / 2
+    n_aux_bins = 1  # Number of auxiliary bins for smoothing
+    n_reco_bins = len(bin_centers)  # Should match number of bins i
+    
+    half_ratio = np.where(nom > 0., up / nom, 1.)
+    alt_half_ratio = np.where(nom > 0., down / nom, 1.)
+    ratio_diff = (half_ratio - alt_half_ratio) / 2. # Calculate the difference in ratios
+    diff_smooth = smooth_ratio(ratio_diff, bin_centers, n_aux_bins, n_reco_bins)
+    
+    up_scale = get_smoothed_scale_factor(diff_smooth, nom, up, nom_var, up_var)
+    down_scale = get_smoothed_scale_factor(diff_smooth, nom, down, nom_var, down_var)
+    up_ratio = (1 + up_scale * diff_smooth)
+    down_ratio = (1 + down_scale * diff_smooth)
+    
+    return up_ratio, down_ratio
 
 def get_smoothed_scale_factor( smoothed_ratio_diff, nom_hist, var_hist, nom_var, var_var):
     '''determine an overall systematic template smoothing which minimizes the chi-squared between
