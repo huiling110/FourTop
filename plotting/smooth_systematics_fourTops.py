@@ -21,8 +21,8 @@ def main():
     nom_name = f'{process}_{channel}_BDT'
     up_name = f'{process}_{channel}_{sys}Up_BDT'
     down_name = f'{process}_{channel}_{sys}Down_BDT'
-    ifCorrelated = False
-    # ifCorrelated = True
+    # ifCorrelated = False
+    ifCorrelated = True
    
     
     
@@ -93,7 +93,7 @@ def main():
     #     ratio_only=False
     # )
     bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
-    up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, True)
+    up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, len(bin_centers), True)
     # up_ratio, down_ratio = get_smoothed_up_and_down_new( hist_forSmoothing, up_forSmoothing, down_forSmoothing)
     
     #apply the ratio to the nominal histogram
