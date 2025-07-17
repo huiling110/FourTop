@@ -7,18 +7,18 @@ import matplotlib.pyplot as plt
 
 import usefulFunc as uf
 import writeDatacard as wd
-#!!!source use setEnv_newNew.sh to set up the environment
+#!!!source setEnv_newNew.sh to set up the environment
 
 def main():
-    input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/templatesForCombine1tau1l_new.root'
+    input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/templatesForCombine1tau1l_new.root' #Only need to offer 2018 templte, all other years will be processed automatically
     #!!!1tau1l: CMS_scale_j_FlavorPureGluon, ps_fsr， CMS_scale_j_PileUpDataMC，CMS_scale_j_RelativeSample_2018， CMS_scale_j_TimePtEta，CMS_scale_j_TimePtEta 
     #!!!1tau0l: 
     #!!!1tau2l:
     
 
     processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
-    sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_TOP24017_eff_trigger_stats']
-    # sysList  = ['CMS_scale_j_RelativeSample']#!?? no smoothing effect
+    # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_TOP24017_eff_trigger_stats']
+    sysList  = ['CMS_scale_j_RelativeSample']#!?? no smoothing effect
     # sysList = ['CMS_TOP24017_eff_trigger_stats']#!???Excatly the same after smoothing
     channel = '1tau1lSR'
     
@@ -39,7 +39,7 @@ def main():
             dic_sys[sys][process] = {}
             
             for iyear in years:
-                # if not iyear == '2018': continue
+                if not iyear == '2018': continue
                 nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated) 
                 iFile = input_template.replace('2018', iyear)
                 print(f'Processing file: {iFile}')
@@ -49,19 +49,40 @@ def main():
                 bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
                 up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, len(bin_centers), True)
             
-                # dic_sys[sys] = applyRatioEachYear(input_template, nom_name, up_name, down_name, up_ratio, down_ratio, years, ifCorrelated, outDir, sys) 
                 up_new = nominal_hist.values() * np.nan_to_num(up_ratio, nan=1.0)
                 down_new = nominal_hist.values() * np.nan_to_num(down_ratio, nan=1.0)
-                # dic_sys[sys] = (up_new, down_new)
                 plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), up_new, down_new, outDir, sys, f'{iyear}_{process}_{channel}')
                 
                 dic_sys[sys][process][iyear] = (up_new, down_new)
              
-        
-    # output_file = input_template.replace('.root', f'_smoothed.root')
-    # with uproot.open(input_template) as infile:
-    #     with uproot.recreate(output_file) as outfile:
-    #     # Use original bin edges
+    
+    for year in years:    
+        output_file = input_template.replace('.root', f'_smoothed.root')
+        output_file = output_file.replace('2018', year)
+        with uproot.open(input_template) as infile:
+            with uproot.recreate(output_file) as outfile:
+                for key, obj in infile.items():
+                    hist_name = key
+                    
+                    ipro, ichannel, isys = extract_parts_from_name(hist_name) 
+                    # print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
+                    
+                    if (sys in dic_sys and process in dic_sys[sys] and year in dic_sys[sys][process] and (hist_name.endswith(f"{sys}Up_BDT") or hist_name.endswith(f"{sys}Down_BDT"))):
+                    
+                        # Decide whether it's an 'Up' or 'Down' variation and replace accordingly
+                        if hist_name.endswith("Up_BDT"):
+                            hist_data = dic_sys[sys][process][year][0]
+                        elif hist_name.endswith("Down_BDT"):
+                            hist_data = dic_sys[sys][process][year][1]
+                    
+                    # The original edges are used here; adjust if needed for new data shape
+                        edges = obj.axes[0].edges()
+                        outfile[hist_name] = (hist_data, edges)
+
+                    else:
+                        # Copy other histograms without modification
+                        outfile[hist_name] = obj  
+                
     #     edges = nominal_hist.axis().edges()
         
     #     # Store smoothed histograms
@@ -69,7 +90,33 @@ def main():
     #     f[down_name] = (new_down, edges)
     #     f[nom_name] = nominal_hist  # Copy original nominal
     # print(f'Smoothed histograms saved to {output_file}')
- 
+
+def extract_parts_from_name(hist_name):
+    # Split the string to identify known segments
+    parts = hist_name.split('_')
+    
+    if len(parts) < 3:
+        raise ValueError(f"Unexpected histogram name format: {hist_name}")
+
+    process = parts[0]
+    channel = parts[1]
+    
+    # Combine parts[2:-1] for sys, because sys can include multiple underscores
+    # parts[-1] should be like 'sysYearUp_BDT' or 'sysUp_BDT'
+    sys_and_variation = '_'.join(parts[2:-1])
+
+    # Find where 'Up' or 'Down' is in the last part
+    if sys_and_variation.endswith('Up_BDT') or sys_and_variation.endswith('Down_BDT'):
+        # No year segment
+        sys = sys_and_variation[:-2] if sys_and_variation.endswith('Up_BDT') else sys_and_variation[:-4]
+    else:
+        # Last part contains a year segment
+        sys = sys_and_variation
+        
+    return process, channel, sys
+    
+
+
  
 def applyRatioEachYear(input_template, nom_name, up_name, down_name, up_ratio, down_ratio, years, ifCorrelated, outDir, sys) :
     #apply to each year separately
