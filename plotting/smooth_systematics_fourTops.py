@@ -18,8 +18,8 @@ def main():
 
     processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
     # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_TOP24017_eff_trigger_stats']
-    sysList  = ['CMS_scale_j_RelativeSample']#!?? no smoothing effect
     # sysList = ['CMS_TOP24017_eff_trigger_stats']#!???Excatly the same after smoothing
+    sysList = ['ps_fsr']
     channel = '1tau1lSR'
     
     
@@ -54,7 +54,9 @@ def main():
                 plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), up_new, down_new, outDir, sys, f'{iyear}_{process}_{channel}')
                 
                 dic_sys[sys][process][iyear] = (up_new, down_new)
-             
+    
+    
+    print(dic_sys)         
    
     print(f'\nSmoothing completed for all processes and years. Saving smoothed histograms...')
     for year in years:    
@@ -66,11 +68,10 @@ def main():
                     hist_name = key
                     
                     ipro, ichannel, isys = extract_parts_from_name(hist_name) 
-                    # print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
+                    print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
                     
-                    if (isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] ):
-                        # and (hist_name.endswith(f"{sys}Up_BDT") or hist_name.endswith(f"{sys}Down_BDT"))):
-                    
+                    if isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] and ichannel == channel:
+                        print('!!! replace histogram:', hist_name, 'with smoothed values for', isys, ipro, year)
                         # Decide whether it's an 'Up' or 'Down' variation and replace accordingly
                         if hist_name.endswith("Up_BDT"):
                             hist_data = dic_sys[sys][process][year][0]
@@ -107,11 +108,14 @@ def extract_parts_from_name(hist_name):
     # Combine parts[2:-1] for sys, because sys can include multiple underscores
     # parts[-1] should be like 'sysYearUp_BDT' or 'sysUp_BDT'
     sys_and_variation = '_'.join(parts[2:-1])
+    # print(sys_and_variation)#somehow BDT lost here
 
     # Find where 'Up' or 'Down' is in the last part
-    if sys_and_variation.endswith('Up_BDT') or sys_and_variation.endswith('Down_BDT'):
+    if sys_and_variation.endswith('Up') or sys_and_variation.endswith('Down'):
         # No year segment
-        sys = sys_and_variation[:-2] if sys_and_variation.endswith('Up_BDT') else sys_and_variation[:-4]
+        # sys = sys_and_variation[:-2] if sys_and_variation.endswith('Up_BDT') else sys_and_variation[:-4]
+        sys = sys_and_variation.replace('Up', '').replace('Down', '').replace('2017', '').replace('2018', '').replace('2016preVFP', '').replace('2016postVFP', '')
+        
     else:
         # Last part contains a year segment
         sys = sys_and_variation
