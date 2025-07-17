@@ -17,15 +17,14 @@ def main():
     
 
     process = 'tt'
-    processList = ['tt', 'ttH', 'ttZ', 'ttW']
+    processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
     # sys = 'ps_fsr'
-    # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample']
-    sysList  = ['CMS_scale_j_RelativeSample']#!?? no smoothing effect
+    sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_TOP24017_eff_trigger_stats']
+    # sysList  = ['CMS_scale_j_RelativeSample']#!?? no smoothing effect
     # sysList = ['CMS_TOP24017_eff_trigger_stats']#!???Excatly the same after smoothing
     channel = '1tau1lSR'
     
     
-    # nom_name = f'{process}_{channel}_BDT'
     years = ['2016preVFP', '2016postVFP', '2017', '2018']
    
     outDir = os.path.dirname(input_template) + '/results/'
@@ -39,8 +38,10 @@ def main():
         dic_sys[sys] = {}
      
         for process in processList:
+            dic_sys[sys][process] = {}
+            
             for iyear in years:
-                if not iyear == '2018': continue
+                # if not iyear == '2018': continue
                 nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated) 
                 iFile = input_template.replace('2018', iyear)
                 print(f'Processing file: {iFile}')
@@ -55,17 +56,13 @@ def main():
                 down_new = nominal_hist.values() * np.nan_to_num(down_ratio, nan=1.0)
                 # dic_sys[sys] = (up_new, down_new)
                 plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), up_new, down_new, outDir, sys, f'{iyear}_{process}_{channel}')
+                
+                dic_sys[sys][process][iyear] = (up_new, down_new)
              
         
-        
-        
-        
-        
-   
-   
-    
     # output_file = input_template.replace('.root', f'_smoothed.root')
-    # with uproot.recreate(output_file) as f:
+    # with uproot.open(input_template) as infile:
+    #     with uproot.recreate(output_file) as outfile:
     #     # Use original bin edges
     #     edges = nominal_hist.axis().edges()
         
