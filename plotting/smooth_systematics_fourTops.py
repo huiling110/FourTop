@@ -55,7 +55,8 @@ def main():
                 
                 dic_sys[sys][process][iyear] = (up_new, down_new)
              
-    
+   
+    print(f'\nSmoothing completed for all processes and years. Saving smoothed histograms...')
     for year in years:    
         output_file = input_template.replace('.root', f'_smoothed.root')
         output_file = output_file.replace('2018', year)
@@ -67,7 +68,8 @@ def main():
                     ipro, ichannel, isys = extract_parts_from_name(hist_name) 
                     # print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
                     
-                    if (sys in dic_sys and process in dic_sys[sys] and year in dic_sys[sys][process] and (hist_name.endswith(f"{sys}Up_BDT") or hist_name.endswith(f"{sys}Down_BDT"))):
+                    if (isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] ):
+                        # and (hist_name.endswith(f"{sys}Up_BDT") or hist_name.endswith(f"{sys}Down_BDT"))):
                     
                         # Decide whether it's an 'Up' or 'Down' variation and replace accordingly
                         if hist_name.endswith("Up_BDT"):
@@ -82,6 +84,7 @@ def main():
                     else:
                         # Copy other histograms without modification
                         outfile[hist_name] = obj  
+        print(f'Smoothed histograms saved to {output_file}')
                 
     #     edges = nominal_hist.axis().edges()
         
