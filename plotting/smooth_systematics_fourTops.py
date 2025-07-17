@@ -20,7 +20,8 @@ def main():
     processList = ['tt', 'ttH', 'ttZ', 'ttW']
     # sys = 'ps_fsr'
     # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample']
-    sysList  = ['CMS_scale_j_RelativeSample']
+    sysList  = ['CMS_scale_j_RelativeSample']#!?? no smoothing effect
+    # sysList = ['CMS_TOP24017_eff_trigger_stats']#!???Excatly the same after smoothing
     channel = '1tau1lSR'
     
     
@@ -35,23 +36,25 @@ def main():
     for sys in sysList:
         ifCorrelated = wd.MCSys[sys][0]
         print(f'\nProcessing systematic: {sys}, correlated: {ifCorrelated}')
-       
-        for iyear in years:
-            if not iyear == '2018': continue
-            nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated) 
-            iFile = input_template.replace('2018', iyear)
-            print(f'Processing file: {iFile}')
-            nominal_hist, up_hist, down_hist = getHist_uproot(iFile, nom_name, up_name, down_name) 
+        dic_sys[sys] = {}
+     
+        for process in processList:
+            for iyear in years:
+                if not iyear == '2018': continue
+                nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated) 
+                iFile = input_template.replace('2018', iyear)
+                print(f'Processing file: {iFile}')
+                nominal_hist, up_hist, down_hist = getHist_uproot(iFile, nom_name, up_name, down_name) 
+                
+                combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var = getForSmooth(input_template, sys, process, channel, years, iyear, ifCorrelated)
+                bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
+                up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, len(bin_centers), True)
             
-            combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var = getForSmooth(input_template, sys, process, channel, years, iyear, ifCorrelated)
-            bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
-            up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, len(bin_centers), True)
-        
-            # dic_sys[sys] = applyRatioEachYear(input_template, nom_name, up_name, down_name, up_ratio, down_ratio, years, ifCorrelated, outDir, sys) 
-            up_new = nominal_hist.values() * np.nan_to_num(up_ratio, nan=1.0)
-            down_new = nominal_hist.values() * np.nan_to_num(down_ratio, nan=1.0)
-            dic_sys[sys] = (up_new, down_new)
-            plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), up_new, down_new, outDir, sys, iyear)
+                # dic_sys[sys] = applyRatioEachYear(input_template, nom_name, up_name, down_name, up_ratio, down_ratio, years, ifCorrelated, outDir, sys) 
+                up_new = nominal_hist.values() * np.nan_to_num(up_ratio, nan=1.0)
+                down_new = nominal_hist.values() * np.nan_to_num(down_ratio, nan=1.0)
+                # dic_sys[sys] = (up_new, down_new)
+                plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), up_new, down_new, outDir, sys, f'{iyear}_{process}_{channel}')
              
         
         
