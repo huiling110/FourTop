@@ -16,17 +16,15 @@ def main():
     #!!!1tau2l:
     
 
-    process = 'tt'
     processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
-    # sys = 'ps_fsr'
     sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_TOP24017_eff_trigger_stats']
     # sysList  = ['CMS_scale_j_RelativeSample']#!?? no smoothing effect
     # sysList = ['CMS_TOP24017_eff_trigger_stats']#!???Excatly the same after smoothing
     channel = '1tau1lSR'
     
     
-    years = ['2016preVFP', '2016postVFP', '2017', '2018']
    
+    years = ['2016preVFP', '2016postVFP', '2017', '2018']
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
     # ifCorrelated = True
@@ -196,7 +194,7 @@ def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, 
     # Add legend and labels
     plt.xlabel('Bin Centers')
     plt.ylabel('Counts')
-    plt.title(f'Systematic Variations and Smoothed ({sys_name})')
+    plt.title(f'Systematic Variations and Smoothed ({sys_name}_{postfix})')
     plt.legend(loc='best')
 
     # Save the figure
