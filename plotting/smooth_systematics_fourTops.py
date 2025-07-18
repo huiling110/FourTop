@@ -39,7 +39,7 @@ def main():
             dic_sys[sys][process] = {}
             
             for iyear in years:
-                if not iyear == '2018': continue
+                # if not iyear == '2018': continue
                 nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated) 
                 iFile = input_template.replace('2018', iyear)
                 print(f'Processing file: {iFile}')
@@ -56,7 +56,7 @@ def main():
                 dic_sys[sys][process][iyear] = (up_new, down_new)
     
     
-    print(dic_sys)         
+    # print(dic_sys)         
    
     print(f'\nSmoothing completed for all processes and years. Saving smoothed histograms...')
     for year in years:    
@@ -68,14 +68,15 @@ def main():
                     hist_name = key
                     
                     ipro, ichannel, isys = extract_parts_from_name(hist_name) 
-                    print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
+                    # print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
                     
                     if isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] and ichannel == channel:
                         print('!!! replace histogram:', hist_name, 'with smoothed values for', isys, ipro, year)
                         # Decide whether it's an 'Up' or 'Down' variation and replace accordingly
-                        if hist_name.endswith("Up_BDT"):
+                        # if hist_name.contains("Up_BDT"):
+                        if 'Up_BDT' in hist_name:
                             hist_data = dic_sys[sys][process][year][0]
-                        elif hist_name.endswith("Down_BDT"):
+                        elif 'Down_BDT' in hist_name:
                             hist_data = dic_sys[sys][process][year][1]
                     
                     # The original edges are used here; adjust if needed for new data shape
