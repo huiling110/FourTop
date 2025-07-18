@@ -114,7 +114,7 @@ def extract_parts_from_name(hist_name):
     if sys_and_variation.endswith('Up') or sys_and_variation.endswith('Down'):
         # No year segment
         # sys = sys_and_variation[:-2] if sys_and_variation.endswith('Up_BDT') else sys_and_variation[:-4]
-        sys = sys_and_variation.replace('Up', '').replace('Down', '').replace('2017', '').replace('2018', '').replace('2016preVFP', '').replace('2016postVFP', '')
+        sys = sys_and_variation.replace('Up', '').replace('Down', '').replace('_2017', '').replace('_2018', '').replace('_2016preVFP', '').replace('_2016postVFP', '')
         
     else:
         # Last part contains a year segment
