@@ -16,8 +16,9 @@ def main():
     #!!!1tau2l:
     
 
-    processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
-    # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_TOP24017_eff_trigger_stats']
+    # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
+    processList = ['tt']
+    # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC',  'ps_isr_tt']
     # sysList = ['CMS_TOP24017_eff_trigger_stats']#!???Excatly the same after smoothing
     sysList = ['ps_fsr']
     channel = '1tau1lSR'
@@ -29,6 +30,50 @@ def main():
     uf.checkMakeDir(outDir)
     # ifCorrelated = True
    
+    dic_sys = getSmoothedDic(input_template, sysList, processList, channel, years, outDir)
+    
+    
+   
+    print(f'\nSmoothing completed for all processes and years. Saving smoothed histograms...')
+    for year in years:    
+        output_file = input_template.replace('.root', f'_smoothed.root')
+        output_file = output_file.replace('2018', year)
+        with uproot.open(input_template) as infile:
+            with uproot.recreate(output_file) as outfile:
+                for key, obj in infile.items():
+                    hist_name = key
+                    
+                    ipro, ichannel, isys = extract_parts_from_name(hist_name) 
+                    # print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
+                    
+                    if isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] and ichannel == channel:
+                        print('!!! replace histogram:', hist_name, 'with smoothed values for', isys, ipro, year)
+                        # Decide whether it's an 'Up' or 'Down' variation and replace accordingly
+                        # if hist_name.contains("Up_BDT"):
+                        if 'Up_BDT' in hist_name:
+                            hist_data = dic_sys[isys][ipro][year][0]
+                        elif 'Down_BDT' in hist_name:
+                            hist_data = dic_sys[isys][ipro][year][1]
+                    
+                    # The original edges are used here; adjust if needed for new data shape
+                        edges = obj.axes[0].edges()
+                        outfile[hist_name] = (hist_data, edges)
+
+                    else:
+                        # Copy other histograms without modification
+                        outfile[hist_name] = obj  
+        print(f'Smoothed histograms saved to {output_file}')
+                
+    #     edges = nominal_hist.axis().edges()
+        
+    #     # Store smoothed histograms
+    #     f[up_name] = (new_up, edges)
+    #     f[down_name] = (new_down, edges)
+    #     f[nom_name] = nominal_hist  # Copy original nominal
+    # print(f'Smoothed histograms saved to {output_file}')
+    
+    
+def getSmoothedDic(input_template, sysList, processList, channel, years, outDir):
     dic_sys = {} 
     for sys in sysList:
         ifCorrelated = wd.MCSys[sys][0]
@@ -54,47 +99,9 @@ def main():
                 plot_smoothed_systematics(nominal_hist, up_hist.values(), down_hist.values(), up_new, down_new, outDir, sys, f'{iyear}_{process}_{channel}')
                 
                 dic_sys[sys][process][iyear] = (up_new, down_new)
-    
-    
-    # print(dic_sys)         
-   
-    print(f'\nSmoothing completed for all processes and years. Saving smoothed histograms...')
-    for year in years:    
-        output_file = input_template.replace('.root', f'_smoothed.root')
-        output_file = output_file.replace('2018', year)
-        with uproot.open(input_template) as infile:
-            with uproot.recreate(output_file) as outfile:
-                for key, obj in infile.items():
-                    hist_name = key
-                    
-                    ipro, ichannel, isys = extract_parts_from_name(hist_name) 
-                    # print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
-                    
-                    if isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] and ichannel == channel:
-                        print('!!! replace histogram:', hist_name, 'with smoothed values for', isys, ipro, year)
-                        # Decide whether it's an 'Up' or 'Down' variation and replace accordingly
-                        # if hist_name.contains("Up_BDT"):
-                        if 'Up_BDT' in hist_name:
-                            hist_data = dic_sys[sys][process][year][0]
-                        elif 'Down_BDT' in hist_name:
-                            hist_data = dic_sys[sys][process][year][1]
-                    
-                    # The original edges are used here; adjust if needed for new data shape
-                        edges = obj.axes[0].edges()
-                        outfile[hist_name] = (hist_data, edges)
-
-                    else:
-                        # Copy other histograms without modification
-                        outfile[hist_name] = obj  
-        print(f'Smoothed histograms saved to {output_file}')
+    return dic_sys
                 
-    #     edges = nominal_hist.axis().edges()
-        
-    #     # Store smoothed histograms
-    #     f[up_name] = (new_up, edges)
-    #     f[down_name] = (new_down, edges)
-    #     f[nom_name] = nominal_hist  # Copy original nominal
-    # print(f'Smoothed histograms saved to {output_file}')
+                
 
 def extract_parts_from_name(hist_name):
     # Split the string to identify known segments
