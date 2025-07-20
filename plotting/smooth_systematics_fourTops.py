@@ -16,9 +16,9 @@ def main():
     #!!!1tau2l:
     
 
-    # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
-    processList = ['tt']
-    # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC',  'ps_isr_tt']
+    processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
+    # processList = ['tt']
+    sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC',  'ps_isr_tt']
     # sysList = ['CMS_TOP24017_eff_trigger_stats']#!???Excatly the same after smoothing
     sysList = ['ps_fsr']
     channel = '1tau1lSR'
@@ -41,7 +41,8 @@ def main():
         with uproot.open(input_template) as infile:
             with uproot.recreate(output_file) as outfile:
                 for key, obj in infile.items():
-                    hist_name = key
+                    # hist_name = key
+                    hist_name = key.split(';')[0]  #!!!Fixe; or else extra ;1;1 in the hist name for the output file
                     
                     ipro, ichannel, isys = extract_parts_from_name(hist_name) 
                     # print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
@@ -64,13 +65,6 @@ def main():
                         outfile[hist_name] = obj  
         print(f'Smoothed histograms saved to {output_file}')
                 
-    #     edges = nominal_hist.axis().edges()
-        
-    #     # Store smoothed histograms
-    #     f[up_name] = (new_up, edges)
-    #     f[down_name] = (new_down, edges)
-    #     f[nom_name] = nominal_hist  # Copy original nominal
-    # print(f'Smoothed histograms saved to {output_file}')
     
     
 def getSmoothedDic(input_template, sysList, processList, channel, years, outDir):
