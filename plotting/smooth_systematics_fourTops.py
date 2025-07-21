@@ -19,7 +19,7 @@ def main():
     
 
     processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
-    sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_res_j', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac'] #process correlated systematics
+    sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_FlavorPureQuark', 'CMS_scale_j_RelativeSample', 'CMS_scale_j_FlavorPureBottom', 'CMS_scale_j_AbsoluteMPFBias', 'CMS_res_j', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac'] #process correlated systematics
     # processList = ['tt']
     # sysList = ['ps_fsr']
     # sysList = ['ps_isr']# process uncorrelated systematics
