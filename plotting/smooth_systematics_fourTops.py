@@ -11,15 +11,18 @@ import writeDatacard as wd
 
 def main():
     input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/templatesForCombine1tau1l_new.root' #Only need to offer 2018 templte, all other years will be processed automatically
-    #!!!1tau1l: CMS_scale_j_FlavorPureGluon, ps_fsr， CMS_scale_j_PileUpDataMC，CMS_scale_j_RelativeSample_2018， CMS_scale_j_TimePtEta，CMS_scale_j_TimePtEta 
+    #!!!1tau1l: CMS_scale_j_FlavorPureGluon, ps_fsr， CMS_scale_j_PileUpDataMC，CMS_scale_j_RelativeSample_2018， CMS_scale_j_TimePtEta，CMS_scale_j_TimePtEta, 
+    # !!!ps_isr_tt, QCDscale_ren_tt, QCDscale_fac_tt 
+
     #!!!1tau0l: 
     #!!!1tau2l:
     
 
-    # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
-    # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_res_j']
-    processList = ['tt']
-    sysList = ['ps_fsr']
+    processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
+    sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_res_j', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac'] #process correlated systematics
+    # processList = ['tt']
+    # sysList = ['ps_fsr']
+    # sysList = ['ps_isr']# process uncorrelated systematics
     channel = '1tau1lSR'
     
     
@@ -71,7 +74,8 @@ def getSmoothedDic(input_template, sysList, processList, channel, years, outDir)
     dic_sys = {} 
     for sys in sysList:
         ifCorrelated = wd.MCSys[sys][0]
-        print(f'\nProcessing systematic: {sys}, correlated: {ifCorrelated}')
+        ifProcessCorrelated = wd.MCSys[sys][3] 
+        print(f'\nProcessing systematic: {sys}, correlated: {ifCorrelated}, ifProcessCorrelated: {ifProcessCorrelated}')
         dic_sys[sys] = {}
      
         for process in processList:
@@ -79,12 +83,12 @@ def getSmoothedDic(input_template, sysList, processList, channel, years, outDir)
             
             for iyear in years:
                 # if not iyear == '2018': continue
-                nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated) 
+                nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated, ifProcessCorrelated) 
                 iFile = input_template.replace('2018', iyear)
                 print(f'Processing file: {iFile}')
                 nominal_hist, up_hist, down_hist = getHist_uproot(iFile, nom_name, up_name, down_name) 
                 
-                combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var = getForSmooth(input_template, sys, process, channel, years, iyear, ifCorrelated)
+                combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var = getForSmooth(input_template, sys, process, channel, years, iyear, ifCorrelated, ifProcessCorrelated)
                 bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2
                 up_ratio, down_ratio = get_smoothed_up_and_down(combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var, bin_centers, 1, len(bin_centers), True)
             
@@ -145,20 +149,22 @@ def applyRatioEachYear(input_template, nom_name, up_name, down_name, up_ratio, d
         
     return dict_years 
     
-def getHistName(sys, process, channel, iyear, ifCorrelated):
+def getHistName(sys, process, channel, iyear, ifCorrelated, ifProcessCorrelated=False):
     # Get the histogram names based on the systematic, process, channel, and correlation status
     nominal = f'{process}_{channel}_BDT'
+    sysName = sys if ifProcessCorrelated else f'{sys}_{process}'
+    
     if ifCorrelated:
-        up = f'{process}_{channel}_{sys}Up_BDT'
-        down = f'{process}_{channel}_{sys}Down_BDT'
+        up = f'{process}_{channel}_{sysName}Up_BDT'
+        down = f'{process}_{channel}_{sysName}Down_BDT'
     else:
-        up = f'{process}_{channel}_{sys}_{iyear}Up_BDT'
-        down = f'{process}_{channel}_{sys}_{iyear}Down_BDT'
+        up = f'{process}_{channel}_{sysName}_{iyear}Up_BDT'
+        down = f'{process}_{channel}_{sysName}_{iyear}Down_BDT'
     return nominal, up, down
          
   
-def getForSmooth(input_template, sys, process,  channel, years, iyear, ifCorrelated=True):
-    nominal_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated)
+def getForSmooth(input_template, sys, process,  channel, years, iyear, ifCorrelated=True, ifProcessCorrelated=False):
+    nominal_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated, ifProcessCorrelated)
     # print(f'Getting histograms for {sys} in year {iyear}: {nominal_name}, {up_name}, {down_name}')
     if not ifCorrelated:
         nominal_hist, up_hist, down_hist = getHist_uproot(input_template.replace('2018', iyear), nominal_name, up_name, down_name)
