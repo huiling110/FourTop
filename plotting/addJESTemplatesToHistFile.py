@@ -103,11 +103,11 @@ def main():
     if ifMCFTau:
         addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_MCFT')#!make sure JES OS dir with _JESPt22 in the end
         addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT')#!make sure JES OS dir with _JESPt22 in the end
-    # addJERToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau)
+    addJERToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau)
     
-    # addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
-    # addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
-    # addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+    addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+    addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+    addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
     
     
     

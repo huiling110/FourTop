@@ -59,7 +59,6 @@ MCSys = {
     'CMS_TOP24017_fake_t_MC': [True, 3, 0b101, True], #!only for fakeTauMC
     
     'pdf_alphas': [True, 0, 0b111, True], #!not considering for singleTop 
-    # 'pdf_envelope': [True, 0, 0b111, True],
     'pdf_00': [True, 0, 0b111, True], # pdf envelope, change to 00 to fit the combine naming convention
     'QCDscale_ren': [True, 0, 0b111, False],   #!not in data/MC
     'QCDscale_fac': [True, 0, 0b111, False],  
@@ -99,15 +98,15 @@ MCSys = {
     'CMS_scale_j_FlavorPureCharm': [True, 0, 0b111, True],
     'CMS_scale_j_FlavorPureBottom': [True, 0, 0b111, True],
  
-    # 'CMS_res_j': [False, 0, 0b111 , True],
+    'CMS_res_j': [False, 0, 0b111 , True],
  
-    # 'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    # 'CMS_scale_t_DM11': [False, 0, 0b111, True],
+    'CMS_scale_t_DM0': [False, 0, 0b111, True],
+    'CMS_scale_t_DM1': [False, 0, 0b111, True],
+    'CMS_scale_t_DM10': [False, 0, 0b111, True],
+    'CMS_scale_t_DM11': [False, 0, 0b111, True],
     
-    # 'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
-    # 'CMS_scale_e': [False, 0, 0b101, True],
+    'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
+    'CMS_scale_e': [False, 0, 0b101, True],
     
     
 }
@@ -116,10 +115,9 @@ MCSys = {
 # outVersion = 'v0basic'
 # outVersion = 'v3BasicAndJES'
 # outVersion = 'v4BasicAndJESJER'
-# outVersion = 'v6AllSys'
+outVersion = 'v6AllSys'
 # outVersion = 'v5BasicAndJESJER' #For v16 1tau2l
-# outVersion = 'v7AllSys_combineReview'
-outVersion = 'v8JESFlavorSplit'
+# outVersion = 'v8JESFlavorSplit'
 
 def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'

@@ -16,10 +16,9 @@ def main():
     #!!!1tau2l:
     
 
-    processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
-    # processList = ['tt']
-    sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC',  'ps_isr_tt']
-    # sysList = ['CMS_TOP24017_eff_trigger_stats']#!???Excatly the same after smoothing
+    # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
+    # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_RelativeSample', 'CMS_res_j']
+    processList = ['tt']
     sysList = ['ps_fsr']
     channel = '1tau1lSR'
     
@@ -28,7 +27,6 @@ def main():
     years = ['2016preVFP', '2016postVFP', '2017', '2018']
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
-    # ifCorrelated = True
    
     dic_sys = getSmoothedDic(input_template, sysList, processList, channel, years, outDir)
     
@@ -38,8 +36,10 @@ def main():
     for year in years:    
         output_file = input_template.replace('.root', f'_smoothed.root')
         output_file = output_file.replace('2018', year)
-        with uproot.open(input_template) as infile:
+        inputYear = input_template.replace('2018', year)
+        with uproot.open(inputYear) as infile:
             with uproot.recreate(output_file) as outfile:
+                # print('input: ', input_template, 'output:', output_file)
                 for key, obj in infile.items():
                     # hist_name = key
                     hist_name = key.split(';')[0]  #!!!Fixe; or else extra ;1;1 in the hist name for the output file
