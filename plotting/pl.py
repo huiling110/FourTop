@@ -326,11 +326,11 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     myStyle.cd() #???not sure why the gStyle is not affecting the sedond pad
     
     canvasName = '{}_{}'.format( region, name )
-    canvy = TCanvas( canvasName, canvasName, 1000,1000)
+    canvy = ROOT.TCanvas( canvasName, canvasName, 1000,1000)
     
     #it seems text size  is scaled to pad size
-    upPad = TPad('up', 'up', 0, 0., 1, 1)
-    downPad = TPad('down', 'down', 0., 0, 1, 1)
+    upPad = ROOT.TPad('up', 'up', 0, 0., 1, 1)
+    downPad = ROOT.TPad('down', 'down', 0., 0, 1, 1)
     upPad.SetBottomMargin(0.3)
     downPad.SetTopMargin(0.72)
     # downPad.SetBottomMargin(0.2)
@@ -372,7 +372,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     # if not ifLogy:    
     signal.Scale(signalScale)
     # signal.SetLineColor(kBlue)
-    signal.SetLineStyle(kSolid)
+    signal.SetLineStyle(ROOT.kSolid)
     signal.SetLineWidth(3)
     signal.SetFillStyle(0)
     signal.GetXaxis().SetLabelSize(0.0)
@@ -407,7 +407,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
 def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     if not ifPrint: return
     canvas.cd()
-    latex = TLatex()
+    latex = ROOT.TLatex()
     latex.SetTextSize(0.03)
     latex.SetTextAlign(22)  # 
     
@@ -533,30 +533,30 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
     #here we get dataHist and add all MC for sumHist    
     keyList = list(nominal.keys()) #process list; nominal[iprocess]=hist
     colourPerSample = {
-        'tttt':kBlue,
-        'VLLm600':TColor.GetColor("#D10363"),
+        'tttt':ROOT.kBlue,
+        'VLLm600':ROOT.TColor.GetColor("#D10363"),
         # 'VLLm600':kMagenta,
-        'VLLm800': TColor.GetColor("#D10363"),
-        'VLLm700': TColor.GetColor("#D10363"),
-        'tt': TColor.GetColor("#f03b20"),
-        'qcd': TColor.GetColor("#ffeda0"),
-        'ttX': TColor.GetColor("#fc9272"),
-        'singleTop': TColor.GetColor("#91bfdb"),
-        'VV': TColor.GetColor("#edf8b1"),
-        'WJets': TColor.GetColor("#998ec3"),
-        # 'fakeTau': TColor.GetColor("#ffeda0"),
-        'fakeTau': TColor.GetColor("#fec44f"),
-        'XGamma': TColor.GetColor("#d73027"),
-        'VVV': TColor.GetColor("#4575b4"),
-        'Higgs': TColor.GetColor("#313695"),
-        'DY': TColor.GetColor("#313695"),
-        'fakeLepton': TColor.GetColor("#fec44f"),
-        'Minor': TColor.GetColor("#edf8b1"),
-        'ttH': TColor.GetColor("#f03b20"),
-        'ttW': TColor.GetColor("#f03b20"),
-        'ttZ': TColor.GetColor("#f03b20"),
-        'ttG': TColor.GetColor("#f03b20"),
-        'fakeTauMC': TColor.GetColor("#ffeda0"),
+        'VLLm800': ROOT.TColor.GetColor("#D10363"),
+        'VLLm700': ROOT.TColor.GetColor("#D10363"),
+        'tt': ROOT.TColor.GetColor("#f03b20"),
+        'qcd': ROOT.TColor.GetColor("#ffeda0"),
+        'ttX': ROOT.TColor.GetColor("#fc9272"),
+        'singleTop': ROOT.TColor.GetColor("#91bfdb"),
+        'VV': ROOT.TColor.GetColor("#edf8b1"),
+        'WJets': ROOT.TColor.GetColor("#998ec3"),
+        # 'fakeTau': ROOT.TColor.GetColor("#ffeda0"),
+        'fakeTau': ROOT.TColor.GetColor("#fec44f"),
+        'XGamma': ROOT.TColor.GetColor("#d73027"),
+        'VVV': ROOT.TColor.GetColor("#4575b4"),
+        'Higgs': ROOT.TColor.GetColor("#313695"),
+        'DY': ROOT.TColor.GetColor("#313695"),
+        'fakeLepton': ROOT.TColor.GetColor("#fec44f"),
+        'Minor': ROOT.TColor.GetColor("#edf8b1"),
+        'ttH': ROOT.TColor.GetColor("#f03b20"),
+        'ttW': ROOT.TColor.GetColor("#f03b20"),
+        'ttZ': ROOT.TColor.GetColor("#f03b20"),
+        'ttG': ROOT.TColor.GetColor("#f03b20"),
+        'fakeTauMC': ROOT.TColor.GetColor("#ffeda0"),
     }
     
     sumHist = nominal[keyList[0]].Clone()
@@ -566,7 +566,7 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
     systsDown = nominal[keyList[0]].Clone("systsDown")
     systsDown.Reset()
     dataHist = 0
-    stack = THStack( 'stack', 'stack' )
+    stack = ROOT.THStack( 'stack', 'stack' )
     legendOrder.reverse()
     for i in legendOrder:
         if uf.isData(i):
@@ -574,15 +574,15 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
                 dataHist = nominal["jetHT"].Clone() if not if1tau2l else nominal['leptonSum'].Clone()
                 dataHist.SetMarkerStyle(20)
                 dataHist.SetMarkerSize(1.2)
-                dataHist.SetMarkerColor(kBlack)
-                dataHist.SetLineColor(kBlack)
+                dataHist.SetMarkerColor(ROOT.kBlack)
+                dataHist.SetLineColor(ROOT.kBlack)
                 dataHist.SetTitleSize(0.0)
             continue
         if uf.isBG(i, ifVLL)==3: continue
         if uf.isBG(i, ifVLL)==1 and (not ifStackSignal): continue
         
         nominal[i].SetFillColor(colourPerSample[i])
-        nominal[i].SetLineColor(kBlack)
+        nominal[i].SetLineColor(ROOT.kBlack)
         nominal[i].SetLineWidth(1)
         nominal[i].GetXaxis().SetTitleSize(0.01)
         nominal[i].GetXaxis().SetLabelSize(0.0)
@@ -641,7 +641,7 @@ def getErrorPlot(totalMC,systUp,systDown,isRatio = False):
                 #???set to 0 by me
                 eyl.append(0)
                 eyh.append(0)
-    errors = TGraphAsymmErrors(xAxis.GetNbins(),x,y,exl,exh,eyl,eyh)
+    errors = ROOT.TGraphAsymmErrors(xAxis.GetNbins(),x,y,exl,exh,eyl,eyh)
     
     errors.SetFillStyle(3013)
     errors.SetFillColor(14)
