@@ -37,8 +37,8 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/',#!!!v14
     
-    channel = '1tau1l',
-    # channel = '1tau0l',
+    # channel = '1tau1l',
+    channel = '1tau0l',
     # channel = '1tau2l',
     # version = 'v0BDT1tau2l', 
     # version = 'v3BDT1tau2lV14', 
@@ -55,8 +55,9 @@ def main(
     # version = 'v0BDT1tau0lFakeTau',
     # version = 'v0BDT1tau0lV2',
     # version = 'v0BDT1tau1lV16',
-    version = 'v0BDT1tau1lV17',
     # version = 'v0BDT1tau0lV16',
+    # version = 'v0BDT1tau1lV17',
+    version = 'v0BDT1tau0lV17',
     # version = 'v0BDT1tau2lV16',
     # version = 'v0DataMC_sys',
     # version = 'v0DataMC',

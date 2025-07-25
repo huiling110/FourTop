@@ -37,3 +37,10 @@ export PYTHONPATH=$PYTHONPATH:${current_dir}/hua/src_py/ #Python can find the cu
 
 #For matplotlib cache
 export MPLCONFIGDIR=/scratchfs/cms/huahuil/matplotlib_cache
+
+
+#For pyroot to work with some plotting libraries: giflib
+# export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/giflib/5.2.1-291494583ea21b74417f839fd8b4190e/lib:$LD_LIBRARY_PATH
+export PYTHONPATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/lib:$PYTHONPATH 
+
+
