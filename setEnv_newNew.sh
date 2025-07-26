@@ -27,6 +27,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${current_dir}/myLibrary/ #For run time
 
 #Gcc
 export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9ded8fcd995/bin:$PATH
+export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9ded8fcd995/lib:/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9ded8fcd995/lib64:$LD_LIBRARY_PATH
 #gdb
 export PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gdb/16.2-2ed00494471f1b4b58da009025d09935/bin:$PATH
 export PYTHONPATH=$(python -c "import sys; print(':'.join(sys.path))") # Export PYTHONPATH before running GDB to ensure that it includes paths to your virtual environment's libraries. 
@@ -42,5 +43,10 @@ export MPLCONFIGDIR=/scratchfs/cms/huahuil/matplotlib_cache
 #For pyroot to work with some plotting libraries: giflib
 # export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/giflib/5.2.1-291494583ea21b74417f839fd8b4190e/lib:$LD_LIBRARY_PATH
 export PYTHONPATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/lib:$PYTHONPATH 
+
+
+
+#XGBoost
+export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-xgboost/1.7.5-1f6806665f9570eb4fd37e64b5fc04d5/lib/python3.9/site-packages/xgboost/lib:$LD_LIBRARY_PATH
 
 

@@ -12,7 +12,9 @@
 #include <TRandom3.h>
 #include "TLorentzVector.h"
 #include <Math/Vector4D.h>
-#include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
+// #include </cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/include/xgboost/c_api.h>
+// #include "/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-xgboost/1.7.5-1f6806665f9570eb4fd37e64b5fc04d5/lib/python3.9/site-packages/xgboost/include/xgboost/c_api.h"
+#include "c_api.h"
 #include <TString.h>
 
 #include "dynimicBranchReader.h"

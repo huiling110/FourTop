@@ -19,12 +19,16 @@ ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS = $(shell root-config --libs)
 ROOTGLIBS = $(shell root-config --glibs)
 
-CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
-CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
-TMVALIBS = -lTMVA
+# CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
+# CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
+CORRECTIONLIB_FLAGS = -I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include 
+CORRECTIONLIB_LIB = $(shell correction config --ldflags )
+# TMVALIBS = -lTMVA
 
-XGBOOST_LIB=-L/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/ -lxgboost
-XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/rabit/include/
+# XGBOOST_LIB=-L/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/ -lxgboost
+# XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/rabit/include/
+XGBOOST_LIB=-L/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-xgboost/1.7.5-1f6806665f9570eb4fd37e64b5fc04d5/lib/python3.9/site-packages/xgboost/lib/ -lxgboost
+XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-xgboost/1.7.5-1f6806665f9570eb4fd37e64b5fc04d5/lib/python3.9/site-packages/xgboost/include/xgboost/
 
 MYLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
 RoccoRLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/ -lRoccoR
@@ -38,7 +42,7 @@ SOURCE = src/
 DEBUGLEVEL = O0
 
 CXX = g++
-CXXFLAGS = -$(DEBUGLEVEL) -Wall -fPIC -g -std=c++17
+CXXFLAGS = -$(DEBUGLEVEL) -Wall -fPIC -g
 LD = g++
 LDFLAGS = -$(DEBUGLEVEL) -Wall -g 
 SOFLAGS = -shared

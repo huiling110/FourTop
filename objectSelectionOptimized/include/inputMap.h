@@ -2,6 +2,8 @@
 #define INPUTMAP_H
 
 #include "TString.h"
+#include <array> // std::array
+#include <utility> // std::pair
 #include <map>
 #include <string>
 

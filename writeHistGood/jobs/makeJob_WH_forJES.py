@@ -1,18 +1,18 @@
 import makeJob_forWriteHist as mj 
 import ttttGlobleQuantity as gq
 
-# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
+inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-inVersion = 'v94HadroPreJetVetoHemOnly'
-# inVersion = 'v94LepPreJetVetoHemOnly'
+# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+# inVersion = 'v94HadroPreJetVetoHemOnly'
+inVersion = 'v94LepPreJetVetoHemOnly'
 # outVersion = 'v0baselineHadro'
 # outVersion = 'v0baselineLep'
 outVersion = 'v1baselineHadroBtagWeightAdded'
 # channel = '1tau1l'
-channel = '1tau0l'
-# channel = '1tau2l'
+# channel = '1tau0l'
+channel = '1tau2l'
 # version = f'v0BDT{channel}'
 # version = f'v0BDT{channel}FakeTau'
 # version = f'v0DataMC_sys'
@@ -21,20 +21,18 @@ channel = '1tau0l'
 # version = 'v0BDT1tau1lV15'
 # version = 'v0BDT1tau1lV16'
 # version = 'v0BDT1tau1lV17' # added FlavorQCD JES splitting
-version = 'v0BDT1tau0lV17' # added FlavorQCD JES splitting
+# version = 'v0BDT1tau0lV17' # added FlavorQCD JES splitting
 # version = 'v0BDT1tau1lV16'
 # version = 'v0BDT1tau0lV16'
 # version = 'v0BDT1tau2lV16'
-# version = 'v0BDT1tau0lV2'
-# version = 'v3BDT1tau2lV14'
-# version = 'v4BDT1tau2lV14'
+version = 'v0BDT1tau2lV17'
 # exe = './apps/run_WH_forDataMC.out'
 exe = './apps/run_treeAnalyzer.out' 
 justMC = True # for energy scale variation, only need to run MC
 
 
 def main():
-    # subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
