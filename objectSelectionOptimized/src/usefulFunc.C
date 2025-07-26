@@ -102,7 +102,8 @@ namespace OS
         XGDMatrixCreateFromMat(reinterpret_cast<float *>(boosterVars[0]), 1, nfeat, NAN, &dtest);
         bst_ulong out_len;
         const float *f;
-        XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f);
+        // XGBoosterPredict(booster, dtest, 0, 0, &out_len, &f);
+        XGBoosterPredict(booster, dtest, 0, 0, 0, &out_len, &f);//!!!
         // XGBoosterPredict(booster[0], dtest, 0, 0, 0, &out_len, &f);
         XGDMatrixFree(dtest);
         // XGBoosterFree(booster);
