@@ -49,4 +49,7 @@ export PYTHONPATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7
 #XGBoost
 export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-xgboost/1.7.5-1f6806665f9570eb4fd37e64b5fc04d5/lib/python3.9/site-packages/xgboost/lib:$LD_LIBRARY_PATH
 
+#RoccoR
+export LD_LIBRARY_PATH=/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/:$LD_LIBRARY_PATH
+
 

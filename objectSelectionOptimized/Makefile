@@ -53,8 +53,10 @@ CXXFLAGS += $(ROOTCFLAGS) -I$(HEADRDIR)
 CXXFLAGS += $(CORRECTIONLIB_FLAGS)
 CXXFLAGS += $(XGBOOST_FLAGS)
 CXXFLAGS += $(RoccoRInclude)
-LIBS = $(ROOTLIBS)
-LIBS += $(CORRECTIONLIB_LIB)
+# LIBS = $(ROOTLIBS)
+# LIBS += $(CORRECTIONLIB_LIB)
+LIBS = $(CORRECTIONLIB_LIB)
+LIBS += $(ROOTGLIBS)
 LIBS += $(TMVALIBS)
 LIBS += $(XGBOOST_LIB)
 LIBS += $(MYLIB)
@@ -67,9 +69,9 @@ GLIBS = $(ROOTGLIBS)
 
 all: $(TARGET)
 
-# $(CXX) $(LDFLAGS) $(OBJECTS) apps/run_objectSelection.C $(LIBS) -o $(TARGET)
+# 	$(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/run_objectSelection.C -o $(TARGET)
 $(TARGET): $(OBJECTS) apps/run_objectSelection.C
-	$(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/run_objectSelection.C -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) $(LIBS) apps/run_objectSelection.C -o $(TARGET)
 
 # $(OBJ_DIR)/%.o: $(SRC_DIR)/%.C
 # $(OBJ_DIR)/%.o: $(SRC_DIR)/%.C $(wildcard $(INC_DIR)/*.h)
