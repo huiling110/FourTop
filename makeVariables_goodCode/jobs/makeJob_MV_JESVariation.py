@@ -21,10 +21,17 @@ def main():
     if1tau2l = 1
   
   
-    MV_TES(year, inVersion, outVersion, if1tau2l)
-    MV_EES(year, inVersion, outVersion, if1tau2l)
-    MV_MET(year, inVersion, outVersion, if1tau2l)
+    # MV_TES(year, inVersion, outVersion, if1tau2l)
+    # MV_EES(year, inVersion, outVersion, if1tau2l)
+    # MV_MET(year, inVersion, outVersion, if1tau2l)
+    MV_JER(year, inVersion, outVersion, if1tau2l)
     # MV_JES(year, inVersion, outVersion, if1tau2l)
+    
+def MV_JER(year, inVersion, outVersion, if1tau2l):
+    inVersionUp = f'{inVersion}_JERUp'
+    inVersionDown = f'{inVersion}_JERDown'
+    mj.main(year, inVersionUp, outVersion, if1tau2l, 0, 0)
+    mj.main(year, inVersionDown, outVersion, if1tau2l, 0, 0)
 
 def MV_MET(year, inVersion, outVersion, if1tau2l):
     inVersionUp = f'{inVersion}_METUp'
