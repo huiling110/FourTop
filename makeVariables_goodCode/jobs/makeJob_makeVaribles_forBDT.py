@@ -10,14 +10,14 @@ import usefulFunc as uf
 
 def main(
     # year = '2016',
-    year = '2017',
-    # year = '2018',
-    inVersion = 'v94HadroPreJetVetoHemOnly',
+    # year = '2017',
+    year = '2018',
+    # inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERDown', #2018, 2017
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2018, 2017
     # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2018, 
     # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm10Up', #2018 
-    # inVersion = 'v94LepPreJetVetoHemOnly',
+    inVersion = 'v94LepPreJetVetoHemOnly',
     # inVersion = 'v94LepPreJetVetoHemOnly_JERDown', #2018, 2017
     # inVersion = 'v94LepPreJetVetoHemOnly_EleScaleDown',#2018, 2017, 2016
     # inVersion = 'v94LepPreJetVetoHemOnly_METDown',#2018, 2017, 2016
