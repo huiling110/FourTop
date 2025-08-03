@@ -569,7 +569,8 @@ proChannelDic = {
     # '1tau1l':  ['fakeTau', 'tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
     '1tau0l':  [ 'fakeTau', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, no Minor in 1tau0l neither
     # '1tau0l':  [ 'qcd', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, for fake tau validation with qcd
-    '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
+    # '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
+    '1tau2l':  ['fakeTau', 'tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
     # '1tau2l':   ['fakeTau', 'tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
     # '1tau2l':  ['tt', 'ttH', 'ttZ', 'ttW', 'ttG', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], #!testing
 }
