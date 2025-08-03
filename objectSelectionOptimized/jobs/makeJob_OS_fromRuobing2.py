@@ -50,18 +50,18 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 isRuobing = False
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main(
-    TES = 10 ,#!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
+    TES = 0 ,#!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
     eleScale = 0, #!!! 0: nominal; 1: up; 2: down
     JESSys = 0 ,#!!! nominal: 0;
     JERSys = 0, #!!! 0: no correction; 1: up; 2: down
-    METSys = 0, #!!! nominal: 0; 1: up; 2: down
+    METSys = 1, #!!! nominal: 0; 1: up; 2: down
     # if1tau2l = 0 #!!!True 
     if1tau2l = 1, #!!!True 
     # era = '2016'
     # era = '2016APV'
     # era = '2017'
     era = '2018',
-    jobVersionNamePre = 'v94LepPreJetVetoHemOnly',#3 years submitted
+    jobVersionNamePre = 'v94LepPreJetVetoHemOnly'#3 years submitted
     
 ):
     
@@ -114,25 +114,79 @@ def main(
 
     print('done submitting jobs for: ', jobVersionName) 
 
+# def getJobVersionName(jobVersionNamePre, TES, eleScale, JESSys, JERSys, METSys):
+#     sysKey = {1: 'Up', 2: 'Down'}
+#     if TES ==0 and eleScale==0 and JESSys==0 and JERSys==0 and METSys==0:
+#         jobVersionName = f'{jobVersionNamePre}/'
+#     elif eleScale==0 and JESSys==0 and JERSys==0 and METSys==0 and (not TES==0): 
+# #!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
+#         TESkey = {1: 'Up', 2: 'Down', 3: 'dm0Up', 4: 'dm0Down', 5: 'dm1Up', 6: 'dm1Down', 7: 'dm10Up', 8: 'dm10Down', 9: 'dm11Up', 10: 'dm11Down'}
+#         jobVersionName = f'{jobVersionNamePre}_TES{TESkey[TES]}/'
+#     elif TES==0 and JESSys==0 and JERSys==0 and METSys==0 and (not eleScale==0):
+#         jobVersionName = f'{jobVersionNamePre}_EleScale{sysKey[eleScale]}/'
+#     elif TES==0 and eleScale==0 and JERSys==0 and METSys==0 and (not JESSys==0):
+#         jobVersionName = f'{jobVersionNamePre}_JESPt22/'
+#     elif TES==0 and eleScale==0 and JESSys==0 and (not JERSys==0):
+#         jobVersionName = f'{jobVersionNamePre}_JER{sysKey[JERSys]}/'
+#     else: #error
+#         #assert error of input 
+#         print('!!!error in input sys, please check')
+    
+#     print ('jobVersionName=', jobVersionName) 
+#     return jobVersionName
+
+
 def getJobVersionName(jobVersionNamePre, TES, eleScale, JESSys, JERSys, METSys):
     sysKey = {1: 'Up', 2: 'Down'}
-    if TES ==0 and eleScale==0 and JESSys==0 and JERSys==0 and METSys==0:
-        jobVersionName = f'{jobVersionNamePre}/'
-    elif eleScale==0 and JESSys==0 and JERSys==0 and METSys==0 and (not TES==0): 
-#!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
-        TESkey = {1: 'Up', 2: 'Down', 3: 'dm0Up', 4: 'dm0Down', 5: 'dm1Up', 6: 'dm1Down', 7: 'dm10Up', 8: 'dm10Down', 9: 'dm11Up', 10: 'dm11Down'}
-        jobVersionName = f'{jobVersionNamePre}_TES{TESkey[TES]}/'
-    elif TES==0 and JESSys==0 and JERSys==0 and METSys==0 and (not eleScale==0):
-        jobVersionName = f'{jobVersionNamePre}_EleScale{sysKey[eleScale]}/'
-    elif TES==0 and eleScale==0 and JERSys==0 and METSys==0 and (not JESSys==0):
-        jobVersionName = f'{jobVersionNamePre}_JESPt22/'
-    elif TES==0 and eleScale==0 and JESSys==0 and (not JERSys==0):
-        jobVersionName = f'{jobVersionNamePre}_JER{sysKey[JERSys]}/'
-    else: #error
-        #assert error of input 
-        print('!!!error in input sys, please check')
+    TESkey = {
+        1: 'Up', 2: 'Down', 3: 'dm0Up', 4: 'dm0Down',
+        5: 'dm1Up', 6: 'dm1Down', 7: 'dm10Up', 8: 'dm10Down',
+        9: 'dm11Up', 10: 'dm11Down'
+    }
     
-    print ('jobVersionName=', jobVersionName) 
+    # Check for multiple non-zero systematics
+    non_zero = [p for p in [TES, eleScale, JESSys, JERSys, METSys] if p != 0]
+    if len(non_zero) > 1:
+        raise ValueError("Only one systematic parameter can be non-zero")
+    
+    # Validate parameter ranges
+    def validate_range(name, value, allowed):
+        if value != 0 and value not in allowed:
+            raise ValueError(f"{name}={value} is invalid")
+
+    validate_range("TES", TES, TESkey.keys())
+    for name, val in [('eleScale', eleScale), ('JESSys', JESSys),
+                      ('JERSys', JERSys), ('METSys', METSys)]:
+        validate_range(name, val, {0, 1, 2})
+    
+    # Handle nominal case
+    if TES == 0 and eleScale == 0 and JESSys == 0 and JERSys == 0 and METSys == 0:
+        jobVersionName = f'{jobVersionNamePre}/'
+    
+    # Handle TES systematic
+    elif TES != 0:
+        jobVersionName = f'{jobVersionNamePre}_TES{TESkey[TES]}/'
+    
+    # Handle Electron Scale
+    elif eleScale != 0:
+        jobVersionName = f'{jobVersionNamePre}_EleScale{sysKey[eleScale]}/'
+    
+    # Handle JES systematic
+    elif JESSys != 0:
+        jobVersionName = f'{jobVersionNamePre}_JESPt22/'
+    
+    # Handle JER systematic
+    elif JERSys != 0:
+        jobVersionName = f'{jobVersionNamePre}_JER{sysKey[JERSys]}/'
+    
+    # Handle MET systematic
+    elif METSys != 0:
+        jobVersionName = f'{jobVersionNamePre}_MET{sysKey[METSys]}/'
+    
+    else:
+        raise ValueError("Unexpected parameter configuration")
+    
+    print('jobVersionName=', jobVersionName)
     return jobVersionName
 
 def getInputOutDir( jobVersionName, era):
