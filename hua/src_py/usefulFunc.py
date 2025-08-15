@@ -174,7 +174,7 @@ def getHistFromFile(fileName, histNames, ifPrint=False):
         # Get the histogram from the file
         histogram = file.Get(name)
         if not histogram:
-            raise ValueError(f"Error: Unable to find the histogram '{name}' in the file.")
+            raise ValueError(f"Error: Unable to find the histogram '{name}' in the {fileName}.")
         if ifPrint:
             histogram.Print()
         # Clone the histogram to avoid potential issues when the file is closed

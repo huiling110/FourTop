@@ -7,19 +7,6 @@ import usefulFunc as uf
 
 #!quite important to check !
 def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGMuLEleV/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v46addPOGIDL/mc/variableHists_v2FR_vetoPOGlepL/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v4baseline_v52noHLTButPreSelection/mc/variableHists_v2HLTweight/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v1FR_vetoNewLepL_repeat/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v0LepLAdded_v45newLepBugFixed/mc/variableHists_v0FR_newLep/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v5updateHLTSF_v52noHLTButPreSelection/mc/variableHists_v1FR_applicationNewTitle/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/mc/variableHists_v0_triggerSFNewRange/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/mc/variableHist_v6_btagRMeasure/'
-
-    # inputDirDic = uf.getDirDic(inputDir) 
-    # era = uf.getEraFromDir(inputDir)
-    # checkJobStatus(inputDirDic)
-    
     #check object selection jobs 
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v46addPOGIDL/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD//UL2016_preVFP/v45newLepBugFixed/'
@@ -37,10 +24,16 @@ def main():
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/v84Pre1tau2lLepF2V2/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v84Pre1tau2lLepF2V2/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v77HadroPresel/'
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v94HadroPreJetVetoHemOnly_JERUp/'
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v94HadroPreJetVetoHemOnly_JERUp/'
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnly_METDown/'
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnly_JERUp/'
+    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnly/'
     era = uf.getEraFromDir(obDir)
-    # checkOSJobs(obDir, era)
-    checkLogOB(obDir)
+    
+    allDir = getAllSysDir(obDir)
+    # for idir in allDir:
+        # dir = 
+    # checkLogOB(obDir)
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
     # mvDir = inputDir[:inputDir.find('mc')]
@@ -61,10 +54,25 @@ def main():
     # OSDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/'
     # checkOSJobEntry(OSDir)
     
-# def checkOSJobEntry(obDir):
-#     dirDic = uf.getDirDic(obDir)
+def getAllSysDir(obDir):
+    version = obDir.split('/')[-2]
+    dir = obDir.split('/')[:-3] 
+    print('version: ', version)
+    allDir = [obDir+'EleScaleUp/', obDir+'EleScaleDown/', obDir+'METUp/', obDir+'METDown/', obDir+'JERUp/', obDir+'JERDown/']
+    for i in (0, 1, 10, 11):
+        allDir.append(f'{obDir}_TESdm{i}Up/')
+        allDir.append(f'{obDir}_TESdm{i}Down/')  
+        
+    for i in gq.JESVariationList:
+        allDir.append(f'{obDir}_JESup_{i}')
+        allDir.append(f'{obDir}_JESDown_{i}')
+        
+    allDirNew = []
+    for iv in allDir:
+        ivNew = dir + iv 
+        allDirNew.append(ivNew)
+    return allDirNew
 
-#         compareEntry(nanoDir, obDir)
    
 def compareEntry(nanoDir, OSDir):
     entryNano = getEntryNano(nanoDir)    
