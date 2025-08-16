@@ -27,12 +27,12 @@ def main():
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v94HadroPreJetVetoHemOnly_JERUp/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnly_METDown/'
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnly_JERUp/'
-    obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnly/'
-    era = uf.getEraFromDir(obDir)
+    # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnly/'
+    # era = uf.getEraFromDir(obDir)
     
-    allDir = getAllSysDir(obDir)
+    # allDir = getAllSysDir(obDir)
     # for idir in allDir:
-        # dir = 
+    #     checkLogOB(idir) #!!!Can not check if the log file is zipped.
     # checkLogOB(obDir)
     
     # mvDir = inputDir[:inputDir.find('variableHist')]
@@ -45,7 +45,11 @@ def main():
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLT_v56NoHLTButPre/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2baslineNoHLTBugFixed_v56NoHLTButPre/'
     # mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v3HLTWeightUpdatedBugFixed_v56NoHLTButPre/'
+    mvDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/'
     # checkMVJobs(mvDir)
+    allSysDirs = getAllSysDirMV(mvDir)
+    for idir in allSysDirs:
+        checkMVJobs(idir)
     
     # obDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/data/JetMET2022G/'
     # nanoDir = '/publicfs/cms/data/TopQuark/nanoAOD/2022_13p6/crabNanoPost_2022postEE_v3/data/JetMET2022G/'
@@ -53,25 +57,44 @@ def main():
     
     # OSDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/2022postEE/v3HLTPre/'
     # checkOSJobEntry(OSDir)
+
+def getAllSysDirMV(mvDir):
+    MVversion = mvDir.split('/')[-2]
+    dirPre = '/'.join(mvDir.split('/')[:-2] ) + '/'  
+    osVersion = MVversion.split('_')[1]
+    mvPreVersion = MVversion.split('_')[0]
+    osSys = getOSSysVersions(osVersion)
+    allDirNew = []
+    for iv in osSys:
+        ivNew = dirPre + mvPreVersion + '_' + iv 
+        allDirNew.append(ivNew)
+    print('allDirNew: ', allDirNew)
+    return allDirNew
     
-def getAllSysDir(obDir):
-    version = obDir.split('/')[-2]
-    dir = obDir.split('/')[:-3] 
-    print('version: ', version)
-    allDir = [obDir+'EleScaleUp/', obDir+'EleScaleDown/', obDir+'METUp/', obDir+'METDown/', obDir+'JERUp/', obDir+'JERDown/']
+# def getAllSysDir(obDir):
+#     version = obDir.split('/')[-2]
+#     dirPre = '/'.join(obDir.split('/')[:-2] ) + '/'
+#     print('version: ', version)
+        
+#     allDirNew = []
+#     for iv in allDir:
+#         ivNew = dirPre + iv 
+#         allDirNew.append(ivNew)
+#     return allDirNew
+
+def getOSSysVersions(version):
+    allDir = [version+'_EleScaleUp/', version+'_EleScaleDown/', version+'_METUp/', version+'_METDown/', version+'_JERUp/', version+'_JERDown/']
     for i in (0, 1, 10, 11):
-        allDir.append(f'{obDir}_TESdm{i}Up/')
-        allDir.append(f'{obDir}_TESdm{i}Down/')  
+        allDir.append(f'{version}_TESdm{i}Up/')
+        allDir.append(f'{version}_TESdm{i}Down/')  
         
     for i in gq.JESVariationList:
-        allDir.append(f'{obDir}_JESup_{i}')
-        allDir.append(f'{obDir}_JESDown_{i}')
-        
-    allDirNew = []
-    for iv in allDir:
-        ivNew = dir + iv 
-        allDirNew.append(ivNew)
-    return allDirNew
+        # allDir.append(f'{version}_JESup_{i}')
+        # allDir.append(f'{version}_JESDown_{i}')
+        allDir.append(f'JESup_{i}_{version}_JESPt22/')
+        allDir.append(f'JESDown_{i}_{version}_JESPt22/')
+    return allDir
+    
 
    
 def compareEntry(nanoDir, OSDir):
@@ -201,10 +224,14 @@ def getCheckNanoFile(dir, isOB=False, ifCheckNano=False):
     
     
     
-def checkMVJobs(mvDir, word='makeVaribles_forBDT::Terminate'):
+def checkMVJobs(mvDir, word='output file here:'):
     mvDic = expandDirDic(mvDir)
     for idir in mvDic.keys():
         logDir = mvDic[idir] + 'log/'
+        print('checking log dir: ', logDir)
+        if ('up' in logDir or 'down' in logDir or 'Up' in logDir or 'Down' in logDir) and 'data' in logDir:
+            print('skip data dir: ', idir)
+            continue
         checkLogDir(logDir, word)
        
 def expandDirDic( dir):

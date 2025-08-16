@@ -9,7 +9,7 @@
 
 void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2017/mc/tttt/",
-    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
+    // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/tttt/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ttG/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/ZGToLLG/",
@@ -29,16 +29,17 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/data/MuonEG_2018a/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL_EE_M600/",
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2018/mc/VLL_EN_M800/",
-    // TString singleFileName = "outTree_2.root",
     // TString singleFileName = "01D97507-B0BB-234F-A28E-6AD66C3499E9.root",//2018 tttt
     // TString singleFileName = "02151677-7D45-7940-803F-3FA5A101D504.root",//2017, tttt
-    TString singleFileName = "085F6365-1899-CC47-B00F-E98ECDD4FCEB.root",//2016, tttt
+    // TString singleFileName = "085F6365-1899-CC47-B00F-E98ECDD4FCEB.root",//2016, tttt
+    TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016C_v2/",
+    TString singleFileName = "outTree_2.root",
     TString outputDir = "./output/",
     const UChar_t TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
     // const UChar_t TES = 4;
-    // const UChar_t eleScale = 0;//!Only this useful for run 2
+    const UChar_t eleScale = 0,//!Only this useful for run 2
     // const UChar_t eleScale = 1;//!Only this useful for run 2, both energy scale and smearing
-    const UChar_t eleScale = 2,//!Only this useful for run 2
+    // const UChar_t eleScale = 2,//!Only this useful for run 2
     const UChar_t JESSys = 0, //!!! 0:nominal, not 0 means jet pt looser of 22.
     // const UChar_t JESSys = 2, //!!! 0:nominal, not 0 means jet pt looser of 22.
     const UChar_t JERSys = 0, //norminal
