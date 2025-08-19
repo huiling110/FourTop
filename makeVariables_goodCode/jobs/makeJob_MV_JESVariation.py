@@ -22,10 +22,10 @@ def main():
   
   
     MV_TES(year, inVersion, outVersion, if1tau2l)
-    MV_EES(year, inVersion, outVersion, if1tau2l)
-    MV_MET(year, inVersion, outVersion, if1tau2l)
-    MV_JER(year, inVersion, outVersion, if1tau2l)
-    MV_JES(year, inVersion, outVersion, if1tau2l)
+    # MV_EES(year, inVersion, outVersion, if1tau2l)
+    # MV_MET(year, inVersion, outVersion, if1tau2l)
+    # MV_JER(year, inVersion, outVersion, if1tau2l)
+    # MV_JES(year, inVersion, outVersion, if1tau2l)
     
 def MV_JER(year, inVersion, outVersion, if1tau2l):
     inVersionUp = f'{inVersion}_JERUp'

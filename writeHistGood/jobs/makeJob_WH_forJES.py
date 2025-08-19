@@ -33,11 +33,11 @@ justMC = True # for energy scale variation, only need to run MC
 
 
 def main():
-    subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    # subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     
 def subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC):
     for i in (0, 1, 10, 11):

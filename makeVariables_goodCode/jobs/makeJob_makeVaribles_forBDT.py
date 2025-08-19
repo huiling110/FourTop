@@ -17,10 +17,10 @@ def main(
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2018, 2017
     # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2018, 
     # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm10Up', #2018 
-    inVersion = 'v94LepPreJetVetoHemOnly',
+    # inVersion = 'v94LepPreJetVetoHemOnly',
     # inVersion = 'v94LepPreJetVetoHemOnly_JERDown', #2018, 2017
     # inVersion = 'v94LepPreJetVetoHemOnly_EleScaleDown',#2018, 2017, 2016
-    # inVersion = 'v94LepPreJetVetoHemOnly_METDown',#2018, 2017, 2016
+    inVersion = 'v94LepPreJetVetoHemOnly_METDown',#2018, 2017, 2016
     # inVersion = 'v94LepPreJetVetoHemOnly_TESdm0Up',#2018
     # outVersion = 'v0baselineLep',
     # outVersion = 'v0baselineLep_tauF1',
@@ -31,10 +31,9 @@ def main(
     # outVersion = 'v0baselineHadro',
     # outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
     # outVersion = 'v0baselineHadro_tauFMorphMass',
-    # outVersion = 'v1baselineHadroBtagWeightAdded', #!v13
-    outVersion = 'v1baselineHadroBtagWeightAdded_test', #!v13
-    if1tau2l = 0, # !!!0 false, 1 True
-    # if1tau2l = 1, #!!! 0 false, 1 True
+    outVersion = 'v1baselineHadroBtagWeightAdded', #!v13
+    # if1tau2l = 0, # !!!0 false, 1 True
+    if1tau2l = 1, #!!! 0 false, 1 True
     # if1tau2l = 0, # 0 false, 1 True
     # JESVariationType = 2, # 1up, 2 down
     JESVariationType = 0, # 1up, 2 down
