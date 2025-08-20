@@ -70,6 +70,7 @@ def main():
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/'
+    cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/'
 
     #combination
     # cardDir = 'combinationV13_fakeTau/run2_1tau2l/'
@@ -83,7 +84,7 @@ def main():
     # cardDir = 'combinationV17_smoothing/run2_1tau1l/'
     # cardDir = 'combinationV17_smoothing/run2_1tau1l_smoothed/'
     # cardDir = 'combinationV17_smoothing/run2_1tau0l/'
-    cardDir = 'combinationV17_smoothing/run2_1tau0l_smoothed/'
+    # cardDir = 'combinationV17_smoothing/run2_1tau0l_smoothed/'
 
      
      
