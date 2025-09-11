@@ -13,7 +13,8 @@ def main():
     # inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
     # inVersion = 'v94LepPreJetVetoHemOnly_JESPt22'
     # inVersion = 'v94HadroPreJetVetoHemOnly'
-    inVersion = 'v94LepPreJetVetoHemOnly'
+    # inVersion = 'v94LepPreJetVetoHemOnly'
+    inVersion = 'v94LepPreJetVetoHemOnlyV2'
     # outVersion = 'v0baselineLep'
     # outVersion = 'v0baselineHadro'
     outVersion = 'v1baselineHadroBtagWeightAdded'
@@ -25,7 +26,7 @@ def main():
     MV_EES(year, inVersion, outVersion, if1tau2l)
     MV_MET(year, inVersion, outVersion, if1tau2l)
     MV_JER(year, inVersion, outVersion, if1tau2l)
-    # MV_JES(year, inVersion, outVersion, if1tau2l)
+    MV_JES(year, inVersion, outVersion, if1tau2l)
     
 def MV_JER(year, inVersion, outVersion, if1tau2l):
     inVersionUp = f'{inVersion}_JERUp'
@@ -60,12 +61,12 @@ def MV_JES(year, inVersion, outVersion, if1tau2l):
         ioutVersionDown = f'{outVersion}_JESDown_{i}'
         # print('ioutVersionUp: ', ioutVersionUp) 
         index = gq.JESVariationList.index(i)
-        if index < 26: #!!!
-            continue
+        # if index < 26: #!!!
+        #     continue
         print('i JESVariation: ', i)
-        mj.main(year, inVersion, ioutVersionUp, if1tau2l, 1, index)
+        mj.main(year, f'{inVersion}_JESPt22', ioutVersionUp, if1tau2l, 1, index)
         print('submitted JES up\n')
-        mj.main(year, inVersion, ioutVersionDown, if1tau2l, 2, index)
+        mj.main(year, F'{inVersion}_JESPt22', ioutVersionDown, if1tau2l, 2, index)
         print('submitted JES down\n\n\n')
         
    

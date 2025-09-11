@@ -18,10 +18,7 @@ def main(
     # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2018, 
     # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm10Up', #2018 
     # inVersion = 'v94LepPreJetVetoHemOnly',
-    # inVersion = 'v94LepPreJetVetoHemOnly_JERDown', #2018, 2017
-    # inVersion = 'v94LepPreJetVetoHemOnly_EleScaleDown',#2018, 2017, 2016
-    inVersion = 'v94LepPreJetVetoHemOnly_METDown',#2018, 2017, 2016
-    # inVersion = 'v94LepPreJetVetoHemOnly_TESdm0Up',#2018
+    inVersion = 'v94LepPreJetVetoHemOnlyV2',
     # outVersion = 'v0baselineLep',
     # outVersion = 'v0baselineLep_tauF1',
     # outVersion = 'v0baselineLep_tauF1NewFRBinA',
