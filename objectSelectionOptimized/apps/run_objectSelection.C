@@ -35,7 +35,7 @@ void run_objectSelection(
     // TString inputDir = "/publicfs/cms/data/TopQuark/nanoAOD/2016APV/data/jetHT_2016C_v2/",
     // TString singleFileName = "outTree_2.root",
     TString outputDir = "./output/",
-    const UChar_t TES = 3, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
+    const UChar_t TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
     // const UChar_t TES = 4;
     const UChar_t eleScale = 0,//!Only this useful for run 2
     // const UChar_t eleScale = 1;//!Only this useful for run 2, both energy scale and smearing
@@ -50,7 +50,7 @@ void run_objectSelection(
     // const UChar_t MET_UnclusteredEn = 2, //down
     Bool_t if1tau2l = kTRUE,///!!!
     // Bool_t if1tau2l = kFALSE,///!!!
-    Int_t eventNum = 10000) // Int_t eventNum = 10000)
+    Int_t eventNum = 1000) // Int_t eventNum = 10000)
 // Int_t eventNum = 0)
 {
     TStopwatch t;
@@ -68,17 +68,15 @@ void run_objectSelection(
 
     const UChar_t eleSmear = 0;
 
-    // const Bool_t if1tau2l = kTRUE;//!
-    // const Bool_t if1tau2l = kFALSE;//!!!
     std::cout << "eleScale=" << static_cast<unsigned int>(eleScale) << " eleSmear=" << static_cast<unsigned int>(eleSmear) << " JESSys=" << static_cast<unsigned int>(JESSys) <<" TES=" << static_cast<unsigned int>(TES) <<" JERSys="<<static_cast<unsigned int>(JERSys)<< "\n\n";
     objectSelection os(inputDir, singleFileName, outputDir, isData, era, m_processName, isRun3, kTRUE, eleScale, eleSmear, JESSys, JERSys, TES, MET_UnclusteredEn, if1tau2l);
 
-    // const Bool_t tauSel = kFALSE; //for HLT
-    const Bool_t tauSel = kTRUE;
-    // const Bool_t HLTSel = kFALSE;
-    const Bool_t HLTSel = kTRUE;
-    os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
-    // os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
+    const Bool_t tauSel = kFALSE; //for HLT
+    // const Bool_t tauSel = kTRUE;
+    const Bool_t HLTSel = kFALSE;
+    // const Bool_t HLTSel = kTRUE;
+    // os.EventLoop(tauSel, kTRUE, HLTSel, eventNum); // preselection
+    os.EventLoop(tauSel, kFALSE, HLTSel, eventNum); //no selection
 
     os.Terminate();
 
