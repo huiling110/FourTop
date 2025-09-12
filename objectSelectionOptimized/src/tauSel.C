@@ -83,9 +83,7 @@ void TauSel::Select( const eventForNano *e, const Bool_t isData, const std::vect
         if(!m_isData){
             iTES = calTES(itau_decayMode, itau_pt, e->Tau_eta.At(j), e->Tau_genPartFlav->At(j), tauVsJetWP.at(m_tauWP)); // TES handled inside the function
         }
-        // if(itau_decayMode == 0){
-            // std::cout<<"iTES="<<iTES<<"\n";
-        // }
+        // std::cout<<"idecayMode="<<itau_decayMode<<" iTES="<<iTES<<"\n";
         itau_pt *= iTES;
         Double_t itau_mass = e->Tau_mass.At(j)*iTES;
 
@@ -278,30 +276,36 @@ Double_t TauSel::calTES(Int_t itau_decayMode, Double_t itau_pt, Double_t itau_et
             }
             break;
         case 3:
-            iTES_sf = itau_decayMode == 0? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}):1.0;
+            // iTES_sf = itau_decayMode == 0? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}):1.0;
+            iTES_sf = itau_decayMode == 0? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}): corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             break;
         case 4:
-            iTES_sf = itau_decayMode == 0? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}):1.0;
-            // iTES_sf =  corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"});
-            // std::cout<<"itau_decayMode="<<itau_decayMode<<" iTES_sf="<<iTES_sf<<"\n";
+            // iTES_sf = itau_decayMode == 0? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}):1.0;
+            iTES_sf = itau_decayMode == 0? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}): corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             break;
         case 5:
-            iTES_sf = itau_decayMode == 1? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}):1.0;
+            // iTES_sf = itau_decayMode == 1? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}):1.0;
+            iTES_sf = itau_decayMode == 1? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}): corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             break;
         case 6:
-            iTES_sf = itau_decayMode == 1? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}):1.0;
+            // iTES_sf = itau_decayMode == 1? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}):1.0;
+            iTES_sf = itau_decayMode == 1? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}): corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             break;
         case 7:
-            iTES_sf = itau_decayMode == 10? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}):1.0;
+            // iTES_sf = itau_decayMode == 10? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}):1.0;
+            iTES_sf = itau_decayMode == 10? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}): corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             break;
         case 8:
-            iTES_sf = itau_decayMode == 10? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}):1.0;
+            // iTES_sf = itau_decayMode == 10? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}):1.0;
+            iTES_sf = itau_decayMode == 10? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}): corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             break;
         case 9:
-            iTES_sf = itau_decayMode == 11? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}):1.0;
+            // iTES_sf = itau_decayMode == 11? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}):1.0;
+            iTES_sf = itau_decayMode == 11? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "up"}): corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             break;
         case 10:
-            iTES_sf = itau_decayMode == 11? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}):1.0;
+            // iTES_sf = itau_decayMode == 11? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}):1.0;
+            iTES_sf = itau_decayMode == 11? corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "down"}): corr_tauES->evaluate({itau_pt, itau_eta, itau_decayMode, itau_genPartFlav, "DeepTau2017v2p1", "nom"});
             break;
         default:
             break;
