@@ -27,10 +27,11 @@ void run_objectSelection(
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v93HadroPreJetVetoPileupID/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v93HadroPreJetVetoPileupID_JESPt22/mc/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly/mc/",
-    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly/data/",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly/data/",
     // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_preVFP/v94HadroPreJetVetoHemOnly/mc/",
-    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2017/v94LepPreJetVetoHemOnly/mc/",
-    // TString inputDir = "tttt",
+    // TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnlyV2/mc/",
+    TString inputBase = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94LepPreJetVetoHemOnlyV2_JESPt22/mc/",
+    TString inputDir = "tttt",
     // TString inputDir = "TTWJetsToLNu",
     // TString inputDir = "TTZToLLNuNu",
     // TString inputDir = "WZTo3LNu",
@@ -39,7 +40,7 @@ void run_objectSelection(
     // TString inputDir = "ttbar_1l",
     // TString inputDir = "ttbar_2l",
     // TString inputDir = "jetHT_2017f",
-    TString inputDir = "jetHT_2018a",
+    // TString inputDir = "jetHT_2018a",
     // TString inputDir = "BTagCSV_2017c",
     // TString inputDir = "singleMu_2018b",
     // TString inputDir = "TTToSemiLeptonic10", //extra ttbar for training
@@ -53,9 +54,8 @@ void run_objectSelection(
     // UChar_t JESVariationType = 0, //!!!0: nominal, 1: up, 2: down
     UChar_t JESVariationType = 1, //!!!0: nominal, 1: up, 2: down
     // UChar_t JESVariationType = 2, //!!!0: nominal, 1: up, 2: down
-    // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
-    // UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
-    UChar_t JESVariation = 28 //ordering of the source of systematic uncertainties for  JES
+    UChar_t JESVariation = 0 //ordering of the source of systematic uncertainties for  JES
+    // UChar_t JESVariation = 28 //ordering of the source of systematic uncertainties for  JES
     )
 {
     TStopwatch t;

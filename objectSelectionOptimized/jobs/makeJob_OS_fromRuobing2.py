@@ -51,17 +51,17 @@ isRuobing = False
 #done by Ruobing: submit jobs in bunches for faster job submission; http://afsapply.ihep.ac.cn/cchelp/zh/local-cluster/jobs/HTCondor/
 def main(
     # TES = 0 ,#!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
-    TES = 3,#!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
+    TES = 0,#!!!TES = 0, //no correction; 1: up; 2: down; 3: up, decayMode=0; 4: down, decayMode=0; 5: up, decayMode=1; 6: down, decayMode=1; 7: up, decayMode=10; 8: down, decayMode=10; 9: up, decayMode=11; 10: down, decayMode=11
     eleScale = 0, #!!! 0: nominal; 1: up; 2: down
     JESSys = 0 ,#!!! nominal: 0;
     JERSys = 0, #!!! 0: no correction; 1: up; 2: down
-    METSys = 0, #!!! nominal: 0; 1: up; 2: down
+    METSys = 2, #!!! nominal: 0; 1: up; 2: down
     # if1tau2l = 0 #!!!True 
     if1tau2l = 1, #!!!True 
-    # era = '2016',
+    era = '2016',
     # era = '2016APV',
     # era = '2017',
-    era = '2018',
+    # era = '2018',
     # jobVersionNamePre = 'v94LepPreJetVetoHemOnly'#3 years submitted
     jobVersionNamePre = 'v94LepPreJetVetoHemOnlyV2'#3 years submitted
     
