@@ -16,13 +16,13 @@ void run_treeAnalyzer(
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/", //!v14
     // TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/", //!v14
     TString inputDir = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/",
-    TString process = "tttt",
+    // TString process = "tttt",
     // TString process = "ttbar_1l",
     // TString process = "fakeLepton",
     // TString process  = "fakeTau_data",
     // TString process  = "fakeTau_data_ptMorphed",
     // TString process = "ttbar_0l",
-    // TString process = "ttbar_2l",
+    TString process = "ttbar_2l",
     // TString process = "jetHT_2018a",
     // Int_t channel = 0,//0: 1tau1l
     // TString channel = "1tau1l",//
