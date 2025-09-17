@@ -14,15 +14,15 @@ def main():
     ifLogy = True
     # ifLogy = False
     # ifStackSignal = False
+    ifStackSignal = True
     ifPrintSB = True
     # ifPrintSB = False
     # ifSystematic = True 
     ifSystematic = False  
-    ifStackSignal = True
     # ifFTau = False #!use qcd instead of fakeTau
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
-    ifMCFTau = True #!
-    # ifMCFTau = False #!
+    # ifMCFTau = True #!
+    ifMCFTau = False #!
     plotName = 'dataVsMC_v5'
     if ifMCFTau:
         plotName = f'{plotName}_MCFTau'
@@ -67,16 +67,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/'
-    channel = '1tau2l'
-    # variables = ['tausT_invariantMass']
-    # variables = ['MET_pt']
-    # variables = ['leptons_2charge']
-    # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour', 'muonsTopMVAT_1pt', 'elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt' , 'elesTopMVAT_2pt', 'muonsTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_2eta', 'lepTopMVAF_num', 'lepTopMVAT_num', 'elesTopMVAT_num', 'muonsTopMVAT_num']
-    # variables = ['jets_num', 'jets_HT','jets_1pt',  'jets_2pt', 'bjetsM_num', 'bjetsT_num',  'tausT_1pt', 'tausT_1genFlavour',  'lepTopMVAT_1pt', 'lepTopMVAT_2pt', 'tausF_1pt', 'tausF_1jetEta', 'tausF_1decayMode', 'tausF_1prongNum', 'tausF_1eta']
-    # variables = ['elesTopMVAT_1pt', 'elesTopMVAT_1eta', 'elesTopMVAT_2pt', 'elesTopMVAT_2eta', 'muonsTopMVAT_1pt', 'muonsTopMVAT_2pt', 'muonsTopMVAT_1eta', 'muonsTopMVAT_2eta', 'lepTopMVAT_1pt', 'lepTopMVAT_2pt']
-    variables = ['BDT']
-    regionList = ['1tau2lSR', '1tau2lCR3']
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/'
+    # channel = '1tau2l'
+    # variables = ['BDT']
+    # regionList = ['1tau2lSR', '1tau2lCR3']
     # regionList = ['1tau2lCR3']
 
 
@@ -115,13 +109,14 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v1BDT1tau1lTestLeading7Remove1/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v1BDT1tau1lTestLeading7Remove2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/'
-    # channel = '1tau1l'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/'
+    channel = '1tau1l'
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'tausT_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     # variables = ['jets_num', 'jets_HT', 'jets_5pt', 'jets_4pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausF_1decayMode', 'tausF_1pt', 'tausF_1prongNum', 'tausF_1jetPt', 'tausF_1jetEta', 'tausF_1genFlavour', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']
     # variables = ['jets_num', 'jets_HT', 'jets_1pt', 'jets_6pt', 'jets_7pt', 'bjetsM_num', 'bjetsT_num', 'bjetsM_HT', 'tausT_1decayMode', 'tausT_1pt', 'tausT_1lepton1_charge', 'lepTopMVAT_1pt', 'lepTopMVAT_1eta']# 
-    # variables = ['BDT']
+    variables = ['BDT']
     # regionList = ['1tau1lSR', '1tau1lCR12']
-    # regionList = ['1tau1lCR12']
+    regionList = ['1tau1lCR12']
   
     #!1tau0l
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sys/'
@@ -161,7 +156,6 @@ def main():
     
     plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL,  channel, ifLogy, ifPrintSB, ifStackSignal, ifSystematic, ifMCFTau)
 
-    # plotFakeTau(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau) # for using fakeTau 2 hists application 
    
 def read_csv_as_lines(file_path, delimiter=','):
     """Read a CSV file with the specified delimiter and return a list of strings, each representing a line in the CSV."""

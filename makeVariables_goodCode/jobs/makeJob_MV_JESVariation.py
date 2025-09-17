@@ -4,21 +4,16 @@ import ttttGlobleQuantity as gq
 #generate all 54 up and down JES variation job version for  MV  
 
 def main():
-    # year = '2018'
-    year = '2017'
+    year = '2018'
+    # year = '2017'
     # year = '2016'
-    # inVersion = 'v91TESAddedHadroPre_JESPt20'
-    # inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
-    # inVersion = 'v91TESAddedLepPre_JETPt22'
-    # inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
-    # inVersion = 'v94LepPreJetVetoHemOnly_JESPt22'
-    # inVersion = 'v94HadroPreJetVetoHemOnly'
+    inVersion = 'v94HadroPreJetVetoHemOnly'
     # inVersion = 'v94LepPreJetVetoHemOnly'
-    inVersion = 'v94LepPreJetVetoHemOnlyV2'
+    # inVersion = 'v94LepPreJetVetoHemOnlyV2'
     # outVersion = 'v0baselineLep'
     # outVersion = 'v0baselineHadro'
     outVersion = 'v1baselineHadroBtagWeightAdded'
-    # if1tau2l = 0
+    if1tau2l = 0
     if1tau2l = 1
   
   

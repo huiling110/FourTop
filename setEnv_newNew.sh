@@ -11,6 +11,8 @@ export TBB=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/tbb/v2022.0.0-343819c0b5b
 export LD_LIBRARY_PATH=$TBB:$LD_LIBRARY_PATH
 source /cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/bin/thisroot.sh
 export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/lib:$LD_LIBRARY_PATH # for linking: TMVA
+export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/giflib/5.2.1-291494583ea21b74417f839fd8b4190e/lib:$LD_LIBRARY_PATH #For run time : pyroot with some plotting libraries
+export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/libjpeg-turbo/2.0.2-3395aaa291eb009cb56fec2fd9beba68/lib64:$LD_LIBRARY_PATH #For run time : pyroot with some plotting libraries
 
 
 

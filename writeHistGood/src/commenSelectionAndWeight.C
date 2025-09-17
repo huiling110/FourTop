@@ -228,8 +228,6 @@ Double_t baseWeightCal(event *e, UInt_t entry, const Bool_t isRun3, Bool_t isDat
             break;
         case 2: //1tau2l
             basicWeight = e->EVENT_genWeight.v() * e->EVENT_prefireWeight.v() * e->PUweight_.v() *e->triggerSFLep_weight.v() *e->tauT_IDSF_weight_new.v() * e->elesTopMVAT_weight_new.v() * e->musTopMVAT_weight_new.v()* e->btagWPMT_weight.v()* e->elesTopMVAT_reoSF_weight.v();
-            // basicWeight = e->EVENT_genWeight.v()* e->EVENT_prefireWeight.v() * e->PUweight_.v() *e->triggerSFLep_weight.v() ;
-            // basicWeight = e->EVENT_genWeight.v() ;
             if(entry==100){
                 std::cout<<"event weight: "<<e->EVENT_genWeight.n() <<"*"<< e->EVENT_prefireWeight.n() <<"*"<< e->PUweight_.n() <<"*"<< e->triggerSFLep_weight.n() <<"*"<< e->tauT_IDSF_weight_new.n() <<"*"<< e->elesTopMVAT_weight_new.n() <<"*"<< e->musTopMVAT_weight_new.n()<<"*"<< e->btagWPMT_weight.n() <<"*"<< e->elesTopMVAT_reoSF_weight.n()<<"\n";
             }
