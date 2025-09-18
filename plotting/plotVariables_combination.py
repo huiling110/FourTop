@@ -150,6 +150,10 @@ def addSys(sumProHistsSys2018, sumProHistsSys2017, sumProHistsSys2016preVFP, sum
         isys2017 = isys.replace('2018', '2017')
         isys2016preVFP = isys.replace('2018', '2016preVFP')
         isys2016postVFP = isys.replace('2018', '2016postVFP')
+        if 'CMS_eff_e_reco' in isys: #! correlated in 2016
+            isys2016preVFP = isys2016preVFP.replace('2016preVFP', '2016')
+            isys2016postVFP = isys2016postVFP.replace('2016postVFP', '2016')
+            
         sumSys[isys] = sumProHistsSys2018[isys].Clone()
         sumSys[isys].Add(sumProHistsSys2017[isys2017])
         sumSys[isys].Add(sumProHistsSys2016postVFP[isys2016postVFP])

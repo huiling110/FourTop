@@ -117,12 +117,12 @@ def main():
     # combinationVersion = 'V16'
     # combinationVersion = 'V17_smoothing'#smoothing
     combinationVersion = 'V18'
-    cardDir = 'run2_1tau1l'
+    # cardDir = 'run2_1tau1l'
     # cardDir = 'run2_1tau0l'
     # cardDir = 'run2_1tau2l'
-    # cardDir = 'run2_3years'
-    # cardDic1tau1l.update(cardDic_1tau0l)
-    # cardDic1tau1l.update(cardDic_1tau2l)
+    cardDir = 'run2_3years'
+    cardDic1tau1l.update(cardDic_1tau0l)
+    cardDic1tau1l.update(cardDic_1tau2l)
     
     
     directory_path = 'combination'+combinationVersion+'/'+cardDir +'/'

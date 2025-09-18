@@ -89,7 +89,8 @@ def main():
     # cardDir = 'combinationV17_smoothing/run2_1tau0l/'
     # cardDir = 'combinationV17_smoothing/run2_1tau0l_smoothed/'
     # cardDir = 'combinationV18/run2_1tau2l/'
-    cardDir = 'combinationV18/run2_1tau1l/'
+    # cardDir = 'combinationV18/run2_1tau1l/'
+    cardDir = 'combinationV18/run2_3years/'
 
      
      
