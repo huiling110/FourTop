@@ -21,15 +21,18 @@ def main():
     # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
     # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_FlavorPureQuark', 'CMS_scale_j_RelativeSample', 'CMS_scale_j_FlavorPureBottom', 'CMS_scale_j_AbsoluteMPFBias', 'CMS_res_j', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac'] #process correlated systematics
     # # processList = ['tt']
-    # # sysList = ['ps_fsr']
+    # sysList = ['ps_fsr']
     # # sysList = ['ps_isr']# process uncorrelated systematics
-    # channel = '1tau1lSR'
+    channel = '1tau1lSR'
+    sysList = ['ps_fsr', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_Fragmentation', 'CMS_btag_fixedWP_comb_bc_correlated', 'CMS_scale_j_FlavorPureQuark'] #!No btag shape uncertainty in 1tau1l channel
+    processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop']
+    input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau.root'
     
     
-    channel = '1tau0lSR'
-    sysList = ['ps_fsr', 'CMS_btag_shape_hf', 'ps_isr', 'CMS_scale_j_FlavorPureGluon', 'pdf_alphas', 'QCDscale_fac', 'QCDscale_ren', 'CMS_res_j', 'CMS_scale_j_FlavorPureQuark'] 
-    processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop', 'WJets']
-    input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau.root'
+    # channel = '1tau0lSR'
+    # sysList = ['ps_fsr', 'CMS_btag_shape_hf', 'ps_isr', 'CMS_scale_j_FlavorPureGluon', 'pdf_alphas', 'QCDscale_fac', 'QCDscale_ren', 'CMS_res_j', 'CMS_scale_j_FlavorPureQuark'] 
+    # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop', 'WJets']
+    # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau.root'
     
    
     years = ['2016preVFP', '2016postVFP', '2017', '2018']
