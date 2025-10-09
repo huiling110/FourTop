@@ -285,8 +285,8 @@ def replaceTauTVar(fakeTauFile):
     exex = [  'tausT_1eta',  'tausT_leptonsTMVA_minDeltaR', 'tausT_leptonsTopMVA_chargeMulti',  'tausT_1decayMode', 'tausT_1prongNum',   'tausT_1jetPt',  'tausT_1charge', 'tausT_1neutralIso']
     extraVarsFromF = extraVarsFromF + exex
     
-    # tausF_features = ["tausF_1pt", "tausF_MHT", "tausF_HT", "tausF_invariantMass", "tausF_1Met_transMass"]#for 1tau0l BDT
-    tausF_features=[]#!testing
+    tausF_features = ["tausF_1pt", "tausF_MHT", "tausF_HT", "tausF_invariantMass", "tausF_1Met_transMass"]#!!!for 1tau0l BDT
+    # tausF_features=[]#!testing
     columns_to_remove = VarToTausFMorph + extraVarsFromF + tausF_features
     columns_to_keep = [col for col in all_columns if col not in columns_to_remove]
     # print('all columns now: ', df_tauF.GetColumnNames())
