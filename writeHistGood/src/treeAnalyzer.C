@@ -252,7 +252,6 @@ void treeAnalyzer::LoopTree()
 
 
 //!!!put it into functions
-// void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region){
 void treeAnalyzer::sysRegionsFill(Double_t bdtScore, Double_t basicWeight, Bool_t SR1tau1l, TString region, histForRegionsBase &SR1tau1lSysF)
 {
 //!correlated uncertainties are the same NP for 3 years, no need to add era in the name
