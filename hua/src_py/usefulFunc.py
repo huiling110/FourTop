@@ -266,14 +266,7 @@ def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018
         if ifDebug:
             print('getting: ', isub)
         inputDir = inputDirDic['data'] if isdata else inputDirDic['mc']
-        # if isdata:
-        #     rootFile = inputDirDic['data'] + isub + '.root'
-        # else:
-        #     rootFile = inputDirDic['mc'] + isub +'.root'
         
-        # rootFile = inputDir + isub + '.root' 
-        # if ifMCFTau and 'MCFT' in isub:
-           #remove '_MCFT' or '_NotMCFT' from isub without chaning the original isub
         if isub.endswith('_MCFT'):
             iroot = isub.removesuffix('_MCFT')
         elif isub.endswith('_NotMCFT'):
