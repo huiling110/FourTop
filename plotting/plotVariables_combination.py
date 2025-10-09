@@ -99,10 +99,9 @@ def main():
     
     # ifMCFTau = True #!
     ifMCFTau = False #!
+    ifblinding = False
     
     variables = ['BDT']
-    # variables = ['jets_1pt'] 
-    # sumPros = gq.proChannelDic[channel]
     sumPros = pl.getSumList(channel, True, False, ifMCFTau)
     print(sumPros)
     
@@ -112,10 +111,9 @@ def main():
     sumProHists2016postVFP, sumProHistsSys2016postVFP = getSumHistPerYear(inputDir2016postVFP, regionList, variables,  sumPros, channel, ifMCFTau)
 
     for iVar in variables:
-        plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar, ifMCFTau)    
-        # plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, './', iVar)    
+        plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar, ifMCFTau, ifblinding)    
     
-def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar, ifMCFTau=False):
+def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar, ifMCFTau=False, ifblinding=False):
     combineHists = {}
     combineHistSys = {}
     for ire in sumProHists2018[iVar].keys():
@@ -144,8 +142,8 @@ def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSy
     uf.checkMakeDir(plotDir)
     plotName = 'combination_withSys' if not ifMCFTau else 'combination_withSys_MCFTau'
     for ire in combineHists.keys():
-        # pl.makeStackPlotNew(combineHists[ire], sumPros, iVar, ire, plotDir, False, plotName, 'Run2', True, 100, True, True, True, False ) 
-        pl.makeStackPlotNew(combineHists[ire], sumPros, iVar, ire, plotDir, False, plotName, 'Run2', True, 100, True, True, True, False, combineHistSys[ire], True ) 
+        # pl.makeStackPlotNew(combineHists[ire], sumPros, iVar, ire, plotDir, False, plotName, 'Run2', True, 100, True, True, True, False, combineHistSys[ire], True ) 
+        pl.makeStackPlotNew(combineHists[ire], sumPros, iVar, ire, plotDir, False, plotName, 'Run2', True, 100, True, True, True, False, combineHistSys[ire], True, ifblinding ) 
    
 def addSys(sumProHistsSys2018, sumProHistsSys2017, sumProHistsSys2016preVFP, sumProHistsSys2016postVFP) :
     sumSys = {}
