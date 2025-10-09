@@ -23,14 +23,14 @@ def main():
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     # ifMCFTau = True #!
     ifMCFTau = False #!
-    ifUnblinding = True#!!!
+    ifblinding = False#!!!
     plotName = 'dataVsMC_v5'
     
     if ifMCFTau:
         plotName = f'{plotName}_MCFTau'
     if ifSystematic:
         plotName = f'{plotName}_sys'
-    if ifUnblinding:
+    if not ifblinding:
         plotName = f'{plotName}_unblind'
    
     #!1tau2l 
@@ -144,8 +144,8 @@ def main():
     channel = '1tau0l' 
     variables = ['BDT']
     # regionList = ['1tau0lVR', '1tau0lCRMR']
-    regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
-    # regionList = ['1tau0lSR'] #!unblinding!
+    # regionList = ['1tau0lVR',  '1tau0lSR', '1tau0lCRMR']
+    regionList = ['1tau0lSR'] #!unblinding!
 
 
 
@@ -157,7 +157,7 @@ def main():
     inputDirDic = uf.getInputDicNew( inputDir)
     uf.checkMakeDir( inputDirDic['mc']+'results/')
     
-    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL,  channel, ifLogy, ifPrintSB, ifStackSignal, ifSystematic, ifMCFTau, ifUnblinding)
+    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL,  channel, ifLogy, ifPrintSB, ifStackSignal, ifSystematic, ifMCFTau, ifblinding)
 
    
 def read_csv_as_lines(file_path, delimiter=','):
@@ -202,7 +202,7 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     uf.checkMakeDir( plotDir)
     for variable in variables:
         for iRegion in regionList:       
-            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic) 
+            makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic, ifBlind) 
     
 def getSysDicPL(inProcess, ifSys=False, channel='1tau1l', era='2018', ifCombine=False):
     #todo: add funcionality of getting systematics from datacard
@@ -313,7 +313,7 @@ def checkHists( histsDict ):
         histsDict[ikey].Print()
 
 
-def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}, ifSystematic=False, ifBlind=True):
+def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}, ifSystematic=False, ifBlinding=True):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -347,8 +347,10 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
         name = name + '_VLL'
 
     ifBlind = True if 'SR' in region else False #!!!
-    # ifBlind = False #!!!testing now 
-    # is1tau2l = True  if '1tau2l' in region else False#!testing now for baseline 
+    if not ifBlinding:
+        ifBlind = False
+    
+    
     is1tau2l = True if ('1tau2l' in region) or ('baseline' in region) else False 
     dataHist, systsUp, systsDown, sumHist, stack, signal = getHists(nominal, legendOrder, ifBlind, False, ifStackSignal, ifVLL, sysHists, is1tau2l)
 
