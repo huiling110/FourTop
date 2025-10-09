@@ -23,7 +23,7 @@ def main():
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     # ifMCFTau = True #!
     ifMCFTau = False #!
-    ifUnblinding = False#!!!
+    ifUnblinding = True#!!!
     plotName = 'dataVsMC_v5'
     
     if ifMCFTau:
