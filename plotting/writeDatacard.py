@@ -375,7 +375,7 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l', ifCombine=False):
                     proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
             else:
                 proSys[ipro] = 1 if sysList[1]==0 and (sysList[2] &(channeMask)!=0) else 0
-            if ipro=='singleTop' and (sys=='pdfAlphaS_normalised' or sys=='pdf_normalised' or sys=='QCDscale_Re_normalised' or sys=='QCDscale_Fa_normalised' or sys=='ISR_normalised' or sys=='FSR_normalised'):
+            if ipro=='singleTop' and (sys=='pdf_alphas' or sys=='pdf_normalised' or sys=='QCDscale_Re_normalised' or sys=='QCDscale_Fa_normalised' or sys=='ISR_normalised' or sys=='FSR_normalised'):
                 proSys[ipro] = 0
             if ipro=='singleTop' and (channe=='1tau2l'):
                 proSys[ipro] = 0 
