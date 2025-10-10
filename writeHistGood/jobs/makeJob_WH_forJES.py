@@ -1,18 +1,19 @@
+import argparse
 import makeJob_forWriteHist as mj 
 import ttttGlobleQuantity as gq
 
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
 # inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
-inVersion = 'v94HadroPreJetVetoHemOnly'
+# inputDirBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+# inVersion = 'v94HadroPreJetVetoHemOnly'
 # inVersion = 'v94LepPreJetVetoHemOnly'
 # inVersion = 'v94LepPreJetVetoHemOnlyV2'
 # outVersion = 'v0baselineHadro'
 # outVersion = 'v0baselineLep'
-outVersion = 'v1baselineHadroBtagWeightAdded'
+# outVersion = 'v1baselineHadroBtagWeightAdded'
 # channel = '1tau1l'
-channel = '1tau0l'
+# channel = '1tau0l'
 # channel = '1tau2l'
 # version = f'v0BDT{channel}'
 # version = f'v0BDT{channel}FakeTau'
@@ -29,7 +30,7 @@ channel = '1tau0l'
 # version = 'v0BDT1tau2lV17'
 # version = 'v3BDT1tau2lV18_fakeTauDataDriven'
 # version = 'v4BDT1tau2lV18_fakeTauDataDriven'
-version = 'v5BDT1tau0l_tauFMorphFix'
+# version = 'v5BDT1tau0l_tauFMorphFix'
 # version = 'v3BDT1tau1lV18_fakeTauDataDriven'
 # exe = './apps/run_WH_forDataMC.out'
 exe = './apps/run_treeAnalyzer.out' 
@@ -37,11 +38,40 @@ justMC = True # for energy scale variation, only need to run MC
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--inputDirBase', type=str, required=True)
+    parser.add_argument('--inVersion', type=str, required=True)
+    parser.add_argument('--outVersion', type=str, required=True)
+    parser.add_argument('--channel', type=str, required=True)
+    parser.add_argument('--version', type=str, required=True)
+    # parser.add_argument('--exe', type=str, required=True)
+    # parser.add_argument('--justMC', action='store_true')
+    args = parser.parse_args()
+
+    # Use argparse values
+    inputDirBase = args.inputDirBase
+    inVersion = args.inVersion
+    outVersion = args.outVersion
+    channel = args.channel
+    version = args.version
+    # exe = args.exe
+    # justMC = args.justMC 
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     subJES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    # subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    # subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    # subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
-    # subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subJER(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subMET(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subEleES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
+    subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC)
     
 def subTES(inputDirBase, inVersion, outVersion, channel, version, exe, justMC):
     for i in (0, 1, 10, 11):

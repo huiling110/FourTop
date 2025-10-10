@@ -17,8 +17,8 @@ def main():
     ifStackSignal = True
     ifPrintSB = True
     # ifPrintSB = False
-    # ifSystematic = True 
-    ifSystematic = False  
+    ifSystematic = True 
+    # ifSystematic = False  
     # ifFTau = False #!use qcd instead of fakeTau
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     # ifMCFTau = True #!
