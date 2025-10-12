@@ -92,22 +92,24 @@ def main():
     # cardDir = 'combinationV18/run2_1tau2l/'
     # cardDir = 'combinationV18/run2_1tau1l/'
     # cardDir = 'combinationV18/run2_3years/'
-    cardDir = 'combinationV18/run2_1tau1l_smoothed/'
+    # cardDir = 'combinationV18/run2_1tau1l_smoothed/'
     # cardDir = 'combinationV18/run2_3years_smoothed/'
     # cardDir = 'combinationV18/run2_1tau2l_fixedWeight/'
     # cardDir = 'combinationV18/run2_3years_v3/'
+    cardDir = 'combinationV18/run2_1tau2l_fixedWeight_unblind/'
+    
     # ifBlind = True
     ifBlind = False
 
      
      
     cardToWorkspaces( cardDir )
-    runImpact(cardDir )#!Step 1
     
-    # runCombineSig( cardDir, True, ifBlind )
-    # runCombineSig( cardDir, False, ifBlind )
-    # copyCombineResultsToDir( cardDir )
+    runCombineSig( cardDir, True, ifBlind )
+    runCombineSig( cardDir, False, ifBlind )
+    copyCombineResultsToDir( cardDir )
 
+    runImpact(cardDir )#!Step 1 of unblinding
 
     
     
@@ -165,7 +167,6 @@ def runCombineSig( cardDir, isLimit, ifBlind=True ):
             irootF = workspaceDir + ifile
             print("iname: ", iname)
             if isLimit:
-                # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
                 if ifBlind:
                     significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
                 else:
