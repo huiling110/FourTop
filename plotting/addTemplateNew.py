@@ -62,10 +62,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/'
     channel = '1tau2l'
     variables = ['BDT']
     regionList = ['1tau2lSR', '1tau2lCR3']
@@ -75,6 +75,7 @@ def main():
     # ifMCFTau = False if channel =='1tau0l' else True
     # ifMCFTau = True #!
     ifMCFTau = False #!
+    ifBlind = False #!!!
 
 
     era = uf.getEraFromDir(inputDir)
@@ -88,29 +89,9 @@ def main():
     
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
     
-    dataName = 'leptonSum' if is1tau2l else 'jetHT' 
-    #add fake data for SR
-    for ivar in variables:
-        for region in regionList:
-            dataHist = None
-            if 'SR' in region:
-                for sumPro in sumProList:
-                    if uf.isData(sumPro): continue
-                    print('fake data: ', sumPro)
-                    
-                    hist = sumProcessPerVar[ivar][region][sumPro]
-                    resetNegtiveBins(hist)
-                    
-                    
-                    if dataHist == None:
-                        dataHist = sumProcessPerVar[ivar][region][sumPro].Clone()  
-                        dataHist.SetName(dataHist.GetName().replace(sumPro, 'data_obs'))
-                    else:
-                        dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # some process has negative bins, set them to 0 
-                sumProcessPerVar[ivar][region][dataName] = dataHist
-                print('fake data hist:', dataHist.GetName())
-            dataHistName = sumProcessPerVar[ivar][region][dataName].GetName().replace(dataName, 'data_obs')
-            sumProcessPerVar[ivar][region][dataName].SetName(dataHistName)
+    
+    addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind) 
+   
           
              
             
@@ -122,7 +103,8 @@ def main():
     name = 'templatesForCombine'+channel+'_new'
     if not ifMCFTau:
         name = name.replace('new', 'new_notMCFTau') 
-    # templateFile = outDir + 'templatesForCombine'+channel+'_new.root'
+    if not ifBlind:
+        name = name + '_unblind'
     templateFile = outDir + name + '.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
     
@@ -148,7 +130,31 @@ def main():
     outFile.Write()
     outFile.Close()
     print('template file created:', templateFile)
-    
+   
+   
+def addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind=True): 
+    #add fake data for SR
+    dataName = 'leptonSum' if is1tau2l else 'jetHT' 
+    for ivar in variables:
+        for region in regionList:
+            dataHist = None
+            if 'SR' in region and ifBlind:
+                for sumPro in sumProList:
+                    if uf.isData(sumPro): continue
+                    print('fake data: ', sumPro)
+                    
+                    hist = sumProcessPerVar[ivar][region][sumPro]
+                    resetNegtiveBins(hist)
+                    
+                    if dataHist == None:
+                        dataHist = sumProcessPerVar[ivar][region][sumPro].Clone()  
+                        dataHist.SetName(dataHist.GetName().replace(sumPro, 'data_obs'))
+                    else:
+                        dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # some process has negative bins, set them to 0 
+                sumProcessPerVar[ivar][region][dataName] = dataHist
+                print('fake data hist:', dataHist.GetName())
+            dataHistName = sumProcessPerVar[ivar][region][dataName].GetName().replace(dataName, 'data_obs')
+            sumProcessPerVar[ivar][region][dataName].SetName(dataHistName)
 
 def resetNegtiveBins(hist):
     for i in range(1, hist.GetNbinsX()+1):

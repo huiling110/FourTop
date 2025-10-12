@@ -92,27 +92,29 @@ def main():
     # cardDir = 'combinationV18/run2_1tau2l/'
     # cardDir = 'combinationV18/run2_1tau1l/'
     # cardDir = 'combinationV18/run2_3years/'
-    # cardDir = 'combinationV18/run2_1tau1l_smoothed/'
+    cardDir = 'combinationV18/run2_1tau1l_smoothed/'
     # cardDir = 'combinationV18/run2_3years_smoothed/'
     # cardDir = 'combinationV18/run2_1tau2l_fixedWeight/'
-    cardDir = 'combinationV18/run2_3years_v3/'
+    # cardDir = 'combinationV18/run2_3years_v3/'
+    # ifBlind = True
+    ifBlind = False
 
      
      
     cardToWorkspaces( cardDir )
-    runCombineSig( cardDir, True )
-    runCombineSig( cardDir, False )
-    copyCombineResultsToDir( cardDir )
+    runImpact(cardDir )#!Step 1
+    
+    # runCombineSig( cardDir, True, ifBlind )
+    # runCombineSig( cardDir, False, ifBlind )
+    # copyCombineResultsToDir( cardDir )
 
-    runImpact(cardDir )
 
     
     
-def runImpact(cardDir):
+def runImpact(cardDir, ifBlind=True):
     for ifile in os.listdir(cardDir+'workspace/'):
         if ifile.find('root')>0:
             print('ifile: ', ifile)
-            # runImpact(cardDir+'workspace/'+ifile, cardDir+'combineResults/') 
             outFolder = cardDir + 'combineResults/'
             wf = cardDir + 'workspace/' + ifile
     
@@ -151,10 +153,10 @@ def copyCombineResultsToDir( cardDir ):
     out = process.communicate()
 
 
-def runCombineSig( cardDir, isLimit ):
+# def runCombineSig( cardDir, isLimit ):
+def runCombineSig( cardDir, isLimit, ifBlind=True ):
     workspaceDir =  cardDir + 'workspace/'
     resultDir = workspaceDir+'results/'
-    # uf.checkMakeDir(resultDir)
     if not os.path.exists(resultDir):
         os.mkdir( resultDir )
     for ifile in os.listdir( workspaceDir ):
@@ -163,10 +165,16 @@ def runCombineSig( cardDir, isLimit ):
             irootF = workspaceDir + ifile
             print("iname: ", iname)
             if isLimit:
-                significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
-                # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name} -S {outDir}'.format( rootFile=irootF, name=iname, outDir=resultDir )
+                # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
+                if ifBlind:
+                    significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
+                else:
+                    significanceCommand = 'combine -M AsymptoticLimits {rootFile} --name {name}'.format( rootFile=irootF, name=iname ) 
             else:
-                significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal=1 --name {name}'.format( rootFile=irootF, name=iname )
+                if ifBlind:
+                    significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal=1 --name {name}'.format( rootFile=irootF, name=iname )
+                else:
+                    significanceCommand = 'combine -M Significance {rootFile} --name {name}'.format( rootFile=irootF, name=iname )
             print( significanceCommand )
             irunSig = subprocess.Popen( [significanceCommand] ,
                     shell=True

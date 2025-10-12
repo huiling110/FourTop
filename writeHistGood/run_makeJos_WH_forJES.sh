@@ -17,4 +17,7 @@ VERSION="v5BDT1tau2l_tauFMorphFix"
 #     --version "${VERSION}" \
 #     > log_2018_1tau2l.log 2>&1 &
 
-nohup python3 jobs/makeJob_WH_forJES.py --inputDirBase "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/" --inVersion "v94LepPreJetVetoHemOnlyV2"  --outVersion "v1baselineHadroBtagWeightAdded" --channel "1tau2l" --version "v5BDT1tau2l_tauFMorphFix" > log_2017_1tau2l.log 2>&1 &
+# nohup python3 jobs/makeJob_WH_forJES.py --inputDirBase "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/" --inVersion "v94LepPreJetVetoHemOnlyV2"  --outVersion "v1baselineHadroBtagWeightAdded" --channel "1tau2l" --version "v5BDT1tau2l_tauFMorphFix" > log_2017_1tau2l.log 2>&1 &
+nohup python3 jobs/makeJob_WH_forJES.py --inputDirBase "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/" --inVersion "v94LepPreJetVetoHemOnlyV2"  --outVersion "v1baselineHadroBtagWeightAdded" --channel "1tau2l" --version "v5BDT1tau2l_tauFMorphFix" > log_2016preVFP_1tau2l.log 2>&1 &
+nohup python3 jobs/makeJob_WH_forJES.py --inputDirBase "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/" --inVersion "v94LepPreJetVetoHemOnlyV2"  --outVersion "v1baselineHadroBtagWeightAdded" --channel "1tau2l" --version "v5BDT1tau2l_tauFMorphFix" > log_2016postVFP_1tau2l.log 2>&1 &
+nohup python3 jobs/makeJob_WH_forJES.py --inputDirBase "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/" --inVersion "v94LepPreJetVetoHemOnlyV2"  --outVersion "v1baselineHadroBtagWeightAdded" --channel "1tau2l" --version "v5BDT1tau2l_tauFMorphFix" > log_2018_1tau2l.log 2>&1 &
