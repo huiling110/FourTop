@@ -1,11 +1,20 @@
 import os
 import subprocess
-import sys
+import argparse
 
 
 #!!!run this with python2 because the CMSSW supports only python2
 
 def main():
+    parser = argparse.ArgumentParser(description="Process some directories and options.")
+    parser.add_argument('--cardDir', type=str, required=True, help='The card directory to use.')
+    parser.add_argument('--ifBlind', type=bool, default=False, help='Flag indicating if analysis should be blinded.')
+
+    args = parser.parse_args()
+
+    cardDir = args.cardDir
+    ifBlind = args.ifBlind
+    
     #!1tau1l
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/'
     # cardDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/datacardSys_v6AllSys/'
@@ -96,16 +105,16 @@ def main():
     # cardDir = 'combinationV18/run2_3years_smoothed/'
     # cardDir = 'combinationV18/run2_1tau2l_fixedWeight/'
     # cardDir = 'combinationV18/run2_3years_v3/'
-    cardDir = 'combinationV18/run2_1tau2l_fixedWeight_unblind/'
+    # cardDir = 'combinationV18/run2_1tau2l_fixedWeight_unblind/'
     
     # ifBlind = True
-    ifBlind = False
+    # ifBlind = False
 
      
      
     cardToWorkspaces( cardDir )
     
-    runCombineSig( cardDir, True, ifBlind )
+    runCombineSig( cardDir, True, ifBlind )#!Step 3
     runCombineSig( cardDir, False, ifBlind )
     copyCombineResultsToDir( cardDir )
 

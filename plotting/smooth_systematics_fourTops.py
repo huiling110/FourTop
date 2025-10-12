@@ -26,7 +26,8 @@ def main():
     channel = '1tau1lSR'
     sysList = ['ps_fsr', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_Fragmentation', 'CMS_btag_fixedWP_comb_bc_correlated', 'CMS_scale_j_FlavorPureQuark'] #!No btag shape uncertainty in 1tau1l channel
     processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop']
-    input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau.root'
+    # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau.root'
+    input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind.root'
     
     
     # channel = '1tau0lSR'
