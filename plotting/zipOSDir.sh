@@ -6,7 +6,9 @@ BASE_DIR="/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2016_postVFP/"  # Edit 
 # List subdirectories to zip, separated by space
 # SUBDIRS=("run1" "run2" "data_exp" "test123")
 # SUBDIRS=("v94LepPreJetVetoHemOnlyV2_EleScaleDown" "v94LepPreJetVetoHemOnlyV2_EleScaleUp")
-SUBDIRS=("v94LepPreJetVetoHemOnlyV2_TESdm1Up" "v94LepPreJetVetoHemOnlyV2_TESdm1Down" "v94LepPreJetVetoHemOnlyV2_TESp1Up" "v94LepPreJetVetoHemOnlyV2_TESp1Down")
+# SUBDIRS=("v94LepPreJetVetoHemOnlyV2_TESdm1Up" "v94LepPreJetVetoHemOnlyV2_TESdm1Down" "v94LepPreJetVetoHemOnlyV2_TESp1Up" "v94LepPreJetVetoHemOnlyV2_TESp1Down")
+# SUBDIRS=("v94LepPreJetVetoHemOnlyV2_TESdm11Up" "v94LepPreJetVetoHemOnlyV2_TESdm11Down" "v94LepPreJetVetoHemOnlyV2_TESdm10Up" "v94LepPreJetVetoHemOnlyV2_TESdm10Down" "v94LepPreJetVetoHemOnlyV2_TESdm0Up" "v94LepPreJetVetoHemOnlyV2_TESdm0Down" "v94LepPreJetVetoHemOnlyV2_METUp" "v94LepPreJetVetoHemOnlyV2_METDown")
+SUBDIRS=("v94LepPreJetVetoHemOnlyV2_JERUp" "v94LepPreJetVetoHemOnlyV2_JESPt22")
 # ---------------------
 
 if [ ! -d "$BASE_DIR" ]; then

@@ -41,8 +41,8 @@ if __name__ == '__main__':
     # Define the base directory to search in
     # base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/'
     # base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/'
-    base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
-    # base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
+    # base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/'
+    base_dir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/'
 
     # keywords = ['v1baselineHadroBtagWeightAdded_JESup', 'v1baselineHadroBtagWeightAdded_JESDown']
     keywords = ['Up', 'Down']

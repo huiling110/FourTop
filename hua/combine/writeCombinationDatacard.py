@@ -132,11 +132,11 @@ def main():
     # cardDir = 'run2_1tau0l'
     # cardDir = 'run2_1tau2l'
     # cardDir = 'run2_3years'
-    # cardDir = 'run2_1tau1l_v4_unblind'
+    cardDir = 'run2_1tau1l_v4_unblind'
     # cardDir = 'run2_1tau0l_v4_unblind'
-    cardDir = 'run2_3channels_v4_unblind'
-    cardDic1tau1l.update(cardDic_1tau0l)
-    cardDic1tau1l.update(cardDic_1tau2l)
+    # cardDir = 'run2_3channels_v4_unblind'
+    # cardDic1tau1l.update(cardDic_1tau0l)
+    # cardDic1tau1l.update(cardDic_1tau2l)
     
     
     directory_path = 'combination'+combinationVersion+'/'+cardDir +'/'
