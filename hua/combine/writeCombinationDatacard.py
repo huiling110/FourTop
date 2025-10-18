@@ -111,10 +111,16 @@ cardDic_1tau2l = {
     # 'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2lV16/combine/datacardSys_v5BasicAndJESJER/datacard_1tau2l.txt',
     
     #!V18
-    'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/datacard_1tau2l.txt',
-    'SR1tau2l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/datacard_1tau2l.txt',
-    'SR1tau2l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/datacard_1tau2l.txt',
-    'SR1tau2l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/datacard_1tau2l.txt',
+    # 'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/datacard_1tau2l.txt',
+    # 'SR1tau2l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/datacard_1tau2l.txt',
+    # 'SR1tau2l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/datacard_1tau2l.txt',
+    # 'SR1tau2l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v3BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys/datacard_1tau2l.txt',
+    
+    #!V18 unblind
+    'SR1tau2l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys_unblind/datacard_1tau2l.txt',
+    'SR1tau2l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys_unblind/datacard_1tau2l.txt',
+    'SR1tau2l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys_unblind/datacard_1tau2l.txt',
+    'SR1tau2l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/datacardSys_v6AllSys_unblind/datacard_1tau2l.txt',
 }
 
 
@@ -132,11 +138,13 @@ def main():
     # cardDir = 'run2_1tau0l'
     # cardDir = 'run2_1tau2l'
     # cardDir = 'run2_3years'
-    cardDir = 'run2_1tau1l_v4_unblind'
+    # cardDir = 'run2_1tau1l_v4_unblind'
     # cardDir = 'run2_1tau0l_v4_unblind'
-    # cardDir = 'run2_3channels_v4_unblind'
-    # cardDic1tau1l.update(cardDic_1tau0l)
-    # cardDic1tau1l.update(cardDic_1tau2l)
+    # cardDir = 'run2_1tau0l_v4_unblind_smoothed'
+    # cardDir = 'run2_1tau2l_v4_unblind'
+    cardDir = 'run2_3channels_v4_unblind'
+    cardDic1tau1l.update(cardDic_1tau0l)
+    cardDic1tau1l.update(cardDic_1tau2l)
     
     
     directory_path = 'combination'+combinationVersion+'/'+cardDir +'/'
