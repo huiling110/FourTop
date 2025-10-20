@@ -99,15 +99,14 @@
     "python.formatting.provider": "yapf",
     "task.allowAutomaticTasks": "on",
     "C_Cpp.errorSquiggles": "Disabled",
-    "terminal.integrated.defaultProfile.windows": "",
-
-    "terminal.integrated.shell.linux": "/bin/bash",
-    "terminal.integrated.shellArgs.linux": [
-    "-l",
-    "-i",
-    "-c",
-    "source ${workspaceFolder}/setupEnv.sh; exec $SHELL"
-    ],
+    "terminal.integrated.defaultProfile.linux": "bash (with environment)",
+    "terminal.integrated.profiles.linux": {
+        "bash (with environment)": {
+            "path": "/bin/bash",
+            "args": ["-l", "-i", "-c", "source ${workspaceFolder}/setEnv_newNew.sh; exec $SHELL"]
+        }
+    },
+    "claudeCode.hooks.bash.pre": "source /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/setEnv_newNew.sh",
     "window.zoomLevel": 0,
     "files.exclude": {
         "**/*.o": true

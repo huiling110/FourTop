@@ -5,13 +5,14 @@ import pl as plt
 
 def main():
     channel = '1tau2l'
-    era = '2018'
     fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/fitDiagnosticsTest.root'
     iRegion = 'SR1tau2l' #format in the fitDiagnostics file
-    
-    
+
+    # Define all eras to process
+    eras = ['2018', '2017', '2016preVFP', '2016postVFP']
+
     variable = 'BDT'
-    # iRegion = '1tau2lSR'
+    # Plotting options
     ifFakeTau = True
     ifVLL = False
     ifMCFTau = False
@@ -21,13 +22,14 @@ def main():
     ifLogy = True
     ifPrintSB = True
     ifBlind = False
+
+    # Get process list
     sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)
 
     # Keep original list with ttZ, ttW, ttH for loading from file
     sumProList_forLoading = sumProList.copy()
 
     # Replace ttZ, ttW, ttH with ttX in the process list for plotting
-    # (the get_histograms function will load and merge these histograms)
     processes_to_group = ['ttZ', 'ttW', 'ttH']
     for proc in processes_to_group:
         if proc in sumProList:
@@ -39,37 +41,96 @@ def main():
     else:
         sumProList.insert(0, 'ttX')
 
-    sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)
-    #change the key of data back to leptonSum
+    print('Process list for plotting:', sumProList)
 
-    # getSumProHist_fromfitTest()
-    sumProcessPerFit = {}
-    #get hists for all sumprocess in a dictionary of the format nominal: {{process:hist}}
-    sumProcessPerFit = get_histograms(fitFile, iRegion, era, variable, sumProList_forLoading)
-    #change the key of data back to leptonSum for all fit types
-    #print the structure of sumProcessPerFit
-    
+    # Load histograms for all eras from the same file
+    histsPerEra = {}  # histsPerEra[era][fit][process] = histogram
+    for era in eras:
+        print(f'\nLoading histograms for era: {era}')
+        histsPerEra[era] = get_histograms(fitFile, iRegion, era, variable, sumProList_forLoading)
 
-   
-    #get the dir of fitFile
+    # Setup output directory
     fitDir = fitFile.rsplit('/', 1)[0]
-    plotDir = f'{fitDir}/postfitPlots/'  
+    plotDir = f'{fitDir}/postfitPlots/'
     uf.checkMakeDir(plotDir)
-    
-   
-    for ifit in sumProcessPerFit.keys():
-        sumProcess = sumProcessPerFit[ifit]
-        plotName = f'{variable}_{iRegion}_{ifit}'
 
-        plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
-        # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic, ifBlind) 
+    # Plot individual eras
+    for era in eras:
+        print(f'\nPlotting era: {era}')
+        sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)
+
+        for ifit in histsPerEra[era].keys():
+            sumProcess = histsPerEra[era][ifit]
+            plotName = f'{variable}_{iRegion}_{ifit}_{era}'
+
+            plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
+                               plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB,
+                               ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+
+    # Create and plot Run2 combination
+    print('\nCreating Run2 combination')
+    combinedHists = combine_eras(histsPerEra, sumProList)
+
+    sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, 'Run2', True)
+
+    for ifit in combinedHists.keys():
+        sumProcess = combinedHists[ifit]
+        plotName = f'{variable}_{iRegion}_{ifit}_Run2'
+
+        plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
+                           plotName, 'Run2', True, 100, ifStackSignal, ifLogy, ifPrintSB,
+                           ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+
+    print(f'\nAll plots saved to: {plotDir}')
+
+
+def combine_eras(histsPerEra, sumProList):
+    '''
+    Combine histograms from all eras into Run2 combination
+    histsPerEra[era][fit][process] = histogram
+    Returns: combinedHists[fit][process] = histogram
+    '''
+    combinedHists = {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
+
+    eras = list(histsPerEra.keys())
+    print(f'Combining eras: {eras}')
+
+    for fit in ['prefit', 'fit_s', 'fit_b']:
+        for process in sumProList:
+            # Start with the first era
+            firstEra = eras[0]
+            if process in histsPerEra[firstEra][fit]:
+                combinedHists[fit][process] = histsPerEra[firstEra][fit][process].Clone(f'{process}_{fit}_Run2')
+                combinedHists[fit][process].SetDirectory(0)
+
+                # Add histograms from other eras
+                for era in eras[1:]:
+                    if process in histsPerEra[era][fit]:
+                        combinedHists[fit][process].Add(histsPerEra[era][fit][process])
+                    else:
+                        print(f'Warning: Process {process} not found in era {era}, fit {fit}')
+
+                # Set title for combined histogram
+                combinedHists[fit][process].SetTitle('BDT score')
+            else:
+                print(f'Warning: Process {process} not found in first era {firstEra}, fit {fit}')
+
+    return combinedHists
+
 
 def get_histograms(filename, iRegion, era, variable, processList):
-    '''nominal: {{process:hist}}'''
+    '''
+    Load histograms from fitDiagnostics file for a specific era
+    Returns: sumProcessPerFit[fit][process] = histogram
+    '''
     # Open the ROOT file
     file = ROOT.TFile.Open(filename)
+    if not file or file.IsZombie():
+        print(f'Error: Cannot open file {filename}')
+        return {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
+
     # Create the dictionary to store histograms
-    sumProcessPerFit = {'prefit': {}, 'fit_s': {}, 'fit_b': {} }
+    sumProcessPerFit = {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
 
     # Iterate over prefit and postfit
     for fit in ['prefit', 'fit_s', 'fit_b']:
@@ -86,7 +147,7 @@ def get_histograms(filename, iRegion, era, variable, processList):
 
             if hist:
                 # Clone the histogram to keep it in memory after file closure
-                hist_clone = hist.Clone()
+                hist_clone = hist.Clone(f'{process}_{fit}_{era}')
                 # SetDirectory(0) detaches the histogram from the file
                 # Only histograms have SetDirectory, not TGraphs
                 if hasattr(hist_clone, 'SetDirectory'):
@@ -98,7 +159,7 @@ def get_histograms(filename, iRegion, era, variable, processList):
                     total_hist = file.Get(f'shapes_{fit}/{iRegion}_{era}/total')
                     if total_hist:
                         # Create a histogram with the same binning as total
-                        data_hist = total_hist.Clone(f"data_{fit}")
+                        data_hist = total_hist.Clone(f"data_{fit}_{era}")
                         data_hist.Reset()
                         data_hist.SetDirectory(0)
 
@@ -119,7 +180,7 @@ def get_histograms(filename, iRegion, era, variable, processList):
 
                 sumProcessPerFit[fit][process] = hist_clone
             else:
-                print(f"Warning: Histogram {histname} not found in {fit}.")
+                print(f"Warning: Histogram {histname} not found in {fit} for era {era}.")
 
     # Close the ROOT file
     file.Close()
@@ -133,7 +194,7 @@ def get_histograms(filename, iRegion, era, variable, processList):
             if process in sumProcessPerFit[fit]:
                 if ttX_hist is None:
                     # Clone the first histogram as the base for ttX
-                    ttX_hist = sumProcessPerFit[fit][process].Clone(f"ttX_{fit}")
+                    ttX_hist = sumProcessPerFit[fit][process].Clone(f"ttX_{fit}_{era}")
                     ttX_hist.SetDirectory(0)
                 else:
                     # Add subsequent histograms
@@ -144,6 +205,10 @@ def get_histograms(filename, iRegion, era, variable, processList):
         # Add the combined ttX histogram
         if ttX_hist is not None:
             sumProcessPerFit[fit]['ttX'] = ttX_hist
+
+        # Set x-axis label to 'BDT score' for all histograms
+        for process, hist in sumProcessPerFit[fit].items():
+            hist.SetTitle('BDT score')
 
     return sumProcessPerFit
 
