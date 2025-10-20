@@ -4,12 +4,10 @@ import pl as plt
 #
 
 def main():
-    channel = '1tau2l'
-    fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/fitDiagnosticsTest.root'
-    iRegion = 'SR1tau2l' #format in the fitDiagnostics file
-
-    # Define all eras to process
-    eras = ['2018', '2017', '2016preVFP', '2016postVFP']
+    # Fit file with 3 channels (1tau0l, 1tau1l, 1tau2l)
+    fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/fitDiagnosticsTest.root'
+    # Previous single channel fit file:
+    # fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/fitDiagnosticsTest.root'
 
     variable = 'BDT'
     # Plotting options
@@ -23,65 +21,131 @@ def main():
     ifPrintSB = True
     ifBlind = False
 
-    # Get process list
-    sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)
+    # Automatically detect channels and eras from the file
+    print(f'Analyzing fitDiagnostics file: {fitFile}')
+    channels_eras = get_channels_and_eras(fitFile)
 
-    # Keep original list with ttZ, ttW, ttH for loading from file
-    sumProList_forLoading = sumProList.copy()
-
-    # Replace ttZ, ttW, ttH with ttX in the process list for plotting
-    processes_to_group = ['ttZ', 'ttW', 'ttH']
-    for proc in processes_to_group:
-        if proc in sumProList:
-            sumProList.remove(proc)
-    # Add ttX at the position where ttZ was (or after tt if ttZ wasn't there)
-    if 'tt' in sumProList:
-        tt_index = sumProList.index('tt')
-        sumProList.insert(tt_index + 1, 'ttX')
-    else:
-        sumProList.insert(0, 'ttX')
-
-    print('Process list for plotting:', sumProList)
-
-    # Load histograms for all eras from the same file
-    histsPerEra = {}  # histsPerEra[era][fit][process] = histogram
-    for era in eras:
-        print(f'\nLoading histograms for era: {era}')
-        histsPerEra[era] = get_histograms(fitFile, iRegion, era, variable, sumProList_forLoading)
+    print(f'\nFound channels and eras:')
+    for channel, eras in channels_eras.items():
+        print(f'  {channel}: {eras}')
 
     # Setup output directory
     fitDir = fitFile.rsplit('/', 1)[0]
     plotDir = f'{fitDir}/postfitPlots/'
     uf.checkMakeDir(plotDir)
 
-    # Plot individual eras
-    for era in eras:
-        print(f'\nPlotting era: {era}')
-        sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)
+    # Process each channel
+    for channel, eras in channels_eras.items():
+        print(f'\n{"="*80}')
+        print(f'Processing channel: {channel}')
+        print(f'{"="*80}')
 
-        for ifit in histsPerEra[era].keys():
-            sumProcess = histsPerEra[era][ifit]
-            plotName = f'{variable}_{iRegion}_{ifit}_{era}'
+        iRegion = f'SR{channel}'  # e.g., SR1tau0l, SR1tau1l, SR1tau2l
+
+        # Get process list for this channel
+        sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)
+
+        # Keep original list with ttZ, ttW, ttH for loading from file
+        sumProList_forLoading = sumProList.copy()
+
+        # Replace ttZ, ttW, ttH with ttX in the process list for plotting
+        processes_to_group = ['ttZ', 'ttW', 'ttH']
+        for proc in processes_to_group:
+            if proc in sumProList:
+                sumProList.remove(proc)
+        # Add ttX at the position where ttZ was (or after tt if ttZ wasn't there)
+        if 'tt' in sumProList:
+            tt_index = sumProList.index('tt')
+            sumProList.insert(tt_index + 1, 'ttX')
+        else:
+            sumProList.insert(0, 'ttX')
+
+        print(f'Process list for plotting: {sumProList}')
+
+        # Load histograms for all eras from the same file
+        histsPerEra = {}  # histsPerEra[era][fit][process] = histogram
+        for era in eras:
+            print(f'\nLoading histograms for era: {era}')
+            histsPerEra[era] = get_histograms(fitFile, iRegion, era, variable, sumProList_forLoading)
+
+        # Plot individual eras
+        for era in eras:
+            print(f'\nPlotting {channel} era: {era}')
+            sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)
+
+            for ifit in histsPerEra[era].keys():
+                sumProcess = histsPerEra[era][ifit]
+                plotName = f'{variable}_{iRegion}_{ifit}_{era}'
+
+                plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
+                                   plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB,
+                                   ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+
+        # Create and plot Run2 combination for this channel
+        print(f'\nCreating Run2 combination for {channel}')
+        combinedHists = combine_eras(histsPerEra, sumProList)
+
+        sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, 'Run2', True)
+
+        for ifit in combinedHists.keys():
+            sumProcess = combinedHists[ifit]
+            plotName = f'{variable}_{iRegion}_{ifit}_Run2'
 
             plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
-                               plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB,
+                               plotName, 'Run2', True, 100, ifStackSignal, ifLogy, ifPrintSB,
                                ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
 
-    # Create and plot Run2 combination
-    print('\nCreating Run2 combination')
-    combinedHists = combine_eras(histsPerEra, sumProList)
+    print(f'\n{"="*80}')
+    print(f'All plots saved to: {plotDir}')
+    print(f'{"="*80}')
 
-    sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, 'Run2', True)
 
-    for ifit in combinedHists.keys():
-        sumProcess = combinedHists[ifit]
-        plotName = f'{variable}_{iRegion}_{ifit}_Run2'
+def get_channels_and_eras(filename):
+    '''
+    Automatically detect channels and eras from fitDiagnostics file
+    Returns: dict with channel: [list of eras]
+    Example: {'1tau0l': ['2016preVFP', '2016postVFP', '2017', '2018'], ...}
+    '''
+    file = ROOT.TFile.Open(filename)
+    if not file or file.IsZombie():
+        print(f'Error: Cannot open file {filename}')
+        return {}
 
-        plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
-                           plotName, 'Run2', True, 100, ifStackSignal, ifLogy, ifPrintSB,
-                           ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+    channels_eras = {}
 
-    print(f'\nAll plots saved to: {plotDir}')
+    # Check shapes_fit_s directory for available regions
+    shapes_dir = file.Get('shapes_fit_s')
+    if shapes_dir:
+        keys = shapes_dir.GetListOfKeys()
+        for key in keys:
+            obj = key.ReadObj()
+            if obj.IsA().InheritsFrom(ROOT.TDirectory.Class()):
+                region_name = obj.GetName()  # e.g., 'SR1tau0l_2018'
+
+                # Parse region name to extract channel and era
+                # Format: SR{channel}_{era}
+                if '_' in region_name:
+                    parts = region_name.split('_')
+                    if len(parts) == 2:
+                        region_part = parts[0]  # SR1tau0l
+                        era = parts[1]  # 2018
+
+                        # Extract channel from region (remove 'SR' prefix)
+                        if region_part.startswith('SR'):
+                            channel = region_part[2:]  # 1tau0l, 1tau1l, 1tau2l
+
+                            if channel not in channels_eras:
+                                channels_eras[channel] = []
+                            if era not in channels_eras[channel]:
+                                channels_eras[channel].append(era)
+
+    file.Close()
+
+    # Sort eras for consistent ordering
+    for channel in channels_eras:
+        channels_eras[channel].sort()
+
+    return channels_eras
 
 
 def combine_eras(histsPerEra, sumProList):
