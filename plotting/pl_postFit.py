@@ -16,18 +16,36 @@ def main():
     ifVLL = False
     ifMCFTau = False
     ifDoSystmatic = False
+    ifPostfit = True  # Flag to indicate this is a postfit plot (uncertainties already include stat+syst from fit)
     ifStackSignal = True
     ifLogy = True
     ifPrintSB = True
     ifBlind = False
-    sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)    
-    sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)    
+    sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)
+
+    # Keep original list with ttZ, ttW, ttH for loading from file
+    sumProList_forLoading = sumProList.copy()
+
+    # Replace ttZ, ttW, ttH with ttX in the process list for plotting
+    # (the get_histograms function will load and merge these histograms)
+    processes_to_group = ['ttZ', 'ttW', 'ttH']
+    for proc in processes_to_group:
+        if proc in sumProList:
+            sumProList.remove(proc)
+    # Add ttX at the position where ttZ was (or after tt if ttZ wasn't there)
+    if 'tt' in sumProList:
+        tt_index = sumProList.index('tt')
+        sumProList.insert(tt_index + 1, 'ttX')
+    else:
+        sumProList.insert(0, 'ttX')
+
+    sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)
     #change the key of data back to leptonSum
 
     # getSumProHist_fromfitTest()
     sumProcessPerFit = {}
     #get hists for all sumprocess in a dictionary of the format nominal: {{process:hist}}
-    sumProcessPerFit = get_histograms(fitFile, iRegion, era, variable, sumProList)
+    sumProcessPerFit = get_histograms(fitFile, iRegion, era, variable, sumProList_forLoading)
     #change the key of data back to leptonSum for all fit types
     #print the structure of sumProcessPerFit
     
@@ -42,8 +60,8 @@ def main():
     for ifit in sumProcessPerFit.keys():
         sumProcess = sumProcessPerFit[ifit]
         plotName = f'{variable}_{iRegion}_{ifit}'
-        
-        plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind)
+
+        plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
         # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic, ifBlind) 
 
 def get_histograms(filename, iRegion, era, variable, processList):
@@ -105,6 +123,27 @@ def get_histograms(filename, iRegion, era, variable, processList):
 
     # Close the ROOT file
     file.Close()
+
+    # Group ttW, ttH, and ttZ into ttX
+    for fit in ['prefit', 'fit_s', 'fit_b']:
+        ttX_hist = None
+        processes_to_combine = ['ttZ', 'ttW', 'ttH']
+
+        for process in processes_to_combine:
+            if process in sumProcessPerFit[fit]:
+                if ttX_hist is None:
+                    # Clone the first histogram as the base for ttX
+                    ttX_hist = sumProcessPerFit[fit][process].Clone(f"ttX_{fit}")
+                    ttX_hist.SetDirectory(0)
+                else:
+                    # Add subsequent histograms
+                    ttX_hist.Add(sumProcessPerFit[fit][process])
+                # Remove the individual process
+                del sumProcessPerFit[fit][process]
+
+        # Add the combined ttX histogram
+        if ttX_hist is not None:
+            sumProcessPerFit[fit]['ttX'] = ttX_hist
 
     return sumProcessPerFit
 

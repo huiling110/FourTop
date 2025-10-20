@@ -321,7 +321,7 @@ def checkHists( histsDict ):
         histsDict[ikey].Print()
 
 
-def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}, ifSystematic=False, ifBlinding=True):
+def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}, ifSystematic=False, ifBlinding=True, ifPostfit=False):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
@@ -400,7 +400,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     assymErrorPlotRatio.Draw("e2 same")
 
     #legend
-    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL, ifStackSignal, ifSystematic)
+    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL, ifStackSignal, ifSystematic, ifPostfit)
     leggy.Draw()
     
     #text above the plot
@@ -430,7 +430,7 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     canvas.Draw()
 
  
-def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL='', ifStackSignal=False, ifDoSystmatic=False):
+def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL='', ifStackSignal=False, ifDoSystmatic=False, ifPostfit=False):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     canvy.cd()
     leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
@@ -451,9 +451,16 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
         else:
             legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
             leggy.AddEntry(nominal[ipro], legText,"f")
-    
-    sysLeggy = 'Stat.+ Syst. unc' if ifDoSystmatic else 'Stat. unc'
-    leggy.AddEntry(assymErrorPlot, sysLeggy,"f")    
+
+    # Determine the uncertainty label based on flags
+    if ifPostfit:
+        sysLeggy = 'Postfit unc.'  # Postfit uncertainties include stat + all syst propagated through fit
+    elif ifDoSystmatic:
+        sysLeggy = 'Stat. + Syst. unc.'  # Pre-fit with systematics
+    else:
+        sysLeggy = 'Stat. unc.'  # Only statistical uncertainties
+
+    leggy.AddEntry(assymErrorPlot, sysLeggy,"f")
     # leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
     
     leggy.SetNColumns(2) 
