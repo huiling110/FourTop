@@ -112,13 +112,37 @@ def main():
 
      
      
-    cardToWorkspaces( cardDir )
+    # cardToWorkspaces( cardDir )
     
-    runCombineSig( cardDir, True, ifBlind )#!Step 3
-    runCombineSig( cardDir, False, ifBlind )
-    copyCombineResultsToDir( cardDir )
+    # runCombineSig( cardDir, True, ifBlind )#!Step 3
+    # runCombineSig( cardDir, False, ifBlind )
+    # copyCombineResultsToDir( cardDir )
 
-    runImpact(cardDir )#!Step 1 of unblinding
+    # runImpact(cardDir )#!Step 1 of unblinding
+    
+    runPostFitPlots(cardDir)#!Step 2 of unblinding
+
+def runPostFitPlots(cardDir):
+    '''Using CMSSW14_1_0_pre4 to run postfit plots'''
+    for ifile in os.listdir(cardDir+'workspace/'):
+        if ifile.find('root')>0:
+            print('ifile: ', ifile)
+            outFolder = cardDir + 'combineResults/'
+            wf = cardDir + 'workspace/' + ifile
+    
+            postfitDir = outFolder+ 'postfitPlots/'
+            if not os.path.exists(postfitDir):
+                os.mkdir(postfitDir)
+            fitCommand = 'combine -M FitDiagnostics {}  --rMin 0 --rMax 20 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0'.format(wf) #generate fitDiagnostics_postfit.root
+            #[WARNING]: Unable to determine uncertainties on all fit parameters in b-only fit. The option --saveWithUncertainties will be ignored as it would lead to incorrect results --> This means the covariance matrix calculated in FitDiagnostics was not correct.
+            # plotCommand = 'python diffNuisances.py fitDiagnostics_postfit.root --all --output-file {}/nuisancePostFit.txt '.format(postfitDir)
+            # plotCommand2 = 'python plotNuisances.py -i {}/nuisancePostFit.txt -o {}/nuisancePostFit '.format(postfitDir, postfitDir)
+            # mv = 'mv fitDiagnostics_postfit.root nuisancesPostFit.pdf combine_logger.out {}'.format(postfitDir)
+            runCommand(fitCommand)
+            # runCommand(plotCommand)
+            # runCommand(plotCommand2)
+            # runCommand(mv)
+            # print('postfitPlots here: ', postfitDir+'nuisancePostFit.pdf')
 
     
     
