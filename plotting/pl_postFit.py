@@ -179,7 +179,80 @@ def combine_eras(histsPerEra, sumProList):
             else:
                 print(f'Warning: Process {process} not found in first era {firstEra}, fit {fit}')
 
+        # Remove trailing empty bins from combined histograms
+        combinedHists[fit] = trim_empty_bins(combinedHists[fit])
+
     return combinedHists
+
+
+def trim_empty_bins(histDict):
+    '''
+    Remove trailing empty bins from all histograms
+    histDict: {process: histogram}
+    Returns: dict with trimmed histograms
+    '''
+    if not histDict:
+        return histDict
+
+    # Find the last bin with content across all processes
+    last_filled_bin = 0
+    for process, hist in histDict.items():
+        if hist:
+            nbins = hist.GetNbinsX()
+            # Find last non-empty bin for this histogram
+            for bin_num in range(nbins, 0, -1):
+                content = hist.GetBinContent(bin_num)
+                if content > 0:
+                    last_filled_bin = max(last_filled_bin, bin_num)
+                    break
+
+    if last_filled_bin == 0:
+        print("Warning: All bins are empty!")
+        return histDict
+
+    # Get the first histogram to check if trimming is needed
+    first_hist = list(histDict.values())[0]
+    nbins_original = first_hist.GetNbinsX()
+
+    # Only trim if there are empty bins at the end
+    if last_filled_bin >= nbins_original:
+        return histDict
+
+    print(f"Trimming histograms from {nbins_original} bins to {last_filled_bin} bins")
+
+    # Create new histograms with trimmed bins
+    trimmed_histDict = {}
+    for process, hist in histDict.items():
+        if hist:
+            # Get bin edges for the new histogram
+            xaxis = hist.GetXaxis()
+            bin_edges = [xaxis.GetBinLowEdge(i) for i in range(1, last_filled_bin + 2)]
+
+            # Create new histogram with trimmed bins
+            new_hist = ROOT.TH1F(
+                f"{hist.GetName()}_trimmed",
+                hist.GetTitle(),
+                last_filled_bin,
+                bin_edges[0],
+                bin_edges[-1]
+            )
+            new_hist.SetDirectory(0)
+
+            # Copy bin contents and errors
+            for bin_num in range(1, last_filled_bin + 1):
+                new_hist.SetBinContent(bin_num, hist.GetBinContent(bin_num))
+                new_hist.SetBinError(bin_num, hist.GetBinError(bin_num))
+
+            # Copy histogram style
+            new_hist.SetLineColor(hist.GetLineColor())
+            new_hist.SetFillColor(hist.GetFillColor())
+            new_hist.SetMarkerColor(hist.GetMarkerColor())
+            new_hist.SetMarkerStyle(hist.GetMarkerStyle())
+            new_hist.SetLineWidth(hist.GetLineWidth())
+
+            trimmed_histDict[process] = new_hist
+
+    return trimmed_histDict
 
 
 def get_histograms(filename, iRegion, era, variable, processList):
@@ -269,6 +342,9 @@ def get_histograms(filename, iRegion, era, variable, processList):
         # Add the combined ttX histogram
         if ttX_hist is not None:
             sumProcessPerFit[fit]['ttX'] = ttX_hist
+
+        # Remove trailing empty bins
+        sumProcessPerFit[fit] = trim_empty_bins(sumProcessPerFit[fit])
 
         # Set x-axis label to 'BDT score' for all histograms
         for process, hist in sumProcessPerFit[fit].items():
