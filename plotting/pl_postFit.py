@@ -21,10 +21,6 @@ def main():
     ifPrintSB = True
     ifBlind = False
     sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)    
-    #change leptonSum in sumProList to data
-    # if 'leptonSum' in sumProList:
-    #     sumProList[sumProList.index('leptonSum')] = 'data'
-    # print("sumProList:", sumProList)
     sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)    
     #change the key of data back to leptonSum
 
@@ -33,7 +29,9 @@ def main():
     #get hists for all sumprocess in a dictionary of the format nominal: {{process:hist}}
     sumProcessPerFit = get_histograms(fitFile, iRegion, era, variable, sumProList)
     #change the key of data back to leptonSum for all fit types
-   
+    #print the structure of sumProcessPerFit
+    
+
    
     #get the dir of fitFile
     fitDir = fitFile.rsplit('/', 1)[0]
@@ -44,6 +42,7 @@ def main():
     for ifit in sumProcessPerFit.keys():
         sumProcess = sumProcessPerFit[ifit]
         plotName = f'{variable}_{iRegion}_{ifit}'
+        
         plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind)
         # makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic, ifBlind) 
 
@@ -53,7 +52,7 @@ def get_histograms(filename, iRegion, era, variable, processList):
     file = ROOT.TFile.Open(filename)
     # Create the dictionary to store histograms
     sumProcessPerFit = {'prefit': {}, 'fit_s': {}, 'fit_b': {} }
-    
+
     # Iterate over prefit and postfit
     for fit in ['prefit', 'fit_s', 'fit_b']:
         # Attempt to find histograms for each process
@@ -66,16 +65,47 @@ def get_histograms(filename, iRegion, era, variable, processList):
             histname = f'shapes_{fit}/{iRegion}_{era}/{processToGet}'
             # Retrieve the histogram from the file
             hist = file.Get(histname)
-            
+
             if hist:
-                # If histogram is found, add it to the dictionary
-                sumProcessPerFit[fit][process] = hist
+                # Clone the histogram to keep it in memory after file closure
+                hist_clone = hist.Clone()
+                # SetDirectory(0) detaches the histogram from the file
+                # Only histograms have SetDirectory, not TGraphs
+                if hasattr(hist_clone, 'SetDirectory'):
+                    hist_clone.SetDirectory(0)
+
+                # For data, convert TGraphAsymmErrors to TH1
+                if (process == 'leptonSum' or process == 'jetHT') and hist_clone.ClassName() == 'TGraphAsymmErrors':
+                    # Get the total histogram to get binning
+                    total_hist = file.Get(f'shapes_{fit}/{iRegion}_{era}/total')
+                    if total_hist:
+                        # Create a histogram with the same binning as total
+                        data_hist = total_hist.Clone(f"data_{fit}")
+                        data_hist.Reset()
+                        data_hist.SetDirectory(0)
+
+                        # Fill the histogram from TGraph points
+                        import ctypes
+                        x = ctypes.c_double(0)
+                        y = ctypes.c_double(0)
+                        for i in range(hist_clone.GetN()):
+                            hist_clone.GetPoint(i, x, y)
+                            bin_num = data_hist.FindBin(x.value)
+                            data_hist.SetBinContent(bin_num, y.value)
+                            # Set error as the average of up and down errors
+                            err_low = hist_clone.GetErrorYlow(i)
+                            err_high = hist_clone.GetErrorYhigh(i)
+                            data_hist.SetBinError(bin_num, (err_low + err_high) / 2.0)
+
+                        hist_clone = data_hist
+
+                sumProcessPerFit[fit][process] = hist_clone
             else:
                 print(f"Warning: Histogram {histname} not found in {fit}.")
 
     # Close the ROOT file
     file.Close()
-    
+
     return sumProcessPerFit
 
 
