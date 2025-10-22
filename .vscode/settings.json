@@ -109,14 +109,40 @@
     "claudeCode.hooks.bash.pre": "source /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/setEnv_newNew.sh",
     "window.zoomLevel": 0,
     "files.exclude": {
-        "**/*.o": true
+        "**/*.o": true,
+        "**/__pycache__": true,
+        "**/objectSelectionOptimized/inmkc": true
     },
     "files.watcherExclude": {
         "**.root": true,
         "**/*.o": true,
         "**/*.out": true,
-        "**/jobs/**/*.sh": true
+        "**/jobs/**/*.sh": true,
+        "**/hua/combine/combinationV*/": true,
+        "**/hua/combine/datacards/": true,
+        "**/hua/tmva/dataset/": true,
+        "**/hua/tmva/output/": true,
+        "**/hua/tmva/build/": true,
+        "**/writeHistGood/build/": true,
+        "**/CMSSW_*/**": true,
+        "**/.git/objects/**": true,
+        "**/tmp/**": true
     },
+    "search.exclude": {
+        "**/hua/combine/combinationV*/": true,
+        "**/hua/combine/datacards/": true,
+        "**/hua/tmva/dataset/": true,
+        "**/hua/tmva/output/": true,
+        "**/hua/tmva/results/": true,
+        "**/hua/tmva/plots/": true,
+        "**/writeHistGood/build/": true,
+        "**/*.log": true,
+        "**/*.root": true,
+        "**/CMSSW_*/**": true,
+        "**/.git": true
+    },
+    "search.followSymlinks": false,
+    "search.maxResults": 5000,
     "editor.defaultFormatter": "ms-python.autopep8",
     "cmake.ignoreCMakeListsMissing": true,
 
