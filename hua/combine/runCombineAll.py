@@ -33,7 +33,10 @@ def main():
     
     
 def measureSignalStrength(cardDir):
-    '''Measure signal strength using MultiDimFit method'''
+    '''
+        Measure signal strength using MultiDimFit method
+        Reference: https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/latest/part5/longexercise/#e-signal-strength-measurement-and-uncertainty-breakdown
+    '''
     datacardFile = cardDir + 'workspace/datacard.root'
     outFolder = cardDir + 'combineResults/'
 
@@ -41,18 +44,53 @@ def measureSignalStrength(cardDir):
     if not os.path.exists(signalStrengthDir):
         os.mkdir(signalStrengthDir)
 
-    # Best fit for signal strength
-    fitCommand = 'combine -M MultiDimFit {} --algo singles --redefineSignalPOIs r --saveWorkspace --rMin 0 --rMax 20'.format(datacardFile)
+    # Best fit for signal strength (total uncertainty)
+    # fitCommand = 'combine -M MultiDimFit {}  --redefineSignalPOIs r --saveWorkspace --rMin 0 --rMax 10'.format(datacardFile)
 
     # Likelihood scan
-    scanCommand = 'combine -M MultiDimFit {} --algo grid --points 100 --rMin 0 --rMax 20 --redefineSignalPOIs r -n .scan'.format(datacardFile)
-
-    mv = 'mv higgsCombine*.root multidimfit.root combine_logger.out {}'.format(signalStrengthDir)
-
-    runCommand(fitCommand)
+    scanCommand = 'combine -M MultiDimFit {} --algo grid --points 100 --rMin 0 --rMax 10 --redefineSignalPOIs r -n .scan'.format(datacardFile)
     runCommand(scanCommand)
+
+    # Fit with only statistical uncertainty (freeze all nuisance parameters)
+    fitSnapCommand = f'combine -M MultiDimFit {datacardFile} -n .snapshot --rMin 0 --rMax 10 --saveWorkspace'
+    runCommand(fitSnapCommand)
+    freezeAllCommand = 'combine -M MultiDimFit higgsCombine.snapshot.MultiDimFit.mH120.root -n .freezeAll --rMin 0 --rMax 10 --algo grid --points 100 --freezeParameters allConstrainedNuisances --snapshotName MultiDimFit'
+    runCommand(freezeAllCommand)
+    # python plot1DScan.py higgsCombine.part3E.MultiDimFit.mH200.root --others 'higgsCombine.part3E.freezeAll.MultiDimFit.mH200.root:FreezeAll:2' -o freeze_second_attempt --breakdown Syst,Stat
+    # fitStatCommand = 'combine -M MultiDimFit {} --algo singles --redefineSignalPOIs r --freezeParameters allConstrainedNuisances --rMin 0 --rMax 10 -n .stat'.format(datacardFile)
+    # runCommand(fitStatCommand)
+    # Plot likelihood scan (plot1DScan.py is in PATH after cmsenv)
+    # Overlay stat-only scan to show total vs statistical uncertainty, systematic is derived
+    plotScanCommand = "plot1DScan.py higgsCombine.scan.MultiDimFit.mH120.root --others 'higgsCombine.freezeAll.MultiDimFit.mH120.root:StatOnly:2' -o scan_plot --breakdown Syst,Stat"
+    runCommand(plotScanCommand)
+
+    # Move files - only move files that actually exist
+    mv = 'mv higgsCombine*.root combine_logger.out {}'.format(signalStrengthDir)
     runCommand(mv)
+
+    # Move plot files if they exist
+    mvPlot = 'if ls scan_plot.* 1> /dev/null 2>&1; then mv scan_plot.* {}; fi'.format(signalStrengthDir)
+    runCommand(mvPlot)
+
+    # Report uncertainties
     print('Signal strength results here: ', signalStrengthDir)
+    print('\n' + '='*60)
+    print('Signal Strength and Uncertainty Breakdown:')
+    print('='*60)
+
+    # Extract values from ROOT files using combine's output format
+    extractTotal = 'cd {} && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"'.format(signalStrengthDir)
+    extractStat = 'cd {} && combine -M MultiDimFit higgsCombine.stat.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"'.format(signalStrengthDir)
+
+    print('\nRunning uncertainty extraction...')
+    runCommand(extractTotal)
+    runCommand(extractStat)
+
+    print('\nTo extract the values manually, run:')
+    print('cd {} && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"'.format(signalStrengthDir))
+    print('cd {} && combine -M MultiDimFit higgsCombine.stat.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"'.format(signalStrengthDir))
+    print('\nSystematic uncertainty = sqrt(total_unc^2 - stat_unc^2)')
+    print('='*60)
 
 
 def runPostFitPlots(cardDir):
