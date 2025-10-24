@@ -64,10 +64,6 @@ def goodnessOfFit(cardDir):
     runCommand(plot1)
     runCommand(plotGofCommand)
 
-    # Move files
-    # mv = 'mv higgsCombine*.root combine_logger.out {}'.format(goodnessOfFitDir)
-    # runCommand(mv)
-    
     print('Goodness-of-fit results here: ', goodnessOfFitDir)
     print('\n' + '='*60)
     print('Goodness-of-Fit Test Results:')
