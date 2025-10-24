@@ -54,14 +54,13 @@ def goodnessOfFit(cardDir):
     runCommand(gofObservedCommand)
 
     # Generate toys for expected distribution
-    gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 100'.format(datacardFile)
+    gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 200'.format(datacardFile)
     runCommand(gofToysCommand)
 
-    
     #plot GOF results 
     # plotGofCommand = 'plotGof.py higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombine.toys.GoodnessOfFit.mH120.123456.root --statistic saturated --mass 120.0 -o gof_plot'.format(goodnessOfFitDir)
     plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json'#gets error running combineTool.py
-    plotGofCommand = 'plotGof.py gof.json --statistic saturated -o gof_plot'
+    plotGofCommand = 'plotGof.py gof.json --statistic saturated --mass 120.0 -o gof_plot'
     runCommand(plot1)
     runCommand(plotGofCommand)
 
