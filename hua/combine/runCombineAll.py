@@ -29,9 +29,52 @@ def main():
     
     # runPostFitPlots(cardDir)#!Step 2 of unblinding
     
-    measureSignalStrength(cardDir)#!Step 3 of unblinding
+    # measureSignalStrength(cardDir)#!Step 3 of unblinding
     
+    goodnessOfFit(cardDir)#!Step 1 of unblinding
+
+
+def goodnessOfFit(cardDir):
+    '''
+        Perform goodness-of-fit test to assess the quality of the fit
+        Reference: 
+        https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/latest/part3/commonstatsmethods/?h=good#goodness-of-fit-tests
+    '''
+    datacardFile = cardDir + 'workspace/datacard.root'
+    outFolder = cardDir + 'combineResults/'
+
+    goodnessOfFitDir = outFolder + 'goodnessOfFit/'
+    if not os.path.exists(goodnessOfFitDir):
+        os.mkdir(goodnessOfFitDir)
+    #cd goodnessOfFitDir
+    os.chdir(goodnessOfFitDir) #!don't need to cd in run_runCombineAll.sh anymore
+
+    # Run goodness-of-fit test on observed data
+    gofObservedCommand = 'combine -M GoodnessOfFit {} --algo saturated -n .observed'.format(datacardFile)
+    runCommand(gofObservedCommand)
+
+    # Generate toys for expected distribution
+    gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 100'.format(datacardFile)
+    runCommand(gofToysCommand)
+
     
+    #plot GOF results 
+    # plotGofCommand = 'plotGof.py higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombine.toys.GoodnessOfFit.mH120.123456.root --statistic saturated --mass 120.0 -o gof_plot'.format(goodnessOfFitDir)
+    plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json'#gets error running combineTool.py
+    plotGofCommand = 'plotGof.py gof.json --statistic saturated -o gof_plot'
+    runCommand(plot1)
+    runCommand(plotGofCommand)
+
+    # Move files
+    # mv = 'mv higgsCombine*.root combine_logger.out {}'.format(goodnessOfFitDir)
+    # runCommand(mv)
+    
+    print('Goodness-of-fit results here: ', goodnessOfFitDir)
+    print('\n' + '='*60)
+    print('Goodness-of-Fit Test Results:')
+    print('='*60)
+
+
 def measureSignalStrength(cardDir):
     '''
         Measure signal strength using MultiDimFit method
@@ -43,9 +86,6 @@ def measureSignalStrength(cardDir):
     signalStrengthDir = outFolder + 'signalStrength/'
     if not os.path.exists(signalStrengthDir):
         os.mkdir(signalStrengthDir)
-
-    # Best fit for signal strength (total uncertainty)
-    # fitCommand = 'combine -M MultiDimFit {}  --redefineSignalPOIs r --saveWorkspace --rMin 0 --rMax 10'.format(datacardFile)
 
     # Likelihood scan
     scanCommand = 'combine -M MultiDimFit {} --algo grid --points 100 --rMin 0 --rMax 10 --redefineSignalPOIs r -n .scan'.format(datacardFile)
@@ -142,7 +182,10 @@ def runImpact(cardDir, ifBlind=True):
 
 def runCommand(com):
     print('run command: ', com)
-    process = subprocess.Popen( com, shell=True )
+    # Set environment to ignore user site-packages, use only CMSSW packages
+    env = os.environ.copy()
+    env['PYTHONNOUSERSITE'] = '1'
+    process = subprocess.Popen( com, shell=True, env=env )
     out = process.communicate()
     print(out)
     print('\n')
@@ -181,8 +224,11 @@ def runCombineSig( cardDir, isLimit, ifBlind=True ):
                 else:
                     significanceCommand = 'combine -M Significance {rootFile} --name {name}'.format( rootFile=irootF, name=iname )
             print( significanceCommand )
+            env = os.environ.copy()
+            env['PYTHONNOUSERSITE'] = '1'
             irunSig = subprocess.Popen( [significanceCommand] ,
-                    shell=True
+                    shell=True,
+                    env=env
                     )
             irunSigOut = irunSig.communicate()[0]
             print( irunSigOut )
@@ -207,7 +253,9 @@ def cardToWorkspaces( cardDir):
             command = 'text2workspace.py {da} -o {work}'.format( da=idatacard, work=iworkspace )
             print( 'command: ', command )
 
-            iprocess = subprocess.Popen( [command], shell=True )
+            env = os.environ.copy()
+            env['PYTHONNOUSERSITE'] = '1'
+            iprocess = subprocess.Popen( [command], shell=True, env=env )
             output = iprocess.communicate()[0]
             # output = iprocess.communicate()
             print( output)
