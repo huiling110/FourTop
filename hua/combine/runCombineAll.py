@@ -54,12 +54,20 @@ def goodnessOfFit(cardDir):
     runCommand(gofObservedCommand)
 
     # Generate toys for expected distribution
-    gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 200'.format(datacardFile)
+    # OPTION 1: Single file approach (faster but can crash with large N)
+    # gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 100'.format(datacardFile)
+    # runCommand(gofToysCommand)
+    # plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json'
+
+    # OPTION 2: Separate files approach (more robust, recommended for large N)
+    # Use combineTool to generate toys in separate files (more robust against crashes)
+    # --seed 1:100:1 means: start seed 1, end seed 100, step 1 = 100 toys in separate files
+    gofToysCommand = 'combineTool.py -M GoodnessOfFit {} --algo saturated -t 1 --seed 1:100:1 -n .gof_toys'.format(datacardFile)
     runCommand(gofToysCommand)
 
-    #plot GOF results 
-    # plotGofCommand = 'plotGof.py higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombine.toys.GoodnessOfFit.mH120.123456.root --statistic saturated --mass 120.0 -o gof_plot'.format(goodnessOfFitDir)
-    plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json'#gets error running combineTool.py
+    #plot GOF results
+    # Collect all toy files using wildcards
+    plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombine.gof_toys.GoodnessOfFit.mH120.*.root -o gof.json'
     plotGofCommand = 'plotGof.py gof.json --statistic saturated --mass 120.0 -o gof_plot'
     runCommand(plot1)
     runCommand(plotGofCommand)
