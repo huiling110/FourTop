@@ -12,11 +12,11 @@
 #include "../include/functions.h"
 #include "../../src_cpp/lumiAndCrossSection.h"
 #include "../include/commenSelectionAndWeight.h"
+#include "../include/AnalysisLogger.h"
 
 void treeAnalyzer::Init()
 {
-    std::cout << "Start to initialization....................................................\n";
-    std::cout << "m_channel: " << m_channel << "; m_isRun3: " << m_isRun3 << "\n";
+    LOG_INFO << "Starting initialization for channel: " << m_channel << ", isRun3: " << m_isRun3;
     cutFlowHist->SetDirectory(m_outFile);
 
     std::vector<TString> sysRegions;
@@ -191,9 +191,9 @@ void treeAnalyzer::LoopTree()
 
 
         Double_t basicWeight = baseWeightCal(e.get(), i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
-        //!!!Some FR_weight_final == inf for fakeTau_MC, temporary fix here
-        if (std::isnan(basicWeight)|| std::isinf(basicWeight)){
-            std::cout<<"!!!! FR_weight_final is NAN\n";
+        // Check for invalid weights (NaN or Inf can occur in fake rate calculations)
+        if (std::isnan(basicWeight) || std::isinf(basicWeight)){
+            LOG_WARNING << "Invalid weight (" << basicWeight << ") at event " << i << " - skipping";
             continue;
         }
         //!!!testing 
