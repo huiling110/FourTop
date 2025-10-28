@@ -23,15 +23,16 @@ class treeAnalyzer
 public:
     treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", TString channel="1tau1l", Bool_t isTest = kTRUE, Bool_t ifSys=kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}, m_ifSys{ifSys}
     {
-        // m_file = new TFile(m_inputDir + m_processName + ".root", "READ"); //???what is this initialization
         if (!m_file || m_file->IsZombie())
         {
-            std::cout << "Error: could not open file!" << m_file->GetName() << std::endl;
+            throw std::runtime_error("Error: could not open file: " + std::string(m_file->GetName()));
         }
-        else
-        {
-            std::cout << "input file: " << m_file->GetName() << "\n";
-            m_tree = (TTree *)m_file->Get("newtree");
+
+        std::cout << "input file: " << m_file->GetName() << "\n";
+        m_tree = (TTree *)m_file->Get("newtree");
+
+        if (!m_tree) {
+            throw std::runtime_error("Error: could not get tree 'newtree' from file");
         }
 
         m_era = TTTT::getEra2(m_inputDir);
@@ -51,9 +52,13 @@ public:
 
         std::cout << "m_processName: " << m_processName <<"  m_channel: "<<m_channel<< "\n";
         m_outFile = new TFile(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
-        // m_outFile = std::make_unique<TFile>(m_inputDir + "variableHists" + "_" + outVersion + "/" + m_processName + ".root", "RECREATE");
+        if (!m_outFile || m_outFile->IsZombie()) {
+            throw std::runtime_error("Error: could not create output file");
+        }
 
-        e = new event(m_tree);
+        cutFlowHist = std::make_unique<TH1D>("cutFlow", "cutFlow", 3, 0, 3);
+        reader = std::make_unique<TMVA::Reader>("!Color:!Silent");
+        e = std::make_unique<event>(m_tree);
     };
     ~treeAnalyzer();
 
@@ -78,11 +83,9 @@ private:
     Bool_t m_isData = kFALSE;
     Bool_t m_isRun3 = kFALSE;
     TString m_outputFolder;
-    TFile *m_outFile;
-    // std::unique_ptr<TFile> m_outFile; // RAII for ownership
-    // std::unique_ptr<TFile> m_outFile = std::make_unique<TFile>(m_inputDir + "variableHists" + "_" + "v0" + "/" + m_processName + ".root", "RECREATE"); // RAII for ownership
-    TH1D *cutFlowHist = new TH1D("cutFlow", "cutFlow", 3, 0, 3);
-    event *e;
+    TFile *m_outFile;  // Owned by ROOT, will be handled by ROOT's cleanup
+    std::unique_ptr<TH1D> cutFlowHist;
+    std::unique_ptr<event> e;
     Bool_t m_isFakeLepton = kFALSE;
     Bool_t m_isFakeTau = kFALSE;
     Bool_t m_ifFakeTau = kTRUE;//!!!
@@ -91,7 +94,7 @@ private:
     Bool_t m_ifSys = kTRUE;
 
     // for TMVA reader
-    TMVA::Reader *reader = new TMVA::Reader("!Color:!Silent");
+    std::unique_ptr<TMVA::Reader> reader;
     std::vector<TString> variablesName{};
     std::vector<Float_t> variablesForReader;
     std::map<TString, Float_t> varForReaderMap;

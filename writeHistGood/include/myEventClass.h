@@ -92,7 +92,7 @@ public:
     };
     ~event()
     {
-        delete m_tree;
+        // m_tree is owned by TFile, don't delete it
     };
     std::variant<Int_t, Double_t, Bool_t> getByName(TString branchName)
     {

@@ -15,7 +15,7 @@
 
 void treeAnalyzer::Init()
 {
-    std::cout << "Start to initilation....................................................\n";
+    std::cout << "Start to initialization....................................................\n";
     std::cout << "m_channel: " << m_channel << "; m_isRun3: " << m_isRun3 << "\n";
     cutFlowHist->SetDirectory(m_outFile);
 
@@ -92,7 +92,7 @@ void treeAnalyzer::Init()
     if (variablesName.size() == variablesForReader.size())
     {
         std::cout<<"variablesName.size(): "<<variablesName.size()<<"\n";
-        
+
         for (UInt_t i = 0; i < variablesName.size(); i++)
         {
             reader->AddVariable(variablesName[i], &varForReaderMap[variablesName[i]]);
@@ -163,7 +163,7 @@ void treeAnalyzer::LoopTree()
         m_tree->GetEntry(i);
         cutFlowHist->Fill(0);
 
-        if (!(baselineSelection(e, m_isRun3, (m_channel=="1tau2l"))))
+        if (!(baselineSelection(e.get(), m_isRun3, (m_channel=="1tau2l"))))
         {
             continue;
         }
@@ -190,7 +190,7 @@ void treeAnalyzer::LoopTree()
 
 
 
-        Double_t basicWeight = baseWeightCal(e, i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
+        Double_t basicWeight = baseWeightCal(e.get(), i, m_isRun3, m_isData, WH::channelMap.at(m_channel), m_isFakeTau, m_isFakeLepton);
         //!!!Some FR_weight_final == inf for fakeTau_MC, temporary fix here
         if (std::isnan(basicWeight)|| std::isinf(basicWeight)){
             std::cout<<"!!!! FR_weight_final is NAN\n";
@@ -206,17 +206,17 @@ void treeAnalyzer::LoopTree()
         Bool_t isMCFT = e->tausT_1genFlavour.v() == 0;
 
         if(m_channel=="1tau0l"){
-            Bool_t SR1tau0l = SR1tau1lSel(e, 1, m_isRun3, m_isFakeTau);
-            Bool_t CR1tau0l = SR1tau1lSel(e, 9, m_isRun3, m_isFakeTau);
-            Bool_t MR1tau0l = SR1tau1lSel(e, 7, m_isRun3, m_isFakeTau);
-            Bool_t VR1tau0l = SR1tau1lSel(e, 8, m_isRun3, m_isFakeTau);
+            Bool_t SR1tau0l = SR1tau1lSel(e.get(), 1, m_isRun3, m_isFakeTau);
+            Bool_t CR1tau0l = SR1tau1lSel(e.get(), 9, m_isRun3, m_isFakeTau);
+            Bool_t MR1tau0l = SR1tau1lSel(e.get(), 7, m_isRun3, m_isFakeTau);
+            Bool_t VR1tau0l = SR1tau1lSel(e.get(), 8, m_isRun3, m_isFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau0l, "1tau0lSR", SR1tau1lSys);
             sysRegionsFill(bdtScore, basicWeight, VR1tau0l, "1tau0lVR", SR1tau1lSys);
             sysRegionsFill(bdtScore, basicWeight, CR1tau0l||MR1tau0l, "1tau0lCRMR", SR1tau1lSys);
         }else if(m_channel=="1tau1l"){
-            Bool_t SR1tau1l = SR1tau1lSel(e, WH::channelMap.at(m_channel), m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
-            Bool_t CR11tau1l = SR1tau1lSel(e, 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
-            Bool_t CR21tau1l = SR1tau1lSel(e, 4, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
+            Bool_t SR1tau1l = SR1tau1lSel(e.get(), WH::channelMap.at(m_channel), m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
+            Bool_t CR11tau1l = SR1tau1lSel(e.get(), 5, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
+            Bool_t CR21tau1l = SR1tau1lSel(e.get(), 4, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau1l, "1tau1lSR", SR1tau1lSys);
             sysRegionsFill(bdtScore, basicWeight, CR11tau1l||CR21tau1l, "1tau1lCR12", SR1tau1lSys);
 
@@ -232,8 +232,8 @@ void treeAnalyzer::LoopTree()
 
 
         }else if (m_channel=="1tau2l"){
-            Bool_t SR1tau2l = SR1tau1lSel(e, 2, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
-            Bool_t CR31tau2l = SR1tau1lSel(e, 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
+            Bool_t SR1tau2l = SR1tau1lSel(e.get(), 2, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
+            Bool_t CR31tau2l = SR1tau1lSel(e.get(), 12, m_isRun3, m_isFakeTau, m_isFakeLepton, !m_isData, m_ifFakeTau);
             sysRegionsFill(bdtScore, basicWeight, SR1tau2l, "1tau2lSR", SR1tau1lSys);
             sysRegionsFill(bdtScore, basicWeight, CR31tau2l, "1tau2lCR3", SR1tau1lSys);
 
@@ -415,7 +415,7 @@ void treeAnalyzer::Terminate()
 
 treeAnalyzer::~treeAnalyzer()
 {
-    // code to free any dynamically allocated resources
-    // m_file->Close();
-    // m_outFile->Close();
+    // Smart pointers automatically clean up
+    // m_file will be automatically closed
+    // m_outFile is owned by ROOT and will be handled by ROOT's cleanup
 }  
