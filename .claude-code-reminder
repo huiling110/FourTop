@@ -1,0 +1,29 @@
+# Claude Code Reminders for FourTop Analysis
+
+## Environment Setup (CRITICAL)
+Before ANY build, compile, or run operation in writeHistGood/:
+```bash
+source setEnv_newNew.sh
+```
+
+This must be sourced from the FourTop directory!
+
+## Common Commands
+```bash
+# Build
+cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop
+source setEnv_newNew.sh
+cd writeHistGood
+make -j4
+
+# Run test
+source ../setEnv_newNew.sh
+./apps/run_treeAnalyzer.out
+```
+
+## Important Paths
+- Environment: `/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/setEnv_newNew.sh`
+- Executable: `writeHistGood/apps/run_treeAnalyzer.out`
+- BDT weights: Use `CMSSW_14_1_0_pre4` paths, NOT `CMSSW_10_6_20`
+
+See writeHistGood/BUILD_INSTRUCTIONS.md for full details.

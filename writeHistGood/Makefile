@@ -28,7 +28,7 @@ ROOTGLIBS = $(shell root-config --glibs)
 
 TMVALIBS = -lTMVA
 
-MYLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
+MYLIB = -L/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/myLibrary/ -lcommenFunction
 
 
 # Directories
