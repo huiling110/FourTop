@@ -17,6 +17,7 @@
 #include "../../myLibrary/commenFunction.h"
 
 #include "myEventClass.h"
+#include "SystematicManager.h"
 
 class treeAnalyzer
 {
@@ -59,6 +60,7 @@ public:
         cutFlowHist = std::make_unique<TH1D>("cutFlow", "cutFlow", 3, 0, 3);
         reader = std::make_unique<TMVA::Reader>("!Color:!Silent");
         e = std::make_unique<event>(m_tree);
+        m_systematicManager = std::make_unique<SystematicManager>(m_era);
     };
     ~treeAnalyzer();
 
@@ -104,6 +106,9 @@ private:
     histForRegionsBase SR1tau1lSys; // calls for default constructor
     histForRegionsBase SR1tau1lSys_MCFT;
     histForRegionsBase SR1tau1lSys_NotMCFT;
+
+    // Systematic variations manager
+    std::unique_ptr<SystematicManager> m_systematicManager;
 
     Double_t m_scaleRe_normUp_SF = 1.0;
     Double_t m_scaleRe_normDown_SF = 1.0;
