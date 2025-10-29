@@ -47,6 +47,12 @@ Examples:
 
   # Run only specific steps
   python runCombineAll.py --cardDir combinationV18/run2_1tau1l_v4/ --steps workspace limits
+
+  # VLL analysis (Vector-Like Lepton search)
+  python runCombineAll.py --cardDir combinationV10/run2_1tau1l_VLLm600/ --no-blind --ifVLL --channel 1tau1l
+
+  # VLL analysis with specific steps
+  python runCombineAll.py --cardDir combinationV10/run2_1tau0l_VLLm650/ --no-blind --ifVLL --channel 1tau0l --steps gof
         """
     )
     parser.add_argument('--cardDir', type=str, required=True,
@@ -60,7 +66,11 @@ Examples:
                         help='Run only specific steps (default: all)')
     parser.add_argument('--skip-impacts', action='store_true',
                         help='Skip impact calculation (can be time-consuming)')
-    parser.set_defaults(ifBlind=False)  # Default to unblinded for backward compatibility
+    parser.add_argument('--ifVLL', '--VLL', dest='ifVLL', action='store_true',
+                        help='Run VLL (Vector-Like Lepton) analysis instead of tttt analysis')
+    parser.add_argument('--channel', type=str, default='1tau1l',
+                        help='Analysis channel for VLL (e.g., 1tau1l, 1tau0l, 1tau2l). Only used with --ifVLL')
+    parser.set_defaults(ifBlind=False, ifVLL=False)  # Default to unblinded for backward compatibility
 
     args = parser.parse_args()
 
@@ -74,12 +84,17 @@ Examples:
         sys.exit(1)
 
     ifBlind = args.ifBlind
+    ifVLL = args.ifVLL
+    channel = args.channel
 
     logger.info("="*80)
-    logger.info("CMS Combine Analysis Workflow - Four-Top Search")
+    analysis_type = "VLL Search" if ifVLL else "Four-Top Search"
+    logger.info(f"CMS Combine Analysis Workflow - {analysis_type}")
     logger.info("="*80)
     logger.info(f"Card directory: {cardDir}")
     logger.info(f"Analysis mode: {'BLINDED (expected)' if ifBlind else 'UNBLINDED (observed)'}")
+    if ifVLL:
+        logger.info(f"VLL analysis channel: {channel}")
     logger.info("="*80)
 
 
@@ -99,14 +114,14 @@ Examples:
             logger.info("\n" + "="*80)
             logger.info("STEP 2: Calculating expected/observed limits")
             logger.info("="*80)
-            runCombineSig(cardDir, True, ifBlind)  #!Step 3 - Asymptotic limits
+            runCombineSig(cardDir, True, ifBlind, ifVLL, channel)  #!Step 3 - Asymptotic limits
 
         # Step 3: Calculate significance
         if 'significance' in steps:
             logger.info("\n" + "="*80)
             logger.info("STEP 3: Calculating significance")
             logger.info("="*80)
-            runCombineSig(cardDir, False, ifBlind)
+            runCombineSig(cardDir, False, ifBlind, ifVLL, channel)
             copyCombineResultsToDir(cardDir)
 
         # Step 4: Impact plots (time-consuming, can be skipped)
@@ -128,14 +143,14 @@ Examples:
             logger.info("\n" + "="*80)
             logger.info("STEP 6: Measuring signal strength")
             logger.info("="*80)
-            measureSignalStrength(cardDir)  #!Step 3 of unblinding
+            measureSignalStrength(cardDir, ifVLL, channel)  #!Step 3 of unblinding
 
         # Step 7: Goodness of fit
         if 'gof' in steps:
             logger.info("\n" + "="*80)
             logger.info("STEP 7: Goodness-of-fit test")
             logger.info("="*80)
-            goodnessOfFit(cardDir)  #!Step 4 of unblinding
+            goodnessOfFit(cardDir, ifVLL, channel)  #!Step 4 of unblinding
 
         logger.info("\n" + "="*80)
         logger.info("✓ Analysis workflow completed successfully!")
@@ -148,54 +163,86 @@ Examples:
         sys.exit(1)
 
 
-def goodnessOfFit(cardDir):
+def goodnessOfFit(cardDir, ifVLL=False, channel='1tau1l'):
     '''
         Perform goodness-of-fit test to assess the quality of the fit
-        Reference: 
+        Reference:
         https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/latest/part3/commonstatsmethods/?h=good#goodness-of-fit-tests
+
+        Args:
+            cardDir: Directory containing datacards and workspaces
+            ifVLL: If True, use VLL-specific datacard naming (datacard_{channel}.root)
+            channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l') - used for VLL analysis
     '''
-    datacardFile = cardDir + 'workspace/datacard.root'
+    # For VLL analysis, use channel-specific datacard name
+    #!!!Need to add u=0 for VLL 
+    if ifVLL:
+        datacardFile = cardDir + f'workspace/datacard_{channel}.root'
+        logger.info(f"Using VLL datacard: datacard_{channel}.root")
+    else:
+        datacardFile = cardDir + 'workspace/datacard.root'
+        logger.info(f"Using tttt datacard: datacard.root")
+
     outFolder = cardDir + 'combineResults/'
 
     goodnessOfFitDir = outFolder + 'goodnessOfFit/'
     ensure_dir(goodnessOfFitDir)
+
+    original_dir = os.getcwd()
     #cd goodnessOfFitDir
     os.chdir(goodnessOfFitDir) #!don't need to cd in run_runCombineAll.sh anymore
     logger.info(f"Working directory: {goodnessOfFitDir}")
 
-    # Run goodness-of-fit test on observed data
-    gofObservedCommand = 'combine -M GoodnessOfFit {} --algo saturated -n .observed'.format(datacardFile)
-    runCommand(gofObservedCommand)
+    try:
+        # Run goodness-of-fit test on observed data
+        gofObservedCommand = 'combine -M GoodnessOfFit {} --algo saturated -n .observed'.format(datacardFile)
+        runCommand(gofObservedCommand)
 
-    # Generate toys for expected distribution
-    # OPTION 1: Single file approach (faster but can crash with large N)
-    gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 100'.format(datacardFile)
-    plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json'
-    # OPTION 2: Separate files approach (more robust, recommended for large N)
-    # Use combineTool to generate toys in separate files (more robust against crashes)
-    # --seed 1:100:1 means: start seed 1, end seed 100, step 1 = 100 toys in separate files
-    # gofToysCommand = 'combineTool.py -M GoodnessOfFit {} --algo saturated -t 1 --seed 1:100:1 -n .gof_toys'.format(datacardFile)
-    # plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombine.gof_toys.GoodnessOfFit.mH120.*.root -o gof.json'
-    runCommand(gofToysCommand)
+        # Generate toys for expected distribution
+        # OPTION 1: Single file approach (faster but can crash with large N)
+        gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 100'.format(datacardFile)
+        plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json'
+        # OPTION 2: Separate files approach (more robust, recommended for large N)
+        # Use combineTool to generate toys in separate files (more robust against crashes)
+        # --seed 1:100:1 means: start seed 1, end seed 100, step 1 = 100 toys in separate files
+        # gofToysCommand = 'combineTool.py -M GoodnessOfFit {} --algo saturated -t 1 --seed 1:100:1 -n .gof_toys'.format(datacardFile)
+        # plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombine.gof_toys.GoodnessOfFit.mH120.*.root -o gof.json'
+        runCommand(gofToysCommand)
 
-    #plot GOF results
-    # Collect all toy files using wildcards
-    runCommand(plot1)
-    plotGofCommand = 'plotGof.py gof.json --statistic saturated --mass 120.0 -o gof_plot'
-    runCommand(plotGofCommand)
+        #plot GOF results
+        # Collect all toy files using wildcards
+        runCommand(plot1)
+        plotGofCommand = 'plotGof.py gof.json --statistic saturated --mass 120.0 -o gof_plot'
+        runCommand(plotGofCommand)
 
-    print('Goodness-of-fit results here: ', goodnessOfFitDir)
-    print('\n' + '='*60)
-    print('Goodness-of-Fit Test Results:')
-    print('='*60)
+        print('Goodness-of-fit results here: ', goodnessOfFitDir)
+        print('\n' + '='*60)
+        print('Goodness-of-Fit Test Results:')
+        print('='*60)
+
+    finally:
+        os.chdir(original_dir)
+        logger.debug(f"Returned to directory: {original_dir}")
 
 
-def measureSignalStrength(cardDir):
+def measureSignalStrength(cardDir, ifVLL=False, channel='1tau1l'):
     '''
         Measure signal strength using MultiDimFit method
         Reference: https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/latest/part5/longexercise/#e-signal-strength-measurement-and-uncertainty-breakdown
+
+        Args:
+            cardDir: Directory containing datacards and workspaces
+            ifVLL: If True, use VLL-specific datacard naming (datacard_{channel}.root)
+            channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l') - used for VLL analysis
     '''
-    datacardFile = cardDir + 'workspace/datacard.root'
+    # For VLL analysis, use channel-specific datacard name
+    if ifVLL:
+        datacardFile = cardDir + f'workspace/datacard_{channel}.root'
+        logger.info(f"Using VLL datacard: datacard_{channel}.root")
+    else:
+        datacardFile = cardDir + 'workspace/datacard.root'
+        logger.info(f"Using tttt datacard: datacard.root")
+
     outFolder = cardDir + 'combineResults/'
 
     signalStrengthDir = outFolder + 'signalStrength/'
@@ -389,10 +436,26 @@ def copyCombineResultsToDir( cardDir ):
     out = process.communicate()
 
 
-# def runCombineSig( cardDir, isLimit ):
-def runCombineSig( cardDir, isLimit, ifBlind=True ):
-    """Run combine for limits (isLimit=True) or significance (isLimit=False)"""
+def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l' ):
+    """Run combine for limits (isLimit=True) or significance (isLimit=False)
+
+    Args:
+        cardDir: Directory containing datacards and workspaces
+        isLimit: If True, calculate limits; if False, calculate significance
+        ifBlind: If True, run blinded analysis (expected); if False, use observed data
+        ifVLL: If True, running VLL analysis (for logging purposes)
+        channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l') - used for VLL logging
+    """
     original_dir = os.getcwd()
+
+    # For VLL analysis, use channel-specific datacard name
+    if ifVLL:
+        datacardFile = cardDir + f'workspace/datacard_{channel}.root'
+        logger.info(f"Using VLL datacard: datacard_{channel}.root")
+    else:
+        datacardFile = cardDir + 'workspace/datacard.root'
+        logger.info(f"Using tttt datacard: datacard.root")
+
     workspaceDir =  cardDir + 'workspace/'
     resultDir = workspaceDir+'results/'
     ensure_dir(resultDir)
@@ -401,31 +464,42 @@ def runCombineSig( cardDir, isLimit, ifBlind=True ):
     os.chdir(cardDir)  #!don't need to cd in run_runCombineAll.sh anymore
     logger.info(f"Working directory: {cardDir}")
 
-    for ifile in os.listdir( workspaceDir ):
-        if ifile.find( 'root')>0:
-            iname = '_'+ ifile.split('.root')[0]
-            irootF = workspaceDir + ifile
-            print("iname: ", iname)
-            if isLimit:
-                if ifBlind:
-                    significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=irootF, name=iname )
-                else:
-                    significanceCommand = 'combine -M AsymptoticLimits {rootFile} --name {name}'.format( rootFile=irootF, name=iname ) 
-            else:
-                if ifBlind:
-                    significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal=1 --name {name}'.format( rootFile=irootF, name=iname )
-                else:
-                    significanceCommand = 'combine -M Significance {rootFile} --name {name}'.format( rootFile=irootF, name=iname )
-            print( significanceCommand )
-            env = os.environ.copy()
-            env['PYTHONNOUSERSITE'] = '1'
-            irunSig = subprocess.Popen( [significanceCommand] ,
-                    shell=True,
-                    env=env
-                    )
-            irunSigOut = irunSig.communicate()[0]
-            if irunSigOut:
-                logger.debug(irunSigOut)
+    analysis_type = "VLL" if ifVLL else "tttt"
+    calc_type = "Limits" if isLimit else "Significance"
+    blind_mode = "blinded (expected)" if ifBlind else "unblinded (observed)"
+    logger.info(f"Running {analysis_type} {calc_type} calculation - {blind_mode}")
+    if ifVLL:
+        logger.info(f"VLL channel: {channel}")
+
+    # Generate command name based on datacard filename
+    iname = '_' + datacardFile.split('/')[-1].split('.root')[0]
+
+    expectSignal = 0 if ifVLL else 1
+    if isLimit:
+        if ifBlind:
+            # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=datacardFile, name=iname )
+            significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind -t -{expectSignal} --name {name}'.format( rootFile=datacardFile, name=iname, expectSignal=expectSignal )
+        else:
+            significanceCommand = 'combine -M AsymptoticLimits {rootFile} --name {name}'.format( rootFile=datacardFile, name=iname )
+    else:
+        # Significance calculation
+        if ifBlind:
+            # KEY DIFFERENCE: VLL uses --expectSignal=0 (background-only), tttt uses --expectSignal=1
+            significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal={signal} --name {name}'.format(
+                rootFile=datacardFile, signal=expectSignal, name=iname )
+        else:
+            significanceCommand = 'combine -M Significance {rootFile} --name {name}'.format( rootFile=datacardFile, name=iname )
+
+    logger.info(f"Command: {significanceCommand}")
+    env = os.environ.copy()
+    env['PYTHONNOUSERSITE'] = '1'
+    irunSig = subprocess.Popen( [significanceCommand] ,
+            shell=True,
+            env=env
+            )
+    irunSigOut = irunSig.communicate()[0]
+    if irunSigOut:
+        logger.debug(irunSigOut)
 
     os.chdir(original_dir)
     logger.debug(f"Returned to directory: {original_dir}")

@@ -2,7 +2,30 @@
 
 ## Summary
 
-Improved the CMS Combine statistical analysis workflow scripts for four-top search with **automatic directory management**, better error handling, logging, modularity, and documentation while preserving all original comments and functionality.
+Improved the CMS Combine statistical analysis workflow scripts for four-top search with **automatic directory management**, better error handling, logging, modularity, and documentation while preserving all original comments and functionality. **NEW: Added VLL (Vector-Like Lepton) analysis support!**
+
+## Latest Update (2025-10): VLL Analysis Support
+
+**NEW FEATURE**: Added `--ifVLL` and `--channel` options to support Vector-Like Lepton (VLL) searches alongside four-top (tttt) analysis.
+
+### VLL Support Features:
+- ✅ `--ifVLL` flag enables VLL-specific analysis workflow
+- ✅ `--channel` parameter specifies analysis channel (1tau1l, 1tau0l, 1tau2l)
+- ✅ Channel-specific datacard selection: `datacard_{channel}.root` for VLL vs `datacard.root` for tttt
+- ✅ Automatic detection and logging of analysis type (VLL Search vs Four-Top Search)
+- ✅ Backward compatible - all existing tttt workflows work unchanged
+- ✅ Updated help text with VLL usage examples
+- ✅ **VLL-aware functions**: `goodnessOfFit()`, `measureSignalStrength()`, and `runCombineSig()` now accept VLL parameters
+- ✅ Enhanced logging shows analysis type (tttt/VLL), channel, calculation mode (limits/significance), and blind mode
+
+### VLL Usage Examples:
+```bash
+# VLL analysis with mass point 600 GeV, 1tau1l channel
+python3 runCombineAll.py --cardDir combinationV10/run2_1tau1l_VLLm600/ --no-blind --ifVLL --channel 1tau1l
+
+# VLL goodness-of-fit test only
+python3 runCombineAll.py --cardDir combinationV10/run2_1tau0l_VLLm650/ --no-blind --ifVLL --channel 1tau0l --steps gof
+```
 
 ## Key Improvement: Automatic Directory Management
 
@@ -19,7 +42,9 @@ Improved the CMS Combine statistical analysis workflow scripts for four-top sear
 - ✅ Added `--no-blind` / `--ifBlind` flags using `action='store_true/false'`
 - ✅ Added `--steps` parameter to run specific analysis steps
 - ✅ Added `--skip-impacts` flag (impacts are time-consuming)
-- ✅ Comprehensive help text with examples
+- ✅ **NEW**: Added `--ifVLL` flag for Vector-Like Lepton analysis
+- ✅ **NEW**: Added `--channel` parameter for VLL channel specification (1tau1l, 1tau0l, 1tau2l)
+- ✅ Comprehensive help text with examples including VLL usage
 
 **Logging System (Lines 12-18)**
 - ✅ Replaced `print()` with structured logging (`logger.info/warning/error`)
