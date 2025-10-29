@@ -26,14 +26,14 @@ void run_treeAnalyzer(
     // TString process = "ttbar_2l",
     // TString process = "jetHT_2018a",
     // Int_t channel = 0,//0: 1tau1l
-    // TString channel = "1tau1l",//
+    TString channel = "1tau1l",//
     // TString channel = "1tau0l",//
-    TString channel = "1tau2l",//
+    // TString channel = "1tau2l",//
     TString histVersion = "v0_test",//
-    // Bool_t ifSys = kTRUE,
-    Bool_t ifSys = kFALSE,
-    Bool_t isTest = kTRUE)
-    // Bool_t isTest = kFALSE)
+    Bool_t ifSys = kTRUE,
+    // Bool_t ifSys = kFALSE,
+    // Bool_t isTest = kTRUE)
+    Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();
