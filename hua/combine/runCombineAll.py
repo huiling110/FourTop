@@ -32,6 +32,32 @@ def ensure_dir(directory):
     return dir_path
 
 
+def ensure_dir_with_fallback(target_dir, fallback_name, current_dir=None):
+    """Create directory with automatic fallback to current directory on permission errors
+
+    Args:
+        target_dir: Desired directory path to create
+        fallback_name: Name of directory to create in current dir if target fails
+        current_dir: Current working directory (if None, uses os.getcwd())
+
+    Returns:
+        str: Path to the successfully created directory
+    """
+    if current_dir is None:
+        current_dir = os.getcwd()
+
+    try:
+        ensure_dir(target_dir)
+        logger.info(f"Output directory: {target_dir}")
+        return target_dir
+    except (PermissionError, OSError):
+        logger.warning(f"Cannot write to {target_dir} (no permission), using current directory instead")
+        fallback_dir = os.path.join(current_dir, fallback_name)
+        ensure_dir(fallback_dir)
+        logger.info(f"Output directory: {fallback_dir}")
+        return fallback_dir
+
+
 def main():
     """Main entry point for running complete Combine analysis workflow"""
     parser = argparse.ArgumentParser(
@@ -184,11 +210,13 @@ def goodnessOfFit(cardDir, ifVLL=False, channel='1tau1l'):
         logger.info(f"Using tttt datacard: datacard.root")
 
     outFolder = cardDir + 'combineResults/'
-
     goodnessOfFitDir = outFolder + 'goodnessOfFit/'
-    ensure_dir(goodnessOfFitDir)
 
     original_dir = os.getcwd()
+
+    # Try to create directory in cardDir; if no write permission, use current dir
+    goodnessOfFitDir = ensure_dir_with_fallback(goodnessOfFitDir, 'goodnessOfFit', original_dir)
+
     #cd goodnessOfFitDir
     os.chdir(goodnessOfFitDir) #!don't need to cd in run_runCombineAll.sh anymore
     logger.info(f"Working directory: {goodnessOfFitDir}")
@@ -244,12 +272,14 @@ def measureSignalStrength(cardDir, ifVLL=False, channel='1tau1l'):
         logger.info(f"Using tttt datacard: datacard.root")
 
     outFolder = cardDir + 'combineResults/'
-
     signalStrengthDir = outFolder + 'signalStrength/'
-    ensure_dir(signalStrengthDir)
 
     #cd to output directory so combine saves files there
     original_dir = os.getcwd()
+
+    # Try to create directory in cardDir; if no write permission, use current dir
+    signalStrengthDir = ensure_dir_with_fallback(signalStrengthDir, 'signalStrength', original_dir)
+
     os.chdir(signalStrengthDir)  #!don't need to cd in run_runCombineAll.sh anymore
     logger.info(f"Working directory: {signalStrengthDir}")
 
@@ -315,7 +345,9 @@ def runPostFitPlots(cardDir):
             wf = cardDir + 'workspace/' + ifile
 
             postfitDir = outFolder+ 'postfitPlots/'
-            ensure_dir(postfitDir)
+
+            # Try to create directory in cardDir; if no write permission, use current dir
+            postfitDir = ensure_dir_with_fallback(postfitDir, 'postfitPlots', original_dir)
 
             #cd to output directory so combine saves files there
             os.chdir(postfitDir)  #!don't need to cd in run_runCombineAll.sh anymore
@@ -348,7 +380,9 @@ def runImpact(cardDir, ifBlind=True):
             wf = cardDir + 'workspace/' + ifile
 
             impacDir = outFolder+ 'impactResult/'
-            ensure_dir(impacDir)
+
+            # Try to create directory in cardDir; if no write permission, use current dir
+            impacDir = ensure_dir_with_fallback(impacDir, 'impactResult', original_dir)
 
             #cd to output directory so combine saves files there
             os.chdir(impacDir)  #!don't need to cd in run_runCombineAll.sh anymore
@@ -428,7 +462,11 @@ def runCommand(com, check_returncode=True):
 def copyCombineResultsToDir( cardDir ):
     """Copy combine output ROOT files to results directory"""
     resultsDir = cardDir+ 'combineResults/'
-    ensure_dir(resultsDir)
+    current_dir = os.getcwd()
+
+    # Try to create directory in cardDir; if no write permission, use current dir
+    resultsDir = ensure_dir_with_fallback(resultsDir, 'combineResults', current_dir)
+
     logger.info(f'Copying results to: {resultsDir}')
     # command = 'mv higgsCombineTMVApp*root {}'.format( resultsDir  )
     command = 'mv higgsCombine*root {}'.format( resultsDir  )
@@ -458,11 +496,20 @@ def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l'
 
     workspaceDir =  cardDir + 'workspace/'
     resultDir = workspaceDir+'results/'
-    ensure_dir(resultDir)
 
-    #cd to card directory so combine output files are created there
-    os.chdir(cardDir)  #!don't need to cd in run_runCombineAll.sh anymore
-    logger.info(f"Working directory: {cardDir}")
+    # Try to create results directory in workspace; if no write permission, create in current dir
+    resultDir = ensure_dir_with_fallback(resultDir, 'results', original_dir)
+
+    # Try to cd to card directory; if no permission, stay in current directory
+    try:
+        os.chdir(cardDir)  #!don't need to cd in run_runCombineAll.sh anymore
+        logger.info(f"Working directory: {cardDir}")
+        workdir = cardDir
+    except (PermissionError, OSError):
+        logger.warning(f"Cannot write to {cardDir} (no permission), staying in current directory")
+        # Stay in original directory - combine outputs will be created here
+        workdir = original_dir
+        logger.info(f"Working directory: {workdir}")
 
     analysis_type = "VLL" if ifVLL else "tttt"
     calc_type = "Limits" if isLimit else "Significance"
@@ -525,7 +572,9 @@ def cardToWorkspaces( cardDir):
             iworkspaceName = iworkspaceName.replace('.txt', '.root' )
             logger.info(f'Workspace name: {iworkspaceName}')
             iworkspaceDir = cardDir + 'workspace/'
-            ensure_dir(iworkspaceDir)
+
+            # Try to create workspace directory in cardDir; if no write permission, use current dir
+            iworkspaceDir = ensure_dir_with_fallback(iworkspaceDir, 'workspace', original_dir)
     #
             iworkspace = iworkspaceDir + iworkspaceName
             command = 'text2workspace.py {da} -o {work}'.format( da=idatacard, work=iworkspace )
