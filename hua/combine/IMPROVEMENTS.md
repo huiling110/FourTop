@@ -2,7 +2,11 @@
 
 ## Summary
 
-Improved the CMS Combine statistical analysis workflow scripts for four-top search with better error handling, logging, modularity, and documentation while preserving all original comments and functionality.
+Improved the CMS Combine statistical analysis workflow scripts for four-top search with **automatic directory management**, better error handling, logging, modularity, and documentation while preserving all original comments and functionality.
+
+## Key Improvement: Automatic Directory Management
+
+**No more `cd` commands needed in bash script!** The Python script now uses `os.chdir()` internally for each analysis step, then returns to the original directory when done. This makes the workflow cleaner and safer.
 
 ## Files Modified
 
