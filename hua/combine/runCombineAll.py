@@ -58,6 +58,85 @@ def ensure_dir_with_fallback(target_dir, fallback_name, current_dir=None):
         return fallback_dir
 
 
+def ensure_writable_carddir(cardDir, current_dir=None):
+    """Ensure we have a writable directory for processing datacards
+
+    If cardDir has no write permission, creates a temp directory in current_dir,
+    copies all .txt datacards there, and returns the writable directory path.
+
+    Args:
+        cardDir: Original card directory path (may be read-only)
+        current_dir: Current working directory (if None, uses os.getcwd())
+
+    Returns:
+        str: Path to writable directory containing datacards (ends with /)
+    """
+    if current_dir is None:
+        current_dir = os.getcwd()
+
+    # Ensure cardDir ends with /
+    if not cardDir.endswith('/'):
+        cardDir += '/'
+
+    # Check if cardDir has write permission
+    if os.access(cardDir, os.W_OK):
+        # Has write permission, use original directory
+        return cardDir
+
+    # No write permission, create temp working directory in current dir
+    dirname = os.path.basename(cardDir.rstrip('/'))
+    working_cardDir = os.path.join(current_dir, f'temp_{dirname}/')
+    os.makedirs(working_cardDir, exist_ok=True)
+    logger.warning(f"No write permission for {cardDir}, using working directory: {working_cardDir}")
+
+    # Copy all .txt datacards to working directory
+    import shutil
+    for en in os.listdir(cardDir):
+        if '.txt' in en:
+            src = os.path.join(cardDir, en)
+            dst = os.path.join(working_cardDir, en)
+            shutil.copy2(src, dst)
+            logger.info(f"Copied {en} to working directory")
+
+    return working_cardDir
+
+
+def get_workspace_file(cardDir, ifVLL=False, channel='1tau1l'):
+    """Auto-detect and return the path to the workspace file
+
+    Args:
+        cardDir: Card directory path (should end with /)
+        ifVLL: If True, use VLL-specific datacard naming (datacard_{channel}.root)
+        channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l') - used for VLL analysis
+
+    Returns:
+        str: Path to the workspace file, or None if not found
+    """
+    workspaceDir = cardDir + 'workspace/'
+
+    if ifVLL:
+        # Try channel-specific datacard first
+        datacardFile = os.path.join(workspaceDir, f'datacard_{channel}.root')
+        if not os.path.isfile(datacardFile):
+            # If specified channel file doesn't exist, find what actually exists
+            logger.warning(f"Specified datacard_{channel}.root not found, searching for available workspace files...")
+            available_workspaces = [f for f in os.listdir(workspaceDir) if f.endswith('.root') and f.startswith('datacard_')]
+            if available_workspaces:
+                datacardFile = os.path.join(workspaceDir, available_workspaces[0])
+                detected_channel = available_workspaces[0].replace('datacard_', '').replace('.root', '')
+                logger.info(f"Auto-detected workspace: {available_workspaces[0]} (channel: {detected_channel})")
+            else:
+                logger.error(f"No workspace files found in {workspaceDir}")
+                return None
+        else:
+            logger.info(f"Using VLL datacard: datacard_{channel}.root")
+    else:
+        datacardFile = os.path.join(workspaceDir, 'datacard.root')
+        logger.info(f"Using tttt datacard: datacard.root")
+
+    return datacardFile
+
+
 def main():
     """Main entry point for running complete Combine analysis workflow"""
     parser = argparse.ArgumentParser(
@@ -129,54 +208,56 @@ Examples:
 
     try:
         # Step 1: Convert datacards to workspaces
+        # Track the working directory (may differ from cardDir if permissions required fallback)
+        working_cardDir = cardDir
+
         if 'workspace' in steps:
             logger.info("\n" + "="*80)
             logger.info("STEP 1: Converting datacards to RooWorkspace")
             logger.info("="*80)
-            cardToWorkspaces(cardDir)
+            working_cardDir = cardToWorkspaces(cardDir)
 
         # Step 2: Calculate limits
         if 'limits' in steps:
             logger.info("\n" + "="*80)
             logger.info("STEP 2: Calculating expected/observed limits")
             logger.info("="*80)
-            runCombineSig(cardDir, True, ifBlind, ifVLL, channel)  #!Step 3 - Asymptotic limits
+            runCombineSig(working_cardDir, True, ifBlind, ifVLL, channel)  #!Step 3 - Asymptotic limits
 
         # Step 3: Calculate significance
         if 'significance' in steps:
             logger.info("\n" + "="*80)
             logger.info("STEP 3: Calculating significance")
             logger.info("="*80)
-            runCombineSig(cardDir, False, ifBlind, ifVLL, channel)
-            copyCombineResultsToDir(cardDir)
+            runCombineSig(working_cardDir, False, ifBlind, ifVLL, channel)
 
         # Step 4: Impact plots (time-consuming, can be skipped)
         if 'impacts' in steps and not args.skip_impacts:
             logger.info("\n" + "="*80)
             logger.info("STEP 4: Calculating systematic impacts (this may take a while...)")
             logger.info("="*80)
-            runImpact(cardDir, ifBlind)  #!Step 1 of unblinding
+            runImpact(working_cardDir, ifBlind)  #!Step 1 of unblinding
 
         # Step 5: Post-fit plots
         if 'postfit' in steps:
             logger.info("\n" + "="*80)
             logger.info("STEP 5: Generating post-fit plots")
             logger.info("="*80)
-            runPostFitPlots(cardDir)  #!Step 2 of unblinding
+            runPostFitPlots(working_cardDir)  #!Step 2 of unblinding
 
         # Step 6: Signal strength measurement
         if 'signal_strength' in steps:
             logger.info("\n" + "="*80)
             logger.info("STEP 6: Measuring signal strength")
             logger.info("="*80)
-            measureSignalStrength(cardDir, ifVLL, channel)  #!Step 3 of unblinding
+            measureSignalStrength(working_cardDir, ifVLL, channel)  #!Step 3 of unblinding
 
         # Step 7: Goodness of fit
         if 'gof' in steps:
             logger.info("\n" + "="*80)
             logger.info("STEP 7: Goodness-of-fit test")
             logger.info("="*80)
-            goodnessOfFit(cardDir, ifVLL, channel)  #!Step 4 of unblinding
+            goodnessOfFit(working_cardDir, ifVLL, channel)  #!Step 4 of unblinding
 
         logger.info("\n" + "="*80)
         logger.info("✓ Analysis workflow completed successfully!")
@@ -201,29 +282,10 @@ def goodnessOfFit(cardDir, ifVLL=False, channel='1tau1l'):
             channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l') - used for VLL analysis
     '''
     # Auto-detect which workspace file actually exists (important when workspace step was run)
-    workspaceDir = cardDir + 'workspace/'
-
-    # For VLL analysis, use channel-specific datacard name
     #!!!Need to add u=0 for VLL
-    if ifVLL:
-        # Try channel-specific datacard first
-        datacardFile = cardDir + f'workspace/datacard_{channel}.root'
-        if not os.path.isfile(datacardFile):
-            # If specified channel file doesn't exist, find what actually exists
-            logger.warning(f"Specified datacard_{channel}.root not found, searching for available workspace files...")
-            available_workspaces = [f for f in os.listdir(workspaceDir) if f.endswith('.root') and f.startswith('datacard_')]
-            if available_workspaces:
-                datacardFile = os.path.join(workspaceDir, available_workspaces[0])
-                detected_channel = available_workspaces[0].replace('datacard_', '').replace('.root', '')
-                logger.info(f"Auto-detected workspace: {available_workspaces[0]} (channel: {detected_channel})")
-            else:
-                logger.error(f"No workspace files found in {workspaceDir}")
-                return
-        else:
-            logger.info(f"Using VLL datacard: datacard_{channel}.root")
-    else:
-        datacardFile = cardDir + 'workspace/datacard.root'
-        logger.info(f"Using tttt datacard: datacard.root")
+    datacardFile = get_workspace_file(cardDir, ifVLL, channel)
+    if datacardFile is None:
+        return
 
     outFolder = cardDir + 'combineResults/'
     goodnessOfFitDir = outFolder + 'goodnessOfFit/'
@@ -280,28 +342,9 @@ def measureSignalStrength(cardDir, ifVLL=False, channel='1tau1l'):
             channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l') - used for VLL analysis
     '''
     # Auto-detect which workspace file actually exists (important when workspace step was run)
-    workspaceDir = cardDir + 'workspace/'
-
-    # For VLL analysis, use channel-specific datacard name
-    if ifVLL:
-        # Try channel-specific datacard first
-        datacardFile = cardDir + f'workspace/datacard_{channel}.root'
-        if not os.path.isfile(datacardFile):
-            # If specified channel file doesn't exist, find what actually exists
-            logger.warning(f"Specified datacard_{channel}.root not found, searching for available workspace files...")
-            available_workspaces = [f for f in os.listdir(workspaceDir) if f.endswith('.root') and f.startswith('datacard_')]
-            if available_workspaces:
-                datacardFile = os.path.join(workspaceDir, available_workspaces[0])
-                detected_channel = available_workspaces[0].replace('datacard_', '').replace('.root', '')
-                logger.info(f"Auto-detected workspace: {available_workspaces[0]} (channel: {detected_channel})")
-            else:
-                logger.error(f"No workspace files found in {workspaceDir}")
-                return
-        else:
-            logger.info(f"Using VLL datacard: datacard_{channel}.root")
-    else:
-        datacardFile = cardDir + 'workspace/datacard.root'
-        logger.info(f"Using tttt datacard: datacard.root")
+    datacardFile = get_workspace_file(cardDir, ifVLL, channel)
+    if datacardFile is None:
+        return
 
     outFolder = cardDir + 'combineResults/'
     signalStrengthDir = outFolder + 'signalStrength/'
@@ -311,20 +354,20 @@ def measureSignalStrength(cardDir, ifVLL=False, channel='1tau1l'):
 
     # Try to create directory in cardDir; if no write permission, use current dir
     signalStrengthDir = ensure_dir_with_fallback(signalStrengthDir, 'signalStrength', original_dir)
-
     os.chdir(signalStrengthDir)  #!don't need to cd in run_runCombineAll.sh anymore
     logger.info(f"Working directory: {signalStrengthDir}")
 
     try:
         # Likelihood scan
-        scanCommand = 'combine -M MultiDimFit {} --algo grid --points 100 --rMin 0 --rMax 10 --redefineSignalPOIs r -n .scan'.format(datacardFile)
+        scanCommand = 'combine -M MultiDimFit {} --algo grid --points 100 --rMin 0 --rMax 20 --redefineSignalPOIs r -n .scan'.format(datacardFile)
         runCommand(scanCommand)
 
         # Fit with only statistical uncertainty (freeze all nuisance parameters)
-        fitSnapCommand = f'combine -M MultiDimFit {datacardFile} -n .snapshot --rMin 0 --rMax 10 --saveWorkspace'
+        fitSnapCommand = f'combine -M MultiDimFit {datacardFile} -n .snapshot --rMin 0 --rMax 20 --saveWorkspace'
         runCommand(fitSnapCommand)
-        freezeAllCommand = 'combine -M MultiDimFit higgsCombine.snapshot.MultiDimFit.mH120.root -n .freezeAll --rMin 0 --rMax 10 --algo grid --points 100 --freezeParameters allConstrainedNuisances --snapshotName MultiDimFit'
+        freezeAllCommand = 'combine -M MultiDimFit higgsCombine.snapshot.MultiDimFit.mH120.root -n .freezeAll --rMin 0 --rMax 20 --algo grid --points 100 --freezeParameters allConstrainedNuisances --snapshotName MultiDimFit'
         runCommand(freezeAllCommand)
+        
         # python plot1DScan.py higgsCombine.part3E.MultiDimFit.mH200.root --others 'higgsCombine.part3E.freezeAll.MultiDimFit.mH200.root:FreezeAll:2' -o freeze_second_attempt --breakdown Syst,Stat
         # fitStatCommand = 'combine -M MultiDimFit {} --algo singles --redefineSignalPOIs r --freezeParameters allConstrainedNuisances --rMin 0 --rMax 10 -n .stat'.format(datacardFile)
         # runCommand(fitStatCommand)
@@ -332,14 +375,6 @@ def measureSignalStrength(cardDir, ifVLL=False, channel='1tau1l'):
         # Overlay stat-only scan to show total vs statistical uncertainty, systematic is derived
         plotScanCommand = "plot1DScan.py higgsCombine.scan.MultiDimFit.mH120.root --others 'higgsCombine.freezeAll.MultiDimFit.mH120.root:StatOnly:2' -o scan_plot --breakdown Syst,Stat"
         runCommand(plotScanCommand)
-
-        # Move files - only move files that actually exist
-        mv = 'mv higgsCombine*.root combine_logger.out {}'.format(signalStrengthDir)
-        runCommand(mv)
-
-        # Move plot files if they exist
-        mvPlot = 'if ls scan_plot.* 1> /dev/null 2>&1; then mv scan_plot.* {}; fi'.format(signalStrengthDir)
-        runCommand(mvPlot)
 
         # Report uncertainties
         print('Signal strength results here: ', signalStrengthDir)
@@ -370,31 +405,27 @@ def runPostFitPlots(cardDir):
     '''Using CMSSW14_1_0_pre4 to run postfit plots'''
     original_dir = os.getcwd()
 
-    for ifile in os.listdir(cardDir+'workspace/'):
-        if ifile.find('root')>0:
-            logger.info(f'Processing workspace: {ifile}')
-            outFolder = cardDir + 'combineResults/'
-            wf = cardDir + 'workspace/' + ifile
+    datacardFile = get_workspace_file(cardDir)
+    # for ifile in os.listdir(cardDir+'workspace/'):
+        # if ifile.find('root')>0:
+            # logger.info(f'Processing workspace: {ifile}')
+    outFolder = cardDir + 'combineResults/'
+    # wf = cardDir + 'workspace/' + ifile
+    postfitDir = outFolder+ 'postfitPlots/'
+    # Try to create directory in cardDir; if no write permission, use current dir
+    postfitDir = ensure_dir_with_fallback(postfitDir, 'postfitPlots', original_dir)
+    os.chdir(postfitDir)  #!don't need to cd in run_runCombineAll.sh anymore
+    logger.info(f"Working directory: {postfitDir}")
 
-            postfitDir = outFolder+ 'postfitPlots/'
-
-            # Try to create directory in cardDir; if no write permission, use current dir
-            postfitDir = ensure_dir_with_fallback(postfitDir, 'postfitPlots', original_dir)
-
-            #cd to output directory so combine saves files there
-            os.chdir(postfitDir)  #!don't need to cd in run_runCombineAll.sh anymore
-            logger.info(f"Working directory: {postfitDir}")
-
-            fitCommand = 'combine -M FitDiagnostics {}  --rMin 0 --rMax 20 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0'.format(wf) #generate fitDiagnostics_postfit.root
-            #[WARNING]: Unable to determine uncertainties on all fit parameters in b-only fit. The option --saveWithUncertainties will be ignored as it would lead to incorrect results --> This means the covariance matrix calculated in FitDiagnostics was not correct.
-            # plotCommand = 'python diffNuisances.py fitDiagnostics_postfit.root --all --output-file {}/nuisancePostFit.txt '.format(postfitDir)
-            # plotCommand2 = 'python plotNuisances.py -i {}/nuisancePostFit.txt -o {}/nuisancePostFit '.format(postfitDir, postfitDir)
-            # mv = 'mv fitDiagnostics_postfit.root nuisancesPostFit.pdf combine_logger.out {}'.format(postfitDir)
-            runCommand(fitCommand)
-            # runCommand(plotCommand)
-            # runCommand(plotCommand2)
-            # runCommand(mv)
-            # print('postfitPlots here: ', postfitDir+'nuisancePostFit.pdf')
+    fitCommand = 'combine -M FitDiagnostics {}  --rMin 0 --rMax 20 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0'.format(datacardFile) #generate fitDiagnostics_postfit.root
+    runCommand(fitCommand)
+    #[WARNING]: Unable to determine uncertainties on all fit parameters in b-only fit. The option --saveWithUncertainties will be ignored as it would lead to incorrect results --> This means the covariance matrix calculated in FitDiagnostics was not correct.
+    # plotCommand = 'python diffNuisances.py fitDiagnostics_postfit.root --all --output-file {}/nuisancePostFit.txt '.format(postfitDir)
+    # plotCommand2 = 'python plotNuisances.py -i {}/nuisancePostFit.txt -o {}/nuisancePostFit '.format(postfitDir, postfitDir)
+    # mv = 'mv fitDiagnostics_postfit.root nuisancesPostFit.pdf combine_logger.out {}'.format(postfitDir)
+    # runCommand(plotCommand)
+    # runCommand(plotCommand2)
+    # print('postfitPlots here: ', postfitDir+'nuisancePostFit.pdf')
 
     os.chdir(original_dir)
     logger.debug(f"Returned to directory: {original_dir}")
@@ -468,13 +499,13 @@ def runCommand(com, check_returncode=True):
 
         # Log output
         if stdout:
-            logger.debug(f"stdout: {stdout}")
+            logger.info(f"stdout: {stdout}")
         if stderr:
             # Some combine tools print to stderr even on success
             if returncode != 0:
                 logger.error(f"stderr: {stderr}")
             else:
-                logger.debug(f"stderr: {stderr}")
+                print(stderr)  # Print stderr directly for successful commands
 
         if check_returncode and returncode != 0:
             logger.error(f"Command failed with return code {returncode}: {com}")
@@ -519,27 +550,11 @@ def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l'
     original_dir = os.getcwd()
 
     # Auto-detect which workspace file actually exists (important when workspace step was run)
+    datacardFile = get_workspace_file(cardDir, ifVLL, channel)
+    if datacardFile is None:
+        return
+
     workspaceDir = cardDir + 'workspace/'
-
-    if ifVLL:
-        # Try channel-specific datacard first
-        datacardFile = cardDir + f'workspace/datacard_{channel}.root'
-        if not os.path.isfile(datacardFile):
-            # If specified channel file doesn't exist, find what actually exists
-            logger.warning(f"Specified datacard_{channel}.root not found, searching for available workspace files...")
-            available_workspaces = [f for f in os.listdir(workspaceDir) if f.endswith('.root') and f.startswith('datacard_')]
-            if available_workspaces:
-                datacardFile = os.path.join(workspaceDir, available_workspaces[0])
-                detected_channel = available_workspaces[0].replace('datacard_', '').replace('.root', '')
-                logger.info(f"Auto-detected workspace: {available_workspaces[0]} (channel: {detected_channel})")
-            else:
-                logger.error(f"No workspace files found in {workspaceDir}")
-        else:
-            logger.info(f"Using VLL datacard: datacard_{channel}.root")
-    else:
-        datacardFile = cardDir + 'workspace/datacard.root'
-        logger.info(f"Using tttt datacard: datacard.root")
-
     resultDir = workspaceDir+'results/'
 
     # Try to create results directory in workspace; if no write permission, create in current dir
@@ -580,19 +595,10 @@ def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l'
             significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal={signal} --name {name}'.format(
                 rootFile=datacardFile, signal=expectSignal, name=iname )
         else:
-            significanceCommand = 'combine -M Significance {rootFile} --name {name}'.format( rootFile=datacardFile, name=iname )
+            # significanceCommand = 'combine -M Significance {rootFile} --name {name}'.format( rootFile=datacardFile, name=iname )
+            significanceCommand = 'combine -M Significance {rootFile} --name {name} --plot significance'.format( rootFile=datacardFile, name=iname )
 
-    logger.info(f"Command: {significanceCommand}")
-    env = os.environ.copy()
-    env['PYTHONNOUSERSITE'] = '1'
-    irunSig = subprocess.Popen( [significanceCommand] ,
-            shell=True,
-            env=env
-            )
-    irunSigOut = irunSig.communicate()[0]
-    if irunSigOut:
-        logger.debug(irunSigOut)
-
+    runCommand(significanceCommand)
     os.chdir(original_dir)
     logger.debug(f"Returned to directory: {original_dir}")
 
@@ -603,23 +609,27 @@ def cardToWorkspaces( cardDir):
     original_dir = os.getcwd()
     workspace_count = 0
 
-    #cd to card directory for workspace creation
-    os.chdir(cardDir)  #!don't need to cd in run_runCombineAll.sh anymore
-    logger.info(f"Working directory: {cardDir}")
+    # Ensure we have a writable directory to work in
+    working_cardDir = ensure_writable_carddir(cardDir, original_dir)
 
-    for en in os.listdir( cardDir ):
+    #cd to working card directory for workspace creation
+    os.chdir(working_cardDir)  #!don't need to cd in run_runCombineAll.sh anymore
+    logger.info(f"Working directory: {working_cardDir}")
+
+    for en in os.listdir( working_cardDir ):
         if not '.txt' in en: continue
         idatacard = en
-        idatacard = cardDir +  idatacard
+        idatacard = working_cardDir +  idatacard
         if os.path.isfile( idatacard ):
             logger.info(f'Processing datacard: {idatacard}')
             iworkspaceName = en[:]
             iworkspaceName = iworkspaceName.replace('.txt', '.root' )
             logger.info(f'Workspace name: {iworkspaceName}')
-            iworkspaceDir = cardDir + 'workspace/'
 
-            # Try to create workspace directory in cardDir; if no write permission, use current dir
-            iworkspaceDir = ensure_dir_with_fallback(iworkspaceDir, 'workspace', original_dir)
+            # Create workspace directory in the working card directory (which is already writable)
+            iworkspaceDir = working_cardDir + 'workspace/'
+            ensure_dir(iworkspaceDir)
+            logger.info(f'Output directory: {iworkspaceDir}')
     #
             iworkspace = iworkspaceDir + iworkspaceName
             command = 'text2workspace.py {da} -o {work}'.format( da=idatacard, work=iworkspace )
@@ -638,6 +648,9 @@ def cardToWorkspaces( cardDir):
 
     os.chdir(original_dir)
     logger.debug(f"Returned to directory: {original_dir}")
+
+    # Return the working card directory so subsequent steps know where workspaces are located
+    return working_cardDir
 
 
 

@@ -5,9 +5,10 @@ import pl as plt
 
 def main():
     # Fit file with 3 channels (1tau0l, 1tau1l, 1tau2l)
-    fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/fitDiagnosticsTest.root'
+    # fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/fitDiagnosticsTest.root'
     # Previous single channel fit file:
     # fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/fitDiagnosticsTest.root'
+    fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots/fitDiagnosticsTest.root'
 
     variable = 'BDT'
     # Plotting options
