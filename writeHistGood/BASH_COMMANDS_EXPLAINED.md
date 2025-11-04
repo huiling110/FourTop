@@ -463,4 +463,90 @@ set -x  # Print commands as they execute (debugging)
 
 ---
 
+## Performance and Timing Commands
+
+### Measure Command Execution Time
+```bash
+# time: Shows real time, user CPU time, and system CPU time
+time ./program
+
+# Example output:
+# real    0m7.123s    # Wall clock time (actual elapsed time)
+# user    0m6.890s    # CPU time in user mode
+# sys     0m0.230s    # CPU time in kernel mode
+```
+
+### Check Exit Status
+```bash
+# Run command and check if it succeeded
+./program
+echo $?
+# Output: 0 means success, non-zero means error
+
+# Use in conditional
+if ./program; then
+    echo "Success!"
+else
+    echo "Failed with code $?"
+fi
+```
+
+### Script with Timing
+```bash
+# Capture start/end times in script
+echo "Starting at $(date)"
+./program
+echo "Finished at $(date)"
+
+# Or use time command
+time bash script.sh
+```
+
+---
+
+## Testing and Validation Patterns
+
+### Quick vs Full Test Pattern
+```bash
+# Quick test (fast iteration during development)
+IS_TEST=1
+./program --test-mode ${IS_TEST}
+# Runs in seconds for rapid feedback
+
+# Full validation (before committing)
+IS_TEST=0
+./program --test-mode ${IS_TEST}
+# Runs full dataset for complete validation
+```
+
+### Test Exit Code and Show Results
+```bash
+# Run test, capture exit code, show results
+./test.sh
+EXIT_CODE=$?
+echo "Test exit code: ${EXIT_CODE}"
+tail -30 test.log  # Show last 30 lines
+
+# Or in one line
+./test.sh && echo "✅ Test passed" || echo "❌ Test failed"
+```
+
+### Comparing Test Output
+```bash
+# Count lines in logs
+wc -l reference.log test.log
+
+# Compare specific metrics
+grep "Total sum=" reference.log > reference_sums.txt
+grep "Total sum=" test.log > test_sums.txt
+diff reference_sums.txt test_sums.txt
+
+# Show last N lines of both logs side by side
+tail -20 reference.log > /tmp/ref.txt
+tail -20 test.log > /tmp/test.txt
+diff -y /tmp/ref.txt /tmp/test.txt  # Side-by-side comparison
+```
+
+---
+
 *Last Updated: 2025-11-04*
