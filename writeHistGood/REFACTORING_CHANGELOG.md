@@ -12,6 +12,24 @@ This document tracks all code improvements made to the `writeHistGood` analysis 
 
 ---
 
+## Documentation Maintenance Checklist
+
+This section helps ensure documentation stays up-to-date across sessions.
+
+### Regular Maintenance Items
+- [ ] Update `BASH_COMMANDS_EXPLAINED.md` when new bash patterns are used
+- [ ] Update `REFACTORING_CHANGELOG.md` after completing each refactoring step
+- [ ] Update `SESSION_SUMMARY.md` at end of each work session
+- [ ] Commit documentation updates along with code changes
+
+### Files to Maintain
+1. **BASH_COMMANDS_EXPLAINED.md**: Add new commands/patterns as they're used in development
+2. **REFACTORING_CHANGELOG.md**: Document completed improvements and track planned work
+3. **SESSION_SUMMARY.md**: High-level summary of each session's work
+4. Code comments: Document complex logic and design decisions inline
+
+---
+
 ## Completed Improvements
 
 ### 1. ✅ Memory Management Refactoring

@@ -176,13 +176,30 @@ IS_TEST=0
 
 ---
 
-## Important Note on Commits
+## Important Notes and Commitments
+
+### Commit Policy
 **User Request**: "commit all the major changes along the way please. And, can you remember this setting"
 
 ✅ **Acknowledged**: Will commit significant changes regularly going forward
 - Created commit for build system improvements
 - Will commit after each major feature/fix
 - Will use descriptive commit messages with context
+
+### Documentation Maintenance
+**User Request**: "can you remember to update the @writeHistGood/BASH_COMMANDS_EXPLAINED.md as you and I go along in all future sessions too?"
+
+✅ **Acknowledged**: Will maintain BASH_COMMANDS_EXPLAINED.md across all sessions
+- Add new bash commands and patterns as they're used
+- Provide clear explanations for learning purposes
+- Update timestamp after each addition
+- Include practical examples for reusability
+
+**How This Works**:
+- Session summaries reference this commitment
+- Documentation files serve as persistent memory
+- User can reference the file at session start to trigger updates
+- File's "Last Updated" timestamp tracks maintenance
 
 ---
 
