@@ -171,9 +171,89 @@ This document tracks all code improvements made to the `writeHistGood` analysis 
 
 ---
 
-## Completed Improvements
+### 4. ✅ Build System & Environment Setup
+**Date**: 2025-11-04
+**Commit**: 0b64ce67
+**Status**: COMPLETED ✅
+**Priority**: HIGH
 
-### 4. ⏳ Replace Magic Numbers with Named Constants
+#### Problem
+- **Linking failures**: Makefile missing TBB library causing ROOT linking errors
+- **Environment issues**: `setEnv_newNew.sh` used `pwd` which didn't work when sourced from subdirectories
+- **Testing blocked**: Could not build or run executable for validation
+
+#### Changes Made
+
+**Updated Makefile**:
+```makefile
+# Added TBB library to fix ROOT linking
+TBBLIBS = -ltbb
+
+# Added to LIBS
+LIBS = $(ROOTLIBS)
+LIBS += $(TMVALIBS)
+LIBS += $(MYLIB)
+LIBS += $(TBBLIBS)
+```
+
+**Updated `setEnv_newNew.sh`**:
+```bash
+# Before:
+current_dir=$(pwd)
+
+# After:
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+current_dir="${script_dir}"
+```
+
+**Created `test_refactored_run.sh`**:
+- Sources environment automatically
+- Creates output directory if needed
+- Matches reference log parameters
+- Ready for validation testing
+
+#### Files Modified
+- `Makefile`: Added TBB library (lines 33, 56)
+- `../setEnv_newNew.sh`: Location-independent setup
+- `test_refactored_run.sh`: Test script (gitignored)
+
+#### Benefits
+- ✅ Successful compilation with gcc14
+- ✅ Environment script works from any directory
+- ✅ All library paths correctly resolved
+- ✅ Executable created: 7.1MB
+- ✅ Test infrastructure ready
+
+#### Build Status
+```bash
+✓ Compilation successful with gcc 14.3.1
+✓ Executable: apps/run_treeAnalyzer.out (7.1MB)
+✓ Links against ROOT 6.36.01, TBB v2022.0.0
+✓ Test runs successfully (processing 1.6M events)
+```
+
+#### Test Parameters
+```bash
+INPUT_DIR="/publicfs/.../v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/"
+PROCESS="tttt"
+CHANNEL="1tau1l"
+VERSION="v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest"
+IF_SYS=1 (systematics enabled)
+IS_TEST=0 (full run)
+```
+
+#### Test Results
+- ✅ Environment setup works correctly
+- ✅ Executable initializes properly
+- ✅ BDT weights load successfully
+- ✅ Event loop started (1,657,638 events)
+- ⏳ Validation in progress
+
+---
+
+## Planned Improvements
+
+### 5. ⏳ Replace Magic Numbers with Named Constants
 **Priority**: MEDIUM
 **Estimated Impact**: HIGH readability improvement
 
