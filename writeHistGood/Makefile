@@ -30,6 +30,8 @@ TMVALIBS = -lTMVA
 
 MYLIB = -L/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/myLibrary/ -lcommenFunction
 
+TBBLIBS = -ltbb
+
 
 # Directories
 HEADRDIR = .
@@ -51,6 +53,7 @@ CXXFLAGS += $(ROOTCFLAGS) -I$(HEADRDIR)
 LIBS = $(ROOTLIBS)
 LIBS += $(TMVALIBS)
 LIBS += $(MYLIB)
+LIBS += $(TBBLIBS)
 
 #!!!for checking memory leak
 # LDFLAGS += -fsanitize=address

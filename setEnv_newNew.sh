@@ -3,7 +3,9 @@ source /scratchfs/cms/huahuil/myenv/bin/activate
 # pip install statsmodels
 #corretionlib
 
-current_dir=$(pwd)
+# Get the directory where this script is located (works when sourced from any directory)
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+current_dir="${script_dir}"
 
 #Set up ROOT 
 export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9ded8fcd995/lib:/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9ded8fcd995/lib64:$LD_LIBRARY_PATH #root needs correct gcc version
