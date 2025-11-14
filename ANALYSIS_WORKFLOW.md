@@ -348,26 +348,216 @@ combinationV18/run2_1tau1l/
 
 **Purpose**: Create publication-quality plots of results
 
-### 6.1 Post-Fit Plots
+### 6.1 Data/MC Comparison Plots
 
-**Script**: `plotting/pl_postFit.py` (or similar)
+**Location**: `plotting/`
 
-**Purpose**: Show data/MC agreement after fit
+**Main script**: `pl.py`
+
+**Purpose**: Generate stacked histogram plots comparing data and Monte Carlo predictions for all processes
+
+**When to use**: Immediately after Stage 3 histogram production to validate results
+
+#### 6.1.1 Configuration
+
+**Edit the main() function** (lines 12-169 in pl.py):
+
+**Key settings** (lines 13-27):
+```python
+ifVLL = ''              # VLL mass point (e.g., 'VLLm600', 'VLLm700', or '' for tttt)
+ifLogy = True           # Use log scale for y-axis
+ifStackSignal = True    # Stack signal on top of backgrounds (vs overlay)
+ifSystematic = False    # Include systematic uncertainties (requires sysHists)
+ifFTau = True           # Use fake tau background estimation
+ifMCFTau = False        # Use MC-based fake tau (alternative method)
+ifblinding = False      # Blind signal region data (set True for blinded analysis)
+plotName = 'dataVsMC_v5'  # Output file naming prefix
+```
+
+**Input directory** - Choose appropriate section for your channel:
+
+**For 1tau1l channel** (lines 121-124):
+```python
+inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau1lV_refactorAndBtagNameFix/'
+channel = '1tau1l'
+variables = ['BDT']
+regionList = ['1tau1lSR', '1tau1lCR12']
+```
+
+**For 1tau2l channel** (lines 80-83):
+```python
+inputDir = '/publicfs/.../mc/variableHists_v5BDT1tau2l_tauFMorphFix/'
+channel = '1tau2l'
+variables = ['BDT']
+regionList = ['1tau2lCR3', '1tau2lSR']
+```
+
+**For 1tau0l channel** (lines 153-156):
+```python
+inputDir = '/publicfs/.../mc/variableHists_v5BDT1tau0l_tauFMorphFix/'
+channel = '1tau0l'
+variables = ['BDT']
+regionList = ['1tau0lVR', '1tau0lCRMR', '1tau0lSR']
+```
+
+**Important**: Uncomment only the section you need and comment out others
+
+#### 6.1.2 Running the Plotter
+
+**Prerequisites**:
+```bash
+cd plotting/
+source ../setEnv_newNew.sh  # Setup ROOT and Python environment
+```
+
+**Execute**:
+```bash
+python3 pl.py
+```
+
+**What it does**:
+1. Reads histogram ROOT files from Stage 3 output directory
+2. Sums individual processes into process groups (tt, ttX, singleTop, etc.)
+3. Creates stacked histograms with proper colors and styling
+4. Overlays data points (if not blinded)
+5. Adds signal overlay scaled by signalScale (default 100×)
+6. Creates ratio plot (Data/MC) in bottom panel
+7. Adds systematic uncertainty bands (if ifSystematic=True)
+8. Generates legend with event yields
+
+**Output location**:
+```
+<inputDir>/results/
+  ├── 1tau1lSR_BDT_dataVsMC_v5_unblind.png
+  ├── 1tau1lSR_BDT_dataVsMC_v5_unblind.pdf
+  ├── 1tau1lCR12_BDT_dataVsMC_v5_unblind.png
+  └── 1tau1lCR12_BDT_dataVsMC_v5_unblind.pdf
+```
+
+#### 6.1.3 Plot Features
+
+**Stacked histogram (top panel)**:
+- Data points with error bars (black markers)
+- Stacked MC backgrounds (colored, filled):
+  - Fake tau: Light yellow (#fec44f)
+  - ttbar: Red (#f03b20)
+  - ttX: Pink (#fc9272)
+  - Single top: Light blue (#91bfdb)
+  - Minor backgrounds: Light green (#edf8b1)
+- Signal overlay (blue line, scaled by 100× default)
+- MC statistical uncertainty band (gray hatched)
+
+**Ratio plot (bottom panel)**:
+- Data/MC ratio for each bin
+- Y-axis range: 0.45 to 1.55
+- Horizontal line at 1.0 (perfect agreement)
+- MC uncertainty band around 1.0
+
+**CMS text** (top of plot):
+- "CMS Preliminary" or "CMS" depending on status
+- Era label (e.g., "2018, 59.7 fb⁻¹")
+
+**Legend**:
+- Shows all processes with event yields
+- Format: "processName[yield]"
+- Signal entry shows scaling factor
+- Uncertainty type labeled (Stat. unc. / Stat. + Syst. unc.)
+
+#### 6.1.4 Common Use Cases
+
+**Standard data/MC comparison**:
+```python
+ifLogy = True
+ifStackSignal = True
+ifSystematic = False
+ifblinding = False
+```
+
+**Blinded signal region** (for publications before unblinding):
+```python
+ifblinding = True  # Hides data in signal regions
+```
+
+**With systematic uncertainties**:
+```python
+ifSystematic = True  # Shows total stat+syst uncertainty band
+# Requires systematic histograms in input ROOT files
+```
+
+**VLL signal plots**:
+```python
+ifVLL = 'VLLm600'  # Overlay VLL signal instead of tttt
+```
+
+**Linear scale** (for control regions):
+```python
+ifLogy = False
+```
+
+#### 6.1.5 Troubleshooting
+
+**Issue**: Empty plots or missing processes
+- Check inputDir path is correct
+- Verify histogram files exist for all processes
+- Check regionList matches regions in ROOT files
+
+**Issue**: Color scheme incorrect
+- Edit colourPerSample dictionary (lines 553-578)
+
+**Issue**: "File not found" error
+- Ensure you've sourced setEnv_newNew.sh
+- Check input directory permissions
+
+#### 6.1.6 Advanced: Plotting with Systematics
+
+To include systematic uncertainties:
+
+1. **Generate systematic histograms** in Stage 3 (ifSys=1)
+2. **Enable in pl.py**:
+```python
+ifSystematic = True
+```
+3. **Configure systematic list** via getSysDicPL() function (line 216)
+   - Automatically reads from writeDatacard.py systematic definitions
+
+**Result**: Gray uncertainty band includes:
+- Statistical uncertainties (MC sample size)
+- Systematic uncertainties (b-tag, JES, theoretical scales, etc.)
+
+### 6.2 Post-Fit Plots
+
+**Location**: `plotting/`
+
+**Script**: `pl_postFit.py` (or similar)
+
+**Purpose**: Show data/MC agreement after combine fit
+
+**Input**: FitDiagnostics output from combine (Stage 5)
 
 **Output**:
 - BDT score distributions with post-fit normalizations
 - Pull plots for systematic uncertainties
 - Impact plots
 
-### 6.2 Limit Plots
+**Configuration**: Similar to pl.py but reads shapes from fitDiagnostics ROOT file
+
+### 6.3 Limit Plots
 
 **Purpose**: Show expected/observed limits vs signal mass (for VLL) or as single point (for tttt)
 
 **Typical format**: 95% CL upper limits on σ × BR
 
-### 6.3 Significance Plots
+**Script**: User-specific (typically in `hua/combine/`)
+
+**Input**: AsymptoticLimits output from combine
+
+### 6.4 Significance Plots
 
 **Purpose**: Show observed significance vs signal mass
+
+**Script**: User-specific
+
+**Input**: Significance output from combine
 
 ---
 
@@ -383,15 +573,20 @@ python3 jobs/makeJob_forWriteHist.py  # Nominal + weight systematics
 bash run_makeJos_WH_forJES.sh         # Shape systematics
 python3 jobs/checkJobResult.py        # Verify all jobs succeeded
 
+# Stage 3.5: Validation plots (recommended before combining)
+cd ../plotting/
+# Edit pl.py: set inputDir, channel, regionList
+python3 pl.py                          # Creates data/MC comparison plots
+# Output in <inputDir>/results/
+
 # Stage 4: Create datacards (user-specific script)
-cd plotting/
 python3 writeDatacard.py --channel 1tau1l --version v8BDT1tau1lV19
 
 # Stage 5: Run combine
 cd ../hua/combine/
 python3 runCombineAll.py --cardDir combinationV18/run2_1tau1l --ifBlind 0 --doFit --doSignificance --doImpact
 
-# Stage 6: Make plots
+# Stage 6: Post-fit plots
 cd ../plotting/
 python3 pl_postFit.py --cardDir ../hua/combine/combinationV18/run2_1tau1l
 ```
