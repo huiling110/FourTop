@@ -51,6 +51,29 @@ FourTop/
 
 ## Analysis Workflow
 
+**Complete workflow documentation**: See [ANALYSIS_WORKFLOW.md](ANALYSIS_WORKFLOW.md)
+
+This document provides a high-level overview. For detailed end-to-end workflow including:
+- BDT training procedures
+- Job submission for nominal and systematic variations
+- Combine tool usage
+- Results visualization
+- Future optimization and automation opportunities
+
+Please refer to ANALYSIS_WORKFLOW.md.
+
+### Quick Overview
+
+**Full pipeline**:
+```
+NanoAOD → Histogram Production → Datacards → Statistical Analysis → Results
+```
+
+**Current analysis version**: `v8BDT1tau1lV19_refactorAndBtagNameFix`
+- ✅ CMS naming conventions compliant
+- ✅ All 26 b-tag systematics working
+- ✅ Refactored code validated
+
 ### 1. NanoAOD Processing → Histograms
 **Location**: `writeHistGood/`
 
@@ -70,7 +93,11 @@ FourTop/
 # ./run_treeAnalyzer.out input_dir/ tttt 1tau1l v3BDT 1 0
 ```
 
-**Recent refactoring**: Code recently refactored with modern C++ (smart pointers, RAII, logging framework, systematic variations manager). Validation confirmed bit-for-bit identical output.
+**Recent updates** (2025-11-14):
+- Fixed CMS naming conventions (btag_shape → btag)
+- Restored 9 missing b-tag systematics
+- All code refactored with modern C++ (smart pointers, RAII, logging)
+- Validation: bit-for-bit identical physics results
 
 ---
 
