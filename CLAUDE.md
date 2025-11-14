@@ -210,18 +210,27 @@ python3 makeJob_forWriteHist.py
 
 #### Systematic Variation Jobs (Shape Systematics)
 
-**Script**: [writeHistGood/jobs/makeJob_WH_forJES.py](writeHistGood/jobs/makeJob_WH_forJES.py)
+**Wrapper script**: [writeHistGood/run_makeJos_WH_forJES.sh](writeHistGood/run_makeJos_WH_forJES.sh)
+**Python script**: [writeHistGood/jobs/makeJob_WH_forJES.py](writeHistGood/jobs/makeJob_WH_forJES.py)
 
 **Purpose**: Submit jobs for shape systematic variations (JES, JER, TES, MET, electron scale)
 
-**Key parameters** (pass via command line):
+**Usage** (recommended):
 ```bash
-python3 makeJob_WH_forJES.py \
-  --inputDirBase /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/ \
-  --inVersion v94HadroPreJetVetoHemOnly_JESPt22 \
-  --outVersion v1baselineHadroBtagWeightAdded \
-  --channel 1tau1l \
-  --version v8BDT1tau1lV19_refactorAndBtagNameFix
+cd writeHistGood/
+# Edit run_makeJos_WH_forJES.sh with desired parameters:
+#   INPUT_DIR_BASE, IN_VERSION, OUT_VERSION, CHANNEL, VERSION
+bash run_makeJos_WH_forJES.sh
+# This runs in background with nohup, logs to log_YEAR_CHANNEL.log
+```
+
+**Current settings** (in run_makeJos_WH_forJES.sh):
+```bash
+INPUT_DIR_BASE="/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/"
+IN_VERSION="v94HadroPreJetVetoHemOnly"
+OUT_VERSION="v1baselineHadroBtagWeightAdded"
+CHANNEL="1tau1l"
+VERSION="v8BDT1tau1lV_refactorAndBtagNameFix"
 ```
 
 **What it submits**:
@@ -237,6 +246,8 @@ python3 makeJob_WH_forJES.py \
    - Input: `*_TESdm{0,1,10,11}{Up,Down}/`
 
 **Important**: These jobs use `ifSys=0` because the systematic variation is already in the input NanoAOD samples (shape-changing systematics require re-running object selection).
+
+**Monitoring**: Check `log_YEAR_CHANNEL.log` for job submission progress
 
 #### Job Monitoring
 
