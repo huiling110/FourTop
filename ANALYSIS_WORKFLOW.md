@@ -215,45 +215,147 @@ cd jobs/ && python3 checkJobResult.py  # Check for failures
 
 ---
 
-## Stage 4: Datacard Creation
+## Stage 4: Template and Datacard Creation
 
-**Location**: `plotting/` (typically, or using custom scripts)
+**Location**: `plotting/`
 
-**Purpose**: Convert ROOT histograms to HiggsAnalysis CombinedLimit datacards
+**Purpose**: Create template ROOT files and convert to HiggsAnalysis CombinedLimit datacards
 
 **Input**: Histogram ROOT files from Stage 3
-**Output**: Text datacards + workspace ROOT files for combine
+**Output**: Template ROOT files → Text datacards → Workspace ROOT files
 
-**Typical script**: `writeDatacard.py` (user may have custom version)
+### 4.1 Create Template Files
+
+**Script**: `addTemplateNew.py`
+
+**Purpose**: Consolidate all histograms and systematics into single template ROOT file for combine
+
+**Configuration** (lines 27-79):
+
+**For 1tau1l channel** (lines 27-30):
+```python
+inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/'
+channel = '1tau1l'
+variables = ['BDT']
+regionList = ['1tau1lSR', '1tau1lCR12']
+```
+
+**Key settings** (lines 75-79):
+```python
+ifFakeTau = True     # Include fake tau background
+ifMCFTau = False     # Use data-driven (not MC-based) fake tau
+ifBlind = False      # Blind signal region (creates fake data from MC sum)
+```
+
+**Running**:
+```bash
+cd plotting/
+source ../setEnv_newNew.sh
+python3 addTemplateNew.py
+```
+
+**What it does**:
+1. Reads all process histograms from Stage 3 output
+2. Sums processes into groups (tt, ttX, singleTop, fakeTau, etc.)
+3. Reads all systematic variations for each process
+4. Renames systematics to combine conventions:
+   - Removes era suffixes from correlated systematics
+   - Appends process names to uncorrelated systematics (e.g., `btagSF_bc` → `btagSF_bc_ttbar`)
+5. Handles data:
+   - If `ifBlind=True`: Creates fake data = sum of all MC in signal regions
+   - If `ifBlind=False`: Uses real data
+6. Resets negative bins to zero (can happen with systematic variations)
+7. Writes all histograms to single ROOT file
+
+**Output**:
+```
+<inputDir>/combine/templatesForCombine1tau1l_new_unblind.root
+```
+
+**Template file structure**:
+```
+templatesForCombine1tau1l_new_unblind.root
+├── 1tau1lSR_data_obs_BDT           # Data histogram
+├── 1tau1lSR_tttt_BDT               # Signal process
+├── 1tau1lSR_tt_BDT                 # Background processes
+├── 1tau1lSR_ttX_BDT
+├── 1tau1lSR_fakeTau_BDT
+├── 1tau1lSR_tt_CMS_btag_hfUp_BDT   # Systematic variations
+├── 1tau1lSR_tt_CMS_btag_hfDown_BDT
+├── 1tau1lCR12_data_obs_BDT         # Control region
+├── 1tau1lCR12_tt_BDT
+└── ...
+```
+
+**Important features**:
+- **Process-correlated systematics**: Same name across all processes (e.g., `CMS_btag_hf`)
+- **Process-uncorrelated systematics**: Process name appended (e.g., `CMS_btag_cferr1_tt`)
+- **Era-dependent systematics**: Era kept in name (e.g., `CMS_btag_hfstats1_2018`)
+- **Negative bin handling**: Any negative bins set to 0 (avoids combine errors)
+
+### 4.2 Create Datacards from Templates
+
+**Script**: `writeDatacard.py` (user-specific implementation)
+
+**Purpose**: Convert template ROOT file to text datacards
+
+**Input**: Template ROOT file from Step 4.1
+**Output**: Text datacards for combine
+
+**Typical usage**:
+```bash
+cd plotting/
+python3 writeDatacard.py --channel 1tau1l --version v3BDT1tau1lV18
+```
 
 **Datacard format**:
 ```
-imax 1  # number of channels
+imax 2  # number of channels (SR + CR)
 jmax N  # number of backgrounds
 kmax M  # number of systematics
 ---
-bin          1tau1lSR
-observation  123  # observed events in data
+shapes * 1tau1lSR templatesForCombine1tau1l_new_unblind.root 1tau1lSR_$PROCESS_BDT
+shapes * 1tau1lCR12 templatesForCombine1tau1l_new_unblind.root 1tau1lCR12_$PROCESS_BDT
 ---
-bin              1tau1lSR  1tau1lSR  1tau1lSR ...
-process          tttt      ttbar     ttW ...
-process          0         1         2 ...
-rate             1.23      45.6      7.8 ...
+bin          1tau1lSR  1tau1lCR12
+observation  123       456
+---
+bin              1tau1lSR  1tau1lSR  1tau1lSR  1tau1lCR12  1tau1lCR12 ...
+process          tttt      tt        ttX       tttt        tt ...
+process          0         1         2         0           1 ...
+rate             1.23      45.6      7.8       2.34        67.8 ...
 ---
 # Systematics
-lumi            lnN  1.025  1.025  1.025 ...
-CMS_btag_hf     shape 1     1      1 ...
+lumi_2018        lnN  1.025  1.025  1.025  1.025  1.025 ...
+CMS_btag_hf      shape 1     1      1      1      1 ...
+CMS_btag_cferr1_tt  shape -    1      -      -      1 ...
 ```
 
-**Workspace creation**:
+**Key features**:
+- **Shape systematics**: Use histogram shapes from template file
+- **Normalization systematics**: Log-normal (lnN) uncertainties
+- **Process-specific systematics**: Marked with `-` for non-applicable processes
+
+### 4.3 Create Workspace for Combine
+
+**Script**: HiggsAnalysis CombinedLimit tool
+
+**Purpose**: Convert text datacard to ROOT workspace for faster combine execution
+
+**Running**:
 ```bash
 cd hua/combine/datacards/
 text2workspace.py datacard_1tau1l.txt -o workspace_1tau1l.root
 ```
 
-**Location of datacards** (example):
+**Output**: `workspace_1tau1l.root` - binary workspace file used by combine
+
+**Location of datacards** (typical):
 ```
 hua/combine/combinationV18/run2_1tau1l/
+├── datacard_1tau1l.txt
+├── workspace_1tau1l.root
+└── templatesForCombine1tau1l_new_unblind.root
 ```
 
 ---
@@ -579,8 +681,15 @@ cd ../plotting/
 python3 pl.py                          # Creates data/MC comparison plots
 # Output in <inputDir>/results/
 
-# Stage 4: Create datacards (user-specific script)
-python3 writeDatacard.py --channel 1tau1l --version v8BDT1tau1lV19
+# Stage 4: Template and datacard creation
+# Step 4.1: Create template ROOT file
+# Edit addTemplateNew.py: set inputDir, channel, regionList, ifBlind
+python3 addTemplateNew.py              # Creates template file
+# Output in <inputDir>/combine/templatesForCombine*.root
+
+# Step 4.2: Create datacards from template
+python3 writeDatacard.py --channel 1tau1l --version v3BDT1tau1lV18
+# Output: datacards and workspace in hua/combine/combinationV18/
 
 # Stage 5: Run combine
 cd ../hua/combine/
