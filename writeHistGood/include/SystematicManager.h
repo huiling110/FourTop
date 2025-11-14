@@ -267,32 +267,97 @@ private:
     void addBTagSystematics() {
         // B-tag shape systematics
         m_systematics.emplace_back(
-            "CMS_btag_shape_jes",
+            "CMS_btag_jes",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_jes_down.v(); },
             false
         );
 
         m_systematics.emplace_back(
-            "CMS_btag_shape_hf",
+            "CMS_btag_hf",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hf_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hf_down.v(); },
             false
         );
 
         m_systematics.emplace_back(
-            "CMS_btag_shape_lf",
+            "CMS_btag_lf",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lf_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lf_down.v(); },
             false
         );
 
-        // B-tag WP systematics
+        // Year-dependent b-tag statistics systematics
+        m_systematics.emplace_back(
+            "CMS_btag_hfstats1",
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_down.v(); },
+            true  // Era-dependent
+        );
+
+        m_systematics.emplace_back(
+            "CMS_btag_hfstats2",
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_down.v(); },
+            true  // Era-dependent
+        );
+
+        m_systematics.emplace_back(
+            "CMS_btag_lfstats1",
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_down.v(); },
+            true  // Era-dependent
+        );
+
+        m_systematics.emplace_back(
+            "CMS_btag_lfstats2",
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_down.v(); },
+            true  // Era-dependent
+        );
+
+        // Charm flavor uncertainties (not era-dependent)
+        m_systematics.emplace_back(
+            "CMS_btag_cferr1",
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_down.v(); },
+            false
+        );
+
+        m_systematics.emplace_back(
+            "CMS_btag_cferr2",
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(); },
+            false
+        );
+
+        // B-tag WP (Working Point) systematics
         m_systematics.emplace_back(
             "CMS_btag_fixedWP_comb_bc_correlated",
             [](event* e, Double_t w) { return (w / e->btagWPMT_weight.v()) * e->btagWPMT_weight_bc_correlated_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagWPMT_weight.v()) * e->btagWPMT_weight_bc_correlated_down.v(); },
             false
+        );
+
+        m_systematics.emplace_back(
+            "CMS_btag_fixedWP_comb_bc_uncorrelated",
+            [](event* e, Double_t w) { return (w / e->btagWPMT_weight.v()) * e->btagWPMT_weight_bc_uncorrelated_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagWPMT_weight.v()) * e->btagWPMT_weight_bc_uncorrelated_down.v(); },
+            true  // Era-dependent
+        );
+
+        m_systematics.emplace_back(
+            "CMS_btag_fixedWP_incl_light_correlated",
+            [](event* e, Double_t w) { return (w / e->btagWPMT_weight.v()) * e->btagWPMT_weight_l_correlated_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagWPMT_weight.v()) * e->btagWPMT_weight_l_correlated_down.v(); },
+            false
+        );
+
+        m_systematics.emplace_back(
+            "CMS_btag_fixedWP_incl_light_uncorrelated",
+            [](event* e, Double_t w) { return (w / e->btagWPMT_weight.v()) * e->btagWPMT_weight_l_uncorrelated_up.v(); },
+            [](event* e, Double_t w) { return (w / e->btagWPMT_weight.v()) * e->btagWPMT_weight_l_uncorrelated_down.v(); },
+            true  // Era-dependent
         );
     }
 
