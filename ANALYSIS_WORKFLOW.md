@@ -30,6 +30,8 @@ NanoAOD (CMS data format)
     ↓
 [3] Histogram Production (nominal + systematics)
     ↓
+[3.5] Consolidate Shape Systematics (addJESTemplatesToHistFile.py)
+    ↓
 [4] Datacard Creation for Combine
     ↓
 [5] Statistical Analysis (HiggsAnalysis CombinedLimit)
@@ -215,14 +217,123 @@ cd jobs/ && python3 checkJobResult.py  # Check for failures
 
 ---
 
+## Stage 3.5: Consolidate Shape Systematics
+
+**Location**: `plotting/`
+
+**Purpose**: Add shape systematic variations (JES, JER, TES, MET, electron scale) from separate directories into nominal histogram files
+
+**Script**: `addJESTemplatesToHistFile.py`
+
+**Why needed**: Stage 3 shape systematic jobs produce histograms in separate directories. This script consolidates them into the nominal ROOT files so `addTemplateNew.py` can find all systematics in one place.
+
+### 3.5.1 Configuration
+
+**Edit main() function** (lines 9-115):
+
+**For 1tau1l channel** (lines 41-44):
+```python
+nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau1lV_refactorAndBtagNameFix/'
+channel = '1tau1l'
+regionList = ['1tau1lSR', '1tau1lCR12']
+variables = ['BDT']
+```
+
+**For 1tau2l channel** (uncomment lines 78-80)
+**For 1tau0l channel** (uncomment lines 109-110)
+
+**MC fake tau setting** (line 114):
+```python
+ifMCFTau = False  # Set True if using MC-based fake tau
+```
+
+### 3.5.2 Running the Script
+
+**Prerequisites**: Must complete Stage 3 nominal AND shape systematic jobs first
+
+```bash
+cd plotting/
+source ../setEnv_newNew.sh
+python3 addJESTemplatesToHistFile.py
+```
+
+### 3.5.3 What It Does
+
+**For each MC process** (tttt, ttbar, ttW, etc.):
+
+1. **Reads shape systematics** from variation directories:
+   - JES: ~27 sources × 2 directions = 54 variations
+     - From: `*_JESup_SOURCE/` and `*_JESDown_SOURCE/`
+     - Naming: `CMS_scale_j_{SOURCE}{Up,Down}` (correlated) or `CMS_scale_j_{SOURCE}_{ERA}{Up,Down}` (uncorrelated)
+   - JER: 2 directions
+     - From: `*_JERUp/` and `*_JERDown/`
+     - Naming: `CMS_res_j_{ERA}{Up,Down}`
+   - TES: 4 decay modes × 2 directions = 8 variations
+     - From: `*_TESdm{0,1,10,11}{Up,Down}/`
+     - Naming: `CMS_scale_t_DM{0,1,10,11}_{ERA}{Up,Down}`
+   - MET: 2 directions
+     - From: `*_METUp/` and `*_METDown/`
+     - Naming: `CMS_scale_met_unclustered_energy_{ERA}{Up,Down}`
+   - Electron scale: 2 directions
+     - From: `*_EleScaleUp/` and `*_EleScaleDown/`
+     - Naming: `CMS_scale_e_{ERA}{Up,Down}`
+
+2. **Renames histograms** to combine convention:
+   - Pattern: `{PROCESS}_{REGION}_{SYSTEMATIC}_{VARIABLE}`
+   - Example: `tttt_1tau1lSR_CMS_scale_j_FlavorQCDUp_BDT`
+
+3. **Adds to nominal file** using `ROOT.TFile.Open(UPDATE)`:
+   - Opens `nominalDir/{process}.root`
+   - Writes all systematic histograms
+   - Preserves existing nominal and weight-based systematics
+
+### 3.5.4 Output
+
+**Modified nominal files** now contain:
+```
+nominalDir/tttt.root
+├── tttt_1tau1lSR_BDT                              # Nominal (unchanged)
+├── tttt_1tau1lSR_CMS_btag_hfUp_BDT                # Weight systematics (unchanged)
+├── tttt_1tau1lSR_CMS_scale_j_FlavorQCDUp_BDT     # JES (added)
+├── tttt_1tau1lSR_CMS_scale_j_FlavorQCDDown_BDT   # JES (added)
+├── tttt_1tau1lSR_CMS_res_j_2018Up_BDT            # JER (added)
+├── tttt_1tau1lSR_CMS_res_j_2018Down_BDT          # JER (added)
+├── tttt_1tau1lSR_CMS_scale_t_DM0_2018Up_BDT      # TES (added)
+└── ... (all other systematics)
+```
+
+### 3.5.5 Important Notes
+
+- **Must run after** Stage 3 shape systematic jobs complete
+- **Must run before** Stage 4 (`addTemplateNew.py`)
+- Script modifies files in place (UPDATE mode)
+- Check input directories exist before running
+- Typical runtime: ~5-10 minutes for all processes
+
+### 3.5.6 Verification
+
+Check that systematics were added successfully:
+```bash
+cd plotting/
+python3 -c "
+import ROOT
+f = ROOT.TFile.Open('<nominalDir>/tttt.root')
+f.ls()  # Should see nominal + all systematic variations
+"
+```
+
+---
+
 ## Stage 4: Template and Datacard Creation
 
 **Location**: `plotting/`
 
 **Purpose**: Create template ROOT files and convert to HiggsAnalysis CombinedLimit datacards
 
-**Input**: Histogram ROOT files from Stage 3
+**Input**: Histogram ROOT files from Stage 3.5 (with all systematics consolidated)
 **Output**: Template ROOT files → Text datacards → Workspace ROOT files
+
+**Prerequisites**: Stage 3.5 must be completed first
 
 ### 4.1 Create Template Files
 
@@ -675,8 +786,12 @@ python3 jobs/makeJob_forWriteHist.py  # Nominal + weight systematics
 bash run_makeJos_WH_forJES.sh         # Shape systematics
 python3 jobs/checkJobResult.py        # Verify all jobs succeeded
 
-# Stage 3.5: Validation plots (recommended before combining)
+# Stage 3.5: Consolidate shape systematics into nominal files
 cd ../plotting/
+# Edit addJESTemplatesToHistFile.py: set nominalDir, channel, regionList
+python3 addJESTemplatesToHistFile.py   # Adds JES/JER/TES/MET/EES to nominal files
+
+# Stage 3.6: Validation plots (recommended before combining)
 # Edit pl.py: set inputDir, channel, regionList
 python3 pl.py                          # Creates data/MC comparison plots
 # Output in <inputDir>/results/
@@ -715,10 +830,11 @@ Same as above, but:
 
 1. **Manual job submission**: Must edit scripts and run separately for nominal and systematics
 2. **Job monitoring**: Manual checking with `checkJobResult.py`
-3. **Datacard creation**: Manual scripting for each analysis version
-4. **Combine execution**: Must run multiple commands for different algorithms
-5. **No automatic retry**: Failed jobs must be manually resubmitted
-6. **Results collection**: Manual gathering of output from multiple directories
+3. **Shape systematic consolidation**: Manual execution of `addJESTemplatesToHistFile.py` before template creation
+4. **Datacard creation**: Manual scripting for each analysis version
+5. **Combine execution**: Must run multiple commands for different algorithms
+6. **No automatic retry**: Failed jobs must be manually resubmitted
+7. **Results collection**: Manual gathering of output from multiple directories
 
 ### Future Automation Ideas
 
