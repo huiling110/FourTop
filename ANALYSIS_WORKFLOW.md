@@ -33,6 +33,7 @@ NanoAOD (CMS data format)
 [4] Plotting and Result Extraction
     ├─ [4.1] Consolidate Shape Systematics
     ├─ [4.2] Template Creation
+    ├─ [4.2.5] Systematic Smoothing (optional, 1tau0l/1tau1l only)
     ├─ [4.3] Datacard Creation
     ├─ [4.4] Workspace Creation
     ├─ [4.5] Statistical Analysis (Combine)
@@ -199,7 +200,41 @@ tail -f log_2018_1tau1l.log  # Watch submission progress
 cd jobs/ && python3 checkJobResult.py  # Check for failures
 ```
 
-### 3.4 Expected Output Structure
+### 3.4 Disk Space Management (Optional)
+
+**Purpose**: Free disk space after shape systematic jobs complete
+
+**Two approaches**:
+
+#### Option A: Compress Logs Only (Before Stage 4.1)
+
+**Script**: `cleanJysVariationFolder.py`
+**When**: If you need to free some space before Stage 4.1 consolidation
+
+```bash
+cd plotting/
+# Edit script to set base_dir for your year
+python3 cleanJysVariationFolder.py
+```
+
+**What it does**: Compresses log/ and jobSH/ folders to .zip files, saves ~10-20% space
+
+#### Option B: Full Cleanup (Integrated in Stage 4.1)
+
+**Recommended**: Automatic cleanup after consolidation completes
+
+See **Stage 4.1.2** for integrated cleanup options with `addJESTemplatesToHistFile.py --delete-sys-dirs`
+
+**Benefits**:
+- Safer: Only runs after successful consolidation
+- More space: Deletes entire systematic directories (~70-90% reduction)
+- Preserves logs: Keeps log.zip and jobSH.zip for debugging
+
+**Important**: Full cleanup requires Stage 4.1 consolidation to complete first
+
+---
+
+### 3.5 Expected Output Structure
 
 ```
 /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/
@@ -273,11 +308,32 @@ ifMCFTau = False  # Set True if using MC-based fake tau
 
 **Prerequisites**: Must complete Stage 3 nominal AND shape systematic jobs first
 
+**Basic usage** (consolidation only):
 ```bash
 cd plotting/
 source ../setEnv_newNew.sh
 python3 addJESTemplatesToHistFile.py
 ```
+
+**With automatic cleanup** (recommended to save disk space):
+```bash
+# Step 1: Preview what would be deleted (dry-run, safe)
+python3 addJESTemplatesToHistFile.py --delete-sys-dirs
+
+# Step 2: If satisfied, actually delete
+python3 addJESTemplatesToHistFile.py --delete-sys-dirs --execute
+```
+
+**Cleanup options**:
+- `--delete-sys-dirs`: Enable deletion of systematic variation directories after consolidation
+- `--execute`: Actually delete (default is dry-run preview)
+- `--no-preserve-logs`: Delete log.zip and jobSH.zip files (default preserves them)
+
+**What cleanup does**:
+1. Finds all systematic variation directories (containing 'Up' or 'Down')
+2. Preserves log.zip and jobSH.zip files by moving to parent directory
+3. Deletes the systematic variation directories
+4. Reports disk space freed (~70-90% reduction)
 
 #### 4.1.3 What It Does
 
@@ -352,6 +408,8 @@ f.ls()  # Should see nominal + all systematic variations
 
 **Purpose**: Consolidate all histograms and systematics into single template ROOT file for combine
 
+**Note**: For 1tau1l and 1tau0l channels, systematic smoothing can be applied before datacards (see Stage 4.2.5)
+
 **Configuration** (lines 27-79):
 
 **For 1tau1l channel** (lines 27-30):
@@ -414,6 +472,71 @@ templatesForCombine1tau1l_new_unblind.root
 - **Process-uncorrelated systematics**: Process name appended (e.g., `CMS_btag_cferr1_tt`)
 - **Era-dependent systematics**: Era kept in name (e.g., `CMS_btag_hfstats1_2018`)
 - **Negative bin handling**: Any negative bins set to 0 (avoids combine errors)
+
+#### 4.2.5 Systematic Smoothing (Optional)
+
+**Location**: `plotting/`
+
+**Script**: `smooth_systematics_fourTops.py`
+
+**Purpose**: Apply statistical smoothing to systematic variations to reduce bin-by-bin fluctuations
+
+**When to use**:
+- For 1tau1l and 1tau0l channels
+- After template creation (Stage 4.2) and pre-fit validation plots
+- Before datacard creation (Stage 4.3)
+
+**Configuration**:
+
+Edit the `main()` function to specify:
+```python
+# For 1tau0l channel
+channel = '1tau0lSR'
+sysList = ['ps_fsr', 'CMS_btag_hf', 'ps_isr', 'CMS_scale_j_FlavorPureGluon',
+           'pdf_alphas', 'QCDscale_fac', 'QCDscale_ren', 'CMS_res_j',
+           'CMS_scale_j_FlavorPureQuark']
+processList = ['tt', 'ttH', 'ttZ', 'ttW', 'WJets']
+input_template = '/path/to/templatesForCombine1tau0l_new_notMCFTau_unblind.root'
+```
+
+**Running**:
+```bash
+cd plotting/
+source ../setEnv_newNew.sh
+python3 smooth_systematics_fourTops.py
+```
+
+**What it does**:
+1. Reads template ROOT file from Stage 4.2
+2. For each systematic variation (Up/Down):
+   - Calculates ratio to nominal histogram
+   - Applies LOWESS (Locally Weighted Scatterplot Smoothing)
+   - Constrains Up/Down variations to be opposite in shape
+3. Creates smoothed templates: `templatesForCombine*_smoothed.root`
+4. Generates comparison plots in `results/` directory
+
+**Smoothing algorithm** (from ttbb analysis):
+- Uses statsmodels LOWESS for non-parametric smoothing
+- Minimizes χ² between smoothed and original variations
+- Preserves overall normalization and statistical power
+
+**Output**:
+```
+<inputDir>/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root
+<inputDir>/results/systematics_comparison_*.png  # Diagnostic plots
+```
+
+**Important notes**:
+- **Not applied to 1tau2l channel** (different systematic treatment)
+- Only smooths specified systematics in `sysList`
+- Creates new file with `_smoothed.root` suffix (original preserved)
+- Use smoothed template for subsequent datacard creation
+
+**CMS naming compliance** (2025-11-24):
+- Updated to use `CMS_btag_hf` (not `CMS_btag_shape_hf`)
+- All systematic names must match Stage 3 output conventions
+
+---
 
 ### 4.3 Create Datacards from Templates
 
@@ -804,10 +927,22 @@ cd ../plotting/
 # Edit addJESTemplatesToHistFile.py: set nominalDir, channel, regionList
 python3 addJESTemplatesToHistFile.py   # Adds JES/JER/TES/MET/EES to nominal files
 
+# Optional: Cleanup systematic directories to free disk space (RECOMMENDED)
+# First preview what would be deleted:
+python3 addJESTemplatesToHistFile.py --delete-sys-dirs
+# Then execute if satisfied:
+python3 addJESTemplatesToHistFile.py --delete-sys-dirs --execute
+
 # Stage 4.2: Create template ROOT file
 # Edit addTemplateNew.py: set inputDir, channel, regionList, ifBlind
 python3 addTemplateNew.py              # Creates template file
 # Output in <inputDir>/combine/templatesForCombine*.root
+
+# Stage 4.2.5: Systematic smoothing (OPTIONAL - for 1tau0l and 1tau1l only)
+# Edit smooth_systematics_fourTops.py: set channel, sysList, processList, input_template
+python3 smooth_systematics_fourTops.py  # Applies LOWESS smoothing to systematics
+# Output: <inputDir>/templatesForCombine*_smoothed.root
+# Use smoothed template for subsequent steps if generated
 
 # Stage 4.3: Create datacards from template
 python3 writeDatacard.py --channel 1tau1l --version v3BDT1tau1lV18

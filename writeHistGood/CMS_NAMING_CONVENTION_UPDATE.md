@@ -199,12 +199,21 @@ region+"_CMS_btag_VARIANT"
 **Purpose**: First production test of CMS-compliant naming conventions (btag_shape → btag)
 
 **Validation steps**:
-- [ ] Histogram files generated successfully
-- [ ] All systematic names follow CMS conventions (no `_shape` suffix)
-- [ ] Stage 4.1: Consolidate shape systematics
-- [ ] Stage 4.2: Template creation with addTemplateNew.py
+- [x] Histogram files generated successfully
+- [x] All systematic names follow CMS conventions (no `_shape` suffix)
+- [ ] Stage 4.1: Consolidate shape systematics with addJESTemplatesToHistFile.py
+- [ ] Optional: Cleanup systematic directories (--delete-sys-dirs --execute)
+- [x] Stage 4.2: Template creation with addTemplateNew.py
+- [x] Pre-fit plots with pl.py (data/MC comparison looks good)
+- [x] Updated smooth_systematics_fourTops.py (line 34: CMS_btag_shape_hf → CMS_btag_hf)
+- [ ] Systematic smoothing with smooth_systematics_fourTops.py
 - [ ] Stage 4.3: Datacard creation
 - [ ] Combine validation check passes
+
+**Disk space management** (2025-11-24):
+- ✅ Integrated cleanup added to addJESTemplatesToHistFile.py
+- Use `--delete-sys-dirs --execute` to free ~70-90% disk space
+- Preserves log.zip and jobSH.zip for debugging
 
 **Expected systematic names in histograms**:
 - ✅ `CMS_btag_cferr1` (not `CMS_btag_shape_cferr1`)
