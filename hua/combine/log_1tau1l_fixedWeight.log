@@ -1,0 +1,26 @@
+Error in <TFile::TFile>: file /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v4BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau.root does not exist
+Traceback (most recent call last):
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/bin/slc7_amd64_gcc700/text2workspace.py", line 63, in <module>
+    MB.doModel(justCheckPhysicsModel=options.justCheckPhysicsModel)
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/python/HiggsAnalysis/CombinedLimit/ModelTools.py", line 110, in doModel
+    if not justCheckPhysicsModel: self.doObservables()
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/python/HiggsAnalysis/CombinedLimit/ShapeTools.py", line 61, in doObservables
+    self.prepareAllShapes();
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/python/HiggsAnalysis/CombinedLimit/ShapeTools.py", line 332, in prepareAllShapes
+    shape = self.getShape(b,p); norm = 0;
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/python/HiggsAnalysis/CombinedLimit/ShapeTools.py", line 503, in getShape
+    if not file: raise RuntimeError, "Cannot open file %s (from pattern %s)" % (finalNames[0],names[0])
+RuntimeError: Cannot open file /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v4BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau.root (from pattern /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v4BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau.root)
+start to turn datacard into workspace.........................
+
+('idatacard: ', 'combinationV18/run_1tau1l_fixedWeight/datacard.txt')
+('iworkspaceName; ', 'datacard.root')
+('command: ', 'text2workspace.py combinationV18/run_1tau1l_fixedWeight/datacard.txt -o combinationV18/run_1tau1l_fixedWeight/workspace/datacard.root')
+None
+workpace transformation done!...............................
+
+
+
+
+
+('combineResultsDir', 'combinationV18/run_1tau1l_fixedWeight/combineResults/')

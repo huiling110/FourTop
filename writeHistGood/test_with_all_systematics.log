@@ -1,0 +1,55 @@
+Setting up environment...
+Output directory already exists: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest_quickTest
+========================================
+Quick Validation Test (isTest=1)
+========================================
+Input Dir: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/
+Process: tttt
+Channel: 1tau1l
+Version: v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest_quickTest
+Systematics: 1
+Test Mode: 1 (ENABLED - faster run)
+
+Log file: test_quick_refactored.log
+========================================
+
+Starting quick test at Fri 14 Nov 14:38:11 CST 2025
+
+========================================
+Quick test completed at Fri 14 Nov 14:38:25 CST 2025
+Exit code: 0
+========================================
+
+Log file: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/writeHistGood/test_quick_refactored.log
+
+Last 30 lines of output:
+1tau1lSR_CMS_pileupDown : 
+TH1.Print Name  = tttt_1tau1lSR_CMS_pileupDown_BDT, Entries= 478, Total sum= 0.021519
+1tau1lSR_CMS_pileupUp : 
+TH1.Print Name  = tttt_1tau1lSR_CMS_pileupUp_BDT, Entries= 478, Total sum= 0.0227218
+1tau1lSR_QCDscale_facDown : 
+TH1.Print Name  = tttt_1tau1lSR_QCDscale_facDown_BDT, Entries= 478, Total sum= 0.0220518
+1tau1lSR_QCDscale_facUp : 
+TH1.Print Name  = tttt_1tau1lSR_QCDscale_facUp_BDT, Entries= 478, Total sum= 0.0221742
+1tau1lSR_QCDscale_renDown : 
+TH1.Print Name  = tttt_1tau1lSR_QCDscale_renDown_BDT, Entries= 478, Total sum= 0.0219742
+1tau1lSR_QCDscale_renUp : 
+TH1.Print Name  = tttt_1tau1lSR_QCDscale_renUp_BDT, Entries= 478, Total sum= 0.022255
+1tau1lSR_pdf_00Down : 
+TH1.Print Name  = tttt_1tau1lSR_pdf_00Down_BDT, Entries= 478, Total sum= 0.0220622
+1tau1lSR_pdf_00Up : 
+TH1.Print Name  = tttt_1tau1lSR_pdf_00Up_BDT, Entries= 478, Total sum= 0.0221912
+1tau1lSR_pdf_alphasDown : 
+TH1.Print Name  = tttt_1tau1lSR_pdf_alphasDown_BDT, Entries= 478, Total sum= 0.0219513
+1tau1lSR_pdf_alphasUp : 
+TH1.Print Name  = tttt_1tau1lSR_pdf_alphasUp_BDT, Entries= 478, Total sum= 0.0221505
+1tau1lSR_ps_fsrDown : 
+TH1.Print Name  = tttt_1tau1lSR_ps_fsrDown_BDT, Entries= 478, Total sum= 0.0181293
+1tau1lSR_ps_fsrUp : 
+TH1.Print Name  = tttt_1tau1lSR_ps_fsrUp_BDT, Entries= 478, Total sum= 0.0217485
+1tau1lSR_ps_isrDown : 
+TH1.Print Name  = tttt_1tau1lSR_ps_isrDown_BDT, Entries= 478, Total sum= 0.0224624
+1tau1lSR_ps_isrUp : 
+TH1.Print Name  = tttt_1tau1lSR_ps_isrUp_BDT, Entries= 478, Total sum= 0.0218356
+outputFile here: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest_quickTest/tttt.root
+Real time 0:00:13, CP time 5.050

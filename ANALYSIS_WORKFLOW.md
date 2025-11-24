@@ -134,23 +134,22 @@ make clean && make -j4
 
 ### 3.2 Submit Nominal Jobs
 
-**Script**: `jobs/makeJob_forWriteHist.py`
+**Wrapper Script**: `run_nominal_jobs.sh` (2025-11-24: NEW - automated for all years)
 
-**Edit parameters** (lines 30-80):
-```python
-inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/'
-channel = '1tau1l'  # or '1tau0l', '1tau2l'
-version = 'v8BDT1tau1lV19_refactorAndBtagNameFix'
-exe = './apps/run_treeAnalyzer.out'
-ifSys = 1  # Enable weight-based systematics
-justMC = False  # Process both MC and data
+**Features**:
+- Automatic parameter memory (saves to `.nominal_jobs_config`)
+- Submits jobs for all years (2018, 2017, 2016preVFP, 2016postVFP)
+- Parameters reusable for systematic variation jobs
+
+**First time usage** (provide all parameters):
+```bash
+cd writeHistGood/
+bash run_nominal_jobs.sh 1tau0l v8BDT1tau0l_refactorAndBtagNameFix v94HadroPreJetVetoHemOnly
 ```
 
-**Submit**:
+**Later runs** (reuse saved parameters):
 ```bash
-cd writeHistGood/jobs/
-python3 makeJob_forWriteHist.py
-# Jobs submitted automatically
+bash run_nominal_jobs.sh  # Uses last parameters from .nominal_jobs_config
 ```
 
 **What it produces**:
@@ -167,22 +166,23 @@ python3 checkJobResult.py
 
 ### 3.3 Submit Shape Systematic Jobs
 
-**Script**: `run_makeJos_WH_forJES.sh` (wrapper for `jobs/makeJob_WH_forJES.py`)
+**Wrapper Script**: `run_makeJos_WH_forJES.sh` (2025-11-24: UPDATED - parameter memory + environment sourcing)
 
-**Edit parameters** (lines 3-12):
-```bash
-INPUT_DIR_BASE="/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/"
-IN_VERSION="v94HadroPreJetVetoHemOnly"
-OUT_VERSION="v1baselineHadroBtagWeightAdded"
-CHANNEL="1tau1l"
-VERSION="v8BDT1tau1lV_refactorAndBtagNameFix"
-```
+**Features**:
+- Automatically loads parameters from `.nominal_jobs_config`
+- Sources environment before each Python execution
+- Runs in background with nohup
 
-**Submit**:
+**Submit** (uses saved parameters from nominal jobs):
 ```bash
 cd writeHistGood/
-bash run_makeJos_WH_forJES.sh
-# Runs in background with nohup, logs to log_2018_1tau1l.log
+bash run_makeJos_WH_forJES.sh  # Automatically uses .nominal_jobs_config
+# Logs: log_2018_CHANNEL.log, log_2017_CHANNEL.log, etc.
+```
+
+**Or provide parameters explicitly**:
+```bash
+bash run_makeJos_WH_forJES.sh 1tau0l v8BDT1tau0l_refactorAndBtagNameFix v94HadroPreJetVetoHemOnly
 ```
 
 **What it submits**:

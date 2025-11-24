@@ -1,0 +1,28 @@
+[2025-10-29 12:01:21] [INFO] ================================================================================
+[2025-10-29 12:01:21] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-10-29 12:01:21] [INFO] ================================================================================
+[2025-10-29 12:01:21] [INFO] Card directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/
+[2025-10-29 12:01:21] [INFO] Analysis mode: UNBLINDED (observed)
+[2025-10-29 12:01:21] [INFO] ================================================================================
+[2025-10-29 12:01:21] [INFO] 
+================================================================================
+[2025-10-29 12:01:21] [INFO] STEP 7: Goodness-of-fit test
+[2025-10-29 12:01:21] [INFO] ================================================================================
+[2025-10-29 12:01:21] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/goodnessOfFit/
+[2025-10-29 12:01:21] [INFO] Running: combine -M GoodnessOfFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/workspace/datacard.root --algo saturated -n .observed
+[2025-10-29 12:01:35] [INFO] ✓ Command completed (exit code: 0)
+[2025-10-29 12:01:35] [INFO] Running: combine -M GoodnessOfFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/workspace/datacard.root --algo saturated -t 100
+[2025-10-29 12:07:35] [INFO] ✓ Command completed (exit code: 0)
+[2025-10-29 12:07:35] [INFO] Running: combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json
+[2025-10-29 12:07:41] [INFO] ✓ Command completed (exit code: 0)
+[2025-10-29 12:07:41] [INFO] Running: plotGof.py gof.json --statistic saturated --mass 120.0 -o gof_plot
+[2025-10-29 12:07:46] [INFO] ✓ Command completed (exit code: 0)
+[2025-10-29 12:07:46] [INFO] 
+================================================================================
+[2025-10-29 12:07:46] [INFO] ✓ Analysis workflow completed successfully!
+[2025-10-29 12:07:46] [INFO] ================================================================================
+Goodness-of-fit results here:  /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/goodnessOfFit/
+
+============================================================
+Goodness-of-Fit Test Results:
+============================================================

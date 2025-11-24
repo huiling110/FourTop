@@ -1,0 +1,14 @@
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is FitDiagnostics
+[WARNING]: Unable to determine uncertainties on all fit parameters in b-only fit. The option --saveWithUncertainties will be ignored as it would lead to incorrect results. Have a look at https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/part3/nonstandard/#fit-parameter-uncertainties for more information.
+
+ --- FitDiagnostics ---
+Best fit r: 2.53297  -1.25656/+1.42179  (68% CL)
+Done in 9.09 min (cpu), 9.28 min (real)
+ifile:  datacard.root
+run command:  combine -M FitDiagnostics /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/workspace/datacard.root  --rMin 0 --rMax 20 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0
+(None, None)
+
+

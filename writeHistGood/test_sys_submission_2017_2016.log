@@ -1,0 +1,41 @@
+Loaded parameters from .nominal_jobs_config:
+  CHANNEL=1tau0l
+  VERSION=v8BDT1tau0l_refactorAndBtagNameFix
+  IN_VERSION=v94HadroPreJetVetoHemOnly
+  OUT_VERSION=v1baselineHadroBtagWeightAdded
+
+=========================================
+Submitting systematic variation (WH) jobs
+=========================================
+Channel: 1tau0l
+Version: v8BDT1tau0l_refactorAndBtagNameFix
+In Version: v94HadroPreJetVetoHemOnly
+Out Version: v1baselineHadroBtagWeightAdded
+
+Jobs will submit:
+  - JES variations: 27 sources × 2 = 54 jobs
+  - JER variations: 2 jobs
+  - TES variations: 4 decay modes × 2 = 8 jobs
+  - MET variations: 2 jobs
+  - EES variations: 2 jobs
+  Total: ~68 systematic jobs per year
+=========================================
+
+Skipping 2018 (already submitted)
+Submitting 2017 1tau0l jobs...
+  → log_2017_1tau0l.log
+Submitting 2016preVFP 1tau0l jobs...
+  → log_2016preVFP_1tau0l.log
+Submitting 2016postVFP 1tau0l jobs...
+  → log_2016postVFP_1tau0l.log
+
+=========================================
+✓ All WH jobs submitted in background
+=========================================
+
+Monitor progress with:
+  tail -f log_2018_1tau0l.log
+  tail -f log_2017_1tau0l.log
+  tail -f log_2016preVFP_1tau0l.log
+  tail -f log_2016postVFP_1tau0l.log
+

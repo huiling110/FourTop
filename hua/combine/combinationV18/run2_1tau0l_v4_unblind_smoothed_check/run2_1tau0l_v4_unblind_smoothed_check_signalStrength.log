@@ -1,0 +1,278 @@
+[2025-11-03 12:12:29] [INFO] ================================================================================
+[2025-11-03 12:12:29] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-11-03 12:12:29] [INFO] ================================================================================
+[2025-11-03 12:12:29] [INFO] Card directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 12:12:29] [INFO] Analysis mode: UNBLINDED (observed)
+[2025-11-03 12:12:29] [INFO] ================================================================================
+[2025-11-03 12:12:29] [INFO] 
+================================================================================
+[2025-11-03 12:12:29] [INFO] STEP 6: Measuring signal strength
+[2025-11-03 12:12:29] [INFO] ================================================================================
+[2025-11-03 12:12:29] [INFO] Using tttt datacard: datacard.root
+[2025-11-03 12:12:29] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/
+[2025-11-03 12:12:29] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/
+[2025-11-03 12:12:29] [INFO] Running: combine -M MultiDimFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/datacard.root --algo grid --points 100 --rMin 0 --rMax 20 --redefineSignalPOIs r -n .scan
+[2025-11-03 12:14:08] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 12:14:08] [INFO] Running: combine -M MultiDimFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/datacard.root -n .snapshot --rMin 0 --rMax 20 --saveWorkspace
+[2025-11-03 12:14:14] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 12:14:14] [INFO] Running: combine -M MultiDimFit higgsCombine.snapshot.MultiDimFit.mH120.root -n .freezeAll --rMin 0 --rMax 20 --algo grid --points 100 --freezeParameters allConstrainedNuisances --snapshotName MultiDimFit
+[2025-11-03 12:14:19] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 12:14:19] [INFO] Running: plot1DScan.py higgsCombine.scan.MultiDimFit.mH120.root --others 'higgsCombine.freezeAll.MultiDimFit.mH120.root:StatOnly:2' -o scan_plot --breakdown Syst,Stat
+[2025-11-03 12:14:24] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 12:14:24] [INFO] Running: cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+[2025-11-03 12:14:25] [ERROR] Command failed with return code 1: cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+[2025-11-03 12:14:25] [ERROR] Failed to execute command: cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+[2025-11-03 12:14:25] [ERROR] Error: Command 'cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"' returned non-zero exit status 1.
+[2025-11-03 12:14:25] [ERROR] Analysis workflow failed: Command 'cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 253, in main
+    measureSignalStrength(working_cardDir, ifVLL, channel)  #!Step 3 of unblinding
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 398, in measureSignalStrength
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 520, in runCommand
+    if check_returncode:
+subprocess.CalledProcessError: Command 'cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"' returned non-zero exit status 1.
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+ POI: r= 7.15617 -> [0,20]
+Point 0/100 r = 0.1
+Point 1/100 r = 0.3
+Point 2/100 r = 0.5
+Point 3/100 r = 0.7
+Point 4/100 r = 0.9
+Point 5/100 r = 1.1
+Point 6/100 r = 1.3
+Point 7/100 r = 1.5
+Point 8/100 r = 1.7
+Point 9/100 r = 1.9
+Point 10/100 r = 2.1
+Point 11/100 r = 2.3
+Point 12/100 r = 2.5
+Point 13/100 r = 2.7
+Point 14/100 r = 2.9
+Point 15/100 r = 3.1
+Point 16/100 r = 3.3
+Point 17/100 r = 3.5
+Point 18/100 r = 3.7
+Point 19/100 r = 3.9
+Point 20/100 r = 4.1
+Point 21/100 r = 4.3
+Point 22/100 r = 4.5
+Point 23/100 r = 4.7
+Point 24/100 r = 4.9
+Point 25/100 r = 5.1
+Point 26/100 r = 5.3
+Point 27/100 r = 5.5
+Point 28/100 r = 5.7
+Point 29/100 r = 5.9
+Point 30/100 r = 6.1
+Point 31/100 r = 6.3
+Point 32/100 r = 6.5
+Point 33/100 r = 6.7
+Point 34/100 r = 6.9
+Point 35/100 r = 7.1
+Point 36/100 r = 7.3
+Point 37/100 r = 7.5
+Point 38/100 r = 7.7
+Point 39/100 r = 7.9
+Point 40/100 r = 8.1
+Point 41/100 r = 8.3
+Point 42/100 r = 8.5
+Point 43/100 r = 8.7
+Point 44/100 r = 8.9
+Point 45/100 r = 9.1
+Point 46/100 r = 9.3
+Point 47/100 r = 9.5
+Point 48/100 r = 9.7
+Point 49/100 r = 9.9
+Point 50/100 r = 10.1
+Point 51/100 r = 10.3
+Point 52/100 r = 10.5
+Point 53/100 r = 10.7
+Point 54/100 r = 10.9
+Point 55/100 r = 11.1
+Point 56/100 r = 11.3
+Point 57/100 r = 11.5
+Point 58/100 r = 11.7
+Point 59/100 r = 11.9
+Point 60/100 r = 12.1
+Point 61/100 r = 12.3
+Point 62/100 r = 12.5
+Point 63/100 r = 12.7
+Point 64/100 r = 12.9
+Point 65/100 r = 13.1
+Point 66/100 r = 13.3
+Point 67/100 r = 13.5
+Point 68/100 r = 13.7
+Point 69/100 r = 13.9
+Point 70/100 r = 14.1
+Point 71/100 r = 14.3
+Point 72/100 r = 14.5
+Point 73/100 r = 14.7
+Point 74/100 r = 14.9
+Point 75/100 r = 15.1
+Point 76/100 r = 15.3
+Point 77/100 r = 15.5
+Point 78/100 r = 15.7
+Point 79/100 r = 15.9
+Point 80/100 r = 16.1
+Point 81/100 r = 16.3
+Point 82/100 r = 16.5
+Point 83/100 r = 16.7
+Point 84/100 r = 16.9
+Point 85/100 r = 17.1
+Point 86/100 r = 17.3
+Point 87/100 r = 17.5
+Point 88/100 r = 17.7
+Point 89/100 r = 17.9
+Point 90/100 r = 18.1
+Point 91/100 r = 18.3
+Point 92/100 r = 18.5
+Point 93/100 r = 18.7
+Point 94/100 r = 18.9
+Point 95/100 r = 19.1
+Point 96/100 r = 19.3
+Point 97/100 r = 19.5
+Point 98/100 r = 19.7
+Point 99/100 r = 19.9
+Done in 1.55 min (cpu), 1.56 min (real)
+
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+
+ --- MultiDimFit ---
+best fit parameter values: 
+   r :    +7.156
+Done in 0.03 min (cpu), 0.03 min (real)
+
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+ POI: r= 7.15583 -> [0,20]
+Point 0/100 r = 0.1
+Point 1/100 r = 0.3
+Point 2/100 r = 0.5
+Point 3/100 r = 0.7
+Point 4/100 r = 0.9
+Point 5/100 r = 1.1
+Point 6/100 r = 1.3
+Point 7/100 r = 1.5
+Point 8/100 r = 1.7
+Point 9/100 r = 1.9
+Point 10/100 r = 2.1
+Point 11/100 r = 2.3
+Point 12/100 r = 2.5
+Point 13/100 r = 2.7
+Point 14/100 r = 2.9
+Point 15/100 r = 3.1
+Point 16/100 r = 3.3
+Point 17/100 r = 3.5
+Point 18/100 r = 3.7
+Point 19/100 r = 3.9
+Point 20/100 r = 4.1
+Point 21/100 r = 4.3
+Point 22/100 r = 4.5
+Point 23/100 r = 4.7
+Point 24/100 r = 4.9
+Point 25/100 r = 5.1
+Point 26/100 r = 5.3
+Point 27/100 r = 5.5
+Point 28/100 r = 5.7
+Point 29/100 r = 5.9
+Point 30/100 r = 6.1
+Point 31/100 r = 6.3
+Point 32/100 r = 6.5
+Point 33/100 r = 6.7
+Point 34/100 r = 6.9
+Point 35/100 r = 7.1
+Point 36/100 r = 7.3
+Point 37/100 r = 7.5
+Point 38/100 r = 7.7
+Point 39/100 r = 7.9
+Point 40/100 r = 8.1
+Point 41/100 r = 8.3
+Point 42/100 r = 8.5
+Point 43/100 r = 8.7
+Point 44/100 r = 8.9
+Point 45/100 r = 9.1
+Point 46/100 r = 9.3
+Point 47/100 r = 9.5
+Point 48/100 r = 9.7
+Point 49/100 r = 9.9
+Point 50/100 r = 10.1
+Point 51/100 r = 10.3
+Point 52/100 r = 10.5
+Point 53/100 r = 10.7
+Point 54/100 r = 10.9
+Point 55/100 r = 11.1
+Point 56/100 r = 11.3
+Point 57/100 r = 11.5
+Point 58/100 r = 11.7
+Point 59/100 r = 11.9
+Point 60/100 r = 12.1
+Point 61/100 r = 12.3
+Point 62/100 r = 12.5
+Point 63/100 r = 12.7
+Point 64/100 r = 12.9
+Point 65/100 r = 13.1
+Point 66/100 r = 13.3
+Point 67/100 r = 13.5
+Point 68/100 r = 13.7
+Point 69/100 r = 13.9
+Point 70/100 r = 14.1
+Point 71/100 r = 14.3
+Point 72/100 r = 14.5
+Point 73/100 r = 14.7
+Point 74/100 r = 14.9
+Point 75/100 r = 15.1
+Point 76/100 r = 15.3
+Point 77/100 r = 15.5
+Point 78/100 r = 15.7
+Point 79/100 r = 15.9
+Point 80/100 r = 16.1
+Point 81/100 r = 16.3
+Point 82/100 r = 16.5
+Point 83/100 r = 16.7
+Point 84/100 r = 16.9
+Point 85/100 r = 17.1
+Point 86/100 r = 17.3
+Point 87/100 r = 17.5
+Point 88/100 r = 17.7
+Point 89/100 r = 17.9
+Point 90/100 r = 18.1
+Point 91/100 r = 18.3
+Point 92/100 r = 18.5
+Point 93/100 r = 18.7
+Point 94/100 r = 18.9
+Point 95/100 r = 19.1
+Point 96/100 r = 19.3
+Point 97/100 r = 19.5
+Point 98/100 r = 19.7
+Point 99/100 r = 19.9
+Done in 0.01 min (cpu), 0.01 min (real)
+
+--------------------------------------
+scan_plot
+--------------------------------------
+[{'lo': 3.2492370249869613, 'hi': 11.406273870351582, 'valid_lo': True, 'valid_hi': True}]
+[{'lo': 0.10000000149011612, 'hi': 16.17118219085123, 'valid_lo': False, 'valid_hi': True}]
+[{'lo': 4.909843853009955, 'hi': 9.456166287636606, 'valid_lo': True, 'valid_hi': True}]
+[{'lo': 2.7181699286048144, 'hi': 11.810897889125604, 'valid_lo': True, 'valid_hi': True}]
+
+Info in <TCanvas::Print>: pdf file ./scan_plot.pdf has been created
+Info in <TCanvas::Print>: png file ./scan_plot.png has been created
+
+Signal strength results here:  /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine//combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/signalStrength/
+
+============================================================
+Signal Strength and Uncertainty Breakdown:
+============================================================
+
+Running uncertainty extraction...

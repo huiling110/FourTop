@@ -1,0 +1,27 @@
+Channel SR1tau1l_2018 will use autoMCStats with settings: event-threshold=10, include-signal=0, hist-mode=1
+Traceback (most recent call last):
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/bin/slc7_amd64_gcc700/text2workspace.py", line 63, in <module>
+    MB.doModel(justCheckPhysicsModel=options.justCheckPhysicsModel)
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/python/HiggsAnalysis/CombinedLimit/ModelTools.py", line 128, in doModel
+    self.doIndividualModels()
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/python/HiggsAnalysis/CombinedLimit/ShapeTools.py", line 97, in doIndividualModels
+    (pdf,coeff) = (self.getPdf(b,p), self.out.function("n_exp_bin%s_proc_%s" % (b,p)))
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/python/HiggsAnalysis/CombinedLimit/ShapeTools.py", line 603, in getPdf
+    shapeUp   = self.getShape(channel,process,systShapeName+"Up")
+  File "/workfs2/cms/huahuil/CMSSW_10_6_20/python/HiggsAnalysis/CombinedLimit/ShapeTools.py", line 573, in getShape
+    raise RuntimeError, "Failed to find %s in file %s (from pattern %s, %s)" % (objname,finalNames[0],names[1],names[0])
+RuntimeError: Failed to find singleTop_1tau1lSR_pdf_alphasUp_BDT in file /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root (from pattern $PROCESS_1tau1lSR_$SYSTEMATIC_BDT, /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root)
+mv: cannot stat 'higgsCombine*root': No such file or directory
+start to turn datacard into workspace.........................
+
+('idatacard: ', 'combinationV18/run2_1tau1l_smoothed_unblind/datacard.txt')
+('iworkspaceName; ', 'datacard.root')
+('command: ', 'text2workspace.py combinationV18/run2_1tau1l_smoothed_unblind/datacard.txt -o combinationV18/run2_1tau1l_smoothed_unblind/workspace/datacard.root')
+None
+workpace transformation done!...............................
+
+
+
+
+
+('combineResultsDir', 'combinationV18/run2_1tau1l_smoothed_unblind/combineResults/')

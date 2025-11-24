@@ -1,0 +1,20 @@
+Combination of SR1tau1l_2018=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys/datacard_1tau1lSys.txt  SR1tau1l_2017=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys/datacard_1tau1lSys.txt  SR1tau1l_2016=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/datacardSys/datacard_1tau1lSys.txt
+imax 3 number of bins
+jmax 4 number of processes minus 1
+kmax * number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *              SR1tau1l_2016  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016/v3btagWeightGood_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
+shapes *              SR1tau1l_2017  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1btagWPWeightUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
+shapes *              SR1tau1l_2018  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1btagWPandRUpdated_v61fixesLepRemovalBug/mc/variableHists_v1traingWithBtagWP/combine/templatesForCombine1tau1l.root $PROCESS_SR_BDT $PROCESS_$SYSTEMATIC_BDT
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau1l_2018  SR1tau1l_2017  SR1tau1l_2016
+observation  -1             -1             -1           
+----------------------------------------------------------------------------------------------------------------------------------
+bin                                              SR1tau1l_2018  SR1tau1l_2018  SR1tau1l_2018  SR1tau1l_2018  SR1tau1l_2018  SR1tau1l_2017  SR1tau1l_2017  SR1tau1l_2017  SR1tau1l_2017  SR1tau1l_2017  SR1tau1l_2016  SR1tau1l_2016  SR1tau1l_2016  SR1tau1l_2016  SR1tau1l_2016
+process                                          tttt           singleTop      tt             ttX            WJets          tttt           singleTop      tt             ttX            WJets          tttt           singleTop      tt             ttX            WJets        
+process                                          0              1              2              3              4              0              1              2              3              4              0              1              2              3              4            
+rate                                             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1             -1           
+----------------------------------------------------------------------------------------------------------------------------------
+SR1tau1l_2018 autoMCStats 10 0 1
+SR1tau1l_2016 autoMCStats 10 0 1
+SR1tau1l_2017 autoMCStats 10 0 1

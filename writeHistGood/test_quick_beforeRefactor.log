@@ -1,0 +1,26 @@
+Setting up environment...
+Output directory already exists: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest_quickTest
+========================================
+Quick Validation Test (isTest=1)
+========================================
+Input Dir: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/
+Process: tttt
+Channel: 1tau1l
+Version: v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest_quickTest
+Systematics: 1
+Test Mode: 1 (ENABLED - faster run)
+
+Log file: test_quick_refactored.log
+========================================
+
+Starting quick test at Thu 13 Nov 16:20:34 CST 2025
+
+========================================
+Quick test completed at Thu 13 Nov 16:20:34 CST 2025
+Exit code: 127
+========================================
+
+Log file: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/writeHistGood/test_quick_refactored.log
+
+Last 30 lines of output:
+./apps/run_treeAnalyzer.out: error while loading shared libraries: libcommenFunction.so: cannot open shared object file: No such file or directory

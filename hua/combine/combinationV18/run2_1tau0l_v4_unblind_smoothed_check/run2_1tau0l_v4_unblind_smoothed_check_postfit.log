@@ -1,0 +1,67 @@
+[2025-11-03 10:45:03] [INFO] ================================================================================
+[2025-11-03 10:45:03] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-11-03 10:45:03] [INFO] ================================================================================
+[2025-11-03 10:45:03] [INFO] Card directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 10:45:03] [INFO] Analysis mode: UNBLINDED (observed)
+[2025-11-03 10:45:03] [INFO] ================================================================================
+[2025-11-03 10:45:03] [INFO] 
+================================================================================
+[2025-11-03 10:45:03] [INFO] STEP 5: Generating post-fit plots
+[2025-11-03 10:45:03] [INFO] ================================================================================
+[2025-11-03 10:45:03] [INFO] Using tttt datacard: datacard.root
+[2025-11-03 10:45:03] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots/
+[2025-11-03 10:45:03] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots/
+[2025-11-03 10:45:03] [INFO] Running: combine -M FitDiagnostics /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/datacard.root  --rMin 0 --rMax 20 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0
+[2025-11-03 10:49:05] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 10:49:05] [INFO] Running: python diffNuisances.py fitDiagnostics_postfit.root --all --output-file /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots//nuisancePostFit.txt 
+[2025-11-03 10:49:05] [ERROR] stderr: Could not find platform independent libraries <prefix>
+Could not find platform dependent libraries <exec_prefix>
+Consider setting $PYTHONHOME to <prefix>[:<exec_prefix>]
+Python path configuration:
+  PYTHONHOME = (not set)
+  PYTHONPATH = (not set)
+  program name = 'python'
+  isolated = 0
+  environment = 1
+  user site = 0
+  import site = 1
+  sys._base_executable = '/usr/bin/python'
+  sys.base_prefix = '/data/cmsbld/jenkins/workspace/ib-run-pr-tests/testBuildDir/tmp/BUILDROOT/b98669a1dd7ad6f9a9402f3cf1f9d11c/opt/cmssw/el9_amd64_gcc12/external/python3/3.9.14-b98669a1dd7ad6f9a9402f3cf1f9d11c'
+  sys.base_exec_prefix = '/data/cmsbld/jenkins/workspace/ib-run-pr-tests/testBuildDir/tmp/BUILDROOT/b98669a1dd7ad6f9a9402f3cf1f9d11c/opt/cmssw/el9_amd64_gcc12/external/python3/3.9.14-b98669a1dd7ad6f9a9402f3cf1f9d11c'
+  sys.platlibdir = 'lib'
+  sys.executable = '/usr/bin/python'
+  sys.prefix = '/data/cmsbld/jenkins/workspace/ib-run-pr-tests/testBuildDir/tmp/BUILDROOT/b98669a1dd7ad6f9a9402f3cf1f9d11c/opt/cmssw/el9_amd64_gcc12/external/python3/3.9.14-b98669a1dd7ad6f9a9402f3cf1f9d11c'
+  sys.exec_prefix = '/data/cmsbld/jenkins/workspace/ib-run-pr-tests/testBuildDir/tmp/BUILDROOT/b98669a1dd7ad6f9a9402f3cf1f9d11c/opt/cmssw/el9_amd64_gcc12/external/python3/3.9.14-b98669a1dd7ad6f9a9402f3cf1f9d11c'
+  sys.path = [
+    '/data/cmsbld/jenkins/workspace/ib-run-pr-tests/testBuildDir/tmp/BUILDROOT/b98669a1dd7ad6f9a9402f3cf1f9d11c/opt/cmssw/el9_amd64_gcc12/external/python3/3.9.14-b98669a1dd7ad6f9a9402f3cf1f9d11c/lib/python39.zip',
+    '/data/cmsbld/jenkins/workspace/ib-run-pr-tests/testBuildDir/tmp/BUILDROOT/b98669a1dd7ad6f9a9402f3cf1f9d11c/opt/cmssw/el9_amd64_gcc12/external/python3/3.9.14-b98669a1dd7ad6f9a9402f3cf1f9d11c/lib/python3.9',
+    '/data/cmsbld/jenkins/workspace/ib-run-pr-tests/testBuildDir/tmp/BUILDROOT/b98669a1dd7ad6f9a9402f3cf1f9d11c/opt/cmssw/el9_amd64_gcc12/external/python3/3.9.14-b98669a1dd7ad6f9a9402f3cf1f9d11c/lib/lib-dynload',
+  ]
+Fatal Python error: init_fs_encoding: failed to get the Python codec of the filesystem encoding
+Python runtime state: core initialized
+ModuleNotFoundError: No module named 'encodings'
+
+Current thread 0x00007f68d3dc2580 (most recent call first):
+<no Python frame>
+
+[2025-11-03 10:49:05] [ERROR] Command failed with return code 1: python diffNuisances.py fitDiagnostics_postfit.root --all --output-file /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots//nuisancePostFit.txt 
+[2025-11-03 10:49:05] [ERROR] Failed to execute command: python diffNuisances.py fitDiagnostics_postfit.root --all --output-file /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots//nuisancePostFit.txt 
+[2025-11-03 10:49:05] [ERROR] Error: Command 'python diffNuisances.py fitDiagnostics_postfit.root --all --output-file /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots//nuisancePostFit.txt ' returned non-zero exit status 1.
+[2025-11-03 10:49:05] [ERROR] Analysis workflow failed: Command 'python diffNuisances.py fitDiagnostics_postfit.root --all --output-file /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots//nuisancePostFit.txt ' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 246, in main
+    runPostFitPlots(working_cardDir)  #!Step 2 of unblinding
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 434, in runPostFitPlots
+    runCommand(plotCommand)
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 520, in runCommand
+    raise subprocess.CalledProcessError(returncode, com, output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command 'python diffNuisances.py fitDiagnostics_postfit.root --all --output-file /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots//nuisancePostFit.txt ' returned non-zero exit status 1.
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is FitDiagnostics
+
+ --- FitDiagnostics ---
+Best fit r: 7.15924  -3.90907/+4.24685  (68% CL)
+Done in 3.90 min (cpu), 3.93 min (real)
+

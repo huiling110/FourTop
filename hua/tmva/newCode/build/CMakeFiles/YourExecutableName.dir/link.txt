@@ -1,0 +1,1 @@
+/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin/c++ CMakeFiles/YourExecutableName.dir/tmvaBDT_training.C.o -o YourExecutableName  -Wl,-rpath,/cvmfs/cms.cern.ch/slc7_amd64_gcc900/lcg/root/6.22.08-8d9ab2b279c3f35e6100d909611c3c2f/lib /cvmfs/cms.cern.ch/slc7_amd64_gcc900/lcg/root/6.22.08-8d9ab2b279c3f35e6100d909611c3c2f/lib/libCore.so 

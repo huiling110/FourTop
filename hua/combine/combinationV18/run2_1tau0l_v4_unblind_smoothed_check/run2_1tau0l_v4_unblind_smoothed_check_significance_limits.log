@@ -1,0 +1,54 @@
+[2025-11-03 12:59:48] [INFO] ================================================================================
+[2025-11-03 12:59:48] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-11-03 12:59:48] [INFO] ================================================================================
+[2025-11-03 12:59:48] [INFO] Card directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 12:59:48] [INFO] Analysis mode: UNBLINDED (observed)
+[2025-11-03 12:59:48] [INFO] ================================================================================
+[2025-11-03 12:59:48] [INFO] 
+================================================================================
+[2025-11-03 12:59:48] [INFO] STEP 2: Calculating expected/observed limits
+[2025-11-03 12:59:48] [INFO] ================================================================================
+[2025-11-03 12:59:48] [INFO] Using tttt datacard: datacard.root
+[2025-11-03 12:59:48] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/results/
+[2025-11-03 12:59:48] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 12:59:48] [INFO] Running tttt Limits calculation - unblinded (observed)
+[2025-11-03 12:59:48] [INFO] Running: combine -M AsymptoticLimits /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/datacard.root --name _datacard
+[2025-11-03 13:01:28] [INFO] stdout:  <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is AsymptoticLimits
+
+ -- AsymptoticLimits ( CLs ) --
+Observed Limit: r < 14.4900
+Expected  2.5%: r < 4.0375
+Expected 16.0%: r < 5.4228
+Expected 50.0%: r < 7.6562
+Expected 84.0%: r < 11.0438
+Expected 97.5%: r < 15.4895
+
+Done in 1.60 min (cpu), 1.61 min (real)
+
+[2025-11-03 13:01:28] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 13:01:28] [INFO] 
+================================================================================
+[2025-11-03 13:01:28] [INFO] STEP 3: Calculating significance
+[2025-11-03 13:01:28] [INFO] ================================================================================
+[2025-11-03 13:01:28] [INFO] Using tttt datacard: datacard.root
+[2025-11-03 13:01:28] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/results/
+[2025-11-03 13:01:28] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 13:01:28] [INFO] Running tttt Significance calculation - unblinded (observed)
+[2025-11-03 13:01:28] [INFO] Running: combine -M Significance /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/datacard.root --name _datacard --plot significance
+[2025-11-03 13:01:36] [INFO] stdout:  <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is Significance
+
+ -- Significance -- 
+Significance: 1.86343
+Done in 0.08 min (cpu), 0.08 min (real)
+
+[2025-11-03 13:01:36] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 13:01:36] [INFO] 
+================================================================================
+[2025-11-03 13:01:36] [INFO] ✓ Analysis workflow completed successfully!
+[2025-11-03 13:01:36] [INFO] ================================================================================

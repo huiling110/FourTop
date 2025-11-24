@@ -1,0 +1,31 @@
+========================================
+Testing Refactored Code
+========================================
+Input Dir: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/
+Process: tttt
+Channel: 1tau1l
+Version: v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest
+Systematics: 1
+Test Mode: 0
+
+Reference log: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/log/tttt.log
+Test log: test_refactored_tttt.log
+========================================
+
+Starting test run at Tue  4 Nov 14:21:47 CST 2025
+
+========================================
+Test run completed at Tue  4 Nov 14:21:47 CST 2025
+Exit code: 127
+========================================
+
+=== Quick Comparison ===
+
+Reference log event count:
+m_processName: tttt  m_channel: 1tau1l
+processScale: 0.0075447
+
+Test log event count:
+
+Full test log: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/writeHistGood/test_refactored_tttt.log
+Reference log: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/log/tttt.log

@@ -1,0 +1,302 @@
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+ POI: r= 1.43499 -> [0,10]
+Point 0/100 r = 0.05
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 1/100 r = 0.15
+Point 2/100 r = 0.25
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 3/100 r = 0.35
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 4/100 r = 0.45
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 5/100 r = 0.55
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 6/100 r = 0.65
+Point 7/100 r = 0.75
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 8/100 r = 0.85
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 9/100 r = 0.95
+Point 10/100 r = 1.05
+Point 11/100 r = 1.15
+Point 12/100 r = 1.25
+Point 13/100 r = 1.35
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 14/100 r = 1.45
+Point 15/100 r = 1.55
+Point 16/100 r = 1.65
+Point 17/100 r = 1.75
+Point 18/100 r = 1.85
+Point 19/100 r = 1.95
+Point 20/100 r = 2.05
+Point 21/100 r = 2.15
+Point 22/100 r = 2.25
+Point 23/100 r = 2.35
+Point 24/100 r = 2.45
+Point 25/100 r = 2.55
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 26/100 r = 2.65
+Point 27/100 r = 2.75
+Point 28/100 r = 2.85
+Point 29/100 r = 2.95
+Point 30/100 r = 3.05
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 31/100 r = 3.15
+Point 32/100 r = 3.25
+Point 33/100 r = 3.35
+Point 34/100 r = 3.45
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 35/100 r = 3.55
+Point 36/100 r = 3.65
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 37/100 r = 3.75
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 38/100 r = 3.85
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 39/100 r = 3.95
+Point 40/100 r = 4.05
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 41/100 r = 4.15
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 42/100 r = 4.25
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 43/100 r = 4.35
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 44/100 r = 4.45
+Point 45/100 r = 4.55
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 46/100 r = 4.65
+Point 47/100 r = 4.75
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 48/100 r = 4.85
+Point 49/100 r = 4.95
+Point 50/100 r = 5.05
+Point 51/100 r = 5.15
+Point 52/100 r = 5.25
+Point 53/100 r = 5.35
+Point 54/100 r = 5.45
+Point 55/100 r = 5.55
+Point 56/100 r = 5.65
+Point 57/100 r = 5.75
+Point 58/100 r = 5.85
+Point 59/100 r = 5.95
+Point 60/100 r = 6.05
+Point 61/100 r = 6.15
+Point 62/100 r = 6.25
+Point 63/100 r = 6.35
+Point 64/100 r = 6.45
+Point 65/100 r = 6.55
+Point 66/100 r = 6.65
+Point 67/100 r = 6.75
+Point 68/100 r = 6.85
+Point 69/100 r = 6.95
+Point 70/100 r = 7.05
+Point 71/100 r = 7.15
+Point 72/100 r = 7.25
+Point 73/100 r = 7.35
+Point 74/100 r = 7.45
+Point 75/100 r = 7.55
+Point 76/100 r = 7.65
+Point 77/100 r = 7.75
+Point 78/100 r = 7.85
+Point 79/100 r = 7.95
+Point 80/100 r = 8.05
+Point 81/100 r = 8.15
+Point 82/100 r = 8.25
+Point 83/100 r = 8.35
+Point 84/100 r = 8.45
+Point 85/100 r = 8.55
+Point 86/100 r = 8.65
+Point 87/100 r = 8.75
+Point 88/100 r = 8.85
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 89/100 r = 8.95
+[WARNING] Minimization finished with status 1 (covariance matrix forced positive definite), this could indicate a problem with the minimum!
+Point 90/100 r = 9.05
+Point 91/100 r = 9.15
+Point 92/100 r = 9.25
+Point 93/100 r = 9.35
+Point 94/100 r = 9.45
+Point 95/100 r = 9.55
+Point 96/100 r = 9.65
+Point 97/100 r = 9.75
+Point 98/100 r = 9.85
+Point 99/100 r = 9.95
+Done in 1.64 min (cpu), 1.65 min (real)
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+
+ --- MultiDimFit ---
+best fit parameter values: 
+   r :    +1.435
+Done in 0.02 min (cpu), 0.03 min (real)
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+ POI: r= 1.43696 -> [0,10]
+Point 0/100 r = 0.05
+Point 1/100 r = 0.15
+Point 2/100 r = 0.25
+Point 3/100 r = 0.35
+Point 4/100 r = 0.45
+Point 5/100 r = 0.55
+Point 6/100 r = 0.65
+Point 7/100 r = 0.75
+Point 8/100 r = 0.85
+Point 9/100 r = 0.95
+Point 10/100 r = 1.05
+Point 11/100 r = 1.15
+Point 12/100 r = 1.25
+Point 13/100 r = 1.35
+Point 14/100 r = 1.45
+Point 15/100 r = 1.55
+Point 16/100 r = 1.65
+Point 17/100 r = 1.75
+Point 18/100 r = 1.85
+Point 19/100 r = 1.95
+Point 20/100 r = 2.05
+Point 21/100 r = 2.15
+Point 22/100 r = 2.25
+Point 23/100 r = 2.35
+Point 24/100 r = 2.45
+Point 25/100 r = 2.55
+Point 26/100 r = 2.65
+Point 27/100 r = 2.75
+Point 28/100 r = 2.85
+Point 29/100 r = 2.95
+Point 30/100 r = 3.05
+Point 31/100 r = 3.15
+Point 32/100 r = 3.25
+Point 33/100 r = 3.35
+Point 34/100 r = 3.45
+Point 35/100 r = 3.55
+Point 36/100 r = 3.65
+Point 37/100 r = 3.75
+Point 38/100 r = 3.85
+Point 39/100 r = 3.95
+Point 40/100 r = 4.05
+Point 41/100 r = 4.15
+Point 42/100 r = 4.25
+Point 43/100 r = 4.35
+Point 44/100 r = 4.45
+Point 45/100 r = 4.55
+Point 46/100 r = 4.65
+Point 47/100 r = 4.75
+Point 48/100 r = 4.85
+Point 49/100 r = 4.95
+Point 50/100 r = 5.05
+Point 51/100 r = 5.15
+Point 52/100 r = 5.25
+Point 53/100 r = 5.35
+Point 54/100 r = 5.45
+Point 55/100 r = 5.55
+Point 56/100 r = 5.65
+Point 57/100 r = 5.75
+Point 58/100 r = 5.85
+Point 59/100 r = 5.95
+Point 60/100 r = 6.05
+Point 61/100 r = 6.15
+Point 62/100 r = 6.25
+Point 63/100 r = 6.35
+Point 64/100 r = 6.45
+Point 65/100 r = 6.55
+Point 66/100 r = 6.65
+Point 67/100 r = 6.75
+Point 68/100 r = 6.85
+Point 69/100 r = 6.95
+Point 70/100 r = 7.05
+Point 71/100 r = 7.15
+Point 72/100 r = 7.25
+Point 73/100 r = 7.35
+Point 74/100 r = 7.45
+Point 75/100 r = 7.55
+Point 76/100 r = 7.65
+Point 77/100 r = 7.75
+Point 78/100 r = 7.85
+Point 79/100 r = 7.95
+Point 80/100 r = 8.05
+Point 81/100 r = 8.15
+Point 82/100 r = 8.25
+Point 83/100 r = 8.35
+Point 84/100 r = 8.45
+Point 85/100 r = 8.55
+Point 86/100 r = 8.65
+Point 87/100 r = 8.75
+Point 88/100 r = 8.85
+Point 89/100 r = 8.95
+Point 90/100 r = 9.05
+Point 91/100 r = 9.15
+Point 92/100 r = 9.25
+Point 93/100 r = 9.35
+Point 94/100 r = 9.45
+Point 95/100 r = 9.55
+Point 96/100 r = 9.65
+Point 97/100 r = 9.75
+Point 98/100 r = 9.85
+Point 99/100 r = 9.95
+Done in 0.00 min (cpu), 0.00 min (real)
+Info in <TCanvas::Print>: pdf file ./scan_plot.pdf has been created
+Info in <TCanvas::Print>: png file ./scan_plot.png has been created
+--------------------------------------
+scan_plot
+--------------------------------------
+[{'lo': 0.05000000074505806, 'hi': 3.412358560663677, 'valid_lo': False, 'valid_hi': True}]
+[{'lo': 0.05000000074505806, 'hi': 5.917783521409687, 'valid_lo': False, 'valid_hi': True}]
+[{'lo': 0.05000000074505806, 'hi': 3.2595118857064316, 'valid_lo': False, 'valid_hi': True}]
+[{'lo': 0.05000000074505806, 'hi': 5.462220943537962, 'valid_lo': False, 'valid_hi': True}]
+ERROR SUBTRACTION IS NEGATIVE FOR Syst LO
+run command:  combine -M MultiDimFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/workspace/datacard.root --algo grid --points 100 --rMin 0 --rMax 10 --redefineSignalPOIs r -n .scan
+(None, None)
+
+
+run command:  combine -M MultiDimFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/workspace/datacard.root -n .snapshot --rMin 0 --rMax 10 --saveWorkspace
+(None, None)
+
+
+run command:  combine -M MultiDimFit higgsCombine.snapshot.MultiDimFit.mH120.root -n .freezeAll --rMin 0 --rMax 10 --algo grid --points 100 --freezeParameters allConstrainedNuisances --snapshotName MultiDimFit
+(None, None)
+
+
+run command:  plot1DScan.py higgsCombine.scan.MultiDimFit.mH120.root --others 'higgsCombine.freezeAll.MultiDimFit.mH120.root:StatOnly:2' -o scan_plot --breakdown Syst,Stat
+(None, None)
+
+
+run command:  mv higgsCombine*.root combine_logger.out /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/signalStrength/
+(None, None)
+
+
+run command:  if ls scan_plot.* 1> /dev/null 2>&1; then mv scan_plot.* /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/signalStrength/; fi
+(None, None)
+
+
+Signal strength results here:  /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/signalStrength/
+
+============================================================
+Signal Strength and Uncertainty Breakdown:
+============================================================
+
+Running uncertainty extraction...
+run command:  cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+(None, None)
+
+
+run command:  cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombine.stat.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+(None, None)
+
+
+
+To extract the values manually, run:
+cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombine.stat.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+
+Systematic uncertainty = sqrt(total_unc^2 - stat_unc^2)
+============================================================

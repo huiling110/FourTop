@@ -1,0 +1,62 @@
+Setting up environment...
+Running test on WH_beforeClaudeImprove branch...
+Branch: WH_beforeClaudeImprove
+using input from command line
+SysError in <TFile::TFile>: file /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven_beforeRefactorTest/tttt.root can not be opened No such file or directory
+Error in <TTree::SetBranchStatus>: unknown branch -> MET_phi
+Error in <TTree::SetBranchAddress>: unknown branch -> MET_phi
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPNM_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPNM_num
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPTM_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPTM_num
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPTT_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPTT_num
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_1genFlavour
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_1genFlavour
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_1lepton1_charge
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_1lepton1_charge
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_num
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_num
+Error in <TTree::SetBranchStatus>: unknown branch -> tausT_1jetPt
+Error in <TTree::SetBranchAddress>: unknown branch -> tausT_1jetPt
+Error in <TTree::SetBranchStatus>: unknown branch -> tausT_prongNum
+Error in <TTree::SetBranchAddress>: unknown branch -> tausT_prongNum
+Error in <TTree::SetBranchStatus>: unknown branch -> jets_btagsPT_
+Error in <TTree::SetBranchStatus>: unknown branch -> jets_flavour_
+Error in <TTree::SetBranchAddress>: unknown branch -> jets_btagsPT_
+Error in <TTree::SetBranchAddress>: unknown branch -> jets_flavour_
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+input file: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/tttt.root
+m_era=2018 m_isRun3=0 m_isData=0  m_isTest=1
+m_isFakeLepton=0 m_isFakeTau=0
+m_ifFakeTau=1
+m_ifSys=1
+m_ifMCFakeTau=1
+m_processName: tttt  m_channel: 1tau1l
+event: initialize event class by SetBranchAddress()
+Done initializing event class 
+Start to initilation....................................................
+m_channel: 1tau1l; m_isRun3: 0
+initializing for 1tau1l
+training input: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml
+weightfile=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml
+reading varibleList: /workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv
+out of function
+variablesName.size(): 0
+after adding reader
+                         : Booking "BDT method" of type "BDT" from /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml.
+                         : Reading weight file: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml
+<FATAL>                          : Dataset[Default] : You declared 0 variables in the Reader while there are 26 variables declared in the file
+***> abort program execution
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  FATAL error
+test_before_refactor.sh: line 22: 1230167 Aborted                 (core dumped) ./apps/run_treeAnalyzer.out "${INPUT_DIR}" "${PROCESS}" "${CHANNEL}" "${VERSION}" ${IF_SYS} ${IS_TEST}
+Exit code: 134

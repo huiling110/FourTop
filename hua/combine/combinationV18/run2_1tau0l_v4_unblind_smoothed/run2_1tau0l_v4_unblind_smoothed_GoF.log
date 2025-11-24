@@ -1,0 +1,1245 @@
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 28.2632
+Done in 0.07 min (cpu), 0.08 min (real)
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.0626
+Done in 0.09 min (cpu), 0.09 min (real)
+Generate toy 2/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.2236
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 3/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 44.9344
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 4/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.8968
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 5/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 68.5866
+Done in 0.07 min (cpu), 0.07 min (real)
+Generate toy 6/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 52.46
+Done in 0.07 min (cpu), 0.07 min (real)
+Generate toy 7/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.6188
+Done in 0.07 min (cpu), 0.07 min (real)
+Generate toy 8/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 42.6018
+Done in 0.09 min (cpu), 0.09 min (real)
+Generate toy 9/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 53.6155
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 10/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 60.4498
+Done in 0.04 min (cpu), 0.04 min (real)
+Generate toy 11/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 52.2103
+Done in 0.12 min (cpu), 0.13 min (real)
+Generate toy 12/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 60.6606
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 13/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 27.0667
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 14/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 44.3304
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 15/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 65.7636
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 16/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 62.8501
+Done in 0.09 min (cpu), 0.10 min (real)
+Generate toy 17/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.5461
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 18/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.0401
+Done in 0.09 min (cpu), 0.09 min (real)
+Generate toy 19/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.7481
+Done in 0.07 min (cpu), 0.08 min (real)
+Generate toy 20/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 67.4656
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 21/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.0543
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 22/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.5191
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 23/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.1536
+Done in 0.09 min (cpu), 0.09 min (real)
+Generate toy 24/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 52.294
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 25/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.2611
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 26/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 45.3629
+Done in 0.09 min (cpu), 0.09 min (real)
+Generate toy 27/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 45.473
+Done in 0.09 min (cpu), 0.09 min (real)
+Generate toy 28/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 30.8068
+Done in 0.08 min (cpu), 0.08 min (real)
+Generate toy 29/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 48.4089
+Done in 0.17 min (cpu), 0.17 min (real)
+Generate toy 30/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.8972
+Done in 0.09 min (cpu), 0.10 min (real)
+Generate toy 31/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.9146
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 32/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 61.2036
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 33/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 44.2293
+Done in 0.24 min (cpu), 0.24 min (real)
+Generate toy 34/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 68.0172
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 35/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.4785
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 36/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.0575
+Done in 0.16 min (cpu), 0.16 min (real)
+Generate toy 37/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 40.3962
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 38/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 45.8365
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 39/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 62.7518
+Done in 0.11 min (cpu), 0.11 min (real)
+Generate toy 40/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 53.4151
+Done in 0.11 min (cpu), 0.11 min (real)
+Generate toy 41/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.201
+Done in 0.11 min (cpu), 0.11 min (real)
+Generate toy 42/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 56.419
+Done in 0.15 min (cpu), 0.15 min (real)
+Generate toy 43/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 57.3509
+Done in 0.17 min (cpu), 0.17 min (real)
+Generate toy 44/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 48.823
+Done in 0.04 min (cpu), 0.04 min (real)
+Generate toy 45/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.3017
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 46/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 51.419
+Done in 0.10 min (cpu), 0.11 min (real)
+Generate toy 47/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.3763
+Done in 0.13 min (cpu), 0.13 min (real)
+Generate toy 48/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 31.2838
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 49/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 35.6406
+Done in 0.29 min (cpu), 0.29 min (real)
+Generate toy 50/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 63.2938
+Done in 0.12 min (cpu), 0.12 min (real)
+Generate toy 51/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.5325
+Done in 0.12 min (cpu), 0.12 min (real)
+Generate toy 52/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 44.7736
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 53/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.339
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 54/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.005
+Done in 0.13 min (cpu), 0.13 min (real)
+Generate toy 55/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 62.4475
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 56/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 44.9228
+Done in 0.17 min (cpu), 0.17 min (real)
+Generate toy 57/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 58.0491
+Done in 0.11 min (cpu), 0.11 min (real)
+Generate toy 58/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 44.8269
+Done in 0.10 min (cpu), 0.10 min (real)
+Generate toy 59/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.0175
+Done in 0.17 min (cpu), 0.18 min (real)
+Generate toy 60/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.6915
+Done in 0.11 min (cpu), 0.11 min (real)
+Generate toy 61/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 66.9092
+Done in 0.35 min (cpu), 0.35 min (real)
+Generate toy 62/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 61.613
+Done in 0.14 min (cpu), 0.14 min (real)
+Generate toy 63/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 56.8337
+Done in 0.12 min (cpu), 0.12 min (real)
+Generate toy 64/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 34.7658
+Done in 0.11 min (cpu), 0.11 min (real)
+Generate toy 65/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 37.5853
+Done in 0.13 min (cpu), 0.13 min (real)
+Generate toy 66/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 92.1628
+Done in 0.15 min (cpu), 0.15 min (real)
+Generate toy 67/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 53.4555
+Done in 0.13 min (cpu), 0.13 min (real)
+Generate toy 68/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 59.4922
+Done in 0.12 min (cpu), 0.12 min (real)
+Generate toy 69/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 35.8145
+Done in 0.12 min (cpu), 0.12 min (real)
+Generate toy 70/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 68.7521
+Done in 0.20 min (cpu), 0.20 min (real)
+Generate toy 71/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.1206
+Done in 0.21 min (cpu), 0.21 min (real)
+Generate toy 72/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.8625
+Done in 0.13 min (cpu), 0.13 min (real)
+Generate toy 73/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.0455
+Done in 0.15 min (cpu), 0.15 min (real)
+Generate toy 74/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 42.6183
+Done in 0.14 min (cpu), 0.14 min (real)
+Generate toy 75/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 57.1274
+Done in 0.16 min (cpu), 0.17 min (real)
+Generate toy 76/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.0804
+Done in 0.18 min (cpu), 0.18 min (real)
+Generate toy 77/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.5563
+Done in 0.15 min (cpu), 0.15 min (real)
+Generate toy 78/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.0452
+Done in 0.21 min (cpu), 0.21 min (real)
+Generate toy 79/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 33.4387
+Done in 0.12 min (cpu), 0.13 min (real)
+Generate toy 80/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 57.7605
+Done in 0.31 min (cpu), 0.31 min (real)
+Generate toy 81/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 51.3093
+Done in 0.15 min (cpu), 0.16 min (real)
+Generate toy 82/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 28.3555
+Done in 0.14 min (cpu), 0.14 min (real)
+Generate toy 83/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 38.2988
+Done in 0.15 min (cpu), 0.15 min (real)
+Generate toy 84/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.2966
+Done in 0.17 min (cpu), 0.17 min (real)
+Generate toy 85/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.7235
+Done in 0.24 min (cpu), 0.55 min (real)
+Generate toy 86/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 62.5445
+Done in 0.15 min (cpu), 0.15 min (real)
+Generate toy 87/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 67.7857
+Done in 0.14 min (cpu), 0.14 min (real)
+Generate toy 88/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 57.2119
+Done in 0.15 min (cpu), 0.15 min (real)
+Generate toy 89/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 33.6545
+Done in 0.15 min (cpu), 0.15 min (real)
+Generate toy 90/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 76.332
+Done in 0.39 min (cpu), 0.39 min (real)
+Generate toy 91/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 57.1027
+Done in 0.17 min (cpu), 0.17 min (real)
+Generate toy 92/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.4623
+Done in 0.18 min (cpu), 0.18 min (real)
+Generate toy 93/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 57.8739
+Done in 0.16 min (cpu), 0.16 min (real)
+Generate toy 94/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 45.1733
+Done in 0.24 min (cpu), 0.24 min (real)
+Generate toy 95/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.7041
+Done in 0.16 min (cpu), 0.17 min (real)
+Generate toy 96/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 45.9019
+Done in 0.25 min (cpu), 0.26 min (real)
+Generate toy 97/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 64.9501
+Done in 0.29 min (cpu), 0.30 min (real)
+Generate toy 98/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.7223
+Done in 0.16 min (cpu), 0.16 min (real)
+Generate toy 99/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 37.0524
+Done in 0.17 min (cpu), 0.17 min (real)
+Generate toy 100/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.6886
+Done in 0.16 min (cpu), 0.16 min (real)
+Generate toy 101/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 56.3819
+Done in 0.17 min (cpu), 0.18 min (real)
+Generate toy 102/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 58.4842
+Done in 0.11 min (cpu), 0.11 min (real)
+Generate toy 103/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 46.6291
+Done in 0.17 min (cpu), 0.17 min (real)
+Generate toy 104/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 56.7606
+Done in 0.19 min (cpu), 0.19 min (real)
+Generate toy 105/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 57.381
+Done in 0.21 min (cpu), 0.21 min (real)
+Generate toy 106/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.6073
+Done in 0.11 min (cpu), 0.11 min (real)
+Generate toy 107/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 62.9631
+Done in 0.27 min (cpu), 0.28 min (real)
+Generate toy 108/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 53.4923
+Done in 0.17 min (cpu), 0.17 min (real)
+Generate toy 109/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.9287
+Done in 0.26 min (cpu), 0.27 min (real)
+Generate toy 110/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 63.886
+Done in 0.20 min (cpu), 0.21 min (real)
+Generate toy 111/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.3695
+Done in 0.20 min (cpu), 0.20 min (real)
+Generate toy 112/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.2715
+Done in 0.46 min (cpu), 0.47 min (real)
+Generate toy 113/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 45.7501
+Done in 0.48 min (cpu), 0.49 min (real)
+Generate toy 114/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.1654
+Done in 0.20 min (cpu), 0.20 min (real)
+Generate toy 115/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 61.465
+Done in 0.19 min (cpu), 0.19 min (real)
+Generate toy 116/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 58.2399
+Done in 0.20 min (cpu), 0.20 min (real)
+Generate toy 117/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.0171
+Done in 0.28 min (cpu), 0.29 min (real)
+Generate toy 118/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.0898
+Done in 0.19 min (cpu), 0.19 min (real)
+Generate toy 119/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.3496
+Done in 0.19 min (cpu), 0.19 min (real)
+Generate toy 120/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.2958
+Done in 0.19 min (cpu), 0.19 min (real)
+Generate toy 121/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 33.4646
+Done in 0.18 min (cpu), 0.18 min (real)
+Generate toy 122/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.0193
+Done in 0.20 min (cpu), 0.20 min (real)
+Generate toy 123/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 32.9303
+Done in 0.17 min (cpu), 0.18 min (real)
+Generate toy 124/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.0251
+Done in 0.21 min (cpu), 0.22 min (real)
+Generate toy 125/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.4724
+Done in 0.18 min (cpu), 0.18 min (real)
+Generate toy 126/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 35.5582
+Done in 0.17 min (cpu), 0.18 min (real)
+Generate toy 127/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.3677
+Done in 0.21 min (cpu), 0.21 min (real)
+Generate toy 128/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 69.1268
+Done in 0.21 min (cpu), 0.21 min (real)
+Generate toy 129/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 64.5589
+Done in 0.23 min (cpu), 0.23 min (real)
+Generate toy 130/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 44.6392
+Done in 0.20 min (cpu), 0.20 min (real)
+Generate toy 131/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 53.1132
+Done in 0.12 min (cpu), 0.12 min (real)
+Generate toy 132/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 59.9254
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 133/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 53.2205
+Done in 0.24 min (cpu), 0.24 min (real)
+Generate toy 134/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 51.4594
+Done in 0.20 min (cpu), 0.20 min (real)
+Generate toy 135/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 48.7465
+Done in 0.20 min (cpu), 0.20 min (real)
+Generate toy 136/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 68.413
+Done in 0.42 min (cpu), 0.43 min (real)
+Generate toy 137/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 72.183
+Done in 0.34 min (cpu), 0.34 min (real)
+Generate toy 138/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.7923
+Done in 0.33 min (cpu), 0.33 min (real)
+Generate toy 139/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 52.0665
+Done in 0.23 min (cpu), 0.23 min (real)
+Generate toy 140/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 40.3421
+Done in 0.21 min (cpu), 0.21 min (real)
+Generate toy 141/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 33.1426
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 142/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 34.1752
+Done in 0.23 min (cpu), 0.23 min (real)
+Generate toy 143/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 39.3718
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 144/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 67.4911
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 145/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 39.3844
+Done in 0.28 min (cpu), 0.28 min (real)
+Generate toy 146/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 51.043
+Done in 0.23 min (cpu), 0.24 min (real)
+Generate toy 147/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 69.0251
+Done in 0.25 min (cpu), 0.25 min (real)
+Generate toy 148/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.9021
+Done in 0.13 min (cpu), 0.13 min (real)
+Generate toy 149/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.9391
+Done in 0.33 min (cpu), 0.34 min (real)
+Generate toy 150/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.9015
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 151/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 56.144
+Done in 0.37 min (cpu), 0.37 min (real)
+Generate toy 152/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.723
+Done in 0.28 min (cpu), 0.28 min (real)
+Generate toy 153/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 52.1536
+Done in 0.26 min (cpu), 0.27 min (real)
+Generate toy 154/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 46.3805
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 155/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 37.7453
+Done in 0.21 min (cpu), 0.22 min (real)
+Generate toy 156/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 56.5966
+Done in 0.24 min (cpu), 0.24 min (real)
+Generate toy 157/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.5236
+Done in 0.34 min (cpu), 0.34 min (real)
+Generate toy 158/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 60.0863
+Done in 0.25 min (cpu), 0.25 min (real)
+Generate toy 159/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 60.3445
+Done in 0.36 min (cpu), 0.36 min (real)
+Generate toy 160/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 60.5523
+Done in 0.28 min (cpu), 0.28 min (real)
+Generate toy 161/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 53.0098
+Done in 0.27 min (cpu), 0.27 min (real)
+Generate toy 162/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 63.7591
+Done in 0.23 min (cpu), 0.23 min (real)
+Generate toy 163/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.903
+Done in 0.26 min (cpu), 0.26 min (real)
+Generate toy 164/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 65.4211
+Done in 0.53 min (cpu), 0.53 min (real)
+Generate toy 165/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 45.5925
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 166/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.5152
+Done in 0.24 min (cpu), 0.24 min (real)
+Generate toy 167/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 35.909
+Done in 0.22 min (cpu), 0.22 min (real)
+Generate toy 168/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.8032
+Done in 0.64 min (cpu), 0.64 min (real)
+Generate toy 169/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 39.2449
+Done in 0.24 min (cpu), 0.24 min (real)
+Generate toy 170/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 48.048
+Done in 0.25 min (cpu), 0.25 min (real)
+Generate toy 171/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.035
+Done in 0.31 min (cpu), 0.31 min (real)
+Generate toy 172/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 45.4494
+Done in 0.51 min (cpu), 0.52 min (real)
+Generate toy 173/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.5317
+Done in 0.27 min (cpu), 0.27 min (real)
+Generate toy 174/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 46.315
+Done in 0.29 min (cpu), 0.29 min (real)
+Generate toy 175/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 54.348
+Done in 0.24 min (cpu), 0.24 min (real)
+Generate toy 176/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.7759
+Done in 0.26 min (cpu), 0.26 min (real)
+Generate toy 177/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.301
+Done in 0.29 min (cpu), 0.29 min (real)
+Generate toy 178/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.9517
+Done in 0.29 min (cpu), 0.29 min (real)
+Generate toy 179/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 39.3753
+Done in 0.26 min (cpu), 0.26 min (real)
+Generate toy 180/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 57.2215
+Done in 0.40 min (cpu), 0.40 min (real)
+Generate toy 181/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 58.7583
+Done in 0.29 min (cpu), 0.29 min (real)
+Generate toy 182/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.972
+Done in 0.31 min (cpu), 0.31 min (real)
+Generate toy 183/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 56.3719
+Done in 0.25 min (cpu), 0.25 min (real)
+Generate toy 184/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.1725
+Done in 0.30 min (cpu), 0.30 min (real)
+Generate toy 185/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 47.8404
+Done in 0.27 min (cpu), 0.27 min (real)
+Generate toy 186/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 50.246
+Done in 0.31 min (cpu), 0.31 min (real)
+Generate toy 187/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 58.5673
+Done in 0.31 min (cpu), 0.32 min (real)
+Generate toy 188/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 37.1636
+Done in 0.38 min (cpu), 0.38 min (real)
+Generate toy 189/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 49.2453
+Done in 0.25 min (cpu), 0.26 min (real)
+Generate toy 190/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 41.6506
+Done in 0.27 min (cpu), 0.27 min (real)
+Generate toy 191/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 46.3108
+Done in 0.44 min (cpu), 0.44 min (real)
+Generate toy 192/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 43.9021
+Done in 0.29 min (cpu), 0.29 min (real)
+Generate toy 193/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 39.0811
+Done in 0.32 min (cpu), 0.33 min (real)
+Generate toy 194/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 59.9842
+Done in 0.32 min (cpu), 0.32 min (real)
+Generate toy 195/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 38.9683
+Done in 0.32 min (cpu), 0.33 min (real)
+Generate toy 196/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 64.1047
+Done in 0.29 min (cpu), 0.30 min (real)
+Generate toy 197/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 55.7459
+Done in 0.30 min (cpu), 0.30 min (real)
+Generate toy 198/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 69.007
+Done in 0.30 min (cpu), 0.30 min (real)
+Generate toy 199/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 51.7888
+Done in 0.29 min (cpu), 0.29 min (real)
+Generate toy 200/200
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 34.1771
+Done in 0.30 min (cpu), 0.30 min (real)
+mean   expected limit: r < 50.8835 +/- 0.704646 @ 95%CL (200 toyMC)
+median expected limit: r < 50.3068 @ 95%CL (200 toyMC)
+   68% expected band : 41.2958 < r < 60.5523
+   95% expected band : 33.1426 < r < 69.0251
+>> Writing output gof.json from files:
+[ 'higgsCombine.observed.GoodnessOfFit.mH120.root',
+  'higgsCombineTest.GoodnessOfFit.mH120.123456.root']
+Info in <TCanvas::Print>: pdf file ./gof_plot.pdf has been created
+Info in <TCanvas::Print>: png file ./gof_plot.png has been created
+run command:  combine -M GoodnessOfFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed/workspace/datacard.root --algo saturated -n .observed
+(None, None)
+
+
+run command:  combine -M GoodnessOfFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed/workspace/datacard.root --algo saturated -t 200
+(None, None)
+
+
+run command:  combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json
+(None, None)
+
+
+run command:  plotGof.py gof.json --statistic saturated --mass 120.0 -o gof_plot
+(None, None)
+
+
+Goodness-of-fit results here:  /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed/combineResults/goodnessOfFit/
+
+============================================================
+Goodness-of-Fit Test Results:
+============================================================

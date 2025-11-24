@@ -1,0 +1,1635 @@
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 93.8217
+Done in 0.17 min (cpu), 0.17 min (real)
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 1
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 126.314
+Done in 0.18 min (cpu), 0.19 min (real)
+mean   expected limit: r < 126.314 @ 95%CL (1 toyMC)
+median expected limit: r < 126.314 @ 95%CL (1 toyMC)
+   68% expected band : 126.314 < r < 126.314
+   95% expected band : 126.314 < r < 126.314
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 2
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 111.157
+Done in 0.41 min (cpu), 0.42 min (real)
+mean   expected limit: r < 111.157 @ 95%CL (1 toyMC)
+median expected limit: r < 111.157 @ 95%CL (1 toyMC)
+   68% expected band : 111.157 < r < 111.157
+   95% expected band : 111.157 < r < 111.157
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 3
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 154.448
+Done in 0.22 min (cpu), 0.22 min (real)
+mean   expected limit: r < 154.448 @ 95%CL (1 toyMC)
+median expected limit: r < 154.448 @ 95%CL (1 toyMC)
+   68% expected band : 154.448 < r < 154.448
+   95% expected band : 154.448 < r < 154.448
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 4
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 101.368
+Done in 0.34 min (cpu), 0.35 min (real)
+mean   expected limit: r < 101.368 @ 95%CL (1 toyMC)
+median expected limit: r < 101.368 @ 95%CL (1 toyMC)
+   68% expected band : 101.368 < r < 101.368
+   95% expected band : 101.368 < r < 101.368
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 5
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 128.052
+Done in 0.22 min (cpu), 0.22 min (real)
+mean   expected limit: r < 128.052 @ 95%CL (1 toyMC)
+median expected limit: r < 128.052 @ 95%CL (1 toyMC)
+   68% expected band : 128.052 < r < 128.052
+   95% expected band : 128.052 < r < 128.052
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 6
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 134.755
+Done in 0.44 min (cpu), 0.44 min (real)
+mean   expected limit: r < 134.755 @ 95%CL (1 toyMC)
+median expected limit: r < 134.755 @ 95%CL (1 toyMC)
+   68% expected band : 134.755 < r < 134.755
+   95% expected band : 134.755 < r < 134.755
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 7
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 106.871
+Done in 0.15 min (cpu), 0.15 min (real)
+mean   expected limit: r < 106.871 @ 95%CL (1 toyMC)
+median expected limit: r < 106.871 @ 95%CL (1 toyMC)
+   68% expected band : 106.871 < r < 106.871
+   95% expected band : 106.871 < r < 106.871
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 8
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 112.731
+Done in 0.20 min (cpu), 0.20 min (real)
+mean   expected limit: r < 112.731 @ 95%CL (1 toyMC)
+median expected limit: r < 112.731 @ 95%CL (1 toyMC)
+   68% expected band : 112.731 < r < 112.731
+   95% expected band : 112.731 < r < 112.731
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 9
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 115.987
+Done in 0.39 min (cpu), 0.40 min (real)
+mean   expected limit: r < 115.987 @ 95%CL (1 toyMC)
+median expected limit: r < 115.987 @ 95%CL (1 toyMC)
+   68% expected band : 115.987 < r < 115.987
+   95% expected band : 115.987 < r < 115.987
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 10
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 121.736
+Done in 0.10 min (cpu), 0.10 min (real)
+mean   expected limit: r < 121.736 @ 95%CL (1 toyMC)
+median expected limit: r < 121.736 @ 95%CL (1 toyMC)
+   68% expected band : 121.736 < r < 121.736
+   95% expected band : 121.736 < r < 121.736
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 11
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 111.1
+Done in 0.14 min (cpu), 0.14 min (real)
+mean   expected limit: r < 111.1 @ 95%CL (1 toyMC)
+median expected limit: r < 111.1 @ 95%CL (1 toyMC)
+   68% expected band : 111.1 < r < 111.1
+   95% expected band : 111.1 < r < 111.1
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 12
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 141.652
+Done in 0.22 min (cpu), 0.22 min (real)
+mean   expected limit: r < 141.652 @ 95%CL (1 toyMC)
+median expected limit: r < 141.652 @ 95%CL (1 toyMC)
+   68% expected band : 141.652 < r < 141.652
+   95% expected band : 141.652 < r < 141.652
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 13
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 130.886
+Done in 0.19 min (cpu), 0.19 min (real)
+mean   expected limit: r < 130.886 @ 95%CL (1 toyMC)
+median expected limit: r < 130.886 @ 95%CL (1 toyMC)
+   68% expected band : 130.886 < r < 130.886
+   95% expected band : 130.886 < r < 130.886
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 14
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 103.134
+Done in 0.29 min (cpu), 0.30 min (real)
+mean   expected limit: r < 103.134 @ 95%CL (1 toyMC)
+median expected limit: r < 103.134 @ 95%CL (1 toyMC)
+   68% expected band : 103.134 < r < 103.134
+   95% expected band : 103.134 < r < 103.134
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 15
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 132.539
+Done in 0.13 min (cpu), 0.14 min (real)
+mean   expected limit: r < 132.539 @ 95%CL (1 toyMC)
+median expected limit: r < 132.539 @ 95%CL (1 toyMC)
+   68% expected band : 132.539 < r < 132.539
+   95% expected band : 132.539 < r < 132.539
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 16
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 120.381
+Done in 0.24 min (cpu), 0.24 min (real)
+mean   expected limit: r < 120.381 @ 95%CL (1 toyMC)
+median expected limit: r < 120.381 @ 95%CL (1 toyMC)
+   68% expected band : 120.381 < r < 120.381
+   95% expected band : 120.381 < r < 120.381
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 17
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 100.698
+Done in 0.25 min (cpu), 0.25 min (real)
+mean   expected limit: r < 100.698 @ 95%CL (1 toyMC)
+median expected limit: r < 100.698 @ 95%CL (1 toyMC)
+   68% expected band : 100.698 < r < 100.698
+   95% expected band : 100.698 < r < 100.698
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 18
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 139.128
+Done in 0.43 min (cpu), 0.43 min (real)
+mean   expected limit: r < 139.128 @ 95%CL (1 toyMC)
+median expected limit: r < 139.128 @ 95%CL (1 toyMC)
+   68% expected band : 139.128 < r < 139.128
+   95% expected band : 139.128 < r < 139.128
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 19
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 129.12
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 129.12 @ 95%CL (1 toyMC)
+median expected limit: r < 129.12 @ 95%CL (1 toyMC)
+   68% expected band : 129.12 < r < 129.12
+   95% expected band : 129.12 < r < 129.12
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 20
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 100.889
+Done in 0.19 min (cpu), 0.19 min (real)
+mean   expected limit: r < 100.889 @ 95%CL (1 toyMC)
+median expected limit: r < 100.889 @ 95%CL (1 toyMC)
+   68% expected band : 100.889 < r < 100.889
+   95% expected band : 100.889 < r < 100.889
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 21
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 102.767
+Done in 0.18 min (cpu), 0.18 min (real)
+mean   expected limit: r < 102.767 @ 95%CL (1 toyMC)
+median expected limit: r < 102.767 @ 95%CL (1 toyMC)
+   68% expected band : 102.767 < r < 102.767
+   95% expected band : 102.767 < r < 102.767
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 22
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 90.4334
+Done in 0.35 min (cpu), 0.38 min (real)
+mean   expected limit: r < 90.4334 @ 95%CL (1 toyMC)
+median expected limit: r < 90.4334 @ 95%CL (1 toyMC)
+   68% expected band : 90.4334 < r < 90.4334
+   95% expected band : 90.4334 < r < 90.4334
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 23
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 126.782
+Done in 0.12 min (cpu), 0.12 min (real)
+mean   expected limit: r < 126.782 @ 95%CL (1 toyMC)
+median expected limit: r < 126.782 @ 95%CL (1 toyMC)
+   68% expected band : 126.782 < r < 126.782
+   95% expected band : 126.782 < r < 126.782
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 24
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 122.699
+Done in 0.24 min (cpu), 0.24 min (real)
+mean   expected limit: r < 122.699 @ 95%CL (1 toyMC)
+median expected limit: r < 122.699 @ 95%CL (1 toyMC)
+   68% expected band : 122.699 < r < 122.699
+   95% expected band : 122.699 < r < 122.699
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 25
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 91.4507
+Done in 0.25 min (cpu), 0.25 min (real)
+mean   expected limit: r < 91.4507 @ 95%CL (1 toyMC)
+median expected limit: r < 91.4507 @ 95%CL (1 toyMC)
+   68% expected band : 91.4507 < r < 91.4507
+   95% expected band : 91.4507 < r < 91.4507
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 26
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 113.729
+Done in 0.19 min (cpu), 0.19 min (real)
+mean   expected limit: r < 113.729 @ 95%CL (1 toyMC)
+median expected limit: r < 113.729 @ 95%CL (1 toyMC)
+   68% expected band : 113.729 < r < 113.729
+   95% expected band : 113.729 < r < 113.729
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 27
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 159.674
+Done in 0.24 min (cpu), 0.24 min (real)
+mean   expected limit: r < 159.674 @ 95%CL (1 toyMC)
+median expected limit: r < 159.674 @ 95%CL (1 toyMC)
+   68% expected band : 159.674 < r < 159.674
+   95% expected band : 159.674 < r < 159.674
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 28
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 114.973
+Done in 0.19 min (cpu), 0.19 min (real)
+mean   expected limit: r < 114.973 @ 95%CL (1 toyMC)
+median expected limit: r < 114.973 @ 95%CL (1 toyMC)
+   68% expected band : 114.973 < r < 114.973
+   95% expected band : 114.973 < r < 114.973
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 29
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 122.027
+Done in 0.19 min (cpu), 0.20 min (real)
+mean   expected limit: r < 122.027 @ 95%CL (1 toyMC)
+median expected limit: r < 122.027 @ 95%CL (1 toyMC)
+   68% expected band : 122.027 < r < 122.027
+   95% expected band : 122.027 < r < 122.027
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 30
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 113.18
+Done in 0.12 min (cpu), 0.12 min (real)
+mean   expected limit: r < 113.18 @ 95%CL (1 toyMC)
+median expected limit: r < 113.18 @ 95%CL (1 toyMC)
+   68% expected band : 113.18 < r < 113.18
+   95% expected band : 113.18 < r < 113.18
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 31
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 113.698
+Done in 0.20 min (cpu), 0.21 min (real)
+mean   expected limit: r < 113.698 @ 95%CL (1 toyMC)
+median expected limit: r < 113.698 @ 95%CL (1 toyMC)
+   68% expected band : 113.698 < r < 113.698
+   95% expected band : 113.698 < r < 113.698
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 32
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 108.473
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 108.473 @ 95%CL (1 toyMC)
+median expected limit: r < 108.473 @ 95%CL (1 toyMC)
+   68% expected band : 108.473 < r < 108.473
+   95% expected band : 108.473 < r < 108.473
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 33
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 86.6384
+Done in 0.22 min (cpu), 0.22 min (real)
+mean   expected limit: r < 86.6384 @ 95%CL (1 toyMC)
+median expected limit: r < 86.6384 @ 95%CL (1 toyMC)
+   68% expected band : 86.6384 < r < 86.6384
+   95% expected band : 86.6384 < r < 86.6384
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 34
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 120.267
+Done in 0.19 min (cpu), 0.19 min (real)
+mean   expected limit: r < 120.267 @ 95%CL (1 toyMC)
+median expected limit: r < 120.267 @ 95%CL (1 toyMC)
+   68% expected band : 120.267 < r < 120.267
+   95% expected band : 120.267 < r < 120.267
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 35
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 113.196
+Done in 0.31 min (cpu), 0.31 min (real)
+mean   expected limit: r < 113.196 @ 95%CL (1 toyMC)
+median expected limit: r < 113.196 @ 95%CL (1 toyMC)
+   68% expected band : 113.196 < r < 113.196
+   95% expected band : 113.196 < r < 113.196
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 36
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 129.302
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 129.302 @ 95%CL (1 toyMC)
+median expected limit: r < 129.302 @ 95%CL (1 toyMC)
+   68% expected band : 129.302 < r < 129.302
+   95% expected band : 129.302 < r < 129.302
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 37
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 94.943
+Done in 0.24 min (cpu), 0.24 min (real)
+mean   expected limit: r < 94.943 @ 95%CL (1 toyMC)
+median expected limit: r < 94.943 @ 95%CL (1 toyMC)
+   68% expected band : 94.943 < r < 94.943
+   95% expected band : 94.943 < r < 94.943
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 38
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 113.176
+Done in 0.32 min (cpu), 0.32 min (real)
+mean   expected limit: r < 113.176 @ 95%CL (1 toyMC)
+median expected limit: r < 113.176 @ 95%CL (1 toyMC)
+   68% expected band : 113.176 < r < 113.176
+   95% expected band : 113.176 < r < 113.176
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 39
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 98.216
+Done in 0.53 min (cpu), 0.53 min (real)
+mean   expected limit: r < 98.216 @ 95%CL (1 toyMC)
+median expected limit: r < 98.216 @ 95%CL (1 toyMC)
+   68% expected band : 98.216 < r < 98.216
+   95% expected band : 98.216 < r < 98.216
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 40
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 136.311
+Done in 0.25 min (cpu), 0.25 min (real)
+mean   expected limit: r < 136.311 @ 95%CL (1 toyMC)
+median expected limit: r < 136.311 @ 95%CL (1 toyMC)
+   68% expected band : 136.311 < r < 136.311
+   95% expected band : 136.311 < r < 136.311
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 41
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 107.395
+Done in 0.33 min (cpu), 0.34 min (real)
+mean   expected limit: r < 107.395 @ 95%CL (1 toyMC)
+median expected limit: r < 107.395 @ 95%CL (1 toyMC)
+   68% expected band : 107.395 < r < 107.395
+   95% expected band : 107.395 < r < 107.395
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 42
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 100.906
+Done in 0.26 min (cpu), 0.26 min (real)
+mean   expected limit: r < 100.906 @ 95%CL (1 toyMC)
+median expected limit: r < 100.906 @ 95%CL (1 toyMC)
+   68% expected band : 100.906 < r < 100.906
+   95% expected band : 100.906 < r < 100.906
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 43
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 123.603
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 123.603 @ 95%CL (1 toyMC)
+median expected limit: r < 123.603 @ 95%CL (1 toyMC)
+   68% expected band : 123.603 < r < 123.603
+   95% expected band : 123.603 < r < 123.603
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 44
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 146.773
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 146.773 @ 95%CL (1 toyMC)
+median expected limit: r < 146.773 @ 95%CL (1 toyMC)
+   68% expected band : 146.773 < r < 146.773
+   95% expected band : 146.773 < r < 146.773
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 45
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 121.424
+Done in 0.23 min (cpu), 0.23 min (real)
+mean   expected limit: r < 121.424 @ 95%CL (1 toyMC)
+median expected limit: r < 121.424 @ 95%CL (1 toyMC)
+   68% expected band : 121.424 < r < 121.424
+   95% expected band : 121.424 < r < 121.424
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 46
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 118.946
+Done in 0.23 min (cpu), 0.24 min (real)
+mean   expected limit: r < 118.946 @ 95%CL (1 toyMC)
+median expected limit: r < 118.946 @ 95%CL (1 toyMC)
+   68% expected band : 118.946 < r < 118.946
+   95% expected band : 118.946 < r < 118.946
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 47
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 139.645
+Done in 0.18 min (cpu), 0.18 min (real)
+mean   expected limit: r < 139.645 @ 95%CL (1 toyMC)
+median expected limit: r < 139.645 @ 95%CL (1 toyMC)
+   68% expected band : 139.645 < r < 139.645
+   95% expected band : 139.645 < r < 139.645
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 48
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 122.605
+Done in 0.19 min (cpu), 0.20 min (real)
+mean   expected limit: r < 122.605 @ 95%CL (1 toyMC)
+median expected limit: r < 122.605 @ 95%CL (1 toyMC)
+   68% expected band : 122.605 < r < 122.605
+   95% expected band : 122.605 < r < 122.605
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 49
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 124.423
+Done in 0.19 min (cpu), 0.19 min (real)
+mean   expected limit: r < 124.423 @ 95%CL (1 toyMC)
+median expected limit: r < 124.423 @ 95%CL (1 toyMC)
+   68% expected band : 124.423 < r < 124.423
+   95% expected band : 124.423 < r < 124.423
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 50
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 102.978
+Done in 0.20 min (cpu), 0.22 min (real)
+mean   expected limit: r < 102.978 @ 95%CL (1 toyMC)
+median expected limit: r < 102.978 @ 95%CL (1 toyMC)
+   68% expected band : 102.978 < r < 102.978
+   95% expected band : 102.978 < r < 102.978
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 51
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 110.957
+Done in 0.21 min (cpu), 0.22 min (real)
+mean   expected limit: r < 110.957 @ 95%CL (1 toyMC)
+median expected limit: r < 110.957 @ 95%CL (1 toyMC)
+   68% expected band : 110.957 < r < 110.957
+   95% expected band : 110.957 < r < 110.957
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 52
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 129.327
+Done in 0.37 min (cpu), 0.37 min (real)
+mean   expected limit: r < 129.327 @ 95%CL (1 toyMC)
+median expected limit: r < 129.327 @ 95%CL (1 toyMC)
+   68% expected band : 129.327 < r < 129.327
+   95% expected band : 129.327 < r < 129.327
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 53
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 136.655
+Done in 0.25 min (cpu), 0.25 min (real)
+mean   expected limit: r < 136.655 @ 95%CL (1 toyMC)
+median expected limit: r < 136.655 @ 95%CL (1 toyMC)
+   68% expected band : 136.655 < r < 136.655
+   95% expected band : 136.655 < r < 136.655
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 54
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 134.673
+Done in 0.44 min (cpu), 0.44 min (real)
+mean   expected limit: r < 134.673 @ 95%CL (1 toyMC)
+median expected limit: r < 134.673 @ 95%CL (1 toyMC)
+   68% expected band : 134.673 < r < 134.673
+   95% expected band : 134.673 < r < 134.673
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 55
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 117.468
+Done in 0.26 min (cpu), 0.26 min (real)
+mean   expected limit: r < 117.468 @ 95%CL (1 toyMC)
+median expected limit: r < 117.468 @ 95%CL (1 toyMC)
+   68% expected band : 117.468 < r < 117.468
+   95% expected band : 117.468 < r < 117.468
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 56
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 140.413
+Done in 0.27 min (cpu), 0.27 min (real)
+mean   expected limit: r < 140.413 @ 95%CL (1 toyMC)
+median expected limit: r < 140.413 @ 95%CL (1 toyMC)
+   68% expected band : 140.413 < r < 140.413
+   95% expected band : 140.413 < r < 140.413
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 57
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 135.841
+Done in 0.24 min (cpu), 0.24 min (real)
+mean   expected limit: r < 135.841 @ 95%CL (1 toyMC)
+median expected limit: r < 135.841 @ 95%CL (1 toyMC)
+   68% expected band : 135.841 < r < 135.841
+   95% expected band : 135.841 < r < 135.841
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 58
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 105.302
+Done in 0.22 min (cpu), 0.22 min (real)
+mean   expected limit: r < 105.302 @ 95%CL (1 toyMC)
+median expected limit: r < 105.302 @ 95%CL (1 toyMC)
+   68% expected band : 105.302 < r < 105.302
+   95% expected band : 105.302 < r < 105.302
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 59
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 104.884
+Done in 0.12 min (cpu), 0.12 min (real)
+mean   expected limit: r < 104.884 @ 95%CL (1 toyMC)
+median expected limit: r < 104.884 @ 95%CL (1 toyMC)
+   68% expected band : 104.884 < r < 104.884
+   95% expected band : 104.884 < r < 104.884
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 60
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 111.53
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 111.53 @ 95%CL (1 toyMC)
+median expected limit: r < 111.53 @ 95%CL (1 toyMC)
+   68% expected band : 111.53 < r < 111.53
+   95% expected band : 111.53 < r < 111.53
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 61
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 98.7622
+Done in 0.15 min (cpu), 0.15 min (real)
+mean   expected limit: r < 98.7622 @ 95%CL (1 toyMC)
+median expected limit: r < 98.7622 @ 95%CL (1 toyMC)
+   68% expected band : 98.7622 < r < 98.7622
+   95% expected band : 98.7622 < r < 98.7622
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 62
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 119.469
+Done in 0.54 min (cpu), 0.55 min (real)
+mean   expected limit: r < 119.469 @ 95%CL (1 toyMC)
+median expected limit: r < 119.469 @ 95%CL (1 toyMC)
+   68% expected band : 119.469 < r < 119.469
+   95% expected band : 119.469 < r < 119.469
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 63
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 115.192
+Done in 0.31 min (cpu), 0.32 min (real)
+mean   expected limit: r < 115.192 @ 95%CL (1 toyMC)
+median expected limit: r < 115.192 @ 95%CL (1 toyMC)
+   68% expected band : 115.192 < r < 115.192
+   95% expected band : 115.192 < r < 115.192
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 64
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 110.377
+Done in 0.12 min (cpu), 0.12 min (real)
+mean   expected limit: r < 110.377 @ 95%CL (1 toyMC)
+median expected limit: r < 110.377 @ 95%CL (1 toyMC)
+   68% expected band : 110.377 < r < 110.377
+   95% expected band : 110.377 < r < 110.377
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 65
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 135.658
+Done in 0.13 min (cpu), 0.14 min (real)
+mean   expected limit: r < 135.658 @ 95%CL (1 toyMC)
+median expected limit: r < 135.658 @ 95%CL (1 toyMC)
+   68% expected band : 135.658 < r < 135.658
+   95% expected band : 135.658 < r < 135.658
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 66
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 91.0604
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 91.0604 @ 95%CL (1 toyMC)
+median expected limit: r < 91.0604 @ 95%CL (1 toyMC)
+   68% expected band : 91.0604 < r < 91.0604
+   95% expected band : 91.0604 < r < 91.0604
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 67
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 107.882
+Done in 0.27 min (cpu), 0.27 min (real)
+mean   expected limit: r < 107.882 @ 95%CL (1 toyMC)
+median expected limit: r < 107.882 @ 95%CL (1 toyMC)
+   68% expected band : 107.882 < r < 107.882
+   95% expected band : 107.882 < r < 107.882
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 68
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 111.863
+Done in 0.35 min (cpu), 0.35 min (real)
+mean   expected limit: r < 111.863 @ 95%CL (1 toyMC)
+median expected limit: r < 111.863 @ 95%CL (1 toyMC)
+   68% expected band : 111.863 < r < 111.863
+   95% expected band : 111.863 < r < 111.863
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 69
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 96.9491
+Done in 0.23 min (cpu), 0.23 min (real)
+mean   expected limit: r < 96.9491 @ 95%CL (1 toyMC)
+median expected limit: r < 96.9491 @ 95%CL (1 toyMC)
+   68% expected band : 96.9491 < r < 96.9491
+   95% expected band : 96.9491 < r < 96.9491
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 70
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 136.796
+Done in 0.10 min (cpu), 0.10 min (real)
+mean   expected limit: r < 136.796 @ 95%CL (1 toyMC)
+median expected limit: r < 136.796 @ 95%CL (1 toyMC)
+   68% expected band : 136.796 < r < 136.796
+   95% expected band : 136.796 < r < 136.796
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 71
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 116.135
+Done in 0.17 min (cpu), 0.17 min (real)
+mean   expected limit: r < 116.135 @ 95%CL (1 toyMC)
+median expected limit: r < 116.135 @ 95%CL (1 toyMC)
+   68% expected band : 116.135 < r < 116.135
+   95% expected band : 116.135 < r < 116.135
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 72
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 127.741
+Done in 0.26 min (cpu), 0.26 min (real)
+mean   expected limit: r < 127.741 @ 95%CL (1 toyMC)
+median expected limit: r < 127.741 @ 95%CL (1 toyMC)
+   68% expected band : 127.741 < r < 127.741
+   95% expected band : 127.741 < r < 127.741
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 73
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 103.786
+Done in 0.24 min (cpu), 0.24 min (real)
+mean   expected limit: r < 103.786 @ 95%CL (1 toyMC)
+median expected limit: r < 103.786 @ 95%CL (1 toyMC)
+   68% expected band : 103.786 < r < 103.786
+   95% expected band : 103.786 < r < 103.786
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 74
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 133.51
+Done in 0.26 min (cpu), 0.26 min (real)
+mean   expected limit: r < 133.51 @ 95%CL (1 toyMC)
+median expected limit: r < 133.51 @ 95%CL (1 toyMC)
+   68% expected band : 133.51 < r < 133.51
+   95% expected band : 133.51 < r < 133.51
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 75
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 112.185
+Done in 0.26 min (cpu), 0.26 min (real)
+mean   expected limit: r < 112.185 @ 95%CL (1 toyMC)
+median expected limit: r < 112.185 @ 95%CL (1 toyMC)
+   68% expected band : 112.185 < r < 112.185
+   95% expected band : 112.185 < r < 112.185
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 76
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 116.394
+Done in 0.24 min (cpu), 0.25 min (real)
+mean   expected limit: r < 116.394 @ 95%CL (1 toyMC)
+median expected limit: r < 116.394 @ 95%CL (1 toyMC)
+   68% expected band : 116.394 < r < 116.394
+   95% expected band : 116.394 < r < 116.394
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 77
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 91.8525
+Done in 0.23 min (cpu), 0.23 min (real)
+mean   expected limit: r < 91.8525 @ 95%CL (1 toyMC)
+median expected limit: r < 91.8525 @ 95%CL (1 toyMC)
+   68% expected band : 91.8525 < r < 91.8525
+   95% expected band : 91.8525 < r < 91.8525
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 78
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 148.505
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 148.505 @ 95%CL (1 toyMC)
+median expected limit: r < 148.505 @ 95%CL (1 toyMC)
+   68% expected band : 148.505 < r < 148.505
+   95% expected band : 148.505 < r < 148.505
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 79
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 87.5863
+Done in 0.40 min (cpu), 0.40 min (real)
+mean   expected limit: r < 87.5863 @ 95%CL (1 toyMC)
+median expected limit: r < 87.5863 @ 95%CL (1 toyMC)
+   68% expected band : 87.5863 < r < 87.5863
+   95% expected band : 87.5863 < r < 87.5863
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 80
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 156.462
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 156.462 @ 95%CL (1 toyMC)
+median expected limit: r < 156.462 @ 95%CL (1 toyMC)
+   68% expected band : 156.462 < r < 156.462
+   95% expected band : 156.462 < r < 156.462
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 81
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 114.015
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 114.015 @ 95%CL (1 toyMC)
+median expected limit: r < 114.015 @ 95%CL (1 toyMC)
+   68% expected band : 114.015 < r < 114.015
+   95% expected band : 114.015 < r < 114.015
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 82
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 131.774
+Done in 0.17 min (cpu), 0.17 min (real)
+mean   expected limit: r < 131.774 @ 95%CL (1 toyMC)
+median expected limit: r < 131.774 @ 95%CL (1 toyMC)
+   68% expected band : 131.774 < r < 131.774
+   95% expected band : 131.774 < r < 131.774
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 83
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 124.261
+Done in 0.35 min (cpu), 0.36 min (real)
+mean   expected limit: r < 124.261 @ 95%CL (1 toyMC)
+median expected limit: r < 124.261 @ 95%CL (1 toyMC)
+   68% expected band : 124.261 < r < 124.261
+   95% expected band : 124.261 < r < 124.261
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 84
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 120.293
+Done in 0.24 min (cpu), 0.24 min (real)
+mean   expected limit: r < 120.293 @ 95%CL (1 toyMC)
+median expected limit: r < 120.293 @ 95%CL (1 toyMC)
+   68% expected band : 120.293 < r < 120.293
+   95% expected band : 120.293 < r < 120.293
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 85
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 98.0041
+Done in 0.36 min (cpu), 0.36 min (real)
+mean   expected limit: r < 98.0041 @ 95%CL (1 toyMC)
+median expected limit: r < 98.0041 @ 95%CL (1 toyMC)
+   68% expected band : 98.0041 < r < 98.0041
+   95% expected band : 98.0041 < r < 98.0041
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 86
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 112.403
+Done in 0.19 min (cpu), 0.19 min (real)
+mean   expected limit: r < 112.403 @ 95%CL (1 toyMC)
+median expected limit: r < 112.403 @ 95%CL (1 toyMC)
+   68% expected band : 112.403 < r < 112.403
+   95% expected band : 112.403 < r < 112.403
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 87
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 146.962
+Done in 0.34 min (cpu), 0.34 min (real)
+mean   expected limit: r < 146.962 @ 95%CL (1 toyMC)
+median expected limit: r < 146.962 @ 95%CL (1 toyMC)
+   68% expected band : 146.962 < r < 146.962
+   95% expected band : 146.962 < r < 146.962
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 88
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 117.011
+Done in 0.19 min (cpu), 0.22 min (real)
+mean   expected limit: r < 117.011 @ 95%CL (1 toyMC)
+median expected limit: r < 117.011 @ 95%CL (1 toyMC)
+   68% expected band : 117.011 < r < 117.011
+   95% expected band : 117.011 < r < 117.011
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 89
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 119.006
+Done in 0.32 min (cpu), 0.33 min (real)
+mean   expected limit: r < 119.006 @ 95%CL (1 toyMC)
+median expected limit: r < 119.006 @ 95%CL (1 toyMC)
+   68% expected band : 119.006 < r < 119.006
+   95% expected band : 119.006 < r < 119.006
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 90
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 120.519
+Done in 0.23 min (cpu), 0.23 min (real)
+mean   expected limit: r < 120.519 @ 95%CL (1 toyMC)
+median expected limit: r < 120.519 @ 95%CL (1 toyMC)
+   68% expected band : 120.519 < r < 120.519
+   95% expected band : 120.519 < r < 120.519
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 91
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 135.572
+Done in 0.19 min (cpu), 0.19 min (real)
+mean   expected limit: r < 135.572 @ 95%CL (1 toyMC)
+median expected limit: r < 135.572 @ 95%CL (1 toyMC)
+   68% expected band : 135.572 < r < 135.572
+   95% expected band : 135.572 < r < 135.572
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 92
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 125.133
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 125.133 @ 95%CL (1 toyMC)
+median expected limit: r < 125.133 @ 95%CL (1 toyMC)
+   68% expected band : 125.133 < r < 125.133
+   95% expected band : 125.133 < r < 125.133
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 93
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 96.1733
+Done in 0.25 min (cpu), 0.25 min (real)
+mean   expected limit: r < 96.1733 @ 95%CL (1 toyMC)
+median expected limit: r < 96.1733 @ 95%CL (1 toyMC)
+   68% expected band : 96.1733 < r < 96.1733
+   95% expected band : 96.1733 < r < 96.1733
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 94
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 107.881
+Done in 0.44 min (cpu), 0.44 min (real)
+mean   expected limit: r < 107.881 @ 95%CL (1 toyMC)
+median expected limit: r < 107.881 @ 95%CL (1 toyMC)
+   68% expected band : 107.881 < r < 107.881
+   95% expected band : 107.881 < r < 107.881
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 95
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 117.282
+Done in 0.32 min (cpu), 0.33 min (real)
+mean   expected limit: r < 117.282 @ 95%CL (1 toyMC)
+median expected limit: r < 117.282 @ 95%CL (1 toyMC)
+   68% expected band : 117.282 < r < 117.282
+   95% expected band : 117.282 < r < 117.282
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 96
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 121.6
+Done in 0.30 min (cpu), 0.30 min (real)
+mean   expected limit: r < 121.6 @ 95%CL (1 toyMC)
+median expected limit: r < 121.6 @ 95%CL (1 toyMC)
+   68% expected band : 121.6 < r < 121.6
+   95% expected band : 121.6 < r < 121.6
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 97
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 108.71
+Done in 0.39 min (cpu), 0.39 min (real)
+mean   expected limit: r < 108.71 @ 95%CL (1 toyMC)
+median expected limit: r < 108.71 @ 95%CL (1 toyMC)
+   68% expected band : 108.71 < r < 108.71
+   95% expected band : 108.71 < r < 108.71
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 98
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 80.6918
+Done in 0.28 min (cpu), 0.29 min (real)
+mean   expected limit: r < 80.6918 @ 95%CL (1 toyMC)
+median expected limit: r < 80.6918 @ 95%CL (1 toyMC)
+   68% expected band : 80.6918 < r < 80.6918
+   95% expected band : 80.6918 < r < 80.6918
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 99
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 117.825
+Done in 0.21 min (cpu), 0.21 min (real)
+mean   expected limit: r < 117.825 @ 95%CL (1 toyMC)
+median expected limit: r < 117.825 @ 95%CL (1 toyMC)
+   68% expected band : 117.825 < r < 117.825
+   95% expected band : 117.825 < r < 117.825
+ <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 100
+Will use saturated model to compute goodness of fit for a binned likelihood
+>>> Method used is GoodnessOfFit
+Generate toy 1/1
+RooSimultaneousOpt: number of channel masks must equal number of channels
+
+ --- GoodnessOfFit --- 
+Best fit test statistic: 141.128
+Done in 0.20 min (cpu), 0.20 min (real)
+mean   expected limit: r < 141.128 @ 95%CL (1 toyMC)
+median expected limit: r < 141.128 @ 95%CL (1 toyMC)
+   68% expected band : 141.128 < r < 141.128
+   95% expected band : 141.128 < r < 141.128
+>> Writing output gof.json from files:
+[ 'higgsCombine.observed.GoodnessOfFit.mH120.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.1.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.10.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.100.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.11.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.12.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.13.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.14.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.15.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.16.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.17.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.18.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.19.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.2.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.20.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.21.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.22.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.23.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.24.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.25.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.26.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.27.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.28.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.29.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.3.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.30.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.31.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.32.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.33.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.34.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.35.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.36.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.37.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.38.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.39.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.4.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.40.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.41.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.42.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.43.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.44.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.45.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.46.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.47.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.48.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.49.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.5.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.50.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.51.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.52.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.53.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.54.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.55.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.56.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.57.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.58.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.59.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.6.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.60.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.61.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.62.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.63.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.64.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.65.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.66.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.67.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.68.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.69.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.7.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.70.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.71.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.72.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.73.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.74.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.75.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.76.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.77.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.78.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.79.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.8.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.80.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.81.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.82.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.83.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.84.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.85.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.86.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.87.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.88.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.89.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.9.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.90.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.91.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.92.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.93.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.94.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.95.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.96.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.97.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.98.root',
+  'higgsCombine.gof_toys.GoodnessOfFit.mH120.99.root']
+Info in <TCanvas::Print>: pdf file ./gof_plot.pdf has been created
+Info in <TCanvas::Print>: png file ./gof_plot.png has been created
+run command:  combine -M GoodnessOfFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/workspace/datacard.root --algo saturated -n .observed
+(None, None)
+
+
+run command:  combineTool.py -M GoodnessOfFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/workspace/datacard.root --algo saturated -t 1 --seed 1:100:1 -n .gof_toys
+(None, None)
+
+
+run command:  combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombine.gof_toys.GoodnessOfFit.mH120.*.root -o gof.json
+(None, None)
+
+
+run command:  plotGof.py gof.json --statistic saturated --mass 120.0 -o gof_plot
+(None, None)
+
+
+Goodness-of-fit results here:  /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/combineResults/goodnessOfFit/
+
+============================================================
+Goodness-of-Fit Test Results:
+============================================================

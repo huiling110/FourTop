@@ -1,0 +1,18 @@
+Combination of SR1tau1l_2022pre=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/combine/datacardNoSys/datacard_1tau1l.txt  SR1tau1l_2022post=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/combine/datacardNoSys/datacard_1tau1l.txt
+imax 2 number of bins
+jmax 1 number of processes minus 1
+kmax 0 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *                  SR1tau1l_2022post  /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022postEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/combine/templatesForCombine1tau1l.root $PROCESS_1tau1lSR_BDT $PROCESS_$SYSTEMATIC_BDT
+shapes *                  SR1tau1l_2022pre   /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2022preEE/v0baseline_v2leptonsNameChange/mc/variableHists_v0NoSystematic/combine/templatesForCombine1tau1l.root $PROCESS_1tau1lSR_BDT $PROCESS_$SYSTEMATIC_BDT
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau1l_2022pre   SR1tau1l_2022post
+observation  -1                 -1               
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR1tau1l_2022pre   SR1tau1l_2022pre   SR1tau1l_2022post  SR1tau1l_2022post
+process      tttt               tt                 tttt               tt               
+process      0                  1                  0                  1                
+rate         -1                 -1                 -1                 -1               
+----------------------------------------------------------------------------------------------------------------------------------
+SR1tau1l_2022pre autoMCStats 10 0 1
+SR1tau1l_2022post autoMCStats 10 0 1

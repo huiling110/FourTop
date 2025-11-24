@@ -1,0 +1,29 @@
+[2025-11-03 13:53:56] [INFO] ================================================================================
+[2025-11-03 13:53:56] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-11-03 13:53:56] [INFO] ================================================================================
+[2025-11-03 13:53:56] [INFO] Card directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind_check/
+[2025-11-03 13:53:56] [INFO] Analysis mode: BLINDED (expected)
+[2025-11-03 13:53:56] [INFO] ================================================================================
+[2025-11-03 13:53:56] [INFO] 
+================================================================================
+[2025-11-03 13:53:56] [INFO] STEP 3: Calculating significance
+[2025-11-03 13:53:56] [INFO] ================================================================================
+[2025-11-03 13:53:56] [INFO] Using tttt datacard: datacard.root
+[2025-11-03 13:53:56] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind_check/workspace/results/
+[2025-11-03 13:53:56] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind_check/
+[2025-11-03 13:53:56] [INFO] Running tttt Significance calculation - blinded (expected)
+[2025-11-03 13:53:56] [INFO] Running: combine -M Significance /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind_check/workspace/datacard.root -t -1 --expectSignal=1 --name _datacard
+[2025-11-03 13:54:10] [INFO] stdout:  <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is Significance
+
+ -- Significance -- 
+Significance: 1.05285
+Done in 0.13 min (cpu), 0.13 min (real)
+
+[2025-11-03 13:54:10] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 13:54:10] [INFO] 
+================================================================================
+[2025-11-03 13:54:10] [INFO] ✓ Analysis workflow completed successfully!
+[2025-11-03 13:54:10] [INFO] ================================================================================

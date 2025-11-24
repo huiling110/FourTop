@@ -1,0 +1,300 @@
+[2025-11-03 09:52:31] [INFO] ================================================================================
+[2025-11-03 09:52:31] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-11-03 09:52:31] [INFO] ================================================================================
+[2025-11-03 09:52:31] [INFO] Card directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 09:52:31] [INFO] Analysis mode: UNBLINDED (observed)
+[2025-11-03 09:52:31] [INFO] ================================================================================
+[2025-11-03 09:52:31] [INFO] 
+================================================================================
+[2025-11-03 09:52:31] [INFO] STEP 1: Converting datacards to RooWorkspace
+[2025-11-03 09:52:31] [INFO] ================================================================================
+[2025-11-03 09:52:31] [INFO] Converting datacards to workspaces...
+[2025-11-03 09:52:31] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 09:52:31] [INFO] Processing datacard: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/datacard.txt
+[2025-11-03 09:52:31] [INFO] Workspace name: datacard.root
+[2025-11-03 09:52:31] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/
+[2025-11-03 09:52:31] [INFO] Running: text2workspace.py /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/datacard.txt -o /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/datacard.root
+============================================================
+Analyzing bin errors for: prop_binSR1tau0l_2016postVFP
+Poisson cut-off: 10
+Processes excluded for sums: tttt
+============================================================
+Bin        Contents        Error           Notes                         
+0          155.629172      4.789543        total sum                     
+0          155.620228      4.789542        excluding marked processes    
+0          1056.000000     32.496154       Unweighted events, alpha=0.147376
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin0[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+1          117.291399      3.733247        total sum                     
+1          117.272051      3.733246        excluding marked processes    
+1          987.000000      31.416556       Unweighted events, alpha=0.118836
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin1[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+2          56.159605       2.582146        total sum                     
+2          56.144850       2.582145        excluding marked processes    
+2          473.000000      21.748563       Unweighted events, alpha=0.118731
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin2[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+3          73.884946       2.781841        total sum                     
+3          73.853634       2.781840        excluding marked processes    
+3          705.000000      26.551836       Unweighted events, alpha=0.104801
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin3[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+4          72.802799       2.726814        total sum                     
+4          72.761430       2.726812        excluding marked processes    
+4          712.000000      26.683328       Unweighted events, alpha=0.102251
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin4[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+5          60.170044       2.382243        total sum                     
+5          60.111679       2.382240        excluding marked processes    
+5          637.000000      25.238859       Unweighted events, alpha=0.094458
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin5[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+6          64.721997       2.538655        total sum                     
+6          64.636063       2.538650        excluding marked processes    
+6          648.000000      25.455844       Unweighted events, alpha=0.099880
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin6[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+7          54.185671       2.253312        total sum                     
+7          54.088111       2.253304        excluding marked processes    
+7          576.000000      24.000000       Unweighted events, alpha=0.094072
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin7[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+8          46.292784       2.028946        total sum                     
+8          46.165465       2.028937        excluding marked processes    
+8          518.000000      22.759613       Unweighted events, alpha=0.089368
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin8[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+9          51.777480       2.093472        total sum                     
+9          51.577059       2.093457        excluding marked processes    
+9          607.000000      24.637370       Unweighted events, alpha=0.085301
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin9[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+10         50.907963       2.113476        total sum                     
+10         50.584116       2.113451        excluding marked processes    
+10         573.000000      23.937418       Unweighted events, alpha=0.088845
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin10[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+11         43.410712       1.875296        total sum                     
+11         42.479803       1.875200        excluding marked processes    
+11         513.000000      22.649503       Unweighted events, alpha=0.084621
+  => Total parameter prop_binSR1tau0l_2016postVFP_bin11[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+============================================================
+Analyzing bin errors for: prop_binSR1tau0l_2018
+Poisson cut-off: 10
+Processes excluded for sums: tttt
+============================================================
+Bin        Contents        Error           Notes                         
+0          317.008282      6.717232        total sum                     
+0          316.989487      6.717231        excluding marked processes    
+0          2227.000000     47.191101       Unweighted events, alpha=0.142348
+  => Total parameter prop_binSR1tau0l_2018_bin0[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+1          369.393193      6.811282        total sum                     
+1          369.341547      6.811280        excluding marked processes    
+1          2940.000000     54.221767       Unweighted events, alpha=0.125644
+  => Total parameter prop_binSR1tau0l_2018_bin1[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+2          181.061204      4.711191        total sum                     
+2          181.026075      4.711189        excluding marked processes    
+2          1476.000000     38.418745       Unweighted events, alpha=0.122670
+  => Total parameter prop_binSR1tau0l_2018_bin2[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+3          263.356636      5.667652        total sum                     
+3          263.274345      5.667649        excluding marked processes    
+3          2158.000000     46.454279       Unweighted events, alpha=0.122037
+  => Total parameter prop_binSR1tau0l_2018_bin3[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+4          276.417297      5.600718        total sum                     
+4          276.257951      5.600714        excluding marked processes    
+4          2433.000000     49.325450       Unweighted events, alpha=0.113612
+  => Total parameter prop_binSR1tau0l_2018_bin4[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+5          283.021242      5.584839        total sum                     
+5          282.797282      5.584832        excluding marked processes    
+5          2564.000000     50.635956       Unweighted events, alpha=0.110383
+  => Total parameter prop_binSR1tau0l_2018_bin5[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+6          259.135913      5.218061        total sum                     
+6          258.823428      5.218051        excluding marked processes    
+6          2460.000000     49.598387       Unweighted events, alpha=0.105340
+  => Total parameter prop_binSR1tau0l_2018_bin6[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+7          230.931185      4.750831        total sum                     
+7          230.557392      4.750817        excluding marked processes    
+7          2355.000000     48.528342       Unweighted events, alpha=0.098060
+  => Total parameter prop_binSR1tau0l_2018_bin7[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+8          214.185807      4.611726        total sum                     
+8          213.698821      4.611707        excluding marked processes    
+8          2147.000000     46.335731       Unweighted events, alpha=0.099761
+  => Total parameter prop_binSR1tau0l_2018_bin8[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+9          222.334056      4.556164        total sum                     
+9          221.506758      4.556132        excluding marked processes    
+9          2364.000000     48.620983       Unweighted events, alpha=0.094050
+  => Total parameter prop_binSR1tau0l_2018_bin9[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+10         221.554922      4.571375        total sum                     
+10         220.116141      4.571317        excluding marked processes    
+10         2319.000000     48.155997       Unweighted events, alpha=0.095539
+  => Total parameter prop_binSR1tau0l_2018_bin10[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+11         183.892331      3.883843        total sum                     
+11         180.170306      3.883644        excluding marked processes    
+11         2152.000000     46.389654       Unweighted events, alpha=0.085452
+  => Total parameter prop_binSR1tau0l_2018_bin11[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+============================================================
+Analyzing bin errors for: prop_binSR1tau0l_2016preVFP
+Poisson cut-off: 10
+Processes excluded for sums: tttt
+============================================================
+Bin        Contents        Error           Notes                         
+0          230.147876      6.115588        total sum                     
+0          230.138865      6.115587        excluding marked processes    
+0          1416.000000     37.629775       Unweighted events, alpha=0.162534
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin0[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+1          172.103953      4.991179        total sum                     
+1          172.084527      4.991178        excluding marked processes    
+1          1189.000000     34.481879       Unweighted events, alpha=0.144747
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin1[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+2          73.800214       3.331894        total sum                     
+2          73.779800       3.331893        excluding marked processes    
+2          490.000000      22.135944       Unweighted events, alpha=0.150613
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin2[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+3          106.341061      3.793383        total sum                     
+3          106.296169      3.793381        excluding marked processes    
+3          785.000000      28.017851       Unweighted events, alpha=0.135466
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin3[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+4          99.012882       3.563060        total sum                     
+4          98.953448       3.563057        excluding marked processes    
+4          771.000000      27.766887       Unweighted events, alpha=0.128421
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin4[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+5          95.611106       3.590623        total sum                     
+5          95.527452       3.590619        excluding marked processes    
+5          708.000000      26.608269       Unweighted events, alpha=0.135044
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin5[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+6          86.098513       3.232010        total sum                     
+6          85.976144       3.232003        excluding marked processes    
+6          708.000000      26.608269       Unweighted events, alpha=0.121608
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin6[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+7          77.105036       2.955451        total sum                     
+7          76.983644       2.955442        excluding marked processes    
+7          679.000000      26.057628       Unweighted events, alpha=0.113557
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin7[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+8          66.134351       2.611688        total sum                     
+8          65.974032       2.611675        excluding marked processes    
+8          638.000000      25.258662       Unweighted events, alpha=0.103659
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin8[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+9          71.955244       2.817843        total sum                     
+9          71.684259       2.817823        excluding marked processes    
+9          647.000000      25.436195       Unweighted events, alpha=0.111214
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin9[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+10         73.412505       2.693292        total sum                     
+10         72.950464       2.693254        excluding marked processes    
+10         734.000000      27.092434       Unweighted events, alpha=0.100017
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin10[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+11         61.636808       2.424892        total sum                     
+11         60.310465       2.424752        excluding marked processes    
+11         619.000000      24.879711       Unweighted events, alpha=0.099575
+  => Total parameter prop_binSR1tau0l_2016preVFP_bin11[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+============================================================
+Analyzing bin errors for: prop_binSR1tau0l_2017
+Poisson cut-off: 10
+Processes excluded for sums: tttt
+============================================================
+Bin        Contents        Error           Notes                         
+0          264.492921      6.267405        total sum                     
+0          264.476813      6.267405        excluding marked processes    
+0          1781.000000     42.201896       Unweighted events, alpha=0.148508
+  => Total parameter prop_binSR1tau0l_2017_bin0[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+1          251.459207      5.849387        total sum                     
+1          251.421152      5.849386        excluding marked processes    
+1          1847.000000     42.976738       Unweighted events, alpha=0.136145
+  => Total parameter prop_binSR1tau0l_2017_bin1[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+2          116.076986      3.794848        total sum                     
+2          116.048206      3.794847        excluding marked processes    
+2          935.000000      30.577770       Unweighted events, alpha=0.124147
+  => Total parameter prop_binSR1tau0l_2017_bin2[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+3          163.542365      4.431683        total sum                     
+3          163.478778      4.431681        excluding marked processes    
+3          1361.000000     36.891733       Unweighted events, alpha=0.120163
+  => Total parameter prop_binSR1tau0l_2017_bin3[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+4          177.509399      4.577973        total sum                     
+4          177.416488      4.577971        excluding marked processes    
+4          1502.000000     38.755645       Unweighted events, alpha=0.118182
+  => Total parameter prop_binSR1tau0l_2017_bin4[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+5          176.003440      4.343456        total sum                     
+5          175.890031      4.343452        excluding marked processes    
+5          1640.000000     40.496913       Unweighted events, alpha=0.107319
+  => Total parameter prop_binSR1tau0l_2017_bin5[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+6          167.124023      4.229552        total sum                     
+6          166.958743      4.229546        excluding marked processes    
+6          1558.000000     39.471509       Unweighted events, alpha=0.107268
+  => Total parameter prop_binSR1tau0l_2017_bin6[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+7          153.481852      3.933115        total sum                     
+7          153.244587      3.933107        excluding marked processes    
+7          1518.000000     38.961519       Unweighted events, alpha=0.101108
+  => Total parameter prop_binSR1tau0l_2017_bin7[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+8          136.981706      3.693784        total sum                     
+8          136.691024      3.693774        excluding marked processes    
+8          1369.000000     37.000000       Unweighted events, alpha=0.100060
+  => Total parameter prop_binSR1tau0l_2017_bin8[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+9          153.536060      3.695164        total sum                     
+9          153.077731      3.695146        excluding marked processes    
+9          1716.000000     41.424630       Unweighted events, alpha=0.089473
+  => Total parameter prop_binSR1tau0l_2017_bin9[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+10         158.623001      3.609602        total sum                     
+10         157.716354      3.609567        excluding marked processes    
+10         1909.000000     43.692105       Unweighted events, alpha=0.083092
+  => Total parameter prop_binSR1tau0l_2017_bin10[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+11         148.352876      3.461430        total sum                     
+11         145.605618      3.461306        excluding marked processes    
+11         1770.000000     42.071368       Unweighted events, alpha=0.083815
+  => Total parameter prop_binSR1tau0l_2017_bin11[0.00,-7.00,7.00] to be Gaussian constrained
+------------------------------------------------------------
+Channel SR1tau0l_2016postVFP will use autoMCStats with settings: event-threshold=10, include-signal=0, hist-mode=1
+Channel SR1tau0l_2018 will use autoMCStats with settings: event-threshold=10, include-signal=0, hist-mode=1
+Channel SR1tau0l_2016preVFP will use autoMCStats with settings: event-threshold=10, include-signal=0, hist-mode=1
+Channel SR1tau0l_2017 will use autoMCStats with settings: event-threshold=10, include-signal=0, hist-mode=1
+[2025-11-03 09:52:53] [INFO] ✓ Workspace transformation complete! Created 1 workspace(s)
+
+[2025-11-03 09:52:53] [INFO] 
+================================================================================
+[2025-11-03 09:52:53] [INFO] STEP 3: Calculating significance
+[2025-11-03 09:52:53] [INFO] ================================================================================
+[2025-11-03 09:52:53] [INFO] Using tttt datacard: datacard.root
+[2025-11-03 09:52:53] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/results/
+[2025-11-03 09:52:53] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 09:52:53] [INFO] Running tttt Significance calculation - unblinded (observed)
+[2025-11-03 09:52:53] [INFO] Running: combine -M Significance /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/datacard.root --name _datacard --plot significance
+[2025-11-03 09:53:35] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 09:53:35] [INFO] 
+================================================================================
+[2025-11-03 09:53:35] [INFO] ✓ Analysis workflow completed successfully!
+[2025-11-03 09:53:35] [INFO] ================================================================================

@@ -1,0 +1,55 @@
+Setting up environment...
+Output directory already exists: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest_quickTest
+========================================
+Quick Validation Test (isTest=1)
+========================================
+Input Dir: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/
+Process: tttt
+Channel: 1tau1l
+Version: v3BDT1tau1lV18_fakeTauDataDriven_refactoredTest_quickTest
+Systematics: 1
+Test Mode: 1 (ENABLED - faster run)
+
+Log file: test_quick_refactored.log
+========================================
+
+Starting quick test at Thu 13 Nov 17:09:49 CST 2025
+
+========================================
+Quick test completed at Thu 13 Nov 17:09:57 CST 2025
+Exit code: 139
+========================================
+
+Log file: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/writeHistGood/test_quick_refactored.log
+
+Last 30 lines of output:
+#4  <signal handler called>
+#5  0x00000000005296a2 in histForRegionsBase::fillHistVec (this=0x7fffcf1b78e8, iRegion=<incomplete type>, value=0.13392532829479742, weight=-0.014707205810919947, ifFill=true, isData=false) at src/../include/histsForRegionsMap_base.h:77
+#6  0x0000000000529ae5 in SystematicManager::fillSystematics (this=0x49c60f0, region=..., bdtScore=0.13392532829479742, baseWeight=-0.016485299739887216, passSelection=true, e=0x492ac00, histObj=..., isData=false) at src/../include/SystematicManager.h:195
+#7  0x0000000000521fe5 in treeAnalyzer::sysRegionsFill (this=0x7fffcf1b77b0, bdtScore=0.13392532829479742, basicWeight=-0.016485299739887216, SR1tau1l=true, region=<incomplete type>, SR1tau1lSysF=...) at src/treeAnalyzer.C:267
+#8  0x0000000000521571 in treeAnalyzer::LoopTree (this=0x7fffcf1b77b0) at src/treeAnalyzer.C:221
+#9  0x000000000058a961 in run_treeAnalyzer (inputDir=<incomplete type>, process=<incomplete type>, channel=<incomplete type>, histVersion=<incomplete type>, ifSys=true, isTest=true) at apps/run_treeAnalyzer.C:42
+#10 0x000000000058ad71 in main (argc=7, argv=0x7fffcf1b7f48) at apps/run_treeAnalyzer.C:71
+===========================================================
+
+
+The lines below might hint at the cause of the crash. If you see question
+marks as part of the stack trace, try to recompile with debugging information
+enabled and export CLING_DEBUG=1 environment variable before running.
+You may get help by asking at the ROOT forum https://root.cern/forum
+preferably using the command (.forum bug) in the ROOT prompt.
+Only if you are really convinced it is a bug in ROOT then please submit a
+report at https://root.cern/bugs or (preferably) using the command (.gh bug) in
+the ROOT prompt. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#5  0x00000000005296a2 in histForRegionsBase::fillHistVec (this=0x7fffcf1b78e8, iRegion=<incomplete type>, value=0.13392532829479742, weight=-0.014707205810919947, ifFill=true, isData=false) at src/../include/histsForRegionsMap_base.h:77
+#6  0x0000000000529ae5 in SystematicManager::fillSystematics (this=0x49c60f0, region=..., bdtScore=0.13392532829479742, baseWeight=-0.016485299739887216, passSelection=true, e=0x492ac00, histObj=..., isData=false) at src/../include/SystematicManager.h:195
+#7  0x0000000000521fe5 in treeAnalyzer::sysRegionsFill (this=0x7fffcf1b77b0, bdtScore=0.13392532829479742, basicWeight=-0.016485299739887216, SR1tau1l=true, region=<incomplete type>, SR1tau1lSysF=...) at src/treeAnalyzer.C:267
+#8  0x0000000000521571 in treeAnalyzer::LoopTree (this=0x7fffcf1b77b0) at src/treeAnalyzer.C:221
+#9  0x000000000058a961 in run_treeAnalyzer (inputDir=<incomplete type>, process=<incomplete type>, channel=<incomplete type>, histVersion=<incomplete type>, ifSys=true, isTest=true) at apps/run_treeAnalyzer.C:42
+#10 0x000000000058ad71 in main (argc=7, argv=0x7fffcf1b7f48) at apps/run_treeAnalyzer.C:71
+===========================================================
+
+

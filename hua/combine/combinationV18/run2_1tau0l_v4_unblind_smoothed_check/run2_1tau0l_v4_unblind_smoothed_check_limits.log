@@ -1,0 +1,20 @@
+[2025-11-03 10:03:09] [INFO] ================================================================================
+[2025-11-03 10:03:09] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-11-03 10:03:09] [INFO] ================================================================================
+[2025-11-03 10:03:09] [INFO] Card directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 10:03:09] [INFO] Analysis mode: UNBLINDED (observed)
+[2025-11-03 10:03:09] [INFO] ================================================================================
+[2025-11-03 10:03:09] [INFO] 
+================================================================================
+[2025-11-03 10:03:09] [INFO] STEP 2: Calculating expected/observed limits
+[2025-11-03 10:03:09] [INFO] ================================================================================
+[2025-11-03 10:03:09] [INFO] Using tttt datacard: datacard.root
+[2025-11-03 10:03:09] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/results/
+[2025-11-03 10:03:09] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/
+[2025-11-03 10:03:09] [INFO] Running tttt Limits calculation - unblinded (observed)
+[2025-11-03 10:03:09] [INFO] Running: combine -M AsymptoticLimits /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/workspace/datacard.root --name _datacard
+[2025-11-03 10:05:29] [INFO] ✓ Command completed (exit code: 0)
+[2025-11-03 10:05:29] [INFO] 
+================================================================================
+[2025-11-03 10:05:29] [INFO] ✓ Analysis workflow completed successfully!
+[2025-11-03 10:05:29] [INFO] ================================================================================
