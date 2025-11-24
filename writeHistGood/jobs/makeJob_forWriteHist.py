@@ -27,7 +27,7 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/', #!v14, and V16
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/', #!v14, and V16
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
@@ -39,11 +39,11 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
     
     # channel = '1tau1l',
-    # channel = '1tau0l',
-    channel = '1tau2l',
+    channel = '1tau0l',
+    # channel = '1tau2l',
     # version = 'v0BDT1tau2l', 
     # version = 'v0BDT1tau1l',
     # version = 'v1BDT1tau1lTestLeading7',
@@ -55,11 +55,13 @@ def main(
     # version = 'v0BDT1tau1lV16',
     # version = 'v0BDT1tau0lV16',
     # version = 'v0BDT1tau1lV17',
+    # version = 'v8BDT1tau1lV_refactorAndBtagNameFix', 
+    version = 'v8BDT1tau0l_refactorAndBtagNameFix', 
     # version = 'v0BDT1tau0lV17',
     # version = 'v0BDT1tau2lV16',
     # version = 'v0BDT1tau2lV17',
     # version = 'v5BDT1tau0l_tauFMorphFix',
-    version = 'v5BDT1tau2l_tauFMorphFix',
+    # version = 'v5BDT1tau2l_tauFMorphFix',
     # version = 'v0BDT1tau2lV17_fakeTauDataDriven',
     # version = 'v3BDT1tau2lV18_fakeTauDataDriven',
     # version = 'v4BDT1tau2lV18_fakeTauDataDriven',#correct event weight 
@@ -100,21 +102,6 @@ def main(
     # version = 'v0dataMC_genWeight'
     
         
-    #1tau1l
-    # channel = '1tau1l'
-    # version = 'v1BDT1tau1lEvenBin'
-    
-    #1tau0l systematic
-    # channel = '1tau0l'
-    # version = 'v0BDT1tau0l'
-    # version = 'v1BDT1tau0lEvenBin'
-    
-    # channel = '1tau2l'
-    # version = 'v0BDT1tau2l'
-    # version = 'v0BDT1tau2l_newMCSample'
-    # version = 'v1BDT1tau2lEvenBin'
-   
-    
    
     # justMC = True
     isTest = 0

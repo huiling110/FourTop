@@ -182,6 +182,44 @@ region+"_CMS_btag_VARIANT"
 
 ---
 
+## Production Validation
+
+### 1tau0l Channel (2025-11-24)
+
+**Purpose**: Validate systematic naming changes in production environment
+
+**Output directory**:
+```
+/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/
+```
+
+**Analysis version**: `v8BDT1tau0l_refactorAndBtagNameFix`
+**Channel**: 1tau0l
+**Year**: 2018
+**Purpose**: First production test of CMS-compliant naming conventions (btag_shape → btag)
+
+**Validation steps**:
+- [ ] Histogram files generated successfully
+- [ ] All systematic names follow CMS conventions (no `_shape` suffix)
+- [ ] Stage 4.1: Consolidate shape systematics
+- [ ] Stage 4.2: Template creation with addTemplateNew.py
+- [ ] Stage 4.3: Datacard creation
+- [ ] Combine validation check passes
+
+**Expected systematic names in histograms**:
+- ✅ `CMS_btag_cferr1` (not `CMS_btag_shape_cferr1`)
+- ✅ `CMS_btag_cferr2`
+- ✅ `CMS_btag_hf`
+- ✅ `CMS_btag_lf`
+- ✅ `CMS_btag_jes`
+- ✅ `CMS_btag_hfstats1_2018`
+- ✅ `CMS_btag_hfstats2_2018`
+- ✅ `CMS_btag_lfstats1_2018`
+- ✅ `CMS_btag_lfstats2_2018`
+
+---
+
 **Created**: 2025-11-13
+**Updated**: 2025-11-24
 **Author**: Claude Code (with user guidance)
-**Status**: In Progress - Phase 1
+**Status**: Production Validation - 1tau0l channel

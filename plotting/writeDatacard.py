@@ -44,14 +44,14 @@ MCSys = {
     'CMS_btag_fixedWP_incl_light_uncorrelated': [False, 0, 0b101, True],
     
     #btagShape information, only in 1tau0l
-    'CMS_btag_shape_hf': [True, 0, 0b010, True], 
-    'CMS_btag_shape_lf': [True, 0, 0b010, True],
-    'CMS_btag_shape_cferr1': [True, 0, 0b010, True],
-    'CMS_btag_shape_cferr2': [True, 0, 0b010, True],
-    'CMS_btag_shape_hfstats1': [False, 0, 0b010, True],
-    'CMS_btag_shape_hfstats2': [False, 0, 0b010, True],
-    'CMS_btag_shape_lfstats1': [False, 0, 0b010, True],
-    'CMS_btag_shape_lfstats2': [False, 0, 0b010, True],
+    'CMS_btag_hf': [True, 0, 0b010, True], 
+    'CMS_btag_lf': [True, 0, 0b010, True],
+    'CMS_btag_cferr1': [True, 0, 0b010, True],
+    'CMS_btag_cferr2': [True, 0, 0b010, True],
+    'CMS_btag_hfstats1': [False, 0, 0b010, True],
+    'CMS_btag_hfstats2': [False, 0, 0b010, True],
+    'CMS_btag_lfstats1': [False, 0, 0b010, True],
+    'CMS_btag_lfstats2': [False, 0, 0b010, True],
    
     # 'CMS_fake_t': [False, 1, 0b010, True], #!considering FR for 1tau0l
     'CMS_fake_t': [False, 1, 0b111, True], #!Considering FR for 1tau1l and 1tau2l too
@@ -152,7 +152,8 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root'
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau1lV_refactorAndBtagNameFix/combine/templatesForCombine1tau1l_new_notMCFTau_unblind.root'
     channel = '1tau1l'
    
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
@@ -213,8 +214,8 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/templatesForCombine1tau2l_new_notMCFTau_unblind.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/templatesForCombine1tau2l_new_notMCFTau_unblind.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/templatesForCombine1tau2l_new_notMCFTau_unblind.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/templatesForCombine1tau2l_new_notMCFTau_unblind.root'
-    channel = '1tau2l'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/variableHists_v4BDT1tau2lV18_fakeTauDataDriven/combine/templatesForCombine1tau2l_new_notMCFTau_unblind.root'
+    # channel = '1tau2l'
 
 
     # ifFTauMC = True

@@ -44,8 +44,6 @@ def main():
     parser.add_argument('--outVersion', type=str, required=True)
     parser.add_argument('--channel', type=str, required=True)
     parser.add_argument('--version', type=str, required=True)
-    # parser.add_argument('--exe', type=str, required=True)
-    # parser.add_argument('--justMC', action='store_true')
     args = parser.parse_args()
 
     # Use argparse values
@@ -54,8 +52,6 @@ def main():
     outVersion = args.outVersion
     channel = args.channel
     version = args.version
-    # exe = args.exe
-    # justMC = args.justMC 
         
     
     

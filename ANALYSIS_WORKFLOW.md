@@ -1,6 +1,6 @@
 # Complete Four-Top Analysis Workflow
 
-**Date**: 2025-11-14
+**Date**: 2025-11-24
 **Branch**: addVLL
 **Purpose**: Document end-to-end analysis workflow for future optimization and automation
 
@@ -30,13 +30,13 @@ NanoAOD (CMS data format)
     ↓
 [3] Histogram Production (nominal + systematics)
     ↓
-[3.5] Consolidate Shape Systematics (addJESTemplatesToHistFile.py)
-    ↓
-[4] Datacard Creation for Combine
-    ↓
-[5] Statistical Analysis (HiggsAnalysis CombinedLimit)
-    ↓
-[6] Results Visualization & Interpretation
+[4] Plotting and Result Extraction
+    ├─ [4.1] Consolidate Shape Systematics
+    ├─ [4.2] Template Creation
+    ├─ [4.3] Datacard Creation
+    ├─ [4.4] Workspace Creation
+    ├─ [4.5] Statistical Analysis (Combine)
+    └─ [4.6] Results Visualization
 ```
 
 ---
@@ -126,6 +126,10 @@ make clean && make -j4
 - ✅ CMS naming convention compliance (btag_shape → btag)
 - ✅ Restored 9 missing b-tag systematics
 - ✅ All 26 b-tag systematics now working
+
+**Current versions in production** (2025-11-24):
+- `v8BDT1tau1lV19_refactorAndBtagNameFix` - 1tau1l channel
+- `v8BDT1tau0l_refactorAndBtagNameFix` - 1tau0l channel (validation in progress)
 
 ### 3.2 Submit Nominal Jobs
 
@@ -217,7 +221,18 @@ cd jobs/ && python3 checkJobResult.py  # Check for failures
 
 ---
 
-## Stage 3.5: Consolidate Shape Systematics
+## Stage 4: Plotting and Result Extraction
+
+**Location**: `plotting/` and `hua/combine/`
+
+**Purpose**: Transform histogram ROOT files into physics results through template creation, statistical analysis, and visualization
+
+**Input**: Histogram ROOT files from Stage 3
+**Output**: Physics results (limits, significances, cross-sections) and publication-quality plots
+
+---
+
+### 4.1 Consolidate Shape Systematics
 
 **Location**: `plotting/`
 
@@ -225,9 +240,9 @@ cd jobs/ && python3 checkJobResult.py  # Check for failures
 
 **Script**: `addJESTemplatesToHistFile.py`
 
-**Why needed**: Stage 3 shape systematic jobs produce histograms in separate directories. This script consolidates them into the nominal ROOT files so `addTemplateNew.py` can find all systematics in one place.
+**Why needed**: Stage 3 shape systematic jobs produce histograms in separate directories. This script consolidates them into the nominal ROOT files so `addTemplateNew.py` (Stage 4.2) can find all systematics in one place.
 
-### 3.5.1 Configuration
+#### 4.1.1 Configuration
 
 **Edit main() function** (lines 9-115):
 
@@ -239,15 +254,22 @@ regionList = ['1tau1lSR', '1tau1lCR12']
 variables = ['BDT']
 ```
 
+**For 1tau0l channel** (lines 109-110):
+```python
+nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/'
+channel = '1tau0l'
+regionList = ['1tau0lVR', '1tau0lCRMR', '1tau0lSR']
+variables = ['BDT']
+```
+
 **For 1tau2l channel** (uncomment lines 78-80)
-**For 1tau0l channel** (uncomment lines 109-110)
 
 **MC fake tau setting** (line 114):
 ```python
 ifMCFTau = False  # Set True if using MC-based fake tau
 ```
 
-### 3.5.2 Running the Script
+#### 4.1.2 Running the Script
 
 **Prerequisites**: Must complete Stage 3 nominal AND shape systematic jobs first
 
@@ -257,7 +279,7 @@ source ../setEnv_newNew.sh
 python3 addJESTemplatesToHistFile.py
 ```
 
-### 3.5.3 What It Does
+#### 4.1.3 What It Does
 
 **For each MC process** (tttt, ttbar, ttW, etc.):
 
@@ -287,7 +309,7 @@ python3 addJESTemplatesToHistFile.py
    - Writes all systematic histograms
    - Preserves existing nominal and weight-based systematics
 
-### 3.5.4 Output
+#### 4.1.4 Output
 
 **Modified nominal files** now contain:
 ```
@@ -302,15 +324,15 @@ nominalDir/tttt.root
 └── ... (all other systematics)
 ```
 
-### 3.5.5 Important Notes
+#### 4.1.5 Important Notes
 
 - **Must run after** Stage 3 shape systematic jobs complete
-- **Must run before** Stage 4 (`addTemplateNew.py`)
+- **Must run before** Stage 4.2 (`addTemplateNew.py`)
 - Script modifies files in place (UPDATE mode)
 - Check input directories exist before running
 - Typical runtime: ~5-10 minutes for all processes
 
-### 3.5.6 Verification
+#### 4.1.6 Verification
 
 Check that systematics were added successfully:
 ```bash
@@ -324,18 +346,7 @@ f.ls()  # Should see nominal + all systematic variations
 
 ---
 
-## Stage 4: Template and Datacard Creation
-
-**Location**: `plotting/`
-
-**Purpose**: Create template ROOT files and convert to HiggsAnalysis CombinedLimit datacards
-
-**Input**: Histogram ROOT files from Stage 3.5 (with all systematics consolidated)
-**Output**: Template ROOT files → Text datacards → Workspace ROOT files
-
-**Prerequisites**: Stage 3.5 must be completed first
-
-### 4.1 Create Template Files
+### 4.2 Create Template Files
 
 **Script**: `addTemplateNew.py`
 
@@ -404,13 +415,13 @@ templatesForCombine1tau1l_new_unblind.root
 - **Era-dependent systematics**: Era kept in name (e.g., `CMS_btag_hfstats1_2018`)
 - **Negative bin handling**: Any negative bins set to 0 (avoids combine errors)
 
-### 4.2 Create Datacards from Templates
+### 4.3 Create Datacards from Templates
 
 **Script**: `writeDatacard.py` (user-specific implementation)
 
 **Purpose**: Convert template ROOT file to text datacards
 
-**Input**: Template ROOT file from Step 4.1
+**Input**: Template ROOT file from Stage 4.2
 **Output**: Text datacards for combine
 
 **Typical usage**:
@@ -447,7 +458,7 @@ CMS_btag_cferr1_tt  shape -    1      -      -      1 ...
 - **Normalization systematics**: Log-normal (lnN) uncertainties
 - **Process-specific systematics**: Marked with `-` for non-applicable processes
 
-### 4.3 Create Workspace for Combine
+### 4.4 Create Workspace for Combine
 
 **Script**: HiggsAnalysis CombinedLimit tool
 
@@ -471,20 +482,20 @@ hua/combine/combinationV18/run2_1tau1l/
 
 ---
 
-## Stage 5: Statistical Analysis (Combine)
+### 4.5 Statistical Analysis (Combine)
 
 **Location**: `hua/combine/`
 
 **Purpose**: Run HiggsAnalysis CombinedLimit tool for statistical inference
 
-### 5.1 Setup Combine Tool
+#### 4.5.1 Setup Combine Tool
 
 Combine is installed in CMSSW environment:
 ```bash
 source ../setEnv_newNew.sh  # Sets up CMSSW with combine
 ```
 
-### 5.2 Run Statistical Inference
+#### 4.5.2 Run Statistical Inference
 
 **Main script**: `runCombineAll.py`
 
@@ -509,7 +520,7 @@ python3 runCombineAll.py --cardDir combinationV18/run2_1tau1l --ifBlind 1 --doLi
 - `--doImpact`: Compute impact of each systematic
 - `--doGoF`: Goodness-of-fit test
 
-### 5.3 Common Combine Algorithms
+#### 4.5.3 Common Combine Algorithms
 
 #### A. Expected/Observed Limits
 ```bash
@@ -541,7 +552,7 @@ python3 runCombineAll.py --cardDir DIR --doGoF --toysFreq 100
 ```
 **Output**: GoF test statistic and p-value
 
-### 5.4 Output Files
+#### 4.5.4 Output Files
 
 Combine creates output in datacard directory:
 ```
@@ -555,13 +566,13 @@ combinationV18/run2_1tau1l/
 
 ---
 
-## Stage 6: Results Visualization
+### 4.6 Results Visualization
 
 **Location**: `plotting/` and `hua/combine/`
 
 **Purpose**: Create publication-quality plots of results
 
-### 6.1 Data/MC Comparison Plots
+#### 4.6.1 Data/MC Comparison Plots (Pre-Fit)
 
 **Location**: `plotting/`
 
@@ -571,7 +582,7 @@ combinationV18/run2_1tau1l/
 
 **When to use**: Immediately after Stage 3 histogram production to validate results
 
-#### 6.1.1 Configuration
+**Configuration**
 
 **Edit the main() function** (lines 12-169 in pl.py):
 
@@ -615,7 +626,7 @@ regionList = ['1tau0lVR', '1tau0lCRMR', '1tau0lSR']
 
 **Important**: Uncomment only the section you need and comment out others
 
-#### 6.1.2 Running the Plotter
+**Running the Plotter**
 
 **Prerequisites**:
 ```bash
@@ -647,7 +658,7 @@ python3 pl.py
   └── 1tau1lCR12_BDT_dataVsMC_v5_unblind.pdf
 ```
 
-#### 6.1.3 Plot Features
+**Plot Features**
 
 **Stacked histogram (top panel)**:
 - Data points with error bars (black markers)
@@ -676,7 +687,7 @@ python3 pl.py
 - Signal entry shows scaling factor
 - Uncertainty type labeled (Stat. unc. / Stat. + Syst. unc.)
 
-#### 6.1.4 Common Use Cases
+**Common Use Cases**
 
 **Standard data/MC comparison**:
 ```python
@@ -707,7 +718,7 @@ ifVLL = 'VLLm600'  # Overlay VLL signal instead of tttt
 ifLogy = False
 ```
 
-#### 6.1.5 Troubleshooting
+**Troubleshooting**
 
 **Issue**: Empty plots or missing processes
 - Check inputDir path is correct
@@ -721,7 +732,7 @@ ifLogy = False
 - Ensure you've sourced setEnv_newNew.sh
 - Check input directory permissions
 
-#### 6.1.6 Advanced: Plotting with Systematics
+**Advanced: Plotting with Systematics**
 
 To include systematic uncertainties:
 
@@ -737,7 +748,7 @@ ifSystematic = True
 - Statistical uncertainties (MC sample size)
 - Systematic uncertainties (b-tag, JES, theoretical scales, etc.)
 
-### 6.2 Post-Fit Plots
+#### 4.6.2 Post-Fit Plots
 
 **Location**: `plotting/`
 
@@ -745,7 +756,7 @@ ifSystematic = True
 
 **Purpose**: Show data/MC agreement after combine fit
 
-**Input**: FitDiagnostics output from combine (Stage 5)
+**Input**: FitDiagnostics output from combine (Stage 4.5)
 
 **Output**:
 - BDT score distributions with post-fit normalizations
@@ -754,7 +765,7 @@ ifSystematic = True
 
 **Configuration**: Similar to pl.py but reads shapes from fitDiagnostics ROOT file
 
-### 6.3 Limit Plots
+#### 4.6.3 Limit Plots
 
 **Purpose**: Show expected/observed limits vs signal mass (for VLL) or as single point (for tttt)
 
@@ -764,7 +775,7 @@ ifSystematic = True
 
 **Input**: AsymptoticLimits output from combine
 
-### 6.4 Significance Plots
+#### 4.6.4 Significance Plots
 
 **Purpose**: Show observed significance vs signal mass
 
@@ -786,32 +797,33 @@ python3 jobs/makeJob_forWriteHist.py  # Nominal + weight systematics
 bash run_makeJos_WH_forJES.sh         # Shape systematics
 python3 jobs/checkJobResult.py        # Verify all jobs succeeded
 
-# Stage 3.5: Consolidate shape systematics into nominal files
+# Stage 4: Plotting and Result Extraction
 cd ../plotting/
+
+# Stage 4.1: Consolidate shape systematics into nominal files
 # Edit addJESTemplatesToHistFile.py: set nominalDir, channel, regionList
 python3 addJESTemplatesToHistFile.py   # Adds JES/JER/TES/MET/EES to nominal files
 
-# Stage 3.6: Validation plots (recommended before combining)
-# Edit pl.py: set inputDir, channel, regionList
-python3 pl.py                          # Creates data/MC comparison plots
-# Output in <inputDir>/results/
-
-# Stage 4: Template and datacard creation
-# Step 4.1: Create template ROOT file
+# Stage 4.2: Create template ROOT file
 # Edit addTemplateNew.py: set inputDir, channel, regionList, ifBlind
 python3 addTemplateNew.py              # Creates template file
 # Output in <inputDir>/combine/templatesForCombine*.root
 
-# Step 4.2: Create datacards from template
+# Stage 4.3: Create datacards from template
 python3 writeDatacard.py --channel 1tau1l --version v3BDT1tau1lV18
 # Output: datacards and workspace in hua/combine/combinationV18/
 
-# Stage 5: Run combine
+# Stage 4.5: Run statistical analysis with combine
 cd ../hua/combine/
 python3 runCombineAll.py --cardDir combinationV18/run2_1tau1l --ifBlind 0 --doFit --doSignificance --doImpact
 
-# Stage 6: Post-fit plots
+# Stage 4.6: Visualization
+# 4.6.1: Pre-fit data/MC comparison plots (optional, can run after Stage 3)
 cd ../plotting/
+python3 pl.py                          # Creates data/MC comparison plots
+# Output in <inputDir>/results/
+
+# 4.6.2: Post-fit plots
 python3 pl_postFit.py --cardDir ../hua/combine/combinationV18/run2_1tau1l
 ```
 
@@ -900,7 +912,14 @@ rule plot_results:
 
 ## Version History
 
-**v8BDT1tau1lV19_refactorAndBtagNameFix** (Current, 2025-11-14):
+**v8BDT1tau0l_refactorAndBtagNameFix** (Validation, 2025-11-24):
+- Channel: 1tau0l
+- First production test of CMS naming conventions for 1tau0l channel
+- Output: `/publicfs/.../variableHists_v8BDT1tau0l_refactorAndBtagNameFix/`
+- Status: Validation in progress
+
+**v8BDT1tau1lV19_refactorAndBtagNameFix** (Production, 2025-11-14):
+- Channel: 1tau1l
 - CMS naming convention compliance (btag_shape → btag)
 - Fixed 9 missing b-tag systematics in refactored code
 - All 26 b-tag systematics verified working
@@ -941,5 +960,5 @@ rule plot_results:
 ---
 
 **Maintained by**: Claude Code AI Assistant & User
-**Last updated**: 2025-11-14
+**Last updated**: 2025-11-24
 **Status**: Active development - ready for production use with current version
