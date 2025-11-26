@@ -25,6 +25,22 @@
 
 ## Starting a Major Task
 
+### Automatic Creation (After Plan Mode)
+
+**When exiting plan mode with an accepted plan**, Claude will automatically:
+1. Ask for a task name (suggests from plan title)
+2. Create `.claude/dev-docs/active/[task-name]/` directory
+3. Generate `plan.md` from the accepted plan
+4. Generate `context.md` with key files identified during planning
+5. Generate `tasks.md` from plan steps
+6. Inform you: "Dev-docs created at .claude/dev-docs/active/[task-name]/"
+
+**Then proceed directly to implementation with full task tracking in place.**
+
+---
+
+### Manual Creation (Without Plan Mode)
+
 ### 1. Create Task Directory
 ```bash
 mkdir -p .claude/dev-docs/active/[task-name]/

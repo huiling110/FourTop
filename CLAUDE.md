@@ -60,14 +60,23 @@ When working on these tasks:
 
 **When to use**: For multi-session tasks (new signal samples, major refactoring, multi-channel analysis)
 
-**How to use**:
-1. **Check for active tasks**: Look in `.claude/dev-docs/active/` for existing task directories
-2. **If task found**: Read `plan.md`, `context.md`, `tasks.md` from the task directory
-3. **If starting new task**:
-   - Create directory: `mkdir -p .claude/dev-docs/active/[task-name]/`
-   - Copy templates: `TEMPLATE_plan.md`, `TEMPLATE_context.md`, `TEMPLATE_tasks.md`
-   - Fill in details and begin work
-4. **Update regularly**:
+**Automatic creation**: When exiting plan mode with an accepted plan, automatically create dev-docs:
+1. Ask user for task name (suggest from plan title)
+2. Create directory: `.claude/dev-docs/active/[task-name]/`
+3. Create `plan.md` from the accepted plan
+4. Create `context.md` with key files identified during planning
+5. Create `tasks.md` from plan steps
+6. Inform user: "Dev-docs created at .claude/dev-docs/active/[task-name]/"
+
+**Manual creation**: For tasks not starting from plan mode:
+1. Create directory: `mkdir -p .claude/dev-docs/active/[task-name]/`
+2. Copy templates: `TEMPLATE_plan.md`, `TEMPLATE_context.md`, `TEMPLATE_tasks.md`
+3. Fill in details and begin work
+
+**Continuing existing tasks**:
+1. **Always check first**: Look in `.claude/dev-docs/active/` for existing task directories
+2. **If task found**: Read `plan.md`, `context.md`, `tasks.md` from the task directory before proceeding
+3. **Update regularly**:
    - Mark tasks complete immediately (don't batch)
    - Update "Last Updated" timestamps in each file
    - Archive to `completed/` when done
