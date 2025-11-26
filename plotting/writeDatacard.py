@@ -118,7 +118,7 @@ MCSys = {
 # outVersion = 'v5BasicAndJESJER' #For v16 1tau2l
 # outVersion = 'v8JESFlavorSplit'
 # outVersion = 'v6AllSys'
-outVersion = 'v6AllSys_unblind'
+outVersion = 'v6AllSys_unblind_CMSnaming'
 
 def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
@@ -153,8 +153,8 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root'
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau1lV_refactorAndBtagNameFix/combine/templatesForCombine1tau1l_new_notMCFTau_unblind.root'
-    channel = '1tau1l'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau1lV_refactorAndBtagNameFix/combine/templatesForCombine1tau1l_new_notMCFTau_unblind.root'
+    # channel = '1tau1l'
    
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v86HadroPreSelWithTTWTTZNLO/mc/variableHists_v2BDT1tau0lBinC/combine/templatesForCombine1tau0l.root'
 #    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v88PSWeightFixedHadroPre/mc/variableHists_v0BDT1tau0l/combine/templatesForCombine1tau0l.root'
@@ -186,7 +186,11 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root'
-    # channel = '1tau0l'
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-25: Done
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-25: Done
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-25: Done
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root'
+    channel = '1tau0l'
 
     #!!!1tau2l
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
@@ -312,16 +316,23 @@ def addProcessNormalization(sysDic, processes):
                 
 
 def addLumi(sysDic, era, processes):
-    # sysDic['lumi_13TeV'] = [] # correlated 3 years
-    # sysDic[f'lumi_13TeV_{era}'] = []
-    # sysDic['lumi_13TeV_20172018'] = []
-    sysDic['lumi_13TeV_correlated'] = [] # correlated 
-    sysDic[f'lumi_13TeV_{era}'] = []
+    # Map VFP eras to year for CMS naming convention compliance
+    # 2016preVFP and 2016postVFP both map to 2016
+    yearMap = {
+        '2016preVFP': '2016',
+        '2016postVFP': '2016',
+        '2017': '2017',
+        '2018': '2018'
+    }
+    year = yearMap[era]
+
+    sysDic['lumi_13TeV_correlated'] = [] # correlated across all years
+    sysDic[f'lumi_{year}'] = [] # per-year uncorrelated (CMS convention)
     sysDic['lumi_13TeV_1718'] = [] # correlated 2017 and 2018
     sysDic['lumi_13TeV_correlated'].append("lnN")
-    sysDic[f'lumi_13TeV_{era}'].append("lnN")
+    sysDic[f'lumi_{year}'].append("lnN")
     sysDic['lumi_13TeV_1718'].append("lnN")
-     
+
     lumiMap = {
         #[uncorrelated, correlated 3 years, correlated 2017 and 2018]
         '2016preVFP': [1.01, 1.006, 0] , '2016postVFP': [1.01, 1.006, 0], '2017': [1.02, 1.009, 1.006], '2018': [1.015, 1.02, 1.002]}
@@ -329,17 +340,17 @@ def addLumi(sysDic, era, processes):
     iDicUncorrelated = {}
     iDic20172018 = {}
     for ipro in processes:
-        if ipro == 'fakeTau' or ipro == 'fakeLepton': 
-            iDicCorrelated[ipro] = 0 
+        if ipro == 'fakeTau' or ipro == 'fakeLepton':
+            iDicCorrelated[ipro] = 0
             iDicUncorrelated[ipro] = 0
             iDic20172018[ipro] = 0
         else:
             iDicCorrelated[ipro] = lumiMap[era][1]
             iDicUncorrelated[ipro] = lumiMap[era][0]
-            iDic20172018[ipro] = lumiMap[era][2] 
-    
+            iDic20172018[ipro] = lumiMap[era][2]
+
     sysDic['lumi_13TeV_correlated'].append(iDicCorrelated)
-    sysDic[f'lumi_13TeV_{era}'].append(iDicUncorrelated)
+    sysDic[f'lumi_{year}'].append(iDicUncorrelated)
     sysDic['lumi_13TeV_1718'].append(iDic20172018)        
             
              
