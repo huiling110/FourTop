@@ -54,6 +54,22 @@ When working on these tasks:
 4. Note issues, blockers, optimization opportunities
 5. Mark completed tasks with date stamps
 
+### Dev-Docs System for Major Tasks
+
+**Location**: `.claude/dev-docs/`
+
+**When to use**: For multi-session tasks (new signal samples, major refactoring, multi-channel analysis)
+
+**How to use**:
+1. **Check for existing dev-docs**: Look for `current-plan.md`, `context.md`, `tasks.md` in `.claude/dev-docs/`
+2. **If found**: Read all three files to understand current state, then continue work
+3. **If not found**: For major tasks, copy templates and create dev-docs
+4. **Update before context compaction**: Update all three files with current progress
+
+**User can resume with**: "Continue [task name] from .claude/dev-docs/"
+
+**Benefit**: Preserves full context across session resets and context compaction
+
 ---
 
 ## Project Overview
@@ -91,6 +107,8 @@ FourTop/
 ├── makeVariables_goodCode/    # Variable calculation
 ├── inputFiles/             # Input ROOT files and configurations
 ├── myLibrary/              # Shared C++ utilities
+├── .claude/
+│   └── dev-docs/           # Task tracking system (plan, context, tasks)
 ├── README.md               # User-facing documentation
 ├── ANALYSIS_WORKFLOW.md    # Detailed end-to-end workflow
 ├── setEnv_newNew.sh        # Environment setup script
