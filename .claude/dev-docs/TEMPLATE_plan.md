@@ -1,8 +1,8 @@
 # Plan: [Task Name]
 
-**Created**: YYYY-MM-DD
+**Created**: YYYY-MM-DD HH:MM
+**Last Updated**: YYYY-MM-DD HH:MM
 **Status**: [Active | Completed | Blocked]
-**Owner**: [Your name or "Claude Code"]
 
 ---
 

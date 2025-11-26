@@ -4,57 +4,77 @@
 
 ---
 
-## Overview
+## Directory Structure
 
-This directory contains three types of documents for tracking major tasks:
-
-1. **current-plan.md** - The approved strategy and approach
-2. **context.md** - Key files, decisions, and architectural notes
-3. **tasks.md** - Checklist of work items
+```
+.claude/dev-docs/
+├── active/                    # Currently active tasks
+│   ├── task-name-1/
+│   │   ├── plan.md           # The accepted plan
+│   │   ├── context.md        # Key files, decisions
+│   │   └── tasks.md          # Work checklist
+│   └── task-name-2/
+│       └── ...
+├── completed/                 # Archived completed tasks
+│   └── old-task/
+│       └── ...
+└── TEMPLATE_*.md             # Templates for new tasks
+```
 
 ---
 
-## How to Use
+## Starting a Major Task
 
-### Starting a Major Task
-
-1. **Create/update current-plan.md** with:
-   - Goal (what you're trying to achieve)
-   - Approach (high-level strategy)
-   - Validation plan (how to verify success)
-
-2. **Update context.md** with:
-   - Key file paths and line numbers
-   - Important decisions made
-   - Technical constraints or gotchas
-
-3. **Initialize tasks.md** with:
-   - Checklist of concrete work items
-   - Mark items as [ ] pending or [x] completed
-
-### During Work
-
-- Update **tasks.md** as you complete items
-- Add to **context.md** when you discover important information
-- Update **current-plan.md** if the approach changes
-
-### Before Context Compaction
-
-**CRITICAL**: Update all three files before context is compacted or session ends:
-
-1. **tasks.md**: Mark completed items, add new discovered tasks
-2. **context.md**: Note any important decisions or file locations
-3. **current-plan.md**: Update if approach has evolved
-
-### Resuming Work
-
-In a new session, simply reference the dev-docs:
-
-```
-"Continue [task name] from .claude/dev-docs/"
+### 1. Create Task Directory
+```bash
+mkdir -p .claude/dev-docs/active/[task-name]/
+cd .claude/dev-docs/active/[task-name]/
 ```
 
-Claude will read all three files to understand where you left off.
+### 2. Create Documents from Templates
+```bash
+cp ../../TEMPLATE_plan.md plan.md
+cp ../../TEMPLATE_context.md context.md
+cp ../../TEMPLATE_tasks.md tasks.md
+```
+
+### 3. Fill in the Documents
+- **plan.md**: Goal, approach, validation plan
+- **context.md**: Key file paths (with line numbers), decisions, constraints
+- **tasks.md**: Detailed checklist of work items
+
+### 4. Update Regularly
+- Mark tasks complete **immediately** (don't batch)
+- Add "Last Updated: YYYY-MM-DD HH:MM" timestamp to each file
+- Update context when you discover important information
+
+---
+
+## Continuing Tasks
+
+### For AI Assistant (Claude)
+1. **Check for active tasks**: Look in `.claude/dev-docs/active/`
+2. **Read all three files** before proceeding
+3. **Update timestamps** when modifying files
+
+### For User
+Resume with: `"Continue [task-name] from dev-docs"`
+
+Claude will automatically:
+- Find the task directory in `.claude/dev-docs/active/`
+- Read plan.md, context.md, tasks.md
+- Continue exactly where you left off
+
+---
+
+## Archiving Completed Tasks
+
+When a task is complete:
+```bash
+mv .claude/dev-docs/active/[task-name] .claude/dev-docs/completed/
+```
+
+This keeps the `active/` directory clean and focused on current work.
 
 ---
 

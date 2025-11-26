@@ -1,6 +1,7 @@
 # Context: [Task Name]
 
-**Last updated**: YYYY-MM-DD
+**Created**: YYYY-MM-DD HH:MM
+**Last Updated**: YYYY-MM-DD HH:MM
 
 ---
 

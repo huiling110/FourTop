@@ -56,19 +56,25 @@ When working on these tasks:
 
 ### Dev-Docs System for Major Tasks
 
-**Location**: `.claude/dev-docs/`
+**Location**: `.claude/dev-docs/active/[task-name]/`
 
 **When to use**: For multi-session tasks (new signal samples, major refactoring, multi-channel analysis)
 
 **How to use**:
-1. **Check for existing dev-docs**: Look for `current-plan.md`, `context.md`, `tasks.md` in `.claude/dev-docs/`
-2. **If found**: Read all three files to understand current state, then continue work
-3. **If not found**: For major tasks, copy templates and create dev-docs
-4. **Update before context compaction**: Update all three files with current progress
+1. **Check for active tasks**: Look in `.claude/dev-docs/active/` for existing task directories
+2. **If task found**: Read `plan.md`, `context.md`, `tasks.md` from the task directory
+3. **If starting new task**:
+   - Create directory: `mkdir -p .claude/dev-docs/active/[task-name]/`
+   - Copy templates: `TEMPLATE_plan.md`, `TEMPLATE_context.md`, `TEMPLATE_tasks.md`
+   - Fill in details and begin work
+4. **Update regularly**:
+   - Mark tasks complete immediately (don't batch)
+   - Update "Last Updated" timestamps in each file
+   - Archive to `completed/` when done
 
-**User can resume with**: "Continue [task name] from .claude/dev-docs/"
+**User can resume with**: "Continue [task-name] from dev-docs"
 
-**Benefit**: Preserves full context across session resets and context compaction
+**Benefit**: Per-task directories preserve full context across sessions, easy to manage multiple tasks
 
 ---
 
