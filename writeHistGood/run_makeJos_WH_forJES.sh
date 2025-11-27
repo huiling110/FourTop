@@ -93,17 +93,16 @@ echo "  Total: ~68 systematic jobs per year"
 echo "========================================="
 echo ""
 
-# 2018 (skip if already submitted)
-# echo "Submitting 2018 ${CHANNEL} jobs..."
-# nohup python3 jobs/makeJob_WH_forJES.py \
-#     --inputDirBase "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/" \
-#     --inVersion "${IN_VERSION}" \
-#     --outVersion "${OUT_VERSION}" \
-#     --channel "${CHANNEL}" \
-#     --version "${VERSION}" \
-#     > log_2018_${CHANNEL}.log 2>&1 &
-# echo "  → log_2018_${CHANNEL}.log"
-echo "Skipping 2018 (already submitted)"
+# 2018
+echo "Submitting 2018 ${CHANNEL} jobs..."
+nohup bash -c "source ../setEnv_newNew.sh && python3 jobs/makeJob_WH_forJES.py \
+    --inputDirBase '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/' \
+    --inVersion '${IN_VERSION}' \
+    --outVersion '${OUT_VERSION}' \
+    --channel '${CHANNEL}' \
+    --version '${VERSION}'" \
+    > log_2018_${CHANNEL}.log 2>&1 &
+echo "  → log_2018_${CHANNEL}.log"
 
 # 2017
 echo "Submitting 2017 ${CHANNEL} jobs..."

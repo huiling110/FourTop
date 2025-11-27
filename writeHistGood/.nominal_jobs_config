@@ -1,6 +1,6 @@
 # Nominal job submission parameters
-# Last updated: Mon 24 Nov 16:00:51 CST 2025
+# Last updated: Thu 27 Nov 15:16:04 CST 2025
 CHANNEL=1tau0l
-VERSION=v8BDT1tau0l_refactorAndBtagNameFix
+VERSION=v9BDT1tau0l_CMSNamingComplete
 IN_VERSION=v94HadroPreJetVetoHemOnly
 OUT_VERSION=v1baselineHadroBtagWeightAdded
