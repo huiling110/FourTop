@@ -92,18 +92,24 @@ MCSys = {
     'CMS_scale_j_RelativeStatHF': [False, 0, 0b111, True],
     'CMS_scale_j_SinglePionECAL': [True, 0, 0b111, True],
     'CMS_scale_j_SinglePionHCAL': [True, 0, 0b111, True],
-    'CMS_scale_j_TimePtEta': [True, 0, 0b111, True],   
+    # JES TimePtEta: Changed to era-dependent (False) for CMS compliance
+    # Each era needs separate systematic: CMS_scale_j_TimePtEta_2016preVFP, etc.
+    'CMS_scale_j_TimePtEta': [False, 0, 0b111, True],
     'CMS_scale_j_FlavorPureGluon': [True, 0, 0b111, True],
     'CMS_scale_j_FlavorPureQuark': [True, 0, 0b111, True],
     'CMS_scale_j_FlavorPureCharm': [True, 0, 0b111, True],
     'CMS_scale_j_FlavorPureBottom': [True, 0, 0b111, True],
- 
+
     'CMS_res_j': [False, 0, 0b111 , True],
- 
-    'CMS_scale_t_DM0': [False, 0, 0b111, True],
-    'CMS_scale_t_DM1': [False, 0, 0b111, True],
-    'CMS_scale_t_DM10': [False, 0, 0b111, True],
-    'CMS_scale_t_DM11': [False, 0, 0b111, True],
+
+    # Tau TES: Updated naming with algorithm (DeepTau2017v2p1) and genTau qualifier
+    # Old: CMS_scale_t_DM{i}_YEAR
+    # New: CMS_scale_t_DeepTau2017v2p1_DM{i}_genTau_YEAR
+    # Note: 2016preVFP/postVFP will be merged to 2016 via VFP era mapping in getSysDic()
+    'CMS_scale_t_DeepTau2017v2p1_DM0_genTau': [False, 0, 0b111, True],
+    'CMS_scale_t_DeepTau2017v2p1_DM1_genTau': [False, 0, 0b111, True],
+    'CMS_scale_t_DeepTau2017v2p1_DM10_genTau': [False, 0, 0b111, True],
+    'CMS_scale_t_DeepTau2017v2p1_DM11_genTau': [False, 0, 0b111, True],
     
     'CMS_scale_met_unclustered_energy': [False, 0, 0b111, True],
     'CMS_scale_e': [False, 0, 0b101, True],
@@ -361,10 +367,28 @@ def getSysDic(processes, channel, era, ifForPlot=False):
     #ifForPlot: not decorrelate systematic for different processes
     sysDic = {}
     for sys, sysList in MCSys.items():
+        # Skip L1 ECAL prefiring for 2018 (only applies to 2016-2017)
+        if sys == 'CMS_l1_ecal_prefiring' and era == '2018':
+            continue
+
         sysPre = sys if sysList[0] else f"{sys}_{era}"
-        #for 'CMS_eff_e_reco', 2016preVFP and 2016postVFP are correlated
-        if sys == 'CMS_eff_e_reco' and era in ['2016preVFP', '2016postVFP']:
-            sysPre = f"{sys}_2016"    
+
+        # VFP era mapping: Correlate 2016preVFP and 2016postVFP for specific systematics
+        # by using unified "2016" suffix instead of separate preVFP/postVFP
+        if era in ['2016preVFP', '2016postVFP']:
+            # Electron reconstruction efficiency
+            if sys == 'CMS_eff_e_reco':
+                sysPre = f"{sys}_2016"
+            # Tau energy scale (all DM modes)
+            elif sys.startswith('CMS_scale_t_DeepTau2017v2p1_DM'):
+                sysPre = f"{sys}_2016"
+            # Tau fake rate (VSe and VSmu)
+            elif sys.startswith('CMS_fake_t_DeepTau2017v2p1_VS'):
+                sysPre = f"{sys}_2016"
+            # L1 ECAL prefiring
+            elif sys == 'CMS_l1_ecal_prefiring':
+                sysPre = f"{sys}_2016"
+
         if not sysList[3] and sysList[1]==0: #!if systematic is correlated between processes
             if ifForPlot:
                 sysName = [sysPre]

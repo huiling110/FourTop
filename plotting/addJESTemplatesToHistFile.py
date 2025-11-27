@@ -392,7 +392,10 @@ Cleanup actions (when --delete-sys-dirs is used):
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v5BDT1tau0l_tauFMorphFix/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v5BDT1tau0l_tauFMorphFix/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v5BDT1tau0l_tauFMorphFix/'
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/'
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
+    # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
+    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/'
     variables = ['BDT']
     channel = '1tau0l'
     regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
@@ -433,15 +436,20 @@ Cleanup actions (when --delete-sys-dirs is used):
         print("="*80)
 
 def addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau=False):
+    # Map 2016 VFP eras to unified "2016" for tau TES correlation
+    mapped_era = "2016" if era in ["2016preVFP", "2016postVFP"] else era
+
     for i in (0, 1, 10, 11):
         iTESUpDir = nominalDir.replace('/mc/', f'_TESdm{i}Up/mc/')
         iTESDownDir = nominalDir.replace('/mc/', f'_TESdm{i}Down/mc/')
-        # TESName = f'CMS_tau_TES_dm{i}' 
-        TESName = f'CMS_scale_t_DM{i}'
-        addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName)
+        # Updated naming: add algorithm (DeepTau2017v2p1) and genTau qualifier for CMS compliance
+        # Old: CMS_scale_t_DM{i}
+        # New: CMS_scale_t_DeepTau2017v2p1_DM{i}_genTau
+        TESName = f'CMS_scale_t_DeepTau2017v2p1_DM{i}_genTau'
+        addUpDownToFile(allSubProcesses, regionList, mapped_era, nominalDir, iTESUpDir, iTESDownDir, TESName)
         if ifMCFTau:
-            addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName, 'BDT', '_MCFT')
-            addUpDownToFile(allSubProcesses, regionList, era, nominalDir, iTESUpDir, iTESDownDir, TESName, 'BDT', '_NotMCFT')
+            addUpDownToFile(allSubProcesses, regionList, mapped_era, nominalDir, iTESUpDir, iTESDownDir, TESName, 'BDT', '_MCFT')
+            addUpDownToFile(allSubProcesses, regionList, mapped_era, nominalDir, iTESUpDir, iTESDownDir, TESName, 'BDT', '_NotMCFT')
          
     
     
