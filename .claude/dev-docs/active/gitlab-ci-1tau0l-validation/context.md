@@ -1,7 +1,7 @@
 # Context: GitLab CI Validation for 1tau0l
 
 **Created**: 2025-11-26 10:40
-**Last Updated**: 2025-11-26 15:30
+**Last Updated**: 2025-11-27 19:00
 
 ---
 
@@ -20,6 +20,28 @@
 ### Template Files (per era)
 - Source: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/YEAR/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root`
 - Destination: `/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/datacards/input/YEAR/`
+
+---
+
+### Decision 6: Tau Fake Rate Full Correlation
+**Rationale**: User clarified tau fake rates should be fully correlated across ALL years (2016preVFP, 2016postVFP, 2017, 2018), not just within 2016 VFP eras
+**Date**: 2025-11-27 (Session 7)
+**Implementation**:
+- SystematicManager.h: Set `isEraDependent = false` for both VSe and VSmu
+- writeDatacard.py: Set `isCorrelated = True` in MCSys dictionary
+- Result: Systematic names have no year suffix (e.g., `CMS_fake_t_DeepTau2017v2p1_VSe`)
+**Impact**: Reduces number of nuisance parameters, assumes fake rates stable across Run 2
+
+### Decision 7: Complete Tau ID CMS Naming Convention Update
+**Rationale**: Discovered during implementation that tau ID systematics didn't follow CMS POG naming convention (missing algorithm name, incorrect dm/DM pattern)
+**Date**: 2025-11-27 (Session 7)
+**Reference**: https://gitlab.cern.ch/cms-analysis/general/systematics/-/blob/master/systematics_master.yml lines 539-559
+**Changes**:
+- Algorithm name added: `vsJet` → `DeepTau2017v2p1_VSjet`
+- Statistical naming: `stat1_dm0` → `dm_stat1_DM0`
+- Systematic naming: `syst_dm0` → `dm_syst_DM0`
+- All eras naming: `syst_alleras` → `dm_syst_alleras`
+**Impact**: Full CMS POG compliance, enables proper GitLab CI classification (class: tau_identification)
 
 ---
 
@@ -49,6 +71,15 @@
 - Properly initialized systematics as git submodule (was manual directory copy)
 - Will require CI pipeline to pull latest submodule on next run
 **Alternative considered**: Add missing patterns to systematics_TOP24017.yml as "custom" class - rejected because master already has correct patterns
+
+### Decision 5: Fix job submission scripts to source environment
+**Rationale**: Job submission scripts failed with "ModuleNotFoundError: No module named 'usefulFunc'" because Python path not set
+**Date**: 2025-11-27 (Session 5)
+**Fix Applied**:
+- Updated run_nominal_jobs.sh: Changed `python3 ${JOB_SCRIPT}` to `bash -c "source ../setEnv_newNew.sh && python3 ${JOB_SCRIPT}"`
+- Updated run_makeJos_WH_forJES.sh: Re-enabled 2018 jobs and added environment sourcing to all eras
+**Impact**: Successfully submitted 278 jobs (nominal + systematic for all 4 eras)
+**Committed**: Commit 6a313504
 
 ---
 
@@ -110,6 +141,31 @@
 
 ## Common Commands
 
+### Job Submission (v9BDT Production)
+```bash
+cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/writeHistGood
+
+# Submit nominal jobs for all 4 eras
+bash run_nominal_jobs.sh 1tau0l v9BDT1tau0l_CMSNamingComplete v94HadroPreJetVetoHemOnly
+
+# Submit systematic variation jobs for all 4 eras
+bash run_makeJos_WH_forJES.sh
+
+# Monitor jobs
+hep_q | grep huahuil | wc -l                    # Count total jobs
+hep_q | grep huahuil | awk '{print $6}' | sort | uniq -c  # Status breakdown
+
+# Check logs
+tail -f log_2018_1tau0l.log
+tail -f log_2017_1tau0l.log
+tail -f log_2016preVFP_1tau0l.log
+tail -f log_2016postVFP_1tau0l.log
+
+# Check job results when complete
+cd jobs/
+python3 checkJobResult.py
+```
+
 ### Check GitLab CI pipeline status
 ```bash
 GITLAB_TOKEN=$(cat /afs/ihep.ac.cn/users/h/huahuil/.ssh/.gitlab-token)
@@ -128,7 +184,7 @@ python check_names.py --datacard input/datacard_1tau0l_v19_unblind.txt --systema
 SOURCE="/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
 DEST="/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/datacards/input"
 for era in 2016preVFP 2016postVFP 2017 2018; do
-  cp ${SOURCE}/${era}/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root ${DEST}/${era}/
+  cp ${SOURCE}/${era}/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root ${DEST}/${era}/
 done
 ```
 
@@ -136,16 +192,91 @@ done
 ```bash
 cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/datacards
 git status
-git add input/systematics_TOP24017.yml input/datacard_1tau0l_v19_unblind.txt input/*/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root
-git commit -m "Update to CMS-compliant b-tag naming for 1tau0l channel (v19)"
+git add input/systematics_TOP24017.yml input/datacard_1tau0l_v20_unblind.txt input/*/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root
+git commit -m "Update to CMS-compliant systematic naming for 1tau0l channel (v20)"
 git push origin master
 ```
 
 ---
 
-## Current Status (2025-11-26 20:30) - SYSTEMATICS SUBMODULE UPDATED
+## Current Status
 
-**Last Updated**: 2025-11-26 20:30
+**Last Updated**: 2025-11-27 23:00
+
+### Session 7: Complete CMS Naming Convention Compliance (2025-11-27)
+
+**Status**: ✅ **Phase 5.0-5.1 COMPLETE** - C++ and Python updates finished, ready for production
+
+#### Progress:
+1. **Discovered additional naming requirements**:
+   - User clarified tau fake rates should be fully correlated across ALL years (not just 2016 VFP)
+   - Discovered tau ID systematics need full CMS convention update (DeepTau2017v2p1_VSjet)
+
+2. **C++ updates completed** (Phase 5.0):
+   - Updated SystematicManager.h:
+     - Tau fakes: Set `isEraDependent = false` for full correlation
+     - L1 prefiring: Embedded VFP→2016 mapping in systematic name
+     - Tau ID: Complete rename with algorithm name and dm/DM pattern
+   - Updated functions.C: All histogram names match new systematic names
+   - Built and tested successfully with multiple eras
+
+3. **Python updates completed** (Phase 5.1):
+   - Updated writeDatacard.py:
+     - MCSys dictionary: All tau fake and tau ID keys updated
+     - Tau fakes: Changed to `isCorrelated=True`
+     - Tau ID: All stat1/stat2/syst variations updated
+     - getSysDic(): Added VFP mapping for tau ID, removed for tau fakes
+     - Added class documentation (fake_rate, tau_identification)
+
+4. **Git commit created**: Commit 60847c6a with complete changes
+
+#### Testing Results:
+- ✅ 2018: `CMS_eff_t_DeepTau2017v2p1_VSjet_2018`, `CMS_fake_t_DeepTau2017v2p1_VSe` (no year)
+- ✅ 2016preVFP: `CMS_l1_ecal_prefiring_2016`, tau ID correct
+- ✅ 2016postVFP: `CMS_l1_ecal_prefiring_2016`, tau ID correct
+- ✅ All stat1/stat2/syst variations: `dm_stat1_DM0`, `dm_syst_DM0`, etc.
+
+#### Next Steps:
+1. Update remaining Python scripts (addJESTemplatesToHistFile.py, addTemplateNew.py, smooth_systematics)
+2. Regenerate histograms with v11BDT1tau0l_CMSNamingComplete
+3. Template consolidation and datacard generation
+4. Local validation (target: 0 issues)
+5. GitLab CI validation
+
+---
+
+## Previous Status (2025-11-27 19:00) - JOBS COMPLETED
+
+#### Progress:
+1. **Disk quota resolved** (completed by publicfs-cleanup task):
+   - Before: 970K files (97% quota)
+   - After: 706K files (70.6% quota)
+   - ✅ Safe to submit large production run
+
+2. **Fixed job submission scripts**:
+   - Issue: ModuleNotFoundError for usefulFunc module
+   - Root cause: Environment not sourced before Python execution
+   - Fix: Updated scripts to use `bash -c "source ../setEnv_newNew.sh && python3 ..."`
+   - Files modified: run_nominal_jobs.sh, run_makeJos_WH_forJES.sh
+   - Committed: 6a313504
+
+3. **Successfully submitted all jobs**:
+   - Nominal jobs: All 4 eras (2018, 2017, 2016preVFP, 2016postVFP)
+   - Systematic jobs: All 4 eras (~68 variations per era)
+   - **Total: 278 jobs** (225 running, 53 queued as of 19:00)
+
+#### Next Steps:
+- Monitor job completion (~3-6 hours estimated)
+- Check for failed jobs with checkJobResult.py
+- Consolidate templates (Phase 5.3)
+- Generate datacards with new systematic names (Phase 5.5)
+- Local validation: Target 0 issues (down from 46)
+
+---
+
+## Previous Status (2025-11-26 20:30) - SYSTEMATICS SUBMODULE UPDATED
+
+**Session 4 Summary**: Root Cause Analysis & Submodule Fix
 
 ### Session 4: Root Cause Analysis & Submodule Fix (2025-11-26 20:00-20:30)
 

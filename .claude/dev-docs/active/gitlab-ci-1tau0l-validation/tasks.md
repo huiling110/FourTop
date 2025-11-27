@@ -1,168 +1,76 @@
-# Tasks: Fix 46 Systematic Naming Issues for GitLab CI
+# Tasks: Fix All Systematic Naming Issues for GitLab CI
 
 **Created**: 2025-11-26 10:40
-**Last Updated**: 2025-11-27 11:20
-**Status**: PAUSED at Phase 5 - Ready to submit jobs (higher priority: disk cleanup)
+**Last Updated**: 2025-11-27 22:40
+**Status**: Phase 5.1 IN PROGRESS - C++ complete, Python updates pending
 
 ---
 
-## Phase 1: C++ Code Changes (Est. 4 hours)
+## Phase 5.0: Additional C++ Updates (✅ COMPLETE - 2025-11-27 Session 7)
 
-### Task 1.1: Update B-tag systematics in SystematicManager.h
-- [ ] Read current SystematicManager.h b-tag section (~lines 269-317)
-- [ ] Add `fullShape_` prefix to all 8 b-tag systematics
-  - [ ] CMS_btag_hf → CMS_btag_fullShape_hf
-  - [ ] CMS_btag_lf → CMS_btag_fullShape_lf
-  - [ ] CMS_btag_cferr1 → CMS_btag_fullShape_cferr1
-  - [ ] CMS_btag_cferr2 → CMS_btag_fullShape_cferr2
-  - [ ] CMS_btag_hfstats1 → CMS_btag_fullShape_hfstats1
-  - [ ] CMS_btag_hfstats2 → CMS_btag_fullShape_hfstats2
-  - [ ] CMS_btag_lfstats1 → CMS_btag_fullShape_lfstats1
-  - [ ] CMS_btag_lfstats2 → CMS_btag_fullShape_lfstats2
+### Task 5.0.1: Update tau fake correlation ✅
+- [x] Update SystematicManager.h: Set `isEraDependent = false` for tau fakes
+- [x] Verify histograms have no year suffix
 
-### Task 1.2: Update JES TimePtEta systematic
-- [ ] Read SystematicManager.h JES section (~line 95)
-- [ ] Change CMS_scale_j_TimePtEta from correlated (true) to era-dependent (false)
-  - This enables automatic era suffix: _2016preVFP, _2016postVFP, _2017, _2018
+### Task 5.0.2: Update L1 prefiring VFP mapping ✅
+- [x] Update SystematicManager.h: Map 2016preVFP/postVFP → 2016 in base name
+- [x] Update functions.C: Keep VFP mapping for histogram initialization
+- [x] Test with 2016preVFP and 2016postVFP samples
 
-### Task 1.3: Update tau energy scale systematics
-- [ ] Read SystematicManager.h tau TES section (~lines 103-106)
-- [ ] Add algorithm + genTau qualifier to all 4 DM systematics
-  - [ ] CMS_scale_t_DM0 → CMS_scale_t_DeepTau2017v2p1_DM0_genTau
-  - [ ] CMS_scale_t_DM1 → CMS_scale_t_DeepTau2017v2p1_DM1_genTau
-  - [ ] CMS_scale_t_DM10 → CMS_scale_t_DeepTau2017v2p1_DM10_genTau
-  - [ ] CMS_scale_t_DM11 → CMS_scale_t_DeepTau2017v2p1_DM11_genTau
-
-### Task 1.4: Verify tau fake rate event weights
-- [ ] Check Event class for separate VSe and VSmu weights
-  - Look for: getTauVSeWeight(), getTauVSmuWeight() or similar
-- [ ] If separate weights exist: proceed with split implementation
-- [ ] If not available: document and ask user for guidance
-
-### Task 1.5: Update tau fake rate systematics (CONDITIONAL on 1.4)
-- [ ] Read SystematicManager.h tau fake section (~line 57)
-- [ ] Split CMS_eff_t_vsEle → CMS_fake_t_DeepTau2017v2p1_VSe
-- [ ] Split CMS_eff_t_vsMu → CMS_fake_t_DeepTau2017v2p1_VSmu
-- [ ] Keep era-dependent (false) for both
-
-### Task 1.6: Add VFP era mapping helper function
-- [ ] Add mapVFPEra() method to SystematicManager class
-  ```cpp
-  TString mapVFPEra(const TString& era) {
-      if (era.Contains("2016")) return "2016";
-      return era;
-  }
-  ```
-
-### Task 1.7: Update L1 ECAL prefiring logic
-- [ ] Read SystematicManager.h prefiring section (~line 12)
-- [ ] Add era check to skip 2018
-- [ ] Ensure era-dependent (false) to enable VFP mapping
-
-### Task 1.8: Update functions.C histogram naming
-- [ ] Read functions.C histogram creation section (~lines 484-501)
-- [ ] Add VFP era mapping for applicable systematics:
-  - CMS_scale_t_* (tau TES)
-  - CMS_l1_ecal_prefiring
-  - CMS_fake_t_* (tau fake rate)
-- [ ] Apply mapVFPEra() before histogram naming
+### Task 5.0.3: Update tau ID naming to CMS convention ✅
+- [x] Update SystematicManager.h:
+  - [x] Main: `CMS_eff_t_vsJet` → `CMS_eff_t_DeepTau2017v2p1_VSjet`
+  - [x] Stat: Update addTauIDStatSystematic to use `dm_stat1/2_DM0` pattern
+  - [x] Syst: Update addTauIDSystPerDM to use `dm_syst_DM0` pattern
+  - [x] Syst alleras: `CMS_eff_t_vsJet_syst_alleras` → `CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_alleras`
+- [x] Update functions.C: Update all tau ID systematic names
+- [x] Rebuild C++ code
+- [x] Test with 2018, 2016preVFP, 2016postVFP samples
 
 ---
 
-## Phase 2: Python Template Consolidation (Est. 2 hours)
+## Phase 5.1: Python Script Updates (⏳ CURRENT)
 
-### Task 2.1: Update addJESTemplatesToHistFile.py
-- [ ] Read addJESTemplatesToHistFile.py (~lines 400-500)
-- [ ] Update tau TES template naming pattern
-- [ ] Add VFP era mapping function
-- [ ] Apply mapping during template consolidation
+### Task 5.1.1: Update writeDatacard.py
+- [ ] Read current MCSys dictionary (lines 7-112)
+- [ ] Update tau fake keys:
+  - [ ] `CMS_eff_t_vsMu` → `CMS_fake_t_DeepTau2017v2p1_VSmu`
+  - [ ] `CMS_eff_t_vsEle` → `CMS_fake_t_DeepTau2017v2p1_VSe`
+  - [ ] Add `class: fake_rate` metadata
+- [ ] Update all tau ID keys:
+  - [ ] `CMS_eff_t_vsJet` → `CMS_eff_t_DeepTau2017v2p1_VSjet`
+  - [ ] `CMS_eff_t_vsJet_stat1_dm0` → `CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0`
+  - [ ] `CMS_eff_t_vsJet_stat2_dm0` → `CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0`
+  - [ ] `CMS_eff_t_vsJet_syst_dm0` → `CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0`
+  - [ ] `CMS_eff_t_vsJet_syst_alleras` → `CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_alleras`
+  - [ ] Add `class: tau_identification` metadata
+- [ ] Update getSysDic() function for VFP era mapping (if needed)
 
----
+### Task 5.1.2: Update addJESTemplatesToHistFile.py
+- [ ] Update systematic name mappings for tau fake/ID
+- [ ] Verify VFP era mapping works with new names
 
-## Phase 3: Python Datacard Generation (Est. 2 hours)
+### Task 5.1.3: Update addTemplateNew.py
+- [ ] Update systematic name patterns for tau fake/ID
+- [ ] Verify VFP era handling
 
-### Task 3.1: Update MCSys dictionary in writeDatacard.py
-- [ ] Read writeDatacard.py MCSys section (lines 7-112)
-- [ ] Update all systematic names:
-  - [ ] B-tag: Add fullShape_ prefix (8 systematics)
-  - [ ] JES TimePtEta: Change to era-dependent
-  - [ ] Tau TES: Add DeepTau2017v2p1_genTau (4 systematics)
-  - [ ] Tau fake: Split into VSe/VSmu (2 systematics)
-  - [ ] L1 prefiring: Keep as-is (mapping in getSysDic)
-
-### Task 3.2: Update getSysDic() function
-- [ ] Read getSysDic() function (lines 359-381)
-- [ ] Add VFP era mapping logic for specific systematics
-- [ ] Add L1 prefiring 2018 skip logic
-- [ ] Verify systematic name generation with mapped era
-
----
-
-## Phase 4: Build and Test (Est. 2 hours)
-
-### Task 4.1: Rebuild C++ code
-- [ ] cd writeHistGood/
-- [ ] source ../setEnv_newNew.sh
-- [ ] make clean && make
-- [ ] Verify compilation succeeds
-
-### Task 4.2: Test with 2018 single file
-- [ ] Identify small test ROOT file
-- [ ] Run: ./apps/run_treeAnalyzer.out 2018 1tau0l /path/to/test.root
-- [ ] Verify output ROOT file created
-
-### Task 4.3: Verify histogram names (2018)
-- [ ] Open output ROOT file in ROOT
-- [ ] Check systematic histogram names:
-  - [ ] CMS_btag_fullShape_hf_2018Up/Down
-  - [ ] CMS_scale_j_TimePtEta_2018Up/Down
-  - [ ] CMS_scale_t_DeepTau2017v2p1_DM0_genTau_2018Up/Down
-  - [ ] CMS_fake_t_DeepTau2017v2p1_VSe_2018Up/Down
-  - [ ] CMS_fake_t_DeepTau2017v2p1_VSmu_2018Up/Down
-
-### Task 4.4: Test 2016 VFP correlation
-- [ ] Run 2016preVFP: ./apps/run_treeAnalyzer.out 2016preVFP 1tau0l /path/to/test.root
-- [ ] Run 2016postVFP: ./apps/run_treeAnalyzer.out 2016postVFP 1tau0l /path/to/test.root
-- [ ] Verify both use _2016 suffix (NOT _2016preVFP/_2016postVFP) for:
-  - [ ] CMS_scale_t_DeepTau2017v2p1_DM*_genTau_2016
-  - [ ] CMS_l1_ecal_prefiring_2016
-  - [ ] CMS_fake_t_DeepTau2017v2p1_VSe/VSmu_2016
-
-### Task 4.5: Verify L1 prefiring 2018 skip
-- [ ] Check 2018 output ROOT file
-- [ ] Confirm NO CMS_l1_ecal_prefiring_2018 histograms
+### Task 5.1.4: Update smooth_systematics_fourTops.py
+- [ ] Update systematic name patterns for tau fake/ID
 
 ---
 
-## Phase 5: Full Production (Est. 3-4 days)
+## Phase 5.2: Full Production Run
 
-### Task 5.1: Submit histogram generation jobs
-- [ ] cd writeHistGood/jobs/
-- [ ] Submit nominal + systematic jobs for all 4 eras
-- [ ] Submit JES systematic jobs (run_makeJobs_WH_forJES.sh)
+### Task 5.2.1: Submit histogram generation jobs
+- [ ] Clean previous v10BDT test output
+- [ ] Submit nominal jobs: `bash run_nominal_jobs.sh 1tau0l v11BDT1tau0l_CMSNamingComplete v94HadroPreJetVetoHemOnly`
+- [ ] Submit systematic jobs: `bash run_makeJos_WH_forJES.sh`
+- [ ] Monitor jobs: `hep_q | grep huahuil | wc -l`
 
-### Task 5.2: Monitor job completion
-- [ ] Run checkJobResult.py regularly
-- [ ] Verify all jobs complete successfully
-- [ ] Check for failed jobs and resubmit if needed
-
-### Task 5.3: Consolidate templates
-- [ ] cd ../plotting/
-- [ ] Run addJESTemplatesToHistFile.py for all 4 eras
-- [ ] Verify template ROOT files created
-
-### Task 5.4: Smooth systematics
-- [ ] Run smooth_systematics_fourTops.py --era all --channel 1tau0l
-- [ ] Verify smoothing completed
-
-### Task 5.5: Generate datacards
-- [ ] Run writeDatacard.py for all 4 eras
-- [ ] Verify individual datacards created
-
-### Task 5.6: Combine datacards
-- [ ] cd ../hua/combine/
-- [ ] Run writeCombinationDatacard.py --channel 1tau0l --version V20
-- [ ] Verify combined datacard created
+### Task 5.2.2: Monitor job completion
+- [ ] Wait for all jobs to complete (~3-6 hours)
+- [ ] Check for failed jobs: `cd jobs/ && python3 checkJobResult.py`
+- [ ] Verify histogram names in output ROOT files
 
 ---
 
@@ -231,9 +139,10 @@
 ## Progress Tracking
 
 **Completed Phases**: Phases 1-4 (Code changes, build, test, debug) ✅
-**Current Phase**: Phase 5 - Submit Full Production Jobs (PAUSED)
-**Next Milestone**: Submit cluster jobs for all eras
-**Paused Reason**: Disk quota near limit on /publicfs - need to clean up before submitting large job runs
+**Current Phase**: Phase 5 - Full Production (IN PROGRESS)
+**Jobs Submitted**: 278 total (nominal + systematic for all 4 eras)
+**Jobs Running**: 225 running, 53 queued (as of 2025-11-27 19:00)
+**Next Milestone**: Wait for jobs to complete (~3-6 hours), then consolidate templates
 
 ---
 
