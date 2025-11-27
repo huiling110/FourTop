@@ -45,7 +45,13 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/'
     channel = '1tau0l'
     variables = ['BDT']
     regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
@@ -121,14 +127,32 @@ def main():
                 if sumPro in sumProcessPerVarSys[ivar][region]:
                     for sys in sumProcessPerVarSys[ivar][region][sumPro]:
                         hist = sumProcessPerVarSys[ivar][region][sumPro][sys]
-                        #! rename process-uncorrelated sys for combine 
-                        sysName = sys.replace('_up', '').replace('_down', '') 
+
+                        # Map 2016preVFP/postVFP → 2016 for specific systematics
+                        # These systematics should be fully correlated across 2016 VFP eras
+                        histName = hist.GetName()
+                        systematics_to_merge = [
+                            'CMS_scale_t_DeepTau2017v2p1_DM0_genTau',
+                            'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',
+                            'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',
+                            'CMS_scale_t_DeepTau2017v2p1_DM11_genTau',
+                            'CMS_fake_t_DeepTau2017v2p1_VSe',
+                            'CMS_fake_t_DeepTau2017v2p1_VSmu',
+                            'CMS_l1_ecal_prefiring'
+                        ]
+                        for sys_name in systematics_to_merge:
+                            histName = histName.replace(f'{sys_name}_2016preVFP', f'{sys_name}_2016')
+                            histName = histName.replace(f'{sys_name}_2016postVFP', f'{sys_name}_2016')
+                        hist.SetName(histName)
+
+                        #! rename process-uncorrelated sys for combine
+                        sysName = sys.replace('_up', '').replace('_down', '')
                         sysName = sysName.replace('_2018', '').replace('_2017', '').replace('_2016preVFP', '').replace('_2016postVFP', '').replace('_2016', '') # remove era
                         #sysName is sys remove '_up" or '_down'
-                        if not wd.MCSys[sysName][3]: # process-uncorrelated sys 
+                        if not wd.MCSys[sysName][3]: # process-uncorrelated sys
                             sysNameNew = sysName + '_' + sumPro
                             hist.SetName(hist.GetName().replace(sysName, sysNameNew))
-                            
+
                         hist.Write(hist.GetName())
     outFile.Write()
     outFile.Close()
