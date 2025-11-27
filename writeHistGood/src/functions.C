@@ -481,24 +481,25 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
         sysRegions.push_back(region + "_CMS_eff_e_reco_" + era + "Down");
     }
 
-    sysRegions.push_back(region + "_CMS_btag_jesUp");
-    sysRegions.push_back(region + "_CMS_btag_jesDown");
-    sysRegions.push_back(region + "_CMS_btag_hfUp");
-    sysRegions.push_back(region + "_CMS_btag_hfDown");
-    sysRegions.push_back(region + "_CMS_btag_lfUp");
-    sysRegions.push_back(region + "_CMS_btag_lfDown");
-    sysRegions.push_back(region + "_CMS_btag_hfstats1_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_btag_hfstats1_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_btag_hfstats2_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_btag_hfstats2_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_btag_lfstats1_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_btag_lfstats1_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_btag_lfstats2_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_btag_lfstats2_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_btag_cferr1Up");
-    sysRegions.push_back(region + "_CMS_btag_cferr1Down");
-    sysRegions.push_back(region + "_CMS_btag_cferr2Up");
-    sysRegions.push_back(region + "_CMS_btag_cferr2Down");
+    // B-tag shape systematics - with fullShape_ prefix for CMS naming convention
+    sysRegions.push_back(region + "_CMS_btag_fullShape_jesUp");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_jesDown");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_hfUp");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_hfDown");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_lfUp");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_lfDown");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_hfstats1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_hfstats1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_hfstats2_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_hfstats2_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_lfstats1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_lfstats1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_lfstats2_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_lfstats2_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_cferr1Up");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_cferr1Down");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_cferr2Up");
+    sysRegions.push_back(region + "_CMS_btag_fullShape_cferr2Down");
 
 
     sysRegions.push_back(region + "_CMS_TOP24017_eff_trigger_stats_" + era + "Up");

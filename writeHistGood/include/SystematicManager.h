@@ -35,6 +35,19 @@ private:
     std::vector<SystematicVariation> m_systematics;
     TString m_era;
 
+    /**
+     * @brief Map 2016 VFP eras to unified "2016" for systematics correlation
+     *
+     * For certain systematics (tau TES, L1 prefiring, tau fake), we want to
+     * fully correlate 2016preVFP and 2016postVFP by using the same name "2016".
+     */
+    TString mapVFPEra(const TString& era) const {
+        if (era == "2016preVFP" || era == "2016postVFP") {
+            return "2016";
+        }
+        return era;
+    }
+
 public:
     explicit SystematicManager(const TString& era) : m_era(era) {
         initializeSystematics();
@@ -55,13 +68,15 @@ public:
             false
         );
 
-        // L1 ECAL Prefiring
-        m_systematics.emplace_back(
-            "CMS_l1_ecal_prefiring",
-            [](event* e, Double_t w) { return (w / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(); },
-            [](event* e, Double_t w) { return (w / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_down.v(); },
-            true  // era-dependent
-        );
+        // L1 ECAL Prefiring (only for 2016-2017, not 2018)
+        if (m_era != "2018") {
+            m_systematics.emplace_back(
+                "CMS_l1_ecal_prefiring",
+                [](event* e, Double_t w) { return (w / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(); },
+                [](event* e, Double_t w) { return (w / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_down.v(); },
+                true  // era-dependent
+            );
+        }
 
         // Tau ID vs Jet
         m_systematics.emplace_back(
@@ -71,17 +86,17 @@ public:
             true
         );
 
-        // Tau ID vs Mu
+        // Tau fake rate vs Mu - with algorithm name for CMS naming convention
         m_systematics.emplace_back(
-            "CMS_eff_t_vsMu",
+            "CMS_fake_t_DeepTau2017v2p1_VSmu",
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_up.v(); },
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_down.v(); },
             true
         );
 
-        // Tau ID vs Ele
+        // Tau fake rate vs Ele - with algorithm name for CMS naming convention
         m_systematics.emplace_back(
-            "CMS_eff_t_vsEle",
+            "CMS_fake_t_DeepTau2017v2p1_VSe",
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsele_up.v(); },
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsele_down.v(); },
             true
@@ -265,67 +280,67 @@ private:
     }
 
     void addBTagSystematics() {
-        // B-tag shape systematics
+        // B-tag shape systematics - with fullShape_ prefix for CMS naming convention
         m_systematics.emplace_back(
-            "CMS_btag_jes",
+            "CMS_btag_fullShape_jes",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_jes_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_jes_down.v(); },
             false
         );
 
         m_systematics.emplace_back(
-            "CMS_btag_hf",
+            "CMS_btag_fullShape_hf",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hf_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hf_down.v(); },
             false
         );
 
         m_systematics.emplace_back(
-            "CMS_btag_lf",
+            "CMS_btag_fullShape_lf",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lf_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lf_down.v(); },
             false
         );
 
-        // Year-dependent b-tag statistics systematics
+        // Year-dependent b-tag statistics systematics - with fullShape_ prefix
         m_systematics.emplace_back(
-            "CMS_btag_hfstats1",
+            "CMS_btag_fullShape_hfstats1",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hfstats1_down.v(); },
             true  // Era-dependent
         );
 
         m_systematics.emplace_back(
-            "CMS_btag_hfstats2",
+            "CMS_btag_fullShape_hfstats2",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_hfstats2_down.v(); },
             true  // Era-dependent
         );
 
         m_systematics.emplace_back(
-            "CMS_btag_lfstats1",
+            "CMS_btag_fullShape_lfstats1",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lfstats1_down.v(); },
             true  // Era-dependent
         );
 
         m_systematics.emplace_back(
-            "CMS_btag_lfstats2",
+            "CMS_btag_fullShape_lfstats2",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_lfstats2_down.v(); },
             true  // Era-dependent
         );
 
-        // Charm flavor uncertainties (not era-dependent)
+        // Charm flavor uncertainties (not era-dependent) - with fullShape_ prefix
         m_systematics.emplace_back(
-            "CMS_btag_cferr1",
+            "CMS_btag_fullShape_cferr1",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_cferr1_down.v(); },
             false
         );
 
         m_systematics.emplace_back(
-            "CMS_btag_cferr2",
+            "CMS_btag_fullShape_cferr2",
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_up.v(); },
             [](event* e, Double_t w) { return (w / e->btagShape_weight.v()) * e->btagShape_weight_cferr2_down.v(); },
             false
