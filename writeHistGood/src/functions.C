@@ -427,10 +427,14 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
 
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Up"); // uncorrelated between eras, statistical uncertainty dominates
-    sysRegions.push_back(region + "_CMS_eff_t_vsMu_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsEle_" + era + "Down");
+
+    // Tau fake rate systematics - updated naming with algorithm for CMS compliance
+    // Old: CMS_eff_t_vsMu/vsEle
+    // New: CMS_fake_t_DeepTau2017v2p1_VSmu/VSe
+    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSmu_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSmu_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSe_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSe_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "Up");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "Down");
     sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "Up");
