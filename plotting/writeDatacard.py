@@ -13,23 +13,37 @@ MCSys = {
     
     'CMS_TOP24017_eff_trigger_stats': [False, 0, 0b110, True],
     'CMS_TOP24017_ttttSS_eff_trigger': [False, 0, 0b001, True],
-    
-    'CMS_eff_t_vsMu': [False, 0, 0b111, True], #uncorrelated
-    'CMS_eff_t_vsEle': [False, 0, 0b111, True], #need to add era to the name
-    'CMS_eff_t_vsJet_stat1_dm0': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat1_dm1': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat1_dm10': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat1_dm11': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat2_dm0': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat2_dm1': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat2_dm10': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_stat2_dm11': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_alleras': [True, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_dm0': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_dm1': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_dm10': [False, 0, 0b111, True],
-    'CMS_eff_t_vsJet_syst_dm11': [False, 0, 0b111, True],
+
+    # 'CMS_eff_t_vsMu': [False, 0, 0b111, True], #OLD naming - updated 2025-11-27
+    # 'CMS_eff_t_vsEle': [False, 0, 0b111, True], #OLD naming - updated 2025-11-27
+    # Tau fake rates: Updated 2025-11-27 to CMS naming convention (DeepTau2017v2p1_VS*)
+    # Fully correlated across all years (isCorrelated=True removes year suffix)
+    # Class: fake_rate (for GitLab CI validation)
+    'CMS_fake_t_DeepTau2017v2p1_VSmu': [True, 0, 0b111, True],
+    'CMS_fake_t_DeepTau2017v2p1_VSe': [True, 0, 0b111, True],
+
+    # Tau ID efficiency: Updated 2025-11-27 to CMS naming convention
+    # Main tau ID (era-dependent)
+    # Class: tau_identification (for GitLab CI validation)
+    'CMS_eff_t_DeepTau2017v2p1_VSjet': [False, 0, 0b111, True],
+
+    # Tau ID stat uncertainties (era-dependent, per decay mode)
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11': [False, 0, 0b111, True],
+
+    # Tau ID syst uncertainties
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_alleras': [True, 0, 0b111, True],  # Fully correlated
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst': [False, 0, 0b111, True],  # Era-dependent, all DMs
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10': [False, 0, 0b111, True],
+    'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11': [False, 0, 0b111, True],
     
     'CMS_TOP24017_ttttSS_eff_e_syst': [True, 0, 0b101, True],
     'CMS_TOP24017_ttttSS_eff_m_syst': [True, 0, 0b101, True],
@@ -43,15 +57,15 @@ MCSys = {
     'CMS_btag_fixedWP_incl_light_correlated': [True, 0, 0b101, True],
     'CMS_btag_fixedWP_incl_light_uncorrelated': [False, 0, 0b101, True],
     
-    #btagShape information, only in 1tau0l
-    'CMS_btag_hf': [True, 0, 0b010, True], 
-    'CMS_btag_lf': [True, 0, 0b010, True],
-    'CMS_btag_cferr1': [True, 0, 0b010, True],
-    'CMS_btag_cferr2': [True, 0, 0b010, True],
-    'CMS_btag_hfstats1': [False, 0, 0b010, True],
-    'CMS_btag_hfstats2': [False, 0, 0b010, True],
-    'CMS_btag_lfstats1': [False, 0, 0b010, True],
-    'CMS_btag_lfstats2': [False, 0, 0b010, True],
+    #btagShape information, only in 1tau0l - CMS naming convention with fullShape_ prefix
+    'CMS_btag_fullShape_hf': [True, 0, 0b010, True],
+    'CMS_btag_fullShape_lf': [True, 0, 0b010, True],
+    'CMS_btag_fullShape_cferr1': [True, 0, 0b010, True],
+    'CMS_btag_fullShape_cferr2': [True, 0, 0b010, True],
+    'CMS_btag_fullShape_hfstats1': [False, 0, 0b010, True],
+    'CMS_btag_fullShape_hfstats2': [False, 0, 0b010, True],
+    'CMS_btag_fullShape_lfstats1': [False, 0, 0b010, True],
+    'CMS_btag_fullShape_lfstats2': [False, 0, 0b010, True],
    
     # 'CMS_fake_t': [False, 1, 0b010, True], #!considering FR for 1tau0l
     'CMS_fake_t': [False, 1, 0b111, True], #!Considering FR for 1tau1l and 1tau2l too
@@ -382,12 +396,16 @@ def getSysDic(processes, channel, era, ifForPlot=False):
             # Tau energy scale (all DM modes)
             elif sys.startswith('CMS_scale_t_DeepTau2017v2p1_DM'):
                 sysPre = f"{sys}_2016"
-            # Tau fake rate (VSe and VSmu)
-            elif sys.startswith('CMS_fake_t_DeepTau2017v2p1_VS'):
-                sysPre = f"{sys}_2016"
             # L1 ECAL prefiring
             elif sys == 'CMS_l1_ecal_prefiring':
                 sysPre = f"{sys}_2016"
+            # Tau ID (all variations - stat1/stat2/syst per DM and combined)
+            elif sys.startswith('CMS_eff_t_DeepTau2017v2p1_VSjet'):
+                # Don't add VFP suffix if it's alleras (fully correlated)
+                if 'alleras' not in sys:
+                    sysPre = f"{sys}_2016"
+        # Note: Tau fake rates (CMS_fake_t_DeepTau2017v2p1_VS*) are fully correlated (isCorrelated=True)
+        # so they never get year suffix - no VFP mapping needed
 
         if not sysList[3] and sysList[1]==0: #!if systematic is correlated between processes
             if ifForPlot:

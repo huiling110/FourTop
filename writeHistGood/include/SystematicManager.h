@@ -69,37 +69,39 @@ public:
         );
 
         // L1 ECAL Prefiring (only for 2016-2017, not 2018)
+        // Map 2016preVFP/postVFP → 2016 (correlated across VFP eras)
         if (m_era != "2018") {
+            TString prefiringEra = (m_era.Contains("2016")) ? "2016" : m_era;
             m_systematics.emplace_back(
-                "CMS_l1_ecal_prefiring",
+                "CMS_l1_ecal_prefiring_" + prefiringEra,  // Include era in base name
                 [](event* e, Double_t w) { return (w / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_up.v(); },
                 [](event* e, Double_t w) { return (w / e->EVENT_prefireWeight.v()) * e->EVENT_prefireWeight_down.v(); },
-                true  // era-dependent
+                false  // era already in name, don't add again
             );
         }
 
-        // Tau ID vs Jet
+        // Tau ID vs Jet - CMS naming convention with algorithm name
         m_systematics.emplace_back(
-            "CMS_eff_t_vsJet",
+            "CMS_eff_t_DeepTau2017v2p1_VSjet",
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_up.v(); },
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsjet_down.v(); },
             true
         );
 
-        // Tau fake rate vs Mu - with algorithm name for CMS naming convention
+        // Tau fake rate vs Mu - fully correlated across all years (no era suffix)
         m_systematics.emplace_back(
             "CMS_fake_t_DeepTau2017v2p1_VSmu",
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_up.v(); },
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsmu_down.v(); },
-            true
+            false  // fully correlated across all years
         );
 
-        // Tau fake rate vs Ele - with algorithm name for CMS naming convention
+        // Tau fake rate vs Ele - fully correlated across all years (no era suffix)
         m_systematics.emplace_back(
             "CMS_fake_t_DeepTau2017v2p1_VSe",
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsele_up.v(); },
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_vsele_down.v(); },
-            true
+            false  // fully correlated across all years
         );
 
         // Tau ID stat uncertainties - DM0
@@ -136,17 +138,17 @@ public:
             [](event* e) { return e->tauT_IDSF_weight_new_stat2_dm11_up.v(); },
             [](event* e) { return e->tauT_IDSF_weight_new_stat2_dm11_down.v(); });
 
-        // Tau ID systematic uncertainties - all eras
+        // Tau ID systematic uncertainties - all eras (fully correlated)
         m_systematics.emplace_back(
-            "CMS_eff_t_vsJet_syst_alleras",
+            "CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_alleras",
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_alleras_up.v(); },
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_alleras_down.v(); },
             false
         );
 
-        // Tau ID systematic - era dependent
+        // Tau ID systematic - era dependent (all decay modes combined)
         m_systematics.emplace_back(
-            "CMS_eff_t_vsJet_syst",
+            "CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst",
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_era_up.v(); },
             [](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * e->tauT_IDSF_weight_new_syst_era_down.v(); },
             true
@@ -216,8 +218,13 @@ private:
     void addTauIDStatSystematic(const TString& dmName,
                                 std::function<Double_t(event*)> upFunc,
                                 std::function<Double_t(event*)> downFunc) {
+        // Convert dm name: stat1_dm0 → dm_stat1_DM0
+        TString convertedName = dmName;
+        convertedName.ReplaceAll("stat", "dm_stat");
+        convertedName.ReplaceAll("_dm", "_DM");
+
         m_systematics.emplace_back(
-            "CMS_eff_t_vsJet_" + dmName,
+            "CMS_eff_t_DeepTau2017v2p1_VSjet_" + convertedName,
             [upFunc](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * upFunc(e); },
             [downFunc](event* e, Double_t w) { return (w / e->tauT_IDSF_weight_new.v()) * downFunc(e); },
             true
@@ -225,8 +232,12 @@ private:
     }
 
     void addTauIDSystPerDM(const TString& dm) {
+        // Convert dm name: dm0 → DM0, dm1 → DM1, etc.
+        TString convertedDM = dm;
+        convertedDM.ReplaceAll("dm", "DM");
+
         m_systematics.emplace_back(
-            "CMS_eff_t_vsJet_syst_" + dm,
+            "CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_" + convertedDM,
             [dm](event* e, Double_t w) {
                 Double_t sf_up = 1.0;
                 if (dm == "dm0") sf_up = e->tauT_IDSF_weight_new_syst_era_dm0_up.v();

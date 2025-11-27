@@ -422,50 +422,57 @@ void getChannelSys(std::vector<TString>& sysRegions, TString region, TString era
         
     sysRegions.push_back(region + "_CMS_pileupUp");// 100% correlated
     sysRegions.push_back(region + "_CMS_pileupDown");
-    sysRegions.push_back(region + "_CMS_l1_ecal_prefiring_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_l1_ecal_prefiring_" + era + "Down");
 
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_" + era + "Down");
+    // L1 ECAL prefiring: VFP eras mapped to 2016 in SystematicManager
+    TString prefiringEra = (era.Contains("2016")) ? "2016" : era;
+    sysRegions.push_back(region + "_CMS_l1_ecal_prefiring_" + prefiringEra + "Up");
+    sysRegions.push_back(region + "_CMS_l1_ecal_prefiring_" + prefiringEra + "Down");
 
-    // Tau fake rate systematics - updated naming with algorithm for CMS compliance
+    // Tau ID vs Jet - CMS naming convention: CMS_eff_t_DeepTau2017v2p1_VSjet
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_" + era + "Down");
+
+    // Tau fake rate systematics - fully correlated across all years (SystematicManager handles)
     // Old: CMS_eff_t_vsMu/vsEle
-    // New: CMS_fake_t_DeepTau2017v2p1_VSmu/VSe
-    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSmu_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSmu_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSe_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSe_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm0_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm1_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm10_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat1_dm11_" + era + "Down");
+    // New: CMS_fake_t_DeepTau2017v2p1_VSmu/VSe (100% correlated, no era suffix)
+    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSmuUp");
+    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSmuDown");
+    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSeUp");
+    sysRegions.push_back(region + "_CMS_fake_t_DeepTau2017v2p1_VSeDown");
 
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm0_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm0_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm1_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm1_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm10_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm10_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm11_" + era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_stat2_dm11_" + era + "Down");
+    // Tau ID stat uncertainties - CMS convention: dm_stat1_DM0, dm_stat2_DM0, etc.
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_" + era + "Down");
 
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_allerasUp");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_allerasDown");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_" + era + "Down");
 
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_" +era + "Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm0_" + era +"Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm0_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm1_" + era +"Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm1_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm10_" + era +"Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm10_" + era + "Down");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era +"Up");
-    sysRegions.push_back(region + "_CMS_eff_t_vsJet_syst_dm11_" + era + "Down"); 
+    // Tau ID syst uncertainties - CMS convention: dm_syst_alleras, dm_syst, dm_syst_DM0, etc.
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasUp");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasDown");
+
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_" + era + "Down");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_" + era + "Up");
+    sysRegions.push_back(region + "_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_" + era + "Down"); 
 
     sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_e_systUp");
     sysRegions.push_back(region + "_CMS_TOP24017_ttttSS_eff_e_systDown");
