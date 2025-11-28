@@ -50,8 +50,9 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/'
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
     channel = '1tau0l'
     variables = ['BDT']
     regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
@@ -91,10 +92,44 @@ def main():
     inputDirDic = uf.getInputDicNew( inputDir)
     is1tau2l = True if channel == '1tau2l' else False
 
-    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, True)    
-    print('sumProList:', sumProList) 
-    sumProSys = pl.getSysDicPL(sumProList, True, channel, era, True)    
-    
+    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, True)
+    print('sumProList:', sumProList)
+    sumProSys = pl.getSysDicPL(sumProList, True, channel, era, True)
+
+    # WORKAROUND: For 2016preVFP/postVFP eras, we need to use the actual era suffix
+    # to find histograms in ROOT files, even though getSysDicPL maps them to _2016
+    # sumProSys is a dict of processes, each containing a LIST of systematic names
+    # NOTE: Tau TES and tau fakes are already mapped at C++ level, so only remap L1 prefiring
+    if era in ["2016preVFP", "2016postVFP"]:
+        print(f"DEBUG: Unmapping VFP systematics for era {era}")
+        systematics_to_unmap = [
+            # 'CMS_scale_t_DeepTau2017v2p1_DM0_genTau',   # Already mapped at C++ level - DON'T remap
+            # 'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',   # Already mapped at C++ level - DON'T remap
+            # 'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',  # Already mapped at C++ level - DON'T remap
+            # 'CMS_scale_t_DeepTau2017v2p1_DM11_genTau',  # Already mapped at C++ level - DON'T remap
+            # 'CMS_fake_t_DeepTau2017v2p1_VSe',          # Fully correlated (no era suffix) - DON'T remap
+            # 'CMS_fake_t_DeepTau2017v2p1_VSmu',         # Fully correlated (no era suffix) - DON'T remap
+            'CMS_l1_ecal_prefiring'
+        ]
+        for process in sumProSys:
+            if not isinstance(sumProSys[process], list):
+                continue
+            new_sys_list = []
+            for sys_name in sumProSys[process]:
+                # Check if this is one of the systematics we need to unmap
+                remapped = False
+                for sys_base in systematics_to_unmap:
+                    sys_with_2016 = f'{sys_base}_2016'
+                    sys_with_era = f'{sys_base}_{era}'
+                    if sys_name == sys_with_2016:
+                        print(f"DEBUG: Remapping {sys_with_2016} -> {sys_with_era} for process {process}")
+                        new_sys_list.append(sys_with_era)
+                        remapped = True
+                        break
+                if not remapped:
+                    new_sys_list.append(sys_name)
+            sumProSys[process] = new_sys_list
+
     
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
     
