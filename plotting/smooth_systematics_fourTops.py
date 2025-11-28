@@ -31,7 +31,7 @@ def main():
     
     
     channel = '1tau0lSR'
-    sysList = ['ps_fsr', 'CMS_btag_hf', 'ps_isr', 'CMS_scale_j_FlavorPureGluon', 'pdf_alphas', 'QCDscale_fac', 'QCDscale_ren', 'CMS_res_j', 'CMS_scale_j_FlavorPureQuark'] 
+    sysList = ['ps_fsr', 'CMS_btag_fullShape_hf', 'ps_isr', 'CMS_scale_j_FlavorPureGluon', 'pdf_alphas', 'QCDscale_fac', 'QCDscale_ren', 'CMS_res_j', 'CMS_scale_j_FlavorPureQuark'] 
     # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop', 'WJets']
     processList = ['tt', 'ttH', 'ttZ', 'ttW',  'WJets']
     # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root'

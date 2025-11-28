@@ -44,11 +44,11 @@ cardDic_1tau0l = {
     # 'SR1tau0l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/datacardSys_v6AllSys_unblind/datacard_1tau0l.txt',
     # 'SR1tau0l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/datacardSys_v6AllSys_unblind/datacard_1tau0l.txt',
 
-    #!v8BDT1tau0l_refactorAndBtagNameFix (2025-11-26) - CMS naming conventions compliant with luminosity fixes
-    'SR1tau0l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt',
-    'SR1tau0l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt',
-    'SR1tau0l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt',
-    'SR1tau0l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt',
+    #!v9BDT1tau0l_CMSNamingComplete (2025-11-28) - Complete CMS naming with tau fakes/ID fixes
+    'SR1tau0l_2018': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt',
+    'SR1tau0l_2017': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt',
+    'SR1tau0l_2016preVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt',
+    'SR1tau0l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt',
     
 }
 cardDic1tau1l = {
@@ -145,9 +145,9 @@ def main():
     # combinationVersion = 'V16'
     # combinationVersion = 'V17_smoothing'#smoothing
     # combinationVersion = 'V18'
-    combinationVersion = 'V19CMSNamingFix'  # v8BDT1tau0l_refactorAndBtagNameFix (2025-11-25)
+    combinationVersion = 'V20'  # v9BDT1tau0l_CMSNamingComplete (2025-11-28) - Complete CMS naming
     # cardDir = 'run2_1tau1l'
-    cardDir = 'run2_1tau0l_v4_unblind'  # Using 1tau0l channel with new v8BDT datacards
+    cardDir = 'run2_1tau0l_v4_unblind'  # Using 1tau0l channel with new v9BDT datacards
     # cardDir = 'run2_1tau0l'
     # cardDir = 'run2_1tau2l'
     # cardDir = 'run2_3years'

@@ -54,6 +54,19 @@ When working on these tasks:
 4. Note issues, blockers, optimization opportunities
 5. Mark completed tasks with date stamps
 
+### TODO: Code Optimization for Token Efficiency
+**Priority**: Medium
+**Issue**: Python scripts (writeDatacard.py, smooth_systematics_fourTops.py) print verbose output to stdout when run, consuming many tokens when executed with Claude
+**Examples**:
+- `writeDatacard.py` prints entire MCSys dictionary (~100+ systematics) when run
+- Running with `-h` flag outputs full dictionary instead of help message
+**Solutions to implement**:
+1. Add `--quiet` or `--silent` flag to suppress non-essential print statements
+2. Redirect systematic dictionary printing to stderr or log file instead of stdout
+3. Remove debug print statements from production code
+4. Use Python logging module with configurable verbosity levels
+**Benefits**: Significant token savings when running analysis workflows with Claude (estimated 50-70% reduction per script execution)
+
 ### Dev-Docs System for Major Tasks
 
 **Location**: `.claude/dev-docs/active/[task-name]/`
