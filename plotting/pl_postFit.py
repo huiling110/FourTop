@@ -89,8 +89,10 @@ def main():
         print(f'\nCreating Run2 combination for {channel}')
         combinedHists = combine_eras(histsPerEra, sumProList)
 
-        # Store Run2 combined histograms for multi-channel combination
-        histsPerChannel[channel] = combinedHists
+        # Store UNTRIMMED Run2 combined histograms for multi-channel combination
+        # (we need untrimmed histograms to avoid merging issues when channels have different bin counts)
+        combinedHistsUntrimmed = combine_eras_untrimmed(fitFile, iRegion, eras, variable, sumProList_forLoading)
+        histsPerChannel[channel] = combinedHistsUntrimmed
 
         sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, 'Run2', True)
 
@@ -113,7 +115,7 @@ def main():
         combined_1tau1l2l = combine_channels(
             ['1tau1l', '1tau2l'],
             histsPerChannel,
-            '1tau1l_1tau2l'
+            '1tau1land2l'
         )
 
         # Get union process list
@@ -124,9 +126,9 @@ def main():
         # Plot for each fit type
         for ifit in ['prefit', 'fit_s', 'fit_b']:
             sumProcess = combined_1tau1l2l[ifit]
-            plotName = f'{variable}_SR1tau1l_1tau2l_{ifit}_Run2'
+            plotName = f'{variable}_SR1tau1land2l_{ifit}_Run2'
 
-            plt.makeStackPlotNew(sumProcess, sumProList_1l2l, variable, 'SR1tau1l_1tau2l',
+            plt.makeStackPlotNew(sumProcess, sumProList_1l2l, variable, 'SR1tau1land2l',
                                plotDir, False, plotName, 'Run2', True, 100, ifStackSignal,
                                ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
 
@@ -216,7 +218,7 @@ def get_channels_and_eras(filename):
 
 def combine_eras(histsPerEra, sumProList):
     '''
-    Combine histograms from all eras into Run2 combination
+    Combine histograms from all eras into Run2 combination (with bin trimming)
     histsPerEra[era][fit][process] = histogram
     Returns: combinedHists[fit][process] = histogram
     '''
@@ -247,6 +249,41 @@ def combine_eras(histsPerEra, sumProList):
 
         # Remove trailing empty bins from combined histograms
         combinedHists[fit] = trim_empty_bins(combinedHists[fit])
+
+    return combinedHists
+
+
+def combine_eras_untrimmed(fitFile, iRegion, eras, variable, sumProList_forLoading):
+    '''
+    Load and combine histograms from all eras WITHOUT bin trimming
+    Used for multi-channel combination to avoid bin mismatch issues
+    Returns: combinedHists[fit][process] = histogram (untrimmed)
+    '''
+    combinedHists = {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
+
+    # Load untrimmed histograms for each era
+    histsPerEra_untrimmed = {}
+    for era in eras:
+        histsPerEra_untrimmed[era] = get_histograms(fitFile, iRegion, era, variable, sumProList_forLoading, trim_bins=False)
+
+    # Combine across eras (they'll all have same bin structure since from same fit file)
+    for fit in ['prefit', 'fit_s', 'fit_b']:
+        # Get list of all processes from first era
+        firstEra = eras[0]
+        all_processes = list(histsPerEra_untrimmed[firstEra][fit].keys())
+
+        for process in all_processes:
+            if process in histsPerEra_untrimmed[firstEra][fit]:
+                combinedHists[fit][process] = histsPerEra_untrimmed[firstEra][fit][process].Clone(f'{process}_{fit}_Run2_untrimmed')
+                combinedHists[fit][process].SetDirectory(0)
+
+                # Add histograms from other eras
+                for era in eras[1:]:
+                    if process in histsPerEra_untrimmed[era][fit]:
+                        combinedHists[fit][process].Add(histsPerEra_untrimmed[era][fit][process])
+
+                # Set title for combined histogram
+                combinedHists[fit][process].SetTitle('BDT score')
 
     return combinedHists
 
@@ -301,6 +338,25 @@ def combine_channels(channelsToGet, histsPerChannel, channel_name):
             else:
                 print(f'Warning: Process {process} not found in any channel for fit {fit}')
 
+        # Combine jetHT and leptonSum into a single data histogram if both exist
+        data_hist = None
+        data_name = None
+        for data_process in ['jetHT', 'leptonSum']:
+            if data_process in combinedHists[fit]:
+                if data_hist is None:
+                    data_hist = combinedHists[fit][data_process].Clone(f'data_{fit}_{channel_name}')
+                    data_hist.SetDirectory(0)
+                    data_name = data_process
+                else:
+                    # Add the second data histogram to the first
+                    data_hist.Add(combinedHists[fit][data_process])
+                    # Remove the second data process
+                    del combinedHists[fit][data_process]
+
+        # Replace the first data process with the combined data histogram
+        if data_hist is not None and data_name is not None:
+            combinedHists[fit][data_name] = data_hist
+
         # Remove trailing empty bins from combined histograms
         combinedHists[fit] = trim_empty_bins(combinedHists[fit])
 
@@ -327,7 +383,11 @@ def get_union_process_list(channels, ifFakeTau, ifVLL, ifMCFTau):
         for proc in channel_processes:
             # Separate data processes (different for different channels)
             if proc in ['jetHT', 'leptonSum']:
-                data_process = proc  # Keep whichever we see last
+                # Keep jetHT preferentially (since combine_channels keeps jetHT when both exist)
+                if data_process is None:
+                    data_process = proc
+                elif proc == 'jetHT':  # Prefer jetHT over leptonSum
+                    data_process = 'jetHT'
             elif proc not in all_processes:
                 all_processes.append(proc)
 
@@ -408,9 +468,11 @@ def trim_empty_bins(histDict):
     return trimmed_histDict
 
 
-def get_histograms(filename, iRegion, era, variable, processList):
+def get_histograms(filename, iRegion, era, variable, processList, trim_bins=True):
     '''
     Load histograms from fitDiagnostics file for a specific era
+    Args:
+        trim_bins: If True, remove trailing empty bins (default). Set to False for multi-channel combination.
     Returns: sumProcessPerFit[fit][process] = histogram
     '''
     # Open the ROOT file
@@ -496,8 +558,9 @@ def get_histograms(filename, iRegion, era, variable, processList):
         if ttX_hist is not None:
             sumProcessPerFit[fit]['ttX'] = ttX_hist
 
-        # Remove trailing empty bins
-        sumProcessPerFit[fit] = trim_empty_bins(sumProcessPerFit[fit])
+        # Remove trailing empty bins (only if trim_bins=True)
+        if trim_bins:
+            sumProcessPerFit[fit] = trim_empty_bins(sumProcessPerFit[fit])
 
         # Set x-axis label to 'BDT score' for all histograms
         for process, hist in sumProcessPerFit[fit].items():
