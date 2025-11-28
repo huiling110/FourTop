@@ -315,18 +315,29 @@ def combine_channels(channelsToGet, histsPerChannel, channel_name):
     print(f'Union process list: {sorted(all_processes)}')
 
     for fit in ['prefit', 'fit_s', 'fit_b']:
-        # First, find the maximum number of bins across all channels for this fit
-        max_bins = 0
+        # First, find the maximum FILLED bin across all channels for this fit
+        # This determines the range we need for right-alignment
+        max_filled_bin = 0
+        channel_last_bins = {}  # Store last filled bin per channel
+
         for channel in channelsToGet:
             if channel in histsPerChannel and fit in histsPerChannel[channel]:
-                # Get any histogram from this channel to check bin count
+                # Find the last filled bin for this channel (checking all processes)
+                channel_max = 0
                 for process in histsPerChannel[channel][fit]:
                     hist = histsPerChannel[channel][fit][process]
                     if hist:
-                        max_bins = max(max_bins, hist.GetNbinsX())
-                        break
+                        # Find last bin with content
+                        for i in range(hist.GetNbinsX(), 0, -1):
+                            if hist.GetBinContent(i) > 0:
+                                channel_max = max(channel_max, i)
+                                break
 
-        print(f'Maximum bins for {fit}: {max_bins}')
+                channel_last_bins[channel] = channel_max
+                max_filled_bin = max(max_filled_bin, channel_max)
+
+        print(f'Last filled bins per channel for {fit}: {channel_last_bins}')
+        print(f'Maximum filled bin for {fit}: {max_filled_bin}')
 
         for process in all_processes:
             combined_hist = None
@@ -337,38 +348,53 @@ def combine_channels(channelsToGet, histsPerChannel, channel_name):
                     if process in histsPerChannel[channel][fit]:
                         channel_hist = histsPerChannel[channel][fit][process]
 
+                        # Calculate offset for right-alignment based on last filled bin
+                        channel_last_bin = channel_last_bins.get(channel, 0)
+                        bin_offset = max_filled_bin - channel_last_bin
+
                         if combined_hist is None:
-                            # Create combined histogram with max_bins
+                            # Create combined histogram with max_filled_bin bins
+                            # Clone and reset to get proper binning
                             combined_hist = channel_hist.Clone(f'{process}_{fit}_{channel_name}')
                             combined_hist.SetDirectory(0)
-                            combined_hist.Reset()  # Clear contents
 
-                            # If this first histogram has fewer bins than max, we'll add it right-aligned
-                            nbins_channel = channel_hist.GetNbinsX()
-                            bin_offset = max_bins - nbins_channel  # Offset for right-alignment
+                            # If needed, extend the histogram to max_filled_bin
+                            if combined_hist.GetNbinsX() < max_filled_bin:
+                                # Need to recreate with more bins
+                                xaxis = combined_hist.GetXaxis()
+                                bin_width = xaxis.GetBinWidth(1)
+                                new_hist = ROOT.TH1F(
+                                    f'{process}_{fit}_{channel_name}',
+                                    combined_hist.GetTitle(),
+                                    max_filled_bin,
+                                    xaxis.GetXmin(),
+                                    xaxis.GetXmin() + max_filled_bin * bin_width
+                                )
+                                new_hist.SetDirectory(0)
+                                combined_hist = new_hist
+                            else:
+                                combined_hist.Reset()  # Clear contents
 
-                            # Copy bin contents with offset
-                            for i in range(1, nbins_channel + 1):
+                            # Copy bin contents with offset for right-alignment
+                            for i in range(1, channel_hist.GetNbinsX() + 1):
                                 combined_hist.SetBinContent(i + bin_offset, channel_hist.GetBinContent(i))
                                 combined_hist.SetBinError(i + bin_offset, channel_hist.GetBinError(i))
                         else:
                             # Add subsequent channels with right-alignment
-                            nbins_channel = channel_hist.GetNbinsX()
-                            bin_offset = max_bins - nbins_channel
-
-                            for i in range(1, nbins_channel + 1):
+                            for i in range(1, channel_hist.GetNbinsX() + 1):
                                 combined_bin = i + bin_offset
-                                combined_hist.SetBinContent(
-                                    combined_bin,
-                                    combined_hist.GetBinContent(combined_bin) + channel_hist.GetBinContent(i)
-                                )
-                                # Add errors in quadrature
-                                err_combined = combined_hist.GetBinError(combined_bin)
-                                err_channel = channel_hist.GetBinError(i)
-                                combined_hist.SetBinError(
-                                    combined_bin,
-                                    (err_combined**2 + err_channel**2)**0.5
-                                )
+                                if combined_bin <= combined_hist.GetNbinsX():
+                                    combined_hist.SetBinContent(
+                                        combined_bin,
+                                        combined_hist.GetBinContent(combined_bin) + channel_hist.GetBinContent(i)
+                                    )
+                                    # Add errors in quadrature
+                                    err_combined = combined_hist.GetBinError(combined_bin)
+                                    err_channel = channel_hist.GetBinError(i)
+                                    combined_hist.SetBinError(
+                                        combined_bin,
+                                        (err_combined**2 + err_channel**2)**0.5
+                                    )
 
             if combined_hist is not None:
                 # Set title for combined histogram
