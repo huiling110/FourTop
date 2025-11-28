@@ -291,6 +291,7 @@ def combine_eras_untrimmed(fitFile, iRegion, eras, variable, sumProList_forLoadi
 def combine_channels(channelsToGet, histsPerChannel, channel_name):
     '''
     Combine histograms from multiple channels into a single combined channel
+    Bins are RIGHT-ALIGNED so that highest BDT bins from all channels are merged together
     Args:
         channelsToGet: List of channels to combine (e.g., ['1tau1l', '1tau2l'])
         histsPerChannel: Dict structure {channel: {fit: {process: histogram}}}
@@ -314,22 +315,60 @@ def combine_channels(channelsToGet, histsPerChannel, channel_name):
     print(f'Union process list: {sorted(all_processes)}')
 
     for fit in ['prefit', 'fit_s', 'fit_b']:
+        # First, find the maximum number of bins across all channels for this fit
+        max_bins = 0
+        for channel in channelsToGet:
+            if channel in histsPerChannel and fit in histsPerChannel[channel]:
+                # Get any histogram from this channel to check bin count
+                for process in histsPerChannel[channel][fit]:
+                    hist = histsPerChannel[channel][fit][process]
+                    if hist:
+                        max_bins = max(max_bins, hist.GetNbinsX())
+                        break
+
+        print(f'Maximum bins for {fit}: {max_bins}')
+
         for process in all_processes:
             combined_hist = None
 
-            # Find first channel that has this process and clone it
+            # Combine histograms from all channels with RIGHT alignment
             for channel in channelsToGet:
                 if channel in histsPerChannel and fit in histsPerChannel[channel]:
                     if process in histsPerChannel[channel][fit]:
+                        channel_hist = histsPerChannel[channel][fit][process]
+
                         if combined_hist is None:
-                            # Clone from first channel
-                            combined_hist = histsPerChannel[channel][fit][process].Clone(
-                                f'{process}_{fit}_{channel_name}'
-                            )
+                            # Create combined histogram with max_bins
+                            combined_hist = channel_hist.Clone(f'{process}_{fit}_{channel_name}')
                             combined_hist.SetDirectory(0)
+                            combined_hist.Reset()  # Clear contents
+
+                            # If this first histogram has fewer bins than max, we'll add it right-aligned
+                            nbins_channel = channel_hist.GetNbinsX()
+                            bin_offset = max_bins - nbins_channel  # Offset for right-alignment
+
+                            # Copy bin contents with offset
+                            for i in range(1, nbins_channel + 1):
+                                combined_hist.SetBinContent(i + bin_offset, channel_hist.GetBinContent(i))
+                                combined_hist.SetBinError(i + bin_offset, channel_hist.GetBinError(i))
                         else:
-                            # Add from subsequent channels
-                            combined_hist.Add(histsPerChannel[channel][fit][process])
+                            # Add subsequent channels with right-alignment
+                            nbins_channel = channel_hist.GetNbinsX()
+                            bin_offset = max_bins - nbins_channel
+
+                            for i in range(1, nbins_channel + 1):
+                                combined_bin = i + bin_offset
+                                combined_hist.SetBinContent(
+                                    combined_bin,
+                                    combined_hist.GetBinContent(combined_bin) + channel_hist.GetBinContent(i)
+                                )
+                                # Add errors in quadrature
+                                err_combined = combined_hist.GetBinError(combined_bin)
+                                err_channel = channel_hist.GetBinError(i)
+                                combined_hist.SetBinError(
+                                    combined_bin,
+                                    (err_combined**2 + err_channel**2)**0.5
+                                )
 
             if combined_hist is not None:
                 # Set title for combined histogram
