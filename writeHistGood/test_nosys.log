@@ -1,0 +1,109 @@
+using input from command line
+Error in <TTree::SetBranchStatus>: unknown branch -> MET_phi
+Error in <TTree::SetBranchAddress>: unknown branch -> MET_phi
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPNM_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPNM_num
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPTM_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPTM_num
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPTT_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPTT_num
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_1genFlavour
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_1genFlavour
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_1lepton1_charge
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_1lepton1_charge
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_num
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_num
+Error in <TTree::SetBranchStatus>: unknown branch -> tausT_1jetPt
+Error in <TTree::SetBranchAddress>: unknown branch -> tausT_1jetPt
+Error in <TTree::SetBranchStatus>: unknown branch -> tausT_prongNum
+Error in <TTree::SetBranchAddress>: unknown branch -> tausT_prongNum
+Error in <TTree::SetBranchStatus>: unknown branch -> jets_btagsPT_
+Error in <TTree::SetBranchStatus>: unknown branch -> jets_flavour_
+Error in <TTree::SetBranchAddress>: unknown branch -> jets_btagsPT_
+Error in <TTree::SetBranchAddress>: unknown branch -> jets_flavour_
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+input file: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/tttt.root
+m_era=2018 m_isRun3=0 m_isData=0  m_isTest=1
+m_isFakeLepton=0 m_isFakeTau=0
+m_ifFakeTau=1
+m_ifSys=0
+m_ifMCFakeTau=0
+m_processName: tttt  m_channel: 1tau0l
+event: initialize event class by SetBranchAddress()
+Done initializing event class 
+[32m[2025-11-27 10:41:45] [INFO] Starting initialization for channel: 1tau0l, isRun3: 0[0m
+1tau0l 
+weightfile=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/inputList_finalFinal25.csv/dataset/weight/TMVAClassification_BDT.weights.xml
+reading varibleList: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_finalFinal25.csv
+ivariable =jets_bScore
+ivariable =MET_pt
+ivariable =jets_7pt
+ivariable =bjetsM_invariantMass
+ivariable =bjetsT_minDeltaR
+ivariable =jets_num
+int ivariable =jets_num
+ivariable =jets_centrality
+ivariable =bjetsM_2MET_stransMass
+ivariable =jets_rationHT_4toRest
+ivariable =jets_1btag
+ivariable =bjetsT_HT
+ivariable =jets_HTDivideMET
+ivariable =bjetsM_minDeltaR
+ivariable =jets_8btag
+ivariable =jets_4btag
+ivariable =jets_2btag
+ivariable =jets_3btag
+ivariable =jets_7btag
+ivariable =jets_5btag
+ivariable =jets_6btag
+ivariable =jets_minDeltaR
+ivariable =bjetsT_MHT
+ivariable =tausF_1jetPt
+ivariable =tausF_1jetEtaAbs
+ivariable =tausF_jet1_Met_transMass
+out of function
+variablesName.size(): 25
+after adding reader
+                         : Booking "BDT method" of type "BDT" from /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/inputList_finalFinal25.csv/dataset/weight/TMVAClassification_BDT.weights.xml.
+                         : Reading weight file: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v80addTauJetVar/mc/BDTTrain/v5finalFinal25Var/inputList_finalFinal25.csv/dataset/weight/TMVAClassification_BDT.weights.xml
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDT" of type: "BDT"
+booked MVA
+m_scaleRe_normDown_SF=0.816819
+m_scaleRe_normUp_SF=1.23268
+m_scaleFa_normDown_SF=0.930576
+m_scaleFa_normUp_SF=1.06797
+m_pdfAlphaS_normUp_SF=1.05701
+m_pdfAlphaS_normDown_SF=0.941805
+m_pdf_normUp_SF=0.952002
+m_pdf_normDown_SF=1.05309
+m_PSWeightISR_normUp_SF=1.0001 m_PSWeightISR_normDown_SF=0.999923
+m_PSWeightFSR_normUp_SF=1.00078 m_PSWeightFSR_normDown_SF=0.999303
+done initializing
+
+start to loop tree
+looping over trees of 10000
+                         : Rebuilding Dataset Default
+event weight: EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*btagShape_weight*btagShapeR
+end of event loop
+
+Termintate: ..........................................
+genWeightSumInitial: 106025
+processScale: 0.0075447
+1tau0lCRMR : 
+TH1.Print Name  = tttt_1tau0lCRMR_BDT, Entries= 465, Total sum= 0.0212915
+1tau0lSR : 
+TH1.Print Name  = tttt_1tau0lSR_BDT, Entries= 976, Total sum= 0.0524043
+1tau0lVR : 
+TH1.Print Name  = tttt_1tau0lVR_BDT, Entries= 236, Total sum= 0.0149813
+outputFile here: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v_test_nosys/tttt.root
+Real time 0:00:04, CP time 3.710

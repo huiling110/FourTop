@@ -1,0 +1,32 @@
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/commenSelectionAndWeight.C -o obj/commenSelectionAndWeight.o
+src/commenSelectionAndWeight.C: In function 'Double_t baseWeightCal(event*, UInt_t, Bool_t, Bool_t, Int_t, Bool_t, Bool_t)':
+src/commenSelectionAndWeight.C:209:18: warning: unused variable 'btagWeight' [-Wunused-variable]
+  209 |         Double_t btagWeight = 1.0;
+      |                  ^~~~~~~~~~
+src/commenSelectionAndWeight.C:210:18: warning: unused variable 'HLTWeight' [-Wunused-variable]
+  210 |         Double_t HLTWeight = 1.0;
+      |                  ^~~~~~~~~
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/functions.C -o obj/functions.o
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/treeAnalyzer.C -o obj/treeAnalyzer.o
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/writeHist_btagEff.C -o obj/writeHist_btagEff.o
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/writeHist_btagShapeR.C -o obj/writeHist_btagShapeR.o
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/writeHist_fakeRate.C -o obj/writeHist_fakeRate.o
+src/writeHist_fakeRate.C: In member function 'void WH_fakeRate::LoopTree(UInt_t)':
+src/writeHist_fakeRate.C:307:16: warning: unused variable 'is1tau0lSR' [-Wunused-variable]
+  307 |         Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
+      |                ^~~~~~~~~~
+src/writeHist_fakeRate.C:308:16: warning: unused variable 'is1tau0lSRLTau' [-Wunused-variable]
+  308 |         Bool_t is1tau0lSRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum >=3;
+      |                ^~~~~~~~~~~~~~
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/writeHist_forDataMC.C -o obj/writeHist_forDataMC.o
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/writeHist_FRCheck.C -o obj/writeHist_FRCheck.o
+src/writeHist_FRCheck.C: In member function 'void WH_FRCheck::LoopTree(UInt_t)':
+src/writeHist_FRCheck.C:99:16: warning: unused variable 'is1tau0lSR' [-Wunused-variable]
+   99 |         Bool_t is1tau0lSR = SR1tau1lSel(e, 1, m_isRun3);
+      |                ^~~~~~~~~~
+src/writeHist_FRCheck.C:100:16: warning: unused variable 'is1tau0lSRLTau' [-Wunused-variable]
+  100 |         Bool_t is1tau0lSRLTau = isTauLNum && lepNum == 0 && jetsNum >= 8 && bjetsNum >=3;
+      |                ^~~~~~~~~~~~~~
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -c src/writeHist_HLTeff.C -o obj/writeHist_HLTeff.o
+g++ -O0 -Wall -fPIC -g  -pthread -std=c++20 -m64 -I/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/include -I. -L/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/lib -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lROOTVecOps -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lROOTNTuple -lMultiProc -lROOTDataFrame -lROOTNTupleUtil -Wl,-rpath,/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/lib -pthread -lm -ldl -rdynamic -lTMVA -L/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/myLibrary/ -lcommenFunction -ltbb  obj/commenSelectionAndWeight.o  obj/functions.o  obj/treeAnalyzer.o  obj/writeHist_btagEff.o  obj/writeHist_btagShapeR.o  obj/writeHist_fakeRate.o  obj/writeHist_forDataMC.o  obj/writeHist_FRCheck.o  obj/writeHist_HLTeff.o apps/run_treeAnalyzer.C -o apps/run_treeAnalyzer.out
+/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/gcc/14.3.1-724da22786638848892aa9ded8fcd995/bin/../lib/gcc/x86_64-redhat-linux-gnu/14.3.1/../../../../x86_64-redhat-linux-gnu/bin/ld: warning: libtbb.so.12, needed by /cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/lib/libImt.so, may conflict with libtbb.so.2

@@ -209,7 +209,7 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-26: Done
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-26: Done
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-26: Done
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-26: CMS naming
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete
     channel = '1tau0l'
 
     #!!!1tau2l
@@ -476,8 +476,9 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
     num_processes = len(processes)
     # signal_index = -1  # Assuming the first process is the signal
     signal_index = processes.index('tttt')
-    
-    process_col_width = 60
+
+    # Increased from 60 to 70 to accommodate long systematic names (CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_YEAR)
+    process_col_width = 70
     value_col_width = 22
     channelNameName = f"SR{channel_name}_{era}"
     

@@ -43,6 +43,32 @@
 - All eras naming: `syst_alleras` → `dm_syst_alleras`
 **Impact**: Full CMS POG compliance, enables proper GitLab CI classification (class: tau_identification)
 
+### Decision 8: Tau ID Keeps VFP-Specific Names (NOT Correlated)
+**Rationale**: Tau ID efficiency uncertainties should keep separate names for 2016preVFP and 2016postVFP - they are NOT correlated across VFP eras, unlike electron reco, tau energy scale, and L1 prefiring
+**Date**: 2025-11-28 (Session 9)
+**Implementation**:
+- writeDatacard.py: Removed tau ID from VFP mapping (lines 402-407)
+- Tau ID systematics keep era-specific names: `_2016preVFP`, `_2016postVFP`
+- VFP mapping now only applies to:
+  * `CMS_eff_e_reco` (electron reco - correlated)
+  * `CMS_scale_t_DeepTau2017v2p1_DM*` (tau energy scale - correlated)
+  * `CMS_l1_ecal_prefiring` (L1 prefiring - correlated)
+  * `CMS_fake_t_DeepTau2017v2p1_VS*` (tau fakes - fully correlated, no year suffix)
+**Impact**: Correct physics treatment - tau ID efficiencies can differ between VFP eras
+
+### Decision 9: VFP Correlation Mapping Only in Datacard Generation
+**Rationale**: Template files must contain exact histogram names from ROOT files; VFP correlation should only be applied during datacard generation when combining eras
+**Date**: 2025-11-28 (Session 9)
+**Implementation**:
+- addTemplateNew.py: Removed all VFP unmapping/remapping logic (lines 99-131, 170-185)
+- Template files preserve VFP-specific names from C++ histogram generation
+- writeDatacard.py::getSysDic() handles VFP→2016 mapping for correlated systematics
+**Pattern**: Follows same approach as `CMS_eff_e_reco` which already worked correctly
+**Impact**:
+- Template generation now works correctly for 2016 VFP eras
+- Clear separation: C++ generates VFP-specific hists → Templates preserve them → Datacards correlate them
+**Commit**: 20861bb6
+
 ---
 
 ## Important Decisions

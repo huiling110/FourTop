@@ -219,10 +219,10 @@ def getSysDicPL(inProcess, ifSys=False, channel='1tau1l', era='2018', ifCombine=
     #!Lumi uncertainty to be added mannually
     if not ifSys:
         return {}
-    sumProSys = {} 
+    sumProSys = {}
     print('staring to get process systematic')
     # processes = gq.proChannelDic[channel][:] if not ifCombine else gq.proChannelDic_forCombine[channel][:]
-    processes = inProcess[:] 
+    processes = inProcess[:]
     print('processes in getSysDicPL(): ', processes) #?not 'jetHT' already
     if channel=='1tau2l':
         processes.remove('leptonSum')
