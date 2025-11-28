@@ -399,13 +399,9 @@ def getSysDic(processes, channel, era, ifForPlot=False):
             # L1 ECAL prefiring
             elif sys == 'CMS_l1_ecal_prefiring':
                 sysPre = f"{sys}_2016"
-            # Tau ID (all variations - stat1/stat2/syst per DM and combined)
-            elif sys.startswith('CMS_eff_t_DeepTau2017v2p1_VSjet'):
-                # Don't add VFP suffix if it's alleras (fully correlated)
-                if 'alleras' not in sys:
-                    sysPre = f"{sys}_2016"
-        # Note: Tau fake rates (CMS_fake_t_DeepTau2017v2p1_VS*) are fully correlated (isCorrelated=True)
-        # so they never get year suffix - no VFP mapping needed
+            # Note: Tau ID (CMS_eff_t_DeepTau2017v2p1_VSjet*) keeps VFP-specific names - NO mapping
+            # Note: Tau fake rates (CMS_fake_t_DeepTau2017v2p1_VS*) are fully correlated (isCorrelated=True)
+            # so they never get year suffix - no VFP mapping needed
 
         if not sysList[3] and sysList[1]==0: #!if systematic is correlated between processes
             if ifForPlot:

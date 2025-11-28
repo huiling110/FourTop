@@ -49,10 +49,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-27: Done
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Done
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Done
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Running
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Done
     channel = '1tau0l'
     variables = ['BDT']
     regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
@@ -99,17 +99,21 @@ def main():
     # WORKAROUND: For 2016preVFP/postVFP eras, we need to use the actual era suffix
     # to find histograms in ROOT files, even though getSysDicPL maps them to _2016
     # sumProSys is a dict of processes, each containing a LIST of systematic names
-    # NOTE: Tau TES and tau fakes are already mapped at C++ level, so only remap L1 prefiring
+    # NOTE: As of v9BDT1tau0l_CMSNamingComplete (2025-11-28):
+    #   - Tau TES: Mapped at C++ level (_2016 for both VFP eras)
+    #   - Tau fakes: Fully correlated (no era suffix at all)
+    #   - L1 prefiring: NOW ALSO mapped at C++ level (_2016 for both VFP eras)
+    # Therefore: NO unmapping needed! All VFP correlation is handled in C++.
     if era in ["2016preVFP", "2016postVFP"]:
-        print(f"DEBUG: Unmapping VFP systematics for era {era}")
+        print(f"DEBUG: VFP era detected ({era}), but NO unmapping needed - all handled at C++ level")
         systematics_to_unmap = [
-            # 'CMS_scale_t_DeepTau2017v2p1_DM0_genTau',   # Already mapped at C++ level - DON'T remap
-            # 'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',   # Already mapped at C++ level - DON'T remap
-            # 'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',  # Already mapped at C++ level - DON'T remap
-            # 'CMS_scale_t_DeepTau2017v2p1_DM11_genTau',  # Already mapped at C++ level - DON'T remap
+            # 'CMS_scale_t_DeepTau2017v2p1_DM0_genTau',   # Mapped at C++ level - DON'T remap
+            # 'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',   # Mapped at C++ level - DON'T remap
+            # 'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',  # Mapped at C++ level - DON'T remap
+            # 'CMS_scale_t_DeepTau2017v2p1_DM11_genTau',  # Mapped at C++ level - DON'T remap
             # 'CMS_fake_t_DeepTau2017v2p1_VSe',          # Fully correlated (no era suffix) - DON'T remap
             # 'CMS_fake_t_DeepTau2017v2p1_VSmu',         # Fully correlated (no era suffix) - DON'T remap
-            'CMS_l1_ecal_prefiring'
+            # 'CMS_l1_ecal_prefiring'                    # NOW mapped at C++ level - DON'T remap
         ]
         for process in sumProSys:
             if not isinstance(sumProSys[process], list):
@@ -162,23 +166,8 @@ def main():
                 if sumPro in sumProcessPerVarSys[ivar][region]:
                     for sys in sumProcessPerVarSys[ivar][region][sumPro]:
                         hist = sumProcessPerVarSys[ivar][region][sumPro][sys]
-
-                        # Map 2016preVFP/postVFP → 2016 for specific systematics
-                        # These systematics should be fully correlated across 2016 VFP eras
-                        histName = hist.GetName()
-                        systematics_to_merge = [
-                            'CMS_scale_t_DeepTau2017v2p1_DM0_genTau',
-                            'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',
-                            'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',
-                            'CMS_scale_t_DeepTau2017v2p1_DM11_genTau',
-                            'CMS_fake_t_DeepTau2017v2p1_VSe',
-                            'CMS_fake_t_DeepTau2017v2p1_VSmu',
-                            'CMS_l1_ecal_prefiring'
-                        ]
-                        for sys_name in systematics_to_merge:
-                            histName = histName.replace(f'{sys_name}_2016preVFP', f'{sys_name}_2016')
-                            histName = histName.replace(f'{sys_name}_2016postVFP', f'{sys_name}_2016')
-                        hist.SetName(histName)
+                        # Note: Keep VFP-specific names in template files (_2016preVFP, _2016postVFP)
+                        # VFP correlation mapping (_2016) is done in writeDatacard.py::getSysDic()
 
                         #! rename process-uncorrelated sys for combine
                         sysName = sys.replace('_up', '').replace('_down', '')
