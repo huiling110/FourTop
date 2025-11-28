@@ -5,10 +5,10 @@ import pl as plt
 
 def main():
     # Fit file with 3 channels (1tau0l, 1tau1l, 1tau2l)
-    # fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/fitDiagnosticsTest.root'
+    fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/fitDiagnosticsTest.root'
     # Previous single channel fit file:
     # fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/fitDiagnosticsTest.root'
-    fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots/fitDiagnosticsTest.root'
+    # fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots/fitDiagnosticsTest.root'
 
     variable = 'BDT'
     # Plotting options
@@ -34,6 +34,9 @@ def main():
     fitDir = fitFile.rsplit('/', 1)[0]
     plotDir = f'{fitDir}/postfitPlots/'
     uf.checkMakeDir(plotDir)
+
+    # Dictionary to store Run2 combined histograms per channel (for multi-channel combination)
+    histsPerChannel = {}  # histsPerChannel[channel][fit][process] = histogram
 
     # Process each channel
     for channel, eras in channels_eras.items():
@@ -86,6 +89,9 @@ def main():
         print(f'\nCreating Run2 combination for {channel}')
         combinedHists = combine_eras(histsPerEra, sumProList)
 
+        # Store Run2 combined histograms for multi-channel combination
+        histsPerChannel[channel] = combinedHists
+
         sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, 'Run2', True)
 
         for ifit in combinedHists.keys():
@@ -96,8 +102,67 @@ def main():
                                plotName, 'Run2', True, 100, ifStackSignal, ifLogy, ifPrintSB,
                                ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
 
+    # Multi-channel combinations
+    # 1. Combine 1tau1l + 1tau2l (leptonic channels)
+    if '1tau1l' in channels_eras and '1tau2l' in channels_eras:
+        print(f'\n{"="*80}')
+        print(f'Creating 1tau1l + 1tau2l combined channel')
+        print(f'{"="*80}')
+
+        # Combine channels
+        combined_1tau1l2l = combine_channels(
+            ['1tau1l', '1tau2l'],
+            histsPerChannel,
+            '1tau1l_1tau2l'
+        )
+
+        # Get union process list
+        sumProList_1l2l = get_union_process_list(['1tau1l', '1tau2l'], ifFakeTau, ifVLL, ifMCFTau)
+
+        print(f'Process list for 1tau1l+1tau2l: {sumProList_1l2l}')
+
+        # Plot for each fit type
+        for ifit in ['prefit', 'fit_s', 'fit_b']:
+            sumProcess = combined_1tau1l2l[ifit]
+            plotName = f'{variable}_SR1tau1l_1tau2l_{ifit}_Run2'
+
+            plt.makeStackPlotNew(sumProcess, sumProList_1l2l, variable, 'SR1tau1l_1tau2l',
+                               plotDir, False, plotName, 'Run2', True, 100, ifStackSignal,
+                               ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+
+    # 2. Combine all channels (1tau0l + 1tau1l + 1tau2l)
+    if '1tau0l' in channels_eras and '1tau1l' in channels_eras and '1tau2l' in channels_eras:
+        print(f'\n{"="*80}')
+        print(f'Creating all channels combined')
+        print(f'{"="*80}')
+
+        # Combine all channels
+        combined_all = combine_channels(
+            ['1tau0l', '1tau1l', '1tau2l'],
+            histsPerChannel,
+            '1tau0l1l2l'
+        )
+
+        # Get union process list for all channels
+        sumProList_all = get_union_process_list(['1tau0l', '1tau1l', '1tau2l'], ifFakeTau, ifVLL, ifMCFTau)
+
+        print(f'Process list for all channels: {sumProList_all}')
+
+        # Plot for each fit type
+        for ifit in ['prefit', 'fit_s', 'fit_b']:
+            sumProcess = combined_all[ifit]
+            plotName = f'{variable}_SR1tau0l1l2l_{ifit}_Run2'
+
+            plt.makeStackPlotNew(sumProcess, sumProList_all, variable, 'SR1tau0l1l2l',
+                               plotDir, False, plotName, 'Run2', True, 100, ifStackSignal,
+                               ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+
     print(f'\n{"="*80}')
     print(f'All plots saved to: {plotDir}')
+    if '1tau1l' in channels_eras and '1tau2l' in channels_eras:
+        print(f'  - Created 1tau1l+1tau2l combined channel plots')
+    if '1tau0l' in channels_eras and '1tau1l' in channels_eras and '1tau2l' in channels_eras:
+        print(f'  - Created all-channels combined plots')
     print(f'{"="*80}')
 
 
@@ -184,6 +249,93 @@ def combine_eras(histsPerEra, sumProList):
         combinedHists[fit] = trim_empty_bins(combinedHists[fit])
 
     return combinedHists
+
+
+def combine_channels(channelsToGet, histsPerChannel, channel_name):
+    '''
+    Combine histograms from multiple channels into a single combined channel
+    Args:
+        channelsToGet: List of channels to combine (e.g., ['1tau1l', '1tau2l'])
+        histsPerChannel: Dict structure {channel: {fit: {process: histogram}}}
+        channel_name: Name for combined channel (e.g., '1tau1l_1tau2l')
+    Returns:
+        combinedHists[fit][process] = combined histogram
+    '''
+    combinedHists = {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
+
+    print(f'Combining channels: {channelsToGet}')
+
+    # Get union of all processes from all channels
+    all_processes = set()
+    for channel in channelsToGet:
+        if channel in histsPerChannel:
+            # Check all fit types to get complete process list
+            for fit in ['prefit', 'fit_s', 'fit_b']:
+                if fit in histsPerChannel[channel]:
+                    all_processes.update(histsPerChannel[channel][fit].keys())
+
+    print(f'Union process list: {sorted(all_processes)}')
+
+    for fit in ['prefit', 'fit_s', 'fit_b']:
+        for process in all_processes:
+            combined_hist = None
+
+            # Find first channel that has this process and clone it
+            for channel in channelsToGet:
+                if channel in histsPerChannel and fit in histsPerChannel[channel]:
+                    if process in histsPerChannel[channel][fit]:
+                        if combined_hist is None:
+                            # Clone from first channel
+                            combined_hist = histsPerChannel[channel][fit][process].Clone(
+                                f'{process}_{fit}_{channel_name}'
+                            )
+                            combined_hist.SetDirectory(0)
+                        else:
+                            # Add from subsequent channels
+                            combined_hist.Add(histsPerChannel[channel][fit][process])
+
+            if combined_hist is not None:
+                # Set title for combined histogram
+                combined_hist.SetTitle('BDT score')
+                combinedHists[fit][process] = combined_hist
+            else:
+                print(f'Warning: Process {process} not found in any channel for fit {fit}')
+
+        # Remove trailing empty bins from combined histograms
+        combinedHists[fit] = trim_empty_bins(combinedHists[fit])
+
+    return combinedHists
+
+
+def get_union_process_list(channels, ifFakeTau, ifVLL, ifMCFTau):
+    '''
+    Get union of process lists from multiple channels, preserving order
+    Args:
+        channels: List of channel names (e.g., ['1tau1l', '1tau2l'])
+        ifFakeTau: Include fake tau background
+        ifVLL: Include VLL signal
+        ifMCFTau: Use MC fake tau instead of data-driven
+    Returns:
+        List of processes in union (data process at end)
+    '''
+    # Get process lists for each channel
+    all_processes = []
+    data_process = None
+
+    for channel in channels:
+        channel_processes = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)
+        for proc in channel_processes:
+            # Separate data processes (different for different channels)
+            if proc in ['jetHT', 'leptonSum']:
+                data_process = proc  # Keep whichever we see last
+            elif proc not in all_processes:
+                all_processes.append(proc)
+
+    # Add data process at end (if exists)
+    if data_process:
+        all_processes.append(data_process)
+
+    return all_processes
 
 
 def trim_empty_bins(histDict):
