@@ -1,7 +1,8 @@
 # Context: GitLab CI Validation for 1tau0l
 
 **Created**: 2025-11-26 10:40
-**Last Updated**: 2025-11-27 19:00
+**Last Updated**: 2025-11-28 14:30
+**Status**: ✅ COMPLETE
 
 ---
 
@@ -69,6 +70,20 @@
 - Clear separation: C++ generates VFP-specific hists → Templates preserve them → Datacards correlate them
 **Commit**: 20861bb6
 
+### Decision 10: Remove Redundant Main Tau ID Systematic
+**Rationale**: Main `CMS_eff_t_DeepTau2017v2p1_VSjet_{YEAR}` systematic is redundant - already split into detailed stat/syst components per decay mode (stat1/2_DM0/1/10/11, syst_DM0/1/10/11, syst_alleras). Having both would double-count the uncertainty.
+**Date**: 2025-11-28 (Session 10)
+**Implementation**:
+- Commented out `CMS_eff_t_DeepTau2017v2p1_VSjet` in writeDatacard.py MCSys dictionary (line 28)
+- Commented out entry in systematics_TOP24017.yml (lines 128-131)
+- Regenerated all 4 era datacards by updating inputTemplate parameter in writeDatacard.py for each era
+- Regenerated combined datacard using combineCards.py with CMSSW environment
+**Impact**:
+- Removed 4 redundant systematics from datacard (one per era)
+- Reduced datacard size from 163K to 161K
+- Check_systematics issues reduced from 9 → 5 (removed 4 tau ID warnings)
+**Note**: Templates still contain these histograms from C++ generation, but writeDatacard.py won't include them if not in MCSys dictionary
+
 ---
 
 ## Important Decisions
@@ -133,8 +148,9 @@
 
 ### Outputs
 - Updated systematics: `datacards/input/systematics_TOP24017.yml`
-- New datacard: `datacards/input/datacard_1tau0l_v19_unblind.txt`
+- New datacard: `datacards/input/datacard_1tau0l_v20_unblind.txt` (161K)
 - Template copies: `datacards/input/YEAR/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root`
+- Combined datacard source: `FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/datacard.txt`
 - CI results: GitLab pipeline URL (after push)
 
 ---
@@ -166,6 +182,32 @@
 ---
 
 ## Common Commands
+
+### Running check_names.py validation
+**IMPORTANT**: Must change hardcoded `inputTemplate` parameter in writeDatacard.py before running for each era
+```bash
+cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/datacards
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+eval $(scramv1 runtime -sh)
+python3 check_names.py --input input/datacard_1tau0l_v20_unblind.txt --systematics-dict input/systematics_TOP24017.yml
+```
+
+### Regenerating datacards for specific era
+```bash
+# 1. Edit plotting/writeDatacard.py and update inputTemplate to desired era
+# 2. Run from correct directory:
+cd /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{ERA}/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine
+source /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/setEnv_newNew.sh
+python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/plotting/writeDatacard.py {ERA} 1tau0l v9BDT1tau0l_CMSNamingComplete v94HadroPreJetVetoHemOnly
+```
+
+### Regenerating combined datacard
+```bash
+cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+eval $(scramv1 runtime -sh)
+combineCards.py SR1tau0l_2018=/publicfs/.../2018/.../datacard_1tau0l.txt SR1tau0l_2017=/publicfs/.../2017/.../datacard_1tau0l.txt SR1tau0l_2016preVFP=/publicfs/.../2016preVFP/.../datacard_1tau0l.txt SR1tau0l_2016postVFP=/publicfs/.../2016postVFP/.../datacard_1tau0l.txt > combinationV20/run2_1tau0l_v4_unblind/datacard.txt
+```
 
 ### Job Submission (v9BDT Production)
 ```bash
