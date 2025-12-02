@@ -7,20 +7,28 @@ production through statistical analysis. Uses YAML configuration for
 reproducible, version-controlled analysis runs.
 
 Usage:
-    # Run all Stage 4 steps for all eras
-    python3 run_workflow.py --config config/analysis_config.yaml --stage 4
+    # Run FULL pipeline (Stage 3 + Stage 4) - one command does everything!
+    python3 run_workflow.py --stage all --config config/analysis_config_1tau1l.yaml -l workflow.log
 
-    # Run specific stage for single era
-    python3 run_workflow.py --config config/analysis_config.yaml --stage 4.2 --era 2018
+    # Run only Stage 3 (histogram job submission + monitoring)
+    python3 run_workflow.py --stage 3 --config config/analysis_config.yaml
 
-    # Run full Stage 3-4 pipeline with logging
-    python3 run_workflow.py --config config/analysis_config_1tau1l.yaml --stage 3 --log-file workflow.log
+    # Run only Stage 4 (templates → datacards → combine)
+    python3 run_workflow.py --stage 4 --config config/analysis_config.yaml
+
+    # Run specific substage for single era
+    python3 run_workflow.py --stage 4.2 --era 2018 --config config/analysis_config.yaml
 
     # List available stages
     python3 run_workflow.py --list-stages
 
     # Save current config as version snapshot
     python3 run_workflow.py --save-version v9BDT1tau0l_CMSNamingComplete
+
+Stage groups:
+    "all" or "3-4" : Full pipeline (Stage 3 + Stage 4)
+    "3"            : Histogram production (3.3 + 3.3.1 + 3.4)
+    "4"            : Analysis workflow (4.1 + 4.2 + 4.2.5 + 4.3 + 4.4)
 """
 
 import argparse
@@ -565,6 +573,39 @@ def run_full_stage_4(config: dict, eras: List[str], quiet: bool = False) -> int:
     return 0
 
 
+def run_full_pipeline(config: dict, eras: List[str], quiet: bool = False) -> int:
+    """
+    Run complete pipeline: Stage 3 (job submission + monitoring) → Stage 4 (analysis).
+
+    This is the full end-to-end workflow from histogram production to combine results.
+    """
+    logger.info("="*60)
+    logger.info("Starting full pipeline (Stage 3 → Stage 4)")
+    logger.info("="*60)
+
+    # Stage 3: Histogram production
+    result = run_full_stage_3(config, eras, quiet=quiet)
+    if result != 0:
+        logger.error("Stage 3 failed. Pipeline stopped.")
+        return 1
+
+    # Stage 4: Analysis workflow
+    result = run_full_stage_4(config, eras, quiet=quiet)
+    if result != 0:
+        logger.error("Stage 4 failed. Pipeline stopped.")
+        return 1
+
+    logger.info("="*60)
+    logger.info("Full pipeline completed successfully!")
+    logger.info("="*60)
+    print("\n" + "="*60)
+    print("FULL PIPELINE COMPLETED SUCCESSFULLY!")
+    print("Stage 3: Histogram production ✓")
+    print("Stage 4: Analysis workflow ✓")
+    print("="*60)
+    return 0
+
+
 def save_config_version(version_name: str, config_path: str = None) -> int:
     """Save current config as a version snapshot."""
     import shutil
@@ -618,7 +659,8 @@ def main():
     parser.add_argument(
         '--stage', '-s',
         type=str,
-        help='Stage to run (e.g., 4.1, 4.2, 4.3, 4.4, or "4" for all)'
+        help='Stage to run: "all" (full pipeline), "3" (histogram jobs), '
+             '"4" (analysis), or specific (3.3, 4.1, 4.2, etc.)'
     )
     parser.add_argument(
         '--era', '-e',
@@ -719,7 +761,9 @@ def main():
         print(f"Eras: {', '.join(eras)}")
 
     # Run requested stage(s)
-    if args.stage == '3':
+    if args.stage in ('all', 'full', '3-4'):
+        return run_full_pipeline(config, eras, quiet=args.quiet)
+    elif args.stage == '3':
         return run_full_stage_3(config, eras, quiet=args.quiet)
     elif args.stage == '4':
         return run_full_stage_4(config, eras, quiet=args.quiet)
