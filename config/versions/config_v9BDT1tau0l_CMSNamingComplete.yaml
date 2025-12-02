@@ -1,0 +1,75 @@
+# FourTop Analysis Configuration
+# Version: v9BDT1tau0l_CMSNamingComplete
+# Created: 2025-12-02
+#
+# This is the active configuration file for the workflow.
+# To preserve settings, copy to config/versions/ before modifying.
+
+metadata:
+  version: "v9BDT1tau0l_CMSNamingComplete"
+  created: "2025-12-02"
+  channel: "1tau0l"
+  description: "CMS naming convention complete, all systematics, unblinded"
+
+# Path components for building full paths
+paths:
+  base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
+  out_version: "v1baselineHadroBtagWeightAdded"
+  in_version: "v94HadroPreJetVetoHemOnly"
+  hist_version: "v9BDT1tau0l_CMSNamingComplete"
+  datacard_version: "v6AllSys_unblind_CMSnaming"
+
+# Channel configuration
+channel:
+  name: "1tau0l"
+  regions:
+    - "1tau0lSR"
+    - "1tau0lCRMR"
+    - "1tau0lVR"
+  variables:
+    - "BDT"
+
+# Eras to process (Run 2)
+eras:
+  - "2018"
+  - "2017"
+  - "2016preVFP"
+  - "2016postVFP"
+
+# Analysis options
+options:
+  ifFakeTau: true
+  ifMCFTau: false
+  ifBlind: false
+  ifVLL: false
+
+# Smoothing configuration (Stage 4.2.5)
+smoothing:
+  enabled: true
+  systematics:
+    - "ps_fsr"
+    - "CMS_btag_fullShape_hf"
+    - "ps_isr"
+    - "CMS_scale_j_FlavorPureGluon"
+    - "pdf_alphas"
+    - "QCDscale_fac"
+    - "QCDscale_ren"
+    - "CMS_res_j"
+    - "CMS_scale_j_FlavorPureQuark"
+  processes:
+    - "tt"
+    - "ttH"
+    - "ttZ"
+    - "ttW"
+    - "WJets"
+
+# Combine configuration (Stage 4.4)
+combine:
+  combination_version: "combinationV20"
+  steps:
+    - "workspace"
+    - "limits"
+    - "significance"
+    - "impacts"
+    - "postfit"
+    - "signal_strength"

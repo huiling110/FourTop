@@ -105,6 +105,7 @@ When context usage reaches ~10% remaining, Claude MUST automatically:
 3. Add session notes to the Notes section with date stamp
 4. Commit any uncommitted changes with descriptive message
 5. Inform user: "Context low - dev-docs updated and changes committed for next session"
+6. **DO NOT compact/summarize** - if dev-docs were just updated, the context is preserved there
 
 This ensures seamless continuation even if the session ends unexpectedly.
 

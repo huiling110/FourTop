@@ -1,96 +1,72 @@
-# Tasks: FourTop Workflow Code Quality Improvements
+# Tasks: FourTop Workflow Automation
 
 **Created**: 2025-12-02
 **Last Updated**: 2025-12-02
-**Status**: Phase 1 - Complete
+**Status**: Phase 2A - Starting
 
 ---
 
-## Phase 1: Code Quality Fixes
+## Phase 1: Code Quality Fixes - COMPLETE ✅
 
-### Task 1.1: Fix duplicate get_smoothed_up_and_down() function
-- [x] Read smooth_systematics_fourTops.py to confirm duplicate locations
-- [x] Delete duplicate function at lines 367-388
-- [x] Verify first definition at lines 303-325 is complete
+### Task 1.1: Fix duplicate function - COMPLETE
+### Task 1.2: Add --quiet to writeDatacard.py - COMPLETE
+### Task 1.3: Add --quiet to addTemplateNew.py - COMPLETE
+### Task 1.4: Add --quiet to smooth_systematics_fourTops.py - COMPLETE
 
-**Status**: Complete
-**Notes**: Deleted duplicate function, kept original at lines 303-325
-
-### Task 1.2: Add --quiet flag to writeDatacard.py
-- [x] Add argparse import if not present
-- [x] Create argument parser with --quiet/-q flag
-- [x] Wrap sysDic printing with `if not args.quiet:` check
-
-**Status**: Complete
-**Notes**: Added argparse, wrapped verbose prints (processes, sysDic, per-systematic prints)
-
-### Task 1.3: Add --quiet flag to addTemplateNew.py
-- [x] Add argparse import if not present
-- [x] Create argument parser with --quiet/-q flag
-- [x] Wrap debug print statements with `if not args.quiet:` check
-
-**Status**: Complete
-**Notes**: Added argparse, wrapped verbose prints, passed quiet flag to addDataHist function
-
-### Task 1.4: Add --quiet flag to smooth_systematics_fourTops.py
-- [x] Add argparse to existing script
-- [x] Wrap verbose print statements with global QUIET flag
-
-**Status**: Complete
-**Notes**: Used global QUIET flag approach since many helper functions need access
+**Commits**: 36726cea, 8759883a
 
 ---
 
-## Phase 2: Archive Commented Paths (Future)
+## Phase 2A: Configuration System
 
-### Task 2.1: Create OLD_CONFIGS.md
-- [ ] Create plotting/OLD_CONFIGS.md with header and structure
-- [ ] Add sections for each script
+### Task 2A.1: Create config/ directory structure
+- [ ] Create `config/` directory
+- [ ] Create `config/versions/` subdirectory
 
-**Status**: Not Started
+**Status**: In Progress
 
-### Task 2.2: Archive paths from writeDatacard.py
-- [ ] Extract ~250 commented inputTemplate paths
-- [ ] Add to OLD_CONFIGS.md with context
-- [ ] Remove from writeDatacard.py
+### Task 2A.2: Create analysis_config.yaml
+- [ ] Create YAML with current v9BDT1tau0l settings
 
 **Status**: Not Started
 
-### Task 2.3: Archive paths from addJESTemplatesToHistFile.py
-- [ ] Extract ~300 commented nominalDir paths
-- [ ] Add to OLD_CONFIGS.md
-- [ ] Remove from script
-
-**Status**: Not Started
-
-### Task 2.4: Archive paths from addTemplateNew.py
-- [ ] Extract ~80 commented inputDir paths
-- [ ] Add to OLD_CONFIGS.md
-- [ ] Remove from script
-
-**Status**: Not Started
-
-### Task 2.5: Archive paths from writeCombinationDatacard.py
-- [ ] Extract ~150 path dictionary entries
-- [ ] Add to OLD_CONFIGS.md or separate file
-- [ ] Clean up script
+### Task 2A.3: Create workflow_utils.py
+- [ ] Implement load_config(), build_hist_path(), build_template_path()
 
 **Status**: Not Started
 
 ---
 
-## Success Criteria Checklist
+## Phase 2B: Script Modifications
 
-- [x] No duplicate function definitions in smooth_systematics_fourTops.py
-- [x] writeDatacard.py supports --quiet flag
-- [x] addTemplateNew.py supports --quiet flag
-- [x] smooth_systematics_fourTops.py supports --quiet flag
-- [x] All scripts still work without --quiet (backward compatible)
+### Task 2B.1-2B.5: Add --config to plotting scripts
+- [ ] writeDatacard.py
+- [ ] addTemplateNew.py
+- [ ] addJESTemplatesToHistFile.py
+- [ ] smooth_systematics_fourTops.py
+- [ ] writeCombinationDatacard.py
+
+**Status**: Not Started
+
+---
+
+## Phase 2C: Master Workflow Script
+
+### Task 2C.1: Create run_workflow.py
+- [ ] Stage 4 runners (4.1-4.4)
+- [ ] Stage 3 runners (3.3-3.4)
+- [ ] Config versioning commands
+
+**Status**: Not Started
+
+---
+
+## Phase 2D: Testing
+
+- [ ] Test full workflow for 1tau0l channel
 
 ---
 
 ## Notes
 
-- 2025-12-02: Plan approved, starting Phase 1 implementation
-- 2025-12-02: Phase 1 COMPLETE - All 4 code quality tasks finished
-- User preference: Prioritize code quality fixes before archiving paths
+- 2025-12-02: Phase 1 complete, starting Phase 2
