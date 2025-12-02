@@ -135,6 +135,17 @@ STAGES = {
         'script': 'hua/combine/writeCombinationDatacard.py',
         'description': 'Combine era datacards into Run2 datacard',
         'requires_cmsenv': True
+    },
+    '4.5': {
+        'name': 'Run Combine Analysis',
+        'script': 'hua/combine/runCombineAll.py',
+        'description': 'Run statistical analysis (workspace, limits, significance, postfit)',
+        'requires_cmsenv': True
+    },
+    '4.6': {
+        'name': 'Create Fit Plots',
+        'script': 'plotting/pl_postFit.py',
+        'description': 'Generate pre-fit and post-fit data/MC comparison plots'
     }
 }
 
@@ -456,6 +467,109 @@ def run_stage_4_4(config: dict, quiet: bool = False) -> int:
     return run_command(cmd, cwd=combine_dir, quiet=quiet)
 
 
+def run_stage_4_5(config: dict, quiet: bool = False,
+                  steps: List[str] = None, no_blind: bool = True) -> int:
+    """
+    Run Stage 4.5: Run Combine statistical analysis.
+
+    This runs runCombineAll.py to perform:
+    - Workspace creation (text2workspace)
+    - Limit calculation (AsymptoticLimits)
+    - Significance calculation
+    - Post-fit diagnostics (FitDiagnostics)
+    - Signal strength measurement
+
+    Note: Requires cmsenv environment (not setEnv_newNew.sh).
+
+    Args:
+        config: Configuration dictionary
+        quiet: Suppress output
+        steps: List of steps to run (default: workspace, significance, limits, postfit, signal_strength)
+        no_blind: If True, run unblinded analysis (default). If False, run blinded.
+    """
+    project_root = get_project_root()
+    script = os.path.join(project_root, STAGES['4.5']['script'])
+    combine_dir = os.path.join(project_root, 'hua', 'combine')
+
+    # Get card directory from config
+    combination = config.get('combination', {})
+    comb_version = combination.get('version', 'combinationV20')
+    channel = get_channel(config)
+    card_subdir = combination.get('card_dir', f'run2_{channel}_v4_unblind')
+    card_dir = f'{comb_version}/{card_subdir}/'
+
+    # Default steps if not specified
+    if steps is None:
+        steps = ['workspace', 'significance', 'limits', 'postfit', 'signal_strength']
+
+    cmd = ['python3', script, '--cardDir', card_dir, '--steps'] + steps
+
+    if no_blind:
+        cmd.append('--no-blind')
+    else:
+        cmd.append('--ifBlind')
+
+    logger.info(f"Stage 4.5 | Card directory: {card_dir}")
+    logger.info(f"Stage 4.5 | Steps: {steps}")
+    logger.info(f"Stage 4.5 | Blinding: {'OFF' if no_blind else 'ON'}")
+
+    if not quiet:
+        print("  Note: Stage 4.5 requires cmsenv environment")
+        print(f"  Card directory: {card_dir}")
+        print(f"  Steps: {', '.join(steps)}")
+
+    return run_command(cmd, cwd=combine_dir, quiet=quiet)
+
+
+def run_stage_4_6(config: dict, quiet: bool = False,
+                  plot_type: str = 'both') -> int:
+    """
+    Run Stage 4.6: Generate pre-fit and/or post-fit plots.
+
+    Args:
+        config: Configuration dictionary
+        quiet: Suppress output
+        plot_type: 'prefit', 'postfit', or 'both' (default)
+    """
+    project_root = get_project_root()
+    script = os.path.join(project_root, STAGES['4.6']['script'])
+    config_path = os.path.join(project_root, 'config', 'analysis_config.yaml')
+
+    cmd = ['python3', script, '--config', config_path, '--plot-type', plot_type]
+    if quiet:
+        cmd.append('--quiet')
+
+    logger.info(f"Stage 4.6 | Plot type: {plot_type}")
+
+    return run_command(cmd, cwd=project_root, quiet=quiet)
+
+
+def _get_result_code(result) -> int:
+    """Extract exit code from result (may be tuple or int)."""
+    return result[0] if isinstance(result, tuple) else result
+
+
+def _run_era_stage(stage: str, config: dict, era: str,
+                   quiet: bool, smoothed: bool) -> int:
+    """Run a single stage for a single era. Returns exit code."""
+    # Dispatch table for per-era stages
+    era_runners = {
+        '3.3': lambda: run_stage_3_3(config, era, quiet=quiet),
+        '3.3.1': lambda: run_stage_3_3_1(config, era, quiet=quiet),
+        '4.1': lambda: run_stage_4_1(config, era, quiet=quiet),
+        '4.2': lambda: run_stage_4_2(config, era, quiet=quiet),
+        '4.2.5': lambda: run_stage_4_2_5(config, era, quiet=quiet),
+        '4.3': lambda: run_stage_4_3(config, era, quiet=quiet, smoothed=smoothed),
+    }
+
+    runner = era_runners.get(stage)
+    if runner is None:
+        print(f"  Stage {stage} runner not implemented")
+        return 1
+
+    return _get_result_code(runner())
+
+
 def run_stage(stage: str, config: dict, eras: List[str],
               quiet: bool = False, smoothed: bool = False) -> int:
     """
@@ -481,44 +595,23 @@ def run_stage(stage: str, config: dict, eras: List[str],
         print(f"Stage {stage}: {stage_info['name']}")
         print(f"{'='*60}")
 
-    # Stage 4.4 runs once for all eras combined
-    if stage == '4.4':
-        return run_stage_4_4(config, quiet=quiet)
+    # Dispatch table for global stages (run once, not per-era)
+    global_runners = {
+        '4.4': lambda: run_stage_4_4(config, quiet=quiet),
+        '4.5': lambda: run_stage_4_5(config, quiet=quiet),
+        '4.6': lambda: run_stage_4_6(config, quiet=quiet),
+        '3.4': lambda: run_stage_3_4(config, quiet=quiet),
+    }
 
-    # Stage 3.4 runs once (job monitoring), not per-era
-    if stage == '3.4':
-        code, stdout, stderr = run_stage_3_4(config, quiet=quiet)
-        return code
+    if stage in global_runners:
+        return _get_result_code(global_runners[stage]())
 
-    # Other stages run per-era
+    # Per-era stages
     failed_eras = []
     for era in eras:
         if not quiet:
             print(f"\n--- Processing era: {era} ---")
-
-        if stage == '3.3':
-            result = run_stage_3_3(config, era, quiet=quiet)
-            # run_stage_3_3 returns tuple (code, stdout, stderr)
-            result = result[0] if isinstance(result, tuple) else result
-        elif stage == '3.3.1':
-            result = run_stage_3_3_1(config, era, quiet=quiet)
-            result = result[0] if isinstance(result, tuple) else result
-        elif stage == '4.1':
-            result = run_stage_4_1(config, era, quiet=quiet)
-        elif stage == '4.2':
-            result = run_stage_4_2(config, era, quiet=quiet)
-        elif stage == '4.2.5':
-            result = run_stage_4_2_5(config, era, quiet=quiet)
-        elif stage == '4.3':
-            result = run_stage_4_3(config, era, quiet=quiet, smoothed=smoothed)
-        else:
-            print(f"  Stage {stage} runner not implemented")
-            result = 1
-
-        # Handle tuple returns from run_command
-        if isinstance(result, tuple):
-            result = result[0]
-
+        result = _run_era_stage(stage, config, era, quiet, smoothed)
         if result != 0:
             failed_eras.append(era)
 
@@ -616,9 +709,26 @@ def run_full_stage_3(config: dict, eras: List[str], quiet: bool = False,
     return 0
 
 
-def run_full_stage_4(config: dict, eras: List[str], quiet: bool = False) -> int:
-    """Run all Stage 4 substages in order."""
+def run_full_stage_4(config: dict, eras: List[str], quiet: bool = False,
+                     include_combine: bool = True, include_plots: bool = True) -> int:
+    """
+    Run all Stage 4 substages in order.
+
+    Args:
+        config: Configuration dictionary
+        eras: List of eras to process
+        quiet: Suppress output
+        include_combine: If True, run Stage 4.5 (combine analysis)
+        include_plots: If True, run Stage 4.6 (fit plots)
+    """
+    # Core stages (always run)
     stages_to_run = ['4.1', '4.2', '4.2.5', '4.3', '4.4']
+
+    # Optional stages
+    if include_combine:
+        stages_to_run.append('4.5')
+    if include_plots:
+        stages_to_run.append('4.6')
 
     for stage in stages_to_run:
         # For 4.3, check if smoothing was done and use smoothed templates
@@ -633,6 +743,10 @@ def run_full_stage_4(config: dict, eras: List[str], quiet: bool = False) -> int:
     logger.info("Full Stage 4 workflow completed successfully!")
     print("\n" + "="*60)
     print("Full Stage 4 workflow completed successfully!")
+    if include_combine:
+        print("  - Stage 4.5: Combine analysis ✓")
+    if include_plots:
+        print("  - Stage 4.6: Fit plots ✓")
     print("="*60)
     return 0
 
@@ -707,7 +821,8 @@ def list_stages():
         print()
 
 
-def main():
+def create_parser() -> argparse.ArgumentParser:
+    """Create and configure the argument parser."""
     parser = argparse.ArgumentParser(
         description='FourTop Analysis Workflow Runner',
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -715,89 +830,83 @@ def main():
     )
 
     parser.add_argument(
-        '--config', '-c',
-        type=str,
+        '--config', '-c', type=str,
         default='config/analysis_config.yaml',
         help='Path to YAML config file (default: config/analysis_config.yaml)'
     )
     parser.add_argument(
-        '--stage', '-s',
-        type=str,
+        '--stage', '-s', type=str,
         help='Stage to run: "all" (full pipeline), "3" (histogram jobs), '
              '"4" (analysis), or specific (3.3, 4.1, 4.2, etc.)'
     )
-    parser.add_argument(
-        '--era', '-e',
-        type=str,
-        help='Single era to process (default: all eras from config)'
-    )
-    parser.add_argument(
-        '--quiet', '-q',
-        action='store_true',
-        help='Suppress non-essential output'
-    )
-    parser.add_argument(
-        '--list-stages',
-        action='store_true',
-        help='List available stages and exit'
-    )
-    parser.add_argument(
-        '--save-version',
-        type=str,
-        metavar='NAME',
-        help='Save current config as version snapshot with given name'
-    )
-    parser.add_argument(
-        '--smoothed',
-        action='store_true',
-        help='Use smoothed templates for datacard creation (Stage 4.3)'
-    )
-    parser.add_argument(
-        '--log-file', '-l',
-        type=str,
-        metavar='FILE',
-        help='Write detailed log to file (in addition to console)'
-    )
-    parser.add_argument(
-        '--poll-interval',
-        type=int,
-        default=60,
-        help='Seconds between job status checks for Stage 3.4 (default: 60)'
-    )
-    parser.add_argument(
-        '--max-wait',
-        type=int,
-        default=7200,
-        help='Maximum seconds to wait for jobs in Stage 3.4 (default: 7200=2h)'
-    )
+    parser.add_argument('--era', '-e', type=str,
+                        help='Single era to process (default: all eras from config)')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                        help='Suppress non-essential output')
+    parser.add_argument('--list-stages', action='store_true',
+                        help='List available stages and exit')
+    parser.add_argument('--save-version', type=str, metavar='NAME',
+                        help='Save current config as version snapshot with given name')
+    parser.add_argument('--smoothed', action='store_true',
+                        help='Use smoothed templates for datacard creation (Stage 4.3)')
+    parser.add_argument('--log-file', '-l', type=str, metavar='FILE',
+                        help='Write detailed log to file (in addition to console)')
+    parser.add_argument('--poll-interval', type=int, default=60,
+                        help='Seconds between job status checks for Stage 3.4 (default: 60)')
+    parser.add_argument('--max-wait', type=int, default=7200,
+                        help='Maximum seconds to wait for jobs in Stage 3.4 (default: 7200=2h)')
+    parser.add_argument('--no-combine', action='store_true',
+                        help='Skip Stage 4.5 (combine analysis) in full Stage 4 run')
+    parser.add_argument('--no-plots', action='store_true',
+                        help='Skip Stage 4.6 (fit plots) in full Stage 4 run')
+    parser.add_argument('--plot-type', type=str, choices=['prefit', 'postfit', 'both'],
+                        default='both',
+                        help='Type of plots to generate for Stage 4.6 (default: both)')
+    parser.add_argument('--combine-steps', nargs='+',
+                        choices=['workspace', 'limits', 'significance', 'impacts',
+                                 'postfit', 'signal_strength', 'gof'],
+                        default=['workspace', 'significance', 'limits', 'postfit', 'signal_strength'],
+                        help='Steps to run for Stage 4.5')
+    parser.add_argument('--blind', action='store_true',
+                        help='Run blinded analysis for Stage 4.5 (default: unblinded)')
 
-    args = parser.parse_args()
+    return parser
 
-    # Handle --list-stages
+
+def handle_special_commands(args) -> Optional[int]:
+    """
+    Handle special commands (--list-stages, --save-version).
+
+    Returns:
+        Exit code if command handled, None to continue normal workflow.
+    """
     if args.list_stages:
         list_stages()
         return 0
 
-    # Handle --save-version
     if args.save_version:
         return save_config_version(args.save_version, args.config)
 
-    # Require --stage for actual workflow runs
     if not args.stage:
-        parser.print_help()
-        print("\nERROR: --stage is required to run workflow")
+        print("ERROR: --stage is required to run workflow")
+        print("Use --list-stages to see available stages")
         return 1
 
-    # Setup logging
-    setup_logging(log_file=args.log_file, quiet=args.quiet)
+    return None
 
-    # Check workflow_utils availability
+
+def load_workflow_config(args) -> Tuple[Optional[dict], Optional[List[str]]]:
+    """
+    Load config and determine eras to process.
+
+    Returns:
+        Tuple of (config, eras) or (None, None) on error.
+    """
     if not WORKFLOW_UTILS_AVAILABLE:
         print("ERROR: workflow_utils not available. Install PyYAML:")
         print("  python3 -m pip install pyyaml")
-        return 1
+        return None, None
 
-    # Load config
     project_root = get_project_root()
     config_path = args.config
     if not os.path.isabs(config_path):
@@ -807,16 +916,12 @@ def main():
         config = load_config(config_path)
     except FileNotFoundError:
         print(f"ERROR: Config file not found: {config_path}")
-        return 1
+        return None, None
     except Exception as e:
         print(f"ERROR loading config: {e}")
-        return 1
+        return None, None
 
-    # Determine eras to process
-    if args.era:
-        eras = [args.era]
-    else:
-        eras = get_eras(config)
+    eras = [args.era] if args.era else get_eras(config)
 
     if not args.quiet:
         channel = get_channel(config)
@@ -824,16 +929,44 @@ def main():
         print(f"Channel: {channel}")
         print(f"Eras: {', '.join(eras)}")
 
-    # Run requested stage(s)
+    return config, eras
+
+
+def run_requested_stage(args, config: dict, eras: List[str]) -> int:
+    """Execute the requested stage(s) based on args."""
     if args.stage in ('all', 'full', '3-4'):
         return run_full_pipeline(config, eras, quiet=args.quiet)
     elif args.stage == '3':
         return run_full_stage_3(config, eras, quiet=args.quiet)
     elif args.stage == '4':
-        return run_full_stage_4(config, eras, quiet=args.quiet)
+        return run_full_stage_4(config, eras, quiet=args.quiet,
+                                include_combine=not args.no_combine,
+                                include_plots=not args.no_plots)
     else:
         return run_stage(args.stage, config, eras,
-                        quiet=args.quiet, smoothed=args.smoothed)
+                         quiet=args.quiet, smoothed=args.smoothed)
+
+
+def main():
+    """Main entry point for workflow runner."""
+    parser = create_parser()
+    args = parser.parse_args()
+
+    # Handle special commands first
+    result = handle_special_commands(args)
+    if result is not None:
+        return result
+
+    # Setup logging
+    setup_logging(log_file=args.log_file, quiet=args.quiet)
+
+    # Load config and determine eras
+    config, eras = load_workflow_config(args)
+    if config is None:
+        return 1
+
+    # Run the requested stage(s)
+    return run_requested_stage(args, config, eras)
 
 
 if __name__ == '__main__':

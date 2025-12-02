@@ -1,0 +1,33 @@
+{
+  "name": "refactor",
+  "version": "1.0.0",
+  "description": "Automatically refactor Python code to meet quality standards",
+  "author": "FourTop Analysis Team",
+  "entry": "prompt.md",
+  "triggers": {
+    "manual": true,
+    "automatic": false
+  },
+  "parameters": {
+    "file": {
+      "type": "string",
+      "description": "Path to Python file to refactor",
+      "required": false
+    },
+    "function": {
+      "type": "string",
+      "description": "Specific function name to refactor",
+      "required": false
+    }
+  },
+  "tools": [
+    "Read",
+    "Edit",
+    "Bash"
+  ],
+  "standards": {
+    "maxFunctionLines": 80,
+    "maxNestingDepth": 5,
+    "maxBranches": 20
+  }
+}

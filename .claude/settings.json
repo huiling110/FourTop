@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(.claude/dev-docs/**)",
+      "Write(.claude/dev-docs/**)",
+      "Read(.claude/dev-docs/**)",
+      "Bash(hep_q:*)",
+      "Bash(ls:*)"
+    ]
+  },
+  "hooks": {
+    "postToolUse": {
+      "command": "bash",
+      "args": [".claude/hooks/post-tool-use.sh"],
+      "env": {
+        "TOOL_NAME": "{{tool_name}}",
+        "FILE_PATH": "{{file_path}}",
+        "PROJECT_ROOT": "{{project_root}}"
+      }
+    }
+  },
+  "codeQuality": {
+    "python": {
+      "maxFunctionLines": 80,
+      "recommendedFunctionLines": 50,
+      "maxNestingDepth": 5,
+      "recommendedNestingDepth": 3,
+      "maxBranches": 20,
+      "recommendedBranches": 10,
+      "maxFileLines": 1000,
+      "recommendedFileLines": 500
+    },
+    "cpp": {
+      "maxFunctionLines": 150,
+      "maxFileLines": 800
+    }
+  },
+  "comments": [
+    "This settings.json enables code quality hooks for the FourTop analysis project",
+    "The postToolUse hook runs after Edit/Write operations to check code quality",
+    "Thresholds are defined in the codeQuality section for reference",
+    "See .claude/hooks/check_python_quality.py for implementation details"
+  ]
+}
