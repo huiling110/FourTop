@@ -5,6 +5,16 @@ import usefulFunc as uf
 import ttttGlobleQuantity as gq
 import pl as pl
 
+# Import workflow utilities for config-based path building
+try:
+    from workflow_utils import (
+        load_config, build_template_path, build_datacard_path,
+        get_channel, get_options, get_template_suffix, get_eras
+    )
+    WORKFLOW_UTILS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_UTILS_AVAILABLE = False
+
 MCSys = {
     #sys: [isCorrelated, whichProces, channelBits, isCorrelatedProcess] ; whichProcess=0: mc; whichProcess=1: fakeTau, whichProcess=2: fakeLepton; whichProcess=3:faketauMC
     #!Channlebits information for each channel, bit 100:1tau1l; bit 010:1tau0l; bit 001: 1tau2l
@@ -143,8 +153,36 @@ outVersion = 'v6AllSys_unblind_CMSnaming'
 def main():
     parser = argparse.ArgumentParser(description='Generate datacards for CMS Combine')
     parser.add_argument('--quiet', '-q', action='store_true', help='Suppress verbose output')
+    parser.add_argument('--config', '-c', type=str, help='Path to YAML config file')
+    parser.add_argument('--era', '-e', type=str,
+                        choices=['2018', '2017', '2016preVFP', '2016postVFP'],
+                        help='Era to process (required with --config)')
+    parser.add_argument('--smoothed', action='store_true', default=True,
+                        help='Use smoothed templates (default: True)')
     args = parser.parse_args()
 
+    # Validate arguments
+    if args.config and not args.era:
+        parser.error("--era is required when using --config")
+    if args.config and not WORKFLOW_UTILS_AVAILABLE:
+        parser.error("workflow_utils not available. Install pyyaml or use hardcoded paths.")
+
+    # Config-based path building (new workflow)
+    if args.config:
+        config = load_config(args.config)
+        channel = get_channel(config)
+        options = get_options(config)
+        suffix = get_template_suffix(config)
+        inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=args.smoothed)
+        ifFTauMC = options.get('ifMCFTau', False)
+        datacard_version = config['paths'].get('datacard_version', outVersion)
+
+        if not args.quiet:
+            print(f"Using config: {args.config}")
+            print(f"Era: {args.era}, Channel: {channel}")
+            print(f"Template: {inputTemplate}")
+    # ===== Legacy hardcoded paths (for backward compatibility) =====
+    # If not using --config, uncomment the desired inputTemplate below
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
@@ -216,8 +254,9 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete - Done
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete - Done
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete
-    channel = '1tau0l'
+    if not args.config:
+        inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete
+        channel = '1tau0l'
 
     #!!!1tau2l
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v0BDT1tau2l/combine/templatesForCombine1tau2l.root'
@@ -250,11 +289,12 @@ def main():
 
 
     # ifFTauMC = True
-    ifFTauMC = False
-   
-   
-    inputDir = os.path.dirname(inputTemplate) 
-    outDir = f"{inputDir}/datacardSys_{outVersion}/"
+    if not args.config:
+        ifFTauMC = False
+        datacard_version = outVersion
+
+    inputDir = os.path.dirname(inputTemplate)
+    outDir = f"{inputDir}/datacardSys_{datacard_version}/"
     uf.checkMakeDir(outDir)
     outCard = f"{outDir}datacard_{channel}.txt"
     era = uf.getEraFromDir(inputTemplate) 
