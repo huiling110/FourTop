@@ -74,16 +74,17 @@ def build_hist_path(config: Dict[str, Any], era: str) -> str:
         era: Era string (2018, 2017, 2016preVFP, 2016postVFP).
 
     Returns:
-        Full path to histogram directory.
+        Full path to histogram directory (with trailing /).
     """
     paths = config['paths']
-    return os.path.join(
+    path = os.path.join(
         paths['base'],
         era,
         f"{paths['out_version']}_{paths['in_version']}",
         'mc',
         f"variableHists_{paths['hist_version']}"
     )
+    return path + '/'
 
 
 def build_combine_path(config: Dict[str, Any], era: str) -> str:
@@ -97,9 +98,10 @@ def build_combine_path(config: Dict[str, Any], era: str) -> str:
         era: Era string.
 
     Returns:
-        Full path to combine directory.
+        Full path to combine directory (with trailing /).
     """
-    return os.path.join(build_hist_path(config, era), 'combine')
+    hist_path = build_hist_path(config, era).rstrip('/')
+    return os.path.join(hist_path, 'combine') + '/'
 
 
 def build_template_path(
@@ -148,11 +150,11 @@ def build_datacard_path(
         channel: Channel name.
 
     Returns:
-        Full path to datacard directory.
+        Full path to datacard directory (with trailing /).
     """
-    combine_path = build_combine_path(config, era)
+    combine_path = build_combine_path(config, era).rstrip('/')
     datacard_version = config['paths'].get('datacard_version', 'v6AllSys_unblind_CMSnaming')
-    return os.path.join(combine_path, f"datacardSys_{datacard_version}")
+    return os.path.join(combine_path, f"datacardSys_{datacard_version}") + '/'
 
 
 def get_eras(config: Dict[str, Any]) -> List[str]:

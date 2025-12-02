@@ -13,6 +13,9 @@ Usage:
     # Run specific stage for single era
     python3 run_workflow.py --config config/analysis_config.yaml --stage 4.2 --era 2018
 
+    # Run full Stage 3-4 pipeline with logging
+    python3 run_workflow.py --config config/analysis_config_1tau1l.yaml --stage 3 --log-file workflow.log
+
     # List available stages
     python3 run_workflow.py --list-stages
 
@@ -21,10 +24,13 @@ Usage:
 """
 
 import argparse
+import logging
 import os
 import subprocess
 import sys
-from typing import List, Optional
+import time
+from datetime import datetime
+from typing import List, Optional, Tuple
 
 # Add plotting directory to path for workflow_utils
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plotting'))
@@ -40,8 +46,61 @@ except ImportError:
     print("WARNING: workflow_utils not available. Install PyYAML first.")
 
 
+# Global logger
+logger = logging.getLogger('workflow')
+
+
+def setup_logging(log_file: Optional[str] = None, quiet: bool = False) -> None:
+    """
+    Setup logging with both console and file handlers.
+
+    Args:
+        log_file: Path to log file. If None, only console logging.
+        quiet: If True, only log warnings and errors to console.
+    """
+    logger.setLevel(logging.DEBUG)
+
+    # Clear existing handlers
+    logger.handlers = []
+
+    # Console handler
+    console = logging.StreamHandler()
+    console.setLevel(logging.WARNING if quiet else logging.INFO)
+    console_fmt = logging.Formatter('[%(asctime)s] %(levelname)-5s | %(message)s',
+                                    datefmt='%H:%M:%S')
+    console.setFormatter(console_fmt)
+    logger.addHandler(console)
+
+    # File handler (if specified)
+    if log_file:
+        file_handler = logging.FileHandler(log_file, mode='w')
+        file_handler.setLevel(logging.DEBUG)
+        file_fmt = logging.Formatter(
+            '[%(asctime)s] %(levelname)-5s | %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
+        file_handler.setFormatter(file_fmt)
+        logger.addHandler(file_handler)
+        logger.info(f"Logging to file: {log_file}")
+
+
 # Stage definitions
 STAGES = {
+    '3.3': {
+        'name': 'Submit Nominal Histogram Jobs',
+        'script': 'writeHistGood/jobs/makeJob_forWriteHist.py',
+        'description': 'Submit nominal histogram production jobs via hep_sub'
+    },
+    '3.3.1': {
+        'name': 'Submit Shape Systematic Jobs',
+        'script': 'writeHistGood/run_makeJos_WH_forJES.sh',
+        'description': 'Submit JES/JER/TES/MET/EES systematic jobs'
+    },
+    '3.4': {
+        'name': 'Monitor Jobs',
+        'script': 'writeHistGood/jobs/checkJobResult.py',
+        'description': 'Wait for all submitted jobs to complete'
+    },
     '4.1': {
         'name': 'Consolidate Shape Systematics',
         'script': 'plotting/addJESTemplatesToHistFile.py',
@@ -76,36 +135,46 @@ def get_project_root() -> str:
     return os.path.dirname(os.path.abspath(__file__))
 
 
-def run_command(cmd: List[str], cwd: str = None, quiet: bool = False) -> int:
+def run_command(cmd: List[str], cwd: str = None, quiet: bool = False,
+                capture_output: bool = False) -> Tuple[int, str, str]:
     """
-    Run a shell command and return the exit code.
+    Run a shell command and return the exit code and output.
 
     Args:
         cmd: Command and arguments as list
         cwd: Working directory
-        quiet: Suppress output
+        quiet: Suppress console output (still logs to file)
+        capture_output: Capture stdout/stderr
 
     Returns:
-        Exit code (0 = success)
+        Tuple of (exit_code, stdout, stderr)
     """
+    cmd_str = ' '.join(cmd)
+    logger.debug(f"Running: {cmd_str}")
     if not quiet:
-        print(f"  Running: {' '.join(cmd)}")
+        logger.info(f"Running: {cmd_str[:100]}...")
 
+    start_time = time.time()
     try:
         result = subprocess.run(
             cmd,
             cwd=cwd,
-            capture_output=quiet,
+            capture_output=capture_output or quiet,
             text=True
         )
-        if result.returncode != 0 and quiet:
-            print(f"  ERROR: Command failed with code {result.returncode}")
+        duration = time.time() - start_time
+
+        if result.returncode != 0:
+            logger.error(f"Command failed (code {result.returncode}) after {duration:.1f}s")
             if result.stderr:
-                print(f"  STDERR: {result.stderr[:500]}")
-        return result.returncode
+                logger.error(f"STDERR: {result.stderr[:500]}")
+        else:
+            logger.debug(f"Command succeeded in {duration:.1f}s")
+
+        return result.returncode, result.stdout or '', result.stderr or ''
     except Exception as e:
-        print(f"  ERROR: {e}")
-        return 1
+        logger.error(f"Exception running command: {e}")
+        return 1, '', str(e)
 
 
 def run_stage_4_1(config: dict, era: str, quiet: bool = False) -> int:
