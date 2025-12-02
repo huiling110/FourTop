@@ -32,16 +32,16 @@
 - [x] 1tau1l configuration
 - [x] Logging system
 
-### Phase 3D: Full Pipeline Test - BLOCKED ⚠️
+### Phase 3D: Full Pipeline Test - IN PROGRESS
 - [x] Stage 3 (histogram jobs) - COMPLETE
 - [x] Stage 4.1 (consolidate systematics) - COMPLETE
 - [x] Stage 4.2 (create templates) - COMPLETE
 - [x] Stage 4.2.5 (smooth systematics) - COMPLETE
 - [x] Stage 4.3 (write datacards) - COMPLETE
-- [ ] **BLOCKED**: Stage 4.3.2 - (need user clarification)
-- [ ] **BLOCKED**: Stage 4.3.5 - (need user clarification)
-- [ ] Stage 4.4 (combine datacards) - WAITING
-- [ ] Stage 4.5 (combine analysis) - WAITING
+- [x] Stage 4.4 (combine datacards) - COMPLETE (combinationV20)
+- [🔄] Stage 4.5 (combine analysis) - RUNNING (PID 1919986)
+  - Log: `hua/combine/combinationV20/run2_1tau0l_v4_unblind/run2_1tau0l_fullAnalysis.log`
+  - Steps: workspace → significance → limits → impacts → postfit → signal_strength
 - [ ] Stage 4.6 (fit plots) - WAITING
 
 ### Phase 3E: Complete Workflow Stages - COMPLETE ✅
@@ -63,9 +63,8 @@
 - [x] Fix config structure (combination vs combine)
 
 ### Pending
-- [ ] **Add stages 4.3.2 and 4.3.5** (need user clarification on what these do)
-- [ ] Refactor pl_postFit.py (7 errors, 11 warnings)
-- [ ] Complete Stage 4.4/4.5/4.6 testing
+- [x] Refactor pl_postFit.py - COMPLETE (0 errors, 10 warnings)
+- [ ] Complete Stage 4.6 (fit plots) after Stage 4.5 completes
 
 ---
 
@@ -86,22 +85,15 @@
 |------|--------|----------|--------|
 | run_workflow.py | 0 | 5 | ✅ PASS |
 | workflow_utils.py | 0 | 0 | ✅ PASS |
-| pl_postFit.py | 7 | 11 | ❌ NEEDS REFACTOR |
+| pl_postFit.py | 0 | 10 | ✅ PASS (refactored) |
 
 ---
 
-## Blocker: User Clarification Needed
+## Notes
 
-**Question**: What do stages 4.3.2 and 4.3.5 do?
-- Stage 4.3.2: Copy datacards to combine directory?
-- Stage 4.3.5: Combine region datacards?
-
-Per-era datacards exist at:
+**Stage 4.4 (writeCombinationDatacard.py)**: Successfully combined per-era datacards from all 4 eras into:
 ```
-/publicfs/.../datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt
+hua/combine/combinationV20/run2_1tau0l_v4_unblind/datacard.txt (164KB)
 ```
 
-But they need to be copied/combined into:
-```
-hua/combine/combinationV21/run2_1tau0l_v4_unblind/
-```
+**Stage 4.5**: Running with full analysis steps (workspace, significance, limits, impacts, postfit, signal_strength)

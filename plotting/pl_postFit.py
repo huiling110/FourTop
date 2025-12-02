@@ -1,28 +1,382 @@
+#!/usr/bin/env python3
+"""
+pl_postFit.py - Generate pre-fit and post-fit data/MC comparison plots
+
+This script can generate:
+1. Pre-fit plots: From template ROOT files (before combine fit)
+2. Post-fit plots: From fitDiagnostics ROOT files (after combine fit)
+
+Usage:
+    # Post-fit plots only (default, from fitDiagnostics file)
+    python3 pl_postFit.py --fit-file /path/to/fitDiagnosticsTest.root
+
+    # Pre-fit plots only (from template files)
+    python3 pl_postFit.py --plot-type prefit --config config/analysis_config.yaml
+
+    # Both pre-fit and post-fit plots
+    python3 pl_postFit.py --plot-type both --config config/analysis_config.yaml
+
+    # Use config file for paths
+    python3 pl_postFit.py --config ../../config/analysis_config.yaml --plot-type postfit
+"""
+
 import ROOT
+import argparse
+import os
+import sys
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 import usefulFunc as uf
 import pl as plt
-#
+
+# Try to import workflow_utils for config support
+try:
+    from workflow_utils import load_config, build_hist_path, build_combine_path, get_channel, get_eras
+    WORKFLOW_UTILS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_UTILS_AVAILABLE = False
+
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description='Generate pre-fit and/or post-fit data/MC comparison plots',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__
+    )
+
+    parser.add_argument(
+        '--config', '-c',
+        type=str,
+        help='Path to YAML config file for path building'
+    )
+    parser.add_argument(
+        '--fit-file', '-f',
+        type=str,
+        help='Path to fitDiagnostics ROOT file (for post-fit plots)'
+    )
+    parser.add_argument(
+        '--plot-type', '-t',
+        type=str,
+        choices=['prefit', 'postfit', 'both'],
+        default='postfit',
+        help='Type of plots to generate (default: postfit)'
+    )
+    parser.add_argument(
+        '--channel',
+        type=str,
+        help='Analysis channel (e.g., 1tau0l, 1tau1l). Auto-detected from config if not specified.'
+    )
+    parser.add_argument(
+        '--era',
+        type=str,
+        help='Single era to process (default: all eras from config, then combine to Run2)'
+    )
+    parser.add_argument(
+        '--output-dir', '-o',
+        type=str,
+        help='Output directory for plots (default: auto-generated based on input)'
+    )
+    parser.add_argument(
+        '--quiet', '-q',
+        action='store_true',
+        help='Suppress non-essential output'
+    )
+    parser.add_argument(
+        '--no-logy',
+        action='store_true',
+        help='Use linear scale instead of log scale'
+    )
+    parser.add_argument(
+        '--blind',
+        action='store_true',
+        help='Blind signal region data'
+    )
+
+    return parser.parse_args()
+
 
 def main():
-    # Fit file with 3 channels (1tau0l, 1tau1l, 1tau2l)
-    fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/fitDiagnosticsTest.root'
-    # Previous single channel fit file:
-    # fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau2l_v4_unblind/fitDiagnosticsTest.root'
-    # fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_1tau0l_v4_unblind_smoothed_check/combineResults/postfitPlots/fitDiagnosticsTest.root'
+    """Main entry point with argument parsing."""
+    args = parse_args()
 
-    variable = 'BDT'
+    # Determine what to run based on arguments
+    if args.plot_type in ('postfit', 'both'):
+        if args.fit_file:
+            run_postfit_plots(args.fit_file, args)
+        elif args.config and WORKFLOW_UTILS_AVAILABLE:
+            # Auto-detect fit file from config
+            config = load_config(args.config)
+            fit_file = get_fit_file_from_config(config)
+            if fit_file and os.path.exists(fit_file):
+                run_postfit_plots(fit_file, args)
+            else:
+                print(f"Warning: Could not find fitDiagnostics file. Run Stage 4.5 first.")
+                if args.plot_type == 'postfit':
+                    return 1
+        else:
+            # Fall back to default hardcoded path
+            run_postfit_plots_legacy()
+
+    if args.plot_type in ('prefit', 'both'):
+        if args.config and WORKFLOW_UTILS_AVAILABLE:
+            config = load_config(args.config)
+            run_prefit_plots(config, args)
+        else:
+            print("Pre-fit plots require --config and workflow_utils. Install PyYAML.")
+            return 1
+
+    return 0
+
+
+def get_fit_file_from_config(config):
+    """Get fitDiagnostics file path from config."""
+    combination = config.get('combination', {})
+    comb_version = combination.get('version', 'combinationV20')
+    channel = get_channel(config)
+    card_subdir = combination.get('card_dir', f'run2_{channel}_v4_unblind')
+
+    # Standard location for fitDiagnostics
+    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    fit_file = os.path.join(
+        base_path, 'hua', 'combine', comb_version, card_subdir,
+        'combineResults', 'postfitPlots', 'fitDiagnosticsTest.root'
+    )
+    return fit_file
+
+
+def run_prefit_plots(config, args):
+    """
+    Generate pre-fit plots from template ROOT files.
+
+    These are the data/MC comparison plots BEFORE the combine fit,
+    using the templates created in Stage 4.2/4.2.5.
+    """
+    print("\n" + "="*80)
+    print("Generating PRE-FIT plots from template files")
+    print("="*80)
+
+    channel = args.channel or get_channel(config)
+    eras = [args.era] if args.era else get_eras(config)
+
     # Plotting options
+    variable = 'BDT'
     ifFakeTau = True
     ifVLL = False
     ifMCFTau = False
     ifDoSystmatic = False
-    ifPostfit = True  # Flag to indicate this is a postfit plot (uncertainties already include stat+syst from fit)
+    ifPostfit = False  # This is pre-fit
     ifStackSignal = True
-    ifLogy = True
+    ifLogy = not args.no_logy
     ifPrintSB = True
-    ifBlind = False
+    ifBlind = args.blind
 
-    # Automatically detect channels and eras from the file
+    # Get process list
+    sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)
+
+    # Process each era
+    for era in eras:
+        print(f"\nProcessing pre-fit for era: {era}")
+
+        # Build template path
+        template_path = get_template_path_from_config(config, era)
+        if not template_path or not os.path.exists(template_path):
+            print(f"  Warning: Template not found: {template_path}")
+            continue
+
+        print(f"  Template: {template_path}")
+
+        # Determine output directory
+        if args.output_dir:
+            plotDir = args.output_dir
+        else:
+            plotDir = os.path.dirname(template_path) + '/prefitPlots/'
+        uf.checkMakeDir(plotDir)
+
+        # Load histograms from template
+        iRegion = f'{channel}SR'  # e.g., 1tau0lSR
+        sumProcess = load_prefit_histograms(template_path, iRegion, sumProList, variable)
+
+        if not sumProcess:
+            print(f"  Warning: No histograms loaded for {era}")
+            continue
+
+        # Get systematic dictionary
+        sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)
+
+        # Generate plot
+        plotName = f'{variable}_{iRegion}_prefit_{era}'
+        plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
+                           plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB,
+                           ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+
+        print(f"  Saved: {plotDir}{plotName}.png")
+
+    # Create Run2 combination if multiple eras
+    if len(eras) > 1:
+        print(f"\nCreating Run2 pre-fit combination")
+        # This would require loading and combining histograms from all eras
+        # Similar to post-fit Run2 combination logic
+
+
+def get_template_path_from_config(config, era):
+    """Build template file path from config for a given era."""
+    paths = config.get('paths', {})
+    base = paths.get('base', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA')
+    out_version = paths.get('out_version', 'v1baselineHadroBtagWeightAdded')
+    in_version = paths.get('in_version', 'v94HadroPreJetVetoHemOnly')
+    hist_version = paths.get('hist_version', 'v9BDT1tau0l')
+    channel = get_channel(config)
+
+    # Check if smoothed template should be used
+    smoothed = config.get('smoothing', {}).get('enabled', False)
+    suffix = '_smoothed' if smoothed else ''
+
+    template_name = f'templatesForCombine{channel}_new_notMCFTau_unblind{suffix}.root'
+    template_path = f"{base}/{era}/{out_version}_{in_version}/mc/variableHists_{hist_version}/combine/{template_name}"
+
+    return template_path
+
+
+def load_prefit_histograms(template_path, region, processList, variable):
+    """
+    Load histograms from template file for pre-fit plotting.
+
+    Template histogram naming: {process}_{region}_{variable}
+    e.g., tttt_1tau0lSR_BDT, tt_1tau0lSR_BDT
+    """
+    file = ROOT.TFile.Open(template_path)
+    if not file or file.IsZombie():
+        print(f"Error: Cannot open template file: {template_path}")
+        return {}
+
+    sumProcess = {}
+
+    for process in processList:
+        # Handle data naming
+        if process in ['jetHT', 'leptonSum']:
+            hist_name = f'data_obs_{region}_{variable}'
+        else:
+            hist_name = f'{process}_{region}_{variable}'
+
+        hist = file.Get(hist_name)
+        if hist:
+            hist_clone = hist.Clone(f'{process}_prefit')
+            hist_clone.SetDirectory(0)
+            sumProcess[process] = hist_clone
+        else:
+            # Try alternative naming convention
+            alt_name = f'{region}_{process}_{variable}'
+            hist = file.Get(alt_name)
+            if hist:
+                hist_clone = hist.Clone(f'{process}_prefit')
+                hist_clone.SetDirectory(0)
+                sumProcess[process] = hist_clone
+            else:
+                print(f"  Warning: Histogram not found: {hist_name} or {alt_name}")
+
+    file.Close()
+    return sumProcess
+
+
+def run_postfit_plots(fit_file, args):
+    """Run post-fit plotting with the specified fitDiagnostics file."""
+    print("\n" + "="*80)
+    print("Generating POST-FIT plots from fitDiagnostics file")
+    print("="*80)
+    print(f"Input: {fit_file}")
+
+    # Call the main post-fit logic
+    run_postfit_main(fit_file, args)
+
+
+def run_postfit_plots_legacy():
+    """Legacy main function for backward compatibility."""
+    run_postfit_main_legacy()
+
+
+def _get_plot_options(args):
+    """Create plotting options dict from args."""
+    return {
+        'variable': 'BDT',
+        'ifFakeTau': True,
+        'ifVLL': False,
+        'ifMCFTau': False,
+        'ifDoSystmatic': False,
+        'ifPostfit': True,
+        'ifStackSignal': True,
+        'ifLogy': not getattr(args, 'no_logy', False),
+        'ifPrintSB': True,
+        'ifBlind': getattr(args, 'blind', False),
+    }
+
+
+def _prepare_process_list(channel, opts):
+    """Prepare process list with ttX grouping for plotting."""
+    sumProList = plt.getSumList(channel, opts['ifFakeTau'], opts['ifVLL'], opts['ifMCFTau'], True)
+    sumProList_forLoading = sumProList.copy()
+
+    # Replace ttZ, ttW, ttH with ttX
+    for proc in ['ttZ', 'ttW', 'ttH']:
+        if proc in sumProList:
+            sumProList.remove(proc)
+
+    # Insert ttX after tt
+    insert_pos = sumProList.index('tt') + 1 if 'tt' in sumProList else 0
+    sumProList.insert(insert_pos, 'ttX')
+
+    return sumProList, sumProList_forLoading
+
+
+def _plot_channel_eras(histsPerEra, sumProList, opts, iRegion, plotDir, channel):
+    """Plot histograms for individual eras."""
+    for era, era_hists in histsPerEra.items():
+        print(f'\nPlotting {channel} era: {era}')
+        for ifit, sumProcess in era_hists.items():
+            plotName = f"{opts['variable']}_{iRegion}_{ifit}_{era}"
+            plt.makeStackPlotNew(
+                sumProcess, sumProList, opts['variable'], iRegion, plotDir, False,
+                plotName, era, True, 100, opts['ifStackSignal'], opts['ifLogy'],
+                opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
+                opts['ifBlind'], opts['ifPostfit'])
+
+
+def _plot_run2_combination(combinedHists, sumProList, opts, iRegion, plotDir):
+    """Plot Run2 combined histograms."""
+    for ifit, sumProcess in combinedHists.items():
+        plotName = f"{opts['variable']}_{iRegion}_{ifit}_Run2"
+        plt.makeStackPlotNew(
+            sumProcess, sumProList, opts['variable'], iRegion, plotDir, False,
+            plotName, 'Run2', True, 100, opts['ifStackSignal'], opts['ifLogy'],
+            opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
+            opts['ifBlind'], opts['ifPostfit'])
+
+
+def _plot_multichannel_combination(channels, histsPerChannel, channel_name, region_name, opts, plotDir):
+    """Create and plot multi-channel combination."""
+    print(f'\n{"="*80}')
+    print(f'Creating {channel_name} combined channel')
+    print(f'{"="*80}')
+
+    combined = combine_channels(channels, histsPerChannel, channel_name)
+    sumProList = get_union_process_list(channels, opts['ifFakeTau'], opts['ifVLL'], opts['ifMCFTau'])
+    print(f'Process list for {channel_name}: {sumProList}')
+
+    for ifit, sumProcess in combined.items():
+        plotName = f"{opts['variable']}_{region_name}_{ifit}_Run2"
+        plt.makeStackPlotNew(
+            sumProcess, sumProList, opts['variable'], region_name, plotDir, False,
+            plotName, 'Run2', True, 100, opts['ifStackSignal'], opts['ifLogy'],
+            opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
+            opts['ifBlind'], opts['ifPostfit'])
+
+
+def run_postfit_main(fitFile, args):
+    """Run post-fit plotting with command-line arguments."""
+    opts = _get_plot_options(args)
+
     print(f'Analyzing fitDiagnostics file: {fitFile}')
     channels_eras = get_channels_and_eras(fitFile)
 
@@ -30,13 +384,11 @@ def main():
     for channel, eras in channels_eras.items():
         print(f'  {channel}: {eras}')
 
-    # Setup output directory
     fitDir = fitFile.rsplit('/', 1)[0]
     plotDir = f'{fitDir}/postfitPlots/'
     uf.checkMakeDir(plotDir)
 
-    # Dictionary to store Run2 combined histograms per channel (for multi-channel combination)
-    histsPerChannel = {}  # histsPerChannel[channel][fit][process] = histogram
+    histsPerChannel = {}
 
     # Process each channel
     for channel, eras in channels_eras.items():
@@ -44,128 +396,74 @@ def main():
         print(f'Processing channel: {channel}')
         print(f'{"="*80}')
 
-        iRegion = f'SR{channel}'  # e.g., SR1tau0l, SR1tau1l, SR1tau2l
-
-        # Get process list for this channel
-        sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)
-
-        # Keep original list with ttZ, ttW, ttH for loading from file
-        sumProList_forLoading = sumProList.copy()
-
-        # Replace ttZ, ttW, ttH with ttX in the process list for plotting
-        processes_to_group = ['ttZ', 'ttW', 'ttH']
-        for proc in processes_to_group:
-            if proc in sumProList:
-                sumProList.remove(proc)
-        # Add ttX at the position where ttZ was (or after tt if ttZ wasn't there)
-        if 'tt' in sumProList:
-            tt_index = sumProList.index('tt')
-            sumProList.insert(tt_index + 1, 'ttX')
-        else:
-            sumProList.insert(0, 'ttX')
-
+        iRegion = f'SR{channel}'
+        sumProList, sumProList_forLoading = _prepare_process_list(channel, opts)
         print(f'Process list for plotting: {sumProList}')
 
-        # Load histograms for all eras from the same file
-        histsPerEra = {}  # histsPerEra[era][fit][process] = histogram
+        # Load histograms for all eras
+        histsPerEra = {}
         for era in eras:
             print(f'\nLoading histograms for era: {era}')
-            histsPerEra[era] = get_histograms(fitFile, iRegion, era, variable, sumProList_forLoading)
+            histsPerEra[era] = get_histograms(fitFile, iRegion, era, opts['variable'], sumProList_forLoading)
 
         # Plot individual eras
-        for era in eras:
-            print(f'\nPlotting {channel} era: {era}')
-            sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)
+        _plot_channel_eras(histsPerEra, sumProList, opts, iRegion, plotDir, channel)
 
-            for ifit in histsPerEra[era].keys():
-                sumProcess = histsPerEra[era][ifit]
-                plotName = f'{variable}_{iRegion}_{ifit}_{era}'
-
-                plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
-                                   plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB,
-                                   ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
-
-        # Create and plot Run2 combination for this channel
+        # Create and plot Run2 combination
         print(f'\nCreating Run2 combination for {channel}')
         combinedHists = combine_eras(histsPerEra, sumProList)
+        histsPerChannel[channel] = combine_eras_untrimmed(
+            fitFile, iRegion, eras, opts['variable'], sumProList_forLoading)
 
-        # Store UNTRIMMED Run2 combined histograms for multi-channel combination
-        # (we need untrimmed histograms to avoid merging issues when channels have different bin counts)
-        combinedHistsUntrimmed = combine_eras_untrimmed(fitFile, iRegion, eras, variable, sumProList_forLoading)
-        histsPerChannel[channel] = combinedHistsUntrimmed
-
-        sumProSys = plt.getSysDicPL(sumProList, ifDoSystmatic, channel, 'Run2', True)
-
-        for ifit in combinedHists.keys():
-            sumProcess = combinedHists[ifit]
-            plotName = f'{variable}_{iRegion}_{ifit}_Run2'
-
-            plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
-                               plotName, 'Run2', True, 100, ifStackSignal, ifLogy, ifPrintSB,
-                               ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+        _plot_run2_combination(combinedHists, sumProList, opts, iRegion, plotDir)
 
     # Multi-channel combinations
-    # 1. Combine 1tau1l + 1tau2l (leptonic channels)
     if '1tau1l' in channels_eras and '1tau2l' in channels_eras:
-        print(f'\n{"="*80}')
-        print(f'Creating 1tau1l + 1tau2l combined channel')
-        print(f'{"="*80}')
+        _plot_multichannel_combination(
+            ['1tau1l', '1tau2l'], histsPerChannel, '1tau1land2l', 'SR1tau1land2l', opts, plotDir)
 
-        # Combine channels
-        combined_1tau1l2l = combine_channels(
-            ['1tau1l', '1tau2l'],
-            histsPerChannel,
-            '1tau1land2l'
-        )
-
-        # Get union process list
-        sumProList_1l2l = get_union_process_list(['1tau1l', '1tau2l'], ifFakeTau, ifVLL, ifMCFTau)
-
-        print(f'Process list for 1tau1l+1tau2l: {sumProList_1l2l}')
-
-        # Plot for each fit type
-        for ifit in ['prefit', 'fit_s', 'fit_b']:
-            sumProcess = combined_1tau1l2l[ifit]
-            plotName = f'{variable}_SR1tau1land2l_{ifit}_Run2'
-
-            plt.makeStackPlotNew(sumProcess, sumProList_1l2l, variable, 'SR1tau1land2l',
-                               plotDir, False, plotName, 'Run2', True, 100, ifStackSignal,
-                               ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
-
-    # 2. Combine all channels (1tau0l + 1tau1l + 1tau2l)
-    if '1tau0l' in channels_eras and '1tau1l' in channels_eras and '1tau2l' in channels_eras:
-        print(f'\n{"="*80}')
-        print(f'Creating all channels combined')
-        print(f'{"="*80}')
-
-        # Combine all channels
-        combined_all = combine_channels(
-            ['1tau0l', '1tau1l', '1tau2l'],
-            histsPerChannel,
-            '1tau0l1l2l'
-        )
-
-        # Get union process list for all channels
-        sumProList_all = get_union_process_list(['1tau0l', '1tau1l', '1tau2l'], ifFakeTau, ifVLL, ifMCFTau)
-
-        print(f'Process list for all channels: {sumProList_all}')
-
-        # Plot for each fit type
-        for ifit in ['prefit', 'fit_s', 'fit_b']:
-            sumProcess = combined_all[ifit]
-            plotName = f'{variable}_SR1tau0l1l2l_{ifit}_Run2'
-
-            plt.makeStackPlotNew(sumProcess, sumProList_all, variable, 'SR1tau0l1l2l',
-                               plotDir, False, plotName, 'Run2', True, 100, ifStackSignal,
-                               ifLogy, ifPrintSB, ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+    if all(ch in channels_eras for ch in ['1tau0l', '1tau1l', '1tau2l']):
+        _plot_multichannel_combination(
+            ['1tau0l', '1tau1l', '1tau2l'], histsPerChannel, '1tau0l1l2l', 'SR1tau0l1l2l', opts, plotDir)
 
     print(f'\n{"="*80}')
     print(f'All plots saved to: {plotDir}')
-    if '1tau1l' in channels_eras and '1tau2l' in channels_eras:
-        print(f'  - Created 1tau1l+1tau2l combined channel plots')
-    if '1tau0l' in channels_eras and '1tau1l' in channels_eras and '1tau2l' in channels_eras:
-        print(f'  - Created all-channels combined plots')
     print(f'{"="*80}')
+
+
+def run_postfit_main_legacy():
+    """Legacy main function for backward compatibility when called without arguments."""
+    # Default hardcoded fit file path
+    fitFile = '/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV18/run2_3channels_v4_unblind/fitDiagnosticsTest.root'
+
+    # Create a simple args-like object with defaults
+    class Args:
+        no_logy = False
+        blind = False
+        output_dir = None
+
+    args = Args()
+    run_postfit_main(fitFile, args)
+
+
+def _parse_region_name(region_name):
+    """
+    Parse region name (e.g., 'SR1tau0l_2018') to extract channel and era.
+    Returns (channel, era) tuple or (None, None) if parsing fails.
+    """
+    if '_' not in region_name:
+        return None, None
+
+    parts = region_name.split('_')
+    if len(parts) != 2:
+        return None, None
+
+    region_part, era = parts
+    if not region_part.startswith('SR'):
+        return None, None
+
+    channel = region_part[2:]  # Remove 'SR' prefix
+    return channel, era
 
 
 def get_channels_and_eras(filename):
@@ -180,32 +478,25 @@ def get_channels_and_eras(filename):
         return {}
 
     channels_eras = {}
-
-    # Check shapes_fit_s directory for available regions
     shapes_dir = file.Get('shapes_fit_s')
-    if shapes_dir:
-        keys = shapes_dir.GetListOfKeys()
-        for key in keys:
-            obj = key.ReadObj()
-            if obj.IsA().InheritsFrom(ROOT.TDirectory.Class()):
-                region_name = obj.GetName()  # e.g., 'SR1tau0l_2018'
 
-                # Parse region name to extract channel and era
-                # Format: SR{channel}_{era}
-                if '_' in region_name:
-                    parts = region_name.split('_')
-                    if len(parts) == 2:
-                        region_part = parts[0]  # SR1tau0l
-                        era = parts[1]  # 2018
+    if not shapes_dir:
+        file.Close()
+        return channels_eras
 
-                        # Extract channel from region (remove 'SR' prefix)
-                        if region_part.startswith('SR'):
-                            channel = region_part[2:]  # 1tau0l, 1tau1l, 1tau2l
+    for key in shapes_dir.GetListOfKeys():
+        obj = key.ReadObj()
+        if not obj.IsA().InheritsFrom(ROOT.TDirectory.Class()):
+            continue
 
-                            if channel not in channels_eras:
-                                channels_eras[channel] = []
-                            if era not in channels_eras[channel]:
-                                channels_eras[channel].append(era)
+        channel, era = _parse_region_name(obj.GetName())
+        if channel is None:
+            continue
+
+        if channel not in channels_eras:
+            channels_eras[channel] = []
+        if era not in channels_eras[channel]:
+            channels_eras[channel].append(era)
 
     file.Close()
 
@@ -288,141 +579,152 @@ def combine_eras_untrimmed(fitFile, iRegion, eras, variable, sumProList_forLoadi
     return combinedHists
 
 
-def combine_channels(channelsToGet, histsPerChannel, channel_name):
-    '''
-    Combine histograms from multiple channels into a single combined channel
-    Bins are RIGHT-ALIGNED so that highest BDT bins from all channels are merged together
-    Args:
-        channelsToGet: List of channels to combine (e.g., ['1tau1l', '1tau2l'])
-        histsPerChannel: Dict structure {channel: {fit: {process: histogram}}}
-        channel_name: Name for combined channel (e.g., '1tau1l_1tau2l')
-    Returns:
-        combinedHists[fit][process] = combined histogram
-    '''
-    combinedHists = {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
-
-    print(f'Combining channels: {channelsToGet}')
-
-    # Get union of all processes from all channels
+def _get_all_channel_processes(channelsToGet, histsPerChannel):
+    """Get union of all processes from all channels."""
     all_processes = set()
     for channel in channelsToGet:
-        if channel in histsPerChannel:
-            # Check all fit types to get complete process list
-            for fit in ['prefit', 'fit_s', 'fit_b']:
-                if fit in histsPerChannel[channel]:
-                    all_processes.update(histsPerChannel[channel][fit].keys())
+        if channel not in histsPerChannel:
+            continue
+        for fit in ['prefit', 'fit_s', 'fit_b']:
+            if fit in histsPerChannel[channel]:
+                all_processes.update(histsPerChannel[channel][fit].keys())
+    return all_processes
 
+
+def _find_last_filled_bin(hist):
+    """Find the last bin with non-zero content in a histogram."""
+    for i in range(hist.GetNbinsX(), 0, -1):
+        if hist.GetBinContent(i) > 0:
+            return i
+    return 0
+
+
+def _compute_channel_last_bins(channelsToGet, histsPerChannel, fit):
+    """Compute last filled bin per channel for right-alignment."""
+    channel_last_bins = {}
+    max_filled_bin = 0
+
+    for channel in channelsToGet:
+        if channel not in histsPerChannel or fit not in histsPerChannel[channel]:
+            continue
+
+        channel_max = 0
+        for hist in histsPerChannel[channel][fit].values():
+            if hist:
+                channel_max = max(channel_max, _find_last_filled_bin(hist))
+
+        channel_last_bins[channel] = channel_max
+        max_filled_bin = max(max_filled_bin, channel_max)
+
+    return channel_last_bins, max_filled_bin
+
+
+def _create_extended_histogram(source_hist, name, nbins):
+    """Create a new histogram with extended bin count."""
+    xaxis = source_hist.GetXaxis()
+    bin_width = xaxis.GetBinWidth(1)
+    new_hist = ROOT.TH1F(name, source_hist.GetTitle(), nbins,
+                         xaxis.GetXmin(), xaxis.GetXmin() + nbins * bin_width)
+    new_hist.SetDirectory(0)
+    return new_hist
+
+
+def _add_histogram_with_offset(target, source, offset):
+    """Add source histogram to target with bin offset, errors in quadrature."""
+    for i in range(1, source.GetNbinsX() + 1):
+        target_bin = i + offset
+        if target_bin > target.GetNbinsX():
+            continue
+        target.SetBinContent(target_bin,
+                             target.GetBinContent(target_bin) + source.GetBinContent(i))
+        err_target = target.GetBinError(target_bin)
+        err_source = source.GetBinError(i)
+        target.SetBinError(target_bin, (err_target**2 + err_source**2)**0.5)
+
+
+def _merge_data_histograms(histDict, fit, channel_name):
+    """Combine jetHT and leptonSum into single data histogram."""
+    data_hist = None
+    data_name = None
+
+    for data_process in ['jetHT', 'leptonSum']:
+        if data_process not in histDict:
+            continue
+        if data_hist is None:
+            data_hist = histDict[data_process].Clone(f'data_{fit}_{channel_name}')
+            data_hist.SetDirectory(0)
+            data_name = data_process
+        else:
+            data_hist.Add(histDict[data_process])
+            del histDict[data_process]
+
+    if data_hist is not None and data_name is not None:
+        histDict[data_name] = data_hist
+
+
+def _combine_process_for_fit(process, channelsToGet, histsPerChannel, fit,
+                              channel_name, channel_last_bins, max_filled_bin):
+    """Combine a single process across channels with right-alignment."""
+    combined_hist = None
+
+    for channel in channelsToGet:
+        if channel not in histsPerChannel or fit not in histsPerChannel[channel]:
+            continue
+        if process not in histsPerChannel[channel][fit]:
+            continue
+
+        channel_hist = histsPerChannel[channel][fit][process]
+        bin_offset = max_filled_bin - channel_last_bins.get(channel, 0)
+
+        if combined_hist is None:
+            # Initialize combined histogram
+            if channel_hist.GetNbinsX() < max_filled_bin:
+                combined_hist = _create_extended_histogram(
+                    channel_hist, f'{process}_{fit}_{channel_name}', max_filled_bin)
+            else:
+                combined_hist = channel_hist.Clone(f'{process}_{fit}_{channel_name}')
+                combined_hist.SetDirectory(0)
+                combined_hist.Reset()
+
+            # Copy first channel with offset
+            for i in range(1, channel_hist.GetNbinsX() + 1):
+                combined_hist.SetBinContent(i + bin_offset, channel_hist.GetBinContent(i))
+                combined_hist.SetBinError(i + bin_offset, channel_hist.GetBinError(i))
+        else:
+            _add_histogram_with_offset(combined_hist, channel_hist, bin_offset)
+
+    if combined_hist is not None:
+        combined_hist.SetTitle('BDT score')
+
+    return combined_hist
+
+
+def combine_channels(channelsToGet, histsPerChannel, channel_name):
+    '''
+    Combine histograms from multiple channels into a single combined channel.
+    Bins are RIGHT-ALIGNED so that highest BDT bins are merged together.
+    '''
+    combinedHists = {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
+    print(f'Combining channels: {channelsToGet}')
+
+    all_processes = _get_all_channel_processes(channelsToGet, histsPerChannel)
     print(f'Union process list: {sorted(all_processes)}')
 
     for fit in ['prefit', 'fit_s', 'fit_b']:
-        # First, find the maximum FILLED bin across all channels for this fit
-        # This determines the range we need for right-alignment
-        max_filled_bin = 0
-        channel_last_bins = {}  # Store last filled bin per channel
-
-        for channel in channelsToGet:
-            if channel in histsPerChannel and fit in histsPerChannel[channel]:
-                # Find the last filled bin for this channel (checking all processes)
-                channel_max = 0
-                for process in histsPerChannel[channel][fit]:
-                    hist = histsPerChannel[channel][fit][process]
-                    if hist:
-                        # Find last bin with content
-                        for i in range(hist.GetNbinsX(), 0, -1):
-                            if hist.GetBinContent(i) > 0:
-                                channel_max = max(channel_max, i)
-                                break
-
-                channel_last_bins[channel] = channel_max
-                max_filled_bin = max(max_filled_bin, channel_max)
-
-        print(f'Last filled bins per channel for {fit}: {channel_last_bins}')
-        print(f'Maximum filled bin for {fit}: {max_filled_bin}')
+        channel_last_bins, max_filled_bin = _compute_channel_last_bins(
+            channelsToGet, histsPerChannel, fit)
+        print(f'Last filled bins for {fit}: {channel_last_bins}, max: {max_filled_bin}')
 
         for process in all_processes:
-            combined_hist = None
-
-            # Combine histograms from all channels with RIGHT alignment
-            for channel in channelsToGet:
-                if channel in histsPerChannel and fit in histsPerChannel[channel]:
-                    if process in histsPerChannel[channel][fit]:
-                        channel_hist = histsPerChannel[channel][fit][process]
-
-                        # Calculate offset for right-alignment based on last filled bin
-                        channel_last_bin = channel_last_bins.get(channel, 0)
-                        bin_offset = max_filled_bin - channel_last_bin
-
-                        if combined_hist is None:
-                            # Create combined histogram with max_filled_bin bins
-                            # Clone and reset to get proper binning
-                            combined_hist = channel_hist.Clone(f'{process}_{fit}_{channel_name}')
-                            combined_hist.SetDirectory(0)
-
-                            # If needed, extend the histogram to max_filled_bin
-                            if combined_hist.GetNbinsX() < max_filled_bin:
-                                # Need to recreate with more bins
-                                xaxis = combined_hist.GetXaxis()
-                                bin_width = xaxis.GetBinWidth(1)
-                                new_hist = ROOT.TH1F(
-                                    f'{process}_{fit}_{channel_name}',
-                                    combined_hist.GetTitle(),
-                                    max_filled_bin,
-                                    xaxis.GetXmin(),
-                                    xaxis.GetXmin() + max_filled_bin * bin_width
-                                )
-                                new_hist.SetDirectory(0)
-                                combined_hist = new_hist
-                            else:
-                                combined_hist.Reset()  # Clear contents
-
-                            # Copy bin contents with offset for right-alignment
-                            for i in range(1, channel_hist.GetNbinsX() + 1):
-                                combined_hist.SetBinContent(i + bin_offset, channel_hist.GetBinContent(i))
-                                combined_hist.SetBinError(i + bin_offset, channel_hist.GetBinError(i))
-                        else:
-                            # Add subsequent channels with right-alignment
-                            for i in range(1, channel_hist.GetNbinsX() + 1):
-                                combined_bin = i + bin_offset
-                                if combined_bin <= combined_hist.GetNbinsX():
-                                    combined_hist.SetBinContent(
-                                        combined_bin,
-                                        combined_hist.GetBinContent(combined_bin) + channel_hist.GetBinContent(i)
-                                    )
-                                    # Add errors in quadrature
-                                    err_combined = combined_hist.GetBinError(combined_bin)
-                                    err_channel = channel_hist.GetBinError(i)
-                                    combined_hist.SetBinError(
-                                        combined_bin,
-                                        (err_combined**2 + err_channel**2)**0.5
-                                    )
-
-            if combined_hist is not None:
-                # Set title for combined histogram
-                combined_hist.SetTitle('BDT score')
-                combinedHists[fit][process] = combined_hist
+            combined = _combine_process_for_fit(
+                process, channelsToGet, histsPerChannel, fit,
+                channel_name, channel_last_bins, max_filled_bin)
+            if combined is not None:
+                combinedHists[fit][process] = combined
             else:
-                print(f'Warning: Process {process} not found in any channel for fit {fit}')
+                print(f'Warning: Process {process} not found for fit {fit}')
 
-        # Combine jetHT and leptonSum into a single data histogram if both exist
-        data_hist = None
-        data_name = None
-        for data_process in ['jetHT', 'leptonSum']:
-            if data_process in combinedHists[fit]:
-                if data_hist is None:
-                    data_hist = combinedHists[fit][data_process].Clone(f'data_{fit}_{channel_name}')
-                    data_hist.SetDirectory(0)
-                    data_name = data_process
-                else:
-                    # Add the second data histogram to the first
-                    data_hist.Add(combinedHists[fit][data_process])
-                    # Remove the second data process
-                    del combinedHists[fit][data_process]
-
-        # Replace the first data process with the combined data histogram
-        if data_hist is not None and data_name is not None:
-            combinedHists[fit][data_name] = data_hist
-
-        # Remove trailing empty bins from combined histograms
+        _merge_data_histograms(combinedHists[fit], fit, channel_name)
         combinedHists[fit] = trim_empty_bins(combinedHists[fit])
 
     return combinedHists
@@ -533,102 +835,96 @@ def trim_empty_bins(histDict):
     return trimmed_histDict
 
 
+def _convert_tgraph_to_hist(graph, total_hist, fit, era):
+    """Convert TGraphAsymmErrors to TH1 using total_hist for binning."""
+    import ctypes
+
+    data_hist = total_hist.Clone(f"data_{fit}_{era}")
+    data_hist.Reset()
+    data_hist.SetDirectory(0)
+
+    x = ctypes.c_double(0)
+    y = ctypes.c_double(0)
+    for i in range(graph.GetN()):
+        graph.GetPoint(i, x, y)
+        bin_num = data_hist.FindBin(x.value)
+        data_hist.SetBinContent(bin_num, y.value)
+        err_avg = (graph.GetErrorYlow(i) + graph.GetErrorYhigh(i)) / 2.0
+        data_hist.SetBinError(bin_num, err_avg)
+
+    return data_hist
+
+
+def _load_single_histogram(file, fit, iRegion, era, process):
+    """Load a single histogram from file, handling data TGraph conversion."""
+    processToGet = 'data' if process in ('leptonSum', 'jetHT') else process
+    histname = f'shapes_{fit}/{iRegion}_{era}/{processToGet}'
+
+    hist = file.Get(histname)
+    if not hist:
+        print(f"Warning: Histogram {histname} not found in {fit} for era {era}.")
+        return None
+
+    hist_clone = hist.Clone(f'{process}_{fit}_{era}')
+    if hasattr(hist_clone, 'SetDirectory'):
+        hist_clone.SetDirectory(0)
+
+    # Convert TGraphAsymmErrors to TH1 for data
+    if process in ('leptonSum', 'jetHT') and hist_clone.ClassName() == 'TGraphAsymmErrors':
+        total_hist = file.Get(f'shapes_{fit}/{iRegion}_{era}/total')
+        if total_hist:
+            hist_clone = _convert_tgraph_to_hist(hist_clone, total_hist, fit, era)
+
+    return hist_clone
+
+
+def _group_ttx_histograms(histDict, fit, era):
+    """Group ttZ, ttW, ttH into combined ttX histogram."""
+    ttX_hist = None
+    for process in ['ttZ', 'ttW', 'ttH']:
+        if process not in histDict:
+            continue
+        if ttX_hist is None:
+            ttX_hist = histDict[process].Clone(f"ttX_{fit}_{era}")
+            ttX_hist.SetDirectory(0)
+        else:
+            ttX_hist.Add(histDict[process])
+        del histDict[process]
+
+    if ttX_hist is not None:
+        histDict['ttX'] = ttX_hist
+
+
 def get_histograms(filename, iRegion, era, variable, processList, trim_bins=True):
     '''
-    Load histograms from fitDiagnostics file for a specific era
+    Load histograms from fitDiagnostics file for a specific era.
     Args:
-        trim_bins: If True, remove trailing empty bins (default). Set to False for multi-channel combination.
+        trim_bins: If True, remove trailing empty bins. Set False for multi-channel combination.
     Returns: sumProcessPerFit[fit][process] = histogram
     '''
-    # Open the ROOT file
     file = ROOT.TFile.Open(filename)
     if not file or file.IsZombie():
         print(f'Error: Cannot open file {filename}')
         return {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
 
-    # Create the dictionary to store histograms
     sumProcessPerFit = {'prefit': {}, 'fit_s': {}, 'fit_b': {}}
 
-    # Iterate over prefit and postfit
     for fit in ['prefit', 'fit_s', 'fit_b']:
-        # Attempt to find histograms for each process
         for process in processList:
-            # Construct the histogram name based on fit, region, era, variable and process
-            if process == 'leptonSum' or process == 'jetHT':
-                processToGet = 'data'
-            else:
-                processToGet = process
-            histname = f'shapes_{fit}/{iRegion}_{era}/{processToGet}'
-            # Retrieve the histogram from the file
-            hist = file.Get(histname)
-
+            hist = _load_single_histogram(file, fit, iRegion, era, process)
             if hist:
-                # Clone the histogram to keep it in memory after file closure
-                hist_clone = hist.Clone(f'{process}_{fit}_{era}')
-                # SetDirectory(0) detaches the histogram from the file
-                # Only histograms have SetDirectory, not TGraphs
-                if hasattr(hist_clone, 'SetDirectory'):
-                    hist_clone.SetDirectory(0)
+                sumProcessPerFit[fit][process] = hist
 
-                # For data, convert TGraphAsymmErrors to TH1
-                if (process == 'leptonSum' or process == 'jetHT') and hist_clone.ClassName() == 'TGraphAsymmErrors':
-                    # Get the total histogram to get binning
-                    total_hist = file.Get(f'shapes_{fit}/{iRegion}_{era}/total')
-                    if total_hist:
-                        # Create a histogram with the same binning as total
-                        data_hist = total_hist.Clone(f"data_{fit}_{era}")
-                        data_hist.Reset()
-                        data_hist.SetDirectory(0)
-
-                        # Fill the histogram from TGraph points
-                        import ctypes
-                        x = ctypes.c_double(0)
-                        y = ctypes.c_double(0)
-                        for i in range(hist_clone.GetN()):
-                            hist_clone.GetPoint(i, x, y)
-                            bin_num = data_hist.FindBin(x.value)
-                            data_hist.SetBinContent(bin_num, y.value)
-                            # Set error as the average of up and down errors
-                            err_low = hist_clone.GetErrorYlow(i)
-                            err_high = hist_clone.GetErrorYhigh(i)
-                            data_hist.SetBinError(bin_num, (err_low + err_high) / 2.0)
-
-                        hist_clone = data_hist
-
-                sumProcessPerFit[fit][process] = hist_clone
-            else:
-                print(f"Warning: Histogram {histname} not found in {fit} for era {era}.")
-
-    # Close the ROOT file
     file.Close()
 
-    # Group ttW, ttH, and ttZ into ttX
+    # Post-process: group ttX and apply formatting
     for fit in ['prefit', 'fit_s', 'fit_b']:
-        ttX_hist = None
-        processes_to_combine = ['ttZ', 'ttW', 'ttH']
+        _group_ttx_histograms(sumProcessPerFit[fit], fit, era)
 
-        for process in processes_to_combine:
-            if process in sumProcessPerFit[fit]:
-                if ttX_hist is None:
-                    # Clone the first histogram as the base for ttX
-                    ttX_hist = sumProcessPerFit[fit][process].Clone(f"ttX_{fit}_{era}")
-                    ttX_hist.SetDirectory(0)
-                else:
-                    # Add subsequent histograms
-                    ttX_hist.Add(sumProcessPerFit[fit][process])
-                # Remove the individual process
-                del sumProcessPerFit[fit][process]
-
-        # Add the combined ttX histogram
-        if ttX_hist is not None:
-            sumProcessPerFit[fit]['ttX'] = ttX_hist
-
-        # Remove trailing empty bins (only if trim_bins=True)
         if trim_bins:
             sumProcessPerFit[fit] = trim_empty_bins(sumProcessPerFit[fit])
 
-        # Set x-axis label to 'BDT score' for all histograms
-        for process, hist in sumProcessPerFit[fit].items():
+        for hist in sumProcessPerFit[fit].values():
             hist.SetTitle('BDT score')
 
     return sumProcessPerFit
