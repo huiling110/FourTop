@@ -326,6 +326,93 @@ See **Stage 4.1.2** for integrated cleanup options with `addJESTemplatesToHistFi
 
 ---
 
+### 4.0 Automated Workflow (Recommended)
+
+**NEW**: A workflow automation system is now available. Instead of manually editing paths in each script, use the centralized YAML configuration and master workflow script.
+
+#### Configuration Setup
+
+**Config file**: `config/analysis_config.yaml`
+
+Edit this file to set your analysis version:
+```yaml
+paths:
+  base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
+  out_version: "v1baselineHadroBtagWeightAdded"
+  in_version: "v94HadroPreJetVetoHemOnly"
+  hist_version: "v9BDT1tau0l_CMSNamingComplete"
+  datacard_version: "v6AllSys_unblind_CMSnaming"
+
+channel:
+  name: "1tau0l"
+
+eras:
+  - "2018"
+  - "2017"
+  - "2016preVFP"
+  - "2016postVFP"
+```
+
+#### Running the Full Stage 4 Pipeline
+
+```bash
+# Run all Stage 4 substages for all eras
+source setEnv_newNew.sh
+python3 run_workflow.py --stage 4
+
+# Run specific stage for single era
+python3 run_workflow.py --stage 4.3 --era 2018
+
+# List available stages
+python3 run_workflow.py --list-stages
+
+# Save current config as version snapshot
+python3 run_workflow.py --save-version v9BDT1tau0l_final
+```
+
+#### Available Stages
+
+| Stage | Script | Description |
+|-------|--------|-------------|
+| 4.1 | addJESTemplatesToHistFile.py | Consolidate shape systematics |
+| 4.2 | addTemplateNew.py | Create template ROOT files |
+| 4.2.5 | smooth_systematics_fourTops.py | Smooth problematic systematics |
+| 4.3 | writeDatacard.py | Generate combine datacards |
+| 4.4 | writeCombinationDatacard.py | Combine era datacards (requires cmsenv) |
+
+#### Running Individual Scripts with Config
+
+All plotting scripts now support `--config` flag for config-based path building:
+
+```bash
+# Stage 4.1
+python3 plotting/addJESTemplatesToHistFile.py --config config/analysis_config.yaml --era 2018 --quiet
+
+# Stage 4.2
+python3 plotting/addTemplateNew.py --config config/analysis_config.yaml --era 2018 --quiet
+
+# Stage 4.2.5
+python3 plotting/smooth_systematics_fourTops.py --config config/analysis_config.yaml --era 2018 --quiet
+
+# Stage 4.3
+python3 plotting/writeDatacard.py --config config/analysis_config.yaml --era 2018 --smoothed --quiet
+
+# Stage 4.4 (requires cmsenv, not setEnv_newNew.sh)
+cd hua/combine
+cmsenv
+python3 writeCombinationDatacard.py --config ../../config/analysis_config.yaml --quiet
+```
+
+**Benefits**:
+- Single config file for all scripts (no manual path editing)
+- Version snapshots for reproducibility
+- Consistent paths across all stages
+- `--quiet` flag reduces output verbosity
+
+**Note**: Scripts remain backward compatible - they work without `--config` using hardcoded paths.
+
+---
+
 ### 4.1 Consolidate Shape Systematics
 
 **Location**: `plotting/`
@@ -1554,29 +1641,39 @@ Same as above, but:
 6. **No automatic retry**: Failed jobs must be manually resubmitted
 7. **Results collection**: Manual gathering of output from multiple directories
 
-### Future Automation Ideas
+### Automation Status
 
-#### Priority 1: Job Management
+#### ✅ IMPLEMENTED: Workflow Orchestration (Priority 2)
+- **Master script**: `run_workflow.py` - Single command to run Stage 4 workflow
+- **Configuration file**: `config/analysis_config.yaml` - YAML configuration with versioning
+- **Config utilities**: `plotting/workflow_utils.py` - Shared path-building functions
+- **Version snapshots**: `config/versions/` - Save config versions for reproducibility
+
+**Usage**:
+```bash
+python3 run_workflow.py --stage 4                    # Run full Stage 4
+python3 run_workflow.py --stage 4.3 --era 2018      # Single stage/era
+python3 run_workflow.py --save-version v9_final     # Save config snapshot
+```
+
+#### 🔄 REMAINING: Future Automation Ideas
+
+**Priority 1: Job Management**
 - **Automatic job monitoring**: Script that polls job status and reports completion/failures
 - **Automatic retry**: Resubmit failed jobs automatically with exponential backoff
 - **Progress dashboard**: Real-time view of job completion status
 
-#### Priority 2: Workflow Orchestration
-- **Master script**: Single command to run entire workflow from histograms → results
-- **Configuration file**: YAML/JSON file specifying analysis parameters
-- **Dependency tracking**: Automatically determine which stages need re-running
-
-#### Priority 3: Validation & QA
+**Priority 3: Validation & QA**
 - **Automatic validation**: Compare histogram sums with previous versions
 - **Empty histogram check**: Flag any empty histograms before running combine
 - **Systematic coverage check**: Verify all expected systematics are present
 
-#### Priority 4: Parallelization
+**Priority 4: Parallelization**
 - **Multi-year parallel**: Run 2016/2017/2018 simultaneously
 - **Multi-channel parallel**: Run 1tau0l/1tau1l/1tau2l simultaneously
 - **Combine parallelization**: Run multiple combine algorithms in parallel
 
-#### Priority 5: Result Management
+**Priority 5: Result Management**
 - **Automatic archiving**: Store results with metadata (git hash, date, parameters)
 - **Result comparison**: Automatically compare with previous versions
 - **Plotting automation**: Auto-generate all standard plots

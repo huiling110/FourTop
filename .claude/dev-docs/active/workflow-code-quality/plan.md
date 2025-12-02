@@ -67,6 +67,40 @@ FourTop/
 
 ---
 
+## Phase 3: Full Workflow Validation - NOT STARTED
+
+Final validation step to verify the automated workflow produces correct physics results.
+
+### Tasks
+
+- [ ] **3.1**: Run full Stage 4 pipeline with `run_workflow.py --stage 4`
+- [ ] **3.2**: Verify template files created for all 4 eras
+- [ ] **3.3**: Verify datacards generated with correct systematics
+- [ ] **3.4**: Run combine analysis (limits, significance, signal strength)
+- [ ] **3.5**: Generate result plots:
+  - Pre-fit/post-fit distributions
+  - Systematic impact plots
+  - Limit plots
+  - Signal strength measurements
+- [ ] **3.6**: Compare results with previous manual workflow to ensure consistency
+- [ ] **3.7**: Document any discrepancies and resolution
+
+### Validation Checklist
+
+| Check | Status |
+|-------|--------|
+| Templates exist for 2018, 2017, 2016preVFP, 2016postVFP | ⏳ |
+| Datacards contain all expected systematics | ⏳ |
+| Combined Run2 datacard generated | ⏳ |
+| Combine workspace created successfully | ⏳ |
+| Expected limit consistent with previous | ⏳ |
+| Significance consistent with previous | ⏳ |
+| Pre-fit plots show correct distributions | ⏳ |
+| Post-fit plots show good data/MC agreement | ⏳ |
+| Impact plot shows reasonable systematic pulls | ⏳ |
+
+---
+
 ## Final Deliverables
 
 | File | Purpose |

@@ -2,7 +2,7 @@
 
 **Created**: 2025-12-02
 **Last Updated**: 2025-12-02
-**Status**: ALL PHASES COMPLETE ✅
+**Status**: Phases 1-2D Complete, Phase 3 (Full Validation) Pending
 
 ---
 
@@ -68,6 +68,22 @@
 
 ---
 
+## Phase 3: Full Workflow Validation with Results Plots - NOT STARTED
+
+- [ ] Task 3.1: Run full Stage 4 pipeline (`run_workflow.py --stage 4`)
+- [ ] Task 3.2: Verify template files for all 4 eras
+- [ ] Task 3.3: Verify datacards have correct systematics
+- [ ] Task 3.4: Run combine analysis (limits, significance, signal strength)
+- [ ] Task 3.5: Generate and verify result plots:
+  - Pre-fit/post-fit distributions
+  - Systematic impact plots
+  - Limit plots
+  - Signal strength measurements
+- [ ] Task 3.6: Compare results with previous manual workflow
+- [ ] Task 3.7: Document any discrepancies
+
+---
+
 ## Success Criteria
 
 - [x] Config directory structure created
@@ -77,6 +93,7 @@
 - [x] All plotting scripts accept --config flag
 - [x] run_workflow.py executes all stages
 - [x] Full workflow test passes (Stages 4.2-4.4 verified)
+- [ ] Full validation with result plots verified (Phase 3)
 
 ---
 
