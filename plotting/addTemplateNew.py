@@ -4,11 +4,47 @@ import usefulFunc as uf
 import writeDatacard as wd
 import pl as pl
 
+# Import workflow utilities for config-based path building
+try:
+    from workflow_utils import (
+        load_config, build_hist_path, get_channel, get_options
+    )
+    WORKFLOW_UTILS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_UTILS_AVAILABLE = False
+
 
 def main():
     parser = argparse.ArgumentParser(description='Create template ROOT files for CMS Combine')
     parser.add_argument('--quiet', '-q', action='store_true', help='Suppress verbose output')
+    parser.add_argument('--config', '-c', type=str, help='Path to YAML config file')
+    parser.add_argument('--era', '-e', type=str,
+                        choices=['2018', '2017', '2016preVFP', '2016postVFP'],
+                        help='Era to process (required with --config)')
     args = parser.parse_args()
+
+    # Validate arguments
+    if args.config and not args.era:
+        parser.error("--era is required when using --config")
+    if args.config and not WORKFLOW_UTILS_AVAILABLE:
+        parser.error("workflow_utils not available. Install pyyaml or use hardcoded paths.")
+
+    # Config-based path building (new workflow)
+    if args.config:
+        config = load_config(args.config)
+        channel = get_channel(config)
+        options = get_options(config)
+        inputDir = build_hist_path(config, args.era)
+        variables = config.get('channel', {}).get('variables', ['BDT'])
+        regionList = config.get('channel', {}).get('regions', [])
+        ifFakeTau = options.get('ifFakeTau', True)
+        ifMCFTau = options.get('ifMCFTau', False)
+        ifBlind = options.get('ifBlind', False)
+
+        if not args.quiet:
+            print(f"Using config: {args.config}")
+            print(f"Era: {args.era}, Channel: {channel}")
+            print(f"Input dir: {inputDir}")
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
@@ -55,13 +91,14 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/' #!2025-11-24: Done
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Done
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Done
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Running
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Done
-    channel = '1tau0l'
-    variables = ['BDT']
-    regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
-    
-    #1tau2l 
+    if not args.config:
+        inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Running
+        channel = '1tau0l'
+        variables = ['BDT']
+        regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
+
+    # ===== 1tau2l (uncomment and set if not args.config for legacy use) ===== 
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/variableHists_v3BDT1tau2lV14/'
@@ -85,12 +122,12 @@ def main():
     # regionList = ['1tau2lSR', '1tau2lCR3']
     
     
-    ifFakeTau = True
-    # ifMCFTau = False if channel =='1tau0l' else True
-    # ifMCFTau = True #!
-    ifMCFTau = False #!
-    ifBlind = False #!!!
-
+    if not args.config:
+        ifFakeTau = True
+        # ifMCFTau = False if channel =='1tau0l' else True
+        # ifMCFTau = True #!
+        ifMCFTau = False #!
+        ifBlind = False #!!!
 
     era = uf.getEraFromDir(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
