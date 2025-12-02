@@ -115,6 +115,14 @@ Claude should proactively commit changes during work sessions:
 - Before context gets low (~10% remaining)
 - Use descriptive commit messages explaining what was done and why
 
+**IMPORTANT - Test Code Before Committing**:
+Claude MUST test code changes before considering a task complete:
+- Run modified scripts with `--help` or `-h` to verify argparse works
+- Run scripts with new flags (e.g., `--quiet`) to verify they function
+- For Python: check syntax with `python3 -m py_compile script.py`
+- For analysis scripts: run on a small test case if possible
+- Document test results in dev-docs or commit message
+
 ---
 
 ## Project Overview
