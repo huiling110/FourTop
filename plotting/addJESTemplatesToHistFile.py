@@ -302,6 +302,8 @@ Cleanup actions (when --delete-sys-dirs is used):
     parser.add_argument('--era', '-e', type=str,
                         choices=['2018', '2017', '2016preVFP', '2016postVFP'],
                         help='Era to process (required with --config)')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                        help='Suppress non-essential output')
 
     args = parser.parse_args()
 
@@ -315,9 +317,10 @@ Cleanup actions (when --delete-sys-dirs is used):
     if args.config:
         config = load_config(args.config)
         nominalDir = build_hist_path(config, args.era)
-        print(f"Using config: {args.config}")
-        print(f"Era: {args.era}")
-        print(f"Nominal dir: {nominalDir}")
+        if not args.quiet:
+            print(f"Using config: {args.config}")
+            print(f"Era: {args.era}")
+            print(f"Nominal dir: {nominalDir}")
 
     # ===== Legacy hardcoded paths (for backward compatibility) =====
     # !1tau1l
@@ -453,12 +456,13 @@ Cleanup actions (when --delete-sys-dirs is used):
 
     # Cleanup systematic histogram directories if requested
     if args.delete_sys_dirs:
-        print("\n")
+        if not args.quiet:
+            print("\n")
         cleanup_systematic_directories(
             nominal_dir=nominalDir,
             dry_run=not args.execute
         )
-    else:
+    elif not args.quiet:
         print("\n" + "="*80)
         print("Consolidation complete!")
         print("Systematic histogram directories preserved.")
