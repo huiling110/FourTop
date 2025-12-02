@@ -1,9 +1,9 @@
 # Plan: FourTop Workflow Automation
 
 **Created**: 2025-12-02
-**Status**: COMPLETE ✅
+**Status**: Phase 3A-C COMPLETE, Phase 3D Ready for Testing
 **Priority**: HIGH
-**Last Updated**: 2025-12-02
+**Last Updated**: 2025-12-02 (Phase 3A-C complete)
 
 ---
 
@@ -67,37 +67,103 @@ FourTop/
 
 ---
 
-## Phase 3: Full Workflow Validation - NOT STARTED
+## Phase 3: Full End-to-End Workflow (1tau1l Channel) - IN PROGRESS
 
-Final validation step to verify the automated workflow produces correct physics results.
+**Goal**: Extend workflow to include Stage 3 (histogram production jobs) and validate on 1tau1l channel with comprehensive logging.
 
-### Tasks
+**Channel**: 1tau1l (different from Phase 2 validation which used 1tau0l)
 
-- [ ] **3.1**: Run full Stage 4 pipeline with `run_workflow.py --stage 4`
-- [ ] **3.2**: Verify template files created for all 4 eras
-- [ ] **3.3**: Verify datacards generated with correct systematics
-- [ ] **3.4**: Run combine analysis (limits, significance, signal strength)
-- [ ] **3.5**: Generate result plots:
-  - Pre-fit/post-fit distributions
-  - Systematic impact plots
-  - Limit plots
-  - Signal strength measurements
-- [ ] **3.6**: Compare results with previous manual workflow to ensure consistency
-- [ ] **3.7**: Document any discrepancies and resolution
+### Phase 3A: Extend run_workflow.py with Stage 3
 
-### Validation Checklist
+**Status**: COMPLETE ✅
+
+**Tasks**:
+- [x] **3A.1**: Add Stage 3.3 definition to STAGES dict (nominal job submission)
+- [x] **3A.2**: Add Stage 3.3.1 definition (shape systematic job submission)
+- [x] **3A.3**: Add Stage 3.4 definition (job monitoring/waiting)
+- [x] **3A.4**: Implement `run_stage_3_3()` - submit nominal jobs via hep_sub
+- [x] **3A.5**: Implement `run_stage_3_3_1()` - submit JES/JER/TES/MET jobs
+- [x] **3A.6**: Implement `run_stage_3_4()` - monitor jobs until completion using hep_q
+- [x] **3A.7**: Add comprehensive logging to all stages (file + console)
+
+**Key Functions Added**:
+- `build_input_dir()` - Build input path from config for a given era
+- `get_running_jobs()` - Query hep_q for job count
+- `run_stage_3_3()` - Submit nominal histogram jobs
+- `run_stage_3_3_1()` - Submit systematic jobs
+- `run_stage_3_4()` - Poll job status until complete
+- `run_full_stage_3()` - Run all Stage 3 substages
+
+**Commits**: 2c037763, (pending)
+
+**New Stages to Add**:
+```
+3.3   - Submit Nominal Histogram Jobs (hep_sub)
+3.3.1 - Submit Shape Systematic Jobs (JES/JER/TES/MET/EES)
+3.4   - Monitor Jobs Until Completion
+```
+
+### Phase 3B: Create 1tau1l Configuration
+
+**Status**: COMPLETE ✅
+
+**Tasks**:
+- [x] **3B.1**: Create `config/analysis_config_1tau1l.yaml`
+- [x] **3B.2**: Set correct hist_version for 1tau1l (v10BDT1tau1l_WorkflowTest)
+- [x] **3B.3**: Configure regions: ['1tau1lSR', '1tau1lCR12']
+- [x] **3B.4**: Configure smoothing systematics for 1tau1l
+- [x] **3B.5**: Set combination directory (combinationV22)
+
+**Commits**: 2c037763
+
+### Phase 3C: Add Logging System
+
+**Status**: COMPLETE ✅
+
+**Tasks**:
+- [x] **3C.1**: Create setup_logging() function in run_workflow.py
+- [x] **3C.2**: Add `--log-file` argument to run_workflow.py
+- [x] **3C.3**: Log all command executions with timestamps
+- [x] **3C.4**: Log stage start/end times and duration
+- [x] **3C.5**: Log any errors/warnings with context
+- [x] **3C.6**: Log workflow completion status
+
+**Commits**: 2c037763, (pending)
+
+**Log Format**:
+```
+[2025-12-02 15:30:00] INFO  | Stage 3.3 | Starting nominal job submission
+[2025-12-02 15:30:05] INFO  | Stage 3.3 | Submitted 21 jobs for 2018 era
+[2025-12-02 15:30:10] INFO  | Stage 3.3 | Duration: 10s
+```
+
+### Phase 3D: Full Pipeline Test (1tau1l)
+
+**Tasks**:
+- [ ] **3D.1**: Run full workflow: `python3 run_workflow.py --stage 3 --config config/analysis_config_1tau1l.yaml`
+- [ ] **3D.2**: Monitor Stage 3.3 (nominal jobs) completion
+- [ ] **3D.3**: Monitor Stage 3.3.1 (systematic jobs) completion
+- [ ] **3D.4**: Run Stage 4.1 (consolidate shape systematics)
+- [ ] **3D.5**: Run Stage 4.2 (create templates)
+- [ ] **3D.6**: Run Stage 4.2.5 (smooth systematics)
+- [ ] **3D.7**: Run Stage 4.3 (write datacards)
+- [ ] **3D.8**: Run Stage 4.4 (combine datacards)
+- [ ] **3D.9**: Run combine analysis (significance, limits)
+- [ ] **3D.10**: Verify results match previous 1tau1l analysis
+
+### Validation Checklist (1tau1l)
 
 | Check | Status |
 |-------|--------|
+| Nominal histograms produced for all 4 eras | ⏳ |
+| Shape systematic histograms produced for all 4 eras | ⏳ |
 | Templates exist for 2018, 2017, 2016preVFP, 2016postVFP | ⏳ |
 | Datacards contain all expected systematics | ⏳ |
 | Combined Run2 datacard generated | ⏳ |
 | Combine workspace created successfully | ⏳ |
-| Expected limit consistent with previous | ⏳ |
-| Significance consistent with previous | ⏳ |
-| Pre-fit plots show correct distributions | ⏳ |
-| Post-fit plots show good data/MC agreement | ⏳ |
-| Impact plot shows reasonable systematic pulls | ⏳ |
+| Expected limit consistent with previous 1tau1l | ⏳ |
+| Significance consistent with previous 1tau1l | ⏳ |
+| Log file contains complete workflow history | ⏳ |
 
 ---
 

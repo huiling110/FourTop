@@ -177,6 +177,193 @@ def run_command(cmd: List[str], cwd: str = None, quiet: bool = False,
         return 1, '', str(e)
 
 
+def build_input_dir(config: dict, era: str) -> str:
+    """
+    Build the input directory path from config for a given era.
+
+    Returns path like:
+    /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/
+    """
+    paths = config.get('paths', {})
+    base = paths.get('base', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA')
+    out_version = paths.get('out_version', 'v1baselineHadroBtagWeightAdded')
+    in_version = paths.get('in_version', 'v94HadroPreJetVetoHemOnly')
+
+    return f"{base}/{era}/{out_version}_{in_version}/"
+
+
+def get_running_jobs() -> int:
+    """
+    Get count of running/idle jobs for current user using hep_q.
+
+    Returns:
+        Number of running + idle jobs
+    """
+    try:
+        result = subprocess.run(
+            ['hep_q', '-u'],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        # Count non-header lines (each line = one job)
+        lines = result.stdout.strip().split('\n')
+        # Filter out header and empty lines
+        job_lines = [l for l in lines if l.strip() and not l.startswith('--')
+                     and 'OWNER' not in l and 'ID' not in l.split()[0] if l.split()]
+        return len(job_lines)
+    except Exception as e:
+        logger.warning(f"Could not check job status: {e}")
+        return -1
+
+
+def run_stage_3_3(config: dict, era: str, quiet: bool = False) -> Tuple[int, str, str]:
+    """
+    Run Stage 3.3: Submit nominal histogram production jobs.
+
+    This calls the job submission script with parameters derived from config.
+    """
+    project_root = get_project_root()
+
+    # Build parameters from config
+    input_dir = build_input_dir(config, era)
+    channel = get_channel(config)
+    hist_version = config.get('paths', {}).get('hist_version', 'v10BDT_WorkflowTest')
+
+    # Stage 3 specific config
+    stage3_cfg = config.get('stage3', {})
+    exe = stage3_cfg.get('executable', './apps/run_treeAnalyzer.out')
+    if_sys = stage3_cfg.get('ifSys', 1)
+    just_mc = stage3_cfg.get('justMC', False)
+
+    logger.info(f"Stage 3.3 | Era: {era}")
+    logger.info(f"Stage 3.3 | Input dir: {input_dir}")
+    logger.info(f"Stage 3.3 | Channel: {channel}, Version: {hist_version}")
+
+    # Check input directory exists
+    if not os.path.exists(input_dir):
+        logger.error(f"Input directory does not exist: {input_dir}")
+        return 1, '', 'Input directory not found'
+
+    # Create job submission script dynamically
+    job_script_content = f'''#!/usr/bin/env python3
+import sys
+sys.path.insert(0, "{project_root}/writeHistGood/jobs")
+import makeJob_forWriteHist as mj
+
+mj.main(
+    inputDir="{input_dir}",
+    channel="{channel}",
+    version="{hist_version}",
+    exe="{exe}",
+    ifSys={if_sys},
+    justMC={just_mc}
+)
+'''
+
+    # Write temporary script
+    temp_script = os.path.join(project_root, f'.tmp_submit_{era}.py')
+    with open(temp_script, 'w') as f:
+        f.write(job_script_content)
+
+    # Run the script from writeHistGood directory (required for exe path)
+    cmd = ['python3', temp_script]
+    cwd = os.path.join(project_root, 'writeHistGood')
+
+    result = run_command(cmd, cwd=cwd, quiet=quiet, capture_output=True)
+
+    # Clean up temp script
+    try:
+        os.remove(temp_script)
+    except:
+        pass
+
+    return result
+
+
+def run_stage_3_3_1(config: dict, era: str, quiet: bool = False) -> Tuple[int, str, str]:
+    """
+    Run Stage 3.3.1: Submit shape systematic jobs (JES/JER/TES/MET/EES).
+
+    This runs the systematic job submission for a single era.
+    """
+    project_root = get_project_root()
+
+    # Build parameters from config
+    channel = get_channel(config)
+    hist_version = config.get('paths', {}).get('hist_version', 'v10BDT_WorkflowTest')
+    in_version = config.get('paths', {}).get('in_version', 'v94HadroPreJetVetoHemOnly')
+
+    logger.info(f"Stage 3.3.1 | Era: {era}")
+    logger.info(f"Stage 3.3.1 | Channel: {channel}, Version: {hist_version}")
+
+    # Get the input base path for this era
+    base = config.get('paths', {}).get('base', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA')
+    input_dir_base = f"{base}/{era}/"
+    out_version = config.get('paths', {}).get('out_version', 'v1baselineHadroBtagWeightAdded')
+
+    # Run the JES job script
+    script = os.path.join(project_root, 'writeHistGood', 'jobs', 'makeJob_WH_forJES.py')
+
+    cmd = [
+        'python3', script,
+        '--inputDirBase', input_dir_base,
+        '--inVersion', in_version,
+        '--outVersion', out_version,
+        '--channel', channel,
+        '--version', hist_version
+    ]
+
+    cwd = os.path.join(project_root, 'writeHistGood')
+
+    return run_command(cmd, cwd=cwd, quiet=quiet, capture_output=True)
+
+
+def run_stage_3_4(config: dict, quiet: bool = False,
+                  poll_interval: int = 60, max_wait: int = 7200) -> Tuple[int, str, str]:
+    """
+    Run Stage 3.4: Monitor jobs until completion.
+
+    Polls hep_q every poll_interval seconds until no jobs are running,
+    or max_wait seconds have elapsed.
+
+    Args:
+        config: Configuration dictionary
+        quiet: Suppress output
+        poll_interval: Seconds between status checks (default: 60)
+        max_wait: Maximum seconds to wait (default: 7200 = 2 hours)
+
+    Returns:
+        (0, summary, '') on completion, (1, '', error) on timeout/error
+    """
+    logger.info("Stage 3.4 | Starting job monitoring")
+
+    start_time = time.time()
+    last_count = -1
+
+    while True:
+        elapsed = time.time() - start_time
+        if elapsed > max_wait:
+            logger.error(f"Stage 3.4 | Timeout after {max_wait}s")
+            return 1, '', f'Timeout waiting for jobs after {max_wait}s'
+
+        job_count = get_running_jobs()
+
+        if job_count == 0:
+            logger.info("Stage 3.4 | All jobs completed")
+            return 0, f'All jobs completed in {elapsed:.0f}s', ''
+
+        if job_count != last_count:
+            logger.info(f"Stage 3.4 | {job_count} jobs running/pending ({elapsed:.0f}s elapsed)")
+            last_count = job_count
+
+        if not quiet:
+            print(f"  Waiting... {job_count} jobs active ({int(elapsed)}s elapsed)",
+                  end='\r', flush=True)
+
+        time.sleep(poll_interval)
+
+
 def run_stage_4_1(config: dict, era: str, quiet: bool = False) -> int:
     """Run Stage 4.1: Consolidate shape systematics."""
     project_root = get_project_root()
@@ -289,13 +476,25 @@ def run_stage(stage: str, config: dict, eras: List[str],
     if stage == '4.4':
         return run_stage_4_4(config, quiet=quiet)
 
+    # Stage 3.4 runs once (job monitoring), not per-era
+    if stage == '3.4':
+        code, stdout, stderr = run_stage_3_4(config, quiet=quiet)
+        return code
+
     # Other stages run per-era
     failed_eras = []
     for era in eras:
         if not quiet:
             print(f"\n--- Processing era: {era} ---")
 
-        if stage == '4.1':
+        if stage == '3.3':
+            result = run_stage_3_3(config, era, quiet=quiet)
+            # run_stage_3_3 returns tuple (code, stdout, stderr)
+            result = result[0] if isinstance(result, tuple) else result
+        elif stage == '3.3.1':
+            result = run_stage_3_3_1(config, era, quiet=quiet)
+            result = result[0] if isinstance(result, tuple) else result
+        elif stage == '4.1':
             result = run_stage_4_1(config, era, quiet=quiet)
         elif stage == '4.2':
             result = run_stage_4_2(config, era, quiet=quiet)
@@ -307,6 +506,10 @@ def run_stage(stage: str, config: dict, eras: List[str],
             print(f"  Stage {stage} runner not implemented")
             result = 1
 
+        # Handle tuple returns from run_command
+        if isinstance(result, tuple):
+            result = result[0]
+
         if result != 0:
             failed_eras.append(era)
 
@@ -316,6 +519,28 @@ def run_stage(stage: str, config: dict, eras: List[str],
 
     if not quiet:
         print(f"\nStage {stage} completed successfully for all eras")
+    return 0
+
+
+def run_full_stage_3(config: dict, eras: List[str], quiet: bool = False) -> int:
+    """
+    Run all Stage 3 substages in order:
+    3.3   - Submit nominal histogram jobs
+    3.3.1 - Submit shape systematic jobs
+    3.4   - Monitor jobs until completion
+    """
+    stages_to_run = ['3.3', '3.3.1', '3.4']
+
+    for stage in stages_to_run:
+        result = run_stage(stage, config, eras, quiet=quiet)
+        if result != 0:
+            logger.error(f"Stage {stage} failed. Stopping workflow.")
+            return 1
+
+    logger.info("Full Stage 3 workflow completed successfully!")
+    print("\n" + "="*60)
+    print("Full Stage 3 workflow completed successfully!")
+    print("="*60)
     return 0
 
 
@@ -330,9 +555,10 @@ def run_full_stage_4(config: dict, eras: List[str], quiet: bool = False) -> int:
 
         result = run_stage(stage, config, eras, quiet=quiet, smoothed=smoothed)
         if result != 0:
-            print(f"\nERROR: Stage {stage} failed. Stopping workflow.")
+            logger.error(f"Stage {stage} failed. Stopping workflow.")
             return 1
 
+    logger.info("Full Stage 4 workflow completed successfully!")
     print("\n" + "="*60)
     print("Full Stage 4 workflow completed successfully!")
     print("="*60)
@@ -420,6 +646,24 @@ def main():
         action='store_true',
         help='Use smoothed templates for datacard creation (Stage 4.3)'
     )
+    parser.add_argument(
+        '--log-file', '-l',
+        type=str,
+        metavar='FILE',
+        help='Write detailed log to file (in addition to console)'
+    )
+    parser.add_argument(
+        '--poll-interval',
+        type=int,
+        default=60,
+        help='Seconds between job status checks for Stage 3.4 (default: 60)'
+    )
+    parser.add_argument(
+        '--max-wait',
+        type=int,
+        default=7200,
+        help='Maximum seconds to wait for jobs in Stage 3.4 (default: 7200=2h)'
+    )
 
     args = parser.parse_args()
 
@@ -437,6 +681,9 @@ def main():
         parser.print_help()
         print("\nERROR: --stage is required to run workflow")
         return 1
+
+    # Setup logging
+    setup_logging(log_file=args.log_file, quiet=args.quiet)
 
     # Check workflow_utils availability
     if not WORKFLOW_UTILS_AVAILABLE:
@@ -472,7 +719,9 @@ def main():
         print(f"Eras: {', '.join(eras)}")
 
     # Run requested stage(s)
-    if args.stage == '4':
+    if args.stage == '3':
+        return run_full_stage_3(config, eras, quiet=args.quiet)
+    elif args.stage == '4':
         return run_full_stage_4(config, eras, quiet=args.quiet)
     else:
         return run_stage(args.stage, config, eras,

@@ -1,8 +1,8 @@
 # Tasks: FourTop Workflow Automation
 
 **Created**: 2025-12-02
-**Last Updated**: 2025-12-02
-**Status**: Phases 1-2D Complete, Phase 3 (Full Validation) Pending
+**Last Updated**: 2025-12-02 (Phase 3 in progress)
+**Status**: Phases 1-2D Complete, Phase 3 (1tau1l Full Workflow) In Progress
 
 ---
 
@@ -68,19 +68,31 @@
 
 ---
 
-## Phase 3: Full Workflow Validation with Results Plots - NOT STARTED
+## Phase 3: Full End-to-End Workflow (1tau1l Channel) - IN PROGRESS
 
-- [ ] Task 3.1: Run full Stage 4 pipeline (`run_workflow.py --stage 4`)
-- [ ] Task 3.2: Verify template files for all 4 eras
-- [ ] Task 3.3: Verify datacards have correct systematics
-- [ ] Task 3.4: Run combine analysis (limits, significance, signal strength)
-- [ ] Task 3.5: Generate and verify result plots:
-  - Pre-fit/post-fit distributions
-  - Systematic impact plots
-  - Limit plots
-  - Signal strength measurements
-- [ ] Task 3.6: Compare results with previous manual workflow
-- [ ] Task 3.7: Document any discrepancies
+### Phase 3A: Extend run_workflow.py with Stage 3 - COMPLETE ✅
+- ✅ Task 3A.1: Add Stage 3.3 definition (nominal job submission)
+- ✅ Task 3A.2: Add Stage 3.3.1 definition (shape systematic jobs)
+- ✅ Task 3A.3: Add Stage 3.4 definition (job monitoring)
+- ✅ Task 3A.4: Implement `run_stage_3_3()` - nominal jobs
+- ✅ Task 3A.5: Implement `run_stage_3_3_1()` - systematic jobs
+- ✅ Task 3A.6: Implement `run_stage_3_4()` - job monitor using hep_q
+- ✅ Task 3A.7: Add comprehensive logging
+
+### Phase 3B: Create 1tau1l Configuration - COMPLETE ✅
+- ✅ Task 3B.1: Create config/analysis_config_1tau1l.yaml
+- ✅ Task 3B.2: Configure regions, smoothing, combination version
+
+### Phase 3C: Add Logging System - COMPLETE ✅
+- ✅ Task 3C.1: Create setup_logging() function (file + console logging)
+- ✅ Task 3C.2: Add --log-file argument
+- ✅ Task 3C.3: Log all stages with timestamps and duration
+
+### Phase 3D: Full Pipeline Test (1tau1l)
+- [ ] Task 3D.1: Run Stage 3 (job submission)
+- [ ] Task 3D.2: Wait for job completion
+- [ ] Task 3D.3: Run Stage 4 (templates → datacards → combine)
+- [ ] Task 3D.4: Verify results match previous 1tau1l
 
 ---
 
