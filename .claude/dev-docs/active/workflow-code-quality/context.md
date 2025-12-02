@@ -1,8 +1,8 @@
 # Context: FourTop Workflow Automation
 
 **Created**: 2025-12-02
-**Last Updated**: 2025-12-02 13:50
-**Status**: Phase 3E Complete, Phase 3D Testing in Progress
+**Last Updated**: 2025-12-02 14:55
+**Status**: Phase 3D Testing Blocked - Missing stages 4.3.2/4.3.5
 
 ---
 
@@ -14,35 +14,24 @@ The FourTop analysis workflow (Stage 3-4) requires manual path editing in multip
 
 ## Key Files
 
-### Configuration (Created)
+### Configuration
 - `config/analysis_config.yaml` - Active configuration
 - `config/versions/config_v9BDT1tau0l_CMSNamingComplete.yaml` - Version snapshot
 
 ### Scripts Modified (All have --config support)
 - `plotting/writeDatacard.py` - --config, --era, --smoothed, --quiet
 - `plotting/addTemplateNew.py` - --config, --era, --quiet
-- `plotting/addJESTemplatesToHistFile.py` - --config, --era, --quiet
-- `plotting/smooth_systematics_fourTops.py` - --config, --era, --quiet
+- `plotting/addJESTemplatesToHistFile.py` - --config, --era, --quiet (+ QUIET global flag)
+- `plotting/smooth_systematics_fourTops.py` - --config, --quiet (NO --era, processes all at once)
 - `hua/combine/writeCombinationDatacard.py` - --config, --channel, --version, --quiet
 
 ### New Files Created
 - `plotting/workflow_utils.py` - Config loading utilities
-  - `load_config()` - Load YAML with validation
-  - `build_hist_path()` - Build histogram directory path
-  - `build_combine_path()` - Build combine directory path
-  - `build_template_path()` - Build template ROOT file path
-  - `build_datacard_path()` - Build datacard output directory
-  - `get_template_suffix()` - Build suffix from options
-  - `get_eras()`, `get_channel()`, `get_options()`
 - `run_workflow.py` - Master workflow script
-  - Stages 3.3, 3.3.1, 3.4, 4.1, 4.2, 4.2.5, 4.3, 4.4, 4.5, 4.6 runners
-  - --stage, --era, --list-stages, --save-version, --quiet
-  - --no-combine, --no-plots, --combine-steps, --blind, --plot-type
-- `plotting/pl_postFit.py` - Pre-fit and post-fit plotting
-  - --config, --fit-file, --plot-type, --channel, --era, --quiet
-
-### Reference (Good Patterns)
-- `hua/combine/runCombineAll.py` - Template for CLI design, logging, error handling
+- `.claude/hooks/check_python_quality.py` - AST-based quality checker
+- `.claude/hooks/post-tool-use.sh` - Post-edit quality hook
+- `.claude/skills/refactor.md` - Refactoring skill
+- `.claude/commands/review-code.md` - Code review command
 
 ---
 
@@ -53,80 +42,70 @@ The FourTop analysis workflow (Stage 3-4) requires manual path editing in multip
 {base}/{era}/{out_version}_{in_version}/mc/variableHists_{hist_version}/
 ```
 
-**Backward Compatibility**: Scripts work without --config (use hardcoded fallback)
+**Stage Types**:
+- Per-era stages: 3.3, 3.3.1, 4.1, 4.2, 4.3 (run once per era)
+- Global stages: 3.4, 4.2.5, 4.4, 4.5, 4.6 (run once for all eras)
 
-**Stage Groups**:
-- Stage 4.1: Consolidate shape systematics (addJESTemplatesToHistFile.py)
-- Stage 4.2: Create template files (addTemplateNew.py)
-- Stage 4.2.5: Smooth systematics (smooth_systematics_fourTops.py)
-- Stage 4.3: Write datacards (writeDatacard.py)
-- Stage 4.4: Combine era datacards (writeCombinationDatacard.py) - requires cmsenv
+**Output Path Logging**: Each stage logs its output path via `get_output_paths()` function.
 
 ---
 
-## Commits
+## Current Blocker
+
+**Stage 4.4 cannot run** because:
+1. Per-era datacards exist at: `datacardSys_v6AllSys_unblind_CMSnaming/datacard_1tau0l.txt`
+2. But they need to be copied/linked to the combine directory
+3. Missing stages 4.3.2 and 4.3.5 (user identified)
+
+**User clarification needed**: What do stages 4.3.2 and 4.3.5 do?
+
+---
+
+## Commits (Session 2)
 
 | Commit | Description |
 |--------|-------------|
-| 36726cea | Phase 1: --quiet flags, duplicate function fix |
-| 8759883a | Phase 1: Testing guideline in CLAUDE.md |
-| 238f2e68 | Phase 2A: Config system, directory structure |
-| a7835693 | Phase 2A: workflow_utils.py |
-| d6e22275 | Phase 2B: --config for writeDatacard.py |
-| 19fc919c | Phase 2B: --config for addTemplateNew.py |
-| 4023e100 | Phase 2B: --config for addJES, smooth scripts |
-| fa47bdf1 | Phase 2B: --config for writeCombinationDatacard.py |
-| 014c1608 | Phase 2C: run_workflow.py master script |
-| 6a6d0f3c | --quiet for addJESTemplatesToHistFile.py |
-| 3a334827 | Task complete documentation |
-| b235a545 | Phase 3A: Stage 3 runners (3.3, 3.3.1, 3.4) |
-| a81cbbc5 | docs: --stage all usage documentation |
-| 146978c5 | perf: Parallel systematic job submission |
+| ac3aa7e4 | fix: Update config to use correct datacard and combination paths |
+| 61cb0287 | feat: Add output path logging and fix Stage 4.2.5 + quiet mode |
+| 0151d378 | refactor: Improve run_workflow.py code quality and add review tools |
 
 ---
 
 ## Commands
 
 ```bash
-# Run FULL pipeline (Stage 3 + Stage 4) - recommended
-python3 run_workflow.py --stage all --config config/analysis_config_1tau1l.yaml -l workflow.log
-
-# Run Stage 3 only (histogram job submission + monitoring)
-python3 run_workflow.py --stage 3 --config config/analysis_config.yaml
+# Run FULL pipeline (Stage 3 + Stage 4)
+python3 run_workflow.py --stage all --config config/analysis_config.yaml -l workflow.log
 
 # Run Stage 4 only (templates → datacards → combine)
 python3 run_workflow.py --stage 4 --config config/analysis_config.yaml
 
-# Run single stage for one era
-python3 run_workflow.py --stage 4.3 --era 2018 --smoothed
+# Run single stage
+python3 run_workflow.py --stage 4.3 --era 2018
 
-# List available stages
-python3 run_workflow.py --list-stages
+# Check code quality
+python3 .claude/hooks/check_python_quality.py run_workflow.py
 
-# Save config version
-python3 run_workflow.py --save-version my_version_name
-
-# Monitor running jobs
-hep_q -u
-
-# Check workflow log
-tail -f logs/workflow_1tau1l_*.log
+# For Stage 4.4/4.5 (requires cmsenv):
+cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src
+source /cvmfs/cms.cern.ch/cmsset_default.sh && eval `scramv1 runtime -sh`
+cd FourTop && python3 run_workflow.py --stage 4.5 --config config/analysis_config.yaml
 ```
 
 ---
 
 ## Known Issues
 
-1. **Stage 4.1 JES Path Pattern**: The JES directory path construction in `addJESTemplatesToHistFile.py` doesn't match the v9 version naming convention. Needs separate fix if JES consolidation is required.
+1. **Stage 4.2.5**: Script processes all eras at once (not per-era). Fixed in workflow.
 
-2. **Stage 4.4 Environment**: `writeCombinationDatacard.py` requires `cmsenv` (CMSSW environment), not `setEnv_newNew.sh`.
+2. **Stage 4.4/4.5**: Blocked - need missing stages 4.3.2 and 4.3.5 to copy datacards.
 
-3. **Stage 3.3.1 Performance**: `makeJob_WH_forJES.py` takes ~34 min/era because it calls `mj.main()` 68 times sequentially (~30s each). Mitigated by parallel era submission, but could be further optimized by parallelizing within the script itself.
+3. **pl_postFit.py quality**: 7 errors, 11 warnings. Needs refactoring.
+
+---
 
 ## Performance Notes
 
-- Stage 3.3 (nominal jobs): ~30s per era (fast)
-- Stage 3.3.1 (systematic jobs): ~34 min per era (slow due to 68 variations)
-  - With parallel era submission: ~35 min total instead of ~2h
-- Stage 3.4 (monitoring): Depends on cluster load (~30 min - 2h)
+- Stage 3.3 (nominal jobs): ~30s per era
+- Stage 3.3.1 (systematic jobs): ~34 min per era (parallel: ~35 min total)
 - Stage 4 (analysis): ~5-10 min total
