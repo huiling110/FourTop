@@ -1,4 +1,4 @@
-# Context: FourTop Workflow Code Quality Improvements
+# Context: FourTop Workflow Automation
 
 **Created**: 2025-12-02
 **Last Updated**: 2025-12-02
@@ -7,76 +7,69 @@
 
 ## Problem Overview
 
-The FourTop analysis workflow scripts have accumulated technical debt including duplicate code, verbose output, and hundreds of commented configuration paths. This makes the code harder to maintain and causes excessive token consumption when running with Claude.
+The FourTop analysis workflow (Stage 3-4) requires manual path editing in multiple scripts for each analysis version. This creates errors and makes reproducibility difficult. Solution: centralized YAML config with versioning and a master workflow script.
 
 ---
 
 ## Key Files
 
-**File 1**: `plotting/smooth_systematics_fourTops.py`
-- **Purpose**: Apply LOWESS smoothing to systematic variations
-- **Relevant sections**:
-  - Lines 303-325: First definition of `get_smoothed_up_and_down()`
-  - Lines 367-388: DUPLICATE definition (TO DELETE)
-- **Notes**: The duplicate function shadows the first definition
+### Configuration (New)
+- `config/analysis_config.yaml` - Active configuration
+- `config/versions/config_v9BDT1tau0l_CMSNamingComplete.yaml` - Version snapshot
 
-**File 2**: `plotting/writeDatacard.py`
-- **Purpose**: Generate CMS Combine datacards from template ROOT files
-- **Relevant sections**:
-  - Lines 1-50: Imports and setup (add argparse here)
-  - Lines ~200-230: Verbose sysDic printing (wrap with --quiet check)
-  - Lines 1-150: ~250 commented inputTemplate paths
-- **Notes**: MCSys dictionary has ~130 systematics, all printed on every run
+### Scripts to Modify (Phase 2B)
+- `plotting/writeDatacard.py` - Add --config, --era args
+- `plotting/addTemplateNew.py` - Add --config, --era args
+- `plotting/addJESTemplatesToHistFile.py` - Add --config, --era args
+- `plotting/smooth_systematics_fourTops.py` - Add --config, --era args
+- `hua/combine/writeCombinationDatacard.py` - Add --config support
 
-**File 3**: `plotting/addTemplateNew.py`
-- **Purpose**: Create template ROOT files for Combine from histogram files
-- **Relevant sections**:
-  - Lines 1-30: Imports (add argparse)
-  - Various print() statements throughout
-- **Notes**: ~80 commented inputDir paths
+### New Files Created
+- `plotting/workflow_utils.py` - Config loading utilities (DONE)
+  - `load_config()`, `build_hist_path()`, `build_combine_path()`
+  - `build_template_path()`, `build_datacard_path()`, `get_template_suffix()`
+- `run_workflow.py` - Master workflow script (TODO)
 
-**File 4**: `plotting/addJESTemplatesToHistFile.py`
-- **Purpose**: Consolidate JES/JER/TES shape systematics into nominal histogram files
-- **Relevant sections**:
-  - Lines 1-300: ~300 commented nominalDir configurations
-- **Notes**: Already has argparse for --delete-sys-dirs and --execute
-
-**File 5**: `hua/combine/writeCombinationDatacard.py`
-- **Purpose**: Combine datacards from multiple eras/channels
-- **Relevant sections**:
-  - pathDic dictionary: ~150 path entries
-- **Notes**: Used for Run2 combination
+### Reference (Good Patterns)
+- `hua/combine/runCombineAll.py` - Template for CLI design, logging, error handling
 
 ---
 
 ## Key Concepts
 
-**LOWESS Smoothing**: Local weighted scatterplot smoothing applied to systematic variations to reduce statistical fluctuations while preserving shape information.
+**Config Path Building**: All scripts use paths following pattern:
+```
+{base}/{era}/{out_version}_{in_version}/mc/variableHists_{hist_version}/
+```
 
-**Datacards**: Text files defining signal/background processes, systematic uncertainties, and bin yields for CMS Combine statistical tool.
+**Backward Compatibility**: Scripts must work without --config (use hardcoded fallback)
 
-**Shape Systematics**: Systematic uncertainties that affect the shape of distributions (not just normalization), stored as up/down histogram variations.
-
----
-
-## Dependencies
-
-- `argparse`: Python standard library for CLI argument parsing
-- All scripts already import necessary ROOT/numpy modules
-- No external dependencies need to be added
+**Stage Groups**:
+- Stage 3: 3.3 (nominal jobs), 3.4 (systematic jobs), 3.5 (status check)
+- Stage 4: 4.1-4.4 (templates → datacards → combine)
 
 ---
 
-## Constraints
+## Commits
 
-- Must preserve backward compatibility (default behavior unchanged)
-- Cannot modify function signatures that are called from other scripts
-- Scripts must still work without --quiet flag (opt-in only)
+| Commit | Description |
+|--------|-------------|
+| 36726cea | Phase 1: --quiet flags, duplicate function fix |
+| 8759883a | Phase 1: Testing guideline in CLAUDE.md |
+| 238f2e68 | Phase 2A: Config system, directory structure |
 
 ---
 
-## Related Documentation
+## Commands
 
-- `/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/ANALYSIS_WORKFLOW.md` - Stage 4 workflow details
-- `/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/CLAUDE.md` - Project context and TODO for --quiet flags
-- `/afs/ihep.ac.cn/users/h/huahuil/.claude/plans/moonlit-singing-naur.md` - Full improvement plan
+```bash
+# Resume this task
+/resume-task workflow-code-quality
+
+# Test config loading (after workflow_utils.py created)
+source setEnv_newNew.sh
+python3 -c "from plotting.workflow_utils import load_config; print(load_config())"
+
+# Run workflow (after run_workflow.py created)
+python3 run_workflow.py --config config/analysis_config.yaml --stages 4
+```
