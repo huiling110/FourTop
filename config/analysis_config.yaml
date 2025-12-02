@@ -17,7 +17,7 @@ paths:
   out_version: "v1baselineHadroBtagWeightAdded"
   in_version: "v94HadroPreJetVetoHemOnly"
   hist_version: "v9BDT1tau0l_CMSNamingComplete"
-  datacard_version: "v7WorkflowTest"
+  datacard_version: "v6AllSys_unblind_CMSnaming"
 
 # Channel configuration
 channel:
@@ -63,9 +63,10 @@ smoothing:
     - "ttW"
     - "WJets"
 
-# Combine configuration (Stage 4.4)
-combine:
-  combination_version: "combinationV21"
+# Combine configuration (Stage 4.4, 4.5)
+combination:
+  version: "combinationV21"
+  card_dir: "run2_1tau0l_v4_unblind"
   steps:
     - "workspace"
     - "limits"
