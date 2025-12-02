@@ -1,9 +1,9 @@
 # Plan: FourTop Workflow Automation
 
 **Created**: 2025-12-02
-**Status**: Phase 3A-C COMPLETE, Phase 3D Ready for Testing
+**Status**: Phase 3A-C COMPLETE, Phase 3E COMPLETE (Stages 4.5/4.6), Phase 3D Testing in Progress
 **Priority**: HIGH
-**Last Updated**: 2025-12-02 (Phase 3A-C complete)
+**Last Updated**: 2025-12-02 13:50 (Added Stage 4.5 runCombineAll, Stage 4.6 fit plots)
 
 ---
 
@@ -90,11 +90,18 @@ FourTop/
 - `build_input_dir()` - Build input path from config for a given era
 - `get_running_jobs()` - Query hep_q for job count
 - `run_stage_3_3()` - Submit nominal histogram jobs
-- `run_stage_3_3_1()` - Submit systematic jobs
+- `run_stage_3_3_1()` - Submit systematic jobs (per era)
+- `run_stage_3_3_1_parallel()` - Submit systematic jobs for ALL eras concurrently
 - `run_stage_3_4()` - Poll job status until complete
-- `run_full_stage_3()` - Run all Stage 3 substages
+- `run_full_stage_3()` - Run all Stage 3 substages (uses parallel by default)
+- `run_full_pipeline()` - Run Stage 3 + Stage 4 end-to-end
 
-**Commits**: 2c037763, (pending)
+**Performance Optimization**:
+- Added `--stage all` to run full pipeline (Stage 3 → Stage 4) in one command
+- Parallel systematic job submission reduces Stage 3.3.1 from ~2h → ~35min
+- Uses `ThreadPoolExecutor` for concurrent era processing
+
+**Commits**: b235a545, a81cbbc5, 146978c5
 
 **New Stages to Add**:
 ```
@@ -136,6 +143,24 @@ FourTop/
 [2025-12-02 15:30:05] INFO  | Stage 3.3 | Submitted 21 jobs for 2018 era
 [2025-12-02 15:30:10] INFO  | Stage 3.3 | Duration: 10s
 ```
+
+### Phase 3E: Add Complete Workflow Stages (4.5, 4.6)
+
+**Status**: COMPLETE ✅
+
+**Tasks**:
+- [x] **3E.1**: Add Stage 4.5 (runCombineAll.py) to run_workflow.py
+- [x] **3E.2**: Add Stage 4.6 (fit plots) to run_workflow.py
+- [x] **3E.3**: Add `run_stage_4_5()` function - runs combine analysis
+- [x] **3E.4**: Add `run_stage_4_6()` function - generates fit plots
+- [x] **3E.5**: Add argparse to pl_postFit.py (--config, --plot-type, --fit-file)
+- [x] **3E.6**: Add pre-fit plotting capability to pl_postFit.py
+- [x] **3E.7**: Add command-line flags: --no-combine, --no-plots, --combine-steps, --blind
+
+**New Features**:
+- Stage 4.5: `python3 run_workflow.py --stage 4.5` runs complete combine analysis
+- Stage 4.6: `python3 run_workflow.py --stage 4.6` generates pre-fit and post-fit plots
+- pl_postFit.py now supports: `--plot-type prefit|postfit|both`
 
 ### Phase 3D: Full Pipeline Test (1tau1l)
 

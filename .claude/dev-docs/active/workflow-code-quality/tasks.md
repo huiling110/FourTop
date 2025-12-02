@@ -1,8 +1,8 @@
 # Tasks: FourTop Workflow Automation
 
 **Created**: 2025-12-02
-**Last Updated**: 2025-12-02 (Phase 3 in progress)
-**Status**: Phases 1-2D Complete, Phase 3 (1tau1l Full Workflow) In Progress
+**Last Updated**: 2025-12-02 13:55
+**Status**: Phases 1-3C Complete, Phase 3E Complete, Phase 3D (1tau1l Full Workflow Test) In Progress
 
 ---
 
@@ -88,11 +88,27 @@
 - ✅ Task 3C.2: Add --log-file argument
 - ✅ Task 3C.3: Log all stages with timestamps and duration
 
-### Phase 3D: Full Pipeline Test (1tau1l)
-- [ ] Task 3D.1: Run Stage 3 (job submission)
+### Phase 3E: Add Complete Workflow Stages (4.5, 4.6) - COMPLETE ✅
+- [x] Task 3E.1: Add Stage 4.5 (runCombineAll.py) to run_workflow.py
+- [x] Task 3E.2: Add Stage 4.6 (fit plots) to run_workflow.py
+- [x] Task 3E.3: Add run_stage_4_5() and run_stage_4_6() functions
+- [x] Task 3E.4: Add argparse to pl_postFit.py (--config, --plot-type, --fit-file)
+- [x] Task 3E.5: Add pre-fit plotting capability to pl_postFit.py
+- [x] Task 3E.6: Add --no-combine, --no-plots, --combine-steps, --blind flags
+- [x] Task 3E.7: Add permissions to .claude/settings.json for dev-docs auto-approve
+
+### Phase 3D: Full Pipeline Test (1tau1l) - IN PROGRESS
+- [x] Task 3D.0: Add parallel systematic submission (run_stage_3_3_1_parallel)
+- [x] Task 3D.0.1: Add --stage all for full pipeline (run_full_pipeline)
+- 🔄 Task 3D.1: Run Stage 3 (job submission) - currently running in background
 - [ ] Task 3D.2: Wait for job completion
 - [ ] Task 3D.3: Run Stage 4 (templates → datacards → combine)
 - [ ] Task 3D.4: Verify results match previous 1tau1l
+
+**Performance Discovery**:
+- makeJob_WH_forJES.py takes ~34 min/era (68 variations × 30s each)
+- Sequential submission: ~2h for Stage 3.3.1
+- Parallel submission: ~35 min for Stage 3.3.1 (4x speedup)
 
 ---
 

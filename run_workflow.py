@@ -384,6 +384,45 @@ def run_stage_3_4(config: dict, quiet: bool = False,
         time.sleep(poll_interval)
 
 
+def get_output_paths(config: dict, era: str, stage: str) -> str:
+    """
+    Get the output path for a given stage.
+
+    Returns a human-readable description of where output files are created.
+    """
+    hist_path = build_hist_path(config, era)
+    channel = get_channel(config)
+    options = get_options(config)
+
+    # Build suffix for template files
+    suffix_parts = ['new']
+    if not options.get('mcFakeTau', True):
+        suffix_parts.append('notMCFTau')
+    if options.get('unblind', False):
+        suffix_parts.append('unblind')
+    suffix = '_'.join(suffix_parts)
+
+    if stage == '4.1':
+        return f"{hist_path}*.root (JES/JER/TES systematics added)"
+    elif stage == '4.2':
+        return f"{hist_path}combine/templatesForCombine{channel}_{suffix}.root"
+    elif stage == '4.2.5':
+        return f"{hist_path}combine/templatesForCombine{channel}_{suffix}_smoothed.root"
+    elif stage == '4.3':
+        datacard_version = config.get('datacard', {}).get('version', 'v1')
+        return f"{hist_path}combine/datacardSys_{datacard_version}/datacard_{channel}.txt"
+    elif stage == '4.4':
+        comb = config.get('combination', {})
+        return f"hua/combine/{comb.get('version', 'combinationV20')}/{comb.get('card_dir', 'run2')}/datacard.txt"
+    elif stage == '4.5':
+        comb = config.get('combination', {})
+        return f"hua/combine/{comb.get('version', 'combinationV20')}/{comb.get('card_dir', 'run2')}/combineResults/"
+    elif stage == '4.6':
+        comb = config.get('combination', {})
+        return f"hua/combine/{comb.get('version', 'combinationV20')}/{comb.get('card_dir', 'run2')}/plots/"
+    return "Unknown"
+
+
 def run_stage_4_1(config: dict, era: str, quiet: bool = False) -> int:
     """Run Stage 4.1: Consolidate shape systematics."""
     project_root = get_project_root()
@@ -394,7 +433,11 @@ def run_stage_4_1(config: dict, era: str, quiet: bool = False) -> int:
     if quiet:
         cmd.append('--quiet')
 
-    return run_command(cmd, cwd=project_root, quiet=quiet)
+    result = run_command(cmd, cwd=project_root, quiet=quiet)
+    code = result[0] if isinstance(result, tuple) else result
+    if code == 0:
+        logger.info(f"Stage 4.1 | Output: {get_output_paths(config, era, '4.1')}")
+    return result
 
 
 def run_stage_4_2(config: dict, era: str, quiet: bool = False) -> int:
@@ -407,11 +450,20 @@ def run_stage_4_2(config: dict, era: str, quiet: bool = False) -> int:
     if quiet:
         cmd.append('--quiet')
 
-    return run_command(cmd, cwd=project_root, quiet=quiet)
+    result = run_command(cmd, cwd=project_root, quiet=quiet)
+    code = result[0] if isinstance(result, tuple) else result
+    if code == 0:
+        logger.info(f"Stage 4.2 | Output: {get_output_paths(config, era, '4.2')}")
+    return result
 
 
-def run_stage_4_2_5(config: dict, era: str, quiet: bool = False) -> int:
-    """Run Stage 4.2.5: Smooth systematics."""
+def run_stage_4_2_5(config: dict, quiet: bool = False) -> int:
+    """
+    Run Stage 4.2.5: Smooth systematics.
+
+    Note: This stage runs once for all eras (not per-era) because
+    the smoothing script processes all years together.
+    """
     project_root = get_project_root()
     script = os.path.join(project_root, STAGES['4.2.5']['script'])
     config_path = os.path.join(project_root, 'config', 'analysis_config.yaml')
@@ -419,14 +471,21 @@ def run_stage_4_2_5(config: dict, era: str, quiet: bool = False) -> int:
     # Check if smoothing is enabled in config
     if not config.get('smoothing', {}).get('enabled', False):
         if not quiet:
-            print(f"  Smoothing disabled in config, skipping era {era}")
+            print("  Smoothing disabled in config, skipping")
+        logger.info("Stage 4.2.5 | Skipped (smoothing disabled)")
         return 0
 
-    cmd = ['python3', script, '--config', config_path, '--era', era]
+    cmd = ['python3', script, '--config', config_path]
     if quiet:
         cmd.append('--quiet')
 
-    return run_command(cmd, cwd=project_root, quiet=quiet)
+    result = run_command(cmd, cwd=project_root, quiet=quiet)
+    code = result[0] if isinstance(result, tuple) else result
+    if code == 0:
+        # Log output for all eras
+        for era in get_eras(config):
+            logger.info(f"Stage 4.2.5 | Output ({era}): {get_output_paths(config, era, '4.2.5')}")
+    return result
 
 
 def run_stage_4_3(config: dict, era: str, quiet: bool = False,
@@ -442,7 +501,11 @@ def run_stage_4_3(config: dict, era: str, quiet: bool = False,
     if quiet:
         cmd.append('--quiet')
 
-    return run_command(cmd, cwd=project_root, quiet=quiet)
+    result = run_command(cmd, cwd=project_root, quiet=quiet)
+    code = result[0] if isinstance(result, tuple) else result
+    if code == 0:
+        logger.info(f"Stage 4.3 | Output: {get_output_paths(config, era, '4.3')}")
+    return result
 
 
 def run_stage_4_4(config: dict, quiet: bool = False) -> int:
@@ -464,7 +527,11 @@ def run_stage_4_4(config: dict, quiet: bool = False) -> int:
     if not quiet:
         print("  Note: Stage 4.4 requires cmsenv environment")
 
-    return run_command(cmd, cwd=combine_dir, quiet=quiet)
+    result = run_command(cmd, cwd=combine_dir, quiet=quiet)
+    code = result[0] if isinstance(result, tuple) else result
+    if code == 0:
+        logger.info(f"Stage 4.4 | Output: {get_output_paths(config, '2018', '4.4')}")
+    return result
 
 
 def run_stage_4_5(config: dict, quiet: bool = False,
@@ -484,7 +551,7 @@ def run_stage_4_5(config: dict, quiet: bool = False,
     Args:
         config: Configuration dictionary
         quiet: Suppress output
-        steps: List of steps to run (default: workspace, significance, limits, postfit, signal_strength)
+        steps: List of steps to run (default: workspace, significance, limits, impacts, postfit, signal_strength)
         no_blind: If True, run unblinded analysis (default). If False, run blinded.
     """
     project_root = get_project_root()
@@ -500,7 +567,7 @@ def run_stage_4_5(config: dict, quiet: bool = False,
 
     # Default steps if not specified
     if steps is None:
-        steps = ['workspace', 'significance', 'limits', 'postfit', 'signal_strength']
+        steps = ['workspace', 'significance', 'limits', 'impacts', 'postfit', 'signal_strength']
 
     cmd = ['python3', script, '--cardDir', card_dir, '--steps'] + steps
 
@@ -518,7 +585,11 @@ def run_stage_4_5(config: dict, quiet: bool = False,
         print(f"  Card directory: {card_dir}")
         print(f"  Steps: {', '.join(steps)}")
 
-    return run_command(cmd, cwd=combine_dir, quiet=quiet)
+    result = run_command(cmd, cwd=combine_dir, quiet=quiet)
+    code = result[0] if isinstance(result, tuple) else result
+    if code == 0:
+        logger.info(f"Stage 4.5 | Output: {get_output_paths(config, '2018', '4.5')}")
+    return result
 
 
 def run_stage_4_6(config: dict, quiet: bool = False,
@@ -541,7 +612,11 @@ def run_stage_4_6(config: dict, quiet: bool = False,
 
     logger.info(f"Stage 4.6 | Plot type: {plot_type}")
 
-    return run_command(cmd, cwd=project_root, quiet=quiet)
+    result = run_command(cmd, cwd=project_root, quiet=quiet)
+    code = result[0] if isinstance(result, tuple) else result
+    if code == 0:
+        logger.info(f"Stage 4.6 | Output: {get_output_paths(config, '2018', '4.6')}")
+    return result
 
 
 def _get_result_code(result) -> int:
@@ -558,7 +633,6 @@ def _run_era_stage(stage: str, config: dict, era: str,
         '3.3.1': lambda: run_stage_3_3_1(config, era, quiet=quiet),
         '4.1': lambda: run_stage_4_1(config, era, quiet=quiet),
         '4.2': lambda: run_stage_4_2(config, era, quiet=quiet),
-        '4.2.5': lambda: run_stage_4_2_5(config, era, quiet=quiet),
         '4.3': lambda: run_stage_4_3(config, era, quiet=quiet, smoothed=smoothed),
     }
 
@@ -597,6 +671,7 @@ def run_stage(stage: str, config: dict, eras: List[str],
 
     # Dispatch table for global stages (run once, not per-era)
     global_runners = {
+        '4.2.5': lambda: run_stage_4_2_5(config, quiet=quiet),
         '4.4': lambda: run_stage_4_4(config, quiet=quiet),
         '4.5': lambda: run_stage_4_5(config, quiet=quiet),
         '4.6': lambda: run_stage_4_6(config, quiet=quiet),
@@ -865,7 +940,7 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument('--combine-steps', nargs='+',
                         choices=['workspace', 'limits', 'significance', 'impacts',
                                  'postfit', 'signal_strength', 'gof'],
-                        default=['workspace', 'significance', 'limits', 'postfit', 'signal_strength'],
+                        default=['workspace', 'significance', 'limits', 'impacts', 'postfit', 'signal_strength'],
                         help='Steps to run for Stage 4.5')
     parser.add_argument('--blind', action='store_true',
                         help='Run blinded analysis for Stage 4.5 (default: unblinded)')

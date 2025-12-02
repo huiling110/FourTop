@@ -15,6 +15,9 @@ try:
 except ImportError:
     WORKFLOW_UTILS_AVAILABLE = False
 
+# Global quiet flag for controlling verbose output
+QUIET = False
+
 #add JES variation templates to WH root files
 #add JER variation templetas to WH root files
 #add TES variation templates to WH root files
@@ -273,6 +276,7 @@ def cleanup_systematic_directories(nominal_dir, dry_run=True):
 # ============================================================================
 
 def main():
+    global QUIET
     # Parse command-line arguments
     parser = argparse.ArgumentParser(
         description='Add JES/JER/TES/MET/EES systematic variations to nominal histogram files',
@@ -306,6 +310,7 @@ Cleanup actions (when --delete-sys-dirs is used):
                         help='Suppress non-essential output')
 
     args = parser.parse_args()
+    QUIET = args.quiet
 
     # Validate arguments
     if args.config and not args.era:
@@ -562,18 +567,21 @@ def getMCSubPro(channel, era):
     if 'fakeLepton' in sumProcesses:
         sumProcesses.remove('fakeLepton')
         
-    allSubProcesses = uf.getAllSubPro(era, sumProcesses, False) 
-    print(allSubProcesses)
+    allSubProcesses = uf.getAllSubPro(era, sumProcesses, False)
+    if not QUIET:
+        print(allSubProcesses)
     return allSubProcesses
     
         
 # def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT']):
 def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT'], proPostFix=''):
     Version = nominalDir.split('/')[-4]
-    print(Version)
+    if not QUIET:
+        print(Version)
     inVersion = Version.split('_')[-1]+'_JESPt22'
     outVersion = Version.split('_')[0]
-    print(inVersion, outVersion)
+    if not QUIET:
+        print(inVersion, outVersion)
     
     
     inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
@@ -591,7 +599,8 @@ def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variable
         JESDownDir = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}'
         JESUpDir = f'{JESUpDir}/mc/{nominalHistDir}'
         JESDownDir = f'{JESDownDir}/mc/{nominalHistDir}'
-        print(JESUpDir, JESDownDir)  
+        if not QUIET:
+            print(JESUpDir, JESDownDir)  
         iJESVariation = i.split('_')[0]
         ifCorrelated = wd.MCSys[f'CMS_scale_j_{iJESVariation}'][0]
         if ifCorrelated:
@@ -633,7 +642,8 @@ def add_histograms_to_rootfile(histograms, rootfile_path):
 
     # Close the ROOT file to ensure all changes are saved
     rootfile.Close()
-    print(f"Histograms added to {rootfile_path}") 
+    if not QUIET:
+        print(f"Histograms added to {rootfile_path}") 
         
           
 # def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JESDownName, regionList, variable='BDT'):
@@ -654,8 +664,9 @@ def getJESHistForDir(JESUpDir, JESDownDir, JESListUP, JESListDown, JESUpName, JE
             gotHistsDown[ire].SetName(JESHistsNameDown[ire])
             JESListUP[isub].append(gotHistsUp[ire])
             JESListDown[isub].append(gotHistsDown[ire])
-        
-    print(JESListUP) 
+
+    if not QUIET:
+        print(JESListUP) 
         
         
 if __name__=='__main__':
