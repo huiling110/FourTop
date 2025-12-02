@@ -40,9 +40,9 @@
 
 - ✅ Add --config to writeDatacard.py
 - ✅ Add --config to addTemplateNew.py
-- [ ] Add --config to addJESTemplatesToHistFile.py
-- [ ] Add --config to smooth_systematics_fourTops.py
-- [ ] Add --config to writeCombinationDatacard.py
+- ✅ Add --config to addJESTemplatesToHistFile.py
+- ✅ Add --config to smooth_systematics_fourTops.py
+- [ ] Add --config to writeCombinationDatacard.py (in hua/combine/)
 
 ---
 

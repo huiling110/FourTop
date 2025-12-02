@@ -8,6 +8,13 @@ import shutil
 import zipfile
 from pathlib import Path
 
+# Import workflow utilities for config-based path building
+try:
+    from workflow_utils import load_config, build_hist_path
+    WORKFLOW_UTILS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_UTILS_AVAILABLE = False
+
 #add JES variation templates to WH root files
 #add JER variation templetas to WH root files
 #add TES variation templates to WH root files
@@ -291,10 +298,29 @@ Cleanup actions (when --delete-sys-dirs is used):
                         help='Cleanup systematic histogram directories after consolidation (default: disabled)')
     parser.add_argument('--execute', action='store_true',
                         help='Actually perform cleanup (default: dry-run mode)')
+    parser.add_argument('--config', '-c', type=str, help='Path to YAML config file')
+    parser.add_argument('--era', '-e', type=str,
+                        choices=['2018', '2017', '2016preVFP', '2016postVFP'],
+                        help='Era to process (required with --config)')
 
     args = parser.parse_args()
 
-    #!1tau1l
+    # Validate arguments
+    if args.config and not args.era:
+        parser.error("--era is required when using --config")
+    if args.config and not WORKFLOW_UTILS_AVAILABLE:
+        parser.error("workflow_utils not available. Install pyyaml or use hardcoded paths.")
+
+    # Config-based path building (new workflow)
+    if args.config:
+        config = load_config(args.config)
+        nominalDir = build_hist_path(config, args.era)
+        print(f"Using config: {args.config}")
+        print(f"Era: {args.era}")
+        print(f"Nominal dir: {nominalDir}")
+
+    # ===== Legacy hardcoded paths (for backward compatibility) =====
+    # !1tau1l
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sys/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0DataMC_sys/'
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/'
@@ -398,7 +424,8 @@ Cleanup actions (when --delete-sys-dirs is used):
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Consolidation complete
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Running
     # nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/' #!2025-11-28: Running
-    nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/'
+    if not args.config:
+        nominalDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/'
     variables = ['BDT']
     channel = '1tau0l'
     regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']

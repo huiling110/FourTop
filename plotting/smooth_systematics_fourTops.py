@@ -10,6 +10,16 @@ import usefulFunc as uf
 import writeDatacard as wd
 #!!!source setEnv_newNew.sh to set up the environment
 
+# Import workflow utilities for config-based path building
+try:
+    from workflow_utils import (
+        load_config, build_template_path, get_channel, get_options,
+        get_template_suffix, get_eras
+    )
+    WORKFLOW_UTILS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_UTILS_AVAILABLE = False
+
 # Global quiet flag for controlling verbose output
 QUIET = False
 
@@ -17,8 +27,37 @@ def main():
     global QUIET
     parser = argparse.ArgumentParser(description='Apply LOWESS smoothing to systematic variations')
     parser.add_argument('--quiet', '-q', action='store_true', help='Suppress verbose output')
+    parser.add_argument('--config', '-c', type=str, help='Path to YAML config file')
     args = parser.parse_args()
     QUIET = args.quiet
+
+    # Validate arguments
+    if args.config and not WORKFLOW_UTILS_AVAILABLE:
+        parser.error("workflow_utils not available. Install pyyaml or use hardcoded paths.")
+
+    # Config-based settings (new workflow)
+    if args.config:
+        config = load_config(args.config)
+        channel_name = get_channel(config)
+        channel = f"{channel_name}SR"  # e.g., '1tau0lSR'
+        options = get_options(config)
+        suffix = get_template_suffix(config)
+        years = get_eras(config)
+
+        # Build template path for 2018 (base year, others derived from it)
+        input_template = build_template_path(config, '2018', channel_name, suffix, smoothed=False)
+
+        # Get smoothing settings from config
+        smoothing_config = config.get('smoothing', {})
+        sysList = smoothing_config.get('systematics', [])
+        processList = smoothing_config.get('processes', [])
+
+        if not QUIET:
+            print(f"Using config: {args.config}")
+            print(f"Channel: {channel}")
+            print(f"Template: {input_template}")
+            print(f"Systematics to smooth: {sysList}")
+            print(f"Processes: {processList}")
     # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/templatesForCombine1tau1l_new.root' #Only need to offer 2018 templte, all other years will be processed automatically
     #!!!1tau1l: CMS_scale_j_FlavorPureGluon, ps_fsr， CMS_scale_j_PileUpDataMC，CMS_scale_j_RelativeSample_2018， CMS_scale_j_TimePtEta，CMS_scale_j_TimePtEta, 
     # !!!ps_isr_tt, QCDscale_ren_tt, QCDscale_fac_tt 
@@ -39,16 +78,16 @@ def main():
     # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind.root'
     
     
-    channel = '1tau0lSR'
-    sysList = ['ps_fsr', 'CMS_btag_fullShape_hf', 'ps_isr', 'CMS_scale_j_FlavorPureGluon', 'pdf_alphas', 'QCDscale_fac', 'QCDscale_ren', 'CMS_res_j', 'CMS_scale_j_FlavorPureQuark'] 
-    # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop', 'WJets']
-    processList = ['tt', 'ttH', 'ttZ', 'ttW',  'WJets']
-    # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root'
-    # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root' #!2025-11-24: Done
-    input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root'
-    
-   
-    years = ['2016preVFP', '2016postVFP', '2017', '2018']
+    # ===== Legacy hardcoded settings (for backward compatibility) =====
+    if not args.config:
+        channel = '1tau0lSR'
+        sysList = ['ps_fsr', 'CMS_btag_fullShape_hf', 'ps_isr', 'CMS_scale_j_FlavorPureGluon', 'pdf_alphas', 'QCDscale_fac', 'QCDscale_ren', 'CMS_res_j', 'CMS_scale_j_FlavorPureQuark']
+        # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop', 'WJets']
+        processList = ['tt', 'ttH', 'ttZ', 'ttW',  'WJets']
+        # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root'
+        # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root' #!2025-11-24: Done
+        input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root'
+        years = ['2016preVFP', '2016postVFP', '2017', '2018']
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
    
