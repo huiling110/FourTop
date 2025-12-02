@@ -37,6 +37,7 @@ import os
 import subprocess
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from typing import List, Optional, Tuple
 
@@ -530,20 +531,83 @@ def run_stage(stage: str, config: dict, eras: List[str],
     return 0
 
 
-def run_full_stage_3(config: dict, eras: List[str], quiet: bool = False) -> int:
+def run_stage_3_3_1_parallel(config: dict, eras: List[str], quiet: bool = False) -> int:
+    """
+    Run Stage 3.3.1 for all eras in parallel.
+
+    This significantly speeds up systematic job submission by running
+    all 4 eras concurrently instead of sequentially.
+    """
+    logger.info("Stage 3.3.1 | Starting parallel systematic job submission")
+    logger.info(f"Stage 3.3.1 | Submitting for {len(eras)} eras concurrently")
+
+    results = {}
+    start_time = time.time()
+
+    with ThreadPoolExecutor(max_workers=len(eras)) as executor:
+        # Submit all eras in parallel
+        future_to_era = {
+            executor.submit(run_stage_3_3_1, config, era, quiet): era
+            for era in eras
+        }
+
+        # Collect results as they complete
+        for future in as_completed(future_to_era):
+            era = future_to_era[future]
+            try:
+                result = future.result()
+                code = result[0] if isinstance(result, tuple) else result
+                results[era] = code
+                if code == 0:
+                    logger.info(f"Stage 3.3.1 | {era} completed successfully")
+                else:
+                    logger.error(f"Stage 3.3.1 | {era} failed with code {code}")
+            except Exception as e:
+                logger.error(f"Stage 3.3.1 | {era} raised exception: {e}")
+                results[era] = 1
+
+    duration = time.time() - start_time
+    failed_eras = [era for era, code in results.items() if code != 0]
+
+    if failed_eras:
+        logger.error(f"Stage 3.3.1 | Failed for eras: {failed_eras}")
+        return 1
+
+    logger.info(f"Stage 3.3.1 | All eras completed in {duration:.1f}s")
+    return 0
+
+
+def run_full_stage_3(config: dict, eras: List[str], quiet: bool = False,
+                     parallel_sys: bool = True) -> int:
     """
     Run all Stage 3 substages in order:
     3.3   - Submit nominal histogram jobs
-    3.3.1 - Submit shape systematic jobs
+    3.3.1 - Submit shape systematic jobs (parallel by default)
     3.4   - Monitor jobs until completion
-    """
-    stages_to_run = ['3.3', '3.3.1', '3.4']
 
-    for stage in stages_to_run:
-        result = run_stage(stage, config, eras, quiet=quiet)
-        if result != 0:
-            logger.error(f"Stage {stage} failed. Stopping workflow.")
-            return 1
+    Args:
+        parallel_sys: If True, submit systematic jobs for all eras in parallel
+    """
+    # Stage 3.3: Nominal jobs (sequential per era - fast enough)
+    result = run_stage('3.3', config, eras, quiet=quiet)
+    if result != 0:
+        logger.error("Stage 3.3 failed. Stopping workflow.")
+        return 1
+
+    # Stage 3.3.1: Systematic jobs (parallel across eras for speed)
+    if parallel_sys:
+        result = run_stage_3_3_1_parallel(config, eras, quiet=quiet)
+    else:
+        result = run_stage('3.3.1', config, eras, quiet=quiet)
+    if result != 0:
+        logger.error("Stage 3.3.1 failed. Stopping workflow.")
+        return 1
+
+    # Stage 3.4: Monitor jobs
+    result = run_stage('3.4', config, eras, quiet=quiet)
+    if result != 0:
+        logger.error("Stage 3.4 failed. Stopping workflow.")
+        return 1
 
     logger.info("Full Stage 3 workflow completed successfully!")
     print("\n" + "="*60)
