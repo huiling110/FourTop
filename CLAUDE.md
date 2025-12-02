@@ -98,6 +98,23 @@ When working on these tasks:
 
 **Benefit**: Per-task directories preserve full context across sessions, easy to manage multiple tasks
 
+**IMPORTANT - Automatic Context Preservation**:
+When context usage reaches ~10% remaining, Claude MUST automatically:
+1. Update `tasks.md` with current progress (mark completed tasks, note in-progress work)
+2. Update `context.md` with any new key files or decisions discovered
+3. Add session notes to the Notes section with date stamp
+4. Commit any uncommitted changes with descriptive message
+5. Inform user: "Context low - dev-docs updated and changes committed for next session"
+
+This ensures seamless continuation even if the session ends unexpectedly.
+
+**IMPORTANT - Commit Changes Regularly**:
+Claude should proactively commit changes during work sessions:
+- After completing a logical unit of work (e.g., fixing a bug, adding a feature)
+- After completing each phase or major task
+- Before context gets low (~10% remaining)
+- Use descriptive commit messages explaining what was done and why
+
 ---
 
 ## Project Overview
@@ -261,6 +278,10 @@ make clean && make
 - Verify environment before running code
 - Validate physics results after critical changes
 - Update documentation as work progresses
+
+**Code quality**: Automated hooks enabled (`.claude/hooks/post-tool-use.sh`)
+- Python: max 80 lines/function, max nesting depth 5
+- See `.claude/settings.json` for full standards
 
 ---
 

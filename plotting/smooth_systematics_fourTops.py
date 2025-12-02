@@ -1,3 +1,4 @@
+import argparse
 import ROOT
 import numpy as np
 import uproot
@@ -9,7 +10,15 @@ import usefulFunc as uf
 import writeDatacard as wd
 #!!!source setEnv_newNew.sh to set up the environment
 
+# Global quiet flag for controlling verbose output
+QUIET = False
+
 def main():
+    global QUIET
+    parser = argparse.ArgumentParser(description='Apply LOWESS smoothing to systematic variations')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress verbose output')
+    args = parser.parse_args()
+    QUIET = args.quiet
     # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/templatesForCombine1tau1l_new.root' #Only need to offer 2018 templte, all other years will be processed automatically
     #!!!1tau1l: CMS_scale_j_FlavorPureGluon, ps_fsr， CMS_scale_j_PileUpDataMC，CMS_scale_j_RelativeSample_2018， CMS_scale_j_TimePtEta，CMS_scale_j_TimePtEta, 
     # !!!ps_isr_tt, QCDscale_ren_tt, QCDscale_fac_tt 
@@ -47,57 +56,55 @@ def main():
     
     
    
-    print(f'\nSmoothing completed for all processes and years. Saving smoothed histograms...')
-    for year in years:    
+    if not QUIET:
+        print(f'\nSmoothing completed for all processes and years. Saving smoothed histograms...')
+    for year in years:
         output_file = input_template.replace('.root', f'_smoothed.root')
         output_file = output_file.replace('2018', year)
         inputYear = input_template.replace('2018', year)
         with uproot.open(inputYear) as infile:
             with uproot.recreate(output_file) as outfile:
-                # print('input: ', input_template, 'output:', output_file)
                 for key, obj in infile.items():
-                    # hist_name = key
                     hist_name = key.split(';')[0]  #!!!Fixe; or else extra ;1;1 in the hist name for the output file
-                    
-                    ipro, ichannel, isys = extract_parts_from_name(hist_name) 
-                    # print(f'Processing histogram: {hist_name}, process: {ipro}, channel: {ichannel}, sys: {isys}')
-                    
+
+                    ipro, ichannel, isys = extract_parts_from_name(hist_name)
+
                     if isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] and ichannel == channel:
-                        print('!!! replace histogram:', hist_name, 'with smoothed values for', isys, ipro, year)
-                        # Decide whether it's an 'Up' or 'Down' variation and replace accordingly
-                        # if hist_name.contains("Up_BDT"):
+                        if not QUIET:
+                            print('!!! replace histogram:', hist_name, 'with smoothed values for', isys, ipro, year)
                         if 'Up_BDT' in hist_name:
                             hist_data = dic_sys[isys][ipro][year][0]
                         elif 'Down_BDT' in hist_name:
                             hist_data = dic_sys[isys][ipro][year][1]
-                    
-                    # The original edges are used here; adjust if needed for new data shape
+
                         edges = obj.axes[0].edges()
                         outfile[hist_name] = (hist_data, edges)
 
                     else:
                         # Copy other histograms without modification
-                        outfile[hist_name] = obj  
-        print(f'Smoothed histograms saved to {output_file}')
+                        outfile[hist_name] = obj
+        if not QUIET:
+            print(f'Smoothed histograms saved to {output_file}')
                 
     
     
 def getSmoothedDic(input_template, sysList, processList, channel, years, outDir):
-    dic_sys = {} 
+    dic_sys = {}
     for sys in sysList:
         ifCorrelated = wd.MCSys[sys][0]
-        ifProcessCorrelated = wd.MCSys[sys][3] 
-        print(f'\nProcessing systematic: {sys}, correlated: {ifCorrelated}, ifProcessCorrelated: {ifProcessCorrelated}')
+        ifProcessCorrelated = wd.MCSys[sys][3]
+        if not QUIET:
+            print(f'\nProcessing systematic: {sys}, correlated: {ifCorrelated}, ifProcessCorrelated: {ifProcessCorrelated}')
         dic_sys[sys] = {}
-     
+
         for process in processList:
             dic_sys[sys][process] = {}
-            
+
             for iyear in years:
-                # if not iyear == '2018': continue
-                nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated, ifProcessCorrelated) 
+                nom_name, up_name, down_name = getHistName(sys, process, channel, iyear, ifCorrelated, ifProcessCorrelated)
                 iFile = input_template.replace('2018', iyear)
-                print(f'Processing file: {iFile}')
+                if not QUIET:
+                    print(f'Processing file: {iFile}')
                 nominal_hist, up_hist, down_hist = getHist_uproot(iFile, nom_name, up_name, down_name) 
                 
                 combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var = getForSmooth(input_template, sys, process, channel, years, iyear, ifCorrelated, ifProcessCorrelated)
@@ -186,7 +193,8 @@ def getForSmooth(input_template, sys, process,  channel, years, iyear, ifCorrela
         combined_var = nominal_hist.variances()
         combined_up_var = up_hist.variances()
         combined_down_var = down_hist.variances()
-        print(f'{sys} not correlated for smoothing')
+        if not QUIET:
+            print(f'{sys} not correlated for smoothing')
     else:
         # If correlated, we need to combine the histograms across years
         combined_nominal, combined_up, combined_down = None, None, None
@@ -210,7 +218,8 @@ def getForSmooth(input_template, sys, process,  channel, years, iyear, ifCorrela
                 combined_up_var += up_hist_year.variances()
                 combined_down_var += down_hist_year.variances()
 
-        print(f'{sys} correlated for smoothing across years: {years}')
+        if not QUIET:
+            print(f'{sys} correlated for smoothing across years: {years}')
 
     return combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var
 
@@ -274,8 +283,9 @@ def plot_smoothed_systematics(nominal_hist, up, down, new_up, new_down, outDir, 
     # Save the figure
     plt.tight_layout()
     plt.savefig(f'{outDir}systematics_comparison_{sys_name}_{postfix}.png')
-    plt.close()    
-    print(f'Smoothed systematics plot saved to {outDir}systematics_comparison_{sys_name}_{postfix}.png')
+    plt.close()
+    if not QUIET:
+        print(f'Smoothed systematics plot saved to {outDir}systematics_comparison_{sys_name}_{postfix}.png')
     
  
     
@@ -363,29 +373,6 @@ def get_smoothed_scale_factor( smoothed_ratio_diff, nom_hist, var_hist, nom_var,
     denominator = np.sum( (ratio_factor / np.sqrt(total_var))**2 )
     return numerator/denominator
 
-
-def get_smoothed_up_and_down( nom_hist, nom_variance, up_hist, up_variance, down_hist, down_variance, bin_centers, n_aux_bins, n_reco_bins, ratio_only=False ):
-    '''use up and down variations of a systematic to smooth them, by using the difference in each of their ratios to the nominal.
-       the shapes of the systematic templates are constrained to be opposite to each other, up to some overall scaling.
-      Taken from:
-            https://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2018_077_v4.pdf'''
-
-    half_ratio = np.where( nom_hist > 0., up_hist / nom_hist, 1. )
-    alt_half_ratio = np.where( nom_hist > 0., down_hist / nom_hist, 1. )
-    ratio_diff = (half_ratio - alt_half_ratio)/2.
-    diff_smooth = smooth_ratio( ratio_diff, bin_centers, n_aux_bins, n_reco_bins )
-
-    up_scale = get_smoothed_scale_factor( diff_smooth, nom_hist, up_hist, nom_variance, up_variance)
-    down_scale = get_smoothed_scale_factor( diff_smooth, nom_hist, down_hist, nom_variance, down_variance)
-
-    up_ratio = (1 + up_scale*diff_smooth)
-    down_ratio = ( 1 + down_scale*diff_smooth)
-    if ratio_only:
-        return up_ratio, down_ratio
-
-    new_var_up = nom_hist * np.nan_to_num(up_ratio, nan=1.0)
-    new_var_down = nom_hist * np.nan_to_num(down_ratio, nan=1.0)
-    return new_var_up, new_var_down
 
 if __name__ == '__main__':
     main()

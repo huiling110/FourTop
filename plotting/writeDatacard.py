@@ -1,4 +1,5 @@
 import os
+import argparse
 import ROOT
 import usefulFunc as uf
 import ttttGlobleQuantity as gq
@@ -23,9 +24,8 @@ MCSys = {
     'CMS_fake_t_DeepTau2017v2p1_VSe': [True, 0, 0b111, True],
 
     # Tau ID efficiency: Updated 2025-11-27 to CMS naming convention
-    # Main tau ID (era-dependent)
-    # Class: tau_identification (for GitLab CI validation)
-    'CMS_eff_t_DeepTau2017v2p1_VSjet': [False, 0, 0b111, True],
+    # NOTE: Main tau ID systematic is NOT used - already split into stat/syst components below
+    # 'CMS_eff_t_DeepTau2017v2p1_VSjet': [False, 0, 0b111, True],  # COMMENTED OUT - redundant with detailed breakdown
 
     # Tau ID stat uncertainties (era-dependent, per decay mode)
     'CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0': [False, 0, 0b111, True],
@@ -141,6 +141,10 @@ MCSys = {
 outVersion = 'v6AllSys_unblind_CMSnaming'
 
 def main():
+    parser = argparse.ArgumentParser(description='Generate datacards for CMS Combine')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress verbose output')
+    args = parser.parse_args()
+
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lFakeTau/combine/templatesForCombine1tau1l.root'
@@ -209,7 +213,10 @@ def main():
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-26: Done
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-26: Done
     # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-26: Done
-    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete - Done
+    # inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete - Done
+    inputTemplate = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind_smoothed.root' #!2025-11-28: CMS naming complete
     channel = '1tau0l'
 
     #!!!1tau2l
@@ -258,23 +265,23 @@ def main():
         # processes.remove('Minor')
         # if era == '2016postVFP':
         #     processes.remove('singleTop')#!!!
-    else: 
-        processes.remove('jetHT')  
-    print(processes)
-    
+    else:
+        processes.remove('jetHT')
+    if not args.quiet:
+        print(processes)
+
     remove0Process(processes, inputTemplate, channel)
-    
-    era = uf.getEraFromDir(inputTemplate) 
-    sysDic = getSysDic(processes, channel, era) 
-    print(sysDic, '\n')
-    #sysDic
-    
+
+    era = uf.getEraFromDir(inputTemplate)
+    sysDic = getSysDic(processes, channel, era)
+    if not args.quiet:
+        print(sysDic, '\n')
+        for i, iv in sysDic.items():
+            print(i, iv)
+
     addLumi(sysDic, era, processes)
     addProcessNormalization(sysDic, processes)#!to be done
-    
-    for i, iv in sysDic.items():
-        print(i, iv)
-        
+
     write_shape_datacard(outCard, inputTemplate, channel, processes,  sysDic, era) 
     
     

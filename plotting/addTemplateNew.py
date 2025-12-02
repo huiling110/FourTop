@@ -1,3 +1,4 @@
+import argparse
 import ROOT
 import usefulFunc as uf
 import writeDatacard as wd
@@ -5,6 +6,9 @@ import pl as pl
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Create template ROOT files for CMS Combine')
+    parser.add_argument('--quiet', '-q', action='store_true', help='Suppress verbose output')
+    args = parser.parse_args()
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV2/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lAddMCFakeTV3/'
@@ -93,7 +97,8 @@ def main():
     is1tau2l = True if channel == '1tau2l' else False
 
     sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, True)
-    print('sumProList:', sumProList)
+    if not args.quiet:
+        print('sumProList:', sumProList)
     sumProSys = pl.getSysDicPL(sumProList, True, channel, era, True)
 
     # WORKAROUND: For 2016preVFP/postVFP eras, we need to use the actual era suffix
@@ -105,7 +110,8 @@ def main():
     #   - L1 prefiring: NOW ALSO mapped at C++ level (_2016 for both VFP eras)
     # Therefore: NO unmapping needed! All VFP correlation is handled in C++.
     if era in ["2016preVFP", "2016postVFP"]:
-        print(f"DEBUG: VFP era detected ({era}), but NO unmapping needed - all handled at C++ level")
+        if not args.quiet:
+            print(f"DEBUG: VFP era detected ({era}), but NO unmapping needed - all handled at C++ level")
         systematics_to_unmap = [
             # 'CMS_scale_t_DeepTau2017v2p1_DM0_genTau',   # Mapped at C++ level - DON'T remap
             # 'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',   # Mapped at C++ level - DON'T remap
@@ -126,7 +132,8 @@ def main():
                     sys_with_2016 = f'{sys_base}_2016'
                     sys_with_era = f'{sys_base}_{era}'
                     if sys_name == sys_with_2016:
-                        print(f"DEBUG: Remapping {sys_with_2016} -> {sys_with_era} for process {process}")
+                        if not args.quiet:
+                            print(f"DEBUG: Remapping {sys_with_2016} -> {sys_with_era} for process {process}")
                         new_sys_list.append(sys_with_era)
                         remapped = True
                         break
@@ -138,7 +145,7 @@ def main():
     sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
     
     
-    addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind) 
+    addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind, args.quiet) 
    
           
              
@@ -183,27 +190,29 @@ def main():
     print('template file created:', templateFile)
    
    
-def addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind=True): 
+def addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind=True, quiet=False):
     #add fake data for SR
-    dataName = 'leptonSum' if is1tau2l else 'jetHT' 
+    dataName = 'leptonSum' if is1tau2l else 'jetHT'
     for ivar in variables:
         for region in regionList:
             dataHist = None
             if 'SR' in region and ifBlind:
                 for sumPro in sumProList:
                     if uf.isData(sumPro): continue
-                    print('fake data: ', sumPro)
-                    
+                    if not quiet:
+                        print('fake data: ', sumPro)
+
                     hist = sumProcessPerVar[ivar][region][sumPro]
                     resetNegtiveBins(hist)
-                    
+
                     if dataHist == None:
-                        dataHist = sumProcessPerVar[ivar][region][sumPro].Clone()  
+                        dataHist = sumProcessPerVar[ivar][region][sumPro].Clone()
                         dataHist.SetName(dataHist.GetName().replace(sumPro, 'data_obs'))
                     else:
-                        dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # some process has negative bins, set them to 0 
+                        dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # some process has negative bins, set them to 0
                 sumProcessPerVar[ivar][region][dataName] = dataHist
-                print('fake data hist:', dataHist.GetName())
+                if not quiet:
+                    print('fake data hist:', dataHist.GetName())
             dataHistName = sumProcessPerVar[ivar][region][dataName].GetName().replace(dataName, 'data_obs')
             sumProcessPerVar[ivar][region][dataName].SetName(dataHistName)
 
