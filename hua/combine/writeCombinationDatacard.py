@@ -1,5 +1,18 @@
 import subprocess
 import os
+import argparse
+import sys
+
+# Try to import workflow_utils for config-based path building
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../plotting'))
+    from workflow_utils import (
+        load_config, build_datacard_path, get_eras, get_channel
+    )
+    WORKFLOW_UTILS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_UTILS_AVAILABLE = False
+
 #!!!have to use python2 with combine
 cardDic_1tau0l = {
     # 'SR1tau0l_2016postVFP': '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT25inputsWith2018train/combine/datacardSys/datacard_1tau0lSys.txt',
@@ -136,40 +149,138 @@ cardDic_1tau2l = {
 }
 
 
-def main():
-    # combinationVersion = 'V11'
-    # combinationVersion = 'V12'
-    # combinationVersion = 'V13'
-    # combinationVersion = 'V13_fakeTau'
-    # combinationVersion = 'V14'
-    # combinationVersion = 'V16'
-    # combinationVersion = 'V17_smoothing'#smoothing
-    # combinationVersion = 'V18'
-    combinationVersion = 'V20'  # v9BDT1tau0l_CMSNamingComplete (2025-11-28) - Complete CMS naming
-    # cardDir = 'run2_1tau1l'
-    cardDir = 'run2_1tau0l_v4_unblind'  # Using 1tau0l channel with new v9BDT datacards
-    # cardDir = 'run2_1tau0l'
-    # cardDir = 'run2_1tau2l'
-    # cardDir = 'run2_3years'
-    # cardDir = 'run2_1tau1l_v4_unblind'
-    # cardDir = 'run2_1tau0l_v4_unblind'
-    # cardDir = 'run2_1tau0l_v4_unblind_smoothed'
-    # cardDir = 'run2_1tau2l_v4_unblind'
-    # cardDir = 'run2_3channels_v4_unblind'
-    # cardDic1tau1l.update(cardDic_1tau0l)
-    # cardDic1tau1l.update(cardDic_1tau2l)
+def build_card_dic_from_config(config, channel=None):
+    """
+    Build card dictionary from YAML config file.
 
+    Args:
+        config: Configuration dictionary from load_config()
+        channel: Channel name (e.g., '1tau0l'). If None, uses config default.
+
+    Returns:
+        Dictionary mapping 'SR{channel}_{era}' to datacard file paths
+    """
+    if channel is None:
+        channel = get_channel(config)
+
+    eras = get_eras(config)
+    card_dic = {}
+
+    for era in eras:
+        key = f'SR{channel}_{era}'
+        datacard_dir = build_datacard_path(config, era, channel)
+        datacard_file = os.path.join(datacard_dir, f'datacard_{channel}.txt')
+        card_dic[key] = datacard_file
+
+    return card_dic
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Combine datacards from multiple eras into a single Run2 datacard'
+    )
+    parser.add_argument(
+        '--config', '-c',
+        type=str,
+        help='Path to YAML config file. If provided, builds paths from config.'
+    )
+    parser.add_argument(
+        '--channel',
+        type=str,
+        choices=['1tau0l', '1tau1l', '1tau2l'],
+        help='Channel to process. Overrides config channel if both provided.'
+    )
+    parser.add_argument(
+        '--version',
+        type=str,
+        default='V20',
+        help='Combination version (e.g., V20). Default: V20'
+    )
+    parser.add_argument(
+        '--output-dir',
+        type=str,
+        help='Output directory name (e.g., run2_1tau0l_v4_unblind). Default: auto-generated.'
+    )
+    parser.add_argument(
+        '--quiet', '-q',
+        action='store_true',
+        help='Suppress non-essential output'
+    )
+    args = parser.parse_args()
+
+    # Determine card dictionary and output settings
+    if args.config:
+        if not WORKFLOW_UTILS_AVAILABLE:
+            print("ERROR: --config requires workflow_utils.py but import failed.")
+            print("Make sure PyYAML is installed and workflow_utils.py exists.")
+            sys.exit(1)
+
+        config = load_config(args.config)
+
+        # Get channel (CLI overrides config)
+        channel = args.channel if args.channel else get_channel(config)
+
+        # Build card dictionary from config
+        card_dic = build_card_dic_from_config(config, channel)
+
+        # Get combination version from config or CLI
+        if 'combine' in config and 'combination_version' in config['combine']:
+            config_version = config['combine']['combination_version'].replace('combination', '')
+            combinationVersion = args.version if args.version != 'V20' else config_version
+        else:
+            combinationVersion = args.version
+
+        # Auto-generate output directory name if not provided
+        if args.output_dir:
+            cardDir = args.output_dir
+        else:
+            blind_suffix = '' if config.get('options', {}).get('ifBlind', True) else '_unblind'
+            cardDir = f'run2_{channel}_v4{blind_suffix}'
+
+        if not args.quiet:
+            print(f"Using config-based paths from: {args.config}")
+            print(f"Channel: {channel}, Version: {combinationVersion}")
+    else:
+        # Legacy mode: use hardcoded dictionaries
+        # combinationVersion = 'V11'
+        # combinationVersion = 'V12'
+        # combinationVersion = 'V13'
+        # combinationVersion = 'V13_fakeTau'
+        # combinationVersion = 'V14'
+        # combinationVersion = 'V16'
+        # combinationVersion = 'V17_smoothing'#smoothing
+        # combinationVersion = 'V18'
+        combinationVersion = args.version  # Default: V20
+        # cardDir = 'run2_1tau1l'
+        cardDir = args.output_dir if args.output_dir else 'run2_1tau0l_v4_unblind'
+        # cardDir = 'run2_1tau0l'
+        # cardDir = 'run2_1tau2l'
+        # cardDir = 'run2_3years'
+        # cardDir = 'run2_1tau1l_v4_unblind'
+        # cardDir = 'run2_1tau0l_v4_unblind_smoothed'
+        # cardDir = 'run2_1tau2l_v4_unblind'
+        # cardDir = 'run2_3channels_v4_unblind'
+
+        # Select card dictionary based on channel argument
+        if args.channel == '1tau1l':
+            card_dic = cardDic1tau1l
+        elif args.channel == '1tau2l':
+            card_dic = cardDic_1tau2l
+        else:
+            card_dic = cardDic_1tau0l  # Default to 1tau0l
+
+        # cardDic1tau1l.update(cardDic_1tau0l)
+        # cardDic1tau1l.update(cardDic_1tau2l)
 
     directory_path = 'combination'+combinationVersion+'/'+cardDir +'/'
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
-        print("Directory created:", directory_path)
+        if not args.quiet:
+            print("Directory created:", directory_path)
 
-    # comDatacard(cardDic1tau1l, directory_path+'datacard.txt')#!!!
-    comDatacard(cardDic_1tau0l, directory_path+'datacard.txt')  # Run for 1tau0l only
-    # comDatacard(cardDic_1tau2l, directory_path+'datacard.txt')
+    comDatacard(card_dic, directory_path+'datacard.txt', quiet=args.quiet)
 
-def comDatacard(cardDic, outCard):
+def comDatacard(cardDic, outCard, quiet=False):
     # command = 'combineCards.py SR1tau0l_2016={} SR1tau0l_2017={} SR1tau0l_2018={} > Run2_1tau0l_datacard.txt'.format(SR1tau0l_2016, SR1tau0l_2017, SR1tau0l_2018)
     command = 'combineCards.py '
     for iCard in cardDic.keys():
@@ -177,13 +288,15 @@ def comDatacard(cardDic, outCard):
     # command = command +'> '+ 'Run2_1tau1l_datacard.txt'
     # command = command +'> '+ 'Run2_all_datacard.txt'
     command = command +'> '+ outCard
-        
+
 
     # command = 'combineCards.py SR1tau1l={} SR1tau0l={} > 2016_1tau1lAnd1tau0l_datacard.txt'.format(SR1tau1l, SR1tau0l)
-    print(command)
+    if not quiet:
+        print(command)
     process = subprocess.Popen( command, shell=True)
     out = process.communicate()
-    print(out)
+    if not quiet:
+        print(out)
 
 if __name__ == '__main__':
     main()

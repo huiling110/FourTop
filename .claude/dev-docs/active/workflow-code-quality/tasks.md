@@ -2,7 +2,7 @@
 
 **Created**: 2025-12-02
 **Last Updated**: 2025-12-02
-**Status**: Phase 2A - Complete, Phase 2B - Ready to Start
+**Status**: Phase 2B - Complete, Phase 2C - Ready to Start
 
 ---
 
@@ -36,13 +36,13 @@
 
 ---
 
-## Phase 2B: Script Modifications - IN PROGRESS
+## Phase 2B: Script Modifications - COMPLETE ✅
 
 - ✅ Add --config to writeDatacard.py
 - ✅ Add --config to addTemplateNew.py
 - ✅ Add --config to addJESTemplatesToHistFile.py
 - ✅ Add --config to smooth_systematics_fourTops.py
-- [ ] Add --config to writeCombinationDatacard.py (in hua/combine/)
+- ✅ Add --config to writeCombinationDatacard.py (in hua/combine/)
 
 ---
 
@@ -68,7 +68,7 @@
 - [x] analysis_config.yaml created with current settings
 - [x] Version snapshot saved
 - [x] workflow_utils.py created
-- [ ] All plotting scripts accept --config flag
+- [x] All plotting scripts accept --config flag
 - [ ] run_workflow.py executes all stages
 - [ ] Full workflow test passes
 
