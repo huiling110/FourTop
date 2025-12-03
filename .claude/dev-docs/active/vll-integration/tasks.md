@@ -1,6 +1,6 @@
 # VLL Integration Tasks
 
-**Last Updated**: 2025-12-03 12:25
+**Last Updated**: 2025-12-03 13:10
 
 ## Tasks
 
@@ -11,10 +11,25 @@
 - [x] Update runCombineSig() for unblinded VLL
 - [x] Update main() to pass ifVLL to runImpact and call runImpactSnapshot
 - [x] Add VLL and tttt test commands to run_runCombineAll.sh
-- [~] Run tests and verify results (VLL test running in background)
-- [ ] Run tttt regression test after VLL test completes
+- [x] Run VLL limit WITHOUT r=0 freeze for validation comparison
+- [x] Compare VLL limits with/without freeze (identical - expected for AsymptoticLimits)
+- [~] VLL full test running (workspace ✅, limits ✅, significance ✅, impacts 🔄)
+- [ ] Run tttt regression test
+- [ ] Verify tttt results unchanged from previous runs
 
 ## Progress Notes
+
+### 2025-12-03 13:10
+- **Validation test completed**: Ran AsymptoticLimits without VLL options
+- **Result**: Limits identical with/without `--setParameters r=0 --freezeParameters r`
+- **Explanation**: AsymptoticLimits scans r values regardless of initial params
+- VLL options more important for Significance/Impacts (r=0 baseline matters)
+- VLL full test still running (impacts step in progress)
+
+### 2025-12-03 12:46
+- Resumed task from dev-docs
+- VLL test progress: workspace ✅, limits ✅ (r < 1.88), significance ✅ (2.0σ)
+- Impacts step running with 8 parallel workers (~431/469 fits done)
 
 ### 2025-12-03 12:25
 - **Committed changes**: `a1ba3107` - feat: Add VLL analysis options to runCombineAll.py

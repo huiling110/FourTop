@@ -1,6 +1,6 @@
 # VLL Integration Context
 
-**Last Updated**: 2025-12-03 12:25
+**Last Updated**: 2025-12-03 13:10
 
 ## Key Files
 
@@ -45,4 +45,18 @@ python3 runCombineAll.py --cardDir combinationV10/run2_1tau0l_VLLm700/ --no-blin
 
 # Run tttt regression test
 python3 runCombineAll.py --cardDir combinationV20/run2_1tau0l_v4_unblind/ --no-blind --steps workspace significance limits impacts postfit signal_strength
+
+# Validation: Run limits WITHOUT VLL options (for comparison)
+cd hua/combine/combinationV10/run2_1tau0l_VLLm700
+combine -M AsymptoticLimits workspace/datacard_1tau0l.root --name _noVLLopts
 ```
+
+## Key Findings
+
+### AsymptoticLimits Validation (2025-12-03)
+- VLL options (`--setParameters r=0 --freezeParameters r`) do NOT affect limit values
+- AsymptoticLimits scans r from rMin to rMax regardless of initial parameters
+- VLL options ARE important for:
+  - **Significance**: Sets null hypothesis at r=0
+  - **Impacts**: Computes systematic effects at r=0 baseline
+  - **GoF tests**: Evaluates fit quality at background-only hypothesis
