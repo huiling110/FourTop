@@ -236,7 +236,13 @@ Examples:
             logger.info("\n" + "="*80)
             logger.info("STEP 4: Calculating systematic impacts (this may take a while...)")
             logger.info("="*80)
-            runImpact(working_cardDir, ifBlind)  #!Step 1 of unblinding
+            runImpact(working_cardDir, ifBlind, ifVLL, channel)
+            # For VLL analysis, also run B-only constrained impacts
+            if ifVLL:
+                logger.info("\n" + "="*80)
+                logger.info("STEP 4b: Running B-only constrained impacts (VLL)")
+                logger.info("="*80)
+                runImpactSnapshot(working_cardDir, ifVLL, channel)
 
         # Step 5: Post-fit plots
         if 'postfit' in steps:
@@ -282,7 +288,6 @@ def goodnessOfFit(cardDir, ifVLL=False, channel='1tau1l'):
             channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l') - used for VLL analysis
     '''
     # Auto-detect which workspace file actually exists (important when workspace step was run)
-    #!!!Need to add u=0 for VLL
     datacardFile = get_workspace_file(cardDir, ifVLL, channel)
     if datacardFile is None:
         return
@@ -300,13 +305,16 @@ def goodnessOfFit(cardDir, ifVLL=False, channel='1tau1l'):
     logger.info(f"Working directory: {goodnessOfFitDir}")
 
     try:
+        # VLL-specific options: freeze r=0 for background-only hypothesis
+        vll_opts = ' --setParameters r=0 --freezeParameters r' if ifVLL else ''
+
         # Run goodness-of-fit test on observed data
-        gofObservedCommand = 'combine -M GoodnessOfFit {} --algo saturated -n .observed'.format(datacardFile)
+        gofObservedCommand = 'combine -M GoodnessOfFit {} --algo saturated -n .observed{}'.format(datacardFile, vll_opts)
         runCommand(gofObservedCommand)
 
         # Generate toys for expected distribution
         # OPTION 1: Single file approach (faster but can crash with large N)
-        gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 100'.format(datacardFile)
+        gofToysCommand = 'combine -M GoodnessOfFit {} --algo saturated -t 100{}'.format(datacardFile, vll_opts)
         plot1 = 'combineTool.py -M CollectGoodnessOfFit --input higgsCombine.observed.GoodnessOfFit.mH120.root higgsCombineTest.GoodnessOfFit.mH120.123456.root -o gof.json'
         # OPTION 2: Separate files approach (more robust, recommended for large N)
         # Use combineTool to generate toys in separate files (more robust against crashes)
@@ -432,9 +440,19 @@ def runPostFitPlots(cardDir):
 
     
     
-def runImpact(cardDir, ifBlind=True):
-    '''Generate systematic impact plots showing which uncertainties affect the measurement most'''
+def runImpact(cardDir, ifBlind=True, ifVLL=False, channel='1tau1l'):
+    '''Generate systematic impact plots showing which uncertainties affect the measurement most
+
+    Args:
+        cardDir: Directory containing datacards and workspaces
+        ifBlind: If True, run blinded analysis
+        ifVLL: If True, run VLL analysis with r=0 frozen
+        channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l')
+    '''
     original_dir = os.getcwd()
+
+    # VLL-specific options: freeze r=0 and allow negative r for impact fits
+    vll_opts = ' --rMin -1 --setParameters r=0 --freezeParameters r' if ifVLL else ''
 
     for ifile in os.listdir(cardDir+'workspace/'):
         if ifile.find('root')>0:
@@ -451,10 +469,9 @@ def runImpact(cardDir, ifBlind=True):
             os.chdir(impacDir)  #!don't need to cd in run_runCombineAll.sh anymore
             logger.info(f"Working directory: {impacDir}")
 
-            step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1  '.format(wf)
-            # step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits  '.format(wf) 
-            step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits --parallel 8 --job-mode "interactive"'.format(wf) 
-            step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json '.format(wf, impacDir)
+            step1 = 'combineTool.py -M Impacts -d {} -m 125 --doInitialFit --robustFit 1{}'.format(wf, vll_opts)
+            step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits --parallel 8 --job-mode "interactive"{}'.format(wf, vll_opts)
+            step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json{}'.format(wf, impacDir, vll_opts)
             step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(impacDir)
             mv = 'mv higgsCombine_paramFit*.root impacts.pdf combine_logger.out {}'.format(impacDir)
             runCommand(step1)
@@ -466,6 +483,101 @@ def runImpact(cardDir, ifBlind=True):
 
     os.chdir(original_dir)
     logger.debug(f"Returned to directory: {original_dir}")
+
+
+def runImpactSnapshot(cardDir, ifVLL=False, channel='1tau1l'):
+    """Generate impact plots using B-only constrained snapshot (for VLL analysis)
+
+    This creates a snapshot workspace with r=0 frozen, then runs impacts using
+    the snapshot. This is the recommended approach for VLL/BSM analyses.
+
+    Args:
+        cardDir: Directory containing datacards and workspaces
+        ifVLL: If True, use VLL-specific datacard naming
+        channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l')
+    """
+    original_dir = os.getcwd()
+    workspaceDir = os.path.join(cardDir, 'workspace/')
+    outFolder = os.path.join(cardDir, 'combineResults/')
+
+    # Ensure output directory exists
+    ensure_dir(outFolder)
+
+    for ifile in os.listdir(workspaceDir):
+        if ifile.endswith('.root') and 'higgsCombine' not in ifile:
+            iname = ifile.split('.root')[0]
+            original_wf = os.path.join(workspaceDir, ifile)
+
+            impacDir = os.path.join(outFolder, 'impactResult_' + iname + '/')
+
+            # Try to create directory; if no write permission, use current dir
+            impacDir = ensure_dir_with_fallback(impacDir, 'impactResult_' + iname, original_dir)
+
+            os.chdir(impacDir)
+            logger.info(f"Working directory: {impacDir}")
+            logger.info(f"Processing: {iname} (B-only constrained snapshot)")
+
+            snapshot_name = "MultiDimFit"
+
+            # Step 0: Create snapshot with r=0 frozen
+            step0_cmd = (
+                f"combine -M MultiDimFit {original_wf} -n .SnapshotBOnly "
+                f"--saveWorkspace "
+                f"--setParameters r=0 --freezeParameters r "
+                f"--rMin -20 --rMax 20 -m 125"
+            )
+            runCommand(step0_cmd)
+
+            snapshot_file = "higgsCombine.SnapshotBOnly.MultiDimFit.mH125.root"
+
+            if not os.path.exists(snapshot_file):
+                logger.error("Snapshot generation failed!")
+                os.chdir(original_dir)
+                continue
+
+            target_snapshot = os.path.join(impacDir, snapshot_file)
+            os.rename(snapshot_file, target_snapshot)
+
+            # Step 1: Initial fit using snapshot
+            step1 = (
+                f"combineTool.py -M Impacts -d {target_snapshot} -m 125 "
+                f"--snapshotName {snapshot_name} "
+                f"--doInitialFit --robustFit 1 --rMin -10 --rMax 10"
+            )
+
+            # Step 2: Run fits for each nuisance parameter
+            step2 = (
+                f"combineTool.py -M Impacts -d {target_snapshot} -m 125 "
+                f"--snapshotName {snapshot_name} "
+                f"--robustFit 1 --doFits --rMin -10 --rMax 10 --parallel 20"
+            )
+
+            # Step 3: Collect impacts into JSON
+            json_file = os.path.join(impacDir, 'impacts.json')
+            step3 = (
+                f"combineTool.py -M Impacts -d {target_snapshot} -m 125 "
+                f"--snapshotName {snapshot_name} "
+                f"--robustFit 1 -o {json_file} --rMin -10 --rMax 10"
+            )
+
+            # Step 4: Plot impacts
+            pdf_file = os.path.join(impacDir, 'impacts')
+            step4 = f"plotImpacts.py -i {json_file} -o {pdf_file}"
+
+            runCommand(step1)
+            runCommand(step2)
+            runCommand(step3)
+            runCommand(step4)
+
+            logger.info(f"Impact Plot (B-only constrained) saved to: {pdf_file}.pdf")
+
+            # Cleanup: move intermediate files to output directory
+            cleanup = f"mv higgsCombine_paramFit*.root {impacDir}/ 2>/dev/null || true"
+            runCommand(cleanup, check_returncode=False)
+
+    os.chdir(original_dir)
+    logger.debug(f"Returned to directory: {original_dir}")
+
 
 def runCommand(com, check_returncode=True):
     """Execute a shell command with proper error handling
@@ -582,12 +694,15 @@ def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l'
     iname = '_' + datacardFile.split('/')[-1].split('.root')[0]
 
     expectSignal = 0 if ifVLL else 1
+    # VLL-specific options for unblinded analysis: freeze r=0 for background-only hypothesis
+    vll_opts = ' --setParameters r=0 --freezeParameters r' if ifVLL else ''
+
     if isLimit:
         if ifBlind:
             # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=datacardFile, name=iname )
             significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind -t -{expectSignal} --name {name}'.format( rootFile=datacardFile, name=iname, expectSignal=expectSignal )
         else:
-            significanceCommand = 'combine -M AsymptoticLimits {rootFile} --name {name}'.format( rootFile=datacardFile, name=iname )
+            significanceCommand = 'combine -M AsymptoticLimits {rootFile} --name {name}{vll}'.format( rootFile=datacardFile, name=iname, vll=vll_opts )
     else:
         # Significance calculation
         if ifBlind:
@@ -596,7 +711,7 @@ def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l'
                 rootFile=datacardFile, signal=expectSignal, name=iname )
         else:
             # significanceCommand = 'combine -M Significance {rootFile} --name {name}'.format( rootFile=datacardFile, name=iname )
-            significanceCommand = 'combine -M Significance {rootFile} --name {name} --plot significance'.format( rootFile=datacardFile, name=iname )
+            significanceCommand = 'combine -M Significance {rootFile} --name {name} --plot significance{vll}'.format( rootFile=datacardFile, name=iname, vll=vll_opts )
 
     runCommand(significanceCommand)
     os.chdir(original_dir)
