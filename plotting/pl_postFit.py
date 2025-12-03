@@ -176,7 +176,7 @@ def run_prefit_plots(config, args):
     ifMCFTau = False
     ifDoSystmatic = False
     ifPostfit = False  # This is pre-fit
-    ifStackSignal = True
+    ifStackSignal = False if ifVLL else True  # Don't stack VLL signal - show as overlay
     ifLogy = not args.no_logy
     ifPrintSB = True
     ifBlind = args.blind
@@ -307,14 +307,15 @@ def run_postfit_plots_legacy():
 
 def _get_plot_options(args):
     """Create plotting options dict from args."""
+    ifVLL = getattr(args, 'vll', '')
     return {
         'variable': 'BDT',
         'ifFakeTau': True,
-        'ifVLL': getattr(args, 'vll', ''),  # VLL process name (e.g., 'VLLm700') or empty string
+        'ifVLL': ifVLL,  # VLL process name (e.g., 'VLLm700') or empty string
         'ifMCFTau': False,
         'ifDoSystmatic': False,
         'ifPostfit': True,
-        'ifStackSignal': True,
+        'ifStackSignal': False if ifVLL else True,  # Don't stack VLL signal - show as overlay
         'ifLogy': not getattr(args, 'no_logy', False),
         'ifPrintSB': True,
         'ifBlind': getattr(args, 'blind', False),
