@@ -2,9 +2,9 @@
 
 **Task**: Integrate VLL (Vector-Like Lepton) options into runCombineAll.py
 **Created**: 2025-12-03
-**Last Updated**: 2025-12-03 13:10
-**Status**: Implementation Complete, Validation Testing
-**Commit**: `a1ba3107`
+**Last Updated**: 2025-12-03 13:25
+**Status**: Implementation Complete, Code Refined
+**Commits**: `a1ba3107`, `e606c987`, `5c28b581`
 
 ## Summary
 
@@ -55,6 +55,20 @@ VLL_RMIN = '--rMin -1'
 **Finding**: AsymptoticLimits gives identical results regardless of `--setParameters r=0 --freezeParameters r`. This is expected because:
 - AsymptoticLimits scans r from rMin to rMax regardless of initial value
 - VLL options are more important for Significance and Impacts (where r=0 baseline matters)
+
+### Code Change Based on Validation (commit e606c987)
+
+Removed redundant VLL options from `runCombineSig()` for AsymptoticLimits:
+```python
+# Before: significanceCommand = '... --name {name}{vll}'.format(..., vll=vll_opts)
+# After:  significanceCommand = '... --name {name}'.format(...)
+```
+
+VLL options now only applied to Significance calculation (where r=0 baseline matters).
+
+### Educational Tutorial (commit 5c28b581)
+
+Created `hua/combine/asymptotic_limits_tutorial.py` demonstrating step-by-step CLs calculation.
 
 ## Reference
 

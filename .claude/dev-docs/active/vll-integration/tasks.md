@@ -1,6 +1,6 @@
 # VLL Integration Tasks
 
-**Last Updated**: 2025-12-03 13:10
+**Last Updated**: 2025-12-03 13:25
 
 ## Tasks
 
@@ -13,11 +13,18 @@
 - [x] Add VLL and tttt test commands to run_runCombineAll.sh
 - [x] Run VLL limit WITHOUT r=0 freeze for validation comparison
 - [x] Compare VLL limits with/without freeze (identical - expected for AsymptoticLimits)
+- [x] Remove redundant VLL options from AsymptoticLimits (commit e606c987)
+- [x] Create asymptotic_limits_tutorial.py educational script (commit 5c28b581)
 - [~] VLL full test running (workspace ✅, limits ✅, significance ✅, impacts 🔄)
 - [ ] Run tttt regression test
 - [ ] Verify tttt results unchanged from previous runs
 
 ## Progress Notes
+
+### 2025-12-03 13:25
+- **Code fix committed** (e606c987): Removed redundant VLL options from AsymptoticLimits
+- **Tutorial created** (5c28b581): asymptotic_limits_tutorial.py for educational purposes
+- VLL full test still running (impacts step in progress)
 
 ### 2025-12-03 13:10
 - **Validation test completed**: Ran AsymptoticLimits without VLL options

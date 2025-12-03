@@ -1,12 +1,15 @@
 # VLL Integration Context
 
-**Last Updated**: 2025-12-03 13:10
+**Last Updated**: 2025-12-03 13:25
 
 ## Key Files
 
 ### Primary Files to Modify
 - `hua/combine/runCombineAll.py` - Main Combine workflow script
 - `hua/combine/run_runCombineAll.sh` - Shell script for running tests
+
+### Educational Resources
+- `hua/combine/asymptotic_limits_tutorial.py` - Step-by-step CLs limit calculation tutorial
 
 ### Reference Files
 - `/afs/ihep.ac.cn/users/t/turuobing/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py` - Reference implementation with VLL support
