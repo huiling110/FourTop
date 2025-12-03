@@ -94,6 +94,14 @@ def parse_args():
         action='store_true',
         help='Blind signal region data'
     )
+    parser.add_argument(
+        '--vll',
+        type=str,
+        nargs='?',
+        const='VLLm700',
+        default='',
+        help='Include VLL signal in plots. Optionally specify mass point (default: VLLm700)'
+    )
 
     return parser.parse_args()
 
@@ -164,7 +172,7 @@ def run_prefit_plots(config, args):
     # Plotting options
     variable = 'BDT'
     ifFakeTau = True
-    ifVLL = False
+    ifVLL = getattr(args, 'vll', '')  # VLL process name or empty string
     ifMCFTau = False
     ifDoSystmatic = False
     ifPostfit = False  # This is pre-fit
@@ -302,7 +310,7 @@ def _get_plot_options(args):
     return {
         'variable': 'BDT',
         'ifFakeTau': True,
-        'ifVLL': False,
+        'ifVLL': getattr(args, 'vll', ''),  # VLL process name (e.g., 'VLLm700') or empty string
         'ifMCFTau': False,
         'ifDoSystmatic': False,
         'ifPostfit': True,
