@@ -1,6 +1,6 @@
 # VLL Integration Context
 
-**Last Updated**: 2025-12-03
+**Last Updated**: 2025-12-03 12:25
 
 ## Key Files
 
@@ -30,3 +30,19 @@ VLL analysis searches for Vector-Like Leptons (BSM particles). Unlike tttt (SM p
 - `r=0` (no signal) as baseline hypothesis
 - `--setParameters r=0 --freezeParameters r` freezes signal strength at 0
 - This is because we're setting exclusion limits on a BSM signal
+
+## Useful Commands
+
+```bash
+# Monitor VLL test progress
+tail -f hua/combine/combinationV10/run2_1tau0l_VLLm700/run2_1tau0l_VLLm700_fullTest.log
+
+# Check running combine jobs
+ps aux | grep -E "(combine|runCombineAll)" | grep -v grep
+
+# Run VLL analysis
+python3 runCombineAll.py --cardDir combinationV10/run2_1tau0l_VLLm700/ --no-blind --ifVLL --channel 1tau0l --steps workspace significance limits impacts postfit
+
+# Run tttt regression test
+python3 runCombineAll.py --cardDir combinationV20/run2_1tau0l_v4_unblind/ --no-blind --steps workspace significance limits impacts postfit signal_strength
+```

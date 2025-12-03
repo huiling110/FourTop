@@ -1,6 +1,6 @@
 # VLL Integration Tasks
 
-**Last Updated**: 2025-12-03 12:17
+**Last Updated**: 2025-12-03 12:25
 
 ## Tasks
 
@@ -12,10 +12,16 @@
 - [x] Update main() to pass ifVLL to runImpact and call runImpactSnapshot
 - [x] Add VLL and tttt test commands to run_runCombineAll.sh
 - [~] Run tests and verify results (VLL test running in background)
+- [ ] Run tttt regression test after VLL test completes
 
 ## Progress Notes
 
-### 2025-12-03
+### 2025-12-03 12:25
+- **Committed changes**: `a1ba3107` - feat: Add VLL analysis options to runCombineAll.py
+- VLL test still running in background
+- Monitor: `tail -f combinationV10/run2_1tau0l_VLLm700/run2_1tau0l_VLLm700_fullTest.log`
+
+### 2025-12-03 12:14
 - Created dev-docs
 - Copied VLL test data from reference directory
 - Implemented all code changes to runCombineAll.py:
