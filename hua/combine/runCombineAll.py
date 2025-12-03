@@ -249,7 +249,7 @@ Examples:
             logger.info("\n" + "="*80)
             logger.info("STEP 5: Generating post-fit plots")
             logger.info("="*80)
-            runPostFitPlots(working_cardDir)  #!Step 2 of unblinding
+            runPostFitPlots(working_cardDir, ifVLL, channel)  #!Step 2 of unblinding
 
         # Step 6: Signal strength measurement
         if 'signal_strength' in steps:
@@ -409,16 +409,21 @@ def measureSignalStrength(cardDir, ifVLL=False, channel='1tau1l'):
         logger.debug(f"Returned to directory: {original_dir}")
 
 
-def runPostFitPlots(cardDir):
-    '''Using CMSSW14_1_0_pre4 to run postfit plots'''
+def runPostFitPlots(cardDir, ifVLL=False, channel='1tau1l'):
+    '''Using CMSSW14_1_0_pre4 to run postfit plots
+
+    Args:
+        cardDir: Directory containing datacards and workspaces
+        ifVLL: If True, use VLL-specific datacard naming
+        channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l')
+    '''
     original_dir = os.getcwd()
 
-    datacardFile = get_workspace_file(cardDir)
-    # for ifile in os.listdir(cardDir+'workspace/'):
-        # if ifile.find('root')>0:
-            # logger.info(f'Processing workspace: {ifile}')
+    datacardFile = get_workspace_file(cardDir, ifVLL, channel)
+    # Convert to absolute path before cd'ing (workspace path is relative to original dir)
+    datacardFile = os.path.abspath(datacardFile)
+
     outFolder = cardDir + 'combineResults/'
-    # wf = cardDir + 'workspace/' + ifile
     postfitDir = outFolder+ 'postfitPlots/'
     # Try to create directory in cardDir; if no write permission, use current dir
     postfitDir = ensure_dir_with_fallback(postfitDir, 'postfitPlots', original_dir)
