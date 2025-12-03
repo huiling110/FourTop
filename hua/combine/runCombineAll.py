@@ -694,7 +694,8 @@ def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l'
     iname = '_' + datacardFile.split('/')[-1].split('.root')[0]
 
     expectSignal = 0 if ifVLL else 1
-    # VLL-specific options for unblinded analysis: freeze r=0 for background-only hypothesis
+    # VLL-specific options for significance: freeze r=0 for background-only hypothesis
+    # Note: These options have no effect on AsymptoticLimits (scans r regardless of initial params)
     vll_opts = ' --setParameters r=0 --freezeParameters r' if ifVLL else ''
 
     if isLimit:
@@ -702,7 +703,9 @@ def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l'
             # significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind --name {name}'.format( rootFile=datacardFile, name=iname )
             significanceCommand = 'combine -M AsymptoticLimits {rootFile} --run blind -t -{expectSignal} --name {name}'.format( rootFile=datacardFile, name=iname, expectSignal=expectSignal )
         else:
-            significanceCommand = 'combine -M AsymptoticLimits {rootFile} --name {name}{vll}'.format( rootFile=datacardFile, name=iname, vll=vll_opts )
+            # Note: VLL options (--setParameters r=0 --freezeParameters r) have no effect on AsymptoticLimits
+            # because this method scans r from rMin to rMax regardless of initial parameters
+            significanceCommand = 'combine -M AsymptoticLimits {rootFile} --name {name}'.format( rootFile=datacardFile, name=iname )
     else:
         # Significance calculation
         if ifBlind:
