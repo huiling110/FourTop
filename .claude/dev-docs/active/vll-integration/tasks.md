@@ -1,6 +1,6 @@
 # VLL Integration Tasks
 
-**Last Updated**: 2025-12-03 13:55
+**Last Updated**: 2025-12-03 18:30
 
 ## Tasks
 
@@ -15,13 +15,20 @@
 - [x] Compare VLL limits with/without freeze (identical - expected for AsymptoticLimits)
 - [x] Remove redundant VLL options from AsymptoticLimits (commit e606c987)
 - [x] Create asymptotic_limits_tutorial.py educational script (commit 5c28b581)
-- [~] VLL full test running (workspace ✅, limits ✅, significance ✅, impacts 🔄)
-- [~] MC toys validation (HybridNew) - running in background
-- [~] Verbose AsymptoticLimits with intermediate values - running
+- [x] VLL full test (workspace ✅, limits ✅, significance ✅, impacts ✅)
+- [x] Fix mv error in runImpact() - files already in impacDir after cd
+- [~] MC toys validation (HybridNew) - completed (results in higgsCombine_MCToys.HybridNew.mH120.root)
+- [~] Verbose AsymptoticLimits with intermediate values - completed (limit_verbose.log)
 - [ ] Run tttt regression test
 - [ ] Verify tttt results unchanged from previous runs
 
 ## Progress Notes
+
+### 2025-12-03 18:30
+- **Fixed mv error in runImpact()**: The mv command tried to move files to impacDir, but we already cd'd to impacDir so files were already there
+- **Fix**: Added `2>/dev/null || true` and `check_returncode=False` to make mv command robust
+- VLL full test completed successfully (impacts.pdf generated at combineResults/impactResult/)
+- MC toys and verbose limit tests completed earlier
 
 ### 2025-12-03 13:55
 - **MC toys validation started**: HybridNew method running (200 toys)

@@ -473,12 +473,14 @@ def runImpact(cardDir, ifBlind=True, ifVLL=False, channel='1tau1l'):
             step2 = 'combineTool.py -M Impacts -d {} -m 125 --robustFit 1 --doFits --parallel 8 --job-mode "interactive"{}'.format(wf, vll_opts)
             step3 = 'combineTool.py -M Impacts -d {} -m 125 -robustFit 1 -o {}/impacts.json{}'.format(wf, impacDir, vll_opts)
             step4 = 'plotImpacts.py -i {}impacts.json -o impacts'.format(impacDir)
-            mv = 'mv higgsCombine_paramFit*.root impacts.pdf combine_logger.out {}'.format(impacDir)
             runCommand(step1)
             runCommand(step2)
             runCommand(step3)
             runCommand(step4)
-            runCommand(mv)
+            # Note: Files are already in impacDir since we cd'd there
+            # This mv handles case when combine writes to a different location
+            mv = f'mv higgsCombine_paramFit*.root impacts.pdf combine_logger.out {impacDir}/ 2>/dev/null || true'
+            runCommand(mv, check_returncode=False)
             logger.info(f'Impact plot saved: {impacDir}impacts.pdf')
 
     os.chdir(original_dir)
@@ -713,7 +715,6 @@ def runCombineSig( cardDir, isLimit, ifBlind=True, ifVLL=False, channel='1tau1l'
             significanceCommand = 'combine -M Significance {rootFile} -t -1 --expectSignal={signal} --name {name}'.format(
                 rootFile=datacardFile, signal=expectSignal, name=iname )
         else:
-            # significanceCommand = 'combine -M Significance {rootFile} --name {name}'.format( rootFile=datacardFile, name=iname )
             significanceCommand = 'combine -M Significance {rootFile} --name {name} --plot significance{vll}'.format( rootFile=datacardFile, name=iname, vll=vll_opts )
 
     runCommand(significanceCommand)
