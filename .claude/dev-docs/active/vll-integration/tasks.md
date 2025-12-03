@@ -1,6 +1,6 @@
 # VLL Integration Tasks
 
-**Last Updated**: 2025-12-03 18:10
+**Last Updated**: 2025-12-03 19:00
 
 ## Tasks
 
@@ -20,12 +20,20 @@
 - [x] Fix runPostFitPlots() for VLL - add ifVLL/channel params, use absolute path (commit 2b6af702)
 - [x] Run VLL postfit step (FitDiagnostics completed: r = 0.95 +0.55/-0.50)
 - [x] Run pl_postFit.py for VLL postfit plots (30 plots generated)
+- [x] Add --vll option to pl_postFit.py for VLL signal plotting (commit c72cffd7)
+- [x] Regenerate VLL postfit plots with VLL signal included
 - [~] MC toys validation (HybridNew) - incomplete (requires hours of CPU time)
 - [~] Verbose AsymptoticLimits with intermediate values - completed (limit_verbose.log)
 - [ ] Run tttt regression test
 - [ ] Verify tttt results unchanged from previous runs
 
 ## Progress Notes
+
+### 2025-12-03 19:00
+- **Added --vll option to pl_postFit.py** (commit c72cffd7):
+  - Usage: `--vll` (defaults to VLLm700) or `--vll VLLm500`
+  - VLL signal now appears in postfit plots
+- Regenerated VLL postfit plots with VLL signal included
 
 ### 2025-12-03 18:10
 - **Fixed runPostFitPlots() for VLL** (commit 2b6af702):
