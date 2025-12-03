@@ -1,6 +1,6 @@
 # VLL Integration Context
 
-**Last Updated**: 2025-12-03 13:25
+**Last Updated**: 2025-12-03 13:55
 
 ## Key Files
 
@@ -52,6 +52,12 @@ python3 runCombineAll.py --cardDir combinationV20/run2_1tau0l_v4_unblind/ --no-b
 # Validation: Run limits WITHOUT VLL options (for comparison)
 cd hua/combine/combinationV10/run2_1tau0l_VLLm700
 combine -M AsymptoticLimits workspace/datacard_1tau0l.root --name _noVLLopts
+
+# MC toys validation (exact limit calculation)
+combine -M HybridNew workspace/datacard_1tau0l.root --LHCmode LHC-limits -T 200 --name _MCToys --rMin 0 --rMax 5 --fork 4
+
+# Verbose AsymptoticLimits (show intermediate calculations)
+combine -M AsymptoticLimits workspace/datacard_1tau0l.root -v 3 --name _verbose 2>&1 | tee limit_verbose.log
 ```
 
 ## Key Findings

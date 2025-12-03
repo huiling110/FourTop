@@ -1,6 +1,6 @@
 # VLL Integration Tasks
 
-**Last Updated**: 2025-12-03 13:25
+**Last Updated**: 2025-12-03 13:55
 
 ## Tasks
 
@@ -16,10 +16,18 @@
 - [x] Remove redundant VLL options from AsymptoticLimits (commit e606c987)
 - [x] Create asymptotic_limits_tutorial.py educational script (commit 5c28b581)
 - [~] VLL full test running (workspace ✅, limits ✅, significance ✅, impacts 🔄)
+- [~] MC toys validation (HybridNew) - running in background
+- [~] Verbose AsymptoticLimits with intermediate values - running
 - [ ] Run tttt regression test
 - [ ] Verify tttt results unchanged from previous runs
 
 ## Progress Notes
+
+### 2025-12-03 13:55
+- **MC toys validation started**: HybridNew method running (200 toys)
+- **Verbose limit calculation started**: Shows intermediate values (r scan, NP fits)
+- **Permissions fix committed** (d67f56b7): Changed glob patterns for dev-docs
+- VLL impacts and MC toys tests still running
 
 ### 2025-12-03 13:25
 - **Code fix committed** (e606c987): Removed redundant VLL options from AsymptoticLimits
