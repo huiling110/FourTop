@@ -1,6 +1,6 @@
 # VLL Integration Tasks
 
-**Last Updated**: 2025-12-03 18:30
+**Last Updated**: 2025-12-03 18:10
 
 ## Tasks
 
@@ -16,19 +16,33 @@
 - [x] Remove redundant VLL options from AsymptoticLimits (commit e606c987)
 - [x] Create asymptotic_limits_tutorial.py educational script (commit 5c28b581)
 - [x] VLL full test (workspace ✅, limits ✅, significance ✅, impacts ✅)
-- [x] Fix mv error in runImpact() - files already in impacDir after cd
-- [~] MC toys validation (HybridNew) - completed (results in higgsCombine_MCToys.HybridNew.mH120.root)
+- [x] Fix mv error in runImpact() - files already in impacDir after cd (commit 461c8ab5)
+- [x] Fix runPostFitPlots() for VLL - add ifVLL/channel params, use absolute path (commit 2b6af702)
+- [x] Run VLL postfit step (FitDiagnostics completed: r = 0.95 +0.55/-0.50)
+- [x] Run pl_postFit.py for VLL postfit plots (30 plots generated)
+- [~] MC toys validation (HybridNew) - incomplete (requires hours of CPU time)
 - [~] Verbose AsymptoticLimits with intermediate values - completed (limit_verbose.log)
 - [ ] Run tttt regression test
 - [ ] Verify tttt results unchanged from previous runs
 
 ## Progress Notes
 
-### 2025-12-03 18:30
-- **Fixed mv error in runImpact()**: The mv command tried to move files to impacDir, but we already cd'd to impacDir so files were already there
-- **Fix**: Added `2>/dev/null || true` and `check_returncode=False` to make mv command robust
-- VLL full test completed successfully (impacts.pdf generated at combineResults/impactResult/)
-- MC toys and verbose limit tests completed earlier
+### 2025-12-03 18:10
+- **Fixed runPostFitPlots() for VLL** (commit 2b6af702):
+  - Added ifVLL and channel parameters
+  - Use absolute path for workspace file before cd'ing
+  - Pass parameters from main() to runPostFitPlots()
+- **VLL postfit completed**: FitDiagnostics ran successfully
+  - Best-fit r: 0.95 +0.55/-0.50 (68% CL)
+- **Postfit plots generated**: 30 plots (prefit, fit_s, fit_b for 4 eras + Run2)
+  - Output: `combinationV10/run2_1tau0l_VLLm700/combineResults/postfitPlots/postfitPlots/`
+
+### 2025-12-03 17:55
+- **Fixed mv error in runImpact()** (commit 461c8ab5):
+  - mv command tried to move files to impacDir, but we already cd'd there
+  - Added `2>/dev/null || true` and `check_returncode=False`
+- VLL full test completed successfully (impacts.pdf generated)
+- MC toys (HybridNew) incomplete - requires hours of CPU time
 
 ### 2025-12-03 13:55
 - **MC toys validation started**: HybridNew method running (200 toys)
