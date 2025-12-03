@@ -1,9 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Edit(.claude/dev-docs/**)",
-      "Write(.claude/dev-docs/**)",
-      "Read(.claude/dev-docs/**)",
+      "Edit(**/.claude/dev-docs/**)",
+      "Write(**/.claude/dev-docs/**)",
+      "Read(**/.claude/dev-docs/**)",
       "Bash(hep_q:*)",
       "Bash(ls:*)"
     ]

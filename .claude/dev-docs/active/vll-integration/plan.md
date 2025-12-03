@@ -70,6 +70,48 @@ VLL options now only applied to Significance calculation (where r=0 baseline mat
 
 Created `hua/combine/asymptotic_limits_tutorial.py` demonstrating step-by-step CLs calculation.
 
+## MC Toys Validation
+
+**Purpose**: Verify AsymptoticLimits results with exact MC toy calculation (HybridNew method).
+
+**Method**: Run `combine -M HybridNew` which uses pseudo-experiments instead of asymptotic approximations.
+
+| Method | Approach | Speed | Accuracy |
+|--------|----------|-------|----------|
+| AsymptoticLimits | Analytical approximation | Fast (~10 min) | Good for high stats |
+| HybridNew | MC pseudo-experiments | Slow (~hours) | Exact |
+
+**Commands**:
+```bash
+# Asymptotic (already done)
+combine -M AsymptoticLimits workspace.root
+
+# MC Toys
+combine -M HybridNew workspace.root --LHCmode LHC-limits --saveToys --saveHybridResult -T 500 --expectedFromGrid 0.5
+```
+
+**Expected**: Results should be consistent within statistical uncertainties.
+
+## Detailed AsymptoticLimits with Intermediate Values
+
+**Purpose**: Understand the internal calculation steps of AsymptoticLimits.
+
+**Verbose flags**:
+- `-v 3`: Verbose level 3 (show fit details)
+- `--cminDefaultMinimizerStrategy 0`: Faster minimization
+- `--X-rtd MINIMIZER_verbose=3`: Detailed minimizer output
+
+**Key intermediate values to observe**:
+1. Global fit result (best-fit r and nuisance parameters)
+2. Profile likelihood at each r value scanned
+3. CLs calculation at each point
+4. Interpolation to find 95% CL limit
+
+**Command**:
+```bash
+combine -M AsymptoticLimits workspace.root -v 3 --name _verbose 2>&1 | tee limit_verbose.log
+```
+
 ## Reference
 
 - Reference file: `/afs/ihep.ac.cn/users/t/turuobing/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py`
