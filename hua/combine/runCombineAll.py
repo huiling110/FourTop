@@ -735,6 +735,10 @@ def cardToWorkspaces( cardDir):
 
     # Ensure we have a writable directory to work in
     working_cardDir = ensure_writable_carddir(cardDir, original_dir)
+    # Convert to absolute path before chdir to avoid path resolution issues
+    working_cardDir = os.path.abspath(working_cardDir)
+    if not working_cardDir.endswith('/'):
+        working_cardDir += '/'
 
     #cd to working card directory for workspace creation
     os.chdir(working_cardDir)  #!don't need to cd in run_runCombineAll.sh anymore
