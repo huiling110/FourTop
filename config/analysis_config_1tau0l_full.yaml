@@ -1,0 +1,206 @@
+# FourTop Analysis Configuration - 1tau0l Channel (Full Pipeline)
+# Version: v9BDT1tau0l_TTBBtest
+# Created: 2025-12-05
+#
+# Full pipeline configuration covering all stages:
+# - Stage 1: Object Selection (NanoAOD → selected objects)
+# - Stage 2: Variable Production (selected → BDT variables)
+# - Stage 3: Histogram Production (variables → histograms)
+# - Stage 4: Templates, Datacards, Combine
+
+metadata:
+  version: "v9BDT1tau0l_TTBBtest"
+  created: "2025-12-05"
+  channel: "1tau0l"
+  description: "Full pipeline config for 1tau0l with TTBB integration"
+
+# Path components for building full paths
+paths:
+  # Base paths
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  stage1_output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD"
+  stage2_output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
+
+  # Version strings
+  stage1_version: "v94HadroPreJetVetoHemOnly_TTBBtest"  # objectSelection output version
+  stage2_version: "v1baselineHadroBtagWeightAdded"       # makeVariables output version
+  hist_version: "v9BDT1tau0l_TTBBtest"                   # writeHist output version
+  datacard_version: "v6AllSys_unblind_CMSnaming"         # datacard output version
+
+  # Combined path components (for backward compatibility)
+  base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
+  out_version: "v1baselineHadroBtagWeightAdded"
+  in_version: "v94HadroPreJetVetoHemOnly_TTBBtest"
+
+# Channel configuration
+channel:
+  name: "1tau0l"
+  if1tau2l: 0  # 0 for 1tau0l/1tau1l, 1 for 1tau2l
+  regions:
+    - "1tau0lSR"
+    - "1tau0lVR"
+  variables:
+    - "BDT"
+
+# Eras to process (Run 2)
+eras:
+  - "2018"
+  - "2017"
+  - "2016preVFP"
+  - "2016postVFP"
+
+# Era mapping for different naming conventions
+era_mapping:
+  "2018": "UL2018"
+  "2017": "UL2017"
+  "2016preVFP": "UL2016_preVFP"
+  "2016postVFP": "UL2016_postVFP"
+
+# Analysis options
+options:
+  ifFakeTau: true
+  ifMCFTau: true
+  ifBlind: false
+  ifVLL: false
+  unblind: true
+
+# =============================================================================
+# Stage 1: Object Selection (NanoAOD → selected objects)
+# =============================================================================
+stage1:
+  executable: "./apps/run_objectSelection.out"
+  # Systematic variations (0 = nominal)
+  TES: 0          # Tau energy scale: 0=nominal, 1=up, 2=down, 3-10=decay mode variations
+  eleScale: 0     # Electron scale: 0=nominal, 1=up, 2=down
+  JESSys: 0       # JES: 0=nominal, 1=varied
+  JERSys: 0       # JER: 0=nominal, 1=up, 2=down
+  METSys: 0       # MET: 0=nominal, 1=up, 2=down
+
+  # Processes to skip for different channels
+  skip_1tau0l_1tau1l:
+    - "singleMu"
+    - "singleE"
+    - "doubleMu"
+    - "muonEG"
+    - "eGamma"
+    - "doubleEG"
+    - "ttExtra"
+    - "Minor"
+  skip_1tau2l:
+    - "jetHT"
+    - "BTagCSV"
+    - "qcd"
+    - "ttExtra"
+
+# =============================================================================
+# Stage 2: Variable Production (selected objects → BDT variables)
+# =============================================================================
+stage2:
+  executable: "./apps/run_makeVariables.out"
+  justMC: false
+  JESVariationType: 0   # 0=nominal, 1=up, 2=down
+  JESVariation: 0       # 0=nominal
+
+# =============================================================================
+# Stage 3: Histogram Production
+# =============================================================================
+stage3:
+  executable: "./apps/run_treeAnalyzer.out"
+  ifSys: 1
+  justMC: false
+  processes:
+    # Signal
+    - "tttt"
+    # ttbar backgrounds
+    - "ttbar_0l"
+    - "ttbar_1l"
+    - "ttbar_2l"
+    # TTBB (new)
+    - "TTBB_4f_TTToHadronic"
+    - "TTBB_4f_TTToSemiLeptonic"
+    - "TTBB_4f_TTTo2L2Nu"
+    # ttV/ttH
+    - "TTZToLLNuNu"
+    - "TTZToQQ"
+    - "TTWJetsToQQ"
+    - "TTWJetsToLNu"
+    - "ttH_bb"
+    - "ttH_nonbb"
+    # Single top
+    - "st_tW_antitop"
+    - "st_tW_top"
+    - "st_schan_had"
+    - "st_schan_lep"
+    - "st_tchan"
+    # W+jets
+    - "WJetsToLNu_HT-200To400"
+    - "WJetsToLNu_HT-400To600"
+    - "WJetsToLNu_HT-600To800"
+    - "WJetsToLNu_HT-800To1200"
+    - "WJetsToLNu_HT-1200To2500"
+    - "WJetsToLNu_HT-2500ToInf"
+
+# =============================================================================
+# Stage 4: Templates, Datacards, Combine
+# =============================================================================
+
+# Smoothing configuration (Stage 4.2.5)
+smoothing:
+  enabled: true
+  systematics:
+    - "ps_fsr"
+    - "CMS_btag_fullShape_hf"
+    - "ps_isr"
+    - "CMS_scale_j_FlavorPureGluon"
+    - "pdf_alphas"
+    - "QCDscale_fac"
+    - "QCDscale_ren"
+    - "CMS_res_j"
+    - "CMS_scale_j_FlavorPureQuark"
+  processes:
+    - "tt"
+    - "ttbb"
+    - "ttH"
+    - "ttZ"
+    - "ttW"
+
+# Datacard configuration (Stage 4.3)
+datacard:
+  version: "v6AllSys_unblind_CMSnaming"
+  signal: "tttt"
+  backgrounds:
+    - "tt"
+    - "ttbb"
+    - "ttH"
+    - "ttZ"
+    - "ttW"
+    - "singleTop"
+    - "wjets"
+    - "fakes"
+  # TTBB-specific systematics
+  ttbb_systematics:
+    norm_uncertainty: 1.30  # 30% normalization uncertainty
+
+# Combination configuration (Stage 4.4)
+combination:
+  version: "combinationV21"
+  card_dir: "run2_1tau0l_TTBBtest"
+
+# Combine configuration (Stage 4.5)
+combine:
+  steps:
+    - "workspace"
+    - "limits"
+    - "significance"
+    - "impacts"
+    - "postfit"
+    - "signal_strength"
+  blind: false
+
+# =============================================================================
+# Logging configuration
+# =============================================================================
+logging:
+  log_dir: "logs"
+  log_level: "INFO"
+  timestamp_format: "%Y-%m-%d %H:%M:%S"
