@@ -2,9 +2,17 @@ import os
 import subprocess
 import re
 import glob
+import yaml
 
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
+
+# Load version from YAML config
+def load_version_from_config():
+    config_path = os.path.join(os.path.dirname(__file__), '../../config/analysis_config_1tau0l_full.yaml')
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+    return config['version']
 
 
 codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
@@ -62,11 +70,13 @@ def main(
     # era = '2016APV',
     # era = '2017',
     era = '2018',
-    # jobVersionNamePre = 'v94LepPreJetVetoHemOnly'#3 years submitted
-    # jobVersionNamePre = 'v94LepPreJetVetoHemOnlyV2'#3 years submitted
-    jobVersionNamePre = 'v94HadroPreJetVetoHemOnly_TTBBtest'  # TTBB testing
+    jobVersionNamePre = None,  # Will be loaded from YAML config
 
 ):
+    # Load version from YAML config if not provided
+    if jobVersionNamePre is None:
+        jobVersionNamePre = load_version_from_config()
+        print(f'Loaded version from config: {jobVersionNamePre}')
     
     jobVersionName = getJobVersionName(jobVersionNamePre, TES, eleScale, JESSys, JERSys, METSys)
     
