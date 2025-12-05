@@ -1,6 +1,6 @@
 # TTBB Integration - Key Context
 
-**Last Updated**: 2025-12-05
+**Last Updated**: 2025-12-05 15:30
 
 ## TTBB Sample Locations (Verified)
 
@@ -99,8 +99,21 @@ TTBB estimates (to be verified from XSDB):
 "TTBB_4f_TTTo2L2Nu": ~0.21         # ~9%
 ```
 
+## Stage 1 Output Location (2018)
+
+```
+/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest/mc/
+├── TTBB_4f_TTToHadronic/      (66M, output complete)
+├── TTBB_4f_TTToSemiLeptonic/  (56M, 15 files)
+├── TTBB_4f_TTTo2L2Nu/         (12M, output complete)
+├── ttbar_0l/                  (with overlap removal applied)
+├── ttbar_1l/                  (570M, 391 files)
+└── ttbar_2l/                  (with overlap removal applied)
+```
+
 ## Notes
 
 - TTBB cross-section should be verified from MC production cards or XSDB
 - Generator sum weights must be calculated before processing
 - Symlinks needed to integrate TTBB with existing job submission
+- Stage 1 jobs completed successfully for 2018 (all 3826 jobs finished)
