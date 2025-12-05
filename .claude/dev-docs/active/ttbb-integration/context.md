@@ -22,21 +22,30 @@ Each with 3 decay modes:
 ### Configuration
 | File | Purpose | Status |
 |------|---------|--------|
-| `hua/src_py/ttttGlobleQuantity.py` | Cross-sections, process groupings | Pending |
-| `inputFiles/genSumMap2016.h` | Generator sum weights 2016 | Pending |
-| `inputFiles/genSumMap2017.h` | Generator sum weights 2017 | Pending |
-| `inputFiles/genSumMap2018.h` | Generator sum weights 2018 | Pending |
+| `hua/src_py/ttttGlobleQuantity.py` | Cross-sections, process groupings | ✅ Done |
+| `inputFiles/genSumMap2016.h` | Generator sum weights 2016 | ✅ Done |
+| `inputFiles/genSumMap2017.h` | Generator sum weights 2017 | ✅ Done |
+| `inputFiles/genSumMap2018.h` | Generator sum weights 2018 | ✅ Done |
+| `inputFiles/genSumMap2016APV.h` | Generator sum weights 2016APV | ✅ Done |
+| `config/analysis_config_1tau0l_full.yaml` | Full pipeline YAML config | ✅ New |
 
 ### Overlap Removal
 | File | Purpose | Status |
 |------|---------|--------|
-| `objectSelectionOptimized/src/copyBranch.C` | Event filtering logic | Pending |
-| `objectSelectionOptimized/include/copyBranch.h` | Function declaration | Pending |
+| `objectSelectionOptimized/src/copyBranch.C` | Event filtering logic | ✅ Done |
+| `objectSelectionOptimized/include/copyBranch.h` | Function declaration | ✅ Done |
+
+### Build System Fixes
+| File | Purpose | Status |
+|------|---------|--------|
+| `objectSelectionOptimized/Makefile` | Library paths | ✅ Fixed |
+| `objectSelectionOptimized/src/PUWeightCal.C` | Pileup file path | ✅ Fixed |
+| `setEnv_newNew.sh` | RoccoR library path | ✅ Fixed |
 
 ### Analysis Pipeline
 | File | Purpose | Status |
 |------|---------|--------|
-| `objectSelectionOptimized/jobs/makeJob_objectTSelectorForNanoAOD.py` | Stage 1 jobs | Pending |
+| `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` | Stage 1 jobs | ✅ Done |
 | `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` | Stage 2 jobs | Pending |
 | `writeHistGood/jobs/makeJob_forWriteHist.py` | Stage 3 jobs | Auto-discovers |
 | `plotting/writeDatacard.py` | TTBB systematics | Pending |
@@ -44,7 +53,7 @@ Each with 3 decay modes:
 ### Documentation
 | File | Purpose | Status |
 |------|---------|--------|
-| `ANALYSIS_WORKFLOW.md` | Stage 1 & 2 documentation | Pending |
+| `ANALYSIS_WORKFLOW.md` | Stage 1 & 2 documentation, Config section | ✅ Done |
 
 ## Existing Infrastructure for Overlap
 
