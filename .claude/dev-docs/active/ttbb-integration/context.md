@@ -29,11 +29,12 @@ Each with 3 decay modes:
 | `inputFiles/genSumMap2016APV.h` | Generator sum weights 2016APV | ✅ Done |
 | `config/analysis_config_1tau0l_full.yaml` | Full pipeline YAML config | ✅ New |
 
-### Overlap Removal
+### Overlap Removal (v2 - Ghost-matching, CMS standard)
 | File | Purpose | Status |
 |------|---------|--------|
-| `objectSelectionOptimized/src/copyBranch.C` | Event filtering logic | ✅ Done |
-| `objectSelectionOptimized/include/copyBranch.h` | Function declaration | ✅ Done |
+| `objectSelectionOptimized/src/copyBranch.C` | Ghost-matching overlap removal | ✅ Updated |
+| `objectSelectionOptimized/include/copyBranch.h` | countAdditionalBHadrons() declaration | ✅ Updated |
+| `objectSelectionOptimized/include/eventReader_nano.h` | GenJet_hadronFlavour added | ✅ Updated |
 
 ### Build System Fixes
 | File | Purpose | Status |

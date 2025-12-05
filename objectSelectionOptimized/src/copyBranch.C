@@ -12,9 +12,11 @@ CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t i
     m_isGammaSample = m_processName=="ttG" || m_processName=="ZGToLLG" || m_processName=="WGToLNuG" || m_processName=="TGJets";
     m_isNotGammaSample = m_processName.Contains("ttbar") || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || m_processName.Contains("st_");
     m_isTtbarSample = m_processName.Contains("ttbar");  // For ttbar/ttbb overlap removal
+    m_isTTBBSample = m_processName.Contains("TTBB");    // For TTBB samples
     std::cout<<"m_isGammaSample="<<m_isGammaSample<<"\n";
     std::cout<<"m_isNotGammaSample="<<m_isNotGammaSample<<"\n";
     std::cout<<"m_isTtbarSample="<<m_isTtbarSample<<"\n";
+    std::cout<<"m_isTTBBSample="<<m_isTTBBSample<<"\n";
 
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);
@@ -40,11 +42,16 @@ Bool_t CopyBranch::Select(eventForNano *e, Bool_t isData)
 
     Bool_t ifRemoveEvent = overlapRemovalSamples(e);
 
-    // ttbar/ttbb overlap removal: remove ttbar events with >=1 additional b-jet
-    if (!isData && m_isTtbarSample && !ifRemoveEvent) {
-        Int_t nAdditionalB = countAdditionalBJets(e);
-        if (nAdditionalB >= 1) {
-            ifRemoveEvent = kTRUE;  // Remove this ttbar event (overlap with TTBB)
+    // ttbar/ttbb overlap removal using B-hadrons (CMS standard)
+    // - ttbar: REMOVE events with >=1 additional B-hadron (covered by TTBB)
+    // - TTBB: KEEP ONLY events with >=1 additional B-hadron (correct phase space)
+    if (!isData && (m_isTtbarSample || m_isTTBBSample) && !ifRemoveEvent) {
+        Int_t nAdditionalBHadrons = countAdditionalBHadrons(e);
+        if (m_isTtbarSample && nAdditionalBHadrons >= 1) {
+            ifRemoveEvent = kTRUE;  // Remove ttbar event with additional B-hadrons (overlap with TTBB)
+        }
+        if (m_isTTBBSample && nAdditionalBHadrons < 1) {
+            ifRemoveEvent = kTRUE;  // Remove TTBB event WITHOUT additional B-hadrons (not in tt+bb phase space)
         }
     }
 
@@ -184,54 +191,68 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
 
 }
 
-Int_t CopyBranch::countAdditionalBJets(const eventForNano* e) {
-    // Count additional b-quarks not from top decay for ttbar/ttbb overlap removal
-    // Strategy: Find b-quarks with pT>20, |eta|<2.5 that are NOT from top decay
+Int_t CopyBranch::countAdditionalBHadrons(const eventForNano* e) {
+    // Count additional b-jets using ghost-matching (CMS standard from ttH paper)
+    // "based on the flavour of the additional jets at the particle level that do not originate
+    // from the top quark decays. The jet flavour is defined using the ghost-matching procedure"
+    // Particle-level jets: pT > 20 GeV, |eta| < 2.4, hadronFlavour == 5 (b-jet)
 
-    // First, identify indices of top quarks
-    std::set<Int_t> topIndices;
-    for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++) {
-        if (std::abs(e->GenPart_pdgId->At(i)) == 6) {  // top quark
-            topIndices.insert(static_cast<Int_t>(i));
-        }
-    }
-
-    // Count b-quarks not from top decay
     Int_t additionalBJets = 0;
-    for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++) {
-        // Check if it's a b-quark
-        if (std::abs(e->GenPart_pdgId->At(i)) != 5) continue;
+    size_t nGenJet = e->GenJet_pt->GetSize();
+    size_t nGenPart = e->GenPart_pdgId->GetSize();
 
-        // Apply kinematic cuts
-        if (e->GenPart_pt->At(i) < 20.0) continue;
-        if (std::abs(e->GenPart_eta->At(i)) > 2.5) continue;
+    // Loop over GenJets
+    for (size_t j = 0; j < nGenJet; j++) {
+        // Apply kinematic cuts (CMS standard)
+        if (e->GenJet_pt->At(j) < 20.0) continue;
+        if (std::abs(e->GenJet_eta->At(j)) > 2.4) continue;
 
-        // Get mother index
-        Int_t motherIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->GenPart_genPartIdxMother, i);
+        // Check if it's a b-jet (hadronFlavour == 5)
+        if (e->GenJet_hadronFlavour->At(j) != 5) continue;
 
-        // Check if this b-quark comes from top decay
-        // Trace back through the decay chain to see if any ancestor is a top quark
-        Bool_t fromTop = kFALSE;
-        Int_t currentIdx = motherIdx;
-        Int_t maxIterations = 20;  // Safety limit to prevent infinite loops
-        Int_t iterations = 0;
+        // Ghost-matching: Find B-hadrons matched to this jet (ΔR < 0.4)
+        // and check if any matched B-hadron is NOT from top decay
+        Bool_t hasNonTopBHadron = kFALSE;
 
-        while (currentIdx >= 0 && iterations < maxIterations) {
-            if (topIndices.count(currentIdx) > 0) {
-                fromTop = kTRUE;
-                break;
+        for (size_t p = 0; p < nGenPart; p++) {
+            Int_t absId = std::abs(e->GenPart_pdgId->At(p));
+
+            // Check if it's a B-hadron (mesons: 500-599, baryons: 5000-5999)
+            Bool_t isBHadron = (absId >= 500 && absId < 600) || (absId >= 5000 && absId < 6000);
+            if (!isBHadron) continue;
+            if (e->GenPart_pt->At(p) < 5.0) continue;  // B-hadron pT cut
+
+            // Calculate ΔR between jet and B-hadron
+            Float_t deta = e->GenJet_eta->At(j) - e->GenPart_eta->At(p);
+            Float_t dphi = e->GenJet_phi->At(j) - e->GenPart_phi->At(p);
+            while (dphi > M_PI) dphi -= 2*M_PI;
+            while (dphi < -M_PI) dphi += 2*M_PI;
+            Float_t dR = std::sqrt(deta*deta + dphi*dphi);
+
+            if (dR > 0.4) continue;  // Ghost-matching cone
+
+            // Trace ancestry to check if B-hadron comes from top decay
+            Bool_t fromTop = kFALSE;
+            Int_t currentIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->GenPart_genPartIdxMother, p);
+            Int_t maxIterations = 30;
+            Int_t iterations = 0;
+
+            while (currentIdx >= 0 && static_cast<size_t>(currentIdx) < nGenPart && iterations < maxIterations) {
+                if (std::abs(e->GenPart_pdgId->At(currentIdx)) == 6) {
+                    fromTop = kTRUE;
+                    break;
+                }
+                currentIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->GenPart_genPartIdxMother, currentIdx);
+                iterations++;
             }
-            // Check if current particle is a top quark
-            if (std::abs(e->GenPart_pdgId->At(currentIdx)) == 6) {
-                fromTop = kTRUE;
-                break;
+
+            if (!fromTop) {
+                hasNonTopBHadron = kTRUE;
+                break;  // Found at least one non-top B-hadron, jet is "additional"
             }
-            // Move to next ancestor
-            currentIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->GenPart_genPartIdxMother, currentIdx);
-            iterations++;
         }
 
-        if (!fromTop) {
+        if (hasNonTopBHadron) {
             additionalBJets++;
         }
     }

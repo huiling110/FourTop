@@ -178,6 +178,7 @@ public:
         OS::readPointerArray(GenJet_eta, reader, "GenJet_eta");
         OS::readPointerArray(GenJet_phi, reader, "GenJet_phi");
         OS::readPointerArray(GenJet_pt, reader, "GenJet_pt");
+        OS::readPointerArray(GenJet_hadronFlavour, reader, "GenJet_hadronFlavour");
         OS::readPointerArray(GenPart_pdgId, reader, "GenPart_pdgId");
         // OS::readPointerArray(GenPart_genPartIdxMother, reader, "GenPart_genPartIdxMother");
         OS::readPointer(Pileup_nTrueInt, reader, "Pileup_nTrueInt");
@@ -319,6 +320,7 @@ public:
     TTreeReaderArray<Float_t> *GenJet_eta = nullptr;
     TTreeReaderArray<Float_t> *GenJet_phi = nullptr;
     TTreeReaderArray<Float_t> *GenJet_pt = nullptr;
+    TTreeReaderArray<UChar_t> *GenJet_hadronFlavour = nullptr;
     TTreeReaderArray<Int_t> *GenPart_pdgId = nullptr;
     DynamicBranchReader GenPart_genPartIdxMother;
     TTreeReaderValue<Float_t> *Pileup_nTrueInt = nullptr;

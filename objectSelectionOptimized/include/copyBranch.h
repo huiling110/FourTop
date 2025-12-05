@@ -12,7 +12,7 @@ public:
     Bool_t Select(eventForNano *e, Bool_t isData);
     void clearBranch();
     Bool_t overlapRemovalSamples(const eventForNano* e);
-    Int_t countAdditionalBJets(const eventForNano* e);  // For ttbar/ttbb overlap removal
+    Int_t countAdditionalBHadrons(const eventForNano* e);  // For ttbar/ttbb overlap removal using B-hadrons
 
 private:
     // output branches
@@ -22,6 +22,7 @@ private:
     Bool_t m_isGammaSample;
     Bool_t m_isNotGammaSample;
     Bool_t m_isTtbarSample;  // For ttbar/ttbb overlap removal
+    Bool_t m_isTTBBSample;   // For TTBB samples (need to keep only events WITH additional B-hadrons)
     UChar_t m_MET_sys=0;
 
     UInt_t run_;
