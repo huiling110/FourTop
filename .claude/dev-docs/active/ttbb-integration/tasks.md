@@ -131,7 +131,9 @@
 ### Session 3 (2025-12-05 - continued)
 - First job submission failed: libRoccoR.so not found at runtime
 - Fixed RoccoR path in setEnv_newNew.sh (CMSSW_10_6_20 → CMSSW_14_1_0_pre4)
-- Updated job scripts to source setEnv_newNew.sh for proper environment
-- Commits: `b59d935e`, `cd30ed7c`, `16f24934`
-- Resubmitted jobs successfully (2606 jobs in queue)
-- TTBB jobs confirmed running (all 3 decay modes)
+- Updated job scripts to export LD_LIBRARY_PATH for HTCondor jobs
+- Fixed PUWeightCal.C pileup path (CMSSW_10_6_20 → CMSSW_14_1_0_pre4)
+- Tested executable locally - works correctly
+- Commits: `b59d935e`, `cd30ed7c`, `16f24934`, `50a8c273`, `329cf162`
+- Resubmitted jobs successfully (3826 jobs in queue)
+- TTBB jobs confirmed in queue (all 3 decay modes)
