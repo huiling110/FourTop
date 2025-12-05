@@ -342,6 +342,8 @@ def prepareCshJob( inputDir, koutputDir, shFile, singleFile, TES, eleScale, JESS
     appDir = codePath.rsplit('/', 2)[0]
     # subFile.write( "cd "+codePath + "\n")
     subFile.write( "cd "+appDir + "\n")
+    # Source environment for library paths (RoccoR, myLibrary, etc.)
+    subFile.write( "source ./setEnv_newNew.sh\n" )
     # command = f'./apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} {eleScale} {JESSys} {JERSys} {METSys} 0'
     command = f'./apps/run_objectSelection.out {inputDir} {singleFile} {koutputDir} {TES} {eleScale} {JESSys} {JERSys} {METSys} {if1tau2l} 0'
     subFile.write(command)
