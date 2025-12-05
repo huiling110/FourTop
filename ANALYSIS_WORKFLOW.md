@@ -1,8 +1,62 @@
 # Complete Four-Top Analysis Workflow
 
-**Date**: 2025-11-24
+**Date**: 2025-12-05
 **Branch**: addVLL
 **Purpose**: Document end-to-end analysis workflow for future optimization and automation
+
+---
+
+## Configuration
+
+**YAML Config Files**: `config/analysis_config_*.yaml`
+
+All stages are configured through YAML files. Use the appropriate config for your channel:
+- `config/analysis_config_1tau0l_full.yaml` - 1tau0l channel (full pipeline)
+- `config/analysis_config_1tau1l.yaml` - 1tau1l channel
+
+### Config Structure
+
+```yaml
+# Path configuration for all stages
+paths:
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  stage1_output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD"
+  stage2_output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
+  stage1_version: "v94HadroPreJetVetoHemOnly"    # Stage 1 output
+  stage2_version: "v1baselineHadroBtagWeightAdded"  # Stage 2 output
+  hist_version: "v9BDT1tau0l_CMSNamingComplete"  # Stage 3 output
+
+# Eras to process
+eras:
+  - "2018"
+  - "2017"
+  - "2016preVFP"
+  - "2016postVFP"
+
+# Stage-specific settings
+stage1:
+  TES: 0          # Tau energy scale
+  eleScale: 0     # Electron scale
+  ...
+
+stage2:
+  JESVariationType: 0
+  ...
+
+stage3:
+  ifSys: 1
+  ...
+```
+
+### Using Configs
+
+```bash
+# With run_workflow.py (Stage 3+)
+python3 run_workflow.py --config config/analysis_config_1tau0l_full.yaml --stage 4
+
+# View available eras/channel
+grep -E "^(eras|channel):" config/analysis_config_1tau0l_full.yaml
+```
 
 ---
 
