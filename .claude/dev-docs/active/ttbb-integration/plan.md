@@ -1,7 +1,7 @@
 # TTBB Integration Plan
 
-**Last Updated**: 2025-12-05 15:30
-**Status**: In Progress - Phase 5 (Stage 1 COMPLETE, verifying outputs)
+**Last Updated**: 2025-12-05 18:00
+**Status**: In Progress - Phase 5 (Re-running Stage 1 with corrected ghost-matching)
 
 ## Overview
 
@@ -18,10 +18,12 @@ Add TTBB (tt+bb) samples to the Four-Top analysis with proper overlap removal fr
 
 ### Overlap Handling
 
-**Approach**: Event filtering in Stage 1 (objectSelectionOptimized)
-- For ttbar samples: Remove events with ≥1 additional b-quark not from top decay
-- Use GenPart information: `GenPart_pdgId`, `GenPart_genPartIdxMother`
-- Threshold: pT > 20 GeV, |η| < 2.5 for additional b-quarks
+**Approach**: CMS Standard Ghost-Matching (from ttH paper)
+- Use GenJets with `hadronFlavour == 5` (b-jets identified via ghost-matching)
+- GenJet requirements: pT > 20 GeV, |η| < 2.4
+- Match B-hadrons to GenJets (ΔR < 0.4), trace ancestry to check if from top
+- For ttbar: REMOVE events with ≥1 additional b-jet (covered by TTBB)
+- For TTBB: KEEP ONLY events with ≥1 additional b-jet (correct phase space)
 
 ### Phases
 

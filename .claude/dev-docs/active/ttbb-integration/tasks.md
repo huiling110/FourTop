@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-05 15:30
-**Current Phase**: Phase 5 - Stage 1 COMPLETE for 2018, ready for Stage 2
+**Last Updated**: 2025-12-05 18:00
+**Current Phase**: Phase 5 - Re-running Stage 1 with corrected ghost-matching
 
 ---
 
@@ -156,3 +156,16 @@
 - ttbar_1l output: 570M, 391 files
 - Updated Claude Code settings with comprehensive Linux commands
 - Next: Verify overlap removal is working by comparing event counts
+
+### Session 5 (2025-12-05 18:00)
+- **Critical fix**: User pointed out overlap removal was wrong - needed CMS standard ghost-matching
+- Updated `countAdditionalBHadrons()` to use GenJets with `hadronFlavour==5` (ghost-matching)
+- Now applies overlap removal to BOTH ttbar AND TTBB samples:
+  - ttbar: REMOVE events with ≥1 additional b-jet
+  - TTBB: KEEP ONLY events with ≥1 additional b-jet
+- Validation results: ttbar ~25% removed, TTBB ~63% kept
+- Commit: `91aa3d6e` - fix: Use CMS standard ghost-matching for ttbar/TTBB overlap
+- Simplified YAML config to just version string
+- Updated job script to load version from YAML config
+- Commit: `39a083e5` - refactor: Load Stage 1 version from YAML config
+- Ready to re-run Stage 1 jobs with corrected implementation

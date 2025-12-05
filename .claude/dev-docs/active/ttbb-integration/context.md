@@ -1,6 +1,6 @@
 # TTBB Integration - Key Context
 
-**Last Updated**: 2025-12-05 15:30
+**Last Updated**: 2025-12-05 18:00
 
 ## TTBB Sample Locations (Verified)
 
@@ -27,7 +27,7 @@ Each with 3 decay modes:
 | `inputFiles/genSumMap2017.h` | Generator sum weights 2017 | ✅ Done |
 | `inputFiles/genSumMap2018.h` | Generator sum weights 2018 | ✅ Done |
 | `inputFiles/genSumMap2016APV.h` | Generator sum weights 2016APV | ✅ Done |
-| `config/analysis_config_1tau0l_full.yaml` | Full pipeline YAML config | ✅ New |
+| `config/analysis_config_1tau0l_full.yaml` | Version config (simplified) | ✅ Updated |
 
 ### Overlap Removal (v2 - Ghost-matching, CMS standard)
 | File | Purpose | Status |
@@ -46,7 +46,7 @@ Each with 3 decay modes:
 ### Analysis Pipeline
 | File | Purpose | Status |
 |------|---------|--------|
-| `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` | Stage 1 jobs | ✅ Done |
+| `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` | Stage 1 jobs (loads version from YAML) | ✅ Updated |
 | `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` | Stage 2 jobs | Pending |
 | `writeHistGood/jobs/makeJob_forWriteHist.py` | Stage 3 jobs | Auto-discovers |
 | `plotting/writeDatacard.py` | TTBB systematics | Pending |
@@ -112,9 +112,15 @@ TTBB estimates (to be verified from XSDB):
 └── ttbar_2l/                  (with overlap removal applied)
 ```
 
+## Ghost-Matching Validation Results
+
+From analysis of 10,000 events each:
+- **ttbar**: ~25% of events have ≥1 additional b-jet (will be removed)
+- **TTBB**: ~63% of events have ≥1 additional b-jet (will be kept)
+
 ## Notes
 
 - TTBB cross-section should be verified from MC production cards or XSDB
 - Generator sum weights must be calculated before processing
 - Symlinks needed to integrate TTBB with existing job submission
-- Stage 1 jobs completed successfully for 2018 (all 3826 jobs finished)
+- Stage 1 needs re-running with corrected ghost-matching implementation
