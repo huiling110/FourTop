@@ -110,11 +110,13 @@ When context usage reaches ~10% remaining, Claude MUST automatically:
 This ensures seamless continuation even if the session ends unexpectedly.
 
 **IMPORTANT - Commit Changes Regularly**:
-Claude should proactively commit changes during work sessions:
+Claude MUST proactively commit changes during work sessions, especially when executing approved plans:
+- **During approved plan execution**: Commit after EVERY completed step or fix (not just phases)
 - After completing a logical unit of work (e.g., fixing a bug, adding a feature)
 - After completing each phase or major task
 - Before context gets low (~10% remaining)
 - Use descriptive commit messages explaining what was done and why
+- **Do not batch commits** - commit immediately after each successful change
 
 **IMPORTANT - Test Code Before Committing**:
 Claude MUST test code changes before considering a task complete:
