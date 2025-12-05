@@ -55,16 +55,17 @@ def main(
     eleScale = 0, #!!! 0: nominal; 1: up; 2: down
     JESSys = 0 ,#!!! nominal: 0;
     JERSys = 0, #!!! 0: no correction; 1: up; 2: down
-    METSys = 2, #!!! nominal: 0; 1: up; 2: down
-    # if1tau2l = 0 #!!!True 
-    if1tau2l = 1, #!!!True 
-    era = '2016',
+    METSys = 0, #!!! nominal: 0; 1: up; 2: down
+    # if1tau2l = 0 #!!!True
+    if1tau2l = 0, #!!! 0 for 1tau0l/1tau1l, 1 for 1tau2l
+    # era = '2016',
     # era = '2016APV',
     # era = '2017',
-    # era = '2018',
+    era = '2018',
     # jobVersionNamePre = 'v94LepPreJetVetoHemOnly'#3 years submitted
-    jobVersionNamePre = 'v94LepPreJetVetoHemOnlyV2'#3 years submitted
-    
+    # jobVersionNamePre = 'v94LepPreJetVetoHemOnlyV2'#3 years submitted
+    jobVersionNamePre = 'v94HadroPreJetVetoHemOnly_TTBBtest'  # TTBB testing
+
 ):
     
     jobVersionName = getJobVersionName(jobVersionNamePre, TES, eleScale, JESSys, JERSys, METSys)

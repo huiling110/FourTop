@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
 **Last Updated**: 2025-12-05
-**Current Phase**: Phase 2 - Sample Preparation
+**Current Phase**: Phase 5 - Running for 2018 first
 
 ---
 
@@ -49,56 +49,61 @@
 
 ---
 
-## Phase 4: Overlap Subtraction Implementation 🔄 IN PROGRESS
+## Phase 4: Overlap Subtraction Implementation ✅ COMPLETE
 
 ### copyBranch.C
-- [ ] Add `countAdditionalBJets()` function declaration to copyBranch.h
-- [ ] Implement `countAdditionalBJets()` in copyBranch.C:
-  - [ ] Find top quarks (pdgId=6)
-  - [ ] Find b-quarks from top decay (pdgId=5, mother=top)
-  - [ ] Count b-quarks NOT from top with pT>20, |η|<2.5
-- [ ] Add filtering logic in `Select()` for ttbar samples
-- [ ] Test compilation
+- [x] Add `countAdditionalBJets()` function declaration to copyBranch.h
+- [x] Implement `countAdditionalBJets()` in copyBranch.C:
+  - [x] Find top quarks (pdgId=6)
+  - [x] Find b-quarks from top decay (pdgId=5, mother=top)
+  - [x] Count b-quarks NOT from top with pT>20, |η|<2.5
+- [x] Add filtering logic in `Select()` for ttbar samples
+- [x] Test compilation ✅
+- [x] Fix Makefile library paths (CMSSW_10_6_20 -> CMSSW_14_1_0_pre4)
 - [ ] Validate with small test run
+
+**Committed**: `0478d65d` - feat: Add TTBB samples with ttbar overlap removal
 
 ---
 
-## Phase 5: Full Processing
+## Phase 5: Full Processing (2018 FIRST)
 
-### Stage 1: Object Selection
-- [ ] Build objectSelectionOptimized
-- [ ] Submit jobs for 2018
-- [ ] Submit jobs for 2017
-- [ ] Submit jobs for 2016postVFP
-- [ ] Submit jobs for 2016preVFP
+### Stage 1: Object Selection - 2018
+- [x] Build objectSelectionOptimized
+- [ ] Submit jobs for 2018 TTBB samples
+- [ ] Submit jobs for 2018 ttbar samples (with overlap removal)
 - [ ] Verify TTBB output files created
 - [ ] Verify ttbar event counts reduced (overlap removal working)
 
-### Stage 2: Variable Production
+### Stage 2: Variable Production - 2018
 - [ ] Build makeVariables_goodCode
-- [ ] Submit jobs for all years
+- [ ] Submit jobs for 2018
 - [ ] Verify output ntuples
 
-### Stage 3: Histogram Production
+### Stage 3: Histogram Production - 2018
 - [ ] Build writeHistGood
-- [ ] Submit nominal jobs for 1tau0l
-- [ ] Submit nominal jobs for 1tau1l
-- [ ] Submit nominal jobs for 1tau2l
-- [ ] Submit systematic jobs
+- [ ] Submit nominal jobs for 1tau0l (2018)
 - [ ] Verify TTBB histograms exist
 
-### Stage 4: Templates and Datacards
+### Stage 4: Validation Plots - 2018
+- [ ] Run pl.py for 2018
+- [ ] Verify TTBB appears correctly in plots
+
+### After 2018 validation: Other years
+- [ ] Submit jobs for 2017
+- [ ] Submit jobs for 2016postVFP
+- [ ] Submit jobs for 2016preVFP
+
+---
+
+## Phase 6: Templates, Datacards and Validation
+
 - [ ] Run addJESTemplatesToHistFile.py
 - [ ] Run addTemplateNew.py
 - [ ] Run smooth_systematics_fourTops.py
 - [ ] Run writeDatacard.py (with TTBB systematics)
 - [ ] Run writeCombinationDatacard.py
 - [ ] Run statistical analysis
-
----
-
-## Phase 6: Validation
-
 - [ ] Check TTBB yields (~2-5% of tt)
 - [ ] Check no negative bins
 - [ ] Check data/MC agreement in control regions
@@ -113,3 +118,10 @@
 - Created dev-docs structure
 - Plan approved by user
 - Key decisions: ≥1 b-jet threshold, Stage 1 filtering, separate 'ttbb' category
+
+### Session 2 (2025-12-05 - continued)
+- Completed Phases 1-4 (all configuration and implementation)
+- Committed changes: `0478d65d`
+- Strategy change: Test 2018 first before running other years
+- Fixed Makefile library paths
+- Build successful

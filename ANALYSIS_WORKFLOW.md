@@ -110,13 +110,28 @@ make clean && make
 
 ### 1.4 Job Submission
 
+**Recommended script**: `makeJob_OS_fromRuobing2.py` (supports batch submission with monitoring)
+
 ```bash
 cd objectSelectionOptimized/jobs/
-# Edit makeJob_objectTSelectorForNanoAOD.py:
-#   - Set era, jobVersionName, ifRun3
-#   - Configure sumProToSkip to exclude unwanted samples
-python3 makeJob_objectTSelectorForNanoAOD.py
+source ../../setEnv_newNew.sh
+
+# Edit makeJob_OS_fromRuobing2.py main() function parameters:
+#   - era: '2018', '2017', '2016', '2016APV'
+#   - if1tau2l: 0 for 1tau0l/1tau1l, 1 for 1tau2l
+#   - jobVersionNamePre: Version prefix (e.g., 'v94HadroPreJetVetoHemOnly')
+#   - TES, eleScale, JESSys, JERSys, METSys: Systematic variations (0=nominal)
+
+python3 makeJob_OS_fromRuobing2.py
 ```
+
+**Key features**:
+- Automatic batch job submission with `hep_sub`
+- Cluster ID tracking in `cluster_logs.csv`
+- Background monitoring via `speedOS.py`
+- Supports all systematic variations via function parameters
+
+**Note**: `makeJob_objectTSelectorForNanoAOD.py` is obsolete - use `makeJob_OS_fromRuobing2.py` instead.
 
 ### 1.5 Sample Configuration
 
