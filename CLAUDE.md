@@ -23,51 +23,7 @@ python3 script.py
 
 ---
 
-## 🔧 Current Work in Progress
-
-**IMPORTANT**: Always update this section and referenced documentation as we make progress!
-
-### Active Tasks
-
-#### 1. CMS Naming Convention Migration
-**Status**: ✅ **VALIDATED** (2025-11-25)
-**Documentation**: [writeHistGood/CMS_NAMING_CONVENTION_UPDATE.md](writeHistGood/CMS_NAMING_CONVENTION_UPDATE.md)
-**Version**: `v8BDT1tau0l_refactorAndBtagNameFix`
-
-- Fixed: `btag_shape` → `btag`
-- All 26 b-tag systematics use correct CMS names
-- End-to-end validation: v8BDT = v0BDT results (identical)
-
-#### 2. Analysis Workflow Documentation & Automation
-**Status**: 🔄 Active
-**Documentation**: [ANALYSIS_WORKFLOW.md](ANALYSIS_WORKFLOW.md)
-
-- Documenting end-to-end pipeline from NanoAOD to physics results
-- Current: 1tau0l channel complete through Stage 4.4 (Combine analysis)
-- Next: Stage 4.5 (Results visualization)
-
-### Reminder for AI Assistants
-When working on these tasks:
-1. Update progress in this section
-2. Update detailed documentation in referenced .md files
-3. Record all commands/scripts/parameters in ANALYSIS_WORKFLOW.md
-4. Note issues, blockers, optimization opportunities
-5. Mark completed tasks with date stamps
-
-### TODO: Code Optimization for Token Efficiency
-**Priority**: Medium
-**Issue**: Python scripts (writeDatacard.py, smooth_systematics_fourTops.py) print verbose output to stdout when run, consuming many tokens when executed with Claude
-**Examples**:
-- `writeDatacard.py` prints entire MCSys dictionary (~100+ systematics) when run
-- Running with `-h` flag outputs full dictionary instead of help message
-**Solutions to implement**:
-1. Add `--quiet` or `--silent` flag to suppress non-essential print statements
-2. Redirect systematic dictionary printing to stderr or log file instead of stdout
-3. Remove debug print statements from production code
-4. Use Python logging module with configurable verbosity levels
-**Benefits**: Significant token savings when running analysis workflows with Claude (estimated 50-70% reduction per script execution)
-
-### Dev-Docs System for Major Tasks
+## Dev-Docs System for Major Tasks
 
 **Location**: `.claude/dev-docs/active/[task-name]/`
 
