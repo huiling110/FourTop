@@ -115,4 +115,8 @@ std::map<std::string, double> genSumMap = {
 {"vbfH_ww_2l", 11257548.8256},
 {"VLL_NN_M1000", 1.5998133724},
 {"qcd_1000to1500", 12254238.0},
+// TTBB samples
+{"TTBB_4f_TTToHadronic", 51913709.81},
+{"TTBB_4f_TTToSemiLeptonic", 61706979.75},
+{"TTBB_4f_TTTo2L2Nu", 7209376.72},
 };

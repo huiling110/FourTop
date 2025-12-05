@@ -12,6 +12,7 @@ public:
     Bool_t Select(eventForNano *e, Bool_t isData);
     void clearBranch();
     Bool_t overlapRemovalSamples(const eventForNano* e);
+    Int_t countAdditionalBJets(const eventForNano* e);  // For ttbar/ttbb overlap removal
 
 private:
     // output branches
@@ -20,6 +21,7 @@ private:
     TString m_processName;
     Bool_t m_isGammaSample;
     Bool_t m_isNotGammaSample;
+    Bool_t m_isTtbarSample;  // For ttbar/ttbb overlap removal
     UChar_t m_MET_sys=0;
 
     UInt_t run_;

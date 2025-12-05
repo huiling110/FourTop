@@ -2,6 +2,7 @@
 #include "../include/usefulFunc.h"
 #include <iostream>
 #include <any>
+#include <set>
 
 CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t isData, const Bool_t isRun3, const UChar_t MET_sys):m_processName{processName}, m_isData{isData}, m_isRun3{isRun3}, m_MET_sys{MET_sys} 
 {
@@ -10,8 +11,10 @@ CopyBranch::CopyBranch(TTree *outTree, const TString processName, const Bool_t i
 
     m_isGammaSample = m_processName=="ttG" || m_processName=="ZGToLLG" || m_processName=="WGToLNuG" || m_processName=="TGJets";
     m_isNotGammaSample = m_processName.Contains("ttbar") || m_processName.Contains("DYJets") || m_processName.Contains("WJets") || m_processName.Contains("st_");
+    m_isTtbarSample = m_processName.Contains("ttbar");  // For ttbar/ttbb overlap removal
     std::cout<<"m_isGammaSample="<<m_isGammaSample<<"\n";
     std::cout<<"m_isNotGammaSample="<<m_isNotGammaSample<<"\n";
+    std::cout<<"m_isTtbarSample="<<m_isTtbarSample<<"\n";
 
     outTree->Branch("run_", &run_);
     outTree->Branch("event_", &event_);
@@ -36,6 +39,14 @@ Bool_t CopyBranch::Select(eventForNano *e, Bool_t isData)
     clearBranch();//!!!important
 
     Bool_t ifRemoveEvent = overlapRemovalSamples(e);
+
+    // ttbar/ttbb overlap removal: remove ttbar events with >=1 additional b-jet
+    if (!isData && m_isTtbarSample && !ifRemoveEvent) {
+        Int_t nAdditionalB = countAdditionalBJets(e);
+        if (nAdditionalB >= 1) {
+            ifRemoveEvent = kTRUE;  // Remove this ttbar event (overlap with TTBB)
+        }
+    }
 
     run_ = *e->run;
     event_ = *e->event;
@@ -171,4 +182,59 @@ Bool_t CopyBranch::overlapRemovalSamples(const eventForNano* e){
 
     return ifRemove;
 
+}
+
+Int_t CopyBranch::countAdditionalBJets(const eventForNano* e) {
+    // Count additional b-quarks not from top decay for ttbar/ttbb overlap removal
+    // Strategy: Find b-quarks with pT>20, |eta|<2.5 that are NOT from top decay
+
+    // First, identify indices of top quarks
+    std::set<Int_t> topIndices;
+    for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++) {
+        if (std::abs(e->GenPart_pdgId->At(i)) == 6) {  // top quark
+            topIndices.insert(static_cast<Int_t>(i));
+        }
+    }
+
+    // Count b-quarks not from top decay
+    Int_t additionalBJets = 0;
+    for (size_t i = 0; i < e->GenPart_pdgId->GetSize(); i++) {
+        // Check if it's a b-quark
+        if (std::abs(e->GenPart_pdgId->At(i)) != 5) continue;
+
+        // Apply kinematic cuts
+        if (e->GenPart_pt->At(i) < 20.0) continue;
+        if (std::abs(e->GenPart_eta->At(i)) > 2.5) continue;
+
+        // Get mother index
+        Int_t motherIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->GenPart_genPartIdxMother, i);
+
+        // Check if this b-quark comes from top decay
+        // Trace back through the decay chain to see if any ancestor is a top quark
+        Bool_t fromTop = kFALSE;
+        Int_t currentIdx = motherIdx;
+        Int_t maxIterations = 20;  // Safety limit to prevent infinite loops
+        Int_t iterations = 0;
+
+        while (currentIdx >= 0 && iterations < maxIterations) {
+            if (topIndices.count(currentIdx) > 0) {
+                fromTop = kTRUE;
+                break;
+            }
+            // Check if current particle is a top quark
+            if (std::abs(e->GenPart_pdgId->At(currentIdx)) == 6) {
+                fromTop = kTRUE;
+                break;
+            }
+            // Move to next ancestor
+            currentIdx = OS::getValForDynamicReader<Short_t>(m_isRun3, e->GenPart_genPartIdxMother, currentIdx);
+            iterations++;
+        }
+
+        if (!fromTop) {
+            additionalBJets++;
+        }
+    }
+
+    return additionalBJets;
 }

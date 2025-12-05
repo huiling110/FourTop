@@ -30,9 +30,9 @@ CORRECTIONLIB_LIB = $(shell correction config --ldflags )
 XGBOOST_LIB=-L/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-xgboost/1.7.5-1f6806665f9570eb4fd37e64b5fc04d5/lib/python3.9/site-packages/xgboost/lib/ -lxgboost
 XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/el9_amd64_gcc14/external/py3-xgboost/1.7.5-1f6806665f9570eb4fd37e64b5fc04d5/lib/python3.9/site-packages/xgboost/include/xgboost/
 
-MYLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
-RoccoRLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/ -lRoccoR
-RoccoRInclude = -I/workfs2/cms/huahuil/CMSSW_10_6_20/src/roccor/
+MYLIB = -L/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/myLibrary/ -lcommenFunction
+RoccoRLIB = -L/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/roccor/ -lRoccoR
+RoccoRInclude = -I/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/roccor/
 # Directories
 HEADRDIR = .
 SOURCE = src/

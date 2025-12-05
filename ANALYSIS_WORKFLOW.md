@@ -24,11 +24,13 @@ This document captures the complete workflow from NanoAOD input to final physics
 ```
 NanoAOD (CMS data format)
     ↓
-[1] Object Selection & Variables Calculation
+[1] Object Selection (objectSelectionOptimized/)
     ↓
-[2] BDT Training (optional, if BDT not already trained)
+[2] Variable Calculation (makeVariables_goodCode/)
     ↓
-[3] Histogram Production (nominal + systematics)
+[2.5] BDT Training (optional, hua/tmva/)
+    ↓
+[3] Histogram Production (writeHistGood/)
     ↓
 [4] Plotting and Result Extraction
     ├─ [4.1] Consolidate Shape Systematics
@@ -42,35 +44,237 @@ NanoAOD (CMS data format)
 
 ---
 
-## Stage 1: NanoAOD → Selected Events with Variables
+## Stage 1: NanoAOD → Object Selection
 
-**Location**: Upstream processing (not in this repository)
+**Location**: `objectSelectionOptimized/`
 
-**Input**: CMS NanoAOD ROOT files
-**Output**: NanoAOD with additional branches for analysis variables
+**Purpose**: Apply object selections (jets, leptons, taus) and event preselection on CMS NanoAOD files, producing analysis-ready ROOT trees with selected objects and systematic variations.
 
-**Example input directory**:
+**Input**: CMS NanoAOD ROOT files from `/publicfs/cms/data/TopQuark/nanoAOD/{YEAR}/mc/`
+**Output**: Selected events in `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/{ERA}/{VERSION}/{mc|data}/`
+
+### 1.1 Directory Structure
+
 ```
-/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/
+objectSelectionOptimized/
+├── apps/
+│   └── run_objectSelection.C      # Main executable entry point
+├── src/                            # Selection implementations
+│   ├── objectSelectionNano.C      # Main event loop
+│   ├── jetSel.C                   # Jet selection
+│   ├── tauSel.C                   # Tau selection
+│   ├── muTopMVASel.C              # Muon + Top MVA selection
+│   ├── eleTopMVASel.C             # Electron + Top MVA selection
+│   ├── HLTSelector.C              # Trigger selection
+│   ├── PUWeightCal.C              # Pileup reweighting
+│   ├── systWeightCal.C            # Systematic weights
+│   ├── inputMap.C                 # JEC/JER/pileup config maps
+│   └── copyBranch.C               # Branch management, overlap removal
+├── include/                        # Headers
+│   └── eventReader_nano.h         # NanoAOD branch definitions
+├── input/                          # Calibration files
+│   ├── golden_JSONs/              # Data quality
+│   ├── pileup/                    # Pileup histograms
+│   └── TopLeptonMVA/              # MVA weights
+├── jobs/
+│   └── makeJob_objectTSelectorForNanoAOD.py  # Job submission
+└── Makefile
 ```
 
-**Content**: ROOT files for each process (tttt, ttbar, ttW, ttZ, ttH, VLL, data, etc.)
+### 1.2 Build and Run
 
-**Key branches added**:
-- Object selections: jets, b-jets, leptons, taus
-- Physics variables: invariant masses, delta R, transverse masses, HT, MET
-- Event weights: generator, pileup, b-tagging, lepton/tau ID scale factors
+```bash
+cd objectSelectionOptimized/
+source ../setEnv_newNew.sh
+make clean && make
+```
 
-**Shape systematic variations** (separate input directories):
+### 1.3 Command Format
+
+```bash
+./apps/run_objectSelection.out <inputDir> <singleFileName> <outputDir> \
+    <TES> <eleScale> <JESSys> <JERSys> <MET_UnclusteredEn> <if1tau2l> <eventNum>
+```
+
+**Parameters**:
+- `inputDir`: Input NanoAOD directory
+- `singleFileName`: Specific ROOT file to process
+- `outputDir`: Output directory
+- `TES`: Tau energy scale (0=nominal, 1-8 for variations)
+- `eleScale`: Electron scale (0=nominal)
+- `JESSys`: JES variation (0=nominal)
+- `JERSys`: JER variation (0=nominal, 1=up, 2=down)
+- `MET_UnclusteredEn`: MET unclustered energy (0=nominal, 1=up, 2=down)
+- `if1tau2l`: Channel flag (0=1tau0l/1tau1l, 1=1tau2l)
+- `eventNum`: Events to process (0=all)
+
+### 1.4 Job Submission
+
+```bash
+cd objectSelectionOptimized/jobs/
+# Edit makeJob_objectTSelectorForNanoAOD.py:
+#   - Set era, jobVersionName, ifRun3
+#   - Configure sumProToSkip to exclude unwanted samples
+python3 makeJob_objectTSelectorForNanoAOD.py
+```
+
+### 1.5 Sample Configuration
+
+**Central config file**: `hua/src_py/ttttGlobleQuantity.py`
+
+Contains:
+- `crossSectionMap`: Cross-sections for all MC processes
+- `histoGramPerSample`: Process groupings (e.g., `ttbar_0l` → `tt`)
+- `lumiMap`: Integrated luminosity per era
+- `genSumDic`: Generator event sums for normalization
+
+**Input structure**: `/publicfs/cms/data/TopQuark/nanoAOD/{YEAR}/{mc|data}/{PROCESS}/`
+**Output structure**: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/{ERA}/{VERSION}/{mc|data}/{PROCESS}/`
+
+### 1.6 Object Selections Applied
+
+| Object | Key Selections |
+|--------|----------------|
+| Jets | pT, η, jet ID, overlap removal |
+| B-jets | DeepJet b-tagging at multiple WPs |
+| Muons | pT, η, isolation, Top MVA ID |
+| Electrons | pT, η, MVA ID, Top MVA ID |
+| Taus | pT, η, DeepTau ID (VSe, VSmu, VSjet), decay modes |
+| Triggers | Era/channel-specific HLT paths |
+
+### 1.7 Systematic Variations
+
+**Shape systematics** (separate output directories):
 - JES (27 sources): `*_JESup_SOURCE/`, `*_JESDown_SOURCE/`
 - JER: `*_JERUp/`, `*_JERDown/`
 - TES (4 decay modes): `*_TESdm{0,1,10,11}{Up,Down}/`
 - MET: `*_METUp/`, `*_METDown/`
 - Electron scale: `*_EleScaleUp/`, `*_EleScaleDown/`
 
+### 1.8 Key Output Branches
+
+Selected object collections:
+- `muonsT_*`, `muonsTopMVAT_*`, `muonsTopMVAF_*`
+- `elesMVAT_*`, `elesTopMVAT_*`, `elesTopMVAF_*`
+- `tausT_*`, `tausF_*`, `tausL_*`, `tausTT_*`, `tausFMorph_*`
+- `jets_*` (with hadron flavor for MC)
+
 ---
 
-## Stage 2: BDT Training (if needed)
+## Stage 2: Selected Events → Flat Ntuples with Variables
+
+**Location**: `makeVariables_goodCode/`
+
+**Purpose**: Calculate derived physics variables from selected events, producing flat ntuples optimized for BDT training and histogram generation.
+
+**Input**: Stage 1 output from `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/{ERA}/{VERSION}/`
+**Output**: Flat ntuples in `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{YEAR}/{OUT_VERSION}/`
+
+### 2.1 Directory Structure
+
+```
+makeVariables_goodCode/
+├── apps/
+│   └── run_makeVariables.C        # Main executable
+├── src/
+│   ├── makeVariablesMain.C        # Control loop
+│   ├── jetVarMaker.C              # Jet variables (~90 branches)
+│   ├── tauVarMaker.C              # Tau variables (6 working points)
+│   ├── bjetVarMaker.C             # B-jet variables (3 WPs)
+│   ├── lepVarMaker.C              # Combined lepton variables
+│   ├── weightVarMaker.C           # Scale factors & weights
+│   ├── variablesFunctions.C       # Utility functions (HT, mass, dR)
+│   └── JESVariation.C             # JES systematic handling
+├── include/
+│   └── eventReader_forMV.h        # Input branch definitions
+├── input/                          # Scale factor files
+│   ├── btagR/                     # B-tagging efficiencies
+│   └── leptonSF_UL/               # Lepton scale factors
+├── jobs/
+│   ├── makeJob_makeVaribles_forBDT.py    # Main job submission
+│   └── makeJob_MV_JESVariation.py        # JES variation jobs
+└── Makefile
+```
+
+### 2.2 Build and Run
+
+```bash
+cd makeVariables_goodCode/
+source ../setEnv_newNew.sh
+make clean && make
+```
+
+### 2.3 Command Format
+
+```bash
+./apps/run_makeVariables.out <inputBase> <processName> <outputDir> \
+    <numEntries> <if1tau2l> <JESVariationType> <JESVariation>
+```
+
+**Parameters**:
+- `inputBase`: Stage 1 output directory
+- `processName`: Process to run (e.g., `tttt`, `TTWJetsToLNu`)
+- `outputDir`: Output directory
+- `numEntries`: Events to process (0=all)
+- `if1tau2l`: Channel flag
+- `JESVariationType`: 0=nominal, 1=up, 2=down
+- `JESVariation`: JES source index (0-27)
+
+### 2.4 Job Submission
+
+```bash
+cd makeVariables_goodCode/jobs/
+# Edit makeJob_makeVaribles_forBDT.py with correct era/version
+python3 makeJob_makeVaribles_forBDT.py
+```
+
+### 2.5 Variables Calculated (~200+ branches)
+
+**Jet variables** (jetVarMaker.C):
+- Aggregate: HT, MHT, invariant mass, sphericity, aplanarity
+- Per-jet: pT, η, φ, b-tag score (1st-9th leading jets)
+- Ratios: HT/MET, leading jet fractions
+
+**Tau variables** (tauVarMaker.C):
+- Per-tau: pT, η, φ, mass, decay mode, charge
+- Aggregate: invariant mass, dR to leptons
+- 6 working points: T, F, L, TT, M, FMorph
+
+**B-jet variables** (bjetVarMaker.C):
+- 3 working points: Medium, Loose, Tight
+- Aggregate: invariant mass, HT, dR to other objects
+
+**Lepton variables** (lepVarMaker.C):
+- Combined electron + muon collections
+- Tight and fake working points
+
+**Event weights** (weightVarMaker.C):
+- Generator weight
+- Pileup (with up/down variations)
+- Lepton ID/isolation scale factors
+- Tau ID scale factors
+- B-tagging efficiency weights
+- Trigger scale factors
+- L1 prefiring (2016/2017)
+
+### 2.6 Output Structure
+
+```
+/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{YEAR}/{VERSION}/mc/
+├── tttt.root                # One file per process
+├── ttbar_0l.root
+├── ttbar_1l.root
+├── ttbar_2l.root
+├── TTWJetsToLNu.root
+├── VLL_EE_M600.root
+└── ... (all MC processes)
+```
+
+Each file contains TTree `newtree` with all calculated variables.
+
+---
+
+## Stage 2.5: BDT Training (if needed)
 
 **Location**: `hua/tmva/`
 

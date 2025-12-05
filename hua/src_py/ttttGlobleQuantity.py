@@ -17,7 +17,13 @@ crossSectionMap = {
     "ttbar_0l": 377.96,
     "ttbar_1l": 365.34,
     "ttbar_2l": 88.29,
-    
+
+    # TTBB 4-flavor scheme cross-sections (pb) at 13 TeV
+    # Total ttbb ~ 2.3 pb, split by decay mode following ttbar BR ratios
+    "TTBB_4f_TTToHadronic": 1.06,      # ~46% of total (hadronic)
+    "TTBB_4f_TTToSemiLeptonic": 1.03,  # ~45% of total (semileptonic)
+    "TTBB_4f_TTTo2L2Nu": 0.21,         # ~9% of total (dileptonic)
+
     "ttG": 15.89, # 4.62,
     "ttZ": 0.783,
     "ttW": 0.611,
@@ -172,7 +178,12 @@ histoGramPerSample = {
     'ttbar_0l':'tt',
     'ttbar_1l': 'tt',
     'ttbar_2l': 'tt',
-    
+
+    # TTBB samples - separate process category
+    'TTBB_4f_TTToHadronic': 'ttbb',
+    'TTBB_4f_TTToSemiLeptonic': 'ttbb',
+    'TTBB_4f_TTTo2L2Nu': 'ttbb',
+
     'qcd_50to100':'qcd',
     'qcd_100to200':'qcd',#!!!to be updated
     'qcd_200to300':'qcd',
@@ -566,21 +577,21 @@ dataDict = {
 proChannelDic = {
     # '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets', 'Minor',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
     # '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
-    '1tau1l':  ['fakeTau', 'tt', 'ttX',  'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
-    '1tau0l':  [ 'fakeTau', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, no Minor in 1tau0l neither
+    '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttX',  'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! 1tau1l, with ttbb
+    '1tau0l':  [ 'fakeTau', 'tt', 'ttbb', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, with ttbb
     # '1tau0l':  [ 'qcd', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, for fake tau validation with qcd
-    # '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
-    '1tau2l':  ['fakeTau', 'tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
-    # '1tau2l':   ['fakeTau', 'tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], 
+    # '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'],
+    '1tau2l':  ['fakeTau', 'tt', 'ttbb', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], #! with ttbb
+    # '1tau2l':   ['fakeTau', 'tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'],
     # '1tau2l':  ['tt', 'ttH', 'ttZ', 'ttW', 'ttG', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], #!testing
 }
 proChannelDic_forCombine = {
     # '1tau1l':  ['fakeTauMC', 'tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
     # '1tau1l':  [ 'tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
-    '1tau1l':  ['fakeTau', 'tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! fakeTau from data-driven, WJets:0
+    '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! with ttbb
     # '1tau2l': ['tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'],
-    '1tau2l': ['fakeTau', 'tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton',  'Minor',  'tttt', 'leptonSum'], #! fakeTau from data-driven, singleTop:0
-    '1tau0l':  ['fakeTau', 'tt', 'ttZ', 'ttW', 'ttH', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, no Minor in 1tau0l neither
+    '1tau2l': ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton',  'Minor',  'tttt', 'leptonSum'], #! with ttbb
+    '1tau0l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW', 'ttH', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! with ttbb
 }
 
 #!copied from inputMAP_MV.H
