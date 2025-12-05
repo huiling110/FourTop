@@ -70,8 +70,10 @@
 
 ### Stage 1: Object Selection - 2018
 - [x] Build objectSelectionOptimized
-- [ ] Submit jobs for 2018 TTBB samples
-- [ ] Submit jobs for 2018 ttbar samples (with overlap removal)
+- [x] Fix library paths in job scripts (source setEnv_newNew.sh)
+- [x] Fix RoccoR path in setEnv_newNew.sh (CMSSW_10_6_20 → CMSSW_14_1_0_pre4)
+- [x] Submit jobs for 2018 TTBB samples (all 3 decay modes)
+- [x] Submit jobs for 2018 ttbar samples (with overlap removal)
 - [ ] Verify TTBB output files created
 - [ ] Verify ttbar event counts reduced (overlap removal working)
 
@@ -125,3 +127,11 @@
 - Strategy change: Test 2018 first before running other years
 - Fixed Makefile library paths
 - Build successful
+
+### Session 3 (2025-12-05 - continued)
+- First job submission failed: libRoccoR.so not found at runtime
+- Fixed RoccoR path in setEnv_newNew.sh (CMSSW_10_6_20 → CMSSW_14_1_0_pre4)
+- Updated job scripts to source setEnv_newNew.sh for proper environment
+- Commits: `b59d935e`, `cd30ed7c`, `16f24934`
+- Resubmitted jobs successfully (2606 jobs in queue)
+- TTBB jobs confirmed running (all 3 decay modes)
