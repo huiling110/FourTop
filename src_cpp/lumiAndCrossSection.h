@@ -29,6 +29,12 @@ inline const std::map<TString, Double_t> crossSectionMap = {
     {"ttbar_1l", 365.34},
     {"ttbar_2l", 88.29}, // TT intotal 833.9pb
 
+    // TTBB 4-flavor scheme cross-sections (pb) at 13 TeV
+    // Scaled from ttH(H->bb) AN: 43.74 * (17.75/21.34) = 36.3 pb total
+    {"TTBB_4f_TTToHadronic", 16.52},     // 36.3 * 0.455 (hadronic BR)
+    {"TTBB_4f_TTToSemiLeptonic", 15.97}, // 36.3 * 0.440 (semileptonic BR)
+    {"TTBB_4f_TTTo2L2Nu", 3.85},         // 36.3 * 0.106 (dilepton BR)
+
     {"ttG", 15.89},          //
     {"ttZ", 0.783},          // 0.6559
     {"ttW", 0.611},          // 0.2014 changed to 611

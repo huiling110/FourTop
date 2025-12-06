@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-05 18:00
-**Current Phase**: Phase 5 - Re-running Stage 1 with corrected ghost-matching
+**Last Updated**: 2025-12-06 10:45
+**Current Phase**: Phase 5 - Stage 1 complete for 2018, ready for Stage 2
 
 ---
 
@@ -79,13 +79,16 @@
 - [x] Fix PUWeightCal.C pileup path (CMSSW_10_6_20 → CMSSW_14_1_0_pre4)
 - [x] Submit jobs for 2018 TTBB samples (all 3 decay modes)
 - [x] Submit jobs for 2018 ttbar samples (with overlap removal)
-- [x] TTBB output files created and verified
-- [x] ttbar output files created and verified
-- [x] All 3826 jobs completed (hep_q shows 0 jobs)
-- [x] Verify ttbar event counts reduced (overlap removal working) - **VERIFIED**
-  - ~2.04% of ttbar events have additional b-jets to remove
-  - m_isTtbarSample correctly detected in job logs
-  - TTBB samples confirmed to have 6-8 additional b-quarks per event
+- [x] Fix job OS: CentOS7 → AlmaLinux9 (for CMSSW_14/el9 libraries)
+- [x] All 916 jobs completed successfully on AlmaLinux9
+- [x] Output verified:
+  - TTBB_4f_TTToHadronic: 10 files, 58M
+  - TTBB_4f_TTToSemiLeptonic: 15 files, 51M
+  - TTBB_4f_TTTo2L2Nu: 6 files, 11M
+  - ttbar_0l: 339 files, 509M
+  - ttbar_1l: 391 files, 392M
+  - ttbar_2l: 155 files, 49M
+- [x] Sample detection verified (m_isTtbarSample=1, m_isTTBBSample=1)
 
 ### Stage 2: Variable Production - 2018
 - [ ] Build makeVariables_goodCode
@@ -169,3 +172,31 @@
 - Updated job script to load version from YAML config
 - Commit: `39a083e5` - refactor: Load Stage 1 version from YAML config
 - Ready to re-run Stage 1 jobs with corrected implementation
+
+### Session 6 (2025-12-05 17:30)
+- Discovered executable was built BEFORE ghost-matching fix was committed (15:51 vs 15:55)
+- Cancelled 86 old ttbar jobs using incorrect code
+- Cleaned up old TTBB and ttbar output directories
+- Rebuilt objectSelectionOptimized executable at 17:07 (with corrected ghost-matching)
+- Created targeted job submission script: `objectSelectionOptimized/jobs/submit_ttbb_ttbar_only.py`
+- Submitted 916 jobs for 2018:
+  - TTBB_4f_TTToHadronic: 10 jobs (cluster 60076618)
+  - TTBB_4f_TTToSemiLeptonic: 15 jobs (cluster 60076624)
+  - TTBB_4f_TTTo2L2Nu: 6 jobs (cluster 60076627)
+  - ttbar_0l: 339 jobs (cluster 60076638)
+  - ttbar_1l: 391 jobs (cluster 60076653)
+  - ttbar_2l: 155 jobs (cluster 60076664)
+- All jobs running/queued, waiting for completion
+
+### Session 7 (2025-12-06 10:20)
+- Previous jobs failed with `libssl.so.3` error - CentOS7 nodes don't have el9 libraries
+- Fixed job scripts to source full environment (`setEnv_newNew.sh`)
+- Changed OS from CentOS7 to AlmaLinux9 for CMSSW_14 compatibility
+- Updated `submit_ttbb_ttbar_only.py` with AlmaLinux9 and full env sourcing
+- Resubmitted 916 jobs on AlmaLinux9 (clusters 60395717-60395770)
+- All 916 jobs completed successfully!
+- **Updated TTBB cross-sections** (scaled from ttH AN):
+  - σ_ttbb = 43.74 × (17.75/21.34) = 36.3 pb total
+  - Hadronic: 16.52 pb, Semileptonic: 15.97 pb, Dilepton: 3.85 pb
+  - Updated in `ttttGlobleQuantity.py` and `lumiAndCrossSection.h`
+- Stage 1 for 2018 complete, ready for Stage 2

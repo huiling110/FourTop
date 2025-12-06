@@ -19,10 +19,10 @@ crossSectionMap = {
     "ttbar_2l": 88.29,
 
     # TTBB 4-flavor scheme cross-sections (pb) at 13 TeV
-    # Total ttbb ~ 2.3 pb, split by decay mode following ttbar BR ratios
-    "TTBB_4f_TTToHadronic": 1.06,      # ~46% of total (hadronic)
-    "TTBB_4f_TTToSemiLeptonic": 1.03,  # ~45% of total (semileptonic)
-    "TTBB_4f_TTTo2L2Nu": 0.21,         # ~9% of total (dileptonic)
+    # Scaled from ttH(H->bb) AN: 43.74 * (17.75/21.34) = 36.3 pb total
+    "TTBB_4f_TTToHadronic": 16.52,     # 36.3 * 0.455 (hadronic BR)
+    "TTBB_4f_TTToSemiLeptonic": 15.97, # 36.3 * 0.440 (semileptonic BR)
+    "TTBB_4f_TTTo2L2Nu": 3.85,         # 36.3 * 0.106 (dilepton BR)
 
     "ttG": 15.89, # 4.62,
     "ttZ": 0.783,

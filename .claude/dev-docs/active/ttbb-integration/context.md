@@ -1,6 +1,6 @@
 # TTBB Integration - Key Context
 
-**Last Updated**: 2025-12-05 18:00
+**Last Updated**: 2025-12-06 11:00
 
 ## TTBB Sample Locations (Verified)
 
@@ -93,23 +93,23 @@ Current ttbar values (pb):
 "ttbar_2l": 88.29
 ```
 
-TTBB estimates (to be verified from XSDB):
+**TTBB cross-sections** (scaled from ttH AN: 43.74 × 17.75/21.34 = 36.3 pb):
 ```python
-"TTBB_4f_TTToHadronic": ~1.06      # ~46% of ~2.3 pb total
-"TTBB_4f_TTToSemiLeptonic": ~1.03  # ~45%
-"TTBB_4f_TTTo2L2Nu": ~0.21         # ~9%
+"TTBB_4f_TTToHadronic": 16.52     # 36.3 × 0.455 (hadronic BR)
+"TTBB_4f_TTToSemiLeptonic": 15.97 # 36.3 × 0.440 (semileptonic BR)
+"TTBB_4f_TTTo2L2Nu": 3.85         # 36.3 × 0.106 (dilepton BR)
 ```
 
 ## Stage 1 Output Location (2018)
 
 ```
 /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest/mc/
-├── TTBB_4f_TTToHadronic/      (66M, output complete)
-├── TTBB_4f_TTToSemiLeptonic/  (56M, 15 files)
-├── TTBB_4f_TTTo2L2Nu/         (12M, output complete)
-├── ttbar_0l/                  (with overlap removal applied)
-├── ttbar_1l/                  (570M, 391 files)
-└── ttbar_2l/                  (with overlap removal applied)
+├── TTBB_4f_TTToHadronic/      (10 files, 58M)
+├── TTBB_4f_TTToSemiLeptonic/  (15 files, 51M)
+├── TTBB_4f_TTTo2L2Nu/         (6 files, 11M)
+├── ttbar_0l/                  (339 files, 509M, with overlap removal)
+├── ttbar_1l/                  (391 files, 392M, with overlap removal)
+└── ttbar_2l/                  (155 files, 49M, with overlap removal)
 ```
 
 ## Ghost-Matching Validation Results
@@ -120,7 +120,8 @@ From analysis of 10,000 events each:
 
 ## Notes
 
-- TTBB cross-section should be verified from MC production cards or XSDB
-- Generator sum weights must be calculated before processing
-- Symlinks needed to integrate TTBB with existing job submission
-- Stage 1 needs re-running with corrected ghost-matching implementation
+- ✅ TTBB cross-sections: 43.74 × (17.75/21.34) = 36.3 pb total
+- ✅ Generator sum weights calculated for all years
+- ✅ Symlinks created for TTBB samples
+- ✅ Stage 1 complete for 2018 with ghost-matching overlap removal
+- Jobs must run on AlmaLinux9 (not CentOS7) for CMSSW_14 compatibility

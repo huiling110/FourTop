@@ -1,7 +1,7 @@
 # TTBB Integration Plan
 
-**Last Updated**: 2025-12-05 18:00
-**Status**: In Progress - Phase 5 (Re-running Stage 1 with corrected ghost-matching)
+**Last Updated**: 2025-12-06 10:45
+**Status**: In Progress - Phase 5 (Stage 1 complete for 2018, ready for Stage 2)
 
 ## Overview
 
@@ -41,6 +41,26 @@ Add TTBB (tt+bb) samples to the Four-Top analysis with proper overlap removal fr
 | Overlap threshold | ≥1 additional b-jet | More aggressive removal for cleaner separation |
 | Implementation stage | Stage 1 (objectSelection) | Cleanest approach, no negative bins |
 | TTBB grouping | Separate 'ttbb' category | Better visibility, separate uncertainty |
+
+## Cross-Section Considerations
+
+**Scaled from ttH(H→bb) AN**: σ_ttbb = 43.74 × (17.75/21.34) = 36.3 pb
+- TTBB_4f_TTToHadronic: 16.52 pb (36.3 × 0.455)
+- TTBB_4f_TTToSemiLeptonic: 15.97 pb (36.3 × 0.440)
+- TTBB_4f_TTTo2L2Nu: 3.85 pb (36.3 × 0.106)
+- **Total TTBB**: 36.3 pb
+
+**TODO for final fit**:
+1. **Verify cross-sections**: Check against XSDB or MC production cards
+2. **Float TTBB normalization**: Add rate parameter in datacard to float TTBB in final fit
+3. **Consider theory uncertainty**: TTBB cross-section has large theory uncertainty (~30-50%)
+4. **Correlation with ttbar**: Decide if TTBB and ttbar normalizations should be correlated
+
+**Implementation in datacard**:
+```
+# Add rate parameter for TTBB normalization
+rateParam_ttbb rateParam * ttbb 1.0 [0.5,2.0]
+```
 
 ## Reference
 
