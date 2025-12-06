@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-06 10:45
-**Current Phase**: Phase 5 - Stage 1 complete for 2018, ready for Stage 2
+**Last Updated**: 2025-12-06 17:20
+**Current Phase**: Phase 5 - Stage 4 complete for 2018, ready for other years
 
 ---
 
@@ -90,19 +90,35 @@
   - ttbar_2l: 155 files, 49M
 - [x] Sample detection verified (m_isTtbarSample=1, m_isTTBBSample=1)
 
-### Stage 2: Variable Production - 2018
-- [ ] Build makeVariables_goodCode
-- [ ] Submit jobs for 2018
-- [ ] Verify output ntuples
+### Stage 2: Variable Production - 2018 ✅ COMPLETE
+- [x] Build makeVariables_goodCode (fixed Makefile library path)
+- [x] Add YAML config support to job script
+- [x] Add TTBB entries to genSumMap.h for all years
+- [x] Fix job scripts to source environment (correctionlib)
+- [x] Submit jobs for 2018
+- [x] Verify output ntuples:
+  - TTBB_4f_TTToHadronic: 66MB
+  - TTBB_4f_TTToSemiLeptonic: 59MB
+  - TTBB_4f_TTTo2L2Nu: 13MB
+  - ttbar_0l: 549MB
+  - ttbar_1l: 442MB
+  - ttbar_2l: 46MB
 
-### Stage 3: Histogram Production - 2018
-- [ ] Build writeHistGood
-- [ ] Submit nominal jobs for 1tau0l (2018)
-- [ ] Verify TTBB histograms exist
+### Stage 3: Histogram Production - 2018 ✅ COMPLETE
+- [x] Build writeHistGood (rebuilt to include updated lumiAndCrossSection.h)
+- [x] Submit nominal jobs for 1tau0l (2018) via run_workflow.py
+- [x] Verify TTBB histograms exist:
+  - TTBB_4f_TTToHadronic: 208K, 5 entries (all-hadronic, low stats expected)
+  - TTBB_4f_TTToSemiLeptonic: 231K, 5389 entries (main contribution)
+  - TTBB_4f_TTTo2L2Nu: 226K, 924 entries
+  - ttbar_0l, ttbar_1l, ttbar_2l: all completed successfully
 
-### Stage 4: Validation Plots - 2018
-- [ ] Run pl.py for 2018
-- [ ] Verify TTBB appears correctly in plots
+### Stage 4: Validation Plots - 2018 ✅ COMPLETE
+- [x] Run pl.py for 2018 (with YAML config support added)
+- [x] Verify TTBB appears correctly in plots
+  - SR: ttbb=412.0, tt=360.7 (ttbb/tt ≈ 1.14)
+  - CRMR: ttbb=573.2, tt=4386.3 (ttbb/tt ≈ 0.13)
+  - TTBB shown in darker orange (#e6550d), tt in red-orange (#f03b20)
 
 ### After 2018 validation: Other years
 - [ ] Submit jobs for 2017
@@ -200,3 +216,43 @@
   - Hadronic: 16.52 pb, Semileptonic: 15.97 pb, Dilepton: 3.85 pb
   - Updated in `ttttGlobleQuantity.py` and `lumiAndCrossSection.h`
 - Stage 1 for 2018 complete, ready for Stage 2
+
+### Session 8 (2025-12-06 13:00)
+- Updated YAML config (`config/analysis_config_1tau0l_full.yaml`) with full workflow paths
+- Added YAML config support to Stage 2 job script (`makeJob_makeVaribles_forBDT.py`)
+- Fixed makeVariables_goodCode Makefile (CMSSW_10_6_20 → CMSSW_14_1_0_pre4)
+- Added TTBB entries to `genSumMap.h` for all 4 years (was missing!)
+- Fixed Stage 2 job scripts to source environment (correctionlib dependency)
+- Submitted and completed Stage 2 jobs for 2018:
+  - TTBB_4f_TTToHadronic: 66MB
+  - TTBB_4f_TTToSemiLeptonic: 59MB
+  - TTBB_4f_TTTo2L2Nu: 13MB
+  - ttbar_0l: 549MB, ttbar_1l: 442MB, ttbar_2l: 46MB
+- Stage 2 for 2018 complete, ready for Stage 3
+
+### Session 9 (2025-12-06 14:05)
+- Initial Stage 3 jobs produced empty TTBB histograms (~500 bytes, no keys)
+- Root cause: writeHistGood needed rebuild after lumiAndCrossSection.h update
+- Rebuilt writeHistGood executable (`make clean && make`)
+- Tested locally with TTBB_4f_TTToHadronic - verified histograms produced:
+  - 1tau0lSR: 14 entries, integral=1.58
+  - 1tau0lCRMR: 22 entries, integral=2.54
+- Resubmitted Stage 3 jobs via `run_workflow.py --stage 3.3 --config yaml`
+- All TTBB histogram files now properly created with full systematic variations
+- Stage 3 for 2018 complete, ready for Stage 4 validation plots
+
+### Session 10 (2025-12-06 17:20)
+- Added YAML config support to pl.py (plotting script)
+  - New functions: `load_yaml_config()`, `build_input_dir_from_yaml()`, `parse_args()`
+  - New CLI args: `--config`, `--era`, `--channel`, `--regions`, `--unblind`, `--no-sys`
+- Added 'ttbb' color to `colourPerSample` dictionary (#e6550d, darker orange)
+- Copied fakeTau_data_ptMorphed.root from reference version (needed for plots)
+- Generated validation plots for 2018:
+  - 1tau0lSR_BDT_logy_dataVsMC_v5_unblind.png
+  - 1tau0lCRMR_BDT_logy_dataVsMC_v5_unblind.png
+  - 1tau0lVR_BDT_logy_dataVsMC_v5_unblind.png
+- TTBB validated: visible in plots with expected yields
+  - SR: ttbb/tt ≈ 1.14 (overlap removal working - more b-jets in SR)
+  - CRMR: ttbb/tt ≈ 0.13 (lower b-jet fraction in CR)
+- Created todo.md for future refactoring tasks
+- Stage 4 for 2018 complete, ready for other years

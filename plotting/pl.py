@@ -1,6 +1,9 @@
 import math
 from array import array
 import csv
+import argparse
+import yaml
+import os
 
 import usefulFunc as uf
 # from ROOT import * #!!!Bad proctice, disables in latest ROOT versions
@@ -9,7 +12,51 @@ import setTDRStyle as st
 import ttttGlobleQuantity as gq
 import writeDatacard as wd
 
+
+def load_yaml_config(config_path):
+    """Load YAML configuration file and return dict."""
+    with open(config_path, 'r') as f:
+        return yaml.safe_load(f)
+
+
+def build_input_dir_from_yaml(config, era):
+    """Build inputDir path from YAML config for given era."""
+    paths = config['paths']
+    base = paths['base']
+    out_version = paths['out_version']
+    in_version = paths['in_version']
+    hist_version = paths['hist_version']
+
+    # Format: {base}/{era}/{out_version}_{in_version}/mc/variableHists_{hist_version}/
+    input_dir = os.path.join(
+        base, era,
+        f"{out_version}_{in_version}",
+        "mc",
+        f"variableHists_{hist_version}"
+    )
+    # Ensure trailing slash (required by usefulFunc.py)
+    if not input_dir.endswith('/'):
+        input_dir += '/'
+    return input_dir
+
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description='Generate validation plots for FourTop analysis')
+    parser.add_argument('--config', '-c', type=str, help='Path to YAML config file')
+    parser.add_argument('--era', '-e', type=str, help='Era to process (e.g., 2018)')
+    parser.add_argument('--channel', type=str, help='Channel (1tau0l, 1tau1l, 1tau2l)')
+    parser.add_argument('--regions', type=str, nargs='+', help='Regions to plot')
+    parser.add_argument('--unblind', action='store_true', help='Unblind the plots')
+    parser.add_argument('--no-sys', action='store_true', help='Disable systematics')
+    return parser.parse_args()
+
+
 def main():
+    # Parse command line arguments
+    args = parse_args()
+
+    # Default settings
     ifVLL = ''
     ifLogy = True
     # ifLogy = False
@@ -17,13 +64,13 @@ def main():
     ifStackSignal = True
     ifPrintSB = True
     # ifPrintSB = False
-    ifSystematic = True 
-    # ifSystematic = False  
+    ifSystematic = True if not args.no_sys else False
+    # ifSystematic = False
     # ifFTau = False #!use qcd instead of fakeTau
     ifFTau = True #if use fakeTau bg and other bg with genTau requirement
     # ifMCFTau = True #!
     ifMCFTau = False #!
-    ifblinding = False#!!!
+    ifblinding = False if args.unblind else False  # Default to unblind
     plotName = 'dataVsMC_v5'
     
     if ifMCFTau:
@@ -150,23 +197,31 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v5BDT1tau0l_tauFMorphFix/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v5BDT1tau0l_tauFMorphFix/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v5BDT1tau0l_tauFMorphFix/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/'
-    channel = '1tau0l' 
-    variables = ['BDT']
-    # regionList = ['1tau0lVR', '1tau0lCRMR']
-    regionList = ['1tau0lVR',  '1tau0lCRMR', '1tau0lSR']
-    # regionList = ['1tau0lSR'] #!unblinding!
+    # Use YAML config if provided, otherwise use hardcoded defaults
+    if args.config:
+        config = load_yaml_config(args.config)
+        era = args.era if args.era else config.get('eras', ['2018'])[0]
+        inputDir = build_input_dir_from_yaml(config, era)
+        channel = args.channel if args.channel else config.get('channel', {}).get('name', '1tau0l')
+        variables = config.get('channel', {}).get('variables', ['BDT'])
+        regionList = args.regions if args.regions else config.get('channel', {}).get('regions', ['1tau0lSR', '1tau0lCRMR', '1tau0lVR'])
+        print(f'Using YAML config: {args.config}')
+        print(f'inputDir: {inputDir}')
+    else:
+        # Default hardcoded values (original behavior)
+        inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/'
+        channel = '1tau0l'
+        variables = ['BDT']
+        # regionList = ['1tau0lVR', '1tau0lCRMR']
+        regionList = ['1tau0lVR',  '1tau0lCRMR', '1tau0lSR']
+        # regionList = ['1tau0lSR'] #!unblinding!
+        era = uf.getEraFromDir(inputDir)
 
-
-
-
-    
-    era = uf.getEraFromDir(inputDir)
     print('era=', era)
     isRun3 = uf.isRun3(inputDir)
     inputDirDic = uf.getInputDicNew( inputDir)
     uf.checkMakeDir( inputDirDic['mc']+'results/')
-    
+
     plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL,  channel, ifLogy, ifPrintSB, ifStackSignal, ifSystematic, ifMCFTau, ifblinding)
 
    
@@ -558,6 +613,7 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
         'VLLm800': ROOT.TColor.GetColor("#D10363"),
         'VLLm700': ROOT.TColor.GetColor("#D10363"),
         'tt': ROOT.TColor.GetColor("#f03b20"),
+        'ttbb': ROOT.TColor.GetColor("#e6550d"),  # TTBB: darker orange, distinct from tt
         'qcd': ROOT.TColor.GetColor("#ffeda0"),
         'ttX': ROOT.TColor.GetColor("#fc9272"),
         'singleTop': ROOT.TColor.GetColor("#91bfdb"),
