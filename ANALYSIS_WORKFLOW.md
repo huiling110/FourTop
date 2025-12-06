@@ -82,6 +82,10 @@ NanoAOD (CMS data format)
     ↓
 [2] Variable Calculation (makeVariables_goodCode/)
     ↓
+[2.4] Fake Background Estimation (plotting/)
+    ├─ createFaketauTree.py (fake tau for 1tau0l/1tau1l/1tau2l)
+    └─ createFakeLeptonTree.py (fake lepton for 1tau1l/1tau2l)
+    ↓
 [2.5] BDT Training (optional, hua/tmva/)
     ↓
 [3] Histogram Production (writeHistGood/)
@@ -340,6 +344,160 @@ python3 makeJob_makeVaribles_forBDT.py
 ```
 
 Each file contains TTree `newtree` with all calculated variables.
+
+---
+
+## Stage 2.4: Fake Background Estimation
+
+**Location**: `plotting/`
+
+**Purpose**: Create data-driven background estimation files for fake tau and fake lepton backgrounds. These files are required for Stage 3 histogram production.
+
+**When to run**: After Stage 2 variable production completes for all processes AND data.
+
+**Prerequisites**:
+- Stage 2 output files for all MC processes
+- Stage 2 output files for data (requires `dataPDOverlapRemoval.py` to be run first for 1tau2l)
+
+---
+
+### 2.4.1 Fake Tau Background (1tau0l and 1tau1l channels)
+
+**Script**: `plotting/createFaketauTree.py`
+
+**Purpose**: Create fake tau background estimation using the fake rate method:
+1. Select events in Application Region (anti-tight tau selection)
+2. Apply fake rate weights to estimate fake tau contribution
+3. Subtract MC prompt tau contamination
+
+**Configuration** (edit `main()` function):
+
+```python
+# Set input directory for your era/version
+inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
+
+# Channel configuration
+is1tau2l = False    # False for 1tau0l/1tau1l, True for 1tau2l
+ifMorphTauPt = True # Apply tau pT morphing correction
+```
+
+**Running**:
+
+```bash
+cd plotting/
+source ../setEnv_newNew.sh
+python3 createFaketauTree.py
+```
+
+**What it creates**:
+
+| Output File | Description |
+|-------------|-------------|
+| `fakeTau_data_ptMorphed.root` | Fake tau from data (Application Region with FR weights) |
+| `fakeTau_MC_ptMorphed.root` | Fake tau from MC for subtraction (prompt tau contamination) |
+
+**Key functions**:
+- `createFakeTauTree()`: Creates fake tau tree from data
+  - Selects events with `tausF_num==1 && !tausF_1isTight` (anti-tight tau)
+  - Applies fake rate weights (`FR_weight`, `FR_weight_up`, `FR_weight_down`)
+- `createFakeTauTree_mc()`: Creates MC fake tau tree for subtraction
+  - Selects events with `tausF_1genFlavour!=0` (not prompt tau)
+  - Applies negative weights for subtraction from data
+
+**Output location**: Same as input MC directory (e.g., `.../mc/fakeTau_data_ptMorphed.root`)
+
+---
+
+### 2.4.2 Fake Lepton Background (1tau1l and 1tau2l channels)
+
+**Script**: `plotting/createFakeLeptonTree.py`
+
+**Purpose**: Create fake lepton background estimation for 1tau1l and 1tau2l channels using leptons that fail tight selection but pass loose selection.
+
+**Prerequisites**: Must run `dataPDOverlapRemoval.py` first to create `leptonSum_{era}.root`
+
+**Configuration** (edit `main()` function):
+
+```python
+# Set input data file for your era/version
+inputData = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/data/leptonSum_2018.root'
+
+# Channel configuration
+if1tau2l = True   # True for 1tau2l (uses leptonSum data)
+                  # False for 1tau1l (uses jetHT data)
+```
+
+**Running**:
+
+```bash
+cd plotting/
+source ../setEnv_newNew.sh
+python3 createFakeLeptonTree.py
+```
+
+**What it does**:
+1. Reads data from `leptonSum_{era}.root` (combined lepton-triggered data)
+2. Selects events in Application Region (`lepTopMVAF_isAR`)
+3. Replaces tight lepton pT variables with fake lepton corrected pT
+4. Saves output for use as fake lepton background in Stage 3
+
+**Output**: `{inputDir}/mc/fakeLepton.root`
+
+---
+
+### 2.4.3 Workflow Summary
+
+**For 1tau0l/1tau1l channels**:
+```bash
+cd plotting/
+source ../setEnv_newNew.sh
+
+# Edit createFaketauTree.py with correct inputDir for each era
+# Run for each era (2018, 2017, 2016preVFP, 2016postVFP)
+python3 createFaketauTree.py
+```
+
+**For 1tau1l and 1tau2l channels**:
+```bash
+cd plotting/
+source ../setEnv_newNew.sh
+
+# Step 1: Remove overlap between data streams
+python3 dataPDOverlapRemoval.py  # Creates leptonSum_{era}.root
+
+# Step 2: Create fake lepton background
+# Edit createFakeLeptonTree.py with correct inputData path
+# Set if1tau2l = True for 1tau2l, False for 1tau1l
+python3 createFakeLeptonTree.py
+
+# Step 3: Create fake tau background (also needed for 1tau1l/1tau2l)
+# Edit createFaketauTree.py with is1tau2l=True for 1tau2l, False for 1tau1l
+python3 createFaketauTree.py
+```
+
+**Verification**:
+```bash
+# Check fake tau files exist
+ls -lh /publicfs/.../mc/fakeTau_data_ptMorphed.root
+ls -lh /publicfs/.../mc/fakeTau_MC_ptMorphed.root
+
+# For 1tau1l/1tau2l, also check fake lepton
+ls -lh /publicfs/.../mc/fakeLepton.root
+
+# Verify file contents
+python3 -c "
+import ROOT
+f = ROOT.TFile.Open('/path/to/fakeTau_data_ptMorphed.root')
+t = f.Get('newtree')
+print(f'Entries: {t.GetEntries()}')
+f.Close()
+"
+```
+
+**Important Notes**:
+- These files must be created BEFORE running Stage 3 histogram production
+- The fake tau/lepton files are read by `writeHistGood` during histogram production
+- Must regenerate if Stage 2 output changes (different version, new samples, etc.)
 
 ---
 
@@ -1844,8 +2002,15 @@ ifSystematic = True
 ### For tttt Cross-Section Measurement (Single Point)
 
 ```bash
+# Stage 2.4: Fake background estimation (REQUIRED before Stage 3)
+cd plotting/
+source ../setEnv_newNew.sh
+# Edit createFaketauTree.py: set inputDir for your era/version
+python3 createFaketauTree.py            # Creates fakeTau_data_ptMorphed.root and fakeTau_MC_ptMorphed.root
+# Repeat for each era (2018, 2017, 2016preVFP, 2016postVFP)
+
 # Stage 3: Histogram production
-cd writeHistGood/
+cd ../writeHistGood/
 # Edit jobs/makeJob_forWriteHist.py (channel, version, etc.)
 python3 jobs/makeJob_forWriteHist.py  # Nominal + weight systematics
 bash run_makeJos_WH_forJES.sh         # Shape systematics

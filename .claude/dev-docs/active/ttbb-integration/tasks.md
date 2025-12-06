@@ -256,3 +256,17 @@
   - CRMR: ttbb/tt ≈ 0.13 (lower b-jet fraction in CR)
 - Created todo.md for future refactoring tasks
 - Stage 4 for 2018 complete, ready for other years
+
+### Session 11 (2025-12-06 19:25)
+- Updated ANALYSIS_WORKFLOW.md with Stage 2.4: Fake Background Estimation
+  - Added createFaketauTree.py documentation (fake tau for all channels)
+  - Added createFakeLeptonTree.py documentation (fake lepton for 1tau1l/1tau2l)
+- User regenerated fake tau files:
+  - fakeTau_data_ptMorphed.root (139M, 19:13)
+  - fakeTau_MC_ptMorphed.root (603M, 19:21)
+- Submitted Stage 3 histogram jobs (~64 jobs) using run_workflow.py
+- **PAUSED**: Jobs running on cluster, need to wait for completion then run pl.py
+- Next steps when resuming:
+  1. Check job completion: `hep_q -u huahuil | grep WH_`
+  2. Run pl.py: `python3 run_workflow.py --stage 4 --config config/analysis_config_1tau0l_full.yaml`
+  3. Verify TTBB appears correctly in new plots
