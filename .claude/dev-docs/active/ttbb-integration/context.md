@@ -1,6 +1,6 @@
 # TTBB Integration - Key Context
 
-**Last Updated**: 2025-12-06 17:30
+**Last Updated**: 2025-12-06 19:30
 
 ## TTBB Sample Locations (Verified)
 
@@ -138,7 +138,17 @@ Plot colors:
 - ✅ Symlinks created for TTBB samples
 - ✅ Stage 1 complete for 2018 with ghost-matching overlap removal
 - ✅ Stage 2 complete for 2018 (variable production)
-- ✅ Stage 3 complete for 2018 (histogram production)
-- ✅ Stage 4 complete for 2018 (validation plots with TTBB visible)
+- ✅ Fake tau files regenerated (2025-12-06 19:13/19:21)
+- 🔄 Stage 3 jobs submitted (2025-12-06 19:25), ~64 jobs running
 - Jobs must run on AlmaLinux9 (not CentOS7) for CMSSW_14 compatibility
-- fakeTau_data_ptMorphed.root copied from reference version for plotting
+
+## Resume Commands
+
+```bash
+# Check job status
+hep_q -u huahuil | grep WH_
+
+# After jobs complete, run pl.py
+source setEnv_newNew.sh
+python3 run_workflow.py --stage 4 --config config/analysis_config_1tau0l_full.yaml
+```

@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-06 17:20
-**Current Phase**: Phase 5 - Stage 4 complete for 2018, ready for other years
+**Last Updated**: 2025-12-06 19:30
+**Current Phase**: Phase 5 - Fake tau regenerated, Stage 3 jobs running for 2018
 
 ---
 
@@ -104,18 +104,19 @@
   - ttbar_1l: 442MB
   - ttbar_2l: 46MB
 
-### Stage 3: Histogram Production - 2018 ✅ COMPLETE
+### Stage 3: Histogram Production - 2018 🔄 RE-RUNNING
 - [x] Build writeHistGood (rebuilt to include updated lumiAndCrossSection.h)
 - [x] Submit nominal jobs for 1tau0l (2018) via run_workflow.py
-- [x] Verify TTBB histograms exist:
-  - TTBB_4f_TTToHadronic: 208K, 5 entries (all-hadronic, low stats expected)
-  - TTBB_4f_TTToSemiLeptonic: 231K, 5389 entries (main contribution)
-  - TTBB_4f_TTTo2L2Nu: 226K, 924 entries
-  - ttbar_0l, ttbar_1l, ttbar_2l: all completed successfully
+- [x] Previous run completed successfully
+- [x] Fake tau files regenerated (2025-12-06 19:13/19:21)
+- [x] Stage 3 jobs resubmitted (2025-12-06 19:25), ~64 jobs running
+- [ ] Wait for jobs to complete
+- [ ] Verify TTBB histograms with new fake tau
 
-### Stage 4: Validation Plots - 2018 ✅ COMPLETE
-- [x] Run pl.py for 2018 (with YAML config support added)
-- [x] Verify TTBB appears correctly in plots
+### Stage 4: Validation Plots - 2018 ⏳ PENDING
+- [ ] Run pl.py for 2018 after Stage 3 completes
+- [ ] Verify TTBB appears correctly in plots with regenerated fake tau
+- Previous results (before fake tau regeneration):
   - SR: ttbb=412.0, tt=360.7 (ttbb/tt ≈ 1.14)
   - CRMR: ttbb=573.2, tt=4386.3 (ttbb/tt ≈ 0.13)
   - TTBB shown in darker orange (#e6550d), tt in red-orange (#f03b20)

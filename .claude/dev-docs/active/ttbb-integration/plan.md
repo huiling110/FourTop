@@ -1,7 +1,7 @@
 # TTBB Integration Plan
 
-**Last Updated**: 2025-12-06 17:30
-**Status**: In Progress - Phase 5 (Stages 1-4 complete for 2018, ready for other years)
+**Last Updated**: 2025-12-06 19:30
+**Status**: In Progress - Phase 5 (Regenerated fake tau, Stage 3 jobs running for 2018)
 
 ## Overview
 
