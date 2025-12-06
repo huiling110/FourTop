@@ -1,6 +1,6 @@
 # TTBB Integration - Key Context
 
-**Last Updated**: 2025-12-06 11:00
+**Last Updated**: 2025-12-06 17:30
 
 ## TTBB Sample Locations (Verified)
 
@@ -50,11 +50,13 @@ Each with 3 decay modes:
 | `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` | Stage 2 jobs | Pending |
 | `writeHistGood/jobs/makeJob_forWriteHist.py` | Stage 3 jobs | Auto-discovers |
 | `plotting/writeDatacard.py` | TTBB systematics | Pending |
+| `plotting/pl.py` | Validation plots with YAML config | ✅ Updated |
 
 ### Documentation
 | File | Purpose | Status |
 |------|---------|--------|
 | `ANALYSIS_WORKFLOW.md` | Stage 1 & 2 documentation, Config section | ✅ Done |
+| `.claude/dev-docs/active/ttbb-integration/todo.md` | Future refactoring tasks | ✅ Created |
 
 ## Existing Infrastructure for Overlap
 
@@ -118,10 +120,25 @@ From analysis of 10,000 events each:
 - **ttbar**: ~25% of events have ≥1 additional b-jet (will be removed)
 - **TTBB**: ~63% of events have ≥1 additional b-jet (will be kept)
 
+## Stage 4 Validation Results (2018)
+
+| Region | ttbb Events | tt Events | ttbb/tt Ratio | Notes |
+|--------|-------------|-----------|---------------|-------|
+| 1tau0lSR | 412.0 | 360.7 | 1.14 | Higher ratio = more b-jets in SR |
+| 1tau0lCRMR | 573.2 | 4386.3 | 0.13 | Lower b-jet fraction in CR |
+
+Plot colors:
+- ttbb: #e6550d (darker orange)
+- tt: #f03b20 (red-orange)
+
 ## Notes
 
 - ✅ TTBB cross-sections: 43.74 × (17.75/21.34) = 36.3 pb total
 - ✅ Generator sum weights calculated for all years
 - ✅ Symlinks created for TTBB samples
 - ✅ Stage 1 complete for 2018 with ghost-matching overlap removal
+- ✅ Stage 2 complete for 2018 (variable production)
+- ✅ Stage 3 complete for 2018 (histogram production)
+- ✅ Stage 4 complete for 2018 (validation plots with TTBB visible)
 - Jobs must run on AlmaLinux9 (not CentOS7) for CMSSW_14 compatibility
+- fakeTau_data_ptMorphed.root copied from reference version for plotting
