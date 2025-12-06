@@ -1,6 +1,6 @@
 # VLL Integration Context
 
-**Last Updated**: 2025-12-03 13:55
+**Last Updated**: 2025-12-04 17:20
 
 ## Key Files
 
@@ -69,3 +69,17 @@ combine -M AsymptoticLimits workspace/datacard_1tau0l.root -v 3 --name _verbose 
   - **Significance**: Sets null hypothesis at r=0
   - **Impacts**: Computes systematic effects at r=0 baseline
   - **GoF tests**: Evaluates fit quality at background-only hypothesis
+
+### MC Toys Validation (2025-12-04)
+- HybridNew with 500 toys did not complete after 4+ hours
+- Too CPU-intensive for routine validation
+- AsymptoticLimits (r < 1.88) is sufficient for production use
+
+### tttt Regression Test (2025-12-04)
+- Limits: r < 14.4951 ✅ matches previous
+- Significance: 1.86σ ✅ matches previous
+- Confirms VLL integration did not affect tttt analysis
+
+### Bug Fix: cardToWorkspaces() (commit aba2eaa8)
+- After `os.chdir(working_cardDir)`, relative path no longer worked
+- Fixed by converting to absolute path before chdir

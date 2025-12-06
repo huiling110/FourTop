@@ -271,3 +271,4 @@ make clean && make
 *This document provides essential context for AI assistants. For detailed procedures, see ANALYSIS_WORKFLOW.md and other referenced documentation.*
 
 *Maintained by: Claude Code AI Assistant*
+- to memorize "always remember to use yaml files for each stage"

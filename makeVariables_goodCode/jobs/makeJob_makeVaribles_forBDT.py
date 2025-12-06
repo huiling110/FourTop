@@ -1,8 +1,26 @@
+import argparse
 import os
 import subprocess
 
 import ttttGlobleQuantity as GQ
 import usefulFunc as uf
+
+# Optional YAML support
+try:
+    import yaml
+    YAML_AVAILABLE = True
+except ImportError:
+    YAML_AVAILABLE = False
+
+
+def load_config(config_path: str) -> dict:
+    """Load configuration from YAML file."""
+    if not YAML_AVAILABLE:
+        raise ImportError("PyYAML not available. Install with: pip install pyyaml")
+
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+    return config
 
 
 #???make this job submisssion and checking and resubmit and addHist automatized
@@ -15,8 +33,8 @@ def main(
     # inVersion = 'v94HadroPreJetVetoHemOnly',
     # inVersion = 'v94HadroPreJetVetoHemOnly_JERDown', #2018, 2017
     # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2018, 2017
-    # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2018, 
-    # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm10Up', #2018 
+    # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2018,
+    # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm10Up', #2018
     # inVersion = 'v94LepPreJetVetoHemOnly',
     inVersion = 'v94LepPreJetVetoHemOnlyV2',
     # outVersion = 'v0baselineLep',
@@ -35,12 +53,33 @@ def main(
     # JESVariationType = 2, # 1up, 2 down
     JESVariationType = 0, # 1up, 2 down
     JESVariation = 0,
+    config_path = None,
 ):
-    # outVersion = 'v1cut1tau1lSR'
-    # outVersion = 'v2cut1tau2lSR'
-    
-        
-    
+    # Load from YAML config if provided
+    if config_path is not None:
+        print(f"Loading configuration from: {config_path}")
+        config = load_config(config_path)
+
+        # Get paths from config
+        paths = config.get('paths', {})
+        inVersion = paths.get('in_version', inVersion)
+        outVersion = paths.get('out_version', outVersion)
+
+        # Get eras from config
+        eras = config.get('eras', [year])
+        year = eras[0] if eras else year
+
+        # Get stage2 specific config
+        stage2 = config.get('stage2', {})
+        if1tau2l = stage2.get('if1tau2l', if1tau2l)
+        JESVariationType = stage2.get('JESVariationType', JESVariationType)
+        JESVariation = stage2.get('JESVariation', JESVariation)
+
+        print(f"  Year: {year}")
+        print(f"  Input version: {inVersion}")
+        print(f"  Output version: {outVersion}")
+        print(f"  if1tau2l: {if1tau2l}")
+
     isRun3 = uf.isRun3Era(year)
     justMC = False
     
@@ -161,9 +200,11 @@ def writeIjob( parameterList, processJob ):
     subFile.write("/bin/hostname\n")
     codeDir = os.path.dirname(os.path.abspath(__file__))
     codeDir = codeDir.rsplit('/',1)[0]
-    subFile.write("cd {}\n".format(codeDir))
-    # command = './apps/run_makeVariables.out {}  {} {} {}    '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
-    # command = './apps/run_makeVariables.out {}  {} {} {} {} {} {}     '.format( parameterList[0], parameterList[1], parameterList[2], parameterList[3]  )
+    projectRoot = codeDir.rsplit('/',1)[0]
+    subFile.write("cd {}\n".format(projectRoot))
+    # Source the environment for correctionlib and other dependencies
+    subFile.write("source setEnv_newNew.sh\n")
+    subFile.write("cd makeVariables_goodCode\n")
     command = f'./apps/run_makeVariables.out {parameterList[0]} {parameterList[1]} {parameterList[2]} {parameterList[3]} {parameterList[4]} {parameterList[5]} {parameterList[6]}'
     subFile.write(command )
     subFile.close()
@@ -174,8 +215,49 @@ def writeIjob( parameterList, processJob ):
 
 
 
+def parse_args():
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        description='Submit Stage 2 (makeVariables) jobs for FourTop analysis'
+    )
+    parser.add_argument(
+        '--config', '-c', type=str, default=None,
+        help='Path to YAML config file (optional). If not provided, uses hardcoded defaults.'
+    )
+    parser.add_argument(
+        '--year', '-y', type=str, default='2018',
+        help='Year to process (default: 2018). Overridden by config if provided.'
+    )
+    parser.add_argument(
+        '--inVersion', type=str, default=None,
+        help='Input version (Stage 1 output). Overridden by config if provided.'
+    )
+    parser.add_argument(
+        '--outVersion', type=str, default=None,
+        help='Output version. Overridden by config if provided.'
+    )
+    parser.add_argument(
+        '--if1tau2l', type=int, default=0,
+        help='Channel flag: 0=1tau0l/1tau1l, 1=1tau2l (default: 0)'
+    )
+    return parser.parse_args()
+
+
 if __name__=="__main__":
-    main() 
+    args = parse_args()
+
+    # Build kwargs for main()
+    kwargs = {
+        'year': args.year,
+        'if1tau2l': args.if1tau2l,
+        'config_path': args.config,
+    }
+    if args.inVersion:
+        kwargs['inVersion'] = args.inVersion
+    if args.outVersion:
+        kwargs['outVersion'] = args.outVersion
+
+    main(**kwargs)
 
 
 

@@ -33,7 +33,7 @@ CORRECTIONLIB_LIB = $(shell correction config --ldflags )
 # Add this to your linker command:
 # TMVALIBS = -L/cvmfs/cms.cern.ch/el9_amd64_gcc14/lcg/root/6.36.01-fd214bf9b7a010bf699f6444925c3f56/lib -lTMVA
 
-MYLIB = -L/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction #!seems still needed event set by setEnv.sh
+MYLIB = -L/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/myLibrary/ -lcommenFunction #!seems still needed event set by setEnv.sh
 
 # XGBOOST_LIB=-L/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/ -lxgboost
 # XGBOOST_FLAGS=-I/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/rabit/include/

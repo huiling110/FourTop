@@ -2,9 +2,9 @@
 
 **Task**: Integrate VLL (Vector-Like Lepton) options into runCombineAll.py
 **Created**: 2025-12-03
-**Last Updated**: 2025-12-03 13:25
-**Status**: Implementation Complete, Code Refined
-**Commits**: `a1ba3107`, `e606c987`, `5c28b581`
+**Last Updated**: 2025-12-04 17:20
+**Status**: VLL Complete, tttt Regression In Progress
+**Commits**: `a1ba3107`, `e606c987`, `5c28b581`, `461c8ab5`, `2b6af702`, `c72cffd7`, `650f7cea`, `747bf507`, `aba2eaa8`
 
 ## Summary
 

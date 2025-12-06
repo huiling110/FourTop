@@ -11,6 +11,10 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
     {"TTToSemiLeptonic", 1.35336e+12},// only for BDT training in 1tau1l and 1tau2l
     {"TTToHadronic", 7.16154e+11},
     {"TTTo2L2Nu", 9.77873e+10}, //!!!
+    // TTBB samples
+    {"TTBB_4f_TTToHadronic", 160749265.96},
+    {"TTBB_4f_TTToSemiLeptonic", 233964940.91},
+    {"TTBB_4f_TTTo2L2Nu", 21986495.40},
 
 {"TTTo2L2Nu12", 3676686735.3588},
 {"TTTo2L2Nu20", 4686306971.145},
@@ -221,6 +225,10 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 
 {"2017",
 {
+// TTBB samples
+{"TTBB_4f_TTToHadronic", 113736166.15},
+{"TTBB_4f_TTToSemiLeptonic", 153797754.09},
+{"TTBB_4f_TTTo2L2Nu", 15930889.90},
 {"dy", 102863931.0},
 {"qcd_200to300", 42714435.0},
 {"ZJetsToNuNu_HT-2500ToInf", 6446.0},
@@ -364,6 +372,10 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 },
 
 {"2016postVFP",{
+// TTBB samples
+{"TTBB_4f_TTToHadronic", 51913709.81},
+{"TTBB_4f_TTToSemiLeptonic", 61706979.75},
+{"TTBB_4f_TTTo2L2Nu", 7209376.72},
 {"dy", 104072004.0},
 {"qcd_200to300", 43280518.0},
 {"VLL_EE_M900", 13.116411556060003},
@@ -487,6 +499,10 @@ inline const std::map<TString, std::map<TString, Double_t>> genSumMap = {
 },
 
 {"2016preVFP",{
+// TTBB samples
+{"TTBB_4f_TTToHadronic", 46015105.04},
+{"TTBB_4f_TTToSemiLeptonic", 57255372.02},
+{"TTBB_4f_TTTo2L2Nu", 6367617.64},
 {"dy", 95170542.0},
 {"qcd_200to300", 16524587.0},
 {"VLL_EE_M900", 15.43261461896},

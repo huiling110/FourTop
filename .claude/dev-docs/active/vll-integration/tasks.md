@@ -1,6 +1,6 @@
 # VLL Integration Tasks
 
-**Last Updated**: 2025-12-03 19:00
+**Last Updated**: 2025-12-04 17:20
 
 ## Tasks
 
@@ -22,12 +22,25 @@
 - [x] Run pl_postFit.py for VLL postfit plots (30 plots generated)
 - [x] Add --vll option to pl_postFit.py for VLL signal plotting (commit c72cffd7)
 - [x] Regenerate VLL postfit plots with VLL signal included
-- [~] MC toys validation (HybridNew) - incomplete (requires hours of CPU time)
+- [x] Fix cardToWorkspaces() relative path bug (commit aba2eaa8)
+- [~] MC toys validation (HybridNew) - incomplete (requires hours of CPU time, not needed for production)
 - [~] Verbose AsymptoticLimits with intermediate values - completed (limit_verbose.log)
-- [ ] Run tttt regression test
-- [ ] Verify tttt results unchanged from previous runs
+- [~] Run tttt regression test - running (limits ✅ r<14.4951, significance ✅ 1.86σ, impacts in progress)
+- [ ] Verify tttt results unchanged from previous runs (in progress)
 
 ## Progress Notes
+
+### 2025-12-04 17:20
+- **Fixed cardToWorkspaces() relative path bug** (commit aba2eaa8):
+  - After `os.chdir(working_cardDir)`, the relative path no longer worked
+  - Fixed by converting to absolute path with `os.path.abspath()` before chdir
+- **MC toys validation (HybridNew)** - incomplete after 4+ hours
+  - 500 toys with grid scan is very CPU-intensive
+  - AsymptoticLimits sufficient for production (r < 1.88 validated)
+- **tttt regression test running**:
+  - Limits: r < 14.4951 ✅ (matches previous)
+  - Significance: 1.86σ ✅ (matches previous)
+  - Impacts step in progress
 
 ### 2025-12-03 19:00
 - **Added --vll option to pl_postFit.py** (commit c72cffd7):

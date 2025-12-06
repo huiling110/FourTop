@@ -14,7 +14,7 @@ metadata:
 paths:
   base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
   out_version: "v1baselineHadroBtagWeightAdded"
-  in_version: "v94LepPreJetVetoHemOnlyV2"
+  in_version: "v94HadroPreJetVetoHemOnly"
   hist_version: "v10BDT1tau1l_WorkflowTest"
   datacard_version: "v1WorkflowTest"
 

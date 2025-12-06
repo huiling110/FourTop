@@ -39,9 +39,10 @@ def main():
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
-    # is1tau2l = False 
-    is1tau2l = True 
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/'
+    is1tau2l = False
+    # is1tau2l = True
     # ifMorphTauPt = False
     ifMorphTauPt = True
    
@@ -146,8 +147,8 @@ def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPost
 def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPostfix = '', ifMorphTauPt = False): 
     #creat MC fake tau tree
     #!Should probably add tttt to be subtracted too
-    MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'Minor']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
-    # MCSum = ['tt', 'ttX', 'WJets', 'singleTop']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
+    # MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'Minor']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
+    MCSum = ['tt', 'ttbb', 'tttt', 'ttX', 'WJets', 'singleTop', 'Minor']#!not subtracting qcd here, it is okay because we only estimate fake tau in 0 lepton channel
     # if is1tau2l:
         # MCSum.append('Minor')
     allMC = []

@@ -160,9 +160,10 @@ codePath = os.path.dirname(os.path.abspath(__file__)) + '/'
 #jobVersionName = 'v87addPdfPSWeightSum/'
 g_era = "2018"
 # jobVersionName = 'v86HadroPreSelWithTTWTTZNLO'
-jobVersionName = 'v88HardroForJES'
-JESSys = 2
-JESSysType = 3 #None or in range 0-26 2
+# jobVersionName = 'v88HardroForJES'
+jobVersionName = 'v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly_TTBBtest'
+JESSys = 0
+JESSysType = None #None or in range 0-26 2
 print('JESSys=', JESSys, ' JESSysType=', JESSysType)
 if JESSysType is not None:
     jobVersionName = jobVersionName + '_' + corr_Uncer_JES_map[g_era][JESSysType] + '_' + jes_up_down[JESSys]+'/'
@@ -199,8 +200,10 @@ def main():
     
     # sumProToSkip = ['jetHT', 'ttExtra'] #! and 1tau2l
     # sumProToSkip = ['jetHT', 'BTagCSV', 'qcd', 'ttExtra'] #1tau2l #! need ttExtra for BDT training
-    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l , 
-    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'jetHT', 'BTagCSV', 'Minor', 'singleTop', 'WJets', 'DY', 'qcd' ] #1tau1l and 1tau0l , 
+    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra'] #1tau1l and 1tau0l ,
+    # sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'jetHT', 'BTagCSV', 'Minor', 'singleTop', 'WJets', 'DY', 'qcd' ] #1tau1l and 1tau0l ,
+    # For TTBB testing: skip everything except tt and ttbb
+    sumProToSkip = ['singleMu', 'singleE','doubleMu', 'muonEG', 'eGamma', 'doubleEG', 'ttExtra', 'jetHT', 'BTagCSV', 'Minor', 'singleTop', 'WJets', 'DY', 'qcd', 'ttX', 'rareTop', 'VLL', 'tttt', 'ggH', 'vbfH', 'vH', 'gamma' ]  # Only run tt and ttbb 
 
 
 
