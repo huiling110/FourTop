@@ -29,9 +29,12 @@ channel:
   variables:
     - "BDT"
 
-# Eras to process (testing 2018 first)
+# Eras to process (use actual directory names)
 eras:
   - "2018"
+  - "2017"
+  - "2016postVFP"  # forMVA uses 2016postVFP
+  - "2016preVFP"   # forMVA uses 2016preVFP
 
 # Analysis options
 options:
