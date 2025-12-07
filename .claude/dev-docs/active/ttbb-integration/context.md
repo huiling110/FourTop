@@ -1,6 +1,6 @@
 # TTBB Integration - Key Context
 
-**Last Updated**: 2025-12-07 09:10
+**Last Updated**: 2025-12-07 09:40
 
 ## TTBB Sample Locations (Verified)
 
@@ -27,7 +27,8 @@ Each with 3 decay modes:
 | `inputFiles/genSumMap2017.h` | Generator sum weights 2017 | ✅ Done |
 | `inputFiles/genSumMap2018.h` | Generator sum weights 2018 | ✅ Done |
 | `inputFiles/genSumMap2016APV.h` | Generator sum weights 2016APV | ✅ Done |
-| `config/analysis_config_1tau0l_full.yaml` | Version config (simplified) | ✅ Updated |
+| `config/analysis_config_1tau0l_full.yaml` | 1tau0l channel config | ✅ Updated |
+| `config/analysis_config_1tau1l_TTBBtest.yaml` | 1tau1l channel config | ✅ Created |
 
 ### Overlap Removal (v2 - Ghost-matching, CMS standard)
 | File | Purpose | Status |
@@ -122,10 +123,17 @@ From analysis of 10,000 events each:
 
 ## Stage 4 Validation Results (2018)
 
+### 1tau0l Channel
 | Region | ttbb Events | tt Events | ttbb/tt Ratio | Notes |
 |--------|-------------|-----------|---------------|-------|
 | 1tau0lSR | 412.0 | 360.7 | 1.14 | Higher ratio = more b-jets in SR |
-| 1tau0lCRMR | 573.2 | 4386.3 | 0.13 | Lower b-jet fraction in CR |
+| 1tau0lCRMR | 573.2 | 4386.2 | 0.13 | Lower b-jet fraction in CR |
+
+### 1tau1l Channel
+| Region | ttbb Events | tt Events | ttbb/tt Ratio | Notes |
+|--------|-------------|-----------|---------------|-------|
+| 1tau1lSR | 35.5 | 15.0 | 2.36 | Even higher ratio in lepton channel |
+| 1tau1lCR12 | 44.3 | 161.9 | 0.27 | Lower b-jet fraction in CR |
 
 Plot colors:
 - ttbb: #e6550d (darker orange)
@@ -139,10 +147,12 @@ Plot colors:
 - ✅ Stage 1 complete for 2018 with ghost-matching overlap removal
 - ✅ Stage 2 complete for 2018 (variable production)
 - ✅ Fake tau files regenerated (2025-12-06 19:13/19:21)
-- ✅ Stage 3 complete for 2018 (histograms with systematics)
-- ✅ Stage 4 complete for 2018 (validation plots generated 2025-12-07)
+- ✅ Stage 3 complete for 2018 1tau0l (histograms with systematics)
+- ✅ Stage 3 complete for 2018 1tau1l (histograms with systematics)
+- ✅ Stage 4 complete for 2018 1tau0l (validation plots generated 2025-12-07 09:08)
+- ✅ Stage 4 complete for 2018 1tau1l (validation plots generated 2025-12-07 09:32)
 - Jobs must run on AlmaLinux9 (not CentOS7) for CMSSW_14 compatibility
-- **2018 1tau0l channel fully validated** - ready to process other years
+- **2018 both channels validated** (1tau0l and 1tau1l) - ready for other years
 
 ## Resume Commands
 
@@ -150,7 +160,22 @@ Plot colors:
 # Check job status
 hep_q -u huahuil | grep WH_
 
-# After jobs complete, run pl.py
+# Run WH (Stage 3) for a channel
 source setEnv_newNew.sh
-python3 run_workflow.py --stage 4 --config config/analysis_config_1tau0l_full.yaml
+python3 run_workflow.py --stage 3.3 --config config/analysis_config_1tau0l_full.yaml
+python3 run_workflow.py --stage 3.3 --config config/analysis_config_1tau1l_TTBBtest.yaml
+
+# Run pl.py for validation
+cd plotting
+python3 pl.py --config ../config/analysis_config_1tau0l_full.yaml --era 2018 --channel 1tau0l --regions 1tau0lSR 1tau0lCRMR 1tau0lVR --unblind --no-sys
+python3 pl.py --config ../config/analysis_config_1tau1l_TTBBtest.yaml --era 2018 --channel 1tau1l --regions 1tau1lSR 1tau1lCR12 --unblind --no-sys
 ```
+
+## Analysis Pipeline Abbreviations
+
+| Abbrev | Full Name | Directory |
+|--------|-----------|-----------|
+| **OS** | Object Selection | `objectSelectionOptimized/` |
+| **MV** | Make Variables | `makeVariables_goodCode/` |
+| **WH** | Write Histograms | `writeHistGood/` |
+| **PL** | Plotting | `plotting/` |

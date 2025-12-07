@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-06 19:30
-**Current Phase**: Phase 5 - Fake tau regenerated, Stage 3 jobs running for 2018
+**Last Updated**: 2025-12-07 09:40
+**Current Phase**: Phase 5 - 2018 fully validated (both 1tau0l and 1tau1l), ready for other years
 
 ---
 
@@ -114,13 +114,17 @@
 - [x] TTBB histograms verified with new fake tau
 
 ### Stage 4: Validation Plots - 2018 ✅ COMPLETE
-- [x] Run pl.py for 2018 (2025-12-07 09:08)
+- [x] Run pl.py for 1tau0l 2018 (2025-12-07 09:08)
+- [x] Run pl.py for 1tau1l 2018 (2025-12-07 09:32)
 - [x] Verify TTBB appears correctly in plots with regenerated fake tau
-- Results (with regenerated fake tau):
+- **1tau0l Results**:
   - SR: ttbb=412.0, tt=360.7 (ttbb/tt ≈ 1.14)
   - CRMR: ttbb=573.2, tt=4386.2 (ttbb/tt ≈ 0.13)
-  - TTBB shown in darker orange (#e6550d), tt in red-orange (#f03b20)
-  - Results consistent with previous run - validation successful!
+- **1tau1l Results**:
+  - SR: ttbb=35.5, tt=15.0 (ttbb/tt ≈ 2.36) - higher ratio expected in lepton channel
+  - CR12: ttbb=44.3, tt=161.9 (ttbb/tt ≈ 0.27)
+- TTBB shown in darker orange (#e6550d), tt in red-orange (#f03b20)
+- **Both channels validated successfully!**
 
 ### After 2018 validation: Other years
 - [ ] Submit jobs for 2017
