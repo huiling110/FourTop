@@ -24,9 +24,11 @@ Stage 2 (MV): Skimmed ntuples → Variable Calculation → BDT-ready ntuples
     └── makeVariables_goodCode/apps/run_makeVariables_forBDT.out
     └── Output: /publicfs/.../forMVA/{era}/{version}/mc/
 
-Stage 2.4: Fake Background Estimation (data-driven)
+Stage 2.4: Fake Background Estimation (data-driven) ⚠️ MUST REGENERATE PER VERSION
     └── plotting/createFaketauTree.py (fake tau for all channels)
     └── plotting/createFakeLeptonTree.py (fake lepton for 1tau1l/1tau2l)
+    ⚠️ CRITICAL: NEVER copy fake tau/lepton files from reference versions!
+       They MUST be regenerated for EACH new analysis version.
 
 Stage 3 (WH): BDT ntuples → Histogram Production → ROOT histograms
     └── writeHistGood/apps/run_treeAnalyzer.out
@@ -63,6 +65,28 @@ python3 script.py
 ```
 
 **Reason**: Combine scripts require CombinedLimit environment from CMSSW
+
+---
+
+## ⚠️ CRITICAL: Fake Tau/Lepton Files Must Be Regenerated
+
+**NEVER copy fake tau or fake lepton files from reference versions!**
+
+These data-driven background estimation files are version-specific and MUST be regenerated for each new analysis version:
+
+```bash
+# Fake tau (required for ALL channels)
+cd plotting/
+python3 createFaketauTree.py --config ../config/analysis_config_1tau0l_full.yaml --era 2018
+
+# Fake lepton (required for 1tau1l/1tau2l channels)
+python3 createFakeLeptonTree.py --config ../config/analysis_config_1tau1l_full.yaml --era 2018
+```
+
+**Why this matters**:
+- Fake rates depend on the specific event selection and MC samples in that version
+- Copying from reference versions would mix incompatible MC normalization
+- Each Stage 1 (OS) run may have different code changes affecting fake rate calculation
 
 ---
 
