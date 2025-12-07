@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-07 12:25
-**Current Phase**: Phase 5 - 2018 complete, processing 2017/2016/2016APV
+**Last Updated**: 2025-12-07 16:18
+**Current Phase**: Phase 5 - 2018 & 2017 complete, 2016 Stage 3 running
 
 ---
 
@@ -129,21 +129,21 @@
 ### Other Years Processing
 
 **2017**:
-- [x] Stage 1 (OS): Complete (from previous session)
-- [x] Stage 2 (MV): Running (~29 jobs submitted)
-- [ ] Stage 3 (WH): Pending
+- [x] Stage 1 (OS): Complete
+- [x] Stage 2 (MV): Complete (69 files including TTBB/ttbar)
+- [x] Stage 3 (WH): Complete (histograms generated)
+- [ ] Stage 4 (PL): Pending validation
+
+**2016postVFP**:
+- [x] Stage 1 (OS): Complete
+- [x] Stage 2 (MV): Complete (TTBB/ttbar outputs verified)
+- [x] Stage 3 (WH): Running (~12 jobs)
 - [ ] Stage 4 (PL): Pending
 
-**2016 (postVFP)**:
-- [ ] Stage 1 (OS): Running (~375 jobs)
-- [ ] Stage 2 (MV): Pending
-- [ ] Stage 3 (WH): Pending
-- [ ] Stage 4 (PL): Pending
-
-**2016APV (preVFP)**:
-- [x] Stage 1 (OS): Submitted (just completed)
-- [ ] Stage 2 (MV): Pending
-- [ ] Stage 3 (WH): Pending
+**2016preVFP**:
+- [x] Stage 1 (OS): Complete
+- [x] Stage 2 (MV): Complete (TTBB/ttbar outputs verified)
+- [x] Stage 3 (WH): Running
 - [ ] Stage 4 (PL): Pending
 
 ---
@@ -322,3 +322,19 @@
   - 2016APV: Stage 1 just submitted
 - Total jobs in queue: ~532
 - Commits: dev-docs move, Stage 2 CLI fix, slash command path updates
+
+### Session 14 (2025-12-07 16:18)
+- Waited 1 hour for jobs to complete (user request)
+- All Stage 1 and Stage 2 jobs completed for all years
+- **Stage 2 verified** for 2016postVFP and 2016preVFP (TTBB/ttbar outputs present)
+- **Stage 3 (WH) submitted** for 2017 (completed), 2016postVFP, 2016preVFP
+- Fixed YAML config: era names updated to match directory structure:
+  - `2016` → `2016postVFP`
+  - `2016APV` → `2016preVFP`
+- Commits: YAML config fix (3091692e)
+- Current status:
+  - 2018: All stages complete (validated)
+  - 2017: Stages 1-3 complete, pending Stage 4 validation
+  - 2016postVFP: Stages 1-2 complete, Stage 3 running
+  - 2016preVFP: Stages 1-2 complete, Stage 3 running
+- Next: Run Stage 4 (pl.py) validation for 2017, 2016postVFP, 2016preVFP
