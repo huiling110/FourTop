@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-07 16:18
-**Current Phase**: Phase 5 - 2018 & 2017 complete, 2016 Stage 3 running
+**Last Updated**: 2025-12-07 16:55
+**Current Phase**: Phase 5 - All fake files complete, Stage 3 WH jobs in progress for 2017/2016
 
 ---
 
@@ -338,3 +338,18 @@
   - 2016postVFP: Stages 1-2 complete, Stage 3 running
   - 2016preVFP: Stages 1-2 complete, Stage 3 running
 - Next: Run Stage 4 (pl.py) validation for 2017, 2016postVFP, 2016preVFP
+
+### Session 15 (2025-12-07 16:50)
+- Continued from previous session, regenerating fake tau/lepton files
+- **Critical rule added to CLAUDE.md**: Fake tau/lepton files must be regenerated for EACH version, NEVER copied from reference
+- Generated fake files for all years:
+  - **2017**: fakeTau_data_ptMorphed.root (92M), fakeTau_MC_ptMorphed.root (499M), fakeLepton.root (424K) ✅
+  - **2016postVFP**: fakeTau_data_ptMorphed.root (46M), fakeTau_MC_ptMorphed.root (251M), fakeLepton.root (221K) ✅
+  - **2016preVFP**: fakeTau_data_ptMorphed.root (59M), fakeTau_MC_ptMorphed.root (238M), fakeLepton.root (271K) ✅
+- Issue discovered: `makeJob_forWriteHist.py` doesn't support YAML config yet - uses hardcoded paths
+- Updated `makeJob_forWriteHist.py` inputDir to point to 2017 TTBBtest for Stage 3 submission
+- Stage 3 WH jobs in progress for 2017, 2016postVFP, 2016preVFP (need to update inputDir for each year)
+- Commits: `348e5968` - WIP: Update fake file scripts for Stage 3 job submission
+- Next steps:
+  1. Submit Stage 3 WH jobs for 2016postVFP, 2016preVFP (update makeJob_forWriteHist.py inputDir)
+  2. Run Stage 4 validation (pl.py) for all three years once WH completes

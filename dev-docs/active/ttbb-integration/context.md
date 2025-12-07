@@ -1,6 +1,6 @@
 # TTBB Integration - Key Context
 
-**Last Updated**: 2025-12-07 16:18
+**Last Updated**: 2025-12-07 16:55
 
 ## TTBB Sample Locations (Verified)
 
@@ -151,8 +151,12 @@ Plot colors:
 - ✅ Stage 3 complete for 2018 1tau1l (histograms with systematics)
 - ✅ Stage 4 complete for 2018 1tau0l (validation plots generated 2025-12-07 09:08)
 - ✅ Stage 4 complete for 2018 1tau1l (validation plots generated 2025-12-07 09:32)
+- ✅ **2017 fake files regenerated** (2025-12-07 16:28-16:37)
+- ✅ **2016postVFP fake files regenerated** (2025-12-07 16:39-16:43)
+- ✅ **2016preVFP fake files regenerated** (2025-12-07 16:42-16:48)
 - Jobs must run on AlmaLinux9 (not CentOS7) for CMSSW_14 compatibility
 - **2018 both channels validated** (1tau0l and 1tau1l) - ready for other years
+- **CRITICAL**: Fake tau/lepton files MUST be regenerated for each version (added to CLAUDE.md)
 
 ## Resume Commands
 
