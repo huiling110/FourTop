@@ -16,7 +16,7 @@ When user says:
 
 ## What This Command Does
 
-1. **Find the task** in `.claude/dev-docs/active/[task-name]/`
+1. **Find the task** in `dev-docs/active/[task-name]/`
 
 2. **Load all context files**:
    - `plan.md` - Overall strategy, status, phases
@@ -37,13 +37,13 @@ When user says:
 
 1. List all active tasks if no task-name provided:
    ```bash
-   ls -1 .claude/dev-docs/active/
+   ls -1 dev-docs/active/
    ```
 
 2. If task-name provided, read the three key files:
-   - `.claude/dev-docs/active/[task-name]/plan.md`
-   - `.claude/dev-docs/active/[task-name]/context.md`
-   - `.claude/dev-docs/active/[task-name]/tasks.md`
+   - `dev-docs/active/[task-name]/plan.md`
+   - `dev-docs/active/[task-name]/context.md`
+   - `dev-docs/active/[task-name]/tasks.md`
 
 3. Parse tasks.md to extract:
    - Completed tasks (marked with [x] or ✅)
@@ -79,9 +79,9 @@ When user says:
 User: `/resume-task publicfs-cleanup`
 
 Assistant loads:
-- `.claude/dev-docs/active/publicfs-cleanup/plan.md`
-- `.claude/dev-docs/active/publicfs-cleanup/context.md`
-- `.claude/dev-docs/active/publicfs-cleanup/tasks.md`
+- `dev-docs/active/publicfs-cleanup/plan.md`
+- `dev-docs/active/publicfs-cleanup/context.md`
+- `dev-docs/active/publicfs-cleanup/tasks.md`
 
 Then presents:
 ```

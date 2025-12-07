@@ -224,11 +224,11 @@ You are now in **dev-docs creation mode**. Your goal is to:
 2. **Search and read relevant files** to understand current state
 3. **Create the plan** with all sections filled out
 4. **Present plan to user** for approval
-5. **After approval**, automatically create the three files in `.claude/dev-docs/active/[task-name]/`
+5. **After approval**, automatically create the three files in `dev-docs/active/[task-name]/`
    - Ask user for task name (suggest one from plan title)
-   - Create directory: `.claude/dev-docs/active/[task-name]/`
+   - Create directory: `dev-docs/active/[task-name]/`
    - Write `plan.md`, `context.md`, `tasks.md`
-   - Inform user: "Dev-docs created at .claude/dev-docs/active/[task-name]/"
+   - Inform user: "Dev-docs created at dev-docs/active/[task-name]/"
 
 ## Important Guidelines
 

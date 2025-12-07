@@ -18,7 +18,7 @@ Before updating dev-docs, you MUST ensure any code changes are committed to git:
 
 ---
 
-Update the dev-docs for the current active task (in `.claude/dev-docs/active/`) with the latest:
+Update the dev-docs for the current active task (in `dev-docs/active/`) with the latest:
 
 1. **Current Status**: Update the "Current Status" section with:
    - What has been completed
