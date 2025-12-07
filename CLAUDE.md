@@ -1,6 +1,49 @@
 # CLAUDE.md - AI Assistant Context for FourTop Analysis
 
-**Last updated**: 2025-11-26
+**Last updated**: 2025-12-07
+
+---
+
+## Analysis Pipeline Overview
+
+**Common Abbreviations** (used in conversation and scripts):
+| Abbrev | Full Name | Directory | Description |
+|--------|-----------|-----------|-------------|
+| **OS** | Object Selection | `objectSelectionOptimized/` | Stage 1: NanoAOD → skimmed ntuples |
+| **MV** | Make Variables | `makeVariables_goodCode/` | Stage 2: Add BDT scores, derived variables |
+| **WH** | Write Histograms | `writeHistGood/` | Stage 3: Produce histograms with systematics |
+| **PL** | Plotting | `plotting/` | Stage 4: Validation plots, datacards |
+
+**Full Analysis Pipeline**:
+```
+Stage 1 (OS): NanoAOD → Object Selection → Skimmed ntuples
+    └── objectSelectionOptimized/apps/run_objectSelection.out
+    └── Output: /publicfs/.../UL{era}/{version}/mc/
+
+Stage 2 (MV): Skimmed ntuples → Variable Calculation → BDT-ready ntuples
+    └── makeVariables_goodCode/apps/run_makeVariables_forBDT.out
+    └── Output: /publicfs/.../forMVA/{era}/{version}/mc/
+
+Stage 2.4: Fake Background Estimation (data-driven)
+    └── plotting/createFaketauTree.py (fake tau for all channels)
+    └── plotting/createFakeLeptonTree.py (fake lepton for 1tau1l/1tau2l)
+
+Stage 3 (WH): BDT ntuples → Histogram Production → ROOT histograms
+    └── writeHistGood/apps/run_treeAnalyzer.out
+    └── Output: .../variableHists_{version}/
+
+Stage 4 (PL): Histograms → Plots, Datacards → Statistical Analysis
+    └── Stage 4.1: addJESTemplatesToHistFile.py (consolidate JES)
+    └── Stage 4.2: addTemplateNew.py (add systematic templates)
+    └── Stage 4.3: writeDatacard.py (create datacards)
+    └── Stage 4.4: pl.py (validation plots)
+    └── Stage 4.5: hua/combine/ (statistical fits)
+```
+
+**YAML Config Files** (always use for each stage):
+- `config/analysis_config_1tau0l_full.yaml` - 1tau0l channel
+- `config/analysis_config_1tau1l_TTBBtest.yaml` - 1tau1l channel (TTBB test)
+- `config/analysis_config_1tau2l.yaml` - 1tau2l channel
 
 ---
 

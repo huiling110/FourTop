@@ -104,22 +104,23 @@
   - ttbar_1l: 442MB
   - ttbar_2l: 46MB
 
-### Stage 3: Histogram Production - 2018 🔄 RE-RUNNING
+### Stage 3: Histogram Production - 2018 ✅ COMPLETE
 - [x] Build writeHistGood (rebuilt to include updated lumiAndCrossSection.h)
 - [x] Submit nominal jobs for 1tau0l (2018) via run_workflow.py
 - [x] Previous run completed successfully
 - [x] Fake tau files regenerated (2025-12-06 19:13/19:21)
-- [x] Stage 3 jobs resubmitted (2025-12-06 19:25), ~64 jobs running
-- [ ] Wait for jobs to complete
-- [ ] Verify TTBB histograms with new fake tau
+- [x] Stage 3 jobs resubmitted (2025-12-06 19:25), ~64 jobs
+- [x] Jobs completed (2025-12-07)
+- [x] TTBB histograms verified with new fake tau
 
-### Stage 4: Validation Plots - 2018 ⏳ PENDING
-- [ ] Run pl.py for 2018 after Stage 3 completes
-- [ ] Verify TTBB appears correctly in plots with regenerated fake tau
-- Previous results (before fake tau regeneration):
+### Stage 4: Validation Plots - 2018 ✅ COMPLETE
+- [x] Run pl.py for 2018 (2025-12-07 09:08)
+- [x] Verify TTBB appears correctly in plots with regenerated fake tau
+- Results (with regenerated fake tau):
   - SR: ttbb=412.0, tt=360.7 (ttbb/tt ≈ 1.14)
-  - CRMR: ttbb=573.2, tt=4386.3 (ttbb/tt ≈ 0.13)
+  - CRMR: ttbb=573.2, tt=4386.2 (ttbb/tt ≈ 0.13)
   - TTBB shown in darker orange (#e6550d), tt in red-orange (#f03b20)
+  - Results consistent with previous run - validation successful!
 
 ### After 2018 validation: Other years
 - [ ] Submit jobs for 2017
@@ -266,8 +267,26 @@
   - fakeTau_data_ptMorphed.root (139M, 19:13)
   - fakeTau_MC_ptMorphed.root (603M, 19:21)
 - Submitted Stage 3 histogram jobs (~64 jobs) using run_workflow.py
-- **PAUSED**: Jobs running on cluster, need to wait for completion then run pl.py
-- Next steps when resuming:
-  1. Check job completion: `hep_q -u huahuil | grep WH_`
-  2. Run pl.py: `python3 run_workflow.py --stage 4 --config config/analysis_config_1tau0l_full.yaml`
-  3. Verify TTBB appears correctly in new plots
+
+### Session 12 (2025-12-07 09:00)
+- Resumed task, verified Stage 3 jobs completed successfully
+- Ran pl.py for validation plots:
+  ```bash
+  python3 pl.py --config config/analysis_config_1tau0l_full.yaml --era 2018 --channel 1tau0l --regions 1tau0lSR 1tau0lCRMR 1tau0lVR --unblind --no-sys
+  ```
+- Generated plots saved to: `variableHists_v0BDT1tau0l_TTBBtest/results/`
+- **TTBB validation successful** - yields identical to previous run:
+  - SR: ttbb=412.0, tt=360.7 (ttbb/tt ≈ 1.14)
+  - CRMR: ttbb=573.2, tt=4386.2 (ttbb/tt ≈ 0.13)
+- **2018 1tau0l channel fully validated** - ready for other years
+
+- Updated CLAUDE.md with analysis pipeline abbreviations (OS, MV, WH, PL)
+- **1tau1l channel validation**:
+  - Ran WH (Stage 3) for 1tau1l using `config/analysis_config_1tau1l_TTBBtest.yaml`
+  - Ran pl.py for 1tau1l validation plots
+  - **1tau1l TTBB yields**:
+    - SR: ttbb=35.5, tt=15.0 (ttbb/tt ≈ 2.36) - higher ratio expected in lepton channel
+    - CR12: ttbb=44.3, tt=161.9 (ttbb/tt ≈ 0.27)
+  - Plots saved to: `variableHists_v0BDT1tau1l_TTBBtest/results/`
+- **Both 2018 channels validated** (1tau0l and 1tau1l)
+- Next steps: Process other years (2017, 2016postVFP, 2016preVFP)
