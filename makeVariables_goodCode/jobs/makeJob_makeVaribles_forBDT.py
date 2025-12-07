@@ -54,6 +54,7 @@ def main(
     JESVariationType = 0, # 1up, 2 down
     JESVariation = 0,
     config_path = None,
+    year_from_cli = False,  # Flag to indicate CLI year should override YAML
 ):
     # Load from YAML config if provided
     if config_path is not None:
@@ -65,9 +66,11 @@ def main(
         inVersion = paths.get('in_version', inVersion)
         outVersion = paths.get('out_version', outVersion)
 
-        # Get eras from config
-        eras = config.get('eras', [year])
-        year = eras[0] if eras else year
+        # Get eras from config - only if CLI year not explicitly set
+        if not year_from_cli:
+            eras = config.get('eras', [year])
+            year = eras[0] if eras else year
+        # else: keep year from CLI argument
 
         # Get stage2 specific config
         stage2 = config.get('stage2', {})
@@ -75,7 +78,7 @@ def main(
         JESVariationType = stage2.get('JESVariationType', JESVariationType)
         JESVariation = stage2.get('JESVariation', JESVariation)
 
-        print(f"  Year: {year}")
+        print(f"  Year: {year}" + (" (from CLI)" if year_from_cli else " (from config)"))
         print(f"  Input version: {inVersion}")
         print(f"  Output version: {outVersion}")
         print(f"  if1tau2l: {if1tau2l}")
@@ -247,10 +250,15 @@ if __name__=="__main__":
     args = parse_args()
 
     # Build kwargs for main()
+    # Track if year was explicitly set via CLI (not default)
+    import sys
+    year_explicitly_set = '--year' in sys.argv or '-y' in sys.argv
+
     kwargs = {
         'year': args.year,
         'if1tau2l': args.if1tau2l,
         'config_path': args.config,
+        'year_from_cli': year_explicitly_set,  # Pass flag to main
     }
     if args.inVersion:
         kwargs['inVersion'] = args.inVersion

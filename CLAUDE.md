@@ -68,25 +68,25 @@ python3 script.py
 
 ## Dev-Docs System for Major Tasks
 
-**Location**: `.claude/dev-docs/active/[task-name]/`
+**Location**: `dev-docs/active/[task-name]/`
 
 **When to use**: For multi-session tasks (new signal samples, major refactoring, multi-channel analysis)
 
 **Automatic creation**: When exiting plan mode with an accepted plan, automatically create dev-docs:
 1. Ask user for task name (suggest from plan title)
-2. Create directory: `.claude/dev-docs/active/[task-name]/`
+2. Create directory: `dev-docs/active/[task-name]/`
 3. Create `plan.md` from the accepted plan
 4. Create `context.md` with key files identified during planning
 5. Create `tasks.md` from plan steps
-6. Inform user: "Dev-docs created at .claude/dev-docs/active/[task-name]/"
+6. Inform user: "Dev-docs created at dev-docs/active/[task-name]/"
 
 **Manual creation**: For tasks not starting from plan mode:
-1. Create directory: `mkdir -p .claude/dev-docs/active/[task-name]/`
+1. Create directory: `mkdir -p dev-docs/active/[task-name]/`
 2. Copy templates: `TEMPLATE_plan.md`, `TEMPLATE_context.md`, `TEMPLATE_tasks.md`
 3. Fill in details and begin work
 
 **Continuing existing tasks**:
-1. **Always check first**: Look in `.claude/dev-docs/active/` for existing task directories
+1. **Always check first**: Look in `dev-docs/active/` for existing task directories
 2. **If task found**: Read `plan.md`, `context.md`, `tasks.md` from the task directory before proceeding
 3. **Update regularly**:
    - Mark tasks complete immediately (don't batch)
@@ -162,8 +162,8 @@ FourTop/
 ├── makeVariables_goodCode/    # Variable calculation
 ├── inputFiles/             # Input ROOT files and configurations
 ├── myLibrary/              # Shared C++ utilities
-├── .claude/
-│   └── dev-docs/           # Task tracking system (plan, context, tasks)
+├── dev-docs/               # Task tracking system (plan, context, tasks)
+├── .claude/                # Claude Code configuration (hooks, settings)
 ├── README.md               # User-facing documentation
 ├── ANALYSIS_WORKFLOW.md    # Detailed end-to-end workflow
 ├── setEnv_newNew.sh        # Environment setup script
