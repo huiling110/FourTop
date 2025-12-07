@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-07 09:40
-**Current Phase**: Phase 5 - 2018 fully validated (both 1tau0l and 1tau1l), ready for other years
+**Last Updated**: 2025-12-07 12:25
+**Current Phase**: Phase 5 - 2018 complete, processing 2017/2016/2016APV
 
 ---
 
@@ -126,10 +126,25 @@
 - TTBB shown in darker orange (#e6550d), tt in red-orange (#f03b20)
 - **Both channels validated successfully!**
 
-### After 2018 validation: Other years
-- [ ] Submit jobs for 2017
-- [ ] Submit jobs for 2016postVFP
-- [ ] Submit jobs for 2016preVFP
+### Other Years Processing
+
+**2017**:
+- [x] Stage 1 (OS): Complete (from previous session)
+- [x] Stage 2 (MV): Running (~29 jobs submitted)
+- [ ] Stage 3 (WH): Pending
+- [ ] Stage 4 (PL): Pending
+
+**2016 (postVFP)**:
+- [ ] Stage 1 (OS): Running (~375 jobs)
+- [ ] Stage 2 (MV): Pending
+- [ ] Stage 3 (WH): Pending
+- [ ] Stage 4 (PL): Pending
+
+**2016APV (preVFP)**:
+- [x] Stage 1 (OS): Submitted (just completed)
+- [ ] Stage 2 (MV): Pending
+- [ ] Stage 3 (WH): Pending
+- [ ] Stage 4 (PL): Pending
 
 ---
 
@@ -294,3 +309,16 @@
   - Plots saved to: `variableHists_v0BDT1tau1l_TTBBtest/results/`
 - **Both 2018 channels validated** (1tau0l and 1tau1l)
 - Next steps: Process other years (2017, 2016postVFP, 2016preVFP)
+
+### Session 13 (2025-12-07 12:25)
+- Continued from previous session, processing other years
+- Moved dev-docs from `.claude/dev-docs/` to project root `dev-docs/`
+- Updated CLAUDE.md and all slash commands to reference new dev-docs location
+- Fixed Stage 2 job script (`makeJob_makeVaribles_forBDT.py`) to properly prioritize CLI --year over YAML config
+- Job status at session start:
+  - 2018: All stages complete (validated)
+  - 2017: Stage 1 complete, Stage 2 submitted and running
+  - 2016: Stage 1 jobs running (~375 jobs)
+  - 2016APV: Stage 1 just submitted
+- Total jobs in queue: ~532
+- Commits: dev-docs move, Stage 2 CLI fix, slash command path updates

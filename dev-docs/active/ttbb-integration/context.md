@@ -1,6 +1,6 @@
 # TTBB Integration - Key Context
 
-**Last Updated**: 2025-12-07 09:40
+**Last Updated**: 2025-12-07 12:25
 
 ## TTBB Sample Locations (Verified)
 
