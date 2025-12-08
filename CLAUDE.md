@@ -10,6 +10,7 @@
 2. **Environment first** - `source setEnv_newNew.sh` (except combine: use `cmsenv`)
 3. **Regenerate fakes** - Never copy fake tau/lepton files between versions
 4. **Use workflow_utils** - All Python scripts use `from workflow_utils import ...`
+5. **Commit often** - Commit after each significant code change, not batched
 
 For detailed commands and procedures, see `.claude/skills/workflow.md`
 
