@@ -1,59 +1,39 @@
-# FourTop Analysis Configuration - 1tau0l Channel
-# TTBB Integration Testing
+# FourTop Analysis Configuration - 1tau0l Channel (New Format)
 # Created: 2025-12-06
+# Updated: 2025-12-08 (migrated to new minimal format)
 
 metadata:
-  version: "v1_TTBBtest"
-  created: "2025-12-06"
-  channel: "1tau0l"
+  name: "1tau0l_TTBBtest"
   description: "TTBB integration testing with ghost-matching overlap removal"
+  created: "2025-12-06"
 
-# Path components for building full paths
-# Stage 1 output: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL{era}/{in_version}/mc/
-# Stage 2 output: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/{out_version}_{in_version}/mc/
-# Stage 3 output: .../mc/variableHists_{hist_version}/
-paths:
-  base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
-  out_version: "v1baselineHadro"
-  in_version: "v94HadroPreJetVetoHemOnly_TTBBtest"
-  hist_version: "v0BDT1tau0l_TTBBtest"
-  datacard_version: "v1_TTBBtest"
+# Version strings for each pipeline stage
+versions:
+  stage1: "v94HadroPreJetVetoHemOnly_TTBBtest"  # Object selection output
+  stage2: "v1baselineHadro"                      # Variable calculation output
+  hist: "v0BDT1tau0l_TTBBtest"                   # Histogram version
+  datacard: "v1_TTBBtest"                        # Datacard version
+  combination: "combinationV21"                  # Combine version
 
-# Channel configuration
-channel:
-  name: "1tau0l"
-  regions:
-    - "1tau0lSR"
-    - "1tau0lCRMR"
-    - "1tau0lVR"
-  variables:
-    - "BDT"
+# Channel name (simple string, not dict)
+channel: "1tau0l"
 
-# Eras to process (use actual directory names)
+# Eras to process
 eras:
   - "2018"
   - "2017"
-  - "2016postVFP"  # forMVA uses 2016postVFP
-  - "2016preVFP"   # forMVA uses 2016preVFP
+  - "2016postVFP"
+  - "2016preVFP"
 
-# Analysis options
+# Analysis options (normalized key names)
 options:
-  ifFakeTau: true
-  ifMCFTau: false
-  ifBlind: false
-  ifVLL: false
+  fake_tau: true
+  mc_fake_tau: false
+  blind: false
+  systematics: true
+  smoothing: false
 
-# Stage 2 specific config
-stage2:
-  if1tau2l: 0  # 0=1tau0l/1tau1l, 1=1tau2l
-  JESVariationType: 0
-  JESVariation: 0
-
-# Smoothing configuration (Stage 4.2.5)
-smoothing:
-  enabled: false
-
-# Combine configuration (Stage 4.4, 4.5)
-combination:
-  version: "combinationV21"
-  card_dir: "run2_1tau0l_TTBBtest"
+# Base paths
+paths:
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
