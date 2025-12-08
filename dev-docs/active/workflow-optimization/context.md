@@ -1,7 +1,7 @@
 # Context: FourTop Workflow Optimization
 
 **Created**: 2025-12-08
-**Last Updated**: 2025-12-08 (Session 3)
+**Last Updated**: 2025-12-08 (Session 4)
 **Status**: IN PROGRESS
 
 ---
@@ -20,7 +20,8 @@ The FourTop analysis workflow has grown organically with inconsistent config pat
 
 ### Config System
 - `config/analysis_config_template.yaml` - **NEW** Minimal config template (created Phase 1)
-- `config/analysis_config_1tau0l_full.yaml` - 1tau0l channel config
+- `config/analysis_config_1tau0l_TTBBtest.yaml` - 1tau0l channel config (renamed)
+- `config/analysis_config_1tau1l_TTBBtest.yaml` - 1tau1l channel config
 - `config/historical_paths_backup.txt` - **NEW** Backup of 385 commented paths
 - `plotting/workflow_utils.py` - **UPDATED** Path building utilities with `_normalize_config()`, `get_regions()`, `get_versions()`
 - `run_workflow.py` - Master workflow runner
@@ -148,3 +149,18 @@ python3 -c "from plotting.workflow_utils import *; help(load_config)"
 7. `444ff113` - Update pl.py to read options from YAML config
 8. `cc1be1c7` - refactor: Clean up pl.py to use workflow_utils consistently
 9. `26037fa0` - docs: Update workflow skill with workflow_utils pattern
+10. `1487d2f9` - docs: Trim CLAUDE.md and add commit-often rule
+11. `3eac2730` - docs: Update workflow-optimization dev-docs with Session 4 progress
+12. `efad13c1` - docs: Move workflow-code-quality to completed
+
+---
+
+## Validation Results (Session 4)
+
+**1tau0l Channel** - All eras tested successfully:
+- 2018, 2017, 2016postVFP, 2016preVFP: WH jobs ✅, pl.py plots ✅
+
+**1tau1l Channel** - All eras tested successfully:
+- 2017, 2016postVFP, 2016preVFP: WH jobs (71 files each) ✅, pl.py plots ✅
+
+**File Quota Status**: 966,519 / 1,000,000 files (96.7%) - cleanup needed
