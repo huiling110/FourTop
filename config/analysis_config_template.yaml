@@ -1,0 +1,56 @@
+# FourTop Analysis Configuration Template
+# =========================================
+# This is the MINIMAL config schema - only essential parameters
+#
+# Usage:
+#   python3 run_workflow.py --config config/analysis_config.yaml --stage all
+#   python3 plotting/addTemplateNew.py --config config/analysis_config.yaml --era 2018
+#
+# Copy this template and customize for your analysis version.
+
+metadata:
+  name: "template"
+  description: "Template configuration - customize for your analysis"
+  created: "2025-12-08"
+
+# -----------------------------
+# VERSION IDENTIFIERS (CORE)
+# -----------------------------
+# These strings define the entire path structure.
+# Change these when starting a new analysis version.
+versions:
+  stage1: "v94HadroPreJetVetoHemOnly"      # Object selection (Stage 1) output
+  stage2: "v1baselineHadro"                 # Variable calculation (Stage 2) output
+  hist: "v0BDT1tau0l"                       # Histogram (Stage 3) output
+  datacard: "v1"                            # Datacard (Stage 4.3) output
+  combination: "combinationV21"             # Combine (Stage 4.4/4.5) output
+
+# -----------------------------
+# ANALYSIS CONFIGURATION
+# -----------------------------
+channel: "1tau0l"   # Options: 1tau0l, 1tau1l, 1tau2l
+
+eras:
+  - "2018"
+  - "2017"
+  - "2016preVFP"
+  - "2016postVFP"
+
+# -----------------------------
+# OPTIONS (boolean flags)
+# -----------------------------
+options:
+  fake_tau: true           # Use fake tau estimation
+  mc_fake_tau: false       # MC-based (true) vs data-driven (false)
+  blind: false             # Blind signal region
+  systematics: true        # Enable systematics
+  smoothing: false         # Apply systematic smoothing (Stage 4.2.5)
+
+# -----------------------------
+# PATHS (optional overrides)
+# -----------------------------
+# Default paths work for standard IHEP setup.
+# Only override if your setup is different.
+paths:
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD"
