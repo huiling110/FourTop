@@ -18,6 +18,14 @@
     ]
   },
   "hooks": {
+    "userPromptSubmit": {
+      "command": "bash",
+      "args": [".claude/hooks/user-prompt-submit.sh"],
+      "env": {
+        "USER_PROMPT": "{{user_prompt}}",
+        "PROJECT_ROOT": "{{project_root}}"
+      }
+    },
     "preToolUse": {
       "command": "bash",
       "args": [".claude/hooks/pre-tool-use.sh"],
@@ -55,9 +63,9 @@
   },
   "comments": [
     "This settings.json enables code quality and workflow hooks for the FourTop analysis project",
+    "The userPromptSubmit hook auto-activates workflow skill based on keywords",
     "The preToolUse hook checks environment setup before running analysis scripts",
     "The postToolUse hook runs after Edit/Write operations to check code quality",
-    "Thresholds are defined in the codeQuality section for reference",
-    "See .claude/hooks/ directory for hook implementations"
+    "See .claude/hooks/ directory and .claude/skills/ for implementations"
   ]
 }
