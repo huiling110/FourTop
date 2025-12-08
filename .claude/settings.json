@@ -18,6 +18,15 @@
     ]
   },
   "hooks": {
+    "preToolUse": {
+      "command": "bash",
+      "args": [".claude/hooks/pre-tool-use.sh"],
+      "env": {
+        "TOOL_NAME": "{{tool_name}}",
+        "BASH_COMMAND": "{{bash_command}}",
+        "PROJECT_ROOT": "{{project_root}}"
+      }
+    },
     "postToolUse": {
       "command": "bash",
       "args": [".claude/hooks/post-tool-use.sh"],
@@ -45,9 +54,10 @@
     }
   },
   "comments": [
-    "This settings.json enables code quality hooks for the FourTop analysis project",
+    "This settings.json enables code quality and workflow hooks for the FourTop analysis project",
+    "The preToolUse hook checks environment setup before running analysis scripts",
     "The postToolUse hook runs after Edit/Write operations to check code quality",
     "Thresholds are defined in the codeQuality section for reference",
-    "See .claude/hooks/check_python_quality.py for implementation details"
+    "See .claude/hooks/ directory for hook implementations"
   ]
 }
