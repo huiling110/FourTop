@@ -1,7 +1,19 @@
 import os
 import subprocess
+import argparse
+import sys
 
 import usefulFunc as uf
+
+# Add plotting directory to path for workflow_utils
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
+
+try:
+    from workflow_utils import load_config, build_stage2_path, get_channel, get_versions
+    WORKFLOW_UTILS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_UTILS_AVAILABLE = False
+
 #!For jobs of energy scale variaion, make the outut version the same of the nominal one
 
 def main(
@@ -28,7 +40,8 @@ def main(
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/', #!v14, and V16
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/', #TTBB test
+    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/', #TTBB test
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/', #TTBB test 2017
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
     # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
@@ -169,9 +182,79 @@ def makeIjob( shFile, Jobsubmitpath, run, exeDir ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ exeDir + '\n' )
-    subFile.write(run) 
+    subFile.write(run)
     print( 'done writing: ', shFile)
 
 
+def create_parser():
+    """Create argument parser for WH job submission."""
+    parser = argparse.ArgumentParser(
+        description='Submit writeHistGood (Stage 3) jobs to HTCondor',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''
+Examples:
+  # Using YAML config (recommended):
+  python3 makeJob_forWriteHist.py --config ../../config/analysis_config_1tau0l_full.yaml --era 2017
+
+  # Legacy mode (uses hardcoded paths in script):
+  python3 makeJob_forWriteHist.py
+        '''
+    )
+    parser.add_argument('--config', '-c', type=str,
+                        help='Path to YAML config file')
+    parser.add_argument('--era', '-e', type=str,
+                        choices=['2018', '2017', '2016preVFP', '2016postVFP'],
+                        help='Era to process')
+    parser.add_argument('--sys', type=int, default=1,
+                        help='Include systematics (0=no, 1=yes, default: 1)')
+    parser.add_argument('--just-mc', action='store_true',
+                        help='Only process MC (skip data)')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='Show what would be done without submitting')
+    return parser
+
+
 if __name__=='__main__':
-    main()
+    parser = create_parser()
+    args = parser.parse_args()
+
+    if args.config:
+        # Config mode: use YAML config
+        if not WORKFLOW_UTILS_AVAILABLE:
+            parser.error("workflow_utils not available. Install pyyaml: pip install pyyaml")
+        if not args.era:
+            parser.error("--era is required when using --config")
+
+        config = load_config(args.config)
+        # build_stage2_path returns path with /mc/, but main() expects parent dir
+        inputDir = build_stage2_path(config, args.era)
+        # Remove trailing 'mc/' since main() adds it
+        if inputDir.endswith('/mc/'):
+            inputDir = inputDir[:-3]  # Remove 'mc/'
+        elif inputDir.endswith('/mc'):
+            inputDir = inputDir[:-2]  # Remove 'mc'
+        channel = get_channel(config)
+        versions = get_versions(config)
+        version = versions['hist']
+
+        print(f"=== Config mode ===")
+        print(f"Config: {args.config}")
+        print(f"Era: {args.era}")
+        print(f"Channel: {channel}")
+        print(f"Input dir: {inputDir}")
+        print(f"Hist version: {version}")
+
+        if args.dry_run:
+            print("\n[DRY RUN] Would submit jobs with above settings")
+        else:
+            main(
+                inputDir=inputDir,
+                channel=channel,
+                version=version,
+                ifSys=args.sys,
+                justMC=args.just_mc
+            )
+    else:
+        # Legacy mode: use hardcoded paths in main()
+        print("=== Legacy mode (using hardcoded paths) ===")
+        main()
