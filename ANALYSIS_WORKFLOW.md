@@ -696,10 +696,36 @@ cd jobs/ && python3 checkJobResult.py  # Check for failures
 
 **Two approaches**:
 
-#### Option A: Compress Logs Only (Before Stage 4.1)
+#### Option A: Bulk Cleanup of log/ and jobSH/ (Recommended)
+
+**Script**: `plotting/cleanup_logs_jobsh.py`
+**When**: File quota approaching limit, need to free files across all histogram directories
+
+```bash
+cd plotting/
+
+# Step 1: Survey mode (read-only, see what can be cleaned)
+python3 cleanup_logs_jobsh.py --output cleanup_report.csv
+
+# Step 2: Dry-run cleanup (preview what would be deleted)
+python3 cleanup_logs_jobsh.py --cleanup --dry-run
+
+# Step 3: Execute cleanup (actually delete)
+python3 cleanup_logs_jobsh.py --cleanup --execute --yes
+```
+
+**What it does**:
+- Scans all `variableHists_*/` directories for log/ and jobSH/ folders
+- Zips log/ directories (preserves logs for debugging)
+- Deletes jobSH/ directories (can be regenerated)
+- Reports files freed and quota impact
+
+**Typical results**: Can free 50,000+ files when quota is near limit
+
+#### Option B: Per-Era Compress (Legacy)
 
 **Script**: `cleanJysVariationFolder.py`
-**When**: If you need to free some space before Stage 4.1 consolidation
+**When**: Quick compress for specific year/version
 
 ```bash
 cd plotting/
@@ -709,7 +735,7 @@ python3 cleanJysVariationFolder.py
 
 **What it does**: Compresses log/ and jobSH/ folders to .zip files, saves ~10-20% space
 
-#### Option B: Full Cleanup (Integrated in Stage 4.1)
+#### Option C: Full Cleanup (Integrated in Stage 4.1)
 
 **Recommended**: Automatic cleanup after consolidation completes
 
