@@ -1,7 +1,7 @@
 # Tasks: FourTop Workflow Optimization
 
 **Created**: 2025-12-08
-**Last Updated**: 2025-12-08 (Session 4)
+**Last Updated**: 2025-12-08 (Session 5)
 **Status**: IN PROGRESS
 
 ---
@@ -54,10 +54,30 @@
 
 ---
 
-## Phase 5: Stage 1-2 Integration
+## Phase 5: Stage 1-2 Integration (IN PROGRESS)
 
-- [ ] makeJob_OS_fromRuobing2.py - Standardize config loading
+### Stage 1 (OS) ✅ COMPLETE
+- [x] makeJob_OS_fromRuobing2.py - Complete rewrite with workflow_utils
+  - Removed ~50 commented-out hardcoded paths
+  - Added argparse: --config (required), --era, --sys, --dry-run, --quiet
+  - Uses workflow_utils: load_config, get_eras, get_channel, build_stage1_input, build_stage1_output
+- [x] Added Stage 1 functions to workflow_utils.py:
+  - `build_stage1_input()`, `build_stage1_output()`, `get_channel_if1tau2l()`
+  - `ERA_TO_UL`, `ERA_TO_NANOAOD` mapping dicts
+- [x] Created batch submission scripts:
+  - `submit_all_systematics.sh` - submits 15 systematic variations (JES, JER, MET, EleScale, TES by dm)
+  - `check_systematic_jobs.sh` - monitors job status
+- [x] Updated workflow skill with Stage 1 commands
+- [x] Updated hooks (user-prompt-submit.sh) for OS script auto-triggering
+- [x] OS systematic jobs for 2018 submitted (15 variations, in progress)
+
+**Commit**: `14e2ae73 feat: Complete Phase 5 Stage 1 workflow integration`
+
+### Stage 2 (MV) PENDING
 - [ ] makeJob_makeVaribles_forBDT.py - Add --config support
+- [ ] Add Stage 2 to run_workflow.py
+
+### Integration PENDING
 - [ ] Add Stage 1 and 2 to run_workflow.py
 - [ ] Test full pipeline from NanoAOD
 
@@ -126,3 +146,15 @@
   - pl.py validated for all three eras - BDT plots generated successfully
 - Both 1tau0l and 1tau1l configs now use consistent `_TTBBtest` naming
 - Workflow optimization Phase 1-6 working well for Stage 3 and Stage 4
+
+**Session 5 (2025-12-08)**:
+- Completed Phase 5 Stage 1 (OS) workflow integration:
+  - Refactored makeJob_OS_fromRuobing2.py to use workflow_utils (~50 paths removed)
+  - Added Stage 1 path functions to workflow_utils.py
+  - Created batch scripts: submit_all_systematics.sh, check_systematic_jobs.sh
+  - Supports 15 systematic variations (JES, JER, MET, EleScale, TES by decay mode)
+  - TES by decay mode only (dm0, dm1, dm10, dm11), NOT total TESUp/TESDown
+- Enabled systematics: true in 1tau0l config
+- Submitted OS systematic jobs for 2018 (15 variations, running)
+- Updated ANALYSIS_WORKFLOW.md Section 1.4 with new workflow
+- Next: Wait for OS jobs (~2-3 hours), then MV + WH testing

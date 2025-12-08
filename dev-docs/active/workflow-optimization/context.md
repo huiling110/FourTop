@@ -1,7 +1,7 @@
 # Context: FourTop Workflow Optimization
 
 **Created**: 2025-12-08
-**Last Updated**: 2025-12-08 (Session 4)
+**Last Updated**: 2025-12-08 (Session 5)
 **Status**: IN PROGRESS
 
 ---
@@ -37,6 +37,12 @@ The FourTop analysis workflow has grown organically with inconsistent config pat
 
 All scripts now require: `--config CONFIG --era ERA` (no fallback to hardcoded paths)
 
+### Phase 5: Stage 1 ✅ COMPLETE
+
+- `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` - **REFACTORED** to use workflow_utils
+- `objectSelectionOptimized/jobs/submit_all_systematics.sh` - **NEW** Batch submission for 15 systematics
+- `objectSelectionOptimized/jobs/check_systematic_jobs.sh` - **NEW** Job status monitoring
+
 ### Scripts to Refactor (Pending)
 
 **Phase 3: Stage 2.4**
@@ -45,8 +51,7 @@ All scripts now require: `--config CONFIG --era ERA` (no fallback to hardcoded p
 **Phase 4: Stage 3**
 - `writeHistGood/jobs/makeJob_forWriteHist.py` - Add workflow_utils
 
-**Phase 5: Stage 1-2**
-- `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` - Standardize
+**Phase 5: Stage 2**
 - `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` - Add argparse
 
 ### Claude Integration ✅ COMPLETE
@@ -152,6 +157,7 @@ python3 -c "from plotting.workflow_utils import *; help(load_config)"
 10. `1487d2f9` - docs: Trim CLAUDE.md and add commit-often rule
 11. `3eac2730` - docs: Update workflow-optimization dev-docs with Session 4 progress
 12. `efad13c1` - docs: Move workflow-code-quality to completed
+13. `14e2ae73` - feat: Complete Phase 5 Stage 1 workflow integration
 
 ---
 
