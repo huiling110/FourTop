@@ -1,278 +1,256 @@
+#!/usr/bin/env python3
+"""
+Stage 2 (MV - Make Variables) job submission script.
+
+Submits jobs to compute BDT input variables from Stage 1 (OS) output.
+
+Usage:
+    # Nominal (all eras from config)
+    python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml
+
+    # Specific era
+    python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+    # With systematic variation
+    python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --sys JERUp
+
+    # Dry run (show commands without submitting)
+    python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --dry-run
+"""
 import argparse
 import os
 import subprocess
+import sys
 
-import ttttGlobleQuantity as GQ
+# Add plotting directory for workflow_utils
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
+from workflow_utils import (
+    load_config, get_eras, get_channel, get_channel_if1tau2l,
+    build_stage1_output, build_stage2_output, ERA_TO_UL
+)
+
 import usefulFunc as uf
 
-# Optional YAML support
-try:
-    import yaml
-    YAML_AVAILABLE = True
-except ImportError:
-    YAML_AVAILABLE = False
 
-
-def load_config(config_path: str) -> dict:
-    """Load configuration from YAML file."""
-    if not YAML_AVAILABLE:
-        raise ImportError("PyYAML not available. Install with: pip install pyyaml")
-
-    with open(config_path, 'r') as f:
-        config = yaml.safe_load(f)
-    return config
-
-
-#???make this job submisssion and checking and resubmit and addHist automatized
-#todo add git co after job submission for version control
-
-def main(
-    year = '2016',
-    # year = '2017',
-    # year = '2018',
-    # inVersion = 'v94HadroPreJetVetoHemOnly',
-    # inVersion = 'v94HadroPreJetVetoHemOnly_JERDown', #2018, 2017
-    # inVersion = 'v94HadroPreJetVetoHemOnly_EleScaleDown', #2018, 2017
-    # inVersion = 'v94HadroPreJetVetoHemOnly_METUp', #2018,
-    # inVersion = 'v94HadroPreJetVetoHemOnly_TESdm10Up', #2018
-    # inVersion = 'v94LepPreJetVetoHemOnly',
-    inVersion = 'v94LepPreJetVetoHemOnlyV2',
-    # outVersion = 'v0baselineLep',
-    # outVersion = 'v0baselineLep_tauF1',
-    # outVersion = 'v0baselineLep_tauF1NewFRBinA',
-    # outVersion = 'v0baselineLep_tauF1NewFRBinA_tauFMorph',
-    # outVersion = 'v0baselineLep_newFRBinATauFMorphBugFix',
-    # outVersion = 'v0baselineLep_newFRBinATauFMorphBugFix',
-    # outVersion = 'v0baselineHadro',
-    # outVersion = 'v0baselineHadro_newFRBinATauFMorphBugFix',
-    # outVersion = 'v0baselineHadro_tauFMorphMass',
-    outVersion = 'v1baselineHadroBtagWeightAdded', #!v13
-    # if1tau2l = 0, # !!!0 false, 1 True
-    if1tau2l = 1, #!!! 0 false, 1 True
-    # if1tau2l = 0, # 0 false, 1 True
-    # JESVariationType = 2, # 1up, 2 down
-    JESVariationType = 0, # 1up, 2 down
-    JESVariation = 0,
-    config_path = None,
-    year_from_cli = False,  # Flag to indicate CLI year should override YAML
-):
-    # Load from YAML config if provided
-    if config_path is not None:
-        print(f"Loading configuration from: {config_path}")
-        config = load_config(config_path)
-
-        # Get paths from config
-        paths = config.get('paths', {})
-        inVersion = paths.get('in_version', inVersion)
-        outVersion = paths.get('out_version', outVersion)
-
-        # Get eras from config - only if CLI year not explicitly set
-        if not year_from_cli:
-            eras = config.get('eras', [year])
-            year = eras[0] if eras else year
-        # else: keep year from CLI argument
-
-        # Get stage2 specific config
-        stage2 = config.get('stage2', {})
-        if1tau2l = stage2.get('if1tau2l', if1tau2l)
-        JESVariationType = stage2.get('JESVariationType', JESVariationType)
-        JESVariation = stage2.get('JESVariation', JESVariation)
-
-        print(f"  Year: {year}" + (" (from CLI)" if year_from_cli else " (from config)"))
-        print(f"  Input version: {inVersion}")
-        print(f"  Output version: {outVersion}")
-        print(f"  if1tau2l: {if1tau2l}")
-
-    isRun3 = uf.isRun3Era(year)
-    justMC = False
-    
-    jobVersion = outVersion + '_' + inVersion 
-    print('jobVersion:', outVersion + '_'+ inVersion) 
-    inOutDirMap = getInOutDic( year, inVersion, outVersion, justMC )
-    jobDir = os.path.dirname(os.path.abspath(__file__)) 
-    jobDir = jobDir + '/'+jobVersion
-    uf.checkMakeDir(jobDir)
-
-    subAllName = year+'subAllofAll.sh'
-    subAllofAllName = jobDir+ '/'+ subAllName
-    subAllofAll = open( subAllofAllName, 'w')
-    print('creating subAllofAll: ', subAllofAllName )
-    subAllofAll.write( '#!/bin/bash\n')
-    subAllofAll.write('cd '+jobDir + '\n')
-
-    for iera in inOutDirMap.keys():
-        # if iera=='2016preVFP' : continue
-        # if iera=='2016postVFP' : continue#
-        print('era: ', iera)
-        
-        for key in inOutDirMap[iera].keys():
-            iDir = inOutDirMap[iera][key]
-            print( 'inputOutDir: ', iDir )
-            generateJobsForDir( iDir, iera+'_'+key,  jobDir , isRun3, if1tau2l, JESVariationType, JESVariation)
-            subAllofAll.write('bash '+ iera+'_'+key + '_subAll.sh\n' )
-    print( 'sub all jobs using: ' + jobDir +'/' + subAllName)
-    subAllofAll.close()
-
-    #change mod
-    subprocess.run( 'chmod 777 '+ subAllofAllName, shell=True )
-    
-    uf.sumbitJobs(  subAllofAllName )
-
-
-
-
-def getInOutDic( year, inVersion, outVersion, justMC ):
-    inputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/'
-    # outputBase = '/publicfs/cms/user/turuobing/tauOfTTTT_NanoAODOfficial/forMVA/'
-    outputBase = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/'
-    # outputBase = '/scratchfs/cms/huahuil/forMVA/'
-    inputOutputDic={
-        '2016postVFP': 'UL2016_postVFP',
-        '2016preVFP': 'UL2016_preVFP',
-        '2017': 'UL2017',
-        '2018': 'UL2018',
-        # '2022': 'Prompt2022',
-        '2022': 'ReReco2022PreEE',
-        '2022preEE': '2022preEE',
-        '2022postEE': '2022postEE',
-    }
-    inOutDirMap = {}
-#python dict
-    if year=='2016':
-        inOutDirMap ['2016postVFP'] = {}
-        inOutDirMap ['2016preVFP'] = {}
-        inOutDirMap['2016preVFP']['mc']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/mc/' , outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/mc/' ]  
-        inOutDirMap['2016postVFP']['mc'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/mc/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/mc/']
-        if not justMC:
-            inOutDirMap['2016preVFP'] ['data']= [ inputBase + 'UL2016_preVFP/'+ inVersion + '/data/',   outputBase + '2016preVFP/'+ outVersion+'_'+inVersion + '/data/']
-            inOutDirMap['2016postVFP']['data'] = [ inputBase + 'UL2016_postVFP/' + inVersion + '/data/', outputBase + '2016postVFP/'+ outVersion+'_'+inVersion + '/data/']
-    else:
-        inOutDirMap[year]={}
-        inOutDirMap[year]['mc']= [ inputBase + inputOutputDic[year]+'/'+ inVersion + '/mc/' , outputBase +year+ '/'+ outVersion+'_'+inVersion + '/mc/' ]
-        if not justMC:
-            inOutDirMap[year]['data']= [ inputBase + inputOutputDic[year]+'/'+ inVersion + '/data/' , outputBase +year+ '/'+ outVersion+'_'+inVersion + '/data/' ]
-            
-    for iera in inOutDirMap.keys():
-        uf.checkMakeDir(outputBase+iera+'/')
-        uf.checkMakeDir(outputBase+iera+'/'+ outVersion+'_'+inVersion)
-            
-    return inOutDirMap
-
-         
-
-
-
-def generateJobsForDir( inOutList, dirKind, jobDir , isRun3=False, if1tau2l=False, JESVariationType=0, JESVariation=0):
-    subDirName = jobDir+ '/'+ dirKind+'_subAll.sh'
-    print('creating: ', subDirName )
-    subDirJobs = open( subDirName, 'w' )
-    subDirJobs.write( '#!/bin/bash\n' )
-    subDirJobs.write( 'cd ' + jobDir +'\n')
-    jobsDir =  jobDir + '/'+dirKind + '_jobs/'
-     
-    if os.path.exists( jobsDir ):
-        subprocess.run('rm -fr '+ jobsDir , shell=True)
-    uf.checkMakeDir(jobsDir)
-    uf.checkMakeDir(inOutList[1])
-
-    for entry in os.listdir(inOutList[0] ):
-        print( 'loop over: ', entry )
-        if not uf.checkIfInputDic(entry, isRun3): continue
-        
-        processJob = jobsDir + 'MV_' + dirKind +'_'+ entry + ".sh"
-        iParametersList = [ inOutList[0], entry, inOutList[1], 0, if1tau2l, JESVariationType, JESVariation]
-        writeIjob( iParametersList, processJob )
-
-        uf.checkMakeDir(inOutList[1] +"log/")
-        logFile = inOutList[1] +   "log/" + entry + ".log"
-        errFile = inOutList[1] +  "log/" + entry +".err"
-        # subDirJobs.write( 'hep_sub -os CentOS7 -mem 6000 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
-        subDirJobs.write( 'hep_sub '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
-        # subDirJobs.write( 'hep_sub -os CentOS7 '+ processJob  + " -o " + logFile + " -e " + errFile +'\n'   )
-
-    subprocess.run( 'chmod 777 '+jobsDir +'*.sh', shell = True )
-    subprocess.run( 'chmod 777 ' + subDirName, shell = True)
-
-
-            
-    
-
-def writeIjob( parameterList, processJob ):
-    subFile  = open ( processJob ,"w")
-    subFile.write( "#!/bin/bash\n")
-    subFile.write("/bin/hostname\n")
-    codeDir = os.path.dirname(os.path.abspath(__file__))
-    codeDir = codeDir.rsplit('/',1)[0]
-    projectRoot = codeDir.rsplit('/',1)[0]
-    subFile.write("cd {}\n".format(projectRoot))
-    # Source the environment for correctionlib and other dependencies
-    subFile.write("source setEnv_newNew.sh\n")
-    subFile.write("cd makeVariables_goodCode\n")
-    command = f'./apps/run_makeVariables.out {parameterList[0]} {parameterList[1]} {parameterList[2]} {parameterList[3]} {parameterList[4]} {parameterList[5]} {parameterList[6]}'
-    subFile.write(command )
-    subFile.close()
-
-
-
-
-
-
-
-def parse_args():
-    """Parse command-line arguments."""
+def create_parser():
+    """Create argument parser."""
     parser = argparse.ArgumentParser(
-        description='Submit Stage 2 (makeVariables) jobs for FourTop analysis'
+        description='Submit Stage 2 (MV) jobs for FourTop analysis',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__
     )
     parser.add_argument(
-        '--config', '-c', type=str, default=None,
-        help='Path to YAML config file (optional). If not provided, uses hardcoded defaults.'
+        '--config', '-c', required=True,
+        help='Path to YAML config file (required)'
     )
     parser.add_argument(
-        '--year', '-y', type=str, default='2018',
-        help='Year to process (default: 2018). Overridden by config if provided.'
+        '--era', '-e',
+        help='Era to process (default: all from config). For 2016, processes both pre/postVFP.'
     )
     parser.add_argument(
-        '--inVersion', type=str, default=None,
-        help='Input version (Stage 1 output). Overridden by config if provided.'
+        '--sys', '-s',
+        help='Systematic variation suffix (e.g., JERUp, TESdm0Down, JESPt22)'
     )
     parser.add_argument(
-        '--outVersion', type=str, default=None,
-        help='Output version. Overridden by config if provided.'
+        '--jes-variation', type=int, default=0,
+        help='JES variation index for JESPt22 input (0=none, use with --sys JESPt22)'
     )
     parser.add_argument(
-        '--if1tau2l', type=int, default=0,
-        help='Channel flag: 0=1tau0l/1tau1l, 1=1tau2l (default: 0)'
+        '--jes-type', type=int, default=0, choices=[0, 1, 2],
+        help='JES variation type: 0=none, 1=up, 2=down (use with --jes-variation)'
     )
-    return parser.parse_args()
+    parser.add_argument(
+        '--mc-only', action='store_true',
+        help='Process only MC samples (skip data)'
+    )
+    parser.add_argument(
+        '--dry-run', '-n', action='store_true',
+        help='Show commands without submitting jobs'
+    )
+    parser.add_argument(
+        '--quiet', '-q', action='store_true',
+        help='Reduce output verbosity'
+    )
+    return parser
 
 
-if __name__=="__main__":
-    args = parse_args()
-
-    # Build kwargs for main()
-    # Track if year was explicitly set via CLI (not default)
-    import sys
-    year_explicitly_set = '--year' in sys.argv or '-y' in sys.argv
-
-    kwargs = {
-        'year': args.year,
-        'if1tau2l': args.if1tau2l,
-        'config_path': args.config,
-        'year_from_cli': year_explicitly_set,  # Pass flag to main
-    }
-    if args.inVersion:
-        kwargs['inVersion'] = args.inVersion
-    if args.outVersion:
-        kwargs['outVersion'] = args.outVersion
-
-    main(**kwargs)
+def get_eras_to_process(config, era_arg):
+    """Get list of eras to process based on config and CLI argument."""
+    if era_arg:
+        # Handle '2016' -> both 2016preVFP and 2016postVFP
+        if era_arg == '2016':
+            return ['2016preVFP', '2016postVFP']
+        return [era_arg]
+    return get_eras(config)
 
 
+def get_input_output_dirs(config, era, systematic=None, mc_only=False):
+    """
+    Build input/output directory mapping for an era.
+
+    Returns dict: {data_type: [input_dir, output_dir]}
+    """
+    input_base = build_stage1_output(config, era, systematic).rstrip('/')
+    output_base = build_stage2_output(config, era, systematic).rstrip('/')
+
+    dirs = {}
+    # MC
+    dirs['mc'] = [f"{input_base}/mc/", f"{output_base}/"]
+
+    # Data (unless mc_only)
+    if not mc_only:
+        data_output = build_stage2_output(config, era, systematic, data_type='data').rstrip('/')
+        dirs['data'] = [f"{input_base}/data/", f"{data_output}/"]
+
+    return dirs
 
 
+def generate_jobs_for_dir(input_dir, output_dir, era_key, job_dir, if1tau2l,
+                          jes_type=0, jes_variation=0, quiet=False):
+    """Generate job scripts for a single input directory."""
+    sub_script = os.path.join(job_dir, f"{era_key}_subAll.sh")
+    jobs_dir = os.path.join(job_dir, f"{era_key}_jobs")
+
+    # Clean and create jobs directory
+    if os.path.exists(jobs_dir):
+        subprocess.run(['rm', '-rf', jobs_dir], check=True)
+    os.makedirs(jobs_dir, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
+
+    if not quiet:
+        print(f"  Input:  {input_dir}")
+        print(f"  Output: {output_dir}")
+        print(f"  Jobs:   {jobs_dir}")
+
+    # Check input directory exists
+    if not os.path.exists(input_dir):
+        print(f"  WARNING: Input directory does not exist: {input_dir}")
+        return None
+
+    # Write submission script
+    with open(sub_script, 'w') as f:
+        f.write("#!/bin/bash\n")
+        f.write(f"cd {job_dir}\n")
+
+    job_count = 0
+    for entry in os.listdir(input_dir):
+        if not uf.checkIfInputDic(entry, isRun3=False):
+            continue
+
+        job_file = os.path.join(jobs_dir, f"MV_{era_key}_{entry}.sh")
+        write_job_script(job_file, input_dir, entry, output_dir, if1tau2l, jes_type, jes_variation)
+
+        # Add to submission script
+        log_dir = os.path.join(output_dir, "log")
+        os.makedirs(log_dir, exist_ok=True)
+        log_file = os.path.join(log_dir, f"{entry}.log")
+        err_file = os.path.join(log_dir, f"{entry}.err")
+
+        with open(sub_script, 'a') as f:
+            f.write(f"hep_sub {job_file} -o {log_file} -e {err_file}\n")
+        job_count += 1
+
+    # Make scripts executable
+    subprocess.run(f"chmod 755 {jobs_dir}/*.sh", shell=True, check=False)
+    subprocess.run(['chmod', '755', sub_script], check=False)
+
+    if not quiet:
+        print(f"  Generated {job_count} jobs")
+
+    return sub_script if job_count > 0 else None
 
 
+def write_job_script(job_file, input_dir, entry, output_dir, if1tau2l, jes_type, jes_variation):
+    """Write individual job script."""
+    code_dir = os.path.dirname(os.path.abspath(__file__))
+    code_dir = os.path.dirname(code_dir)  # makeVariables_goodCode/
+    project_root = os.path.dirname(code_dir)  # FourTop/
+
+    with open(job_file, 'w') as f:
+        f.write("#!/bin/bash\n")
+        f.write("/bin/hostname\n")
+        f.write(f"cd {project_root}\n")
+        f.write("source setEnv_newNew.sh\n")
+        f.write("cd makeVariables_goodCode\n")
+        cmd = f"./apps/run_makeVariables.out {input_dir} {entry} {output_dir} 0 {if1tau2l} {jes_type} {jes_variation}"
+        f.write(cmd + "\n")
 
 
+def main():
+    args = create_parser().parse_args()
+
+    # Load config
+    config = load_config(args.config)
+    if1tau2l = get_channel_if1tau2l(config)
+    channel = get_channel(config)
+
+    if not args.quiet:
+        print(f"=== Stage 2 (MV) Job Submission ===")
+        print(f"Config: {args.config}")
+        print(f"Channel: {channel} (if1tau2l={if1tau2l})")
+        if args.sys:
+            print(f"Systematic: {args.sys}")
+        if args.jes_variation:
+            print(f"JES variation: index={args.jes_variation}, type={args.jes_type}")
+        print()
+
+    # Determine eras to process
+    eras = get_eras_to_process(config, args.era)
+
+    # Build job version string for directory naming
+    versions = config['versions']
+    job_version = f"{versions['stage2']}_{versions['stage1']}"
+    if args.sys:
+        job_version = f"{job_version}_{args.sys}"
+
+    job_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), job_version)
+    os.makedirs(job_dir, exist_ok=True)
+
+    if not args.quiet:
+        print(f"Job directory: {job_dir}")
+        print()
+
+    # Create master submission script
+    master_script = os.path.join(job_dir, "subAllofAll.sh")
+    with open(master_script, 'w') as f:
+        f.write("#!/bin/bash\n")
+        f.write(f"cd {job_dir}\n")
+
+    sub_scripts = []
+    for era in eras:
+        if not args.quiet:
+            print(f"--- Processing era: {era} ---")
+
+        dirs = get_input_output_dirs(config, era, args.sys, args.mc_only)
+
+        for data_type, (input_dir, output_dir) in dirs.items():
+            era_key = f"{era}_{data_type}"
+            sub_script = generate_jobs_for_dir(
+                input_dir, output_dir, era_key, job_dir, if1tau2l,
+                args.jes_type, args.jes_variation, args.quiet
+            )
+            if sub_script:
+                sub_scripts.append(sub_script)
+                with open(master_script, 'a') as f:
+                    f.write(f"bash {os.path.basename(sub_script)}\n")
+
+        if not args.quiet:
+            print()
+
+    subprocess.run(['chmod', '755', master_script], check=False)
+
+    if not args.quiet:
+        print(f"Master submission script: {master_script}")
+
+    # Submit jobs
+    if args.dry_run:
+        print("\n[DRY RUN] Would execute:")
+        print(f"  bash {master_script}")
+    else:
+        print(f"\nSubmitting jobs...")
+        uf.sumbitJobs(master_script)
+        print("Jobs submitted!")
 
 
+if __name__ == "__main__":
+    main()

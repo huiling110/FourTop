@@ -1,82 +1,161 @@
+#!/usr/bin/env python3
+"""
+Submit Stage 2 (MV) jobs for all systematic variations.
+
+Submits MV jobs for: TES (by decay mode), JER, MET, EleScale variations.
+JES variations with 27 sources are handled separately.
+
+Usage:
+    # All systematics for all eras in config
+    python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml
+
+    # Specific era
+    python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+    # Specific systematic group
+    python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --group TES
+
+    # Dry run
+    python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --dry-run
+"""
+import argparse
+import os
+import sys
+import subprocess
+
+# Add plotting directory for workflow_utils
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
+from workflow_utils import load_config, get_eras
+
+# Import the main submission script
 import makeJob_makeVaribles_forBDT as mj
-import ttttGlobleQuantity as gq
-# import addJESTemplatesToHistFile as aj
-#generate all 54 up and down JES variation job version for  MV  
+
+
+# Systematic variations (excluding JES which is handled separately)
+SYSTEMATICS = {
+    'TES': [
+        'TESdm0Up', 'TESdm0Down',
+        'TESdm1Up', 'TESdm1Down',
+        'TESdm10Up', 'TESdm10Down',
+        'TESdm11Up', 'TESdm11Down',
+    ],
+    'JER': ['JERUp', 'JERDown'],
+    'MET': ['METUp', 'METDown'],
+    'EleScale': ['EleScaleUp', 'EleScaleDown'],
+}
+
+ALL_SYSTEMATICS = []
+for group in SYSTEMATICS.values():
+    ALL_SYSTEMATICS.extend(group)
+
+
+def create_parser():
+    """Create argument parser."""
+    parser = argparse.ArgumentParser(
+        description='Submit Stage 2 (MV) jobs for systematic variations',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__
+    )
+    parser.add_argument(
+        '--config', '-c', required=True,
+        help='Path to YAML config file (required)'
+    )
+    parser.add_argument(
+        '--era', '-e',
+        help='Era to process (default: all from config)'
+    )
+    parser.add_argument(
+        '--group', '-g', choices=['TES', 'JER', 'MET', 'EleScale', 'all'],
+        default='all',
+        help='Systematic group to process (default: all)'
+    )
+    parser.add_argument(
+        '--mc-only', action='store_true', default=True,
+        help='Process only MC samples (default: True for systematics)'
+    )
+    parser.add_argument(
+        '--dry-run', '-n', action='store_true',
+        help='Show commands without submitting jobs'
+    )
+    parser.add_argument(
+        '--quiet', '-q', action='store_true',
+        help='Reduce output verbosity'
+    )
+    return parser
+
+
+def submit_systematic(config_path, era, systematic, mc_only=True, dry_run=False, quiet=False):
+    """Submit MV jobs for a single systematic variation."""
+    cmd = [
+        sys.executable,
+        os.path.join(os.path.dirname(__file__), 'makeJob_makeVaribles_forBDT.py'),
+        '--config', config_path,
+        '--sys', systematic,
+        '--mc-only',
+    ]
+    if era:
+        cmd.extend(['--era', era])
+    if dry_run:
+        cmd.append('--dry-run')
+    if quiet:
+        cmd.append('--quiet')
+
+    if not quiet:
+        print(f"\n{'='*60}")
+        print(f"Submitting: {systematic}")
+        print(f"{'='*60}")
+
+    result = subprocess.run(cmd, check=False)
+    return result.returncode == 0
+
 
 def main():
-<<<<<<< HEAD
-    # year = '2018'
-    # year = '2017'
-    year = '2016'
-    # inVersion = 'v91TESAddedHadroPre_JESPt20'
-    # inVersion = 'v93HadroPreJetVetoPileupID_JESPt22'
-    # inVersion = 'v91TESAddedLepPre_JETPt22'
-    # inVersion = 'v94HadroPreJetVetoHemOnly_JESPt22'
-    # inVersion = 'v94LepPreJetVetoHemOnly_JESPt22'
-    # inVersion = 'v94HadroPreJetVetoHemOnly'
-=======
-    year = '2018'
-    # year = '2017'
-    # year = '2016'
-    inVersion = 'v94HadroPreJetVetoHemOnly'
->>>>>>> huiling
-    # inVersion = 'v94LepPreJetVetoHemOnly'
-    # inVersion = 'v94LepPreJetVetoHemOnlyV2'
-    # outVersion = 'v0baselineLep'
-    # outVersion = 'v0baselineHadro'
-    outVersion = 'v1baselineHadroBtagWeightAdded'
-    if1tau2l = 0
-    # if1tau2l = 1
-  
-  
-    MV_TES(year, inVersion, outVersion, if1tau2l)
-    MV_EES(year, inVersion, outVersion, if1tau2l)
-    MV_MET(year, inVersion, outVersion, if1tau2l)
-    MV_JER(year, inVersion, outVersion, if1tau2l)
-    MV_JES(year, inVersion, outVersion, if1tau2l)
-    
-def MV_JER(year, inVersion, outVersion, if1tau2l):
-    inVersionUp = f'{inVersion}_JERUp'
-    inVersionDown = f'{inVersion}_JERDown'
-    mj.main(year, inVersionUp, outVersion, if1tau2l, 0, 0)
-    mj.main(year, inVersionDown, outVersion, if1tau2l, 0, 0)
+    args = create_parser().parse_args()
 
-def MV_MET(year, inVersion, outVersion, if1tau2l):
-    inVersionUp = f'{inVersion}_METUp'
-    inVersionDown = f'{inVersion}_METDown'
-    mj.main(year, inVersionUp, outVersion, if1tau2l, 0, 0)
-    mj.main(year, inVersionDown, outVersion, if1tau2l, 0, 0) 
+    # Load config to validate and show info
+    config = load_config(args.config)
 
-def MV_EES(year, inVersion, outVersion, if1tau2l):
-    inVersionUp = f'{inVersion}_EleScaleUp'
-    inVersionDown = f'{inVersion}_EleScaleDown'
-    mj.main(year, inVersionUp, outVersion, if1tau2l, 0, 0)
-    mj.main(year, inVersionDown, outVersion, if1tau2l, 0, 0)
+    # Get systematics to process
+    if args.group == 'all':
+        systematics = ALL_SYSTEMATICS
+    else:
+        systematics = SYSTEMATICS[args.group]
 
-    
-    
-def MV_TES(year, inVersion, outVersion, if1tau2l):
-    for i in (0, 1, 10, 11):
-        iInVersionUp = f'{inVersion}_TESdm{i}Up'
-        iInVersionDown = f'{inVersion}_TESdm{i}Down'
-        mj.main(year, iInVersionUp, outVersion, if1tau2l, 0, 0)
-        mj.main(year, iInVersionDown, outVersion, if1tau2l, 0, 0)
+    if not args.quiet:
+        print(f"=== Stage 2 (MV) Systematic Variations ===")
+        print(f"Config: {args.config}")
+        print(f"Era: {args.era or 'all from config'}")
+        print(f"Group: {args.group}")
+        print(f"Systematics to process: {len(systematics)}")
+        for sys in systematics:
+            print(f"  - {sys}")
+        print()
 
-def MV_JES(year, inVersion, outVersion, if1tau2l):    
-    for i in gq.JESVariationList:
-        ioutVersionUp = f'{outVersion}_JESup_{i}'
-        ioutVersionDown = f'{outVersion}_JESDown_{i}'
-        # print('ioutVersionUp: ', ioutVersionUp) 
-        index = gq.JESVariationList.index(i)
-        # if index < 26: #!!!
-        #     continue
-        print('i JESVariation: ', i)
-        mj.main(year, f'{inVersion}_JESPt22', ioutVersionUp, if1tau2l, 1, index)
-        print('submitted JES up\n')
-        mj.main(year, F'{inVersion}_JESPt22', ioutVersionDown, if1tau2l, 2, index)
-        print('submitted JES down\n\n\n')
-        
-   
-   
-if __name__=='__main__':
-    main() 
+    if args.dry_run:
+        print("[DRY RUN MODE]")
+        print()
+
+    # Submit jobs for each systematic
+    success_count = 0
+    failed = []
+
+    for systematic in systematics:
+        success = submit_systematic(
+            args.config, args.era, systematic,
+            mc_only=args.mc_only, dry_run=args.dry_run, quiet=args.quiet
+        )
+        if success:
+            success_count += 1
+        else:
+            failed.append(systematic)
+
+    # Summary
+    print(f"\n{'='*60}")
+    print(f"Summary: {success_count}/{len(systematics)} successful")
+    if failed:
+        print(f"Failed: {', '.join(failed)}")
+    print(f"{'='*60}")
+
+
+if __name__ == '__main__':
+    main()

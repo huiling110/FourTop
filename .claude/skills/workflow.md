@@ -92,11 +92,12 @@ ifblinding = options['blind']
 - `load_config(path)` - Load and validate YAML config
 - `build_stage1_input(config, era)` - Build NanoAOD input path
 - `build_stage1_output(config, era, sys)` - Build Stage 1 output path (optional systematic suffix)
-- `build_stage2_path(config, era)` - Build Stage 2 output path
+- `build_stage2_path(config, era)` - Build Stage 2 output path (nominal)
+- `build_stage2_output(config, era, sys, data_type)` - Build Stage 2 output with systematic support
 - `build_hist_path(config, era)` - Build histogram directory path
 - `get_options(config)` - Get normalized options dict
 - `get_channel(config)` - Get channel name
-- `get_channel_if1tau2l(config)` - Get if1tau2l flag (0 or 1) for Stage 1
+- `get_channel_if1tau2l(config)` - Get if1tau2l flag (0 or 1) for Stage 1/2
 - `get_regions(config)` - Get default regions for channel
 - `get_versions(config)` - Get version strings
 - `ERA_TO_UL` - Dict mapping era names to UL directory names
@@ -142,6 +143,48 @@ python3 makeJob_OS_fromRuobing2.py --config ../../config/analysis_config_1tau0l_
 **Batch Scripts**:
 - `submit_all_systematics.sh` - Submits all 15 systematic variations (JES, JER, MET, EleScale, TES by dm)
 - `check_systematic_jobs.sh` - Shows job status and output file counts for each systematic
+
+### Stage 2: Make Variables (MV)
+
+Calculates BDT input variables from Stage 1 output.
+
+```bash
+source setEnv_newNew.sh
+cd makeVariables_goodCode/jobs/
+
+# Submit nominal jobs for 2018
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# Submit for all eras in config
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml
+
+# MC only (typical for systematic variations)
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --mc-only
+
+# Dry run (show paths without submitting)
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --dry-run
+
+# Submit with systematic variation (requires Stage 1 systematic output)
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --sys JERUp
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --sys TESdm0Down
+```
+
+**Batch Systematic Submission** (14 variations: TES, JER, MET, EleScale):
+
+```bash
+# Submit all systematics for an era
+python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# Submit specific systematic group
+python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --group TES
+python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --group JER
+
+# Available groups: TES, JER, MET, EleScale, all
+```
+
+**Path patterns**:
+- Input: `{stage1_output}/UL{ERA}/{stage1_version}[_systematic]/mc/`
+- Output: `{stage2_output}/{era}/{stage2_version}_{stage1_version}[_systematic]/mc/`
 
 ### Stage 2.4: Fake Background Generation
 

@@ -230,6 +230,36 @@ def build_stage2_path(config: Dict[str, Any], era: str) -> str:
     return path + '/'
 
 
+def build_stage2_output(config: Dict[str, Any], era: str, systematic: str = None,
+                        data_type: str = 'mc') -> str:
+    """
+    Build path to Stage 2 output directory with systematic support.
+
+    Pattern: {output_base}/{era}/{stage2_version}_{stage1_version}[_systematic]/{data_type}/
+
+    Args:
+        config: Configuration dictionary from load_config().
+        era: Era string (2018, 2017, 2016preVFP, 2016postVFP).
+        systematic: Optional systematic variation suffix (e.g., 'JERUp', 'TESdm0Down').
+        data_type: 'mc' or 'data' (default: 'mc').
+
+    Returns:
+        Full path to Stage 2 output directory (with trailing /).
+    """
+    paths = config['paths']
+    versions = config['versions']
+    stage1_version = versions['stage1']
+    if systematic:
+        stage1_version = f"{stage1_version}_{systematic}"
+    path = os.path.join(
+        paths['output_base'],
+        era,
+        f"{versions['stage2']}_{stage1_version}",
+        data_type
+    )
+    return path + '/'
+
+
 def build_hist_path(config: Dict[str, Any], era: str) -> str:
     """
     Build path to histogram directory for a given era.

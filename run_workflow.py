@@ -2,12 +2,24 @@
 """
 FourTop Analysis Workflow Runner
 
-Master script for running the FourTop analysis pipeline from histogram
-production through statistical analysis. Uses YAML configuration for
+Master script for running the FourTop analysis pipeline from NanoAOD
+through statistical analysis. Uses YAML configuration for
 reproducible, version-controlled analysis runs.
 
 Usage:
-    # Run FULL pipeline (Stage 3 + Stage 4) - one command does everything!
+    # Run Stage 1 (object selection - nominal)
+    python3 run_workflow.py --stage 1 --config config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+    # Run Stage 1.1 (OS systematic variations)
+    python3 run_workflow.py --stage 1.1 --config config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+    # Run Stage 2 (make variables - nominal)
+    python3 run_workflow.py --stage 2 --config config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+    # Run Stage 2.1 (MV systematic variations)
+    python3 run_workflow.py --stage 2.1 --config config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+    # Run FULL late-stage pipeline (Stage 3 + Stage 4)
     python3 run_workflow.py --stage all --config config/analysis_config_1tau1l.yaml -l workflow.log
 
     # Run only Stage 3 (histogram job submission + monitoring)
@@ -22,13 +34,14 @@ Usage:
     # List available stages
     python3 run_workflow.py --list-stages
 
-    # Save current config as version snapshot
-    python3 run_workflow.py --save-version v9BDT1tau0l_CMSNamingComplete
-
 Stage groups:
-    "all" or "3-4" : Full pipeline (Stage 3 + Stage 4)
+    "1"            : Object Selection (NanoAOD → skimmed ntuples)
+    "1.1"          : OS systematic variations (15 variations)
+    "2"            : Make Variables (skimmed → BDT input)
+    "2.1"          : MV systematic variations (14 variations)
     "3"            : Histogram production (3.3 + 3.3.1 + 3.4)
     "4"            : Analysis workflow (4.1 + 4.2 + 4.2.5 + 4.3 + 4.4)
+    "all" or "3-4" : Full late-stage pipeline (Stage 3 + Stage 4)
 """
 
 import argparse
@@ -47,7 +60,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plotting'))
 try:
     from workflow_utils import (
         load_config, get_eras, get_channel, build_hist_path,
-        build_combine_path, get_options
+        build_combine_path, get_options, get_channel_if1tau2l,
+        build_stage1_output, build_stage2_output
     )
     WORKFLOW_UTILS_AVAILABLE = True
 except ImportError:
@@ -95,6 +109,26 @@ def setup_logging(log_file: Optional[str] = None, quiet: bool = False) -> None:
 
 # Stage definitions
 STAGES = {
+    '1': {
+        'name': 'Object Selection (OS)',
+        'script': 'objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py',
+        'description': 'Submit object selection jobs (NanoAOD → skimmed ntuples)'
+    },
+    '1.1': {
+        'name': 'OS Systematic Variations',
+        'script': 'objectSelectionOptimized/jobs/submit_all_systematics.sh',
+        'description': 'Submit OS jobs for all systematic variations (JES, JER, MET, EleScale, TES)'
+    },
+    '2': {
+        'name': 'Make Variables (MV)',
+        'script': 'makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py',
+        'description': 'Submit variable calculation jobs (skimmed → BDT input)'
+    },
+    '2.1': {
+        'name': 'MV Systematic Variations',
+        'script': 'makeVariables_goodCode/jobs/makeJob_MV_JESVariation.py',
+        'description': 'Submit MV jobs for all systematic variations'
+    },
     '3.3': {
         'name': 'Submit Nominal Histogram Jobs',
         'script': 'writeHistGood/jobs/makeJob_forWriteHist.py',
@@ -235,6 +269,108 @@ def get_running_jobs() -> int:
     except Exception as e:
         logger.warning(f"Could not check job status: {e}")
         return -1
+
+
+def run_stage_1(config: dict, era: str, quiet: bool = False,
+                systematic: str = None) -> Tuple[int, str, str]:
+    """
+    Run Stage 1: Submit object selection (OS) jobs.
+
+    Args:
+        config: Configuration dictionary
+        era: Era to process
+        quiet: Suppress output
+        systematic: Optional systematic variation (e.g., 'JERUp', 'TESdm0Down')
+
+    Returns:
+        Tuple of (exit_code, stdout, stderr)
+    """
+    project_root = get_project_root()
+    script = os.path.join(project_root, STAGES['1']['script'])
+    config_path = config.get('_config_path')
+
+    logger.info(f"Stage 1 | Era: {era}")
+    if systematic:
+        logger.info(f"Stage 1 | Systematic: {systematic}")
+
+    cmd = ['python3', script, '--config', config_path, '--era', era]
+    if systematic:
+        cmd.extend(['--sys', systematic])
+    if quiet:
+        cmd.append('--quiet')
+
+    return run_command(cmd, cwd=project_root, quiet=quiet, capture_output=True)
+
+
+def run_stage_1_1(config: dict, era: str, quiet: bool = False) -> Tuple[int, str, str]:
+    """
+    Run Stage 1.1: Submit OS systematic variation jobs.
+
+    This submits all 15 systematic variations (JES, JER, MET, EleScale, TES by dm).
+    """
+    project_root = get_project_root()
+    script = os.path.join(project_root, STAGES['1.1']['script'])
+    config_path = config.get('_config_path')
+
+    logger.info(f"Stage 1.1 | Era: {era}")
+    logger.info("Stage 1.1 | Submitting all systematic variations")
+
+    cmd = ['bash', script, config_path, era]
+    return run_command(cmd, cwd=project_root, quiet=quiet, capture_output=True)
+
+
+def run_stage_2(config: dict, era: str, quiet: bool = False,
+                systematic: str = None, mc_only: bool = False) -> Tuple[int, str, str]:
+    """
+    Run Stage 2: Submit make variables (MV) jobs.
+
+    Args:
+        config: Configuration dictionary
+        era: Era to process
+        quiet: Suppress output
+        systematic: Optional systematic variation suffix
+        mc_only: Process only MC (default for systematics)
+
+    Returns:
+        Tuple of (exit_code, stdout, stderr)
+    """
+    project_root = get_project_root()
+    script = os.path.join(project_root, STAGES['2']['script'])
+    config_path = config.get('_config_path')
+
+    logger.info(f"Stage 2 | Era: {era}")
+    if systematic:
+        logger.info(f"Stage 2 | Systematic: {systematic}")
+
+    cmd = ['python3', script, '--config', config_path, '--era', era]
+    if systematic:
+        cmd.extend(['--sys', systematic])
+    if mc_only or systematic:
+        cmd.append('--mc-only')
+    if quiet:
+        cmd.append('--quiet')
+
+    return run_command(cmd, cwd=project_root, quiet=quiet, capture_output=True)
+
+
+def run_stage_2_1(config: dict, era: str, quiet: bool = False) -> Tuple[int, str, str]:
+    """
+    Run Stage 2.1: Submit MV systematic variation jobs.
+
+    This submits MV jobs for all 14 systematic variations (TES, JER, MET, EleScale).
+    """
+    project_root = get_project_root()
+    script = os.path.join(project_root, STAGES['2.1']['script'])
+    config_path = config.get('_config_path')
+
+    logger.info(f"Stage 2.1 | Era: {era}")
+    logger.info("Stage 2.1 | Submitting all systematic variations")
+
+    cmd = ['python3', script, '--config', config_path, '--era', era]
+    if quiet:
+        cmd.append('--quiet')
+
+    return run_command(cmd, cwd=project_root, quiet=quiet, capture_output=True)
 
 
 def run_stage_3_3(config: dict, era: str, quiet: bool = False) -> Tuple[int, str, str]:
@@ -629,6 +765,10 @@ def _run_era_stage(stage: str, config: dict, era: str,
     """Run a single stage for a single era. Returns exit code."""
     # Dispatch table for per-era stages
     era_runners = {
+        '1': lambda: run_stage_1(config, era, quiet=quiet),
+        '1.1': lambda: run_stage_1_1(config, era, quiet=quiet),
+        '2': lambda: run_stage_2(config, era, quiet=quiet),
+        '2.1': lambda: run_stage_2_1(config, era, quiet=quiet),
         '3.3': lambda: run_stage_3_3(config, era, quiet=quiet),
         '3.3.1': lambda: run_stage_3_3_1(config, era, quiet=quiet),
         '4.1': lambda: run_stage_4_1(config, era, quiet=quiet),
@@ -989,6 +1129,8 @@ def load_workflow_config(args) -> Tuple[Optional[dict], Optional[List[str]]]:
 
     try:
         config = load_config(config_path)
+        # Store config path for use by stage runners
+        config['_config_path'] = config_path
     except FileNotFoundError:
         print(f"ERROR: Config file not found: {config_path}")
         return None, None

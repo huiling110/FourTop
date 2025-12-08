@@ -319,11 +319,43 @@ make clean && make
 
 ### 2.4 Job Submission
 
+**Using config-based workflow (recommended)**:
+
 ```bash
 cd makeVariables_goodCode/jobs/
-# Edit makeJob_makeVaribles_forBDT.py with correct era/version
-python3 makeJob_makeVaribles_forBDT.py
+
+# Nominal - all eras from config
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml
+
+# Nominal - specific era
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# With systematic variation (requires Stage 1 systematic output)
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --sys JERUp
+
+# MC only (skip data, typical for systematics)
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --sys TESdm0Up --mc-only
+
+# Dry run to preview commands
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --dry-run
 ```
+
+**Batch systematic submission** (TES, JER, MET, EleScale - 14 variations):
+
+```bash
+# All systematics for an era
+python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# Specific systematic group
+python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --group TES
+python3 makeJob_MV_JESVariation.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --group JER
+
+# Available groups: TES, JER, MET, EleScale, all
+```
+
+**Path patterns**:
+- Input: `{stage1_output_base}/UL{ERA}/{stage1_version}[_systematic]/mc/`
+- Output: `{stage2_output_base}/{era}/{stage2_version}_{stage1_version}[_systematic]/mc/`
 
 ### 2.5 Variables Calculated (~200+ branches)
 
