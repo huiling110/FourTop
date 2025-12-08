@@ -1,7 +1,7 @@
 # Tasks: FourTop Workflow Optimization
 
 **Created**: 2025-12-08
-**Last Updated**: 2025-12-08 (Session 3)
+**Last Updated**: 2025-12-08 (Session 4)
 **Status**: IN PROGRESS
 
 ---
@@ -116,4 +116,13 @@
 - Refactored pl.py to use workflow_utils consistently (~200 lines removed)
 - Tested WH jobs and pl.py for 1tau0l: 2017, 2016postVFP, 2016preVFP - all working
 - Key finding: `systematics: false` in config skips JES systematic histogram lookup
-- Next: 1tau1l channel testing (WH jobs for 2017, 2016)
+
+**Session 4 (2025-12-08)**:
+- Trimmed CLAUDE.md from ~330 to ~90 lines (removed duplication with workflow skill)
+- Added rule 5: "Commit often after significant code changes"
+- Renamed config: `analysis_config_1tau0l_full.yaml` → `analysis_config_1tau0l_TTBBtest.yaml`
+- Completed 1tau1l channel testing:
+  - WH jobs submitted and completed for 2017, 2016postVFP, 2016preVFP (71 files each)
+  - pl.py validated for all three eras - BDT plots generated successfully
+- Both 1tau0l and 1tau1l configs now use consistent `_TTBBtest` naming
+- Workflow optimization Phase 1-6 working well for Stage 3 and Stage 4
