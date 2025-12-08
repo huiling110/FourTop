@@ -1,95 +1,105 @@
+#!/usr/bin/env python3
+"""
+Create fake tau background estimation files.
+
+Standalone usage:
+    python3 createFaketauTree.py --config config/analysis_config.yaml --era 2018
+    python3 createFaketauTree.py --config config/analysis_config.yaml  # all eras
+
+Via workflow runner:
+    python3 run_workflow.py --stage 2.4 --config config/analysis_config.yaml
+
+Historical paths preserved in: config/historical_paths_backup.txt
+"""
+import argparse
 import usefulFunc as uf
 import ttttGlobleQuantity as gq
 import ROOT
 import pandas as pd
 import os
 
-def main():
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFR_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinC_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_tauFMorphMass_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/mc/'
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/'
-    is1tau2l = False
-    # is1tau2l = True
-    # ifMorphTauPt = False
-    ifMorphTauPt = True
-   
-    
-    
-    inputDirDic = uf.getDirDic(inputDir)  
-    era = uf.getEraFromDir(inputDir)
-    print(era)
-    
+# Import workflow utilities for config-based path building
+try:
+    from workflow_utils import load_config, build_stage2_path, get_channel, get_eras
+    WORKFLOW_UTILS_AVAILABLE = True
+except ImportError:
+    WORKFLOW_UTILS_AVAILABLE = False
+
+
+def create_parser():
+    """Create argument parser."""
+    parser = argparse.ArgumentParser(
+        description='Create fake tau background estimation files',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__
+    )
+    parser.add_argument('--config', '-c', required=True,
+                        help='Path to YAML config file (required)')
+    parser.add_argument('--era', '-e',
+                        help='Era to process (default: all from config)')
+    parser.add_argument('--quiet', '-q', action='store_true',
+                        help='Reduce output verbosity')
+    parser.add_argument('--no-morph', action='store_true',
+                        help='Disable tau pT morphing (default: enabled)')
+    parser.add_argument('--is-1tau2l', action='store_true',
+                        help='Process for 1tau2l channel (default: 1tau0l/1tau1l)')
+    return parser
+
+
+def run_for_era(inputDir: str, era: str, is1tau2l: bool, ifMorphTauPt: bool, quiet: bool = False):
+    """Run fake tau tree creation for a single era."""
+    if not quiet:
+        print(f"\n{'='*60}")
+        print(f"Processing era: {era}")
+        print(f"Input: {inputDir}")
+        print(f"{'='*60}")
+
+    inputDirDic = uf.getDirDic(inputDir)
+    if not quiet:
+        print(f"Era detected: {uf.getEraFromDir(inputDir)}")
+
     postFix = '_ptMorphed' if ifMorphTauPt else ''
-    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt ) 
-    createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt) 
-    
-    # makeOtherMCGen(inputDirDic, era) #!for BDT training, MC processes have to be gen tau
-   
-    #!For testing fake tau in 1tau1l and 1tau2l
-    # lep1Cut = '(elesTopMVAF_1isTight || muonsTopMVAF_1isTight) && lepTopMVAF_num==1'
-    # channelSel = f'{lep1Cut} && jets_num>=6 && bjetsM_num>=2'   
-    # channelSel = f'{lep1Cut} && jets_num>=7 && bjetsM_num>=3'
-    # postFix = '_1tau1lAllRegion'
-    
-    # lepPreSel = 'jets_num>=2 && bjetsM_num>=1 && jets_HT>200. && lepTopMVAT_1pt>25. && lepTopMVAT_2pt>13.  && !lepTopMVAT_2ifZVeto'
-    # isTight_2L = '(elesTopMVAF_1isTight && elesTopMVAF_2isTight) || (muonsTopMVAF_1isTight && muonsTopMVAF_2isTight) || (elesTopMVAF_1isTight && muonsTopMVAF_1isTight) || (elesTopMVAF_2isTight && muonsTopMVAF_2isTight)'
-    # lep2Cut = f'lepTopMVAF_num==2 && ({isTight_2L})'
-    # channelSel = f'&& {lep2Cut} && jets_num>=4 && bjetsM_num>=2 && {lepPreSel}'
-    # postFix = '_1tau2lSR'
-    # channelSel = f'&& {lep2Cut} && !(jets_num>=4 && bjetsM_num>=2) && {lepPreSel}'
-    # postFix = '_1tau2lCR2'
-    # createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
-    # channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num<8 && bjetsM_num>2'
-    # postFix = '_1tau0lVRHTCut500'
-    # channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>7 && bjetsM_num>2'
-    # postFix = '_1tau0lSRHTCut500'
-    # postFix = '_1tau0lMR'
-    # postFix = '_1tau0lMRHTCut300'
-    # channelSel = '&& (elesTopMVAT_num==0 && muonsTopMVAT_num==0) && jets_num>=6 && bjetsM_num==2'
-    # postFix = '_1tau0lMRHTCut500'
-    # postFix = postFix + '_onlyTT'
-    # postFix = postFix + '_onlyQCD'
-    # createFakeTauTree_Gen(inputDirDic, era, is1tau2l, channelSel, postFix)#fakeTau from gen jet, to be compared with faketau from data-driven
-    # createFakeTauTree(inputDirDic, era, is1tau2l, channelSel, postFix, True)
-    # createFakeTauTree_mc(inputDirDic, era, is1tau2l, channelSel, postFix, True)
-    
-    
-  
-    
-     
+    createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt)
+    createFakeTauTree_mc(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt)
+
+    if not quiet:
+        print(f"Completed era: {era}")
+
+
+def main():
+    parser = create_parser()
+    args = parser.parse_args()
+
+    if not WORKFLOW_UTILS_AVAILABLE:
+        parser.error("workflow_utils not available. Install pyyaml: pip install pyyaml")
+
+    # Load config
+    config = load_config(args.config)
+
+    # Determine eras to process
+    eras = [args.era] if args.era else get_eras(config)
+
+    # Determine channel settings
+    channel = get_channel(config)
+    is1tau2l = args.is_1tau2l or ('1tau2l' in channel)
+    ifMorphTauPt = not args.no_morph
+
+    if not args.quiet:
+        print(f"Config: {args.config}")
+        print(f"Channel: {channel}")
+        print(f"Eras: {eras}")
+        print(f"1tau2l mode: {is1tau2l}")
+        print(f"Tau pT morphing: {ifMorphTauPt}")
+
+    # Process each era
+    for era in eras:
+        inputDir = build_stage2_path(config, era)
+        run_for_era(inputDir, era, is1tau2l, ifMorphTauPt, args.quiet)
+
+    if not args.quiet:
+        print(f"\nAll eras completed successfully!")
+
+
 def makeOtherMCGen(inputDirDic, era):
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt','VLLm500', 'VLLm550','VLLm600','VLLm650','VLLm700','VLLm750','VLLm800','VLLm850','VLLm900','VLLm950','VLLm1000']
     for iPro in MCSum:
@@ -104,16 +114,8 @@ def makeOtherMCGen(inputDirDic, era):
             
             cut.Snapshot('newtree', inputDirDic['mc']+ isubPro + '_tauGen.root')
             print('cut on tauTgen done on file: ',  inputDirDic['mc']+ isubPro + '_tauGen.root', '\n')
-        
-    
 
-    
-   
-   
-    
-    
-   
-    
+
 def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPostfix = '', ifMorphTauPt = False):
     sumData='leptonSum' if is1tau2l else 'jetHT' 
     print('sumData: ', sumData)
