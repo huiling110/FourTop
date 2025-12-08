@@ -4,6 +4,9 @@
 #
 # Purpose: Remind to source environment before running analysis scripts
 
+# Project root directory
+PROJECT_ROOT="/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop"
+
 # Only check for Bash tool
 if [[ "$TOOL_NAME" != "Bash" ]]; then
     exit 0
@@ -11,6 +14,22 @@ fi
 
 # Get the command being executed
 command_str="$BASH_COMMAND"
+
+# CRITICAL: Check for common mistake - using setEnv_newNew.sh without full path or cd
+if [[ "$command_str" =~ "source setEnv_newNew.sh" ]] && [[ ! "$command_str" =~ "cd $PROJECT_ROOT" ]] && [[ ! "$command_str" =~ "cd /workfs2" ]]; then
+    echo ""
+    echo "═══════════════════════════════════════════════════════════════════════"
+    echo "⚠️  PATH ERROR: setEnv_newNew.sh needs full path!"
+    echo "═══════════════════════════════════════════════════════════════════════"
+    echo ""
+    echo "WRONG:  source setEnv_newNew.sh"
+    echo "RIGHT:  cd $PROJECT_ROOT && source setEnv_newNew.sh"
+    echo ""
+    echo "═══════════════════════════════════════════════════════════════════════"
+    echo ""
+    # Block the command - exit with error
+    exit 1
+fi
 
 # Skip environment setup commands themselves
 if [[ "$command_str" =~ source.*setEnv || "$command_str" =~ cmsenv ]]; then

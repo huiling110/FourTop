@@ -82,7 +82,15 @@ python3 makeJob_forWriteHist.py --config ../../config/analysis_config_1tau0l_ful
 hep_q -u $USER
 ```
 
-### Stage 4.1: JES Template Consolidation
+**Note on Systematics**:
+- If `options.systematics: true` in config: Nominal WH jobs include all systematics internally.
+  **Skip Stage 4.1 and JES systematic WH jobs** - they are NOT needed.
+- If `options.systematics: false` in config: Only nominal histograms are produced.
+  For full systematics, you would need separate JES variation jobs + Stage 4.1.
+
+### Stage 4.1: JES Template Consolidation (SKIP if systematics: true)
+
+Only needed when running separate JES systematic variation jobs:
 
 ```bash
 source setEnv_newNew.sh
@@ -107,8 +115,14 @@ python3 writeDatacard.py --config ../config/analysis_config_1tau0l_full.yaml --e
 ```bash
 source setEnv_newNew.sh
 cd plotting/
-python3 pl.py  # Uses hardcoded paths currently - check inside script
+python3 pl.py --config ../config/analysis_config_1tau0l_full.yaml --era 2018
 ```
+
+Options read from config:
+- `options.systematics`: Whether to plot with systematic error bands
+- `options.fake_tau`: Whether to use data-driven fake tau
+- `options.mc_fake_tau`: Whether to use MC fake tau
+- `options.blind`: Whether to blind the signal region
 
 ### Stage 4.5: Combine (Statistical Analysis)
 

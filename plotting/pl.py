@@ -20,12 +20,33 @@ def load_yaml_config(config_path):
 
 
 def build_input_dir_from_yaml(config, era):
-    """Build inputDir path from YAML config for given era."""
-    paths = config['paths']
-    base = paths['base']
-    out_version = paths['out_version']
-    in_version = paths['in_version']
-    hist_version = paths['hist_version']
+    """Build inputDir path from YAML config for given era.
+
+    Supports both new format (versions section) and legacy format (paths section).
+    """
+    # Try to use workflow_utils for consistent path building
+    try:
+        from workflow_utils import build_hist_path
+        return build_hist_path(config, era)
+    except ImportError:
+        pass
+
+    # Fallback: manual path building (supports both formats)
+    paths = config.get('paths', {})
+    versions = config.get('versions', {})
+
+    # New format uses versions section
+    if versions:
+        base = paths.get('output_base', paths.get('base', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA'))
+        out_version = versions.get('stage2', paths.get('out_version', 'v1baselineHadro'))
+        in_version = versions.get('stage1', paths.get('in_version', 'v94HadroPreJetVetoHemOnly'))
+        hist_version = versions.get('hist', paths.get('hist_version', 'v0BDT'))
+    else:
+        # Legacy format
+        base = paths.get('base', '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA')
+        out_version = paths.get('out_version', 'v1baselineHadro')
+        in_version = paths.get('in_version', 'v94HadroPreJetVetoHemOnly')
+        hist_version = paths.get('hist_version', 'v0BDT')
 
     # Format: {base}/{era}/{out_version}_{in_version}/mc/variableHists_{hist_version}/
     input_dir = os.path.join(
@@ -202,11 +223,38 @@ def main():
         config = load_yaml_config(args.config)
         era = args.era if args.era else config.get('eras', ['2018'])[0]
         inputDir = build_input_dir_from_yaml(config, era)
-        channel = args.channel if args.channel else config.get('channel', {}).get('name', '1tau0l')
-        variables = config.get('channel', {}).get('variables', ['BDT'])
-        regionList = args.regions if args.regions else config.get('channel', {}).get('regions', ['1tau0lSR', '1tau0lCRMR', '1tau0lVR'])
+
+        # Read options from config (supports both new and legacy key names)
+        options = config.get('options', {})
+        ifFTau = options.get('fake_tau', options.get('ifFakeTau', True))
+        ifMCFTau = options.get('mc_fake_tau', options.get('ifMCFakeTau', False))
+        ifblinding = options.get('blind', options.get('ifBlind', False))
+        ifSystematic = options.get('systematics', options.get('ifSystematic', True))
+        # Command line --no-sys overrides config
+        if args.no_sys:
+            ifSystematic = False
+
+        # Handle both new format (channel as string) and legacy format (channel as dict)
+        channel_config = config.get('channel', '1tau0l')
+        if isinstance(channel_config, dict):
+            channel = args.channel if args.channel else channel_config.get('name', '1tau0l')
+            variables = channel_config.get('variables', ['BDT'])
+            default_regions = channel_config.get('regions', ['1tau0lSR', '1tau0lCRMR', '1tau0lVR'])
+        else:
+            channel = args.channel if args.channel else channel_config
+            variables = ['BDT']  # Default variable
+            # Default regions based on channel
+            region_defaults = {
+                '1tau0l': ['1tau0lSR', '1tau0lCRMR', '1tau0lVR'],
+                '1tau1l': ['1tau1lSR', '1tau1lCR12'],
+                '1tau2l': ['1tau2lSR', '1tau2lCR3'],
+            }
+            default_regions = region_defaults.get(channel, ['1tau0lSR', '1tau0lCRMR', '1tau0lVR'])
+        regionList = args.regions if args.regions else default_regions
+
         print(f'Using YAML config: {args.config}')
         print(f'inputDir: {inputDir}')
+        print(f'Options: systematics={ifSystematic}, fake_tau={ifFTau}, mc_fake_tau={ifMCFTau}, blind={ifblinding}')
     else:
         # Default hardcoded values (original behavior)
         inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/'
