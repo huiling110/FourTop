@@ -157,6 +157,8 @@ Plot colors:
 - Jobs must run on AlmaLinux9 (not CentOS7) for CMSSW_14 compatibility
 - **2018 both channels validated** (1tau0l and 1tau1l) - ready for other years
 - **CRITICAL**: Fake tau/lepton files MUST be regenerated for each version (added to CLAUDE.md)
+- **CRITICAL**: NEVER create symbolic links for process files - always run the proper jobs to generate outputs
+- ⚠️ **2017/2016 Stage 3 missing fake tau/lepton** - WH jobs didn't include fake files, need to submit separately
 
 ## Resume Commands
 
