@@ -34,23 +34,68 @@ config/analysis_config_template.yaml         # Template for new configs
 ### Config Schema (minimal)
 
 ```yaml
-metadata:
-  channel: "1tau0l"
-paths:
-  base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
-  out_version: "v1baselineHadro"
-  in_version: "v94HadroPreJetVetoHemOnly"
-  hist_version: "v0BDT1tau0l"
+versions:
+  stage1: "v94HadroPreJetVetoHemOnly_TTBBtest"
+  stage2: "v1baselineHadro"
+  hist: "v0BDT1tau0l_TTBBtest"
+  datacard: "v1_TTBBtest"
+  combination: "combinationV21"
+
+channel: "1tau0l"
+
 eras:
   - "2018"
   - "2017"
   - "2016preVFP"
   - "2016postVFP"
+
 options:
-  ifFakeTau: true
-  ifMCFTau: false
-  ifBlind: false
+  fake_tau: true
+  mc_fake_tau: false
+  blind: false
+  systematics: true  # Set false for testing without JES
+  smoothing: false
+
+paths:
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"
 ```
+
+## Python Script Pattern (workflow_utils)
+
+All Stage 4 scripts MUST use `workflow_utils` for consistent config handling:
+
+```python
+from workflow_utils import (
+    load_config, build_hist_path, get_channel, get_regions, get_options
+)
+
+# Load config (validates and normalizes format)
+config = load_config(args.config)
+
+# Build paths
+inputDir = build_hist_path(config, args.era)
+
+# Get settings from config
+options = get_options(config)
+channel = get_channel(config)
+regionList = get_regions(config)
+
+# Access options
+ifSystematic = options['systematics']
+ifFTau = options['fake_tau']
+ifMCFTau = options['mc_fake_tau']
+ifblinding = options['blind']
+```
+
+**Key workflow_utils functions:**
+- `load_config(path)` - Load and validate YAML config
+- `build_hist_path(config, era)` - Build histogram directory path
+- `build_stage2_path(config, era)` - Build Stage 2 output path
+- `get_options(config)` - Get normalized options dict
+- `get_channel(config)` - Get channel name
+- `get_regions(config)` - Get default regions for channel
+- `get_versions(config)` - Get version strings
 
 ## Stage Commands
 

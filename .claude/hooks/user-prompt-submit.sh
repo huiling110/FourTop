@@ -51,6 +51,16 @@ check_workflow_patterns() {
         return 0
     fi
 
+    # Python editing keywords (trigger workflow_utils reminder)
+    if [[ "$prompt_lower" =~ (edit|update|modify|fix|refactor).*(pl\.py|plotting|workflow_utils|addtemplate|writedatacard|createfake) ]]; then
+        return 0
+    fi
+
+    # workflow_utils pattern reminder
+    if [[ "$prompt_lower" =~ (load_config|get_options|build_hist_path|workflow_utils) ]]; then
+        return 0
+    fi
+
     return 1
 }
 
@@ -68,6 +78,10 @@ if check_workflow_patterns; then
     echo "  - Required flags (--config and --era)"
     echo "  - Stage-specific commands and order"
     echo "  - Fake tau/lepton regeneration requirements"
+    echo "  - Python pattern: use workflow_utils for config handling"
+    echo ""
+    echo "Python scripts MUST use workflow_utils:"
+    echo "  from workflow_utils import load_config, get_options, ..."
     echo ""
     echo "Usage: Skill 'workflow' or read .claude/skills/workflow.md"
     echo "═══════════════════════════════════════════════════════════════════════"
