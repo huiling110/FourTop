@@ -1,7 +1,7 @@
 # Context: FourTop Workflow Optimization
 
 **Created**: 2025-12-08
-**Last Updated**: 2025-12-08 (Session 5)
+**Last Updated**: 2025-12-08 (Session 6)
 **Status**: IN PROGRESS
 
 ---
@@ -43,6 +43,13 @@ All scripts now require: `--config CONFIG --era ERA` (no fallback to hardcoded p
 - `objectSelectionOptimized/jobs/submit_all_systematics.sh` - **NEW** Batch submission for 15 systematics
 - `objectSelectionOptimized/jobs/check_systematic_jobs.sh` - **NEW** Job status monitoring
 
+### Phase 5: Stage 2 ✅ COMPLETE
+
+- `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` - **REFACTORED** to use workflow_utils
+- `makeVariables_goodCode/jobs/makeJob_MV_JESVariation.py` - **REFACTORED** for batch systematic submission
+- `plotting/workflow_utils.py` - **ADDED** `build_stage2_output()` function
+- `run_workflow.py` - **ADDED** Stage 1, 1.1, 2, 2.1 support
+
 ### Scripts to Refactor (Pending)
 
 **Phase 3: Stage 2.4**
@@ -50,9 +57,6 @@ All scripts now require: `--config CONFIG --era ERA` (no fallback to hardcoded p
 
 **Phase 4: Stage 3**
 - `writeHistGood/jobs/makeJob_forWriteHist.py` - Add workflow_utils
-
-**Phase 5: Stage 2**
-- `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` - Add argparse
 
 ### Claude Integration ✅ COMPLETE
 - `.claude/skills/workflow.md` - Analysis pipeline skill with stage commands, workflow_utils pattern
@@ -158,6 +162,7 @@ python3 -c "from plotting.workflow_utils import *; help(load_config)"
 11. `3eac2730` - docs: Update workflow-optimization dev-docs with Session 4 progress
 12. `efad13c1` - docs: Move workflow-code-quality to completed
 13. `14e2ae73` - feat: Complete Phase 5 Stage 1 workflow integration
+14. `19300aed` - feat: Integrate Stage 1 (OS) and Stage 2 (MV) into run_workflow.py
 
 ---
 

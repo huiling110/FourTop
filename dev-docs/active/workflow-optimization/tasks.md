@@ -1,7 +1,7 @@
 # Tasks: FourTop Workflow Optimization
 
 **Created**: 2025-12-08
-**Last Updated**: 2025-12-08 (Session 5)
+**Last Updated**: 2025-12-08 (Session 6)
 **Status**: IN PROGRESS
 
 ---
@@ -54,7 +54,7 @@
 
 ---
 
-## Phase 5: Stage 1-2 Integration (IN PROGRESS)
+## Phase 5: Stage 1-2 Integration ✅ COMPLETE
 
 ### Stage 1 (OS) ✅ COMPLETE
 - [x] makeJob_OS_fromRuobing2.py - Complete rewrite with workflow_utils
@@ -73,13 +73,25 @@
 
 **Commit**: `14e2ae73 feat: Complete Phase 5 Stage 1 workflow integration`
 
-### Stage 2 (MV) PENDING
-- [ ] makeJob_makeVaribles_forBDT.py - Add --config support
-- [ ] Add Stage 2 to run_workflow.py
+### Stage 2 (MV) ✅ COMPLETE
+- [x] makeJob_makeVaribles_forBDT.py - Complete rewrite with workflow_utils
+  - Added argparse: --config (required), --era, --sys, --mc-only, --dry-run, --quiet
+  - Uses workflow_utils: load_config, get_eras, get_channel, build_stage1_output, build_stage2_output
+- [x] makeJob_MV_JESVariation.py - Batch submission script
+  - Submits MV jobs for 14 systematic variations (TES×8, JER×2, MET×2, EleScale×2)
+  - Supports --group option: TES, JER, MET, EleScale, all
+- [x] Added `build_stage2_output()` to workflow_utils.py
+- [x] Updated workflow skill with Stage 2 commands
+- [x] Updated ANALYSIS_WORKFLOW.md with MV commands
+- [x] MV systematic jobs for 2018 submitted (14 variations × 59 jobs = 826 jobs, running)
 
-### Integration PENDING
-- [ ] Add Stage 1 and 2 to run_workflow.py
-- [ ] Test full pipeline from NanoAOD
+### run_workflow.py Integration ✅ COMPLETE
+- [x] Added Stage 1, 1.1, 2, 2.1 to STAGES dict
+- [x] Implemented run_stage_1(), run_stage_1_1(), run_stage_2(), run_stage_2_1()
+- [x] Updated _run_era_stage() dispatcher
+- [x] Config path stored in config dict for stage runners
+
+**Commit**: `19300aed feat: Integrate Stage 1 (OS) and Stage 2 (MV) into run_workflow.py`
 
 ---
 
@@ -158,3 +170,18 @@
 - Submitted OS systematic jobs for 2018 (15 variations, running)
 - Updated ANALYSIS_WORKFLOW.md Section 1.4 with new workflow
 - Next: Wait for OS jobs (~2-3 hours), then MV + WH testing
+
+**Session 6 (2025-12-08)**:
+- Completed Phase 5 Stage 2 (MV) workflow integration:
+  - Refactored makeJob_makeVaribles_forBDT.py to use workflow_utils
+  - Refactored makeJob_MV_JESVariation.py for batch systematic submission
+  - Added build_stage2_output() to workflow_utils.py
+  - Supports 14 systematic variations (TES×8, JER×2, MET×2, EleScale×2)
+- Integrated Stage 1 and Stage 2 into run_workflow.py:
+  - Added Stage 1, 1.1, 2, 2.1 to STAGES dict
+  - Implemented run_stage_1/1_1/2/2_1() functions
+  - Updated _run_era_stage() dispatcher
+  - Config path stored in config dict for script access
+- Submitted MV systematic jobs for 2018 (14 variations × 59 jobs = 826 jobs, running)
+- Updated workflow skill and ANALYSIS_WORKFLOW.md with MV commands
+- Next: Wait for MV jobs, then Stage 3 (WH) testing with systematics
