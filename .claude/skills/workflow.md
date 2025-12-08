@@ -90,14 +90,58 @@ ifblinding = options['blind']
 
 **Key workflow_utils functions:**
 - `load_config(path)` - Load and validate YAML config
-- `build_hist_path(config, era)` - Build histogram directory path
+- `build_stage1_input(config, era)` - Build NanoAOD input path
+- `build_stage1_output(config, era, sys)` - Build Stage 1 output path (optional systematic suffix)
 - `build_stage2_path(config, era)` - Build Stage 2 output path
+- `build_hist_path(config, era)` - Build histogram directory path
 - `get_options(config)` - Get normalized options dict
 - `get_channel(config)` - Get channel name
+- `get_channel_if1tau2l(config)` - Get if1tau2l flag (0 or 1) for Stage 1
 - `get_regions(config)` - Get default regions for channel
 - `get_versions(config)` - Get version strings
+- `ERA_TO_UL` - Dict mapping era names to UL directory names
+- `ERA_TO_NANOAOD` - Dict mapping era names to NanoAOD directory names
 
 ## Stage Commands
+
+### Stage 1: Object Selection (OS)
+
+Converts NanoAOD to skimmed ntuples with object selection.
+
+```bash
+source setEnv_newNew.sh
+cd objectSelectionOptimized/jobs/
+
+# Submit nominal jobs for 2018
+python3 makeJob_OS_fromRuobing2.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# Submit for all eras in config
+python3 makeJob_OS_fromRuobing2.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml
+
+# Dry run (show paths without submitting)
+python3 makeJob_OS_fromRuobing2.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --dry-run
+
+# Submit with systematic variation
+python3 makeJob_OS_fromRuobing2.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --sys JES
+python3 makeJob_OS_fromRuobing2.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --sys JERUp
+
+# Available systematics: JES, JERUp, JERDown, METUp, METDown, EleScaleUp, EleScaleDown,
+#                        TESdm0Up, TESdm0Down, TESdm1Up, TESdm1Down,
+#                        TESdm10Up, TESdm10Down, TESdm11Up, TESdm11Down
+# Note: Use TES by decay mode only (dm0, dm1, dm10, dm11), not total TESUp/TESDown
+
+# Submit ALL systematic variations at once (15 total)
+./submit_all_systematics.sh ../../config/analysis_config_1tau0l_TTBBtest.yaml 2018
+
+# Check systematic job status
+./check_systematic_jobs.sh 2018
+```
+
+**Note**: Stage 1 systematics create separate output directories (e.g., `v94..._JESPt22/`).
+
+**Batch Scripts**:
+- `submit_all_systematics.sh` - Submits all 15 systematic variations (JES, JER, MET, EleScale, TES by dm)
+- `check_systematic_jobs.sh` - Shows job status and output file counts for each systematic
 
 ### Stage 2.4: Fake Background Generation
 

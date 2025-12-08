@@ -131,6 +131,81 @@ def _validate_config(config: Dict[str, Any]) -> None:
 # Path Building Functions
 # =============================================================================
 
+# Era mapping for Stage 1 paths
+ERA_TO_UL = {
+    '2016postVFP': 'UL2016_postVFP',
+    '2016preVFP': 'UL2016_preVFP',
+    '2016': 'UL2016_postVFP',
+    '2016APV': 'UL2016_preVFP',
+    '2017': 'UL2017',
+    '2018': 'UL2018',
+}
+
+ERA_TO_NANOAOD = {
+    '2016postVFP': '2016',
+    '2016preVFP': '2016APV',
+    '2016': '2016',
+    '2016APV': '2016APV',
+    '2017': '2017',
+    '2018': '2018',
+}
+
+
+def build_stage1_input(config: Dict[str, Any], era: str) -> str:
+    """
+    Build path to Stage 1 input directory (NanoAOD).
+
+    Pattern: {nanoaod_base}/{nanoaod_era}/
+
+    Args:
+        config: Configuration dictionary from load_config().
+        era: Era string (2018, 2017, 2016preVFP, 2016postVFP).
+
+    Returns:
+        Full path to NanoAOD input directory (with trailing /).
+    """
+    nanoaod_base = config['paths'].get('nanoaod_base', '/publicfs/cms/data/TopQuark/nanoAOD')
+    nanoaod_era = ERA_TO_NANOAOD.get(era, era)
+    return os.path.join(nanoaod_base, nanoaod_era) + '/'
+
+
+def build_stage1_output(config: Dict[str, Any], era: str, systematic: str = None) -> str:
+    """
+    Build path to Stage 1 output directory (object selection).
+
+    Pattern: {output_base_os}/{UL_era}/{stage1_version}[_systematic]/
+
+    Args:
+        config: Configuration dictionary from load_config().
+        era: Era string (2018, 2017, 2016preVFP, 2016postVFP).
+        systematic: Optional systematic variation suffix (e.g., 'JESUp', 'JERDown').
+
+    Returns:
+        Full path to Stage 1 output directory (with trailing /).
+    """
+    # Stage 1 uses a different base path than Stage 2+
+    output_base = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD'
+    ul_era = ERA_TO_UL.get(era, f'UL{era}')
+    version = config['versions']['stage1']
+    if systematic:
+        version = f"{version}_{systematic}"
+    return os.path.join(output_base, ul_era, version) + '/'
+
+
+def get_channel_if1tau2l(config: Dict[str, Any]) -> int:
+    """
+    Get if1tau2l flag from channel (for Stage 1 executable).
+
+    Args:
+        config: Configuration dictionary from load_config().
+
+    Returns:
+        1 for 1tau2l channel, 0 for others.
+    """
+    channel = get_channel(config)
+    return 1 if '1tau2l' in channel else 0
+
+
 def build_stage2_path(config: Dict[str, Any], era: str) -> str:
     """
     Build path to Stage 2 output directory (variables for BDT).

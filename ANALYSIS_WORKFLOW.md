@@ -166,30 +166,54 @@ make clean && make
 - `if1tau2l`: Channel flag (0=1tau0l/1tau1l, 1=1tau2l)
 - `eventNum`: Events to process (0=all)
 
-### 1.4 Job Submission
+### 1.4 Job Submission (Config-Based)
 
-**Recommended script**: `makeJob_OS_fromRuobing2.py` (supports batch submission with monitoring)
+**Script**: `makeJob_OS_fromRuobing2.py` (refactored 2025-12-08 to use workflow_utils)
 
+**Usage** (requires YAML config):
 ```bash
-cd objectSelectionOptimized/jobs/
-source ../../setEnv_newNew.sh
+source setEnv_newNew.sh
 
-# Edit makeJob_OS_fromRuobing2.py main() function parameters:
-#   - era: '2018', '2017', '2016', '2016APV'
-#   - if1tau2l: 0 for 1tau0l/1tau1l, 1 for 1tau2l
-#   - jobVersionNamePre: Version prefix (e.g., 'v94HadroPreJetVetoHemOnly')
-#   - TES, eleScale, JESSys, JERSys, METSys: Systematic variations (0=nominal)
+# Submit nominal jobs for 2018
+python3 objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py \
+    --config config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
 
-python3 makeJob_OS_fromRuobing2.py
+# Submit for all eras in config
+python3 objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py \
+    --config config/analysis_config_1tau0l_TTBBtest.yaml
+
+# Dry run (show paths without submitting)
+python3 objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py \
+    --config config/analysis_config_1tau0l_TTBBtest.yaml --dry-run
+
+# Submit with systematic variation
+python3 objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py \
+    --config config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --sys JES
+```
+
+**Available systematic variations** (--sys flag):
+- Energy scale/resolution: `JES`, `JERUp`, `JERDown`, `METUp`, `METDown`, `EleScaleUp`, `EleScaleDown`
+- Tau energy scale by decay mode: `TESdm0Up`, `TESdm0Down`, `TESdm1Up`, `TESdm1Down`, `TESdm10Up`, `TESdm10Down`, `TESdm11Up`, `TESdm11Down`
+
+**Batch submission script** (all systematics at once):
+```bash
+# Submit all 15 systematic variations for one era
+./objectSelectionOptimized/jobs/submit_all_systematics.sh \
+    config/analysis_config_1tau0l_TTBBtest.yaml 2018
+
+# Check job status
+./objectSelectionOptimized/jobs/check_systematic_jobs.sh 2018
 ```
 
 **Key features**:
+- Uses `workflow_utils.py` for config loading and path building
+- Reads `versions.stage1` from YAML config
 - Automatic batch job submission with `hep_sub`
 - Cluster ID tracking in `cluster_logs.csv`
 - Background monitoring via `speedOS.py`
-- Supports all systematic variations via function parameters
+- `--quiet` flag for reduced output
 
-**Note**: `makeJob_objectTSelectorForNanoAOD.py` is obsolete - use `makeJob_OS_fromRuobing2.py` instead.
+**Note**: Stage 1 not yet integrated into `run_workflow.py` (pending Phase 5 of workflow-optimization).
 
 ### 1.5 Sample Configuration
 

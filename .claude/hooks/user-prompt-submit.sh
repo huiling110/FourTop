@@ -47,7 +47,7 @@ check_workflow_patterns() {
     fi
 
     # Specific scripts
-    if [[ "$prompt_lower" =~ (createfaketau|addjes|addtemplate|writedatacard) ]]; then
+    if [[ "$prompt_lower" =~ (createfaketau|addjes|addtemplate|writedatacard|makejob_os|makejob_mv|makejob.*hist) ]]; then
         return 0
     fi
 
@@ -57,7 +57,7 @@ check_workflow_patterns() {
     fi
 
     # workflow_utils pattern reminder
-    if [[ "$prompt_lower" =~ (load_config|get_options|build_hist_path|workflow_utils) ]]; then
+    if [[ "$prompt_lower" =~ (load_config|get_options|build_hist_path|build_stage1|get_channel|workflow_utils) ]]; then
         return 0
     fi
 
@@ -75,8 +75,8 @@ if check_workflow_patterns; then
     echo ""
     echo "Consider using the workflow skill (.claude/skills/workflow.md) for:"
     echo "  - Correct environment setup (source setEnv_newNew.sh vs cmsenv)"
-    echo "  - Required flags (--config and --era)"
-    echo "  - Stage-specific commands and order"
+    echo "  - Required flags (--config and --era, --sys for systematics)"
+    echo "  - Stage-specific commands: OS (Stage 1), MV (2), WH (3), PL (4)"
     echo "  - Fake tau/lepton regeneration requirements"
     echo "  - Python pattern: use workflow_utils for config handling"
     echo ""
