@@ -1,341 +1,87 @@
-# CLAUDE.md - AI Assistant Context for FourTop Analysis
+# CLAUDE.md - FourTop Analysis AI Context
 
-**Last updated**: 2025-12-07
-
----
-
-## Analysis Pipeline Overview
-
-**Common Abbreviations** (used in conversation and scripts):
-| Abbrev | Full Name | Directory | Description |
-|--------|-----------|-----------|-------------|
-| **OS** | Object Selection | `objectSelectionOptimized/` | Stage 1: NanoAOD → skimmed ntuples |
-| **MV** | Make Variables | `makeVariables_goodCode/` | Stage 2: Add BDT scores, derived variables |
-| **WH** | Write Histograms | `writeHistGood/` | Stage 3: Produce histograms with systematics |
-| **PL** | Plotting | `plotting/` | Stage 4: Validation plots, datacards |
-
-**Full Analysis Pipeline**:
-```
-Stage 1 (OS): NanoAOD → Object Selection → Skimmed ntuples
-    └── objectSelectionOptimized/apps/run_objectSelection.out
-    └── Output: /publicfs/.../UL{era}/{version}/mc/
-
-Stage 2 (MV): Skimmed ntuples → Variable Calculation → BDT-ready ntuples
-    └── makeVariables_goodCode/apps/run_makeVariables_forBDT.out
-    └── Output: /publicfs/.../forMVA/{era}/{version}/mc/
-
-Stage 2.4: Fake Background Estimation (data-driven) ⚠️ MUST REGENERATE PER VERSION
-    └── plotting/createFaketauTree.py (fake tau for all channels)
-    └── plotting/createFakeLeptonTree.py (fake lepton for 1tau1l/1tau2l)
-    ⚠️ CRITICAL: NEVER copy fake tau/lepton files from reference versions!
-       They MUST be regenerated for EACH new analysis version.
-
-Stage 3 (WH): BDT ntuples → Histogram Production → ROOT histograms
-    └── writeHistGood/apps/run_treeAnalyzer.out
-    └── Output: .../variableHists_{version}/
-
-Stage 4 (PL): Histograms → Plots, Datacards → Statistical Analysis
-    └── Stage 4.1: addJESTemplatesToHistFile.py (consolidate JES)
-    └── Stage 4.2: addTemplateNew.py (add systematic templates)
-    └── Stage 4.3: writeDatacard.py (create datacards)
-    └── Stage 4.4: pl.py (validation plots)
-    └── Stage 4.5: hua/combine/ (statistical fits)
-```
-
-**YAML Config Files** (always use for each stage):
-- `config/analysis_config_1tau0l_full.yaml` - 1tau0l channel
-- `config/analysis_config_1tau1l_TTBBtest.yaml` - 1tau1l channel (TTBB test)
-- `config/analysis_config_1tau2l.yaml` - 1tau2l channel
+**Last updated**: 2025-12-08
 
 ---
 
-## ⚠️ CRITICAL: Environment Setup
+## Critical Rules (ALWAYS FOLLOW)
 
-**ALWAYS source the environment before running ANY Python or C++ code:**
+1. **Use YAML configs** - Never hardcode paths. Always `--config CONFIG --era ERA`
+2. **Environment first** - `source setEnv_newNew.sh` (except combine: use `cmsenv`)
+3. **Regenerate fakes** - Never copy fake tau/lepton files between versions
+4. **Use workflow_utils** - All Python scripts use `from workflow_utils import ...`
 
-```bash
-source /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/setEnv_newNew.sh
-```
-
-**IMPORTANT EXCEPTION - hua/combine/ scripts**:
-```bash
-cd hua/combine/
-cmsenv  # NOT source setEnv_newNew.sh
-python3 script.py
-```
-
-**Reason**: Combine scripts require CombinedLimit environment from CMSSW
-
----
-
-## ⚠️ CRITICAL: Fake Tau/Lepton Files Must Be Regenerated
-
-**NEVER copy fake tau or fake lepton files from reference versions!**
-
-These data-driven background estimation files are version-specific and MUST be regenerated for each new analysis version:
-
-```bash
-# Fake tau (required for ALL channels)
-cd plotting/
-python3 createFaketauTree.py --config ../config/analysis_config_1tau0l_full.yaml --era 2018
-
-# Fake lepton (required for 1tau1l/1tau2l channels)
-python3 createFakeLeptonTree.py --config ../config/analysis_config_1tau1l_full.yaml --era 2018
-```
-
-**Why this matters**:
-- Fake rates depend on the specific event selection and MC samples in that version
-- Copying from reference versions would mix incompatible MC normalization
-- Each Stage 1 (OS) run may have different code changes affecting fake rate calculation
-
----
-
-## Dev-Docs System for Major Tasks
-
-**Location**: `dev-docs/active/[task-name]/`
-
-**When to use**: For multi-session tasks (new signal samples, major refactoring, multi-channel analysis)
-
-**Automatic creation**: When exiting plan mode with an accepted plan, automatically create dev-docs:
-1. Ask user for task name (suggest from plan title)
-2. Create directory: `dev-docs/active/[task-name]/`
-3. Create `plan.md` from the accepted plan
-4. Create `context.md` with key files identified during planning
-5. Create `tasks.md` from plan steps
-6. Inform user: "Dev-docs created at dev-docs/active/[task-name]/"
-
-**Manual creation**: For tasks not starting from plan mode:
-1. Create directory: `mkdir -p dev-docs/active/[task-name]/`
-2. Copy templates: `TEMPLATE_plan.md`, `TEMPLATE_context.md`, `TEMPLATE_tasks.md`
-3. Fill in details and begin work
-
-**Continuing existing tasks**:
-1. **Always check first**: Look in `dev-docs/active/` for existing task directories
-2. **If task found**: Read `plan.md`, `context.md`, `tasks.md` from the task directory before proceeding
-3. **Update regularly**:
-   - Mark tasks complete immediately (don't batch)
-   - Update "Last Updated" timestamps in each file
-   - Archive to `completed/` when done
-
-**User can resume with**: "Continue [task-name] from dev-docs"
-
-**Benefit**: Per-task directories preserve full context across sessions, easy to manage multiple tasks
-
-**IMPORTANT - Automatic Context Preservation**:
-When context usage reaches ~10% remaining, Claude MUST automatically:
-1. Update `tasks.md` with current progress (mark completed tasks, note in-progress work)
-2. Update `context.md` with any new key files or decisions discovered
-3. Add session notes to the Notes section with date stamp
-4. Commit any uncommitted changes with descriptive message
-5. Inform user: "Context low - dev-docs updated and changes committed for next session"
-6. **DO NOT compact/summarize** - if dev-docs were just updated, the context is preserved there
-
-This ensures seamless continuation even if the session ends unexpectedly.
-
-**IMPORTANT - Commit Changes Regularly**:
-Claude MUST proactively commit changes during work sessions, especially when executing approved plans:
-- **During approved plan execution**: Commit after EVERY completed step or fix (not just phases)
-- After completing a logical unit of work (e.g., fixing a bug, adding a feature)
-- After completing each phase or major task
-- Before context gets low (~10% remaining)
-- Use descriptive commit messages explaining what was done and why
-- **Do not batch commits** - commit immediately after each successful change
-
-**IMPORTANT - Test Code Before Committing**:
-Claude MUST test code changes before considering a task complete:
-- Run modified scripts with `--help` or `-h` to verify argparse works
-- Run scripts with new flags (e.g., `--quiet`) to verify they function
-- For Python: check syntax with `python3 -m py_compile script.py`
-- For analysis scripts: run on a small test case if possible
-- Document test results in dev-docs or commit message
+For detailed commands and procedures, see `.claude/skills/workflow.md`
 
 ---
 
 ## Project Overview
 
-**CMS Four-Top Quark Physics Analysis** - Searches for rare four-top production (tttt) and Beyond Standard Model signals (VLL - Vector-Like Leptons) using CMS detector data.
+**CMS Four-Top Quark Analysis** - tttt production and VLL searches
 
-**Key Analysis Channels**:
-- `1tau0l`: One hadronic tau + 0 leptons
-- `1tau1l`: One hadronic tau + 1 lepton
-- `1tau2l`: One hadronic tau + 2 leptons
+**Channels**: `1tau0l`, `1tau1l`, `1tau2l`
 
-**Analysis Goals**:
-- Measure tttt production cross-section
-- Search for Vector-Like Lepton signals
-- Use BDT/TMVA for signal discrimination
-- Statistical inference with HiggsAnalysis CombinedLimit
+**Pipeline**:
+| Stage | Abbrev | Directory | Purpose |
+|-------|--------|-----------|---------|
+| 1 | OS | `objectSelectionOptimized/` | NanoAOD → skimmed ntuples |
+| 2 | MV | `makeVariables_goodCode/` | Add BDT scores |
+| 2.4 | - | `plotting/` | Fake background estimation |
+| 3 | WH | `writeHistGood/` | Histogram production |
+| 4 | PL | `plotting/` | Plots, templates, datacards |
+| 4.5 | - | `hua/combine/` | Statistical fits |
 
----
-
-## Project Structure
-
-```
-FourTop/
-├── writeHistGood/          # Main histogram production (C++/ROOT)
-│   ├── apps/               # Main executables
-│   ├── include/            # C++ headers
-│   ├── src/                # C++ source files
-│   ├── Makefile            # Build system
-│   └── jobs/               # Job submission scripts
-├── hua/
-│   ├── combine/            # Statistical analysis (CombinedLimit)
-│   └── tmva/               # Machine learning training
-├── plotting/               # Plotting scripts (Python/ROOT)
-├── objectSelectionOptimized/  # Event selection code
-├── makeVariables_goodCode/    # Variable calculation
-├── inputFiles/             # Input ROOT files and configurations
-├── myLibrary/              # Shared C++ utilities
-├── dev-docs/               # Task tracking system (plan, context, tasks)
-├── .claude/                # Claude Code configuration (hooks, settings)
-├── README.md               # User-facing documentation
-├── ANALYSIS_WORKFLOW.md    # Detailed end-to-end workflow
-├── setEnv_newNew.sh        # Environment setup script
-└── CLAUDE.md               # This file
-```
+**Configs**: `config/analysis_config_{channel}_TTBBtest.yaml`
 
 ---
 
-## Analysis Workflow
+## Dev-Docs System
 
-**Complete workflow**: See [ANALYSIS_WORKFLOW.md](ANALYSIS_WORKFLOW.md)
+**Location**: `dev-docs/active/[task-name]/`
 
-**Pipeline**: `NanoAOD → Histogram Production → Datacards → Statistical Analysis → Results`
+For multi-session tasks:
+1. Check `dev-docs/active/` for existing tasks before starting
+2. Read `plan.md`, `context.md`, `tasks.md` to resume
+3. Update files regularly, commit often
+4. Use `/update-dev-docs` command to sync progress
 
-**Current version**: `v8BDT1tau1lV19_refactorAndBtagNameFix`
-- ✅ CMS naming conventions compliant
-- ✅ All 26 b-tag systematics working
-- ✅ Refactored code validated
-
-**Main components**:
-1. **writeHistGood/**: NanoAOD → histograms with systematics
-2. **hua/tmva/**: BDT training for signal/background separation
-3. **hua/combine/**: Statistical analysis (limits, significance, fits)
-4. **plotting/**: Visualization and validation plots
+**Context preservation**: When context low (~10%), update dev-docs and commit before ending.
 
 ---
 
-## Build System
+## Build & Submit
 
-**Technical stack**:
-- Compiler: gcc 14.3.1
-- ROOT: 6.36.01
-- C++ Standard: C++20
-- Dependencies: ROOT, TBB, myLibrary, JSON for Modern C++
-
-**Build writeHistGood**:
 ```bash
-cd writeHistGood/
-source ../setEnv_newNew.sh  # MANDATORY
-make clean && make
+# Build C++ code
+cd writeHistGood/ && source ../setEnv_newNew.sh && make
+
+# Submit jobs (use config!)
+python3 makeJob_forWriteHist.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# Monitor
+hep_q -u $USER
 ```
 
-**Common issues**:
-- Missing TBB: Ensure `TBBLIBS = -ltbb` in Makefile
-- Wrong environment: Always source `setEnv_newNew.sh` from project root
+---
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `plotting/workflow_utils.py` | Config loading, path building |
+| `config/analysis_config_*.yaml` | Analysis configurations |
+| `.claude/skills/workflow.md` | Stage commands reference |
+| `setEnv_newNew.sh` | Environment setup |
 
 ---
 
-## Job Submission (IHEP Cluster)
+## User Preferences
 
-**Cluster**: IHEP HTCondor via `hep_sub` command
-
-**Key scripts**:
-- Nominal jobs: `writeHistGood/jobs/makeJob_forWriteHist.py`
-- Systematic jobs: `writeHistGood/run_makeJos_WH_forJES.sh`
-- Job monitoring: `writeHistGood/jobs/checkJobResult.py`
-
-**Details**: See [ANALYSIS_WORKFLOW.md](ANALYSIS_WORKFLOW.md) Stage 2 & 3
+- Physicist, experienced developer
+- Direct feedback, explain *why* not just *how*
+- Commit regularly, test before committing
+- Physics safety: watch for sign errors, branch bugs
 
 ---
 
-## Git Workflow
-
-- **Current branch**: `addVLL`
-- **Main branch**: `master`
-- **Commit policy**: Regular commits for major changes
-- **Recent focus**: VLL analysis, code refactoring, documentation, build fixes
-
----
-
-## Key Files Reference
-
-**Critical files**:
-- `writeHistGood/apps/run_treeAnalyzer.C` - Main analysis loop
-- `writeHistGood/Makefile` - Build system
-- `setEnv_newNew.sh` - Environment configuration
-- `hua/combine/runCombineAll.py` - Statistical analysis orchestration
-
-**Documentation**:
-- `README.md` - User guide
-- `ANALYSIS_WORKFLOW.md` - Detailed workflow procedures
-- `SESSION_SUMMARY.md` - Development history
-- `writeHistGood/BUILD_INSTRUCTIONS.md` - Build details
-- `writeHistGood/CMS_NAMING_CONVENTION_UPDATE.md` - Systematic naming
-- `COLLABORATION_IMPROVEMENTS.md` - AI workflow enhancements
-
----
-
-## Questions to Ask When Context is Unclear
-
-1. **Which component**? (writeHistGood / TMVA / combine / plotting)
-2. **Which channel**? (1tau0l / 1tau1l / 1tau2l)
-3. **Which process**? (tttt / VLL / backgrounds)
-4. **Which version**? (v3BDT / V18 / combinationVX)
-5. **Systematics enabled**? (affects runtime and output)
-
----
-
-## User Preferences & Collaboration Guidelines
-
-**Code modifications**:
-- ✅ Preserve modern C++ patterns in refactored code
-- ✅ Validate physics results unchanged after modifications
-- ✅ Commit major changes regularly
-- ✅ Update BASH_COMMANDS_EXPLAINED.md for new patterns
-
-**Code review priorities**:
-- **Safety**: Watch for physics bugs (wrong sign, wrong branch, off-by-one)
-- **Consistency**: Maintain systematic naming conventions (CMS POG standards)
-- **Performance**: Large datasets (~millions of events), be memory-conscious
-- **Reproducibility**: Physics results must be deterministic
-
-**Communication style**:
-- User is physicist and experienced developer
-- Can handle technical details and direct feedback
-- Appreciates explanations of *why*, not just *how*
-- Values code maintainability and long-term project health
-
-**Best practices** (from COLLABORATION_IMPROVEMENTS.md):
-- Ask clarifying questions before major tasks
-- Use TodoWrite for multi-step workflows
-- Verify environment before running code
-- Validate physics results after critical changes
-- Update documentation as work progresses
-
-**Code quality**: Automated hooks enabled (`.claude/hooks/post-tool-use.sh`)
-- Python: max 80 lines/function, max nesting depth 5
-- See `.claude/settings.json` for full standards
-
----
-
-## Resources
-
-**Internal**:
-- README.md - User workflow
-- ANALYSIS_WORKFLOW.md - Detailed procedures
-- SESSION_SUMMARY.md - Development notes
-- COLLABORATION_IMPROVEMENTS.md - AI workflow best practices
-
-**External**:
-- CMS NanoAOD: https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD
-- HiggsAnalysis CombinedLimit: https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/
-- ROOT: https://root.cern.ch/doc/master/
-- CMSSW: https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCMSSWFramework
-
----
-
-*This document provides essential context for AI assistants. For detailed procedures, see ANALYSIS_WORKFLOW.md and other referenced documentation.*
-
-*Maintained by: Claude Code AI Assistant*
-- to memorize "always remember to use yaml files for each stage"
+*See `.claude/skills/workflow.md` for detailed stage commands*

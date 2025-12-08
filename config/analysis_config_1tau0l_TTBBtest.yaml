@@ -1,9 +1,9 @@
-# FourTop Analysis Configuration - 1tau1l Channel (New Format)
+# FourTop Analysis Configuration - 1tau0l Channel (New Format)
 # Created: 2025-12-06
 # Updated: 2025-12-08 (migrated to new minimal format)
 
 metadata:
-  name: "1tau1l_TTBBtest"
+  name: "1tau0l_TTBBtest"
   description: "TTBB integration testing with ghost-matching overlap removal"
   created: "2025-12-06"
 
@@ -11,12 +11,12 @@ metadata:
 versions:
   stage1: "v94HadroPreJetVetoHemOnly_TTBBtest"  # Object selection output
   stage2: "v1baselineHadro"                      # Variable calculation output
-  hist: "v0BDT1tau1l_TTBBtest"                   # Histogram version
+  hist: "v0BDT1tau0l_TTBBtest"                   # Histogram version
   datacard: "v1_TTBBtest"                        # Datacard version
   combination: "combinationV21"                  # Combine version
 
 # Channel name (simple string, not dict)
-channel: "1tau1l"
+channel: "1tau0l"
 
 # Eras to process
 eras:
