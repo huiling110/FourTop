@@ -92,14 +92,45 @@ def create_parser():
 
 
 def submit_systematic(config_path, era, systematic, mc_only=True, dry_run=False, quiet=False):
-    """Submit MV jobs for a single systematic variation."""
+    """Submit MV jobs for a single systematic variation.
+
+    For JES variations (JESup_* or JESDown_*), uses special handling:
+    - Input: --sys JESPt22
+    - JES type: --jes-type 1 (up) or 2 (down)
+    - JES index: --jes-variation INDEX
+    """
     cmd = [
         sys.executable,
         os.path.join(os.path.dirname(__file__), 'makeJob_makeVaribles_forBDT.py'),
         '--config', config_path,
-        '--sys', systematic,
         '--mc-only',
     ]
+
+    # Handle JES variations specially
+    if systematic.startswith('JESup_') or systematic.startswith('JESDown_'):
+        # Parse JES variation: JESup_SOURCE or JESDown_SOURCE
+        if systematic.startswith('JESup_'):
+            source = systematic[6:]  # Remove 'JESup_'
+            jes_type = '1'  # up
+        else:
+            source = systematic[8:]  # Remove 'JESDown_'
+            jes_type = '2'  # down
+
+        # Find source index
+        try:
+            jes_index = JES_SOURCES.index(source)
+        except ValueError:
+            if not quiet:
+                print(f"  ERROR: Unknown JES source: {source}")
+            return False
+
+        cmd.extend(['--sys', 'JESPt22'])
+        cmd.extend(['--jes-type', jes_type])
+        cmd.extend(['--jes-variation', str(jes_index)])
+    else:
+        # Standard systematics (TES, JER, MET, EleScale)
+        cmd.extend(['--sys', systematic])
+
     if era:
         cmd.extend(['--era', era])
     if dry_run:
