@@ -158,8 +158,10 @@ def main():
     parser.add_argument('--era', '-e', type=str, required=True,
                         choices=['2018', '2017', '2016preVFP', '2016postVFP'],
                         help='Era to process (required)')
-    parser.add_argument('--smoothed', action='store_true', default=True,
-                        help='Use smoothed templates (default: True)')
+    parser.add_argument('--smoothed', action='store_true', default=None,
+                        help='Use smoothed templates (default: from config options.smoothing)')
+    parser.add_argument('--no-smoothed', dest='smoothed', action='store_false',
+                        help='Use unsmoothed templates')
     args = parser.parse_args()
 
     # Validate workflow_utils is available
@@ -171,7 +173,13 @@ def main():
     channel = get_channel(config)
     options = get_options(config)
     suffix = get_template_suffix(config)
-    inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=args.smoothed)
+
+    # Determine smoothed setting: command line overrides config
+    if args.smoothed is None:
+        use_smoothed = options.get('smoothing', True)
+    else:
+        use_smoothed = args.smoothed
+    inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=use_smoothed)
     ifFTauMC = options.get('mc_fake_tau', False)
     datacard_version = config.get('versions', {}).get('datacard', outVersion)
 

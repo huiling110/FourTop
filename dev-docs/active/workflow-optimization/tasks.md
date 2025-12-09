@@ -1,7 +1,7 @@
 # Tasks: FourTop Workflow Optimization
 
 **Created**: 2025-12-08
-**Last Updated**: 2025-12-09 (Session 7)
+**Last Updated**: 2025-12-09 (Session 9)
 **Status**: IN PROGRESS
 
 ---
@@ -205,3 +205,60 @@
   - JES systematics require separate Stage 1.1 → 2.1 → 3.1 processing
   - TES/JER/MET/EleScale (14 variations) are complete but JES (54 variations) is not
 - Next steps: Either process JES systematics (large) or proceed without JES for test
+
+**Session 8 (2025-12-09)**:
+- Recovered JES job submission functionality that was removed during refactoring:
+  - Fixed JES path format: `{stage2}_JES{up/Down}_{source}_{stage1}_JESPt22`
+  - Added `_build_jes_output_path()` to makeJob_makeVaribles_forBDT.py
+  - Added `_build_jes_input_path()` to makeJob_WH_forJES.py
+  - Added `build_stage2_output_jes()` to workflow_utils.py
+  - Import JES sources from ttttGlobleQuantity.py (30 sources × 2 = 60 variations)
+- Verified JES index-to-source matching works correctly:
+  - Python JESVariationList index matches C++ expectation
+  - Output directory names match the source passed to C++ code
+- **Commit**: `ec0b12be fix: Recover JES job submission with correct path format`
+- Current focus: Systematic workflow (nominal steps completed)
+- Next: Submit MV JES jobs → WH all systematics for 2018
+
+**Session 9 (2025-12-09)**:
+- Previous MV JES submission failed due to workfs file quota (50,000/50,000)
+- Freed quota by moving old combine versions (V7-V17) to publicfs:
+  - Moved to: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/run2_combination/`
+  - Freed ~8,300 files
+- Successfully resubmitted MV JES jobs: **60/60 variations submitted** ✅
+- MV JES complete: 6,315 root files produced
+- WH JES submitted: **3,540 jobs** (60 variations × 59 files) ✅
+- Updated workflow skill with **Stage 4.2.5 (smoothing)** - was missing!
+- **IMPORTANT**: Smoothing requires ALL eras (2016, 2017, 2018) templates
+  - For 2018-only test: SKIP smooth_systematics_fourTops.py
+  - Run smoothing later after processing all eras
+- Current test workflow for 2018 only:
+  ```
+  Stage 4.1 (addJESTemplates) → Stage 4.2 (addTemplateNew)
+  → Stage 4.3 (writeDatacard) → Stage 4.4 (pl.py)
+  → [SKIP 4.2.5 smoothing for now]
+  ```
+- Next: Wait for WH JES → Stage 4.1-4.4 (without smoothing)
+
+**Session 9 continued (2025-12-09)**:
+- Fixed `addJESTemplatesToHistFile.py` to use workflow_utils:
+  - Added `build_hist_path_jes()` function to workflow_utils.py
+  - Updated addJESToFile() to use config-based path building
+  - Uses `_CONFIG` global variable when config is provided
+  - Maintains backward compatibility with legacy path building
+- Stage 4.1 now works correctly with config-based workflow
+
+**Session 10 (2025-12-09)**:
+- Completed Stage 4.1-4.3 for 2018 with full JES systematics:
+  - Stage 4.1 (addJESTemplatesToHistFile.py) ✅
+  - Stage 4.2 (addTemplateNew.py) ✅
+  - Stage 4.3 (writeDatacard.py) ✅
+- Fixed `writeDatacard.py` to read `smoothing` option from config:
+  - Added `--no-smoothed` flag for explicit override
+  - Default now reads from `options.smoothing` in config
+  - Command-line args override config when provided
+- Added **Workflow Standard Checklist** to context.md for script compliance
+- Updated datacard version to `v0_ttbb_nosmoothing` for test run
+- Datacard output: `.../combine/datacardSys_v0_ttbb_nosmoothing/datacard_1tau0l.txt`
+- **PAUSED**: Switching to ttbb-integration task to add uncertainties to datacard
+- Next: Return to complete Stage 4.4 (pl.py) and remaining eras

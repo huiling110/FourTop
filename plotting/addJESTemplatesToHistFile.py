@@ -10,10 +10,13 @@ from pathlib import Path
 
 # Import workflow utilities for config-based path building
 try:
-    from workflow_utils import load_config, build_hist_path
+    from workflow_utils import load_config, build_hist_path, build_hist_path_jes, get_channel, get_regions
     WORKFLOW_UTILS_AVAILABLE = True
 except ImportError:
     WORKFLOW_UTILS_AVAILABLE = False
+
+# Global config for use in addJESToFile when using workflow_utils
+_CONFIG = None
 
 # Global quiet flag for controlling verbose output
 QUIET = False
@@ -321,7 +324,9 @@ Cleanup actions (when --delete-sys-dirs is used):
     from workflow_utils import get_channel, get_regions
 
     # Load config and build paths
+    global _CONFIG
     config = load_config(args.config)
+    _CONFIG = config  # Store config globally for use in addJESToFile
     nominalDir = build_hist_path(config, args.era)
     channel = get_channel(config)
     regionList = get_regions(config)
@@ -468,30 +473,35 @@ def getMCSubPro(channel, era):
         
 # def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT']):
 def addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables=['BDT'], proPostFix=''):
-    Version = nominalDir.split('/')[-4]
-    if not QUIET:
-        print(Version)
-    inVersion = Version.split('_')[-1]+'_JESPt22'
-    outVersion = Version.split('_')[0]
-    if not QUIET:
-        print(inVersion, outVersion)
-    
-    
-    inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
-    nominalHistDir = nominalDir.split('mc/', 1)[1]
-    
-    
+    global _CONFIG
+
     JESListUp = {}# 'tttt' = [jestVariationHist]
     JESListDown = {}
     for isub in allSubProcesses:
         JESListUp[isub] = []
         JESListDown[isub] = []
-     
+
     for i in gq.JESVariationList:
-        JESUpDir = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}'
-        JESDownDir = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}'
-        JESUpDir = f'{JESUpDir}/mc/{nominalHistDir}'
-        JESDownDir = f'{JESDownDir}/mc/{nominalHistDir}'
+        # Use workflow_utils for path building if config is available
+        if _CONFIG is not None and WORKFLOW_UTILS_AVAILABLE:
+            JESUpDir = build_hist_path_jes(_CONFIG, era, 'up', i)
+            JESDownDir = build_hist_path_jes(_CONFIG, era, 'Down', i)
+        else:
+            # Legacy path building (backward compatibility)
+            Version = nominalDir.split('/')[-4]
+            if not QUIET:
+                print(Version)
+            inVersion = Version.split('_')[-1]+'_JESPt22'
+            outVersion = Version.split('_')[0]
+            if not QUIET:
+                print(inVersion, outVersion)
+            inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
+            nominalHistDir = nominalDir.split('mc/', 1)[1]
+            JESUpDir = f'{inputDirBase}{outVersion}_JESup_{i}_{inVersion}'
+            JESDownDir = f'{inputDirBase}{outVersion}_JESDown_{i}_{inVersion}'
+            JESUpDir = f'{JESUpDir}/mc/{nominalHistDir}'
+            JESDownDir = f'{JESDownDir}/mc/{nominalHistDir}'
+
         if not QUIET:
             print(JESUpDir, JESDownDir)  
         iJESVariation = i.split('_')[0]

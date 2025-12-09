@@ -57,6 +57,19 @@ All scripts now require: `--config CONFIG --era ERA` (no fallback to hardcoded p
   - Uses workflow_utils: load_config, build_stage2_output, get_channel, get_versions
   - Removed all commented-out hardcoded paths
 
+### JES Path Format (IMPORTANT)
+
+JES directories use **full source names** including `_AK4PFchs` suffix:
+```
+v1baselineHadro_JES{Up/Down}_{SOURCE}_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22
+```
+
+Example sources: `AbsoluteMPFBias`, `AbsoluteScale`, `FlavorPureBottom`, `Total`, etc.
+
+The `_AK4PFchs` suffix is part of the JES source name from `ttttGlobleQuantity.py`.
+
+**Case note**: Directory names use `JESup`/`JESDown` (lowercase 'u'/'D'), not `JESUp`/`JESDown`.
+
 ### Three Workflow Modes (Documented)
 
 1. **Mode 1: Nominal Test Run** - Quick validation with `systematics: false`
@@ -81,6 +94,26 @@ Currently integrated stages in run_workflow.py:
 - Stage 3.1 (WH sys) - **TODO: Add to run_workflow.py**
 - Stage 4 scripts - via temp script creation
 
+### Workflow Standard Checklist
+
+**IMPORTANT**: Check each script for workflow standard compliance:
+- [ ] `--config` required argument
+- [ ] `--era` required argument
+- [ ] Uses `workflow_utils` (load_config, build_*_path, get_channel, get_options, get_regions)
+- [ ] Reads options from config (not hardcoded): `fake_tau`, `mc_fake_tau`, `blind`, `smoothing`, `systematics`
+- [ ] Has `--quiet` option for batch runs
+- [ ] Command-line args override config options when both provided
+
+**Scripts Verified** ✅:
+- `addTemplateNew.py` - ✅ fits standard
+- `addJESTemplatesToHistFile.py` - ✅ fits standard (uses `build_hist_path_jes`)
+- `writeDatacard.py` - ✅ fixed to read `smoothing` from config
+
+**Scripts to Check**:
+- `smooth_systematics_fourTops.py` - needs verification
+- `createFaketauTree.py` - needs verification
+- `pl.py` - needs verification
+
 ### Scripts to Refactor (Pending)
 
 **Phase 3: Stage 2.4**
@@ -91,9 +124,16 @@ Currently integrated stages in run_workflow.py:
 
 ### Claude Integration ✅ COMPLETE
 - `.claude/skills/workflow.md` - Analysis pipeline skill with stage commands, workflow_utils pattern
+  - **Updated**: Added Stage 4.2.5 (smooth_systematics_fourTops.py)
 - `.claude/hooks/pre-tool-use.sh` - Environment check, setEnv path validation
 - `.claude/hooks/user-prompt-submit.sh` - Auto-activation based on workflow keywords
 - `plotting/pl.py` - **REFACTORED** to use workflow_utils, ~200 lines removed
+
+### Smoothing Step (Stage 4.2.5)
+- `plotting/smooth_systematics_fourTops.py` - LOWESS smoothing for systematic variations
+- **IMPORTANT**: Requires ALL eras (2016preVFP, 2016postVFP, 2017, 2018) templates
+- For single-era testing (e.g., 2018 only): SKIP this step
+- Run after all eras processed, before final datacards
 
 ---
 

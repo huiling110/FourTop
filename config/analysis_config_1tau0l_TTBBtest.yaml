@@ -12,7 +12,7 @@ versions:
   stage1: "v94HadroPreJetVetoHemOnly_TTBBtest"  # Object selection output
   stage2: "v1baselineHadro"                      # Variable calculation output
   hist: "v0BDT1tau0l_TTBBtest"                   # Histogram version
-  datacard: "v1_TTBBtest"                        # Datacard version
+  datacard: "v0_ttbb_nosmoothing"                 # Datacard version
   combination: "combinationV21"                  # Combine version
 
 # Channel name (simple string, not dict)

@@ -65,7 +65,8 @@ After nominal validation, add energy scale systematic variations.
 **Steps** (continue from Mode 1):
 ```
 Stage 1.1 (OS sys) → Stage 2.1 (MV sys) → Stage 3.1 (WH sys)
-→ Stage 4.1 (merge JES) → Stage 4.2-4.4 (re-run with systematics)
+→ Stage 4.1 (merge JES) → Stage 4.2 (templates) → Stage 4.2.5 (smoothing)
+→ Stage 4.3 (datacards) → Stage 4.4 (plots)
 ```
 
 **Commands**:
@@ -91,6 +92,11 @@ python3 addJESTemplatesToHistFile.py --config ../config/CONFIG.yaml --era 2018
 # Stage 4.2-4.4: Re-run with systematics in config
 # Set options.systematics: true in config first!
 python3 addTemplateNew.py --config ../config/CONFIG.yaml --era 2018
+
+# Stage 4.2.5: Smooth systematics (IMPORTANT - before writeDatacard!)
+python3 smooth_systematics_fourTops.py --config ../config/CONFIG.yaml
+
+# Stage 4.3-4.4: Datacards and plots
 python3 writeDatacard.py --config ../config/CONFIG.yaml --era 2018
 python3 pl.py --config ../config/CONFIG.yaml --era 2018
 ```
@@ -431,11 +437,55 @@ python3 addJESTemplatesToHistFile.py --config ../config/analysis_config_1tau0l_f
 python3 addTemplateNew.py --config ../config/analysis_config_1tau0l_full.yaml --era 2018
 ```
 
+### Stage 4.2.5: Smooth Systematics (IMPORTANT!)
+
+**CRITICAL**: Run AFTER addTemplateNew.py and BEFORE writeDatacard.py.
+
+Smooths systematic variations to reduce statistical fluctuations that can cause fit instabilities.
+
+```bash
+source setEnv_newNew.sh
+cd plotting/
+python3 smooth_systematics_fourTops.py --config ../config/analysis_config_1tau0l_full.yaml
+```
+
+**Config requirements**: Add a `smoothing` section to your config:
+
+```yaml
+smoothing:
+  systematics:
+    - ps_fsr
+    - ps_isr
+    - QCDscale_fac
+    - QCDscale_ren
+    - CMS_scale_j_FlavorPureGluon
+    - CMS_scale_j_FlavorPureQuark
+    - CMS_res_j
+    - CMS_btag_fullShape_hf
+    - pdf_alphas
+  processes:
+    - tt
+    - ttH
+    - ttZ
+    - ttW
+    - WJets
+```
+
+**What it does**:
+- Applies LOWESS smoothing to systematic shape variations
+- Creates `*_smoothed.root` template files
+- Outputs comparison plots to `results/` subdirectory
+- Processes all eras specified in config
+
+**When to skip**: For quick tests with `options.smoothing: false`, you can skip this step.
+
 ### Stage 4.3: Datacard Generation
 
 ```bash
 python3 writeDatacard.py --config ../config/analysis_config_1tau0l_full.yaml --era 2018
 ```
+
+**Note**: writeDatacard.py uses the smoothed templates when `options.smoothing: true` in config.
 
 ### Stage 4.4: Validation Plots (pl.py)
 

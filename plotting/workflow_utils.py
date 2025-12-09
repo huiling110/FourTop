@@ -312,6 +312,27 @@ def build_hist_path(config: Dict[str, Any], era: str) -> str:
     return os.path.join(stage2_path, f"variableHists_{hist_version}") + '/'
 
 
+def build_hist_path_jes(config: Dict[str, Any], era: str, jes_direction: str,
+                        jes_source: str) -> str:
+    """
+    Build path to histogram directory for JES systematic variations.
+
+    Pattern: {stage2_jes_path}/variableHists_{hist_version}/
+
+    Args:
+        config: Configuration dictionary from load_config().
+        era: Era string (2018, 2017, 2016preVFP, 2016postVFP).
+        jes_direction: 'up' or 'Down' (case matters for path matching).
+        jes_source: JES source name (e.g., 'AbsoluteMPFBias_AK4PFchs').
+
+    Returns:
+        Full path to JES histogram directory (with trailing /).
+    """
+    stage2_jes_path = build_stage2_output_jes(config, era, jes_direction, jes_source).rstrip('/')
+    hist_version = config['versions']['hist']
+    return os.path.join(stage2_jes_path, f"variableHists_{hist_version}") + '/'
+
+
 def build_combine_path(config: Dict[str, Any], era: str) -> str:
     """
     Build path to combine directory for a given era.
