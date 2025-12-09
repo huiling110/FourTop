@@ -49,7 +49,11 @@ def create_parser():
     )
     parser.add_argument(
         '--sys', '-s',
-        help='Systematic variation suffix (e.g., JERUp, TESdm0Down, JESPt22)'
+        help='Input systematic variation suffix (e.g., JERUp, TESdm0Down, JESPt22)'
+    )
+    parser.add_argument(
+        '--output-sys',
+        help='Output systematic variation suffix (for JES: JESup_SOURCE or JESDown_SOURCE). If not set, uses --sys'
     )
     parser.add_argument(
         '--jes-variation', type=int, default=0,
@@ -84,25 +88,78 @@ def get_eras_to_process(config, era_arg):
     return get_eras(config)
 
 
-def get_input_output_dirs(config, era, systematic=None, mc_only=False):
+def get_input_output_dirs(config, era, input_systematic=None, output_systematic=None, mc_only=False):
     """
     Build input/output directory mapping for an era.
 
+    Args:
+        config: Configuration dictionary.
+        era: Era string.
+        input_systematic: Systematic suffix for input (Stage 1) path.
+        output_systematic: Systematic suffix for output (Stage 2) path. If None, uses input_systematic.
+        mc_only: If True, only return MC directories.
+
     Returns dict: {data_type: [input_dir, output_dir]}
+
+    Note:
+        JES variations have special path format: {stage2}_JES{up/Down}_{source}_{stage1}_JESPt22
+        Other systematics use: {stage2}_{stage1}_{systematic}
     """
-    input_base = build_stage1_output(config, era, systematic).rstrip('/')
-    output_base = build_stage2_output(config, era, systematic).rstrip('/')
+    # If output_systematic not specified, use input_systematic
+    if output_systematic is None:
+        output_systematic = input_systematic
+
+    input_base = build_stage1_output(config, era, input_systematic).rstrip('/')
+
+    # JES variations have special output path format
+    if output_systematic and (output_systematic.startswith('JESup_') or output_systematic.startswith('JESDown_')):
+        output_base = _build_jes_output_path(config, era, output_systematic)
+    else:
+        output_base = build_stage2_output(config, era, output_systematic).rstrip('/')
 
     dirs = {}
     # MC
-    dirs['mc'] = [f"{input_base}/mc/", f"{output_base}/"]
+    # JES output_base doesn't include data_type, non-JES output_base includes /mc
+    if output_systematic and (output_systematic.startswith('JESup_') or output_systematic.startswith('JESDown_')):
+        dirs['mc'] = [f"{input_base}/mc/", f"{output_base}/mc/"]
+    else:
+        dirs['mc'] = [f"{input_base}/mc/", f"{output_base}/"]
 
     # Data (unless mc_only)
     if not mc_only:
-        data_output = build_stage2_output(config, era, systematic, data_type='data').rstrip('/')
-        dirs['data'] = [f"{input_base}/data/", f"{data_output}/"]
+        if output_systematic and (output_systematic.startswith('JESup_') or output_systematic.startswith('JESDown_')):
+            data_output = _build_jes_output_path(config, era, output_systematic)
+            dirs['data'] = [f"{input_base}/data/", f"{data_output}/data/"]
+        else:
+            data_output = build_stage2_output(config, era, output_systematic, data_type='data').rstrip('/')
+            dirs['data'] = [f"{input_base}/data/", f"{data_output}/"]
 
     return dirs
+
+
+def _build_jes_output_path(config, era, jes_systematic):
+    """
+    Build JES output path with special format.
+
+    JES format: {output_base}/{era}/{stage2}_{jes_systematic}_{stage1}_JESPt22
+
+    Args:
+        config: Configuration dictionary.
+        era: Era string.
+        jes_systematic: JES systematic (e.g., 'JESup_AbsoluteMPFBias_AK4PFchs').
+
+    Returns:
+        Path without trailing / or data_type subdirectory.
+    """
+    paths = config['paths']
+    versions = config['versions']
+    stage1 = versions['stage1']
+    stage2 = versions['stage2']
+
+    # Format: {stage2}_{jes_systematic}_{stage1}_JESPt22
+    dir_name = f"{stage2}_{jes_systematic}_{stage1}_JESPt22"
+
+    return os.path.join(paths['output_base'], era, dir_name)
 
 
 def generate_jobs_for_dir(input_dir, output_dir, era_key, job_dir, if1tau2l,
@@ -221,7 +278,9 @@ def main():
         if not args.quiet:
             print(f"--- Processing era: {era} ---")
 
-        dirs = get_input_output_dirs(config, era, args.sys, args.mc_only)
+        # For JES, input uses --sys (JESPt22), output uses --output-sys (JESup_SOURCE)
+        output_sys = args.output_sys if args.output_sys else args.sys
+        dirs = get_input_output_dirs(config, era, args.sys, output_sys, args.mc_only)
 
         for data_type, (input_dir, output_dir) in dirs.items():
             era_key = f"{era}_{data_type}"

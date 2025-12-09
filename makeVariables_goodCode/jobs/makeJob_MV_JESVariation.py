@@ -107,6 +107,7 @@ def submit_systematic(config_path, era, systematic, mc_only=True, dry_run=False,
     ]
 
     # Handle JES variations specially
+    # JES uses different input (JESPt22) and output (JESup_SOURCE or JESDown_SOURCE) paths
     if systematic.startswith('JESup_') or systematic.startswith('JESDown_'):
         # Parse JES variation: JESup_SOURCE or JESDown_SOURCE
         if systematic.startswith('JESup_'):
@@ -124,7 +125,9 @@ def submit_systematic(config_path, era, systematic, mc_only=True, dry_run=False,
                 print(f"  ERROR: Unknown JES source: {source}")
             return False
 
+        # Input: _JESPt22, Output: _JESup_SOURCE or _JESDown_SOURCE
         cmd.extend(['--sys', 'JESPt22'])
+        cmd.extend(['--output-sys', systematic])  # e.g., JESup_AbsoluteMPFBias_AK4PFchs
         cmd.extend(['--jes-type', jes_type])
         cmd.extend(['--jes-variation', str(jes_index)])
     else:

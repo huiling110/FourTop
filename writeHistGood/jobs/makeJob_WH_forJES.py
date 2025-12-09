@@ -96,6 +96,32 @@ def get_systematics(group: str) -> list:
     return SYSTEMATIC_GROUPS.get(group, [])
 
 
+def _build_jes_input_path(config, era, jes_systematic):
+    """
+    Build JES input path with special format for WH.
+
+    JES format: {output_base}/{era}/{stage2}_{jes_systematic}_{stage1}_JESPt22/
+
+    Args:
+        config: Configuration dictionary.
+        era: Era string.
+        jes_systematic: JES systematic (e.g., 'JESup_AbsoluteMPFBias_AK4PFchs').
+
+    Returns:
+        Path with trailing / (no mc/data subdirectory).
+    """
+    import os
+    paths = config['paths']
+    versions = config['versions']
+    stage1 = versions['stage1']
+    stage2 = versions['stage2']
+
+    # Format: {stage2}_{jes_systematic}_{stage1}_JESPt22
+    dir_name = f"{stage2}_{jes_systematic}_{stage1}_JESPt22"
+
+    return os.path.join(paths['output_base'], era, dir_name) + '/'
+
+
 def submit_systematic(config: dict, era: str, systematic: str, dry_run: bool = False, quiet: bool = False):
     """Submit WH jobs for a single systematic variation."""
     channel = get_channel(config)
@@ -103,19 +129,22 @@ def submit_systematic(config: dict, era: str, systematic: str, dry_run: bool = F
     hist_version = versions['hist']
 
     # Build input path with systematic suffix
-    input_dir = build_stage2_output(config, era, systematic=systematic, data_type='mc')
-
-    # Remove trailing 'mc/' since mj.main() expects parent dir with trailing /
-    if input_dir.endswith('/mc/'):
-        input_dir_base = input_dir[:-3]  # Remove 'mc/' but keep trailing /
-    elif input_dir.endswith('/mc'):
-        input_dir_base = input_dir[:-2]  # Remove 'mc' but keep trailing /
+    # JES variations have special path format
+    if systematic.startswith('JESup_') or systematic.startswith('JESDown_'):
+        input_dir_base = _build_jes_input_path(config, era, systematic)
+        input_dir = input_dir_base + 'mc/'
     else:
-        input_dir_base = input_dir
-
-    # Ensure trailing /
-    if not input_dir_base.endswith('/'):
-        input_dir_base += '/'
+        input_dir = build_stage2_output(config, era, systematic=systematic, data_type='mc')
+        # Remove trailing 'mc/' since mj.main() expects parent dir with trailing /
+        if input_dir.endswith('/mc/'):
+            input_dir_base = input_dir[:-3]  # Remove 'mc/' but keep trailing /
+        elif input_dir.endswith('/mc'):
+            input_dir_base = input_dir[:-2]  # Remove 'mc' but keep trailing /
+        else:
+            input_dir_base = input_dir
+        # Ensure trailing /
+        if not input_dir_base.endswith('/'):
+            input_dir_base += '/'
 
     # Check if input directory exists
     if not os.path.isdir(input_dir):

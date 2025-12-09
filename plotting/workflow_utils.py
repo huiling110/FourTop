@@ -260,6 +260,40 @@ def build_stage2_output(config: Dict[str, Any], era: str, systematic: str = None
     return path + '/'
 
 
+def build_stage2_output_jes(config: Dict[str, Any], era: str, jes_direction: str,
+                            jes_source: str, data_type: str = 'mc') -> str:
+    """
+    Build path to Stage 2 output directory for JES variations.
+
+    JES has a special format: {stage2}_JES{up/Down}_{source}_{stage1}_JESPt22/{data_type}/
+
+    Args:
+        config: Configuration dictionary from load_config().
+        era: Era string (2018, 2017, 2016preVFP, 2016postVFP).
+        jes_direction: 'up' or 'Down' (case matters for path matching).
+        jes_source: JES source name (e.g., 'AbsoluteMPFBias_AK4PFchs').
+        data_type: 'mc' or 'data' (default: 'mc').
+
+    Returns:
+        Full path to Stage 2 output directory for JES variation (with trailing /).
+    """
+    paths = config['paths']
+    versions = config['versions']
+    stage1_version = versions['stage1']
+    stage2_version = versions['stage2']
+
+    # Format: {stage2}_JES{up/Down}_{source}_{stage1}_JESPt22
+    dir_name = f"{stage2_version}_JES{jes_direction}_{jes_source}_{stage1_version}_JESPt22"
+
+    path = os.path.join(
+        paths['output_base'],
+        era,
+        dir_name,
+        data_type
+    )
+    return path + '/'
+
+
 def build_hist_path(config: Dict[str, Any], era: str) -> str:
     """
     Build path to histogram directory for a given era.
