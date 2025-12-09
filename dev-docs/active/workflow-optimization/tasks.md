@@ -197,4 +197,11 @@
   - Mode 1: Nominal Test Run (quick validation, systematics: false)
   - Mode 2: Add Systematics After Nominal (continue from Mode 1)
   - Mode 3: Full Workflow (production run with all systematics)
-- Next: Submit WH systematic jobs for 2018, then Stage 4.1 to merge JES templates
+- WH systematic jobs submitted and completed for 2018 (14 variations × 59 = 826 jobs)
+- Updated ANALYSIS_WORKFLOW.md Section 3.3 with new config-based workflow
+- **FINDING**: Stage 4.1 and 4.2 are BLOCKED by missing JES systematics:
+  - addJESTemplatesToHistFile.py expects JES histogram directories (27 sources × 2)
+  - addTemplateNew.py expects JES templates already in nominal histogram files
+  - JES systematics require separate Stage 1.1 → 2.1 → 3.1 processing
+  - TES/JER/MET/EleScale (14 variations) are complete but JES (54 variations) is not
+- Next steps: Either process JES systematics (large) or proceed without JES for test

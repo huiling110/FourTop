@@ -65,6 +65,22 @@ All scripts now require: `--config CONFIG --era ERA` (no fallback to hardcoded p
 
 See `.claude/skills/workflow.md` for detailed commands.
 
+### IMPORTANT: run_workflow.py Integration
+
+**After refactoring any stage script, ALWAYS check if run_workflow.py needs to be updated.**
+
+Each stage should be callable via:
+```bash
+python3 run_workflow.py --config CONFIG.yaml --stage X.X --era 2018
+```
+
+Currently integrated stages in run_workflow.py:
+- Stage 1 (OS), Stage 1.1 (OS sys)
+- Stage 2 (MV), Stage 2.1 (MV sys)
+- Stage 3 (WH) - nominal only
+- Stage 3.1 (WH sys) - **TODO: Add to run_workflow.py**
+- Stage 4 scripts - via temp script creation
+
 ### Scripts to Refactor (Pending)
 
 **Phase 3: Stage 2.4**

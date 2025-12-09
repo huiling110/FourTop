@@ -712,37 +712,52 @@ python3 checkJobResult.py
 
 ### 3.3 Submit Shape Systematic Jobs
 
-**Wrapper Script**: `run_makeJos_WH_forJES.sh` (2025-11-24: UPDATED - parameter memory + environment sourcing)
+**NEW (2025-12-09)**: Config-based workflow using `makeJob_WH_forJES.py`
 
-**Features**:
-- Automatically loads parameters from `.nominal_jobs_config`
-- Sources environment before each Python execution
-- Runs in background with nohup
+#### Config-Based Workflow (Recommended)
 
-**Submit** (uses saved parameters from nominal jobs):
+Uses workflow_utils for config-driven path building:
+
 ```bash
-cd writeHistGood/
-bash run_makeJos_WH_forJES.sh  # Automatically uses .nominal_jobs_config
-# Logs: log_2018_CHANNEL.log, log_2017_CHANNEL.log, etc.
+source setEnv_newNew.sh
+cd writeHistGood/jobs/
+
+# Submit all systematics for single era:
+python3 makeJob_WH_forJES.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# Submit specific group only:
+python3 makeJob_WH_forJES.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --group TES
+
+# Dry run to preview (no submission):
+python3 makeJob_WH_forJES.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --dry-run
+
+# Via run_workflow.py:
+python3 run_workflow.py --config config/analysis_config_1tau0l_TTBBtest.yaml --stage 3.1 --era 2018
 ```
 
-**Or provide parameters explicitly**:
+**Supported systematic groups**:
+- `TES`: 8 variations (dm0, dm1, dm10, dm11 × Up/Down)
+- `JER`: 2 variations (Up/Down)
+- `MET`: 2 variations (Up/Down)
+- `EleScale`: 2 variations (Up/Down)
+- `all`: All 14 energy scale variations
+
+**Note**: JES variations (27 sources × 2) are handled separately (see JES workflow).
+
+#### Legacy Wrapper Script (Alternative)
+
+**Wrapper Script**: `run_makeJos_WH_forJES.sh`
+
 ```bash
+cd writeHistGood/
+bash run_makeJos_WH_forJES.sh  # Uses .nominal_jobs_config if available
+# Or explicit parameters:
 bash run_makeJos_WH_forJES.sh 1tau0l v8BDT1tau0l_refactorAndBtagNameFix v94HadroPreJetVetoHemOnly
 ```
 
-**What it submits**:
-- JES variations (27 sources × 2 directions = 54 jobs per process)
-- JER variations (2 directions)
-- TES variations (4 decay modes × 2 directions = 8 jobs)
-- MET variations (2 directions)
-- Electron scale variations (2 directions)
-
-**Important**: Uses `ifSys=0` because shape variations are already in input samples
-
 **Monitoring**:
 ```bash
-tail -f log_2018_1tau1l.log  # Watch submission progress
+hep_q -u $USER                        # Check job queue
 cd jobs/ && python3 checkJobResult.py  # Check for failures
 ```
 
