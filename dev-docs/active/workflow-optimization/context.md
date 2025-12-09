@@ -1,7 +1,7 @@
 # Context: FourTop Workflow Optimization
 
 **Created**: 2025-12-08
-**Last Updated**: 2025-12-08 (Session 6)
+**Last Updated**: 2025-12-09 (Session 7)
 **Status**: IN PROGRESS
 
 ---
@@ -49,6 +49,21 @@ All scripts now require: `--config CONFIG --era ERA` (no fallback to hardcoded p
 - `makeVariables_goodCode/jobs/makeJob_MV_JESVariation.py` - **REFACTORED** for batch systematic submission
 - `plotting/workflow_utils.py` - **ADDED** `build_stage2_output()` function
 - `run_workflow.py` - **ADDED** Stage 1, 1.1, 2, 2.1 support
+
+### Phase 5: Stage 3.1 ✅ COMPLETE
+
+- `writeHistGood/jobs/makeJob_WH_forJES.py` - **REFACTORED** to use workflow_utils
+  - Added argparse: --config (required), --era, --group (TES/JER/MET/EleScale/all), --dry-run, --quiet
+  - Uses workflow_utils: load_config, build_stage2_output, get_channel, get_versions
+  - Removed all commented-out hardcoded paths
+
+### Three Workflow Modes (Documented)
+
+1. **Mode 1: Nominal Test Run** - Quick validation with `systematics: false`
+2. **Mode 2: Add Systematics After Nominal** - Continue from Mode 1, add energy scale sys
+3. **Mode 3: Full Workflow** - Production run with nominal + systematics together
+
+See `.claude/skills/workflow.md` for detailed commands.
 
 ### Scripts to Refactor (Pending)
 

@@ -9,6 +9,174 @@ Guide for running analysis stages with proper configuration and environment.
 - When generating fake backgrounds (Stage 2.4)
 - When creating histograms, templates, or datacards
 
+---
+
+## Three Workflow Modes
+
+### Mode 1: Nominal Test Run
+
+Quick validation run with only nominal samples (no systematics).
+
+**When to use**: Testing new config, validating paths, debugging.
+
+**Config setting**: `options.systematics: false`
+
+**Steps**:
+```
+Stage 1 (OS) nominal → Stage 2 (MV) nominal → Stage 2.4 (Fake)
+→ Stage 3 (WH) nominal → Stage 4.2-4.4 (Templates, Datacards, Plots)
+```
+
+**Commands**:
+```bash
+source setEnv_newNew.sh
+
+# Stage 1: OS nominal
+cd objectSelectionOptimized/jobs/
+python3 makeJob_OS_fromRuobing2.py --config ../../config/CONFIG.yaml --era 2018
+
+# Stage 2: MV nominal
+cd makeVariables_goodCode/jobs/
+python3 makeJob_makeVaribles_forBDT.py --config ../../config/CONFIG.yaml --era 2018
+
+# Stage 2.4: Fake backgrounds
+cd plotting/
+python3 createFaketauTree.py --config ../config/CONFIG.yaml --era 2018
+
+# Stage 3: WH nominal
+cd writeHistGood/jobs/
+python3 makeJob_forWriteHist.py --config ../../config/CONFIG.yaml --era 2018
+
+# Stage 4: Templates and plots
+cd plotting/
+python3 addTemplateNew.py --config ../config/CONFIG.yaml --era 2018
+python3 writeDatacard.py --config ../config/CONFIG.yaml --era 2018
+python3 pl.py --config ../config/CONFIG.yaml --era 2018
+```
+
+### Mode 2: Add Systematics After Nominal Test
+
+After nominal validation, add energy scale systematic variations.
+
+**When to use**: Nominal test passed, ready to add systematic variations.
+
+**Config setting**: Keep `options.systematics: false` (nominal WH already done)
+
+**Steps** (continue from Mode 1):
+```
+Stage 1.1 (OS sys) → Stage 2.1 (MV sys) → Stage 3.1 (WH sys)
+→ Stage 4.1 (merge JES) → Stage 4.2-4.4 (re-run with systematics)
+```
+
+**Commands**:
+```bash
+source setEnv_newNew.sh
+
+# Stage 1.1: OS all systematics (15 variations)
+cd objectSelectionOptimized/jobs/
+./submit_all_systematics.sh ../../config/CONFIG.yaml 2018
+
+# Stage 2.1: MV all systematics (14 variations: TES, JER, MET, EleScale)
+cd makeVariables_goodCode/jobs/
+python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018
+
+# Stage 3.1: WH all systematics (14 variations)
+cd writeHistGood/jobs/
+python3 makeJob_WH_forJES.py --config ../../config/CONFIG.yaml --era 2018
+
+# Stage 4.1: Merge JES templates into nominal
+cd plotting/
+python3 addJESTemplatesToHistFile.py --config ../config/CONFIG.yaml --era 2018
+
+# Stage 4.2-4.4: Re-run with systematics in config
+# Set options.systematics: true in config first!
+python3 addTemplateNew.py --config ../config/CONFIG.yaml --era 2018
+python3 writeDatacard.py --config ../config/CONFIG.yaml --era 2018
+python3 pl.py --config ../config/CONFIG.yaml --era 2018
+```
+
+### Mode 3: Full Workflow (Nominal + Systematics Together)
+
+Complete pipeline from scratch with all systematics.
+
+**When to use**: Production run, final results.
+
+**Config setting**: `options.systematics: true`
+
+**Steps**:
+```
+Stage 1 (nominal) + Stage 1.1 (systematics) → Stage 2 + 2.1 → Stage 2.4
+→ Stage 3 (with internal sys) + 3.1 (energy scale sys)
+→ Stage 4.1 (merge JES) → Stage 4.2-4.4 → Stage 4.5 (Combine)
+```
+
+**Commands**:
+```bash
+source setEnv_newNew.sh
+
+# Run nominal and systematics together (parallel if resources allow)
+# Follow Mode 1 for nominal, Mode 2 for systematics
+# Then Stage 4.5 for combine:
+
+cd hua/combine/
+cmsenv  # Switch environment for combine
+python3 writeCombinationDatacard.py --config CONFIG.yaml --era run2
+python3 runCombineAll.py ...  # See combine docs
+```
+
+---
+
+## Workflow Status Check
+
+To determine the current workflow state and next step, check these indicators:
+
+### Quick Status Check Commands
+
+```bash
+# Check config for workflow mode
+grep "systematics:" config/analysis_config_1tau0l_TTBBtest.yaml
+
+# Check Stage 2 output (nominal exists?)
+ls -d /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94*_TTBBtest/ 2>/dev/null | head -3
+
+# Check Stage 2 systematic outputs
+ls -d /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94*_TES*/ 2>/dev/null | wc -l
+
+# Check Stage 3 histograms exist
+ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_*/mc/variableHists_*/allHist*.root 2>/dev/null | wc -l
+
+# Check running jobs
+hep_q -u $USER | grep -c running
+```
+
+### State Inference Table
+
+| State | Indicators | Next Step |
+|-------|------------|-----------|
+| **Not started** | No Stage 2 output | Start with Mode 1: OS → MV → Fake |
+| **Nominal complete** | Stage 2 nominal exists, no sys dirs | Mode 2: Add systematics (OS sys) |
+| **OS sys running** | Jobs in queue with "OS" | Wait, then MV sys |
+| **MV sys complete** | 14+ Stage 2 sys dirs exist | Stage 3.1 (WH sys) |
+| **WH sys running** | Jobs in queue with "WH" | Wait for completion |
+| **WH sys complete** | variableHists in all sys dirs | Stage 4.1 (merge JES) |
+| **Stage 4.1 done** | histAllDNN.root updated | Stage 4.2-4.4 (templates) |
+| **Ready for combine** | Datacards exist | Stage 4.5 (cmsenv) |
+
+### Determine Next Step
+
+When resuming work, run:
+```bash
+source setEnv_newNew.sh
+# Check jobs
+hep_q -u $USER
+
+# Check what exists for 2018
+ls -d /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_*/ | wc -l
+# Expected: 1 (nominal only) or 15 (nominal + 14 sys)
+```
+
+---
+
 ## Environment Requirements
 
 **CRITICAL**: Always source the correct environment BEFORE running scripts.
@@ -208,19 +376,46 @@ source setEnv_newNew.sh
 cd writeHistGood/jobs/
 
 # Submit jobs for all processes
-python3 makeJob_forWriteHist.py --config ../../config/analysis_config_1tau0l_full.yaml --era 2018
+python3 makeJob_forWriteHist.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
 
 # Monitor jobs
 hep_q -u $USER
 ```
 
 **Note on Systematics**:
-- If `options.systematics: true` in config: Nominal WH jobs include all systematics internally.
-  **Skip Stage 4.1 and JES systematic WH jobs** - they are NOT needed.
+- If `options.systematics: true` in config: Nominal WH jobs include all weight systematics internally.
+  Still need Stage 3.1 for **energy scale** systematics (TES, JER, MET, EleScale).
 - If `options.systematics: false` in config: Only nominal histograms are produced.
-  For full systematics, you would need separate JES variation jobs + Stage 4.1.
 
-### Stage 4.1: JES Template Consolidation (SKIP if systematics: true)
+### Stage 3.1: WH Systematic Variations (Energy Scale)
+
+Submit WH jobs for energy scale systematic variations (TES, JER, MET, EleScale).
+Requires Stage 2.1 (MV systematics) to be complete.
+
+```bash
+source setEnv_newNew.sh
+cd writeHistGood/jobs/
+
+# Submit ALL systematics for 2018 (14 variations × 59 MC files = 826 jobs)
+python3 makeJob_WH_forJES.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# Submit specific systematic group
+python3 makeJob_WH_forJES.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --group TES
+python3 makeJob_WH_forJES.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --group JER
+
+# Dry run
+python3 makeJob_WH_forJES.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --dry-run
+
+# Available groups: TES, JER, MET, EleScale, all
+```
+
+**Systematic variations**:
+- TES: TESdm0Up/Down, TESdm1Up/Down, TESdm10Up/Down, TESdm11Up/Down (8)
+- JER: JERUp/Down (2)
+- MET: METUp/Down (2)
+- EleScale: EleScaleUp/Down (2)
+
+### Stage 4.1: JES Template Consolidation
 
 Only needed when running separate JES systematic variation jobs:
 
