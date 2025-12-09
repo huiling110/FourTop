@@ -23,15 +23,16 @@ import os
 import sys
 import subprocess
 
-# Add plotting directory for workflow_utils
+# Add paths for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'hua', 'src_py'))
 from workflow_utils import load_config, get_eras
+from ttttGlobleQuantity import JESVariationList as JES_SOURCES
 
 # Import the main submission script
 import makeJob_makeVaribles_forBDT as mj
 
-
-# Systematic variations (excluding JES which is handled separately)
+# Systematic variations by group
 SYSTEMATICS = {
     'TES': [
         'TESdm0Up', 'TESdm0Down',
@@ -42,7 +43,13 @@ SYSTEMATICS = {
     'JER': ['JERUp', 'JERDown'],
     'MET': ['METUp', 'METDown'],
     'EleScale': ['EleScaleUp', 'EleScaleDown'],
+    'JES': [],  # Populated below with Up/Down for each source
 }
+
+# Generate JES variations (27 sources × 2 directions = 54 variations)
+for source in JES_SOURCES:
+    SYSTEMATICS['JES'].append(f'JESup_{source}')
+    SYSTEMATICS['JES'].append(f'JESDown_{source}')
 
 ALL_SYSTEMATICS = []
 for group in SYSTEMATICS.values():
@@ -65,9 +72,9 @@ def create_parser():
         help='Era to process (default: all from config)'
     )
     parser.add_argument(
-        '--group', '-g', choices=['TES', 'JER', 'MET', 'EleScale', 'all'],
+        '--group', '-g', choices=['TES', 'JER', 'MET', 'EleScale', 'JES', 'all'],
         default='all',
-        help='Systematic group to process (default: all)'
+        help='Systematic group to process (default: all). JES has 54 variations (27 sources × Up/Down)'
     )
     parser.add_argument(
         '--mc-only', action='store_true', default=True,

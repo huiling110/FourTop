@@ -23,10 +23,12 @@ import sys
 
 import makeJob_forWriteHist as mj
 
-# Add plotting directory to path for workflow_utils
+# Add paths for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'hua', 'src_py'))
 
 from workflow_utils import load_config, build_stage2_output, get_channel, get_versions
+from ttttGlobleQuantity import JESVariationList as JES_SOURCES
 
 # Systematic variations by group
 SYSTEMATIC_GROUPS = {
@@ -39,7 +41,13 @@ SYSTEMATIC_GROUPS = {
     'JER': ['JERUp', 'JERDown'],
     'MET': ['METUp', 'METDown'],
     'EleScale': ['EleScaleUp', 'EleScaleDown'],
+    'JES': [],  # Populated below with Up/Down for each source
 }
+
+# Generate JES variations (27 sources × 2 directions = 54 variations)
+for source in JES_SOURCES:
+    SYSTEMATIC_GROUPS['JES'].append(f'JESup_{source}')
+    SYSTEMATIC_GROUPS['JES'].append(f'JESDown_{source}')
 
 # Default executable
 EXE = './apps/run_treeAnalyzer.out'
@@ -68,9 +76,9 @@ Examples:
                         choices=['2018', '2017', '2016preVFP', '2016postVFP'],
                         help='Era to process (default: all from config)')
     parser.add_argument('--group', '-g', type=str,
-                        choices=['TES', 'JER', 'MET', 'EleScale', 'all'],
+                        choices=['TES', 'JER', 'MET', 'EleScale', 'JES', 'all'],
                         default='all',
-                        help='Systematic group to submit (default: all)')
+                        help='Systematic group to submit (default: all). JES has 54 variations (27 sources × Up/Down)')
     parser.add_argument('--dry-run', action='store_true',
                         help='Show what would be done without submitting')
     parser.add_argument('--quiet', '-q', action='store_true',
