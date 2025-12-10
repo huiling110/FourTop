@@ -9,7 +9,7 @@ import usefulFunc as uf
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
 
 try:
-    from workflow_utils import load_config, build_stage2_path, get_channel, get_versions
+    from workflow_utils import load_config, build_stage2_path, get_channel, get_versions, get_workflow_state
     WORKFLOW_UTILS_AVAILABLE = True
 except ImportError:
     WORKFLOW_UTILS_AVAILABLE = False
@@ -247,6 +247,15 @@ if __name__=='__main__':
         if args.dry_run:
             print("\n[DRY RUN] Would submit jobs with above settings")
         else:
+            # Update workflow state before submission
+            try:
+                state = get_workflow_state(channel, args.config)
+                state.update_stage('3', args.era, 'submitting', 'WH_nominal')
+                state.log_execution('3', args.era, 'WH_nominal', 'submitting',
+                                   config=args.config, version=version)
+            except Exception as e:
+                print(f"[WARNING] Could not update workflow state: {e}")
+
             main(
                 inputDir=inputDir,
                 channel=channel,
@@ -254,6 +263,16 @@ if __name__=='__main__':
                 ifSys=args.sys,
                 justMC=args.just_mc
             )
+
+            # Update workflow state after submission
+            try:
+                state = get_workflow_state(channel, args.config)
+                state.update_stage('3', args.era, 'submitted', 'WH_nominal')
+                state.log_execution('3', args.era, 'WH_nominal', 'submitted',
+                                   config=args.config, version=version)
+                print(f"\n[WorkflowState] Updated: Stage 3, {args.era}, submitted")
+            except Exception as e:
+                print(f"[WARNING] Could not update workflow state: {e}")
     else:
         # Legacy mode: use hardcoded paths in main()
         print("=== Legacy mode (using hardcoded paths) ===")

@@ -27,7 +27,7 @@ import makeJob_forWriteHist as mj
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'hua', 'src_py'))
 
-from workflow_utils import load_config, build_stage2_output, get_channel, get_versions
+from workflow_utils import load_config, build_stage2_output, get_channel, get_versions, get_workflow_state
 from ttttGlobleQuantity import JESVariationList as JES_SOURCES
 
 # Systematic variations by group
@@ -219,6 +219,22 @@ def main():
         print(f"Total jobs {'would be ' if args.dry_run else ''}submitted: {total_jobs}")
         print()
         print("Monitor with: hep_q -u $USER")
+
+    # Update workflow state after submission (only if not dry run)
+    if not args.dry_run and total_jobs > 0:
+        try:
+            state = get_workflow_state(channel, args.config)
+            state.update_stage('3.1', eras[0] if len(eras) == 1 else 'multiple',
+                             'submitted', f'WH_{args.group}_systematics')
+            state.log_execution('3.1', eras[0] if len(eras) == 1 else 'multiple',
+                              f'WH_{args.group}_systematics', 'submitted',
+                              config=args.config, total_jobs=total_jobs,
+                              variations=len(systematics), eras=eras)
+            if not args.quiet:
+                print(f"\n[WorkflowState] Updated: Stage 3.1, {args.group} systematics, submitted")
+        except Exception as e:
+            if not args.quiet:
+                print(f"[WARNING] Could not update workflow state: {e}")
 
 
 if __name__ == '__main__':

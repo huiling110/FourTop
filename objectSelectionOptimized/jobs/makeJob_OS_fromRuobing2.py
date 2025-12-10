@@ -36,6 +36,7 @@ from workflow_utils import (
     build_stage1_input,
     build_stage1_output,
     ERA_TO_UL,
+    get_workflow_state,
 )
 import ttttGlobleQuantity as gq
 import usefulFunc as uf
@@ -433,6 +434,20 @@ def main():
             print(f"    Output: {output_dir}")
         return
 
+    # Determine stage and operation for workflow state
+    stage = '1.1' if args.sys else '1'
+    operation = f'OS_{args.sys}' if args.sys else 'OS_nominal'
+    channel = get_channel(config)
+
+    # Update workflow state before submission
+    try:
+        state = get_workflow_state(channel, args.config)
+        state.update_stage(stage, eras[0] if len(eras) == 1 else 'multiple',
+                         'submitting', operation)
+    except Exception as e:
+        if not args.quiet:
+            print(f"[WARNING] Could not update workflow state: {e}")
+
     # Submit jobs for each era
     for era in eras:
         run_stage1(
@@ -440,6 +455,20 @@ def main():
             TES=TES, eleScale=eleScale, JESSys=JESSys, JERSys=JERSys, METSys=METSys,
             quiet=args.quiet
         )
+
+    # Update workflow state after submission
+    try:
+        state = get_workflow_state(channel, args.config)
+        state.update_stage(stage, eras[0] if len(eras) == 1 else 'multiple',
+                         'submitted', operation)
+        state.log_execution(stage, eras[0] if len(eras) == 1 else 'multiple',
+                          operation, 'submitted',
+                          config=args.config, eras=eras)
+        if not args.quiet:
+            print(f"\n[WorkflowState] Updated: Stage {stage}, {operation}, submitted")
+    except Exception as e:
+        if not args.quiet:
+            print(f"[WARNING] Could not update workflow state: {e}")
 
 
 if __name__ == "__main__":

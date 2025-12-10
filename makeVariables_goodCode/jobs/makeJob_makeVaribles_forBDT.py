@@ -26,7 +26,7 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
 from workflow_utils import (
     load_config, get_eras, get_channel, get_channel_if1tau2l,
-    build_stage1_output, build_stage2_output, ERA_TO_UL
+    build_stage1_output, build_stage2_output, ERA_TO_UL, get_workflow_state
 )
 
 import usefulFunc as uf
@@ -310,9 +310,34 @@ def main():
         print("\n[DRY RUN] Would execute:")
         print(f"  bash {master_script}")
     else:
+        # Update workflow state before submission
+        stage = '2.1' if args.sys else '2'
+        operation = f'MV_{args.sys}' if args.sys else 'MV_nominal'
+        try:
+            state = get_workflow_state(channel, args.config)
+            state.update_stage(stage, eras[0] if len(eras) == 1 else 'multiple',
+                             'submitting', operation)
+        except Exception as e:
+            if not args.quiet:
+                print(f"[WARNING] Could not update workflow state: {e}")
+
         print(f"\nSubmitting jobs...")
         uf.sumbitJobs(master_script)
         print("Jobs submitted!")
+
+        # Update workflow state after submission
+        try:
+            state = get_workflow_state(channel, args.config)
+            state.update_stage(stage, eras[0] if len(eras) == 1 else 'multiple',
+                             'submitted', operation)
+            state.log_execution(stage, eras[0] if len(eras) == 1 else 'multiple',
+                              operation, 'submitted',
+                              config=args.config, eras=eras)
+            if not args.quiet:
+                print(f"\n[WorkflowState] Updated: Stage {stage}, {operation}, submitted")
+        except Exception as e:
+            if not args.quiet:
+                print(f"[WARNING] Could not update workflow state: {e}")
 
 
 if __name__ == "__main__":
