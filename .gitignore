@@ -15,3 +15,6 @@
 *\/plots\/*
 *ACLiC*
 
+# Workflow state tracking (Phase 8)
+.workflow_state.json
+.workflow_state.json.tmp
