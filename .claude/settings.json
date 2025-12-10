@@ -100,7 +100,18 @@
       "Bash(nohup:*)",
       "Bash(for *)",
       "Bash(timeout *)",
-      "Bash(cd /workfs2/*)"
+      "Bash(cd /workfs2/*)",
+      "Bash(source * && cd * && python3 *)",
+      "Bash(source * && python3 *)",
+      "Bash(cd * && python3 *)",
+      "Bash(source * && *)",
+      "Bash(cd * && *)",
+      "Bash(* && python3 *)",
+      "Bash(* | tail *)",
+      "Bash(* | head *)",
+      "Bash(* | wc *)",
+      "Bash(* | grep *)",
+      "Bash(* 2>&1 | *)"
     ]
   },
   "hooks": {
