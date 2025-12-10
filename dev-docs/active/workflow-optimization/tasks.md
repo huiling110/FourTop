@@ -139,6 +139,36 @@
 
 ---
 
+## Phase 8: Redesign Workflow Hooks + Skills
+
+**Status**: PLANNED
+
+**Problem**:
+- `.claude/skills/workflow.md` too long (~600 lines)
+- Skills not triggered properly
+- Claude doesn't remember how to run workflow automatically
+- Need better context about current workflow stage
+
+**Goals**:
+- [ ] Learn during current session how hooks + skills work
+- [ ] Document proper hook/skill setup for workflow automation
+- [ ] Create concise, focused skill definitions
+- [ ] Add stage tracking/detection mechanisms
+- [ ] Enable automatic workflow progression
+- [ ] Clear documentation for future sessions
+
+**Key Questions to Answer**:
+1. How should hooks detect which workflow stage we're in?
+2. What information must be in skill.md vs hooks vs context.md?
+3. How to trigger skills automatically based on user intent?
+4. How to maintain workflow state across sessions?
+
+**References**:
+- Current files: `.claude/skills/workflow.md`, `.claude/hooks/pre-tool-use.sh`, `.claude/hooks/user-prompt-submit.sh`
+- workflow_utils.py - config-based path building
+
+---
+
 ## Quality Checks
 
 - [x] All Stage 4 scripts have consistent argparse pattern (--config required, --era required, --quiet optional)

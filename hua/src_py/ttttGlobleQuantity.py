@@ -595,6 +595,8 @@ proChannelDic_forCombine = {
 }
 
 #!copied from inputMAP_MV.H
+#!IMPORTANT: This list MUST match MV::JES_uncer in makeVariables_goodCode/include/inputMap_MV.h
+#!Run validate_jes_list() to verify synchronization
 JESVariationList = [
     "AbsoluteMPFBias_AK4PFchs",
     "AbsoluteScale_AK4PFchs",
@@ -628,3 +630,78 @@ JESVariationList = [
     "FlavorPureCharm_AK4PFchs", #!Expanded for FlavorQCD
     "FlavorPureBottom_AK4PFchs", #!Expanded for FlavorQCD
 ]
+
+
+def validate_jes_list(cpp_header_path=None):
+    """
+    Validate that Python JESVariationList matches C++ MV::JES_uncer array.
+
+    Parses the C++ header file and compares with Python list to catch
+    synchronization errors that would cause wrong JES variations to be applied.
+
+    Args:
+        cpp_header_path: Path to inputMap_MV.h. If None, uses default relative path.
+
+    Returns:
+        True if lists match, raises ValueError if mismatch found.
+
+    Usage:
+        from ttttGlobleQuantity import validate_jes_list
+        validate_jes_list()  # Call before submitting JES jobs
+    """
+    import os
+    import re
+
+    if cpp_header_path is None:
+        # Default path relative to this file
+        this_dir = os.path.dirname(os.path.abspath(__file__))
+        cpp_header_path = os.path.join(
+            this_dir, '..', '..', 'makeVariables_goodCode', 'include', 'inputMap_MV.h'
+        )
+
+    if not os.path.exists(cpp_header_path):
+        print(f"WARNING: Cannot validate JES list - C++ header not found: {cpp_header_path}")
+        return True
+
+    # Parse C++ header to extract JES_uncer array
+    with open(cpp_header_path, 'r') as f:
+        content = f.read()
+
+    # Find the JES_uncer array definition
+    match = re.search(r'JES_uncer\s*=\s*\{([^}]+)\}', content, re.DOTALL)
+    if not match:
+        print("WARNING: Cannot find JES_uncer array in C++ header")
+        return True
+
+    # Extract source names from C++ array
+    array_content = match.group(1)
+    cpp_sources = []
+    for line in array_content.split('\n'):
+        # Skip commented lines
+        line = line.strip()
+        if line.startswith('//'):
+            continue
+        # Extract quoted string
+        string_match = re.search(r'"([^"]+)"', line)
+        if string_match:
+            cpp_sources.append(string_match.group(1))
+
+    # Compare with Python list
+    if len(cpp_sources) != len(JESVariationList):
+        raise ValueError(
+            f"JES list length mismatch!\n"
+            f"  C++ MV::JES_uncer has {len(cpp_sources)} sources\n"
+            f"  Python JESVariationList has {len(JESVariationList)} sources\n"
+            f"  Fix: Synchronize lists in inputMap_MV.h and ttttGlobleQuantity.py"
+        )
+
+    for i, (cpp_src, py_src) in enumerate(zip(cpp_sources, JESVariationList)):
+        if cpp_src != py_src:
+            raise ValueError(
+                f"JES list mismatch at index {i}!\n"
+                f"  C++ MV::JES_uncer[{i}] = '{cpp_src}'\n"
+                f"  Python JESVariationList[{i}] = '{py_src}'\n"
+                f"  Fix: Synchronize lists in inputMap_MV.h and ttttGlobleQuantity.py"
+            )
+
+    return True

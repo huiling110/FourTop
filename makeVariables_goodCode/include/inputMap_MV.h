@@ -168,11 +168,11 @@ namespace MV
     };
 
 
-inline const std::array<TString, 31> JES_uncer = {
+inline const std::array<TString, 30> JES_uncer = {
     "AbsoluteMPFBias_AK4PFchs",
     "AbsoluteScale_AK4PFchs",
     "AbsoluteStat_AK4PFchs",
-    "FlavorQCD_AK4PFchs", //
+    // "FlavorQCD_AK4PFchs", //!REMOVED: Split into FlavorPure(Gluon,Quark,Charm,Bottom) below
     "Fragmentation_AK4PFchs",
     "PileUpDataMC_AK4PFchs",
     "PileUpPtBB_AK4PFchs",

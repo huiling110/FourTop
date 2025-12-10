@@ -1,0 +1,297 @@
+[2025-12-02 17:31:15] [INFO] ================================================================================
+[2025-12-02 17:31:15] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-12-02 17:31:15] [INFO] ================================================================================
+[2025-12-02 17:31:15] [INFO] Card directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/
+[2025-12-02 17:31:15] [INFO] Analysis mode: UNBLINDED (observed)
+[2025-12-02 17:31:15] [INFO] ================================================================================
+[2025-12-02 17:31:15] [INFO] 
+================================================================================
+[2025-12-02 17:31:15] [INFO] STEP 5: Generating post-fit plots
+[2025-12-02 17:31:15] [INFO] ================================================================================
+[2025-12-02 17:31:15] [INFO] Using tttt datacard: datacard.root
+[2025-12-02 17:31:15] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/postfitPlots/
+[2025-12-02 17:31:15] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/postfitPlots/
+[2025-12-02 17:31:15] [INFO] Running: combine -M FitDiagnostics /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/workspace/datacard.root  --rMin 0 --rMax 20 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0
+[2025-12-02 17:34:41] [INFO] stdout:  <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is FitDiagnostics
+
+ --- FitDiagnostics ---
+Best fit r: 7.15537  -3.90812/+4.2534  (68% CL)
+Done in 3.33 min (cpu), 3.36 min (real)
+
+[2025-12-02 17:34:41] [INFO] ✓ Command completed (exit code: 0)
+[2025-12-02 17:34:41] [INFO] 
+================================================================================
+[2025-12-02 17:34:41] [INFO] STEP 6: Measuring signal strength
+[2025-12-02 17:34:41] [INFO] ================================================================================
+[2025-12-02 17:34:41] [INFO] Using tttt datacard: datacard.root
+[2025-12-02 17:34:41] [INFO] Output directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/
+[2025-12-02 17:34:41] [INFO] Working directory: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/
+[2025-12-02 17:34:41] [INFO] Running: combine -M MultiDimFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/workspace/datacard.root --algo grid --points 100 --rMin 0 --rMax 20 --redefineSignalPOIs r -n .scan
+[2025-12-02 17:36:56] [INFO] stdout:  <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+ POI: r= 7.12877 -> [0,20]
+Point 0/100 r = 0.1
+Point 1/100 r = 0.3
+Point 2/100 r = 0.5
+Point 3/100 r = 0.7
+Point 4/100 r = 0.9
+Point 5/100 r = 1.1
+Point 6/100 r = 1.3
+Point 7/100 r = 1.5
+Point 8/100 r = 1.7
+Point 9/100 r = 1.9
+Point 10/100 r = 2.1
+Point 11/100 r = 2.3
+Point 12/100 r = 2.5
+Point 13/100 r = 2.7
+Point 14/100 r = 2.9
+Point 15/100 r = 3.1
+Point 16/100 r = 3.3
+Point 17/100 r = 3.5
+Point 18/100 r = 3.7
+Point 19/100 r = 3.9
+Point 20/100 r = 4.1
+Point 21/100 r = 4.3
+Point 22/100 r = 4.5
+Point 23/100 r = 4.7
+Point 24/100 r = 4.9
+Point 25/100 r = 5.1
+Point 26/100 r = 5.3
+Point 27/100 r = 5.5
+Point 28/100 r = 5.7
+Point 29/100 r = 5.9
+Point 30/100 r = 6.1
+Point 31/100 r = 6.3
+Point 32/100 r = 6.5
+Point 33/100 r = 6.7
+Point 34/100 r = 6.9
+Point 35/100 r = 7.1
+Point 36/100 r = 7.3
+Point 37/100 r = 7.5
+Point 38/100 r = 7.7
+Point 39/100 r = 7.9
+Point 40/100 r = 8.1
+Point 41/100 r = 8.3
+Point 42/100 r = 8.5
+Point 43/100 r = 8.7
+Point 44/100 r = 8.9
+Point 45/100 r = 9.1
+Point 46/100 r = 9.3
+Point 47/100 r = 9.5
+Point 48/100 r = 9.7
+Point 49/100 r = 9.9
+Point 50/100 r = 10.1
+Point 51/100 r = 10.3
+Point 52/100 r = 10.5
+Point 53/100 r = 10.7
+Point 54/100 r = 10.9
+Point 55/100 r = 11.1
+Point 56/100 r = 11.3
+Point 57/100 r = 11.5
+Point 58/100 r = 11.7
+Point 59/100 r = 11.9
+Point 60/100 r = 12.1
+Point 61/100 r = 12.3
+Point 62/100 r = 12.5
+Point 63/100 r = 12.7
+Point 64/100 r = 12.9
+Point 65/100 r = 13.1
+Point 66/100 r = 13.3
+Point 67/100 r = 13.5
+Point 68/100 r = 13.7
+Point 69/100 r = 13.9
+Point 70/100 r = 14.1
+Point 71/100 r = 14.3
+Point 72/100 r = 14.5
+Point 73/100 r = 14.7
+Point 74/100 r = 14.9
+Point 75/100 r = 15.1
+Point 76/100 r = 15.3
+Point 77/100 r = 15.5
+Point 78/100 r = 15.7
+Point 79/100 r = 15.9
+Point 80/100 r = 16.1
+Point 81/100 r = 16.3
+Point 82/100 r = 16.5
+Point 83/100 r = 16.7
+Point 84/100 r = 16.9
+Point 85/100 r = 17.1
+Point 86/100 r = 17.3
+Point 87/100 r = 17.5
+Point 88/100 r = 17.7
+Point 89/100 r = 17.9
+Point 90/100 r = 18.1
+Point 91/100 r = 18.3
+Point 92/100 r = 18.5
+Point 93/100 r = 18.7
+Point 94/100 r = 18.9
+Point 95/100 r = 19.1
+Point 96/100 r = 19.3
+Point 97/100 r = 19.5
+Point 98/100 r = 19.7
+Point 99/100 r = 19.9
+Done in 2.11 min (cpu), 2.18 min (real)
+
+[2025-12-02 17:36:56] [INFO] ✓ Command completed (exit code: 0)
+[2025-12-02 17:36:56] [INFO] Running: combine -M MultiDimFit /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/workspace/datacard.root -n .snapshot --rMin 0 --rMax 20 --saveWorkspace
+[2025-12-02 17:37:03] [INFO] stdout:  <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+
+ --- MultiDimFit ---
+best fit parameter values: 
+   r :    +7.129
+Done in 0.05 min (cpu), 0.05 min (real)
+
+[2025-12-02 17:37:03] [INFO] ✓ Command completed (exit code: 0)
+[2025-12-02 17:37:03] [INFO] Running: combine -M MultiDimFit higgsCombine.snapshot.MultiDimFit.mH120.root -n .freezeAll --rMin 0 --rMax 20 --algo grid --points 100 --freezeParameters allConstrainedNuisances --snapshotName MultiDimFit
+[2025-12-02 17:37:07] [INFO] stdout:  <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is MultiDimFit
+Doing initial fit: 
+ POI: r= 7.13562 -> [0,20]
+Point 0/100 r = 0.1
+Point 1/100 r = 0.3
+Point 2/100 r = 0.5
+Point 3/100 r = 0.7
+Point 4/100 r = 0.9
+Point 5/100 r = 1.1
+Point 6/100 r = 1.3
+Point 7/100 r = 1.5
+Point 8/100 r = 1.7
+Point 9/100 r = 1.9
+Point 10/100 r = 2.1
+Point 11/100 r = 2.3
+Point 12/100 r = 2.5
+Point 13/100 r = 2.7
+Point 14/100 r = 2.9
+Point 15/100 r = 3.1
+Point 16/100 r = 3.3
+Point 17/100 r = 3.5
+Point 18/100 r = 3.7
+Point 19/100 r = 3.9
+Point 20/100 r = 4.1
+Point 21/100 r = 4.3
+Point 22/100 r = 4.5
+Point 23/100 r = 4.7
+Point 24/100 r = 4.9
+Point 25/100 r = 5.1
+Point 26/100 r = 5.3
+Point 27/100 r = 5.5
+Point 28/100 r = 5.7
+Point 29/100 r = 5.9
+Point 30/100 r = 6.1
+Point 31/100 r = 6.3
+Point 32/100 r = 6.5
+Point 33/100 r = 6.7
+Point 34/100 r = 6.9
+Point 35/100 r = 7.1
+Point 36/100 r = 7.3
+Point 37/100 r = 7.5
+Point 38/100 r = 7.7
+Point 39/100 r = 7.9
+Point 40/100 r = 8.1
+Point 41/100 r = 8.3
+Point 42/100 r = 8.5
+Point 43/100 r = 8.7
+Point 44/100 r = 8.9
+Point 45/100 r = 9.1
+Point 46/100 r = 9.3
+Point 47/100 r = 9.5
+Point 48/100 r = 9.7
+Point 49/100 r = 9.9
+Point 50/100 r = 10.1
+Point 51/100 r = 10.3
+Point 52/100 r = 10.5
+Point 53/100 r = 10.7
+Point 54/100 r = 10.9
+Point 55/100 r = 11.1
+Point 56/100 r = 11.3
+Point 57/100 r = 11.5
+Point 58/100 r = 11.7
+Point 59/100 r = 11.9
+Point 60/100 r = 12.1
+Point 61/100 r = 12.3
+Point 62/100 r = 12.5
+Point 63/100 r = 12.7
+Point 64/100 r = 12.9
+Point 65/100 r = 13.1
+Point 66/100 r = 13.3
+Point 67/100 r = 13.5
+Point 68/100 r = 13.7
+Point 69/100 r = 13.9
+Point 70/100 r = 14.1
+Point 71/100 r = 14.3
+Point 72/100 r = 14.5
+Point 73/100 r = 14.7
+Point 74/100 r = 14.9
+Point 75/100 r = 15.1
+Point 76/100 r = 15.3
+Point 77/100 r = 15.5
+Point 78/100 r = 15.7
+Point 79/100 r = 15.9
+Point 80/100 r = 16.1
+Point 81/100 r = 16.3
+Point 82/100 r = 16.5
+Point 83/100 r = 16.7
+Point 84/100 r = 16.9
+Point 85/100 r = 17.1
+Point 86/100 r = 17.3
+Point 87/100 r = 17.5
+Point 88/100 r = 17.7
+Point 89/100 r = 17.9
+Point 90/100 r = 18.1
+Point 91/100 r = 18.3
+Point 92/100 r = 18.5
+Point 93/100 r = 18.7
+Point 94/100 r = 18.9
+Point 95/100 r = 19.1
+Point 96/100 r = 19.3
+Point 97/100 r = 19.5
+Point 98/100 r = 19.7
+Point 99/100 r = 19.9
+Done in 0.01 min (cpu), 0.01 min (real)
+
+[2025-12-02 17:37:07] [INFO] ✓ Command completed (exit code: 0)
+[2025-12-02 17:37:07] [INFO] Running: plot1DScan.py higgsCombine.scan.MultiDimFit.mH120.root --others 'higgsCombine.freezeAll.MultiDimFit.mH120.root:StatOnly:2' -o scan_plot --breakdown Syst,Stat
+[2025-12-02 17:37:12] [INFO] stdout: --------------------------------------
+scan_plot
+--------------------------------------
+[{'lo': 3.2457344241939885, 'hi': 11.409908014053622, 'valid_lo': True, 'valid_hi': True}]
+[{'lo': 0.10000000149011612, 'hi': 16.178025946580213, 'valid_lo': False, 'valid_hi': True}]
+[{'lo': 4.890326792666639, 'hi': 9.435262537898259, 'valid_lo': True, 'valid_hi': True}]
+[{'lo': 2.699328927791758, 'hi': 11.789283708988895, 'valid_lo': True, 'valid_hi': True}]
+
+[2025-12-02 17:37:12] [INFO] ✓ Command completed (exit code: 0)
+[2025-12-02 17:37:12] [INFO] Running: cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+[2025-12-02 17:37:13] [ERROR] Command failed with return code 1: cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+[2025-12-02 17:37:13] [ERROR] Failed to execute command: cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"
+[2025-12-02 17:37:13] [ERROR] Error: Command 'cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"' returned non-zero exit status 1.
+[2025-12-02 17:37:13] [ERROR] Analysis workflow failed: Command 'cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 253, in main
+    measureSignalStrength(working_cardDir, ifVLL, channel)  #!Step 3 of unblinding
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 390, in measureSignalStrength
+    runCommand(extractTotal)
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 512, in runCommand
+    raise subprocess.CalledProcessError(returncode, com, output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command 'cd /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/ && combine -M MultiDimFit higgsCombineTest.MultiDimFit.mH120.root --algo singles --redefineSignalPOIs r --saveWorkspace 2>&1 | grep "r :"' returned non-zero exit status 1.
+Info in <TCanvas::Print>: pdf file ./scan_plot.pdf has been created
+Info in <TCanvas::Print>: png file ./scan_plot.png has been created
+
+Signal strength results here:  /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/combinationV20/run2_1tau0l_v4_unblind/combineResults/signalStrength/
+
+============================================================
+Signal Strength and Uncertainty Breakdown:
+============================================================
+
+Running uncertainty extraction...

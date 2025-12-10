@@ -1,0 +1,2737 @@
+Cleanup log - 2025-12-08 11:39:45.840227
+Mode: EXECUTE
+================================================================================
+
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 146 files → zipped (freed 145)
+  jobSH/: 105 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 164 files → zipped (freed 163)
+  jobSH/: 86 files deleted
+v10BDT1tau0l_TauFakeCorrelationFix (2018):
+  log/: 164 files → zipped (freed 163)
+  jobSH/: 86 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 164 files → zipped (freed 164)
+  jobSH/: 86 files deleted
+v8BDT1tau0l_refactorAndBtagNameFix (2018):
+  log/: 164 files → zipped (freed 164)
+  jobSH/: 86 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 146 files → zipped (freed 145)
+  jobSH/: 100 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 146 files → zipped (freed 145)
+  jobSH/: 91 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 146 files → zipped (freed 145)
+  jobSH/: 90 files deleted
+v0BDT1tau0l_TTBBtest (2017):
+  log/: 142 files → zipped (freed 141)
+  jobSH/: 81 files deleted
+v0BDT1tau1l_TTBBtest (2017):
+  log/: 142 files → zipped (freed 141)
+  jobSH/: 81 files deleted
+v0BDT1tau0l_TTBBtest (2016preVFP):
+  log/: 142 files → zipped (freed 141)
+  jobSH/: 77 files deleted
+v0BDT1tau1l_TTBBtest (2016preVFP):
+  log/: 142 files → zipped (freed 141)
+  jobSH/: 77 files deleted
+v0BDT1tau0l_TTBBtest (2018):
+  log/: 142 files → zipped (freed 141)
+  jobSH/: 75 files deleted
+v0BDT1tau1l_TTBBtest (2018):
+  log/: 142 files → zipped (freed 141)
+  jobSH/: 75 files deleted
+v0BDT1tau0l_TTBBtest (2016postVFP):
+  log/: 142 files → zipped (freed 141)
+  jobSH/: 74 files deleted
+v0BDT1tau1l_TTBBtest (2016postVFP):
+  log/: 142 files → zipped (freed 141)
+  jobSH/: 74 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 136 files → zipped (freed 135)
+  jobSH/: 78 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 136 files → zipped (freed 135)
+  jobSH/: 78 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 136 files → zipped (freed 135)
+  jobSH/: 74 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 136 files → zipped (freed 135)
+  jobSH/: 74 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 140 files → zipped (freed 139)
+  jobSH/: 70 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 136 files → zipped (freed 135)
+  jobSH/: 71 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 136 files → zipped (freed 135)
+  jobSH/: 71 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 114 files → zipped (freed 113)
+  jobSH/: 57 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2018):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016postVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2017):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau1l_WorkflowTest (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v9BDT1tau0l_CMSNamingComplete (2016preVFP):
+  log/: 112 files → zipped (freed 111)
+  jobSH/: 56 files deleted
+v10BDT1tau0l_TauFakeCorrelationFix (2017):
+  log/: 58 files → zipped (freed 57)
+  jobSH/: 78 files deleted

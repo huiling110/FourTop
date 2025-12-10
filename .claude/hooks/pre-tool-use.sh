@@ -42,7 +42,7 @@ if [[ "$command_str" =~ ^(ls|cd|pwd|cat|head|tail|grep|find|mkdir|rm|cp|mv|git|h
 fi
 
 # Check if command involves Python analysis scripts
-if [[ "$command_str" =~ python.*plotting/ || "$command_str" =~ python.*writeHistGood/ || "$command_str" =~ python.*makeVariables/ ]]; then
+if [[ "$command_str" =~ python.*plotting/ || "$command_str" =~ python.*writeHistGood/ || "$command_str" =~ python.*makeVariables/ || "$command_str" =~ python.*objectSelectionOptimized/jobs/ ]]; then
     # Check if ROOT is available (indicates environment is set up)
     if ! command -v root &> /dev/null; then
         echo ""

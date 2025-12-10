@@ -255,9 +255,13 @@ def main():
     eras = get_eras_to_process(config, args.era)
 
     # Build job version string for directory naming
+    # For JES: use output_sys (e.g., JESup_AbsoluteMPFBias_AK4PFchs) to create unique job dirs
+    # For other systematics: use sys (e.g., TESdm0Up)
     versions = config['versions']
     job_version = f"{versions['stage2']}_{versions['stage1']}"
-    if args.sys:
+    if args.output_sys:
+        job_version = f"{job_version}_{args.output_sys}"
+    elif args.sys:
         job_version = f"{job_version}_{args.sys}"
 
     job_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), job_version)

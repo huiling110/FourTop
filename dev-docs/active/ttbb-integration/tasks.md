@@ -179,6 +179,11 @@
 - [x] Run full combine analysis (2025-12-10 10:16)
   - Steps: workspace, significance, postfit, signal_strength, impacts
   - Running in background via run_runCombineAll.sh
+- [x] Generate postfit plots (2025-12-10 10:49)
+  - Script: `plotting/pl_postFit.py --fit-file .../fitDiagnosticsTest.root`
+  - Generated 6 plots: prefit/fit_s/fit_b for 2018 and Run2
+  - Output: `.../combineResults/postfitPlots/postfitPlots/*.png`
+  - Plots show TTBB contribution in stack plots ✅
 
 ### Next Steps - 2018 Analysis
 - [ ] **1tau1l channel**: Run full workflow for 2018

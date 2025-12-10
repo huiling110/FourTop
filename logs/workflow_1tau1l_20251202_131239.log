@@ -1,0 +1,32 @@
+[2025-12-02 13:12:39] INFO  | Logging to file: logs/workflow_1tau1l_20251202_131239.log
+[2025-12-02 13:12:39] INFO  | ============================================================
+[2025-12-02 13:12:39] INFO  | Starting full pipeline (Stage 3 → Stage 4)
+[2025-12-02 13:12:39] INFO  | ============================================================
+[2025-12-02 13:12:39] INFO  | Stage 3.3 | Era: 2018
+[2025-12-02 13:12:39] INFO  | Stage 3.3 | Input dir: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/
+[2025-12-02 13:12:39] INFO  | Stage 3.3 | Channel: 1tau1l, Version: v10BDT1tau1l_WorkflowTest
+[2025-12-02 13:12:39] DEBUG | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.tmp_submit_2018.py
+[2025-12-02 13:12:39] INFO  | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.tmp_submit_2018.py...
+[2025-12-02 13:13:10] DEBUG | Command succeeded in 30.3s
+[2025-12-02 13:13:10] INFO  | Stage 3.3 | Era: 2017
+[2025-12-02 13:13:10] INFO  | Stage 3.3 | Input dir: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/
+[2025-12-02 13:13:10] INFO  | Stage 3.3 | Channel: 1tau1l, Version: v10BDT1tau1l_WorkflowTest
+[2025-12-02 13:13:10] DEBUG | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.tmp_submit_2017.py
+[2025-12-02 13:13:10] INFO  | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.tmp_submit_2017.py...
+[2025-12-02 13:13:39] DEBUG | Command succeeded in 29.2s
+[2025-12-02 13:13:39] INFO  | Stage 3.3 | Era: 2016preVFP
+[2025-12-02 13:13:39] INFO  | Stage 3.3 | Input dir: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/
+[2025-12-02 13:13:39] INFO  | Stage 3.3 | Channel: 1tau1l, Version: v10BDT1tau1l_WorkflowTest
+[2025-12-02 13:13:39] DEBUG | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.tmp_submit_2016preVFP.py
+[2025-12-02 13:13:39] INFO  | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.tmp_submit_2016preVFP.py...
+[2025-12-02 13:14:05] DEBUG | Command succeeded in 26.4s
+[2025-12-02 13:14:05] INFO  | Stage 3.3 | Era: 2016postVFP
+[2025-12-02 13:14:05] INFO  | Stage 3.3 | Input dir: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/
+[2025-12-02 13:14:05] INFO  | Stage 3.3 | Channel: 1tau1l, Version: v10BDT1tau1l_WorkflowTest
+[2025-12-02 13:14:05] DEBUG | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.tmp_submit_2016postVFP.py
+[2025-12-02 13:14:05] INFO  | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.tmp_submit_2016postVFP.py...
+[2025-12-02 13:14:32] DEBUG | Command succeeded in 27.0s
+[2025-12-02 13:14:32] INFO  | Stage 3.3.1 | Era: 2018
+[2025-12-02 13:14:32] INFO  | Stage 3.3.1 | Channel: 1tau1l, Version: v10BDT1tau1l_WorkflowTest
+[2025-12-02 13:14:32] DEBUG | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/writeHistGood/jobs/makeJob_WH_forJES.py --inputDirBase /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/ --inVersion v94LepPreJetVetoHemOnlyV2 --outVersion v1baselineHadroBtagWeightAdded --channel 1tau1l --version v10BDT1tau1l_WorkflowTest
+[2025-12-02 13:14:32] INFO  | Running: python3 /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/writeHistGood/jobs/makeJob_WH_forJES.py -...
