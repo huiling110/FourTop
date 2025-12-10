@@ -40,8 +40,15 @@ python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018 
 
 ## Path Patterns
 
-- Input: `{stage1_output}/UL{ERA}/{stage1_version}[_systematic]/mc/`
-- Output: `{stage2_output}/{era}/{stage2_version}_{stage1_version}[_systematic]/mc/`
+**Energy scale systematics (TES, JER, MET, EleScale):**
+- Input: `/publicfs/.../UL{ERA}/{stage1_version}_TTBBtest_{systematic}/mc/`
+- Output: `/publicfs/.../forMVA/{era}/{stage2_version}_{stage1_version}_TTBBtest_{systematic}/mc/`
+- Example: `v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up/mc/`
+
+**JES systematics:**
+- Input: `/publicfs/.../UL{ERA}/{stage1_version}_TTBBtest_JESPt22/mc/JES{Up/Down}_{source}/`
+- Output: `/publicfs/.../forMVA/{era}/{stage2_version}_JES{Up/Down}_{source}_{stage1_version}_TTBBtest_JESPt22/mc/`
+- Example: `v1baselineHadro_JESDown_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/`
 
 ## Monitoring
 
@@ -49,8 +56,14 @@ python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018 
 # Check running jobs
 hep_q -u $USER | grep MV_
 
-# Check output files
-ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1*_v94*/mc/*.root | wc -l
+# Check nominal output files
+ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly/mc/*.root | wc -l
+
+# Check TES systematic files (8 variations)
+ls -d /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TES*/mc/ | wc -l
+
+# Check JES systematic files (60 variations)
+ls -d /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_JES*_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/ | wc -l
 ```
 
 ## Stage 2.4: Fake Background Generation

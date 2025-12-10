@@ -52,17 +52,32 @@ python3 makeJob_WH_forJES.py --config ../../config/CONFIG.yaml --era 2018 --dry-
 
 Total: 14 variations
 
+## Path Patterns
+
+**Energy scale systematics (TES, JER, MET, EleScale):**
+- Input: `/publicfs/.../forMVA/{era}/{stage2_version}_{stage1_version}_TTBBtest_{systematic}/mc/`
+- Output: `{input}/variableHists_{hist_version}/`
+- Example: `v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up/mc/variableHists_v0BDT1tau1l_TTBBtest/`
+
+**JES systematics:**
+- Input: `/publicfs/.../forMVA/{era}/{stage2_version}_JES{Up/Down}_{source}_{stage1_version}_TTBBtest_JESPt22/mc/`
+- Output: `{input}/variableHists_{hist_version}/`
+- Example: `v1baselineHadro_JESDown_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/`
+
 ## Monitoring
 
 ```bash
 # Check running jobs
 hep_q -u $USER | grep WH_
 
-# Check output files
-ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1*_v94*/mc/variableHists_*.root | wc -l
+# Check nominal output (channel-specific hist version)
+ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root | wc -l
 
-# For systematicvariations
-ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1*_v94*_TES*/mc/variableHists_*.root | wc -l
+# Check TES systematic output (8 variations, should be 8 dirs × 59 files = 472)
+ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TES*/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root 2>/dev/null | wc -l
+
+# Check JES systematic output (60 variations, should be 60 × 59 = 3,540)
+ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_JES*_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root 2>/dev/null | wc -l
 ```
 
 ## Next Step
