@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-10 09:45
-**Current Phase**: Phase 5 Complete - All years processed; Phase 6 started - Datacards with TTBB normalization
+**Last Updated**: 2025-12-10 10:25
+**Current Phase**: Phase 6 - TTBB systematic fixed, workspace creation successful, combine tests running
 
 ---
 
@@ -157,24 +157,58 @@
 - [x] Test datacard generation for 2018 1tau0l (2025-12-10 09:51)
   - Output: `datacardSys_v0_ttbb_nosmoothing/datacard_1tau0l.txt`
   - TTBB constraint verified: `CMS_TOP24017_norm_ttbb param 1.19 0.13`
-- [x] Prepare combine workflow test (2025-12-10 10:15)
-  - Modified `hua/combine/run_runCombineAll.sh` with TTBB test command
-  - Ready to run workspace creation step
+- [x] Test combine workspace creation (2025-12-10 10:04)
+  - **FAILED**: Negative normalization error for `pdf_alphas` systematic
+  - Error: `RuntimeError: Bogus norm -212.2468012785898 for channel SR1tau0l_2018, process ttbb, systematic pdf_alphas Up`
+  - Workspace creation blocked until systematics fixed
 
-### Next Steps (moved to workflow-optimization task)
-- [ ] Run template generation workflow (Stage 4.1-4.3)
-  - addJESTemplatesToHistFile.py (JES/JER templates)
-  - addTemplateNew.py (all systematics)
-  - smooth_systematics_fourTops.py (smoothing)
-- [ ] Run writeDatacard.py for all years
-- [ ] Run writeCombinationDatacard.py (Run2 combination)
-- [ ] Run statistical analysis (Combine)
+### BLOCKER RESOLVED: Invalid TTBB Systematic Templates
+- [x] **DECISION**: Exclude `pdf_alphas` from TTBB (Option A - treat as minor background)
+  - TTBB has low statistics causing negative normalizations for pdf_alphas variations
+  - Solution: Exclude pdf_alphas from ttbb in writeDatacard.py (line 399-400)
+  - Rationale: TTBB is ~2-5% of ttbar, normalization constraint (13%) covers theory uncertainties
+- [x] Implement fix in writeDatacard.py (2025-12-10 10:12)
+  - Added exclusion: `if ipro=='ttbb' and sys=='pdf_alphas': proSys[ipro] = 0`
+  - Similar to existing singleTop exclusion pattern
+- [x] Regenerate datacard with fix (2025-12-10 10:13)
+  - Verified: pdf_alphas now shows '-' for ttbb column
+- [x] Re-test workspace creation (2025-12-10 10:14)
+  - ✅ **SUCCESS**: Workspace created without errors (173KB)
+  - No more "Bogus norm" error
+  - Workspace file: `workspace/datacard_1tau0l.root`
+- [x] Run full combine analysis (2025-12-10 10:16)
+  - Steps: workspace, significance, postfit, signal_strength, impacts
+  - Running in background via run_runCombineAll.sh
+
+### Next Steps - 2018 Analysis
+- [ ] **1tau1l channel**: Run full workflow for 2018
+  - Stage 4.1: addJESTemplatesToHistFile.py
+  - Stage 4.2: addTemplateNew.py
+  - Stage 4.3: writeDatacard.py
+  - Stage 4.5: Run combine analysis (workspace, significance, postfit, signal_strength, impacts)
+  - Validation: Compare TTBB yields with 1tau0l results
+- [ ] **Combine 1tau0l + 1tau1l**: Multi-channel combination for 2018
+  - writeCombinationDatacard.py
+  - Run combined fit
+  - Compare sensitivity improvement
+
+### Next Steps - Other Years
+- [ ] Run Stage 4 (templates + datacards) for 2017, 2016postVFP, 2016preVFP
+- [ ] Run combine analysis for all years
+- [ ] Run2 combination (all years + all channels)
+
+### Future Improvements
+- [ ] **BDT Retraining**: Consider retraining 1tau0l BDT with TTBB sample included
+  - Current BDT trained without TTBB
+  - TTBB has similar topology to signal (extra b-jets)
+  - May improve signal/background separation
+  - Impact: Better BDT score distributions, potentially improved sensitivity
 - [ ] Validation checks:
   - Check TTBB yields (~2-5% of tt)
   - Check no negative bins
   - Check data/MC agreement in control regions
   - Compare results with and without TTBB
-- [ ] Document physics impact
+- [ ] Document physics impact in analysis note
 
 ---
 
@@ -385,4 +419,28 @@
   - Modified `hua/combine/run_runCombineAll.sh` with TTBB test (line 180-185)
   - Test will create workspace from datacard with param constraint
 - Commits: `7197b3c9`, `319f3ffe` - TTBB normalization implementation and fix
-- Next: Run combine workspace test to validate param constraint in RooWorkspace
+
+### Session 17 (2025-12-10 10:20) - Systematic Issue Fixed ✅
+- **BLOCKER DISCOVERED**: Combine workspace creation fails with TTBB systematics
+  - Error: `RuntimeError: Bogus norm -212.2468012785898 for channel SR1tau0l_2018, process ttbb, systematic pdf_alphas Up`
+  - The `pdf_alphas` systematic produces negative normalization for TTBB
+  - Workspace directory empty - workspace creation failed
+- **Root cause**: TTBB sample has low statistics, and when systematic variations (pdf_alphas, QCDscale, ps_isr) are applied, some templates produce invalid/negative yields
+- **Solution implemented**: Exclude `pdf_alphas` from TTBB process
+  - Updated writeDatacard.py line 399-400: `if ipro=='ttbb' and sys=='pdf_alphas': proSys[ipro] = 0`
+  - Similar pattern to existing singleTop exclusion
+  - Rationale: TTBB is minor background (~2-5% of ttbar), normalization constraint covers theory uncertainties
+- **Testing results**:
+  - ✅ Datacard regenerated successfully with pdf_alphas excluded from ttbb
+  - ✅ Workspace creation **successful** (173KB workspace file)
+  - ✅ Full combine analysis launched (workspace, significance, postfit, signal_strength, impacts)
+- **Commit**: `b753ce19` - fix: Exclude pdf_alphas from ttbb due to low-stat negative norms
+- **Current TTBB systematics** (after fix):
+  - pdf_alphas: ❌ EXCLUDED (causes negative norms)
+  - QCDscale_ren_ttbb: ✅ Applied
+  - QCDscale_fac_ttbb: ✅ Applied
+  - ps_isr_ttbb: ✅ Applied
+  - All experimental systematics (JES, btag, etc.): ✅ Applied
+  - Normalization constraint: ✅ `CMS_TOP24017_norm_ttbb param 1.19 0.13`
+- Added Phase 7 to workflow-optimization task: Long-running job integration patterns
+- Log file: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau0l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/ttbb_test.log`
