@@ -1,0 +1,35 @@
+{
+  "name": "workflow",
+  "version": "2.0",
+  "description": "FourTop analysis pipeline automation with stage-specific guidance",
+  "entry": "overview.md",
+  "triggers": {
+    "manual": true,
+    "automatic": false,
+    "keywords": [
+      "stage",
+      "submit",
+      "run",
+      "workflow",
+      "OS",
+      "MV",
+      "WH",
+      "combine",
+      "systematic",
+      "era"
+    ]
+  },
+  "parameters": {
+    "stage": {
+      "type": "string",
+      "description": "Pipeline stage to run (1, 2, 3, 4, etc.)",
+      "required": false
+    },
+    "era": {
+      "type": "string",
+      "description": "Analysis era (2018, 2017, 2016postVFP, 2016preVFP)",
+      "required": false
+    }
+  },
+  "tools": ["Bash", "Read", "Grep"]
+}
