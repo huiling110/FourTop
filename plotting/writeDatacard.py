@@ -394,6 +394,9 @@ def getProSysDic(sys, sysList, processes, channe='1tau1l', ifCombine=False):
             if ipro=='singleTop' and (sys=='pdf_alphas' or sys=='pdf_normalised' or sys=='QCDscale_Re_normalised' or sys=='QCDscale_Fa_normalised' or sys=='ISR_normalised' or sys=='FSR_normalised'):
                 proSys[ipro] = 0
             if ipro=='singleTop' and (channe=='1tau2l'):
+                proSys[ipro] = 0
+            # Exclude pdf_alphas from ttbb due to low statistics causing negative norms
+            if ipro=='ttbb' and sys=='pdf_alphas':
                 proSys[ipro] = 0 
             if ipro=='fakeTauMC' and sysList[1] == 3 and ((sysList[2]&channeMask) !=0):
                 proSys[ipro] = 1    
