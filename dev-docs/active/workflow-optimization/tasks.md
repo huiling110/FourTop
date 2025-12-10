@@ -419,5 +419,14 @@
 - **Job Status**:
   - 1tau0l: OS 2017 systematics still running (15 variations, ~2.5 hours in)
   - 1tau1l: WH 2018 systematics queued (7,493 jobs in idle state)
-- **Commit**: `1a3543da` - chore: Finalize Phase 8 - remove old workflow.md, add permissions
+- **Archive Script Created**: `scripts/archive_and_cleanup.sh`
+  - Safely archives and deletes Stage 1 systematic directories
+  - Creates tar.gz in source directory, verifies integrity before deletion
+  - Started archiving UL2018 TTBBtest systematics (15 dirs, ~180K files)
+  - Running in background (PID 1528318), monitor with: `tail -f archive_UL2018.log`
+- **Commits**:
+  - `1a3543da` - chore: Finalize Phase 8 - remove old workflow.md, add permissions
+  - `71cf88ad` - docs: Complete Phase 8 Step 5 - update dev-docs
+  - `90098bf8` - chore: Add comprehensive non-dangerous Bash permissions
+  - `2a5c1679` - feat: Add archive_and_cleanup.sh for safe systematic directory archival
 - **Phase 8 COMPLETE** - All 5 steps finished
