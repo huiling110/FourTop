@@ -30,7 +30,7 @@ options:
   fake_tau: true
   mc_fake_tau: false
   blind: false
-  systematics: false  # Disabled for initial testing without JES
+  systematics: true  # Enabled for Phase 8 testing
   smoothing: false
 
 # Base paths
