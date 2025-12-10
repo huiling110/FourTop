@@ -148,9 +148,9 @@
 
 ---
 
-## Phase 8: Redesign Workflow Hooks + Skills
+## Phase 8: Redesign Workflow Hooks + Skills ✅ COMPLETE
 
-**Status**: TESTING (Phase 8 implementation 2025-12-10)
+**Status**: COMPLETE (2025-12-10)
 
 **Problem** (Validated with real test case):
 - `.claude/skills/workflow.md` too long (565 lines) - hard to parse
@@ -167,7 +167,7 @@
 - [x] **STEP 2**: Enhance user-prompt-submit.sh with state injection ✅
 - [x] **STEP 3**: Split workflow.md into modular skills (7 focused files) ✅
 - [x] **STEP 4**: Test with real workflow (1tau1l WH systematics for 2018) ✅
-- [ ] **STEP 5**: Update dev-docs and commit (IN PROGRESS)
+- [x] **STEP 5**: Update dev-docs and commit ✅
 
 **Implementation Plan**: `~/.claude/plans/giggly-snuggling-wand.md`
 
@@ -410,4 +410,14 @@
   - `de247280` - feat: Split workflow.md into modular skill system (Step 3)
   - `18a660d0` - test: Enable systematics in 1tau1l config (Step 4)
 - **Status**: Phase 8 implementation complete, testing successful
-- **Next**: Final dev-docs update and commit (Step 5)
+
+**Session 13 (2025-12-10)** - Phase 8 Finalization:
+- **Step 5 Complete**: Final cleanup committed
+  - Deleted monolithic workflow.md (565 lines)
+  - Added Bash permissions for job monitoring (git, hep_q, condor_q, wc, grep)
+  - All modular skills now in `.claude/skills/workflow/` directory
+- **Job Status**:
+  - 1tau0l: OS 2017 systematics still running (15 variations, ~2.5 hours in)
+  - 1tau1l: WH 2018 systematics queued (7,493 jobs in idle state)
+- **Commit**: `1a3543da` - chore: Finalize Phase 8 - remove old workflow.md, add permissions
+- **Phase 8 COMPLETE** - All 5 steps finished
