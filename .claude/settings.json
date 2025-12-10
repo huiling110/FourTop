@@ -94,7 +94,13 @@
       "Bash(tree:*)",
       "Bash(tree *)",
       "Bash(time:*)",
-      "Bash(time *)"
+      "Bash(time *)",
+      "Bash(source setEnv*)",
+      "Bash(nohup *)",
+      "Bash(nohup:*)",
+      "Bash(for *)",
+      "Bash(timeout *)",
+      "Bash(cd /workfs2/*)"
     ]
   },
   "hooks": {

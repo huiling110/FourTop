@@ -434,3 +434,10 @@
   - `90098bf8` - chore: Add comprehensive non-dangerous Bash permissions
   - `2a5c1679` - feat: Add archive_and_cleanup.sh for safe systematic directory archival
 - **Phase 8 COMPLETE** - All 5 steps finished
+- **1tau1l 2018 Stage 4 COMPLETE**:
+  - Stage 4.1: JES templates added ✅
+  - Stage 4.2: Templates created (TES, JER, MET, EleScale, JES) ✅
+  - Stage 4.3: Datacard written (v0_ttbb_nosmoothing) ✅
+  - Stage 4.4: Plots generated (4 PNG files) ✅
+  - **Warning**: Large systematic variations in `CMS_eff_e_reco_2018` - needs investigation
+- **IMPORTANT TODO**: Add TTBB process to `smooth_systematics_fourTops.py` before running full Run2 (3 years) smoothing for 1tau1l and 1tau0l channels
