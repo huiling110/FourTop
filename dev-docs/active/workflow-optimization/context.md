@@ -114,6 +114,39 @@ Currently integrated stages in run_workflow.py:
 - `createFaketauTree.py` - needs verification
 - `pl.py` - needs verification
 
+### Workflow State Tracking (Phase 8 - Step 1 ✅)
+
+**File**: `.workflow_state.json` at project root
+
+**Purpose**: Persist pipeline state across sessions for context injection by hooks
+
+**Implementation**: `plotting/workflow_utils.py` - `WorkflowState` class (~180 lines)
+
+**Test Result** (2025-12-10):
+```python
+from plotting.workflow_utils import get_workflow_state
+state = get_workflow_state('1tau0l', 'config/analysis_config_1tau0l_TTBBtest.yaml')
+state.update_stage('1.1', '2017', 'running', 'OS_systematics')
+current = state.get_current()
+# Returns: {'stage': '1.1', 'era': '2017', 'status': 'running', ...}
+```
+
+**State File Structure**:
+```json
+{
+  "channels": {
+    "1tau0l": {
+      "config": "config/analysis_config_1tau0l_TTBBtest.yaml",
+      "current": {"stage": "1.1", "era": "2017", "status": "running", ...},
+      "stage_status": {"1.1": {"2017": "running"}}
+    }
+  },
+  "history": [...]
+}
+```
+
+**Status**: ✅ Tested and working
+
 ### Scripts to Refactor (Pending)
 
 **Phase 3: Stage 2.4**
