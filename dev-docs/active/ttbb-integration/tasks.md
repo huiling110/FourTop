@@ -1,7 +1,7 @@
 # TTBB Integration - Task Checklist
 
-**Last Updated**: 2025-12-07 16:55
-**Current Phase**: Phase 5 - All fake files complete, Stage 3 WH jobs in progress for 2017/2016
+**Last Updated**: 2025-12-10 09:45
+**Current Phase**: Phase 5 Complete - All years processed; Phase 6 started - Datacards with TTBB normalization
 
 ---
 
@@ -131,35 +131,46 @@
 **2017**:
 - [x] Stage 1 (OS): Complete
 - [x] Stage 2 (MV): Complete (69 files including TTBB/ttbar)
-- [x] Stage 3 (WH): Complete (histograms generated)
+- [x] Stage 3 (WH): Complete (histograms generated 2025-12-08)
 - [ ] Stage 4 (PL): Pending validation
 
 **2016postVFP**:
 - [x] Stage 1 (OS): Complete
 - [x] Stage 2 (MV): Complete (TTBB/ttbar outputs verified)
-- [x] Stage 3 (WH): Running (~12 jobs)
+- [x] Stage 3 (WH): Complete (histograms generated 2025-12-08)
 - [ ] Stage 4 (PL): Pending
 
 **2016preVFP**:
 - [x] Stage 1 (OS): Complete
 - [x] Stage 2 (MV): Complete (TTBB/ttbar outputs verified)
-- [x] Stage 3 (WH): Running
+- [x] Stage 3 (WH): Complete (histograms generated 2025-12-08)
 - [ ] Stage 4 (PL): Pending
 
 ---
 
-## Phase 6: Templates, Datacards and Validation
+## Phase 6: Datacards and Statistical Analysis ✅ IN PROGRESS
 
-- [ ] Run addJESTemplatesToHistFile.py
-- [ ] Run addTemplateNew.py
-- [ ] Run smooth_systematics_fourTops.py
-- [ ] Run writeDatacard.py (with TTBB systematics)
-- [ ] Run writeCombinationDatacard.py
-- [ ] Run statistical analysis
-- [ ] Check TTBB yields (~2-5% of tt)
-- [ ] Check no negative bins
-- [ ] Check data/MC agreement in control regions
-- [ ] Compare results with and without TTBB
+### Datacard Generation - 2018
+- [x] Add TTBB normalization uncertainty to writeDatacard.py
+  - **Option A (implemented)**: lnN constraint with 13% uncertainty (`CMS_TOP24017_norm_ttbb lnN 1.13`)
+  - **Option B (future)**: rateParam with Gaussian constraint (commented out, can be tested later)
+- [x] Test datacard generation for 2018 (2025-12-10 09:40)
+  - Output: `datacardSys_v0_ttbb_nosmoothing/datacard_1tau0l.txt`
+  - TTBB normalization verified: `CMS_TOP24017_norm_ttbb lnN ... ttbb 1.13`
+
+### Next Steps (moved to workflow-optimization task)
+- [ ] Run template generation workflow (Stage 4.1-4.3)
+  - addJESTemplatesToHistFile.py (JES/JER templates)
+  - addTemplateNew.py (all systematics)
+  - smooth_systematics_fourTops.py (smoothing)
+- [ ] Run writeDatacard.py for all years
+- [ ] Run writeCombinationDatacard.py (Run2 combination)
+- [ ] Run statistical analysis (Combine)
+- [ ] Validation checks:
+  - Check TTBB yields (~2-5% of tt)
+  - Check no negative bins
+  - Check data/MC agreement in control regions
+  - Compare results with and without TTBB
 - [ ] Document physics impact
 
 ---

@@ -139,6 +139,7 @@ MCSys = {
     'CMS_scale_e': [False, 0, 0b101, True],
     
     
+    
 }
 
 
@@ -242,12 +243,14 @@ def addProcessNormalization(sysDic, processes):
     #    'ttX' : 0.11,
        'singleTop': 0.2,
        'WJets': 0.1,
-       'Minor': 0.2, 
+       'Minor': 0.2,
        'ttZ': 0.119,
        'ttW': 0.102,
        'ttH': 0.084,
     #    'ttG': 0.005,
-        
+       'ttbb': 0.13,  # TTBB normalization: 13% uncertainty (Option A: lnN constraint)
+       # Note: Option B (rateParam with Gaussian constraint) is commented out in write_shape_datacard()
+
     }
     for ipro, inorm in proNormalDic.items():
         sysDic[f"CMS_TOP24017_norm_{ipro}"] = []
@@ -466,6 +469,14 @@ def write_shape_datacard(output_file, root_file, channel_name, processes,  syste
     # Add MC statistical uncertainties
     lines.append("---------------")
     lines.append(f"{channelNameName} autoMCStats 10 0 1")
+
+    # Option B: TTBB rateParam with Gaussian constraint (COMMENTED OUT - using Option A lnN instead)
+    # Uncomment below to use floating normalization instead of fixed lnN constraint
+    # if 'ttbb' in processes:
+    #     lines.append("---------------")
+    #     lines.append("# TTBB normalization: rateParam floating around 1.19 with 13% Gaussian constraint")
+    #     lines.append(f"CMS_TOP24017_beta_ttbb rateParam {channelNameName} ttbb 1.19")
+    #     lines.append("CMS_TOP24017_beta_ttbb param 1.19 0.13")
 
     # Write to file
     with open(output_file, 'w') as f:
