@@ -150,31 +150,53 @@
 
 ## Phase 8: Redesign Workflow Hooks + Skills
 
-**Status**: PLANNED
+**Status**: IN PROGRESS (Implementation started 2025-12-10)
 
-**Problem**:
-- `.claude/skills/workflow.md` too long (~600 lines)
-- Skills not triggered properly
-- Claude doesn't remember how to run workflow automatically
-- Need better context about current workflow stage
+**Problem** (Validated with real test case):
+- `.claude/skills/workflow.md` too long (565 lines) - hard to parse
+- Skills not triggered properly - banner ignored when user said "submit OS jobs for 2017"
+- Claude doesn't remember workflow state - lost context after 2-3 hour waits
+- No workflow state persistence across sessions
 
 **Goals**:
-- [ ] Learn during current session how hooks + skills work
-- [ ] Document proper hook/skill setup for workflow automation
-- [ ] Create concise, focused skill definitions
-- [ ] Add stage tracking/detection mechanisms
-- [ ] Enable automatic workflow progression
-- [ ] Clear documentation for future sessions
+- [x] Learn during current session how hooks + skills work
+- [x] Document proper hook/skill setup for workflow automation
+- [x] Design 3-part solution (state tracking + enhanced hooks + modular skills)
+- [x] Get user approval for implementation plan
+- [ ] **STEP 1**: Add WorkflowState class to workflow_utils.py (IN PROGRESS)
+- [ ] **STEP 2**: Enhance user-prompt-submit.sh with state injection
+- [ ] **STEP 3**: Split workflow.md into modular skills (7 focused files)
+- [ ] **STEP 4**: Test with real workflow (1tau1l WH systematics for 2018)
+- [ ] **STEP 5**: Update dev-docs and commit
 
-**Key Questions to Answer**:
-1. How should hooks detect which workflow stage we're in?
-2. What information must be in skill.md vs hooks vs context.md?
-3. How to trigger skills automatically based on user intent?
-4. How to maintain workflow state across sessions?
+**Implementation Plan**: `~/.claude/plans/giggly-snuggling-wand.md`
+
+**User Preferences** (confirmed):
+- Unified state file for all channels (not per-channel files)
+- Auto-inject context only (not auto-invoke skills)
+
+**Solution Design**:
+1. **Workflow State Tracking**: `.workflow_state.json` at project root
+   - Tracks current stage, era, operation status per channel
+   - Persists across sessions
+   - Enables context injection by hooks
+
+2. **Enhanced Hooks**: `user-prompt-submit.sh` reads state
+   - Injects `<workflow_context>` with stage/era/status
+   - No more ignored banners - context automatically visible
+   - Suggests monitoring commands and next steps
+
+3. **Modular Skills**: Split 565-line workflow.md into 7 files
+   - `skill.json` - Make discoverable
+   - `overview.md` - Modes, config, Python patterns (~100 lines)
+   - `stage1-os.md`, `stage2-mv.md`, `stage3-wh.md`, `stage4-combine.md` (~80 lines each)
+   - `status-checker.md` - Pipeline status commands
 
 **References**:
-- Current files: `.claude/skills/workflow.md`, `.claude/hooks/pre-tool-use.sh`, `.claude/hooks/user-prompt-submit.sh`
-- workflow_utils.py - config-based path building
+- Learning session: `dev-docs/active/workflow-optimization/session-learnings-2025-12-10.md`
+- Hook exploration: `dev-docs/active/workflow-optimization/hooks-and-skills-learning.md`
+- Current files: `.claude/skills/workflow.md`, `.claude/hooks/*.sh`
+- State tracking: `plotting/workflow_utils.py` (to be modified)
 
 ---
 
@@ -328,3 +350,26 @@
 - Datacard output: `.../combine/datacardSys_v0_ttbb_nosmoothing/datacard_1tau0l.txt`
 - **PAUSED**: Switching to ttbb-integration task to add uncertainties to datacard
 - Next: Return to complete Stage 4.4 (pl.py) and remaining eras
+
+**Session 11 (2025-12-10)** - Phase 7 & 8:
+- **TTBB Integration**: Generated postfit plots successfully
+  - Script: `plotting/pl_postFit.py --fit-file .../fitDiagnosticsTest.root`
+  - Generated 6 plots for 2018 1tau0l (prefit/fit_s/fit_b)
+  - TTBB contribution visible in stack plots ✅
+  - **Note**: pl_postFit.py doesn't fully comply with workflow standard (--config not required)
+- **Phase 7**: Long-Running Job Integration
+  - Created comprehensive documentation: `long-running-jobs.md` (372 lines)
+  - Defined 5 patterns for handling long-running tasks
+  - **Real test case**: Submitted OS systematics for 2017 (15 variations, 2-3 hour runtime)
+  - Gap identified: No workflow state tracking when resuming after wait
+- **Phase 8**: Redesign Workflow Hooks + Skills
+  - Created learning documentation: `hooks-and-skills-learning.md` (309 lines)
+  - **Key finding**: Hook banners easily ignored (validated with "submit OS jobs for 2017" test)
+  - Designed 3-part solution: state tracking + enhanced hooks + modular skills
+  - User preferences confirmed: unified state file, auto-inject context only
+  - Created session learnings: `session-learnings-2025-12-10.md` (real-world example)
+  - Implementation plan approved and ready
+  - **Status**: Started implementation (Step 1 in progress)
+- **Commits**:
+  - `97d36dd9` - Phase 7 and Phase 8 documentation
+  - `42ccbafd` - Phase 8 planning and real test case documentation
