@@ -12,9 +12,15 @@
       "Write(**/dev-docs/**)",
       "Read(**/dev-docs/**)",
       "Bash(hep_q:*)",
+      "Bash(hep_q *)",
+      "Bash(condor_q:*)",
       "Bash(ls:*)",
+      "Bash(ls *)",
+      "Bash(wc:*)",
       "Bash(make:*)",
-      "Bash(source:*)"
+      "Bash(source:*)",
+      "Bash(cat .workflow_state.json*)",
+      "Bash(grep:*)"
     ]
   },
   "hooks": {
