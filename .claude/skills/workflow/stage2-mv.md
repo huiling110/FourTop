@@ -46,9 +46,11 @@ python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018 
 - Example: `v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up/mc/`
 
 **JES systematics:**
-- Input: `/publicfs/.../UL{ERA}/{stage1_version}_TTBBtest_JESPt22/mc/JES{Up/Down}_{source}/`
-- Output: `/publicfs/.../forMVA/{era}/{stage2_version}_JES{Up/Down}_{source}_{stage1_version}_TTBBtest_JESPt22/mc/`
-- Example: `v1baselineHadro_JESDown_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/`
+- Input: `/publicfs/.../UL{ERA}/{stage1_version}_TTBBtest_JESPt22/mc/JES{up/Down}_{source}/`
+- Output: `/publicfs/.../forMVA/{era}/{stage2_version}_JES{up/Down}_{source}_{stage1_version}_TTBBtest_JESPt22/mc/`
+- Example Up: `v1baselineHadro_JESup_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/`
+- Example Down: `v1baselineHadro_JESDown_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/`
+- **Note**: Case is `JESup` (lowercase u) and `JESDown` (uppercase D)
 
 ## Monitoring
 

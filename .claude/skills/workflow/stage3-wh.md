@@ -60,9 +60,11 @@ Total: 14 variations
 - Example: `v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up/mc/variableHists_v0BDT1tau1l_TTBBtest/`
 
 **JES systematics:**
-- Input: `/publicfs/.../forMVA/{era}/{stage2_version}_JES{Up/Down}_{source}_{stage1_version}_TTBBtest_JESPt22/mc/`
+- Input: `/publicfs/.../forMVA/{era}/{stage2_version}_JES{up/Down}_{source}_{stage1_version}_TTBBtest_JESPt22/mc/`
 - Output: `{input}/variableHists_{hist_version}/`
-- Example: `v1baselineHadro_JESDown_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/`
+- Example Up: `v1baselineHadro_JESup_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/`
+- Example Down: `v1baselineHadro_JESDown_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/`
+- **Note**: Case is `JESup` (lowercase u) and `JESDown` (uppercase D)
 
 ## Monitoring
 
