@@ -310,3 +310,21 @@ python3 -c "from plotting.workflow_utils import *; help(load_config)"
 - 2017, 2016postVFP, 2016preVFP: WH jobs (71 files each) ✅, pl.py plots ✅
 
 **File Quota Status**: 966,519 / 1,000,000 files (96.7%) - cleanup needed
+
+---
+
+## Current Status (Session 16 - 2025-12-10)
+
+**1tau1l 2018 Workflow**: Stage 3.1 (WH systematics) ✅ COMPLETE
+
+All 74 systematic variations successfully generated histograms:
+- JES: 60 variations × 59 files = 3540 ✅
+- TES: 8 variations × 59 files = 472 ✅
+- JER: 2 variations × 59 files = 118 ✅
+- MET: 2 variations × 59 files = 118 ✅
+- EleScale: 2 variations × 59 files = 118 ✅
+- **Total**: 4366 histogram files
+
+**Next Step**: Stage 4.1 - Consolidate systematics with fixed addJESTemplatesToHistFile.py (commit b0475dab)
+
+**1tau0l Status**: Various OS systematic jobs for multiple eras in progress
