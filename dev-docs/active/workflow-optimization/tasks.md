@@ -422,8 +422,12 @@
 - **Archive Script Created**: `scripts/archive_and_cleanup.sh`
   - Safely archives and deletes Stage 1 systematic directories
   - Creates tar.gz in source directory, verifies integrity before deletion
-  - Started archiving UL2018 TTBBtest systematics (15 dirs, ~180K files)
-  - Running in background (PID 1528318), monitor with: `tail -f archive_UL2018.log`
+  - Started archiving UL2018 TTBBtest systematics (15 dirs, ~82GB, ~180K files)
+  - Running in background (PID 1528318), estimated 8-15 hours
+  - Excellent compression: 5.5GB → ~250MB per directory (~4% of original)
+  - Monitor: `tail -f archive_UL2018.log`
+  - Check archives: `ls -lh /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/*.tar.gz`
+  - **TODO**: Check completion and verify extraction works
 - **Commits**:
   - `1a3543da` - chore: Finalize Phase 8 - remove old workflow.md, add permissions
   - `71cf88ad` - docs: Complete Phase 8 Step 5 - update dev-docs
