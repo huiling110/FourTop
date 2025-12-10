@@ -263,7 +263,7 @@ def cleanup_systematic_directories(nominal_dir, dry_run=True):
         print(f"  Would free: ~{total_size_mb:.1f} MB disk space")
         print(f"  Would zip: {len(sys_hist_dirs)} log/ directories")
         print(f"  Would delete: {len(sys_hist_dirs)} jobSH/ directories")
-        print(f"\nTo actually cleanup, re-run with: --delete-sys-dirs --execute")
+        print(f"\nTo actually cleanup, re-run with: --execute")
     else:
         print(f"✓ Cleanup Complete!")
         print(f"  Cleaned: {len(sys_hist_dirs)} histogram directories")
@@ -286,25 +286,27 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Basic usage (consolidate systematics only):
-  python3 addJESTemplatesToHistFile.py
-
-  # Consolidate + preview cleanup (dry-run):
-  python3 addJESTemplatesToHistFile.py --delete-sys-dirs
+  # Basic usage (consolidate + preview cleanup in dry-run mode):
+  python3 addJESTemplatesToHistFile.py --config CONFIG.yaml --era 2018
 
   # Consolidate + actually cleanup systematic directories:
-  python3 addJESTemplatesToHistFile.py --delete-sys-dirs --execute
+  python3 addJESTemplatesToHistFile.py --config CONFIG.yaml --era 2018 --execute
 
-Cleanup actions (when --delete-sys-dirs is used):
+  # Keep systematic directories (disable cleanup):
+  python3 addJESTemplatesToHistFile.py --config CONFIG.yaml --era 2018 --keep-sys-dirs
+
+Cleanup actions (enabled by default, requires --execute to actually delete):
   - Deletes ROOT files from systematic histogram directories (already consolidated)
   - Deletes jobSH/ directories
   - Zips log/ directories to save space
         """
     )
-    parser.add_argument('--delete-sys-dirs', action='store_true',
-                        help='Cleanup systematic histogram directories after consolidation (default: disabled)')
+    parser.add_argument('--delete-sys-dirs', action='store_true', default=True,
+                        help='Cleanup systematic histogram directories after consolidation (default: enabled)')
+    parser.add_argument('--keep-sys-dirs', action='store_true',
+                        help='Keep systematic directories (disable cleanup)')
     parser.add_argument('--execute', action='store_true',
-                        help='Actually perform cleanup (default: dry-run mode)')
+                        help='Actually perform cleanup (default: dry-run for safety)')
     parser.add_argument('--config', '-c', type=str, required=True,
                         help='Path to YAML config file (required)')
     parser.add_argument('--era', '-e', type=str, required=True,
@@ -357,8 +359,9 @@ Cleanup actions (when --delete-sys-dirs is used):
     addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
     addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
 
-    # Cleanup systematic histogram directories if requested
-    if args.delete_sys_dirs:
+    # Cleanup systematic histogram directories (enabled by default)
+    cleanup_enabled = args.delete_sys_dirs and not args.keep_sys_dirs
+    if cleanup_enabled:
         if not args.quiet:
             print("\n")
         cleanup_systematic_directories(
@@ -368,8 +371,8 @@ Cleanup actions (when --delete-sys-dirs is used):
     elif not args.quiet:
         print("\n" + "="*80)
         print("Consolidation complete!")
-        print("Systematic histogram directories preserved.")
-        print("To free disk space, re-run with: --delete-sys-dirs --execute")
+        print("Systematic histogram directories preserved (--keep-sys-dirs).")
+        print("To enable cleanup, remove --keep-sys-dirs flag.")
         print("="*80)
 
 def addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau=False):
