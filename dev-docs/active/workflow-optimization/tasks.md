@@ -112,6 +112,33 @@
 
 ---
 
+## Phase 7: Long-Running Job Integration
+
+**Status**: IN PROGRESS
+
+- [x] Design patterns for handling long-running workflow steps (combine fits, systematic jobs)
+- [x] Document best practices for multi-hour workflows
+- [ ] Implement state tracking in runCombineAll.py (resume capability)
+- [ ] Add `--wait` flag to job submission scripts
+- [ ] Create unified job monitoring tool
+
+**Motivation**: Many analysis steps take hours to complete (combine fits, large systematic processing). Need clear patterns for:
+1. Submitting jobs and tracking status
+2. Resuming workflow after long waits
+3. Handling partial failures in batch submissions
+4. User experience when waiting for results
+
+**Documentation**: See `dev-docs/active/workflow-optimization/long-running-jobs.md`
+
+**Patterns Defined**:
+1. **Background Job Submission** - HTCondor job tracking with monitoring commands
+2. **Combine Workflow** - Multi-step analysis with state persistence
+3. **Staged Workflow** - Automatic progression through pipeline stages
+4. **Partial Failure Handling** - Resubmit only failed jobs, not entire batch
+5. **Progress Reporting** - Real-time updates for long-running tasks (impacts, etc.)
+
+---
+
 ## Quality Checks
 
 - [x] All Stage 4 scripts have consistent argparse pattern (--config required, --era required, --quiet optional)
