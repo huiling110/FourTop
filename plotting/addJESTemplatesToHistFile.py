@@ -144,7 +144,7 @@ def zip_directory(dir_path):
     return (zip_file_path, True)
 
 
-def cleanup_systematic_histogram_directory(sys_hist_dir, dry_run=True):
+def cleanup_systematic_histogram_directory(sys_hist_dir, dry_run=True, quiet=False):
     """
     Clean up systematic histogram directory:
     1. Delete all ROOT files
@@ -154,6 +154,7 @@ def cleanup_systematic_histogram_directory(sys_hist_dir, dry_run=True):
     Args:
         sys_hist_dir: Path to systematic histogram directory (e.g., .../JERUp/mc/variableHists_XXX/)
         dry_run: If True, only print what would be done
+        quiet: If True, suppress output
 
     Returns:
         tuple: (num_root_files_deleted, disk_space_freed_MB)
@@ -174,14 +175,15 @@ def cleanup_systematic_histogram_directory(sys_hist_dir, dry_run=True):
     has_log = os.path.isdir(log_dir)
 
     if dry_run:
-        print(f"    [DRY-RUN] Would cleanup: {dir_name}")
-        print(f"    Full path: {sys_hist_dir}")
-        print(f"    Actions:")
-        print(f"      - Delete {num_root_files} ROOT files (~{root_size_mb:.1f} MB)")
-        if has_jobsh:
-            print(f"      - Delete jobSH/ directory")
-        if has_log:
-            print(f"      - Zip log/ directory")
+        if not quiet:
+            print(f"    [DRY-RUN] Would cleanup: {dir_name}")
+            print(f"    Full path: {sys_hist_dir}")
+            print(f"    Actions:")
+            print(f"      - Delete {num_root_files} ROOT files (~{root_size_mb:.1f} MB)")
+            if has_jobsh:
+                print(f"      - Delete jobSH/ directory")
+            if has_log:
+                print(f"      - Zip log/ directory")
         return (num_root_files, root_size_mb)
     else:
         # 1. Delete ROOT files
@@ -193,21 +195,24 @@ def cleanup_systematic_histogram_directory(sys_hist_dir, dry_run=True):
         # 2. Delete jobSH directory
         if has_jobsh:
             shutil.rmtree(jobsh_dir)
-            print(f"      ✓ Deleted jobSH/")
+            if not quiet:
+                print(f"      ✓ Deleted jobSH/")
 
         # 3. Zip log directory
         if has_log:
             zip_path, success = zip_directory(log_dir)
-            if success:
-                print(f"      ✓ Zipped log/ → {os.path.basename(zip_path)}")
-            else:
-                print(f"      ✗ Failed to zip log/")
+            if not quiet:
+                if success:
+                    print(f"      ✓ Zipped log/ → {os.path.basename(zip_path)}")
+                else:
+                    print(f"      ✗ Failed to zip log/")
 
-        print(f"    ✓ Cleaned: {dir_name} ({deleted_count} ROOT files, ~{root_size_mb:.1f} MB freed)")
+        if not quiet:
+            print(f"    ✓ Cleaned: {dir_name} ({deleted_count} ROOT files, ~{root_size_mb:.1f} MB freed)")
         return (deleted_count, root_size_mb)
 
 
-def cleanup_systematic_directories(nominal_dir, dry_run=True):
+def cleanup_systematic_directories(nominal_dir, dry_run=True, quiet=False):
     """
     Clean up systematic histogram directories after consolidation.
     For each systematic histogram directory:
@@ -218,60 +223,66 @@ def cleanup_systematic_directories(nominal_dir, dry_run=True):
     Args:
         nominal_dir: Nominal histogram directory path
         dry_run: If True, only print what would be done
+        quiet: If True, suppress output
     """
-    print("="*80)
-    print("Systematic Histogram Directory Cleanup")
-    print("="*80)
-    print(f"Nominal directory: {nominal_dir}")
-    print(f"Mode: {'DRY-RUN (safe, no deletions)' if dry_run else 'EXECUTE (will cleanup!)'}")
-    print("="*80)
+    if not quiet:
+        print("="*80)
+        print("Systematic Histogram Directory Cleanup")
+        print("="*80)
+        print(f"Nominal directory: {nominal_dir}")
+        print(f"Mode: {'DRY-RUN (safe, no deletions)' if dry_run else 'EXECUTE (will cleanup!)'}")
+        print("="*80)
 
     # Find systematic histogram directories
     sys_hist_dirs = find_systematic_directories(nominal_dir)
 
     if not sys_hist_dirs:
-        print("\nNo systematic variation histogram directories found.")
+        if not quiet:
+            print("\nNo systematic variation histogram directories found.")
         return
 
-    print(f"\nFound {len(sys_hist_dirs)} systematic histogram directories")
-    print("\nFirst 5 directories (for verification):")
-    for i, d in enumerate(sys_hist_dirs[:5], 1):
-        print(f"  {i}. {d}")
-    if len(sys_hist_dirs) > 5:
-        print(f"  ... and {len(sys_hist_dirs) - 5} more")
+    if not quiet:
+        print(f"\nFound {len(sys_hist_dirs)} systematic histogram directories")
+        print("\nFirst 5 directories (for verification):")
+        for i, d in enumerate(sys_hist_dirs[:5], 1):
+            print(f"  {i}. {d}")
+        if len(sys_hist_dirs) > 5:
+            print(f"  ... and {len(sys_hist_dirs) - 5} more")
 
-    if dry_run:
-        print("\n*** DRY-RUN MODE - No files will be deleted ***")
-        print("Add --execute flag to actually cleanup\n")
+        if dry_run:
+            print("\n*** DRY-RUN MODE - No files will be deleted ***")
+            print("Add --execute flag to actually cleanup\n")
 
     # Cleanup directories
     total_root_files = 0
     total_size_mb = 0.0
 
     for i, sys_hist_dir in enumerate(sys_hist_dirs, 1):
-        print(f"\n[{i}/{len(sys_hist_dirs)}] {os.path.basename(sys_hist_dir)}")
-        num_files, size_mb = cleanup_systematic_histogram_directory(sys_hist_dir, dry_run)
+        if not quiet:
+            print(f"\n[{i}/{len(sys_hist_dirs)}] {os.path.basename(sys_hist_dir)}")
+        num_files, size_mb = cleanup_systematic_histogram_directory(sys_hist_dir, dry_run, quiet)
         total_root_files += num_files
         total_size_mb += size_mb
 
     # Summary
-    print("\n" + "="*80)
-    if dry_run:
-        print(f"DRY-RUN Summary:")
-        print(f"  Would cleanup: {len(sys_hist_dirs)} histogram directories")
-        print(f"  Would delete: {total_root_files} ROOT files")
-        print(f"  Would free: ~{total_size_mb:.1f} MB disk space")
-        print(f"  Would zip: {len(sys_hist_dirs)} log/ directories")
-        print(f"  Would delete: {len(sys_hist_dirs)} jobSH/ directories")
-        print(f"\nTo actually cleanup, re-run with: --execute")
-    else:
-        print(f"✓ Cleanup Complete!")
-        print(f"  Cleaned: {len(sys_hist_dirs)} histogram directories")
-        print(f"  Deleted: {total_root_files} ROOT files")
-        print(f"  Freed: ~{total_size_mb:.1f} MB disk space")
-        print(f"  Zipped: log/ directories")
-        print(f"  Deleted: jobSH/ directories")
-    print("="*80)
+    if not quiet:
+        print("\n" + "="*80)
+        if dry_run:
+            print(f"DRY-RUN Summary:")
+            print(f"  Would cleanup: {len(sys_hist_dirs)} histogram directories")
+            print(f"  Would delete: {total_root_files} ROOT files")
+            print(f"  Would free: ~{total_size_mb:.1f} MB disk space")
+            print(f"  Would zip: {len(sys_hist_dirs)} log/ directories")
+            print(f"  Would delete: {len(sys_hist_dirs)} jobSH/ directories")
+            print(f"\nTo actually cleanup, re-run with: --execute")
+        else:
+            print(f"✓ Cleanup Complete!")
+            print(f"  Cleaned: {len(sys_hist_dirs)} histogram directories")
+            print(f"  Deleted: {total_root_files} ROOT files")
+            print(f"  Freed: ~{total_size_mb:.1f} MB disk space")
+            print(f"  Zipped: log/ directories")
+            print(f"  Deleted: jobSH/ directories")
+        print("="*80)
 
 
 # ============================================================================
@@ -366,7 +377,8 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
             print("\n")
         cleanup_systematic_directories(
             nominal_dir=nominalDir,
-            dry_run=not args.execute
+            dry_run=not args.execute,
+            quiet=args.quiet
         )
     elif not args.quiet:
         print("\n" + "="*80)
