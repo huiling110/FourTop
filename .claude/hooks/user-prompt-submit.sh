@@ -12,7 +12,7 @@ check_workflow_patterns() {
     local prompt_lower=$(echo "$USER_PROMPT" | tr '[:upper:]' '[:lower:]')
 
     # Stage-related keywords (case insensitive)
-    if [[ "$prompt_lower" =~ (stage|run|submit|job|histogram|hist|datacard|template|combine|validation|plot|pl\.py) ]]; then
+    if [[ "$prompt_lower" =~ (stage|run|submit|job|histogram|hist|datacard|template|combine|validation|plot|pl\.py|workflow|status|where.?we.?at|resume|progress|pipeline) ]]; then
         return 0
     fi
 
