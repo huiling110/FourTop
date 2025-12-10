@@ -506,7 +506,9 @@
   - Commit: `3095ef2d`
 - **Status**: Waiting for WH systematic jobs to complete before running fixed addJES script
 
-**Session 16 (2025-12-10)** - WH Systematics Completion Verification:
+**Session 16 (2025-12-10)** - WH Systematics Completion + Permissions Configuration:
+
+### Part 1: WH Systematics Verification
 - **Resumed Task**: Investigated workflow-optimization status per user request
 - **WH Jobs Status**: ALL COMPLETED ✅
   - Initially appeared incomplete (only 1 job in queue)
@@ -520,7 +522,48 @@
     - EleScale systematics: 118 files (2 variations × 59 = 118) ✅
     - **Total**: 4366 histogram files for 1tau1l 2018 ✅
 - **Key Finding**: Workflow state correctly tracked submission (12:42:27), but jobs completed quickly
-- **Next Steps**:
-  - Run Stage 4.1 (addJESTemplatesToHistFile.py) with fixed error handling
-  - Complete Stage 4.2-4.4 pipeline for 1tau1l 2018
-- **Updated**: Dev-docs with Session 16 findings
+
+### Part 2: Stage 4.1 Consolidation Issue
+- **Attempted**: Run addJESTemplatesToHistFile.py with fixed error handling
+- **Result**: PARTIAL SUCCESS ⚠️
+  - ✅ JES: 3540 templates consolidated successfully
+  - ✅ JER: 180 templates consolidated successfully → **files deleted**
+  - ❌ TES: Failed to open files → **systematic directories now empty**
+  - ❌ MET: Failed to open files → **systematic directories now empty**
+  - ❌ EleScale: Failed to open files → **systematic directories now empty**
+- **Root Cause**: Script cleaned up JER files even though TES/MET/EleScale failed
+  - Bug fix (commit b0475dab) worked correctly - cleanup was skipped
+  - BUT: JER already succeeded and cleaned up in earlier --quiet run
+  - TES/MET/EleScale histogram files now missing from systematic directories
+- **Impact**: Need to regenerate TES/MET/EleScale systematic histograms (Stage 3.1)
+
+### Part 3: Permissions Configuration ✅ COMPLETE
+- **User Request**: Configure safer permissions while allowing workflow compound commands
+- **Approach Selected**: Option C - Hybrid (generic pattern + strengthened deny rules)
+- **Implementation**:
+  - Added `Bash(* && *)` pattern to allow all compound commands
+  - Added 11 new deny rules to block dangerous compound combinations:
+    - `* && rm -rf *`, `* && sudo *`, `* && chmod -R 000 *`
+    - `* && git push --force *`, `* && git reset --hard *`
+    - `rm * && *`, `sudo * && *` (dangerous commands first in chain)
+  - Backed up old settings to `.claude/settings.json.backup`
+- **Benefits**:
+  - ✅ Allows: `git add && git commit`, `mkdir dir && cd dir`, `python3 script && echo done`
+  - ❌ Blocks: `* && rm -rf /publicfs/*`, `* && sudo rm *`, `mkdir temp && rm -rf /`
+  - Deny rules take priority over allow patterns
+- **Commit**: `c6d7c13c feat: Implement hybrid permissions approach (Option C)`
+- **Tested**: Compound commands working correctly
+
+### Part 4: Slash Command Investigation
+- **Issue**: `/update-dev-docs` command file exists but not registered/loaded
+- **Finding**: Only `/show-plans` appears in available commands
+- **Status**: Appears to be Claude Code CLI registration issue (not a config problem)
+- **Workaround**: Manual dev-docs updates continue to work fine
+
+### Next Steps (Priority Order):
+1. **Regenerate TES/MET/EleScale systematic histograms** (Stage 3.1)
+   - Run: `makeJob_WH_forJES.py --config ... --era 2018 --group TES,JER,MET,EleScale`
+   - Estimated: 826 jobs (14 variations × 59 files), ~1-2 hour runtime
+2. **Re-run Stage 4.1** with all systematics available
+3. **Complete Stage 4.2-4.4** pipeline for 1tau1l 2018
+4. **Commit Session 16 dev-docs updates**

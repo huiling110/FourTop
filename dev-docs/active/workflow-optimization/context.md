@@ -315,16 +315,27 @@ python3 -c "from plotting.workflow_utils import *; help(load_config)"
 
 ## Current Status (Session 16 - 2025-12-10)
 
-**1tau1l 2018 Workflow**: Stage 3.1 (WH systematics) ✅ COMPLETE
+**1tau1l 2018 Workflow**: Stage 3.1/4.1 - PARTIAL ISSUE ⚠️
 
-All 74 systematic variations successfully generated histograms:
-- JES: 60 variations × 59 files = 3540 ✅
-- TES: 8 variations × 59 files = 472 ✅
-- JER: 2 variations × 59 files = 118 ✅
-- MET: 2 variations × 59 files = 118 ✅
-- EleScale: 2 variations × 59 files = 118 ✅
-- **Total**: 4366 histogram files
+**Stage 3.1 Status**:
+- JES: 60 variations × 59 files = 3540 ✅ (consolidated)
+- JER: 2 variations × 59 files = 118 ✅ (consolidated + deleted)
+- TES: 8 variations - **NEED REGENERATION** ❌
+- MET: 2 variations - **NEED REGENERATION** ❌
+- EleScale: 2 variations - **NEED REGENERATION** ❌
 
-**Next Step**: Stage 4.1 - Consolidate systematics with fixed addJESTemplatesToHistFile.py (commit b0475dab)
+**Stage 4.1 Status** (Consolidation):
+- JES templates: ✅ Consolidated to nominal files
+- JER templates: ✅ Consolidated to nominal files
+- TES/MET/EleScale: ❌ Failed (files missing from systematic directories)
+
+**Root Cause**: Earlier partial run cleaned up JER files before TES/MET/EleScale consolidation
+
+**Immediate Action**: Regenerate TES/MET/EleScale systematic histograms via Stage 3.1
+
+**Permissions**: ✅ Hybrid approach configured (Option C)
+- Generic compound pattern `Bash(* && *)` enabled
+- 11 strengthened deny rules for dangerous combinations
+- Commit: `c6d7c13c`
 
 **1tau0l Status**: Various OS systematic jobs for multiple eras in progress
