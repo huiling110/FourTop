@@ -411,6 +411,21 @@
   - `18a660d0` - test: Enable systematics in 1tau1l config (Step 4)
 - **Status**: Phase 8 implementation complete, testing successful
 
+**Session 14 (2025-12-10)** - 1tau1l 2018 Continue:
+- Resumed workflow-optimization task
+- **Issue Found**: Workflow state not auto-updating
+  - **Root Cause**: Phase 8 implemented WorkflowState class + hook that READS state
+  - **Gap**: No scripts actually CALL `state.update_stage()` to write state
+  - State file was manually updated during testing but never integrated into scripts
+  - Hook works correctly - it reads and injects context
+  - **FIX NEEDED**: Integrate WorkflowState calls into:
+    1. Job submission scripts (makeJob_*.py) - update on submit
+    2. run_runCombineAll.sh or runCombineAll.py - update on start/complete
+    3. Or: Create post-submission hook that updates state
+- Updated run_runCombineAll.sh for 1tau1l 2018 Stage 4.5
+- Combine steps: workspace, significance, postfit, signal_strength, impacts
+- Combine job running (PID 2151426)
+
 **Session 13 (2025-12-10)** - Phase 8 Finalization:
 - **Step 5 Complete**: Final cleanup committed
   - Deleted monolithic workflow.md (565 lines)

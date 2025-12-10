@@ -206,8 +206,8 @@ void WH_forDataMC::fillHistVec(TString region, Bool_t ifBaseline, Double_t basic
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_m_stat_"+m_era+"Down", (basicWeight/e->musTopMVAT_weight_new.v())*e->musTopMVAT_weight_stat_down.v(), m_isData);
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_e_stat_"+m_era+"Up", (basicWeight/e->elesTopMVAT_weight_new.v())*e->elesTopMVAT_weight_stat_up.v(), m_isData);
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_tttt_eff_e_stat_"+m_era+"Down", (basicWeight/e->elesTopMVAT_weight_new.v())*e->elesTopMVAT_weight_stat_down.v(), m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_e_Reco_"+m_era+"Up", (basicWeight/e->elesTopMVAT_reoSF_weight.v())*e->elesTopMVAT_reoSF_weight_up.v(), m_isData);
-        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_e_Reco_"+m_era+"Down", (basicWeight/e->elesTopMVAT_reoSF_weight.v())*e->elesTopMVAT_reoSF_weight_down.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_e_reco_"+m_era+"Up", (basicWeight/e->elesTopMVAT_reoSF_weight.v())*e->elesTopMVAT_reoSF_weight_up.v(), m_isData);
+        WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_eff_e_reco_"+m_era+"Down", (basicWeight/e->elesTopMVAT_reoSF_weight.v())*e->elesTopMVAT_reoSF_weight_down.v(), m_isData);
 
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_jesUp", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_jes_up.v(), m_isData);
         WH::histRegionVectFill(histsForRegion_vec, ifBaseline, region+"_CMS_btag_jesDown", (basicWeight/e->btagShape_weight.v())*e->btagShape_weight_jes_down.v(), m_isData);
