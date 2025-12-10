@@ -114,21 +114,36 @@ Currently integrated stages in run_workflow.py:
 - `createFaketauTree.py` - needs verification
 - `pl.py` - needs verification
 
-### Workflow State Tracking (Phase 8 - Step 1 ✅)
+### Workflow State Tracking (Phase 8 ✅ COMPLETE)
 
-**File**: `.workflow_state.json` at project root
+**File**: `.workflow_state.json` at project root (unified for all channels)
 
 **Purpose**: Persist pipeline state across sessions for context injection by hooks
 
 **Implementation**: `plotting/workflow_utils.py` - `WorkflowState` class (~180 lines)
 
+**Key Features**:
+- Unified state file tracking all channels (user preference)
+- Atomic writes with temp file for safety
+- History logging (keeps last 100 entries)
+- Methods: `update_stage()`, `get_current()`, `get_stage_status()`, `log_execution()`
+- Convenience function: `get_workflow_state(channel, config_path)`
+
 **Test Result** (2025-12-10):
 ```python
 from plotting.workflow_utils import get_workflow_state
+
+# Test with 1tau0l
 state = get_workflow_state('1tau0l', 'config/analysis_config_1tau0l_TTBBtest.yaml')
 state.update_stage('1.1', '2017', 'running', 'OS_systematics')
 current = state.get_current()
-# Returns: {'stage': '1.1', 'era': '2017', 'status': 'running', ...}
+# Returns: {'stage': '1.1', 'era': '2017', 'status': 'running', 'operation': 'OS_systematics', 'timestamp': ...}
+
+# Test with 1tau1l
+state = get_workflow_state('1tau1l', 'config/analysis_config_1tau1l_TTBBtest.yaml')
+state.update_stage('3.1', '2018', 'running', 'WH_all_systematics')
+current = state.get_current()
+# Both channels persist in same .workflow_state.json ✅
 ```
 
 **State File Structure**:
@@ -137,15 +152,25 @@ current = state.get_current()
   "channels": {
     "1tau0l": {
       "config": "config/analysis_config_1tau0l_TTBBtest.yaml",
-      "current": {"stage": "1.1", "era": "2017", "status": "running", ...},
+      "current": {"stage": "1.1", "era": "2017", "status": "running", "operation": "OS_systematics", "timestamp": "..."},
       "stage_status": {"1.1": {"2017": "running"}}
+    },
+    "1tau1l": {
+      "config": "config/analysis_config_1tau1l_TTBBtest.yaml",
+      "current": {"stage": "3.1", "era": "2018", "status": "running", "operation": "WH_all_systematics", "timestamp": "..."},
+      "stage_status": {"3.1": {"2018": "running"}}
     }
   },
-  "history": [...]
+  "history": [
+    {"timestamp": "...", "channel": "1tau0l", "stage": "1.1", "era": "2017", "operation": "OS_systematics", "status": "submitted", ...},
+    {"timestamp": "...", "channel": "1tau1l", "stage": "3.1", "era": "2018", "operation": "WH_all_systematics", "status": "submitting", ...}
+  ]
 }
 ```
 
-**Status**: ✅ Tested and working
+**Hook Integration**: `.claude/hooks/user-prompt-submit.sh` reads state and injects `<workflow_context>` tags
+
+**Status**: ✅ Tested with both channels, working correctly
 
 ### Scripts to Refactor (Pending)
 
@@ -267,6 +292,12 @@ python3 -c "from plotting.workflow_utils import *; help(load_config)"
 12. `efad13c1` - docs: Move workflow-code-quality to completed
 13. `14e2ae73` - feat: Complete Phase 5 Stage 1 workflow integration
 14. `19300aed` - feat: Integrate Stage 1 (OS) and Stage 2 (MV) into run_workflow.py
+15. `97d36dd9` - docs: Phase 7 and Phase 8 documentation
+16. `42ccbafd` - docs: Phase 8 planning and real test case
+17. `d865d525` - feat: Add WorkflowState class (Phase 8 Step 1)
+18. `890503a8` - feat: Enhance user-prompt-submit hook (Phase 8 Step 2)
+19. `de247280` - feat: Split workflow.md into modular skill system (Phase 8 Step 3)
+20. `18a660d0` - test: Enable systematics in 1tau1l config (Phase 8 Step 4)
 
 ---
 
