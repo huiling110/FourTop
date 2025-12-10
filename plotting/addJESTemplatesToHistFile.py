@@ -360,19 +360,88 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
     era = uf.getEraFromDir(nominalDir)
     allSubProcesses = getMCSubPro(channel, era)
 
-    addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)
-    if ifMCFTau:
-        addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_MCFT')#!make sure JES OS dir with _JESPt22 in the end
-        addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT')#!make sure JES OS dir with _JESPt22 in the end
-    addJERToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau)
-    
-    addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
-    addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
-    addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+    # Track consolidation success for each systematic type
+    consolidation_success = {
+        'JES': False,
+        'JER': False,
+        'MET': False,
+        'EES': False,
+        'TES': False
+    }
+    consolidation_errors = []
 
-    # Cleanup systematic histogram directories (enabled by default)
+    # Consolidate systematics with error handling
+    try:
+        addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables)
+        if ifMCFTau:
+            addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_MCFT')
+            addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT')
+        consolidation_success['JES'] = True
+        if not args.quiet:
+            print("✓ JES consolidation successful")
+    except Exception as e:
+        consolidation_errors.append(f"JES: {str(e)}")
+        if not args.quiet:
+            print(f"✗ JES consolidation failed: {e}")
+
+    try:
+        addJERToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau)
+        consolidation_success['JER'] = True
+        if not args.quiet:
+            print("✓ JER consolidation successful")
+    except Exception as e:
+        consolidation_errors.append(f"JER: {str(e)}")
+        if not args.quiet:
+            print(f"✗ JER consolidation failed: {e}")
+
+    try:
+        addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+        consolidation_success['MET'] = True
+        if not args.quiet:
+            print("✓ MET consolidation successful")
+    except Exception as e:
+        consolidation_errors.append(f"MET: {str(e)}")
+        if not args.quiet:
+            print(f"✗ MET consolidation failed: {e}")
+
+    try:
+        addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+        consolidation_success['EES'] = True
+        if not args.quiet:
+            print("✓ EES consolidation successful")
+    except Exception as e:
+        consolidation_errors.append(f"EES: {str(e)}")
+        if not args.quiet:
+            print(f"✗ EES consolidation failed: {e}")
+
+    try:
+        addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau)
+        consolidation_success['TES'] = True
+        if not args.quiet:
+            print("✓ TES consolidation successful")
+    except Exception as e:
+        consolidation_errors.append(f"TES: {str(e)}")
+        if not args.quiet:
+            print(f"✗ TES consolidation failed: {e}")
+
+    # Only cleanup if ALL consolidations succeeded
+    all_succeeded = all(consolidation_success.values())
     cleanup_enabled = args.delete_sys_dirs and not args.keep_sys_dirs
-    if cleanup_enabled:
+
+    if consolidation_errors:
+        if not args.quiet:
+            print("\n" + "="*80)
+            print("⚠ WARNING: Some systematic consolidations failed!")
+            print("="*80)
+            for error in consolidation_errors:
+                print(f"  - {error}")
+            print("\n✗ Cleanup SKIPPED to preserve systematic files")
+            print("="*80)
+        # Exit with error to indicate failure
+        import sys
+        sys.exit(1)
+
+    if cleanup_enabled and all_succeeded:
         if not args.quiet:
             print("\n")
         cleanup_systematic_directories(
@@ -382,8 +451,13 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
         )
     elif not args.quiet:
         print("\n" + "="*80)
-        print("Consolidation complete!")
-        print("Systematic histogram directories preserved (--keep-sys-dirs).")
+        print("✓ Consolidation complete!")
+        succeeded_count = sum(consolidation_success.values())
+        print(f"  Successfully consolidated: {succeeded_count}/5 systematic types")
+        for sys_type, success in consolidation_success.items():
+            status = "✓" if success else "✗"
+            print(f"    {status} {sys_type}")
+        print("\nSystematic histogram directories preserved (--keep-sys-dirs).")
         print("To enable cleanup, remove --keep-sys-dirs flag.")
         print("="*80)
 
