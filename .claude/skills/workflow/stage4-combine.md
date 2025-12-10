@@ -17,11 +17,32 @@ Only needed when running separate JES systematic variation jobs.
 
 ```bash
 source setEnv_newNew.sh
-cd plotting/
-python3 addJESTemplatesToHistFile.py --config ../config/CONFIG.yaml --era 2018
+python3 plotting/addJESTemplatesToHistFile.py \
+  --config config/CONFIG.yaml \
+  --era 2018 \
+  --execute \
+  --quiet
 ```
 
-**What it does**: Merges JES systematic variations from separate histogram files into the nominal histogram file.
+**IMPORTANT FLAGS**:
+- `--execute`: Actually cleanup systematic directories after consolidation (default: dry-run)
+- `--quiet`: Suppress verbose ROOT output (saves tokens, faster execution)
+- `--keep-sys-dirs`: Keep systematic directories (skip cleanup) - only use for debugging
+
+**What it does**:
+1. Merges JES/JER/TES/MET/EES systematic variations into nominal histogram files
+2. Cleans up systematic directories (ROOT files, jobSH dirs, zips logs) to free disk space
+
+**Verification after completion**:
+```bash
+# Check systematic directories were cleaned
+ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/*TTBBtest_TES*/mc/variableHists_*/
+# Should show: log.zip files exist, but *.root files are gone
+
+# Verify consolidation worked (check nominal file size grew)
+ls -lh /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root
+# Files should be larger (~100-500 MB) after adding systematics
+```
 
 ## Stage 4.2: Template Creation
 
