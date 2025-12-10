@@ -193,7 +193,7 @@ def main():
     inputDir = os.path.dirname(inputTemplate)
     outDir = f"{inputDir}/datacardSys_{datacard_version}/"
     uf.checkMakeDir(outDir)
-    outCard = f"{outDir}datacard_{channel}.txt"
+    outCard = f"{outDir}datacard.txt"  # Use consistent name for combine workflow
     era = uf.getEraFromDir(inputTemplate) 
     
     processes = pl.getSumList(channel, True, False, ifFTauMC, True)    
