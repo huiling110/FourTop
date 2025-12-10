@@ -175,6 +175,16 @@ python3 run_workflow.py --stage 3.3 --config config/analysis_config_1tau1l_TTBBt
 cd plotting
 python3 pl.py --config ../config/analysis_config_1tau0l_full.yaml --era 2018 --channel 1tau0l --regions 1tau0lSR 1tau0lCRMR 1tau0lVR --unblind --no-sys
 python3 pl.py --config ../config/analysis_config_1tau1l_TTBBtest.yaml --era 2018 --channel 1tau1l --regions 1tau1lSR 1tau1lCR12 --unblind --no-sys
+
+# Generate datacard with TTBB normalization
+cd plotting
+source ../setEnv_newNew.sh
+python3 writeDatacard.py --config ../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
+
+# Test combine workflow (workspace creation)
+cd hua/combine
+bash run_runCombineAll.sh  # TTBB test uncommented at line 180-185
+tail -f /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau0l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/ttbb_test.log
 ```
 
 ## Analysis Pipeline Abbreviations

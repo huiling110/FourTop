@@ -151,12 +151,15 @@
 ## Phase 6: Datacards and Statistical Analysis ✅ IN PROGRESS
 
 ### Datacard Generation - 2018
-- [x] Add TTBB normalization uncertainty to writeDatacard.py
-  - **Option A (implemented)**: lnN constraint with 13% uncertainty (`CMS_TOP24017_norm_ttbb lnN 1.13`)
-  - **Option B (future)**: rateParam with Gaussian constraint (commented out, can be tested later)
-- [x] Test datacard generation for 2018 (2025-12-10 09:40)
+- [x] Add TTBB normalization uncertainty to writeDatacard.py (2025-12-10)
+  - **Implemented**: Gaussian parameter constraint (`CMS_TOP24017_norm_ttbb param 1.19 0.13`)
+  - Constrains ttbb normalization to 1.19 ± 0.13 (mean ± sigma)
+- [x] Test datacard generation for 2018 1tau0l (2025-12-10 09:51)
   - Output: `datacardSys_v0_ttbb_nosmoothing/datacard_1tau0l.txt`
-  - TTBB normalization verified: `CMS_TOP24017_norm_ttbb lnN ... ttbb 1.13`
+  - TTBB constraint verified: `CMS_TOP24017_norm_ttbb param 1.19 0.13`
+- [x] Prepare combine workflow test (2025-12-10 10:15)
+  - Modified `hua/combine/run_runCombineAll.sh` with TTBB test command
+  - Ready to run workspace creation step
 
 ### Next Steps (moved to workflow-optimization task)
 - [ ] Run template generation workflow (Stage 4.1-4.3)
@@ -364,3 +367,22 @@
 - Next steps:
   1. Submit Stage 3 WH jobs for 2016postVFP, 2016preVFP (update makeJob_forWriteHist.py inputDir)
   2. Run Stage 4 validation (pl.py) for all three years once WH completes
+
+### Session 16 (2025-12-10 09:30)
+- Resumed task to add TTBB normalization to datacards
+- **Key decision**: TTBB normalization constraint implementation
+  - Initial attempt: lnN constraint with 1.13 multiplier (incorrect)
+  - **Corrected**: Gaussian parameter constraint `param 1.19 0.13` (mean ± sigma)
+  - This properly constrains ttbb to 1.19 ± 0.13 in the fit
+- Updated `plotting/writeDatacard.py`:
+  - Removed ttbb from lnN normalization dictionary
+  - Added param constraint after autoMCStats line
+  - Tested successfully on 2018 1tau0l datacard
+- Fixed configuration issues:
+  - Updated `.claude/settings.json` and `.claude/settings.local.json` for dev-docs path migration
+  - Fixed `/resume-task` and `/show-plans` command registration
+- Prepared combine workflow test:
+  - Modified `hua/combine/run_runCombineAll.sh` with TTBB test (line 180-185)
+  - Test will create workspace from datacard with param constraint
+- Commits: `7197b3c9`, `319f3ffe` - TTBB normalization implementation and fix
+- Next: Run combine workspace test to validate param constraint in RooWorkspace
