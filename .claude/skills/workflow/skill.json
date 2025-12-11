@@ -5,7 +5,7 @@
   "entry": "overview.md",
   "triggers": {
     "manual": true,
-    "automatic": false,
+    "automatic": true,
     "keywords": [
       "stage",
       "submit",
@@ -16,7 +16,12 @@
       "WH",
       "combine",
       "systematic",
-      "era"
+      "era",
+      "makeJob",
+      "histogram",
+      "datacard",
+      "template",
+      "fake"
     ]
   },
   "parameters": {
