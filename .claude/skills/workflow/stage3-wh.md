@@ -20,6 +20,18 @@ python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic 
 hep_q -u $USER
 ```
 
+## Timing Estimates
+
+**Nominal only** (`--systematic nominal`):
+- Submission time: ~1 minute
+- Execution time: ~5 minutes
+- Jobs: ~71 MC files
+
+**Complete** (`--systematic complete`):
+- Submission time: ~10 minutes
+- Execution time: ~30 minutes
+- Jobs: 71 nominal + (74 systematics × 59 files) = ~4,437 total jobs
+
 ## Note on Systematics
 
 - If `options.systematics: true` in config: Nominal WH jobs include all weight systematics internally.
