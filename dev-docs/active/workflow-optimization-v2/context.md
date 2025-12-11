@@ -6,9 +6,38 @@
 
 ---
 
-## Project Goal
+## Primary Goal: Optimize Workflow Standard
 
-Complete V21 combination of 3 channels (1tau0l, 1tau1l, 1tau2l) × 4 years (2016preVFP, 2016postVFP, 2017, 2018) for Run2 four-top analysis.
+**THIS IS THE CORE OBJECTIVE** - Not just completing V21, but OPTIMIZING the workflow standard as we execute.
+
+### What This Means
+
+Every step of the V21 production run is an opportunity to:
+1. **Validate** workflow_utils patterns work robustly across all channels/eras
+2. **Identify** gaps or friction points in the workflow standard
+3. **Refine** scripts, configs, and documentation for production readiness
+4. **Document** best practices and lessons learned
+5. **Ensure** reproducibility for future analyses
+
+### Workflow Standard Compliance (CRITICAL FOR PHASE 1)
+
+**Phase 1 Testing (2018)** specifically validates that ALL scripts comply with:
+- ✅ `--config` required (no hardcoded paths)
+- ✅ `--era` required (or `--all-eras` option)
+- ✅ Uses `workflow_utils` for ALL path building
+- ✅ Reads options from config (systematics, fake_tau, etc.)
+- ✅ Has `--quiet` option for batch runs
+- ✅ Updates `.workflow_state.json` on execution
+- ✅ Clear error messages when config invalid
+- ✅ Self-documenting help text (`--help`)
+
+**Success Metric**: Can run complete 2018 workflow (1tau1l, 1tau2l) with ONLY config file and era flag, zero hardcoded paths, zero manual interventions.
+
+### Secondary Goal: V21 Combination
+
+Complete Run2 four-top analysis: 3 channels × 4 years → V21 combination.
+
+This production run **proves** the workflow standard works at scale.
 
 ---
 
