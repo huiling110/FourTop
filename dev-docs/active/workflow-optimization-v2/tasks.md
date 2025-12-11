@@ -5,7 +5,8 @@
 **Status**: IN PROGRESS
 
 **Session Progress**:
-- Part A completed and committed
+- Part A completed and committed (deny-list permissions)
+- Workflow optimization: Unified makeJob_WH.py script created ✓
 - Part B in progress: JER systematics submitted (118 jobs), waiting for completion
 
 ---

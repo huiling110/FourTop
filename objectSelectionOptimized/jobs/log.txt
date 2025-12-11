@@ -1,0 +1,131 @@
+nohup: ignoring input
+============================================
+Submitting 15 systematic variations
+Config: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/config/analysis_config_1tau0l_TTBBtest.yaml
+Era: --era
+============================================
+
+--------------------------------------------
+Submitting: JES
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: JERUp
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: JERDown
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: METUp
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: METDown
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: EleScaleUp
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: EleScaleDown
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: TESdm0Up
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: TESdm0Down
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: TESdm1Up
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: TESdm1Down
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: TESdm10Up
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: TESdm10Down
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: TESdm11Up
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+--------------------------------------------
+Submitting: TESdm11Down
+--------------------------------------------
+usage: makeJob_OS_fromRuobing2.py [-h] --config CONFIG [--era ERA] [--dry-run]
+                                  [--quiet]
+                                  [--sys {JES,JERUp,JERDown,METUp,METDown,EleScaleUp,EleScaleDown,TESUp,TESDown,TESdm0Up,TESdm0Down,TESdm1Up,TESdm1Down,TESdm10Up,TESdm10Down,TESdm11Up,TESdm11Down}]
+makeJob_OS_fromRuobing2.py: error: argument --era/-e: expected one argument
+
+============================================
+All systematic jobs submitted!
+Monitor with: hep_q -u $USER
+============================================

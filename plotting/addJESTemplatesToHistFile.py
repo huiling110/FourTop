@@ -52,21 +52,41 @@ def find_systematic_directories(nominal_dir):
     nominalHistDir = nominal_dir.split('mc/', 1)[1]
 
     # ========================================================================
-    # 1. JES Variations (following addJESToFile logic, lines 454-476)
+    # 1. JES Variations (following addJESToFile logic, lines 563-612)
     # ========================================================================
-    Version = nominal_dir.split('/')[-4]
-    inVersion = Version.split('_')[-1] + '_JESPt22'
-    outVersion = Version.split('_')[0]
-    inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
+    # Use workflow_utils for path building if config is available (same as addJESToFile)
+    if _CONFIG is not None and WORKFLOW_UTILS_AVAILABLE:
+        for jes_source in gq.JESVariationList:
+            jes_up_dir = build_hist_path_jes(_CONFIG, era, 'up', jes_source)
+            jes_down_dir = build_hist_path_jes(_CONFIG, era, 'Down', jes_source)
 
-    for jes_source in gq.JESVariationList:
-        jes_up_dir = f'{inputDirBase}{outVersion}_JESup_{jes_source}_{inVersion}/mc/{nominalHistDir}'
-        jes_down_dir = f'{inputDirBase}{outVersion}_JESDown_{jes_source}_{inVersion}/mc/{nominalHistDir}'
+            if os.path.exists(jes_up_dir):
+                sys_hist_dirs.append(jes_up_dir)
+            if os.path.exists(jes_down_dir):
+                sys_hist_dirs.append(jes_down_dir)
+    else:
+        # Legacy path building (backward compatibility)
+        # FIX: Extract full stage1 version, not just last component
+        Version = nominal_dir.split('/')[-4]
+        # Version format: {stage2}_{stage1}_{suffix}
+        # e.g., v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest
+        version_parts = Version.split('_')
+        outVersion = version_parts[0]  # stage2: v1baselineHadro
+        # stage1 is everything after stage2, before suffix
+        # Join all parts except first and last: v94HadroPreJetVetoHemOnly
+        stage1_parts = version_parts[1:-1]
+        suffix = version_parts[-1]  # TTBBtest
+        inVersion = '_'.join(stage1_parts + [suffix]) + '_JESPt22'  # v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22
+        inputDirBase = f'/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/'
 
-        if os.path.exists(jes_up_dir):
-            sys_hist_dirs.append(jes_up_dir)
-        if os.path.exists(jes_down_dir):
-            sys_hist_dirs.append(jes_down_dir)
+        for jes_source in gq.JESVariationList:
+            jes_up_dir = f'{inputDirBase}{outVersion}_JESup_{jes_source}_{inVersion}/mc/{nominalHistDir}'
+            jes_down_dir = f'{inputDirBase}{outVersion}_JESDown_{jes_source}_{inVersion}/mc/{nominalHistDir}'
+
+            if os.path.exists(jes_up_dir):
+                sys_hist_dirs.append(jes_up_dir)
+            if os.path.exists(jes_down_dir):
+                sys_hist_dirs.append(jes_down_dir)
 
     # ========================================================================
     # 2. JER Variations (following addJERToFile logic, lines 373-374)

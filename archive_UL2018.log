@@ -1,0 +1,170 @@
+[2025-12-10 13:35:57] ==============================================
+[2025-12-10 13:35:57] Archive and Cleanup Script
+[2025-12-10 13:35:57] ==============================================
+[2025-12-10 13:35:57] ERA: UL2018
+[2025-12-10 13:35:57] PATTERN: v94HadroPreJetVetoHemOnly_TTBBtest
+[2025-12-10 13:35:57] SOURCE_DIR: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018
+[2025-12-10 13:35:57] ARCHIVE_DIR: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018
+[2025-12-10 13:35:57] DRY_RUN: false
+[2025-12-10 13:35:57] ==============================================
+[2025-12-10 13:35:57] Found 15 directories to archive
+[2025-12-10 13:35:57] 
+[2025-12-10 13:35:57] [1/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_EleScaleDown
+[2025-12-10 13:35:58]   Files: 11262, Size: 5.5G
+[2025-12-10 13:35:58]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_EleScaleDown_filelist.txt
+[2025-12-10 13:35:59]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_EleScaleDown.tar.gz
+[2025-12-10 14:51:46]   Archive created in 4547s, size: 5.1G
+[2025-12-10 14:51:46]   Verifying archive integrity...
+[2025-12-10 14:52:43]   Archive verified successfully
+[2025-12-10 14:52:43]   Deleting original directory...
+[2025-12-10 14:52:56]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_EleScaleDown
+[2025-12-10 14:52:56] 
+[2025-12-10 14:52:56] [2/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_EleScaleUp
+[2025-12-10 14:53:07]   Files: 11262, Size: 5.5G
+[2025-12-10 14:53:07]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_EleScaleUp_filelist.txt
+[2025-12-10 14:53:08]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_EleScaleUp.tar.gz
+[2025-12-10 15:03:22]   Archive created in 614s, size: 5.1G
+[2025-12-10 15:03:22]   Verifying archive integrity...
+[2025-12-10 15:04:17]   Archive verified successfully
+[2025-12-10 15:04:17]   Deleting original directory...
+[2025-12-10 15:04:32]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_EleScaleUp
+[2025-12-10 15:04:32] 
+[2025-12-10 15:04:32] [3/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_JERDown
+[2025-12-10 15:04:42]   Files: 11262, Size: 5.5G
+[2025-12-10 15:04:42]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JERDown_filelist.txt
+[2025-12-10 15:04:43]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JERDown.tar.gz
+[2025-12-10 15:15:41]   Archive created in 658s, size: 5.1G
+[2025-12-10 15:15:41]   Verifying archive integrity...
+[2025-12-10 15:16:48]   Archive verified successfully
+[2025-12-10 15:16:48]   Deleting original directory...
+[2025-12-10 15:17:07]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JERDown
+[2025-12-10 15:17:07] 
+[2025-12-10 15:17:07] [4/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_JERUp
+[2025-12-10 15:17:18]   Files: 11262, Size: 5.5G
+[2025-12-10 15:17:18]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JERUp_filelist.txt
+[2025-12-10 15:17:19]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JERUp.tar.gz
+[2025-12-10 15:27:54]   Archive created in 635s, size: 5.1G
+[2025-12-10 15:27:54]   Verifying archive integrity...
+[2025-12-10 15:28:51]   Archive verified successfully
+[2025-12-10 15:28:51]   Deleting original directory...
+[2025-12-10 15:29:05]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JERUp
+[2025-12-10 15:29:05] 
+[2025-12-10 15:29:05] [5/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22
+[2025-12-10 15:29:16]   Files: 11262, Size: 5.6G
+[2025-12-10 15:29:16]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22_filelist.txt
+[2025-12-10 15:29:16]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22.tar.gz
+[2025-12-10 15:39:19]   Archive created in 603s, size: 5.2G
+[2025-12-10 15:39:19]   Verifying archive integrity...
+[2025-12-10 15:40:20]   Archive verified successfully
+[2025-12-10 15:40:20]   Deleting original directory...
+[2025-12-10 15:40:33]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22
+[2025-12-10 15:40:33] 
+[2025-12-10 15:40:33] [6/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_METDown
+[2025-12-10 15:40:45]   Files: 11262, Size: 5.5G
+[2025-12-10 15:40:45]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_METDown_filelist.txt
+[2025-12-10 15:40:46]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_METDown.tar.gz
+[2025-12-10 15:51:07]   Archive created in 621s, size: 5.1G
+[2025-12-10 15:51:07]   Verifying archive integrity...
+[2025-12-10 15:52:12]   Archive verified successfully
+[2025-12-10 15:52:12]   Deleting original directory...
+[2025-12-10 15:52:33]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_METDown
+[2025-12-10 15:52:33] 
+[2025-12-10 15:52:33] [7/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_METUp
+[2025-12-10 15:52:47]   Files: 11262, Size: 5.5G
+[2025-12-10 15:52:47]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_METUp_filelist.txt
+[2025-12-10 15:52:48]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_METUp.tar.gz
+[2025-12-10 16:03:18]   Archive created in 630s, size: 5.1G
+[2025-12-10 16:03:18]   Verifying archive integrity...
+[2025-12-10 16:04:18]   Archive verified successfully
+[2025-12-10 16:04:18]   Deleting original directory...
+[2025-12-10 16:04:30]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_METUp
+[2025-12-10 16:04:30] 
+[2025-12-10 16:04:30] [8/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Down
+[2025-12-10 16:04:42]   Files: 11262, Size: 5.5G
+[2025-12-10 16:04:42]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Down_filelist.txt
+[2025-12-10 16:04:42]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Down.tar.gz
+[2025-12-10 16:15:26]   Archive created in 644s, size: 5.1G
+[2025-12-10 16:15:26]   Verifying archive integrity...
+[2025-12-10 16:16:25]   Archive verified successfully
+[2025-12-10 16:16:25]   Deleting original directory...
+[2025-12-10 16:16:37]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Down
+[2025-12-10 16:16:37] 
+[2025-12-10 16:16:37] [9/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up
+[2025-12-10 16:16:46]   Files: 11262, Size: 5.5G
+[2025-12-10 16:16:46]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up_filelist.txt
+[2025-12-10 16:16:46]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up.tar.gz
+[2025-12-10 16:27:23]   Archive created in 637s, size: 5.1G
+[2025-12-10 16:27:23]   Verifying archive integrity...
+[2025-12-10 16:28:21]   Archive verified successfully
+[2025-12-10 16:28:21]   Deleting original directory...
+[2025-12-10 16:28:34]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up
+[2025-12-10 16:28:34] 
+[2025-12-10 16:28:34] [10/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_TESdm10Down
+[2025-12-10 16:28:44]   Files: 11262, Size: 5.5G
+[2025-12-10 16:28:44]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm10Down_filelist.txt
+[2025-12-10 16:28:44]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm10Down.tar.gz
+[2025-12-10 16:39:08]   Archive created in 624s, size: 5.1G
+[2025-12-10 16:39:08]   Verifying archive integrity...
+[2025-12-10 16:40:07]   Archive verified successfully
+[2025-12-10 16:40:07]   Deleting original directory...
+[2025-12-10 16:40:16]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm10Down
+[2025-12-10 16:40:16] 
+[2025-12-10 16:40:16] [11/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_TESdm10Up
+[2025-12-10 16:40:25]   Files: 11262, Size: 5.5G
+[2025-12-10 16:40:25]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm10Up_filelist.txt
+[2025-12-10 16:40:26]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm10Up.tar.gz
+[2025-12-10 16:51:04]   Archive created in 638s, size: 5.1G
+[2025-12-10 16:51:04]   Verifying archive integrity...
+[2025-12-10 16:52:06]   Archive verified successfully
+[2025-12-10 16:52:06]   Deleting original directory...
+[2025-12-10 16:52:20]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm10Up
+[2025-12-10 16:52:20] 
+[2025-12-10 16:52:20] [12/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_TESdm11Down
+[2025-12-10 16:52:27]   Files: 11262, Size: 5.5G
+[2025-12-10 16:52:27]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm11Down_filelist.txt
+[2025-12-10 16:52:28]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm11Down.tar.gz
+[2025-12-10 17:04:06]   Archive created in 698s, size: 5.1G
+[2025-12-10 17:04:06]   Verifying archive integrity...
+[2025-12-10 17:05:04]   Archive verified successfully
+[2025-12-10 17:05:04]   Deleting original directory...
+[2025-12-10 17:05:19]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm11Down
+[2025-12-10 17:05:19] 
+[2025-12-10 17:05:19] [13/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_TESdm11Up
+[2025-12-10 17:05:26]   Files: 11262, Size: 5.5G
+[2025-12-10 17:05:26]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm11Up_filelist.txt
+[2025-12-10 17:05:27]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm11Up.tar.gz
+[2025-12-10 17:16:00]   Archive created in 633s, size: 5.1G
+[2025-12-10 17:16:00]   Verifying archive integrity...
+[2025-12-10 17:17:01]   Archive verified successfully
+[2025-12-10 17:17:01]   Deleting original directory...
+[2025-12-10 17:17:15]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm11Up
+[2025-12-10 17:17:15] 
+[2025-12-10 17:17:15] [14/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_TESdm1Down
+[2025-12-10 17:17:25]   Files: 11262, Size: 5.5G
+[2025-12-10 17:17:25]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm1Down_filelist.txt
+[2025-12-10 17:17:25]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm1Down.tar.gz
+[2025-12-10 17:27:43]   Archive created in 618s, size: 5.1G
+[2025-12-10 17:27:43]   Verifying archive integrity...
+[2025-12-10 17:28:39]   Archive verified successfully
+[2025-12-10 17:28:39]   Deleting original directory...
+[2025-12-10 17:28:51]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm1Down
+[2025-12-10 17:28:51] 
+[2025-12-10 17:28:51] [15/15] Processing: v94HadroPreJetVetoHemOnly_TTBBtest_TESdm1Up
+[2025-12-10 17:29:09]   Files: 11262, Size: 5.5G
+[2025-12-10 17:29:10]   Saving file list to: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm1Up_filelist.txt
+[2025-12-10 17:29:10]   Creating archive: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm1Up.tar.gz
+[2025-12-10 17:39:35]   Archive created in 625s, size: 5.1G
+[2025-12-10 17:39:35]   Verifying archive integrity...
+[2025-12-10 17:40:40]   Archive verified successfully
+[2025-12-10 17:40:40]   Deleting original directory...
+[2025-12-10 17:40:58]   SUCCESS: Deleted /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v94HadroPreJetVetoHemOnly_TTBBtest_TESdm1Up
+[2025-12-10 17:40:58] 
+[2025-12-10 17:40:58] ==============================================
+[2025-12-10 17:40:58] Summary
+[2025-12-10 17:40:58] ==============================================
+[2025-12-10 17:40:58] Total directories: 15
+[2025-12-10 17:40:58] Processed: 15
+[2025-12-10 17:40:58] Skipped (already archived): 0
+[2025-12-10 17:40:58] Failed: 0
+[2025-12-10 17:40:58] Log file: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/archive_v94HadroPreJetVetoHemOnly_TTBBtest_20251210_133557.log
+[2025-12-10 17:40:58] ==============================================
