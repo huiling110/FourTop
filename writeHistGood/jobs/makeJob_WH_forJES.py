@@ -181,6 +181,15 @@ def main():
     parser = create_parser()
     args = parser.parse_args()
 
+    # Deprecation warning
+    print("=" * 70)
+    print("DEPRECATION WARNING:")
+    print("  makeJob_WH_forJES.py is deprecated.")
+    print("  Please use: makeJob_WH.py --systematic GROUP")
+    print("  Example: python3 makeJob_WH.py --config CONFIG --era 2018 --systematic TES")
+    print("=" * 70)
+    print()
+
     config = load_config(args.config)
     eras = [args.era] if args.era else config['eras']
     systematics = get_systematics(args.group)

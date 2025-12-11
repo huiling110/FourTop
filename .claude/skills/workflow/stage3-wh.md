@@ -2,14 +2,19 @@
 
 Produces histogram files from Stage 2 output.
 
+**IMPORTANT**: Use unified script `makeJob_WH.py` for all WH jobs (nominal + systematics).
+
 ## Commands
 
 ```bash
 source setEnv_newNew.sh
 cd writeHistGood/jobs/
 
-# Submit jobs for all processes
-python3 makeJob_forWriteHist.py --config ../../config/CONFIG.yaml --era 2018
+# Submit NOMINAL jobs (Stage 3)
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic nominal
+
+# Process data too (nominal only)
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic nominal --process-data
 
 # Monitor jobs
 hep_q -u $USER
@@ -31,17 +36,26 @@ source setEnv_newNew.sh
 cd writeHistGood/jobs/
 
 # Submit ALL systematics for 2018 (14 variations × 59 MC files = 826 jobs)
-python3 makeJob_WH_forJES.py --config ../../config/CONFIG.yaml --era 2018
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic all
+
+# Submit BOTH nominal + all systematics (Stage 3 + 3.1 complete)
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic complete
 
 # Submit specific systematic group
-python3 makeJob_WH_forJES.py --config ../../config/CONFIG.yaml --era 2018 --group TES
-python3 makeJob_WH_forJES.py --config ../../config/CONFIG.yaml --era 2018 --group JER
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic TES
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic JER
 
 # Dry run
-python3 makeJob_WH_forJES.py --config ../../config/CONFIG.yaml --era 2018 --dry-run
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic nominal --dry-run
 
-# Available groups: TES, JER, MET, EleScale, all
+# Available systematics: nominal, TES, JER, MET, EleScale, JES, all, complete
 ```
+
+### Deprecated Scripts (backward compatibility)
+
+The old scripts still work but show deprecation warnings:
+- `makeJob_forWriteHist.py` → Use `makeJob_WH.py --systematic nominal`
+- `makeJob_WH_forJES.py` → Use `makeJob_WH.py --systematic GROUP`
 
 ## Systematic Variations
 

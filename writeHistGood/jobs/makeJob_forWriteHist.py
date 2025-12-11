@@ -218,6 +218,15 @@ if __name__=='__main__':
     parser = create_parser()
     args = parser.parse_args()
 
+    # Deprecation warning
+    print("=" * 70)
+    print("DEPRECATION WARNING:")
+    print("  makeJob_forWriteHist.py is deprecated.")
+    print("  Please use: makeJob_WH.py --systematic nominal")
+    print("  Example: python3 makeJob_WH.py --config CONFIG --era 2018 --systematic nominal")
+    print("=" * 70)
+    print()
+
     if args.config:
         # Config mode: use YAML config
         if not WORKFLOW_UTILS_AVAILABLE:

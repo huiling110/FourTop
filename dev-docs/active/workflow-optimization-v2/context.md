@@ -222,4 +222,24 @@ python3 plotting/pl.py --config config/analysis_config_1tau1l_TTBBtest.yaml --er
 
 ---
 
+## CRITICAL REMINDER: Update Hooks + Skills When Workflow Changes
+
+**⚠️ IMPORTANT**: When making changes to workflow scripts or interfaces:
+
+1. **Update `.claude/hooks/pre-tool-use.sh`** if environment requirements change
+2. **Update `.claude/skills/workflow/stage*.md`** to reflect new commands/interfaces
+3. **Update CLAUDE.md** if workflow principles change
+4. **Test the new interface** before deprecating old scripts
+5. **Add deprecation warnings** to old scripts with migration path
+
+This ensures the hook system and skill documentation stay synchronized with code changes.
+
+**Recent Example (2025-12-11)**: Consolidated `makeJob_forWriteHist.py` + `makeJob_WH_forJES.py` → unified `makeJob_WH.py`
+- ✓ Added deprecation warnings to old scripts
+- ✓ Updated `.claude/skills/workflow/stage3-wh.md`
+- ✓ Hooks already covered new script pattern
+- ✓ Documented in this context.md
+
+---
+
 **Last Updated**: 2025-12-11
