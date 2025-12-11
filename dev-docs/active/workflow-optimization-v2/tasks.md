@@ -1,8 +1,19 @@
 # Tasks: Workflow Optimization V2
 
 **Created**: 2025-12-11
-**Last Updated**: 2025-12-11 (Session 2)
-**Status**: IN PROGRESS
+**Last Updated**: 2025-12-11 (Session 3)
+**Status**: IN PROGRESS - INVESTIGATING COMBINE ISSUE
+
+**Session 3 Progress (2025-12-11)**:
+- ✅ Electron reco systematic bug fix verified (no more "Bogus norm" error)
+- ✅ Stage 4.1-4.3 completed for 2018 (after environment sourcing fix)
+- ✅ Pre-tool-use hook enhanced: Changed from warning to BLOCKING when environment not sourced
+- ✅ Stage4-combine.md updated: Screen session + CMSSW setup requirements documented
+- ✅ Stage 4.5 combine run completed in screen session
+- ⚠️ **CRITICAL ISSUE**: Significance = 0 (expected ~0.5) - under investigation
+  - Workspace creation: SUCCESS (no Bogus norm error - electron reco fix worked!)
+  - Signal strength: r = +0.000 -0.000/+1.857
+  - Need to investigate why significance is 0
 
 **Session 2 Progress (2025-12-11)**:
 - Part A: COMPLETED ✓ (deny-list permissions)
@@ -87,6 +98,105 @@
   - Stage 2 data confirmed to exist for all eras
 
 **Rationale**: Since 1tau1l 2018 testing validated the workflow standard compliance successfully, we can proceed directly to production runs for all channels. This avoids redundant testing and accelerates delivery.
+
+---
+
+## Session 3: Electron Reco Fix Verification (2025-12-11)
+
+### Background
+Previous session ended with electron reco systematic bug fixed in `SystematicManager.h` and WH jobs (4,437 jobs) submitted. This session verifies the fix works through Stage 4 and combine.
+
+### Part B Extension: Stage 4 Verification
+
+- [x] Wait for WH jobs to complete
+  - All 4,437 jobs finished successfully (71 nominal + 74 systematics × 59 files)
+  - Histogram files created for all systematic variations
+
+- [x] Run Stage 4.1: addJES consolidation
+  - **Issue encountered**: First attempt failed with `ModuleNotFoundError: No module named 'usefulFunc'`
+  - **Cause**: Ran python script without sourcing `setEnv_newNew.sh`
+  - **Fix**: Added `source setEnv_newNew.sh &&` before command
+  - **Result**: Successfully consolidated all 74 systematic variations into nominal file
+  - Output: `.../variableHists_v0BDT1tau1l_TTBBtest/*.root` now contains 4,627 keys
+  - Cleaned up systematic directories, freed ~24GB disk space
+
+- [x] Environment enforcement enhancement
+  - **User feedback**: "still you don't source setEnv for the python script except hua/combine/, though defined in claude.md, why?"
+  - **Question**: "is there a hook to enforce this?"
+  - **Action**: Updated `.claude/hooks/pre-tool-use.sh`
+    - Changed from **warning** (exit 0) to **BLOCKING** (exit 1)
+    - Now prevents Python analysis scripts from running without environment setup
+    - Exception: hua/combine/ scripts (need `cmsenv` instead)
+  - **File modified**: `.claude/hooks/pre-tool-use.sh:63` (exit 1 instead of exit 0)
+
+- [x] Run Stage 4.2: addTemplate
+  - Executed with proper environment sourcing
+  - Successfully processed all 74+ systematics
+  - Created template file: `templatesForCombine1tau1l_new_notMCFTau_unblind.root`
+
+- [x] Run Stage 4.3: writeDatacard
+  - Successfully created datacard with 86 systematic nuisance parameters
+  - Includes CMS_eff_e_reco_2018 (electron reco systematic)
+  - Datacard includes all processes: fakeTau, tt, ttbb, ttZ, ttW, ttH, fakeLepton, singleTop, tttt
+  - File: `.../combine/datacardSys_v0_ttbb_nosmoothing/datacard.txt` (33KB)
+
+- [x] Update combine documentation
+  - **User request**: "we created a bash script to run combine because it take time, we have decided to run with screen. please update this to stage4-combine.md skill so you remember"
+  - **User specified**: Script is `hua/combine/run_combine_fits.sh`
+  - **User correction**: "in the combine dir you always need source /cvmfs/cms.cern.ch/cmsset_default.sh and then cmsenv, rememeber this in the skills"
+  - **Action**: Updated `.claude/skills/workflow/stage4-combine.md`
+    - Added screen session usage pattern
+    - Documented TWO-command CMSSW setup requirement
+    - Added bash script usage with proper arguments
+  - **File modified**: `.claude/skills/workflow/stage4-combine.md:14-18,129-160`
+
+- [x] Run Stage 4.5: Combine
+  - Started in screen session: `screen -S combine_1tau1l_2018`
+  - Used wrapper script: `bash run_combine_fits.sh ../../config/analysis_config_1tau1l_TTBBtest.yaml 2018 1tau1l`
+  - Script properly sourced CMSSW environment: `source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv`
+  - Combined run completed (~1-2 hours)
+  - Log file: `combine_1tau1l_2018_20251211_130007.log`
+
+### Combine Results Analysis
+
+**SUCCESS**: Electron reco fix verified! ✅
+- ✅ Workspace creation succeeded (no "Bogus norm" error!)
+- ✅ CMS_eff_e_reco_2018 systematic correctly included in datacard
+- ✅ No systematic normalization errors in combine log
+
+**CRITICAL ISSUE**: Significance = 0 (expected ~0.5) ⚠️
+- **Result from combine**:
+  - Significance: 0.0 (expected ~0.5 from previous analyses)
+  - Signal strength: r = +0.000 -0.000/+1.857
+  - Best fit r very close to 0 (signal not preferred)
+
+- **Observations**:
+  - Workspace built successfully (1 channel, 9 processes, 86 nuisance parameters)
+  - No errors during fit
+  - All systematics included properly
+  - But fit doesn't find any signal significance
+
+- **Possible causes to investigate**:
+  1. Data/MC normalization issue (signal too weak or background too strong)
+  2. Template shape issue (signal not distinguishable from background)
+  3. Systematic constraints too tight (pulling signal to 0)
+  4. Datacard configuration issue
+  5. Difference from previous analysis setup
+
+- **Next steps**:
+  - Investigate datacard: check observed/expected event counts
+  - Compare template shapes: signal vs background separation
+  - Check systematic pulls/constraints
+  - Verify this is different from previous working analysis
+
+### Files Modified (Session 3)
+- `.claude/hooks/pre-tool-use.sh` - Enhanced to block when environment not sourced
+- `.claude/skills/workflow/stage4-combine.md` - Added screen + CMSSW setup docs
+
+### Files Created/Updated (Session 3)
+- Template: `.../templatesForCombine1tau1l_new_notMCFTau_unblind.root`
+- Datacard: `.../combine/datacardSys_v0_ttbb_nosmoothing/datacard.txt`
+- Combine log: `hua/combine/combine_1tau1l_2018_20251211_130007.log`
 
 ---
 
