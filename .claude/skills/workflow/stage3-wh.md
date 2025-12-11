@@ -35,19 +35,19 @@ hep_q -u $USER
 ## Note on Systematics
 
 - If `options.systematics: true` in config: Nominal WH jobs include all weight systematics internally.
-  Still need Stage 3.1 for **energy scale** systematics (TES, JER, MET, EleScale).
+  Still need Stage 3.1 for **energy scale** systematics (TES, JER, MET, EleScale, JES).
 - If `options.systematics: false` in config: Only nominal histograms are produced.
 
 ## Stage 3.1: WH Systematic Variations (Energy Scale)
 
-Submit WH jobs for energy scale systematic variations (TES, JER, MET, EleScale).
+Submit WH jobs for energy scale systematic variations (TES, JER, MET, EleScale, JES).
 Requires Stage 2.1 (MV systematics) to be complete.
 
 ```bash
 source setEnv_newNew.sh
 cd writeHistGood/jobs/
 
-# Submit ALL systematics for 2018 (14 variations × 59 MC files = 826 jobs)
+# Submit ALL systematics for 2018 (74 variations × 59 MC files = 4,366 jobs)
 python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic all
 
 # Submit BOTH nominal + all systematics (Stage 3 + 3.1 complete)
@@ -75,8 +75,10 @@ The old scripts still work but show deprecation warnings:
 - JER: JERUp/Down (2)
 - MET: METUp/Down (2)
 - EleScale: EleScaleUp/Down (2)
+- JES: 30 sources × Up/Down = 60 variations
+  - Absolute, BBEC1, EC2, FlavorQCD, HF, RelativeBal, RelativeSample, Total_AK4PFchs, and 22 more sources
 
-Total: 14 variations
+Total: 74 variations (14 + 60 JES)
 
 ## Path Patterns
 
@@ -101,10 +103,13 @@ hep_q -u $USER | grep WH_
 # Check nominal output (channel-specific hist version)
 ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root | wc -l
 
-# Check TES systematic output (8 variations, should be 8 dirs × 59 files = 472)
+# Check TES systematic output (8 variations, 8 dirs × 59 files = 472)
 ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TES*/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root 2>/dev/null | wc -l
 
-# Check JES systematic output (60 variations, should be 60 × 59 = 3,540)
+# Check JER+MET+EleScale systematic output (6 variations, 6 dirs × 59 files = 354)
+ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_{JER,MET,EleScale}*/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root 2>/dev/null | wc -l
+
+# Check JES systematic output (60 variations, 60 dirs × 59 files = 3,540)
 ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_JES*_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root 2>/dev/null | wc -l
 ```
 
