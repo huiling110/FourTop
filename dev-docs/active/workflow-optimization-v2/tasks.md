@@ -4,32 +4,38 @@
 **Last Updated**: 2025-12-11
 **Status**: IN PROGRESS
 
+**Session Progress**:
+- Part A completed and committed
+- Part B in progress: JER systematics submitted (118 jobs), waiting for completion
+
 ---
 
-## Part A: Fix Bash Permissions ⚡ IMMEDIATE PRIORITY
+## Part A: Fix Bash Permissions ⚡ COMPLETED ✓
 
-- [ ] Backup current settings files
+- [x] Backup current settings files
   - `cp .claude/settings.json .claude/settings.json.backup-20251211`
   - `mv .claude/settings.local.json .claude/settings.local.json.backup`
-- [ ] Simplify .claude/settings.json
+- [x] Simplify .claude/settings.json
   - Keep all deny rules (lines 3-45)
   - Replace allow section with: `Bash(*)`, `Edit(*)`, `Write(*)`, `Read(*)`, `Glob(**)`, `Grep(**)`
   - Keep hooks section unchanged
-- [ ] Create empty settings.local.json: `echo '{}' > .claude/settings.local.json`
-- [ ] Test with common commands
+- [x] Create empty settings.local.json: `echo '{}' > .claude/settings.local.json`
+- [x] Test with common commands
   - `ls | grep`, `find . -name`, `python3 script.py && echo done`
   - Verify zero prompts
-- [ ] Commit changes
+- [x] Commit changes
 
-**Success**: Zero permission prompts for normal workflow commands
+**Success**: ✓ Zero permission prompts for normal workflow commands - deny-list approach working perfectly
 
 ---
 
-## Part B: Complete 1tau1l 2018 Testing
+## Part B: Complete 1tau1l 2018 Testing (IN PROGRESS)
 
-- [ ] Monitor WH systematic jobs completion
+- [x] Monitor WH systematic jobs completion
   - Check: `hep_q -u $USER | grep 1tau1l`
-  - Verify TES/MET/EleScale histogram files (14 variations × 59 files = 826)
+  - Verified TES/MET/EleScale histogram files (14 variations × 59 files = 826) ✓
+  - Discovered JER missing - submitted 118 JER jobs (JERUp/Down × 59 files)
+- [ ] Wait for JER jobs to complete
 - [ ] Run Stage 4.1: addJES consolidation
   - `python3 plotting/addJESTemplatesToHistFile.py --config config/analysis_config_1tau1l_TTBBtest.yaml --era 2018 --execute --quiet`
   - Verify all 74 systematic variations consolidated

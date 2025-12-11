@@ -11,7 +11,7 @@
 3. **Regenerate fakes** - Never copy fake tau/lepton files between versions
 4. **Use workflow_utils** - All Python scripts use `from workflow_utils import ...`
 5. **Commit often** - Commit after each significant code change, not batched
-6. **Dev-docs after plan** - After plan approval, immediately create dev-docs structure (`plan.md`, `context.md`, `tasks.md`) then auto-accept to begin implementation
+6. **Dev-docs lifecycle** - After plan approval, immediately create dev-docs structure (`plan.md`, `context.md`, `tasks.md`). **Update dev-docs frequently during execution** - After major milestones, before commits, or when tasks complete. Essential for later review of plan progress
 
 For detailed commands and procedures, see `.claude/skills/workflow.md`
 
