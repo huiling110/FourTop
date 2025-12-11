@@ -170,6 +170,81 @@ All scripts comply with:
 
 ---
 
+## Long-Running Stages Strategy
+
+### Stage 4.5+ (Combine) - Over 1 Hour Execution
+
+**Problem**: Stages 4.5 (combine fits) and 4.6 can take >1 hour, blocking workflow progression
+
+**Strategy**: Use background execution with monitoring
+
+#### Option 1: Screen/Tmux Sessions (Recommended for interactive work)
+```bash
+# Start screen session
+screen -S combine_1tau1l_2018
+
+# Run long-running stage
+cd hua/combine/
+cmsenv
+python3 runCombineAll.py --config ../../config/analysis_config_1tau1l_TTBBtest.yaml --era 2018
+
+# Detach: Ctrl+A, D
+# Reattach: screen -r combine_1tau1l_2018
+# List sessions: screen -ls
+```
+
+#### Option 2: Batch Job Submission (Recommended for production)
+```bash
+# For stages that support batch submission
+cd hua/combine/jobs/
+# Submit combine jobs to cluster
+python3 makeJob_combine.py --config ../../config/analysis_config_1tau1l_TTBBtest.yaml --era 2018
+
+# Monitor
+hep_q -u $USER | grep combine
+```
+
+#### Option 3: Background Process with Logging
+```bash
+# Run in background with output capture
+nohup bash -c "cd hua/combine/ && cmsenv && python3 runCombineAll.py --config ../../config/CONFIG.yaml --era 2018" > combine_2018.log 2>&1 &
+
+# Save process ID
+echo $! > combine_2018.pid
+
+# Monitor progress
+tail -f combine_2018.log
+
+# Check if still running
+ps -p $(cat combine_2018.pid)
+```
+
+#### Workflow Integration Pattern
+```bash
+# Stage 4.1-4.4 (quick, run interactively)
+source setEnv_newNew.sh
+python3 plotting/addJESTemplatesToHistFile.py --config CONFIG --era 2018 --execute --quiet
+python3 plotting/addTemplateNew.py --config CONFIG --era 2018 --quiet
+python3 plotting/writeDatacard.py --config CONFIG --era 2018
+python3 plotting/pl.py --config CONFIG --era 2018
+
+# Stage 4.5+ (long, run in background or submit batch)
+cd hua/combine/
+screen -S combine_era_channel
+cmsenv
+# Run combine commands...
+# Detach and continue with other work
+```
+
+**Best Practice**:
+- Stage 1-4: Interactive or batch depending on scale
+- Stage 4.5-4.6: Always background or batch
+- Use descriptive screen/job names: `combine_{channel}_{era}`
+- Log all long-running processes
+- Document PIDs/session names for easy recovery
+
+---
+
 ## Commands Reference
 
 ### Check Job Status

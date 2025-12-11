@@ -200,22 +200,31 @@ Enhanced rule #6 to emphasize frequent dev-docs updates during execution:
 For each era:
 - [ ] 2016preVFP:
   - [ ] Check Stage 1-2 data exists, run if needed
-  - [ ] Run Stage 3.1 WH with systematics (74 variations)
-  - [ ] Run Stage 4.1-4.4 full pipeline
+  - [ ] Run Stage 3: `makeJob_WH.py --systematic complete` (nominal + all systematics)
+  - [ ] Run Stage 4.1-4.4: Templates, datacard, plots
+  - [ ] Run Stage 4.5 (combine) in background: Use screen/batch (see Long-Running Stages Strategy)
+  - [ ] Run Stage 4.6 if needed
 - [ ] 2016postVFP:
-  - [ ] Check Stage 1-2 data exists, run if needed
-  - [ ] Run Stage 3.1 WH with systematics
-  - [ ] Run Stage 4.1-4.4 full pipeline
+  - [ ] Same steps as 2016preVFP
 - [ ] 2017:
-  - [ ] Check Stage 1-2 data exists, run if needed
-  - [ ] Run Stage 3.1 WH with systematics
-  - [ ] Run Stage 4.1-4.4 full pipeline
+  - [ ] Same steps as 2016preVFP
+
+**Stage Execution Strategy**:
+- Stage 3 + 4.1-4.4: Can run interactively or in parallel across eras
+- Stage 4.5-4.6 (>1 hour): **MUST use background execution**
+  - Option 1: `screen -S combine_1tau1l_{era}` (recommended)
+  - Option 2: Batch job submission if supported
+  - Option 3: `nohup` with logging
 
 After all 4 years complete:
 - [ ] Update smooth_systematics_fourTops.py to support TTBB process
 - [ ] Run smoothing: `python3 plotting/smooth_systematics_fourTops.py --config config/analysis_config_1tau1l_TTBBtest.yaml --all-eras`
 - [ ] Verify runCombineAll.py supports `--combine-years`
-- [ ] Combine 4 years: `cd hua/combine/ && python3 runCombineAll.py --config ../../config/analysis_config_1tau1l_TTBBtest.yaml --combine-years`
+- [ ] Run per-channel year combination (Stage 4.7):
+  - Start screen: `screen -S combine_1tau1l_Run2`
+  - `cd hua/combine/ && cmsenv`
+  - `python3 runCombineAll.py --config ../../config/analysis_config_1tau1l_TTBBtest.yaml --combine-years`
+  - Detach and monitor
 - [ ] Commit 1tau1l production complete
 
 ### D2: 1tau0l Production (4 Years)
