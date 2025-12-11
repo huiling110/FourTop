@@ -57,6 +57,8 @@ For multi-session tasks:
 # Build C++ code
 cd writeHistGood/ && source ../setEnv_newNew.sh && make
 
+# Test locally: mkdir -p /publicfs/.../variableHists_VERSION && ./apps/run_treeAnalyzer.out INPUT_DIR/ PROCESS CHANNEL VERSION IFSYS ISTEST ERA
+
 # Submit jobs (use config!)
 python3 makeJob_forWriteHist.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018
 

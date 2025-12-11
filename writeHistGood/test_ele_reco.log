@@ -1,0 +1,479 @@
+using input from command line
+Error in <TTree::SetBranchStatus>: unknown branch -> MET_phi
+Error in <TTree::SetBranchAddress>: unknown branch -> MET_phi
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPNM_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPNM_num
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPTM_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPTM_num
+Error in <TTree::SetBranchStatus>: unknown branch -> bjetsPTT_num
+Error in <TTree::SetBranchAddress>: unknown branch -> bjetsPTT_num
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_1genFlavour
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_1genFlavour
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_1lepton1_charge
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_1lepton1_charge
+Error in <TTree::SetBranchStatus>: unknown branch -> tausTTT_num
+Error in <TTree::SetBranchAddress>: unknown branch -> tausTTT_num
+Error in <TTree::SetBranchStatus>: unknown branch -> tausT_1jetPt
+Error in <TTree::SetBranchAddress>: unknown branch -> tausT_1jetPt
+Error in <TTree::SetBranchStatus>: unknown branch -> tausT_prongNum
+Error in <TTree::SetBranchAddress>: unknown branch -> tausT_prongNum
+Error in <TTree::SetBranchStatus>: unknown branch -> jets_btagsPT_
+Error in <TTree::SetBranchStatus>: unknown branch -> jets_flavour_
+Error in <TTree::SetBranchAddress>: unknown branch -> jets_btagsPT_
+Error in <TTree::SetBranchAddress>: unknown branch -> jets_flavour_
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+Initializing histForRegionsBase constructor 0
+Done nitializing histForRegionsBase constructor 0
+
+input file: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/ttbar_2l.root
+m_era=2018 m_isRun3=0 m_isData=0  m_isTest=0
+m_isFakeLepton=0 m_isFakeTau=0
+m_ifFakeTau=1
+m_ifSys=1
+m_ifMCFakeTau=1
+m_processName: ttbar_2l  m_channel: 1tau1l
+event: initialize event class by SetBranchAddress()
+Done initializing event class 
+[32m[2025-12-11 11:39:28] [INFO] Starting initialization for channel: 1tau1l, isRun3: 0[0m
+initializing for 1tau1l
+training input: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml
+weightfile=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml
+reading varibleList: /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv
+ivariable =bjetsM_num
+int ivariable =bjetsM_num
+ivariable =bjetsT_invariantMass
+ivariable =jets_num
+int ivariable =jets_num
+ivariable =jets_rationHT_4toRest
+ivariable =jets_7pt
+ivariable =bjetsT_minDeltaR
+ivariable =tausT_1lepton1_charge
+int ivariable =tausT_1lepton1_charge
+ivariable =jets_centrality
+ivariable =bjetsT_2MET_stransMass
+ivariable =bjetsM_invariantMass
+ivariable =tausT_leptonsT_invariantMass
+ivariable =tausT_1pt
+ivariable =jets_4pt
+ivariable =bjetsT_leptons_minDeltaR
+ivariable =tausT_invariantMass
+ivariable =bjetsM_minDeltaR
+ivariable =jets_MHT
+ivariable =jets_minDeltaR
+ivariable =jets_1pt
+ivariable =bjetsM_tausT_minDeltaR
+ivariable =muonsTopMVAT_1pt
+ivariable =tausT_1Met_transMass
+ivariable =jets_tausT_invariantMass
+ivariable =bjetsM_HT
+ivariable =tausT_1lepton1Met1_stransMass
+ivariable =jets_METDivideHT
+out of function
+variablesName.size(): 26
+after adding reader
+                         : Booking "BDT method" of type "BDT" from /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml.
+                         : Reading weight file: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDT" of type: "BDT"
+booked MVA
+m_scaleRe_normDown_SF=0.903448
+m_scaleRe_normUp_SF=1.11038
+m_scaleFa_normDown_SF=0.975989
+m_scaleFa_normUp_SF=1.01929
+m_pdfAlphaS_normUp_SF=1.02811
+m_pdfAlphaS_normDown_SF=0.972087
+m_pdf_normUp_SF=0.977511
+m_pdf_normDown_SF=1.02355
+m_PSWeightISR_normUp_SF=1 m_PSWeightISR_normDown_SF=1
+m_PSWeightFSR_normUp_SF=0.999961 m_PSWeightFSR_normDown_SF=1.00005
+done initializing
+
+start to loop tree
+looping over trees of 29374
+                         : Rebuilding Dataset Default
+event weight: EVENT_genWeight*EVENT_prefireWeight*PUweight_*HLT_weight*tauT_IDSF_weight_new*elesTopMVAT_weight_new*musTopMVAT_weight_new*btagWPMT_weight*elesTopMVAT_reoSF_weight
+end of event loop
+
+Termintate: ..........................................
+genWeightSumInitial: 1.04576e+10
+processScale: 0.000505126
+1tau1lCR12 : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_BDT, Entries= 6071, Total sum= 160.951
+1tau1lCR12_CMS_TOP24017_eff_trigger_stats_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_eff_trigger_stats_2018Down_BDT, Entries= 6071, Total sum= 155.298
+1tau1lCR12_CMS_TOP24017_eff_trigger_stats_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_eff_trigger_stats_2018Up_BDT, Entries= 6071, Total sum= 166.604
+1tau1lCR12_CMS_TOP24017_fake_t_MCDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_fake_t_MCDown_BDT, Entries= 6071, Total sum= 142.875
+1tau1lCR12_CMS_TOP24017_fake_t_MCUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_fake_t_MCUp_BDT, Entries= 6071, Total sum= 179.028
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_e_stat_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_e_stat_2018Down_BDT, Entries= 6071, Total sum= 160.779
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_e_stat_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_e_stat_2018Up_BDT, Entries= 6071, Total sum= 161.123
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_e_systDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_e_systDown_BDT, Entries= 6071, Total sum= 160.254
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_e_systUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_e_systUp_BDT, Entries= 6071, Total sum= 161.649
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_m_stat_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_m_stat_2018Down_BDT, Entries= 6071, Total sum= 160.916
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_m_stat_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_m_stat_2018Up_BDT, Entries= 6071, Total sum= 160.986
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_m_systDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_m_systDown_BDT, Entries= 6071, Total sum= 160.854
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_m_systUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_m_systUp_BDT, Entries= 6071, Total sum= 161.049
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_trigger_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_trigger_2018Down_BDT, Entries= 6071, Total sum= 160.951
+1tau1lCR12_CMS_TOP24017_ttttSS_eff_trigger_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_TOP24017_ttttSS_eff_trigger_2018Up_BDT, Entries= 6071, Total sum= 160.951
+1tau1lCR12_CMS_btag_fixedWP_comb_bc_correlatedDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fixedWP_comb_bc_correlatedDown_BDT, Entries= 6071, Total sum= 160.477
+1tau1lCR12_CMS_btag_fixedWP_comb_bc_correlatedUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fixedWP_comb_bc_correlatedUp_BDT, Entries= 6071, Total sum= 161.424
+1tau1lCR12_CMS_btag_fixedWP_comb_bc_uncorrelated_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fixedWP_comb_bc_uncorrelated_2018Down_BDT, Entries= 6071, Total sum= 160.529
+1tau1lCR12_CMS_btag_fixedWP_comb_bc_uncorrelated_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fixedWP_comb_bc_uncorrelated_2018Up_BDT, Entries= 6071, Total sum= 161.372
+1tau1lCR12_CMS_btag_fixedWP_incl_light_correlatedDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fixedWP_incl_light_correlatedDown_BDT, Entries= 6071, Total sum= 160.209
+1tau1lCR12_CMS_btag_fixedWP_incl_light_correlatedUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fixedWP_incl_light_correlatedUp_BDT, Entries= 6071, Total sum= 161.695
+1tau1lCR12_CMS_btag_fixedWP_incl_light_uncorrelated_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fixedWP_incl_light_uncorrelated_2018Down_BDT, Entries= 6071, Total sum= 160.849
+1tau1lCR12_CMS_btag_fixedWP_incl_light_uncorrelated_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fixedWP_incl_light_uncorrelated_2018Up_BDT, Entries= 6071, Total sum= 161.053
+1tau1lCR12_CMS_btag_fullShape_cferr1Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_cferr1Down_BDT, Entries= 6071, Total sum= 161.284
+1tau1lCR12_CMS_btag_fullShape_cferr1Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_cferr1Up_BDT, Entries= 6071, Total sum= 160.624
+1tau1lCR12_CMS_btag_fullShape_cferr2Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_cferr2Down_BDT, Entries= 6071, Total sum= 161.135
+1tau1lCR12_CMS_btag_fullShape_cferr2Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_cferr2Up_BDT, Entries= 6071, Total sum= 160.746
+1tau1lCR12_CMS_btag_fullShape_hfDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_hfDown_BDT, Entries= 6071, Total sum= 160.039
+1tau1lCR12_CMS_btag_fullShape_hfUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_hfUp_BDT, Entries= 6071, Total sum= 161.752
+1tau1lCR12_CMS_btag_fullShape_hfstats1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_hfstats1_2018Down_BDT, Entries= 6071, Total sum= 162.973
+1tau1lCR12_CMS_btag_fullShape_hfstats1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_hfstats1_2018Up_BDT, Entries= 6071, Total sum= 158.938
+1tau1lCR12_CMS_btag_fullShape_hfstats2_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_hfstats2_2018Down_BDT, Entries= 6071, Total sum= 161.505
+1tau1lCR12_CMS_btag_fullShape_hfstats2_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_hfstats2_2018Up_BDT, Entries= 6071, Total sum= 160.402
+1tau1lCR12_CMS_btag_fullShape_jesDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_jesDown_BDT, Entries= 6071, Total sum= 161.152
+1tau1lCR12_CMS_btag_fullShape_jesUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_jesUp_BDT, Entries= 6071, Total sum= 161.59
+1tau1lCR12_CMS_btag_fullShape_lfDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_lfDown_BDT, Entries= 6071, Total sum= 151.961
+1tau1lCR12_CMS_btag_fullShape_lfUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_lfUp_BDT, Entries= 6071, Total sum= 169.991
+1tau1lCR12_CMS_btag_fullShape_lfstats1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_lfstats1_2018Down_BDT, Entries= 6071, Total sum= 159.697
+1tau1lCR12_CMS_btag_fullShape_lfstats1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_lfstats1_2018Up_BDT, Entries= 6071, Total sum= 162.242
+1tau1lCR12_CMS_btag_fullShape_lfstats2_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_lfstats2_2018Down_BDT, Entries= 6071, Total sum= 159.639
+1tau1lCR12_CMS_btag_fullShape_lfstats2_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_btag_fullShape_lfstats2_2018Up_BDT, Entries= 6071, Total sum= 162.286
+1tau1lCR12_CMS_eff_e_reco_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_e_reco_2018Down_BDT, Entries= 0, Total sum= 0
+1tau1lCR12_CMS_eff_e_reco_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_e_reco_2018Up_BDT, Entries= 0, Total sum= 0
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_2018Down_BDT, Entries= 6071, Total sum= 160.951
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_2018Up_BDT, Entries= 6071, Total sum= 160.951
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_2018Down_BDT, Entries= 6071, Total sum= 160.909
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_2018Up_BDT, Entries= 6071, Total sum= 160.993
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_2018Down_BDT, Entries= 6071, Total sum= 161.085
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_2018Up_BDT, Entries= 6071, Total sum= 160.818
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_2018Down_BDT, Entries= 6071, Total sum= 161.289
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_2018Up_BDT, Entries= 6071, Total sum= 160.614
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_2018Down_BDT, Entries= 6071, Total sum= 160.961
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_2018Up_BDT, Entries= 6071, Total sum= 160.942
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_2018Down_BDT, Entries= 6071, Total sum= 160.441
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_2018Up_BDT, Entries= 6071, Total sum= 161.462
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_2018Down_BDT, Entries= 6071, Total sum= 160.417
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_2018Up_BDT, Entries= 6071, Total sum= 161.485
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_2018Down_BDT, Entries= 6071, Total sum= 160.626
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_2018Up_BDT, Entries= 6071, Total sum= 161.277
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_2018Down_BDT, Entries= 6071, Total sum= 159.894
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_2018Up_BDT, Entries= 6071, Total sum= 162.008
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_2018Down_BDT, Entries= 6071, Total sum= 160.104
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_2018Up_BDT, Entries= 6071, Total sum= 162.302
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_2018Down_BDT, Entries= 6071, Total sum= 160.637
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_2018Up_BDT, Entries= 6071, Total sum= 161.286
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_2018Down_BDT, Entries= 6071, Total sum= 160.612
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_2018Up_BDT, Entries= 6071, Total sum= 161.322
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_2018Down_BDT, Entries= 6071, Total sum= 160.713
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_2018Up_BDT, Entries= 6071, Total sum= 161.181
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_2018Down_BDT, Entries= 6071, Total sum= 160.283
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_2018Up_BDT, Entries= 6071, Total sum= 161.648
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasDown_BDT, Entries= 6071, Total sum= 157.866
+1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasUp_BDT, Entries= 6071, Total sum= 164.222
+1tau1lCR12_CMS_fake_t_DeepTau2017v2p1_VSeDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_fake_t_DeepTau2017v2p1_VSeDown_BDT, Entries= 6071, Total sum= 160.491
+1tau1lCR12_CMS_fake_t_DeepTau2017v2p1_VSeUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_fake_t_DeepTau2017v2p1_VSeUp_BDT, Entries= 6071, Total sum= 161.412
+1tau1lCR12_CMS_fake_t_DeepTau2017v2p1_VSmuDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_fake_t_DeepTau2017v2p1_VSmuDown_BDT, Entries= 6071, Total sum= 160.937
+1tau1lCR12_CMS_fake_t_DeepTau2017v2p1_VSmuUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_fake_t_DeepTau2017v2p1_VSmuUp_BDT, Entries= 6071, Total sum= 160.965
+1tau1lCR12_CMS_l1_ecal_prefiring_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_l1_ecal_prefiring_2018Down_BDT, Entries= 0, Total sum= 0
+1tau1lCR12_CMS_l1_ecal_prefiring_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_l1_ecal_prefiring_2018Up_BDT, Entries= 0, Total sum= 0
+1tau1lCR12_CMS_pileupDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_pileupDown_BDT, Entries= 6071, Total sum= 161.35
+1tau1lCR12_CMS_pileupUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_CMS_pileupUp_BDT, Entries= 6071, Total sum= 160.418
+1tau1lCR12_QCDscale_facDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_QCDscale_facDown_BDT, Entries= 6071, Total sum= 169.4
+1tau1lCR12_QCDscale_facUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_QCDscale_facUp_BDT, Entries= 6071, Total sum= 153.685
+1tau1lCR12_QCDscale_renDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_QCDscale_renDown_BDT, Entries= 6071, Total sum= 174.022
+1tau1lCR12_QCDscale_renUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_QCDscale_renUp_BDT, Entries= 6071, Total sum= 151.719
+1tau1lCR12_pdf_00Down : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_pdf_00Down_BDT, Entries= 6071, Total sum= 160.473
+1tau1lCR12_pdf_00Up : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_pdf_00Up_BDT, Entries= 6071, Total sum= 161.409
+1tau1lCR12_pdf_alphasDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_pdf_alphasDown_BDT, Entries= 6071, Total sum= 161.811
+1tau1lCR12_pdf_alphasUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_pdf_alphasUp_BDT, Entries= 6071, Total sum= 160.403
+1tau1lCR12_ps_fsrDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_ps_fsrDown_BDT, Entries= 6071, Total sum= 156.148
+1tau1lCR12_ps_fsrUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_ps_fsrUp_BDT, Entries= 6071, Total sum= 162.348
+1tau1lCR12_ps_isrDown : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_ps_isrDown_BDT, Entries= 6071, Total sum= 175.734
+1tau1lCR12_ps_isrUp : 
+TH1.Print Name  = ttbar_2l_1tau1lCR12_ps_isrUp_BDT, Entries= 6071, Total sum= 149.986
+1tau1lSR : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_BDT, Entries= 541, Total sum= 14.9413
+1tau1lSR_CMS_TOP24017_eff_trigger_stats_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_eff_trigger_stats_2018Down_BDT, Entries= 541, Total sum= 14.2733
+1tau1lSR_CMS_TOP24017_eff_trigger_stats_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_eff_trigger_stats_2018Up_BDT, Entries= 541, Total sum= 15.6092
+1tau1lSR_CMS_TOP24017_fake_t_MCDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_fake_t_MCDown_BDT, Entries= 541, Total sum= 13.2709
+1tau1lSR_CMS_TOP24017_fake_t_MCUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_fake_t_MCUp_BDT, Entries= 541, Total sum= 16.6116
+1tau1lSR_CMS_TOP24017_ttttSS_eff_e_stat_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_e_stat_2018Down_BDT, Entries= 541, Total sum= 14.9262
+1tau1lSR_CMS_TOP24017_ttttSS_eff_e_stat_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_e_stat_2018Up_BDT, Entries= 541, Total sum= 14.9564
+1tau1lSR_CMS_TOP24017_ttttSS_eff_e_systDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_e_systDown_BDT, Entries= 541, Total sum= 14.8804
+1tau1lSR_CMS_TOP24017_ttttSS_eff_e_systUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_e_systUp_BDT, Entries= 541, Total sum= 15.0022
+1tau1lSR_CMS_TOP24017_ttttSS_eff_m_stat_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_m_stat_2018Down_BDT, Entries= 541, Total sum= 14.9376
+1tau1lSR_CMS_TOP24017_ttttSS_eff_m_stat_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_m_stat_2018Up_BDT, Entries= 541, Total sum= 14.9449
+1tau1lSR_CMS_TOP24017_ttttSS_eff_m_systDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_m_systDown_BDT, Entries= 541, Total sum= 14.9314
+1tau1lSR_CMS_TOP24017_ttttSS_eff_m_systUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_m_systUp_BDT, Entries= 541, Total sum= 14.9511
+1tau1lSR_CMS_TOP24017_ttttSS_eff_trigger_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_trigger_2018Down_BDT, Entries= 541, Total sum= 14.9413
+1tau1lSR_CMS_TOP24017_ttttSS_eff_trigger_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_TOP24017_ttttSS_eff_trigger_2018Up_BDT, Entries= 541, Total sum= 14.9413
+1tau1lSR_CMS_btag_fixedWP_comb_bc_correlatedDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fixedWP_comb_bc_correlatedDown_BDT, Entries= 541, Total sum= 14.7924
+1tau1lSR_CMS_btag_fixedWP_comb_bc_correlatedUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fixedWP_comb_bc_correlatedUp_BDT, Entries= 541, Total sum= 15.0909
+1tau1lSR_CMS_btag_fixedWP_comb_bc_uncorrelated_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fixedWP_comb_bc_uncorrelated_2018Down_BDT, Entries= 541, Total sum= 14.7968
+1tau1lSR_CMS_btag_fixedWP_comb_bc_uncorrelated_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fixedWP_comb_bc_uncorrelated_2018Up_BDT, Entries= 541, Total sum= 15.0864
+1tau1lSR_CMS_btag_fixedWP_incl_light_correlatedDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fixedWP_incl_light_correlatedDown_BDT, Entries= 541, Total sum= 14.2008
+1tau1lSR_CMS_btag_fixedWP_incl_light_correlatedUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fixedWP_incl_light_correlatedUp_BDT, Entries= 541, Total sum= 15.6823
+1tau1lSR_CMS_btag_fixedWP_incl_light_uncorrelated_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fixedWP_incl_light_uncorrelated_2018Down_BDT, Entries= 541, Total sum= 14.7403
+1tau1lSR_CMS_btag_fixedWP_incl_light_uncorrelated_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fixedWP_incl_light_uncorrelated_2018Up_BDT, Entries= 541, Total sum= 15.1424
+1tau1lSR_CMS_btag_fullShape_cferr1Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_cferr1Down_BDT, Entries= 541, Total sum= 18.6656
+1tau1lSR_CMS_btag_fullShape_cferr1Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_cferr1Up_BDT, Entries= 541, Total sum= 13.1038
+1tau1lSR_CMS_btag_fullShape_cferr2Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_cferr2Down_BDT, Entries= 541, Total sum= 17.2112
+1tau1lSR_CMS_btag_fullShape_cferr2Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_cferr2Up_BDT, Entries= 541, Total sum= 13.5097
+1tau1lSR_CMS_btag_fullShape_hfDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_hfDown_BDT, Entries= 541, Total sum= 16.3546
+1tau1lSR_CMS_btag_fullShape_hfUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_hfUp_BDT, Entries= 541, Total sum= 13.7928
+1tau1lSR_CMS_btag_fullShape_hfstats1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_hfstats1_2018Down_BDT, Entries= 541, Total sum= 15.1247
+1tau1lSR_CMS_btag_fullShape_hfstats1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_hfstats1_2018Up_BDT, Entries= 541, Total sum= 14.7585
+1tau1lSR_CMS_btag_fullShape_hfstats2_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_hfstats2_2018Down_BDT, Entries= 541, Total sum= 15.0283
+1tau1lSR_CMS_btag_fullShape_hfstats2_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_hfstats2_2018Up_BDT, Entries= 541, Total sum= 14.8555
+1tau1lSR_CMS_btag_fullShape_jesDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_jesDown_BDT, Entries= 541, Total sum= 15.0894
+1tau1lSR_CMS_btag_fullShape_jesUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_jesUp_BDT, Entries= 541, Total sum= 15.0841
+1tau1lSR_CMS_btag_fullShape_lfDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_lfDown_BDT, Entries= 541, Total sum= 14.1089
+1tau1lSR_CMS_btag_fullShape_lfUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_lfUp_BDT, Entries= 541, Total sum= 15.783
+1tau1lSR_CMS_btag_fullShape_lfstats1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_lfstats1_2018Down_BDT, Entries= 541, Total sum= 14.9431
+1tau1lSR_CMS_btag_fullShape_lfstats1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_lfstats1_2018Up_BDT, Entries= 541, Total sum= 14.9414
+1tau1lSR_CMS_btag_fullShape_lfstats2_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_lfstats2_2018Down_BDT, Entries= 541, Total sum= 15.0964
+1tau1lSR_CMS_btag_fullShape_lfstats2_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_btag_fullShape_lfstats2_2018Up_BDT, Entries= 541, Total sum= 14.8007
+1tau1lSR_CMS_eff_e_reco_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_e_reco_2018Down_BDT, Entries= 0, Total sum= 0
+1tau1lSR_CMS_eff_e_reco_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_e_reco_2018Up_BDT, Entries= 0, Total sum= 0
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_2018Down_BDT, Entries= 541, Total sum= 14.9413
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_2018Up_BDT, Entries= 541, Total sum= 14.9413
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_2018Down_BDT, Entries= 541, Total sum= 14.9369
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM0_2018Up_BDT, Entries= 541, Total sum= 14.9457
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_2018Down_BDT, Entries= 541, Total sum= 14.949
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM10_2018Up_BDT, Entries= 541, Total sum= 14.9336
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_2018Down_BDT, Entries= 541, Total sum= 14.9562
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM11_2018Up_BDT, Entries= 541, Total sum= 14.9263
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_2018Down_BDT, Entries= 541, Total sum= 14.9556
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat1_DM1_2018Up_BDT, Entries= 541, Total sum= 14.927
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_2018Down_BDT, Entries= 541, Total sum= 14.8861
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM0_2018Up_BDT, Entries= 541, Total sum= 14.9964
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_2018Down_BDT, Entries= 541, Total sum= 14.902
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM10_2018Up_BDT, Entries= 541, Total sum= 14.9806
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_2018Down_BDT, Entries= 541, Total sum= 14.9208
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM11_2018Up_BDT, Entries= 541, Total sum= 14.9617
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_2018Down_BDT, Entries= 541, Total sum= 14.8338
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_stat2_DM1_2018Up_BDT, Entries= 541, Total sum= 15.0487
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_2018Down_BDT, Entries= 541, Total sum= 14.8637
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_2018Up_BDT, Entries= 541, Total sum= 15.065
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_2018Down_BDT, Entries= 541, Total sum= 14.9073
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM0_2018Up_BDT, Entries= 541, Total sum= 14.9774
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_2018Down_BDT, Entries= 541, Total sum= 14.9158
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM10_2018Up_BDT, Entries= 541, Total sum= 14.969
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_2018Down_BDT, Entries= 541, Total sum= 14.9252
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM11_2018Up_BDT, Entries= 541, Total sum= 14.9567
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_2018Down_BDT, Entries= 541, Total sum= 14.8747
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_DM1_2018Up_BDT, Entries= 541, Total sum= 15.0102
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasDown_BDT, Entries= 541, Total sum= 14.6536
+1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_eff_t_DeepTau2017v2p1_VSjet_dm_syst_allerasUp_BDT, Entries= 541, Total sum= 15.2461
+1tau1lSR_CMS_fake_t_DeepTau2017v2p1_VSeDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_fake_t_DeepTau2017v2p1_VSeDown_BDT, Entries= 541, Total sum= 14.8995
+1tau1lSR_CMS_fake_t_DeepTau2017v2p1_VSeUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_fake_t_DeepTau2017v2p1_VSeUp_BDT, Entries= 541, Total sum= 14.9831
+1tau1lSR_CMS_fake_t_DeepTau2017v2p1_VSmuDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_fake_t_DeepTau2017v2p1_VSmuDown_BDT, Entries= 541, Total sum= 14.9413
+1tau1lSR_CMS_fake_t_DeepTau2017v2p1_VSmuUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_fake_t_DeepTau2017v2p1_VSmuUp_BDT, Entries= 541, Total sum= 14.9413
+1tau1lSR_CMS_l1_ecal_prefiring_2018Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_l1_ecal_prefiring_2018Down_BDT, Entries= 0, Total sum= 0
+1tau1lSR_CMS_l1_ecal_prefiring_2018Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_l1_ecal_prefiring_2018Up_BDT, Entries= 0, Total sum= 0
+1tau1lSR_CMS_pileupDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_pileupDown_BDT, Entries= 541, Total sum= 14.9074
+1tau1lSR_CMS_pileupUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_CMS_pileupUp_BDT, Entries= 541, Total sum= 15.0467
+1tau1lSR_QCDscale_facDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_QCDscale_facDown_BDT, Entries= 541, Total sum= 15.7087
+1tau1lSR_QCDscale_facUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_QCDscale_facUp_BDT, Entries= 541, Total sum= 14.2862
+1tau1lSR_QCDscale_renDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_QCDscale_renDown_BDT, Entries= 541, Total sum= 16.3724
+1tau1lSR_QCDscale_renUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_QCDscale_renUp_BDT, Entries= 541, Total sum= 13.9268
+1tau1lSR_pdf_00Down : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_pdf_00Down_BDT, Entries= 541, Total sum= 14.895
+1tau1lSR_pdf_00Up : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_pdf_00Up_BDT, Entries= 541, Total sum= 14.9855
+1tau1lSR_pdf_alphasDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_pdf_alphasDown_BDT, Entries= 541, Total sum= 15.0532
+1tau1lSR_pdf_alphasUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_pdf_alphasUp_BDT, Entries= 541, Total sum= 14.8707
+1tau1lSR_ps_fsrDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_ps_fsrDown_BDT, Entries= 541, Total sum= 15.8555
+1tau1lSR_ps_fsrUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_ps_fsrUp_BDT, Entries= 541, Total sum= 13.8613
+1tau1lSR_ps_isrDown : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_ps_isrDown_BDT, Entries= 541, Total sum= 16.2193
+1tau1lSR_ps_isrUp : 
+TH1.Print Name  = ttbar_2l_1tau1lSR_ps_isrUp_BDT, Entries= 541, Total sum= 14.0069
+outputFile here: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/ttbar_2l.root
+Real time 0:00:11, CP time 10.480

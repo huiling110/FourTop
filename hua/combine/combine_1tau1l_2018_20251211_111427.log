@@ -1,0 +1,58 @@
+[2025-12-11 11:14:27] [INFO] ================================================================================
+[2025-12-11 11:14:27] [INFO] CMS Combine Analysis Workflow - Four-Top Search
+[2025-12-11 11:14:27] [INFO] ================================================================================
+[2025-12-11 11:14:27] [INFO] Card directory: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/
+[2025-12-11 11:14:27] [INFO] Analysis mode: UNBLINDED (observed)
+[2025-12-11 11:14:27] [INFO] ================================================================================
+[2025-12-11 11:14:27] [INFO] 
+================================================================================
+[2025-12-11 11:14:27] [INFO] STEP 1: Converting datacards to RooWorkspace
+[2025-12-11 11:14:27] [INFO] ================================================================================
+[2025-12-11 11:14:27] [INFO] Converting datacards to workspaces...
+[2025-12-11 11:14:27] [INFO] Working directory: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/
+[2025-12-11 11:14:27] [INFO] Processing datacard: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/datacard.txt
+[2025-12-11 11:14:27] [INFO] Workspace name: datacard.root
+[2025-12-11 11:14:27] [INFO] Output directory: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/
+[2025-12-11 11:14:27] [INFO] Running: text2workspace.py /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/datacard.txt -o /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/datacard.root
+Channel SR1tau1l_2018 will use autoMCStats with settings: event-threshold=10, include-signal=0, hist-mode=1
+Traceback (most recent call last):
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/bin/el9_amd64_gcc12/text2workspace.py", line 104, in <module>
+    MB.doModel(justCheckPhysicsModel=options.justCheckPhysicsModel)
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/python/ModelTools.py", line 190, in doModel
+    self.doIndividualModels()
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/python/ShapeTools.py", line 138, in doIndividualModels
+    extranorm = self.getExtraNorm(b, p)
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/python/ShapeTools.py", line 1154, in getExtraNorm
+    raise RuntimeError("Bogus norm %r for channel %s, process %s, systematic %s Up" % (kappaUp, channel, process, syst))
+RuntimeError: Bogus norm 0.0 for channel SR1tau1l_2018, process tt, systematic CMS_eff_e_reco_2018 Up
+[2025-12-11 11:14:36] [INFO] ✓ Workspace transformation complete! Created 1 workspace(s)
+
+[2025-12-11 11:14:36] [INFO] 
+================================================================================
+[2025-12-11 11:14:36] [INFO] STEP 3: Calculating significance
+[2025-12-11 11:14:36] [INFO] ================================================================================
+[2025-12-11 11:14:36] [INFO] Using tttt datacard: datacard.root
+[2025-12-11 11:14:36] [INFO] Output directory: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/results/
+[2025-12-11 11:14:36] [INFO] Working directory: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/
+[2025-12-11 11:14:36] [INFO] Running tttt Significance calculation - unblinded (observed)
+[2025-12-11 11:14:36] [INFO] Running: combine -M Significance /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/datacard.root --name _datacard --plot significance
+[2025-12-11 11:14:37] [INFO] stdout:  <<< Combine >>> 
+ <<< v10.1.0 >>>
+>>> Random number generator seed is 123456
+>>> Method used is Significance
+
+[2025-12-11 11:14:37] [ERROR] stderr: Error when running the combination:
+	File /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/datacard.root does not exist
+
+[2025-12-11 11:14:37] [ERROR] Command failed with return code 185: combine -M Significance /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/datacard.root --name _datacard --plot significance
+[2025-12-11 11:14:37] [ERROR] Failed to execute command: combine -M Significance /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/datacard.root --name _datacard --plot significance
+[2025-12-11 11:14:37] [ERROR] Error: Command 'combine -M Significance /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/datacard.root --name _datacard --plot significance' returned non-zero exit status 185.
+[2025-12-11 11:14:37] [ERROR] Analysis workflow failed: Command 'combine -M Significance /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/datacard.root --name _datacard --plot significance' returned non-zero exit status 185.
+Traceback (most recent call last):
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 232, in main
+    runCombineSig(working_cardDir, False, ifBlind, ifVLL, channel)
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 725, in runCombineSig
+    runCommand(significanceCommand)
+  File "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/combine/runCombineAll.py", line 631, in runCommand
+    raise subprocess.CalledProcessError(returncode, com, output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command 'combine -M Significance /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/combine/datacardSys_v0_ttbb_nosmoothing/workspace/datacard.root --name _datacard --plot significance' returned non-zero exit status 185.

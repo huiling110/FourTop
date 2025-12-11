@@ -274,6 +274,14 @@ private:
             true
         );
 
+        // Electron reconstruction efficiency
+        m_systematics.emplace_back(
+            "CMS_eff_e_reco",
+            [](event* e, Double_t w) { return (w / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(); },
+            [](event* e, Double_t w) { return (w / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(); },
+            true
+        );
+
         // Muon systematics
         m_systematics.emplace_back(
             "CMS_TOP24017_ttttSS_eff_m_syst",
