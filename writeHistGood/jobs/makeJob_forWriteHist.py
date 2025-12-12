@@ -114,6 +114,7 @@ def makeIjob( shFile, Jobsubmitpath, run, exeDir, quiet=False ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ exeDir + '\n' )
+    subFile.write('source ../setEnv_newNew.sh\n')
     subFile.write(run)
     subFile.close()
 
