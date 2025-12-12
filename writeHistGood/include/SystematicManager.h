@@ -275,11 +275,13 @@ private:
         );
 
         // Electron reconstruction efficiency
+        // For 2016, correlated across preVFP/postVFP (use _2016 suffix)
+        TString eRecoEra = (m_era.Contains("2016")) ? "2016" : m_era;
         m_systematics.emplace_back(
-            "CMS_eff_e_reco",
+            "CMS_eff_e_reco_" + eRecoEra,  // Include era in base name
             [](event* e, Double_t w) { return (w / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_up.v(); },
             [](event* e, Double_t w) { return (w / e->elesTopMVAT_reoSF_weight.v()) * e->elesTopMVAT_reoSF_weight_down.v(); },
-            true
+            false  // era already in name, don't add again
         );
 
         // Muon systematics

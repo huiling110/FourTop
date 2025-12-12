@@ -68,6 +68,15 @@ public:
     }
     void fillHistVec(TString iRegion, Double_t value, Double_t weight, Bool_t ifFill, Bool_t isData)
     {
+        if (m_histsVector.find(iRegion) == m_histsVector.end()) {
+            std::cerr << "ERROR: Region '" << iRegion << "' not found in histogram map!" << std::endl;
+            std::cerr << "Available regions: ";
+            for (const auto& pair : m_histsVector) {
+                std::cerr << pair.first << ", ";
+            }
+            std::cerr << std::endl;
+            return;
+        }
         if (ifFill && isData)
         {
             m_histsVector[iRegion]->Fill(value);
