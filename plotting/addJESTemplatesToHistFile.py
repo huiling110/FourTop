@@ -347,6 +347,7 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
                         help='Suppress non-essential output')
 
     args = parser.parse_args()
+    global QUIET
     QUIET = args.quiet
 
     # Validate workflow_utils is available
