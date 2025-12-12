@@ -23,7 +23,8 @@ def main(
     exe = './apps/run_treeAnalyzer.out' ,
     ifSys = 1,
     justMC = False,
-    quiet = False
+    quiet = False,
+    ifVLL = True
 ):
     
     
@@ -65,7 +66,7 @@ def main(
     subAllProcess.write('#!/bin/bash\n')
 
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe, quiet)
+        makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe, quiet, ifVLL)
     subAllProcess.close()
 
     # Submit jobs (always suppress per-job hep_sub output, summary shows total)
@@ -78,7 +79,7 @@ def main(
 
 
 
-def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out', quiet=False):
+def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out', quiet=False, ifVLL=True):
     jobDir = Jobsubmitpath +'jobSH/'
     uf.checkMakeDir(jobDir)
     outputDir = inputDir + 'variableHists_' + version +'/'
@@ -90,9 +91,14 @@ def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpa
     exeDir = (os.path.dirname( os.path.abspath(__file__) ) +'/').rsplit('/', 2)[0] + '/'
 
     job_count = 0
+    skipped_vll = 0
     for iFile in os.listdir( inputDir ):
         if '.root' in iFile:
             iProcess = iFile.split('.root')[0]
+            # Skip VLL processes if ifVLL is False
+            if not ifVLL and iProcess.startswith('VLL'):
+                skipped_vll += 1
+                continue
             iJobFile = jobDir + 'WH_'+iProcess +'.sh'
             run = f"{exe} {inputDir} {iProcess} {channel} {version} {ifSys} {isTest}"
             makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir, quiet)
@@ -104,6 +110,8 @@ def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpa
 
     subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True, capture_output=True)
     subprocess.run('chmod 777 ' + Jobsubmitpath+ 'subAllProcess.sh', shell=True, capture_output=True)
+    if skipped_vll > 0 and not quiet:
+        print(f"  Skipped {skipped_vll} VLL processes (ifVLL=False)")
     return job_count
 
 

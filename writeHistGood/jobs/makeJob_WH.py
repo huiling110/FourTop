@@ -127,12 +127,19 @@ def _build_jes_input_path(config, era, jes_systematic):
     return os.path.join(paths['output_base'], era, dir_name) + '/'
 
 
+def get_ifVLL(config: dict) -> bool:
+    """Get ifVLL option from config (default True)."""
+    options = config.get('options', {})
+    return options.get('ifVLL', True)
+
+
 def submit_nominal(config: dict, era: str, process_data: bool = False,
                    dry_run: bool = False, quiet: bool = False):
     """Submit WH jobs for nominal (no systematic variations)."""
     channel = get_channel(config)
     versions = get_versions(config)
     hist_version = versions['hist']
+    ifVLL = get_ifVLL(config)
 
     # Build input path (nominal - no systematic suffix)
     input_dir = build_stage2_path(config, era)
@@ -169,7 +176,8 @@ def submit_nominal(config: dict, era: str, process_data: bool = False,
         exe=EXE,
         ifSys=1,  # Enable weight systematics for nominal
         justMC=not process_data,
-        quiet=quiet
+        quiet=quiet,
+        ifVLL=ifVLL
     )
 
     return len(mc_files) + len(data_files)
@@ -181,6 +189,7 @@ def submit_systematic(config: dict, era: str, systematic: str,
     channel = get_channel(config)
     versions = get_versions(config)
     hist_version = versions['hist']
+    ifVLL = get_ifVLL(config)
 
     # Build input path with systematic suffix
     # JES variations have special path format
@@ -226,7 +235,8 @@ def submit_systematic(config: dict, era: str, systematic: str,
         exe=EXE,
         ifSys=0,  # No weight systematics for energy scale variations
         justMC=True,  # Only MC for systematic variations
-        quiet=quiet
+        quiet=quiet,
+        ifVLL=ifVLL
     )
 
     return file_count

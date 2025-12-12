@@ -32,6 +32,7 @@ options:
   blind: false
   systematics: true  # Enabled for Phase 8 testing
   smoothing: false
+  ifVLL: false  # Don't process VLL samples in WH jobs
 
 # Base paths
 paths:
