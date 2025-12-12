@@ -68,12 +68,13 @@ def main(
         makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe, quiet)
     subAllProcess.close()
 
-    # Submit jobs (suppress hep_sub output in quiet mode)
-    if quiet:
-        subprocess.run(f'bash {Jobsubmitpath}subAllProcess.sh', shell=True,
-                       capture_output=True)
-    else:
-        uf.sumbitJobs(Jobsubmitpath+'subAllProcess.sh')
+    # Submit jobs (always suppress per-job hep_sub output, summary shows total)
+    if not quiet:
+        print('staring to submit jobs')
+    subprocess.run(f'bash {Jobsubmitpath}subAllProcess.sh', shell=True,
+                   capture_output=True)
+    if not quiet:
+        print('jobs submitted')
 
 
 
