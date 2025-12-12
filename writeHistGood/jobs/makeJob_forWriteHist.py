@@ -68,7 +68,12 @@ def main(
         makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe, quiet)
     subAllProcess.close()
 
-    uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
+    # Submit jobs (suppress hep_sub output in quiet mode)
+    if quiet:
+        subprocess.run(f'bash {Jobsubmitpath}subAllProcess.sh', shell=True,
+                       capture_output=True)
+    else:
+        uf.sumbitJobs(Jobsubmitpath+'subAllProcess.sh')
 
 
 
