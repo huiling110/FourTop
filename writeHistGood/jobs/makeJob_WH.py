@@ -168,7 +168,8 @@ def submit_nominal(config: dict, era: str, process_data: bool = False,
         version=hist_version,
         exe=EXE,
         ifSys=1,  # Enable weight systematics for nominal
-        justMC=not process_data
+        justMC=not process_data,
+        quiet=quiet
     )
 
     return len(mc_files) + len(data_files)
@@ -224,7 +225,8 @@ def submit_systematic(config: dict, era: str, systematic: str,
         version=hist_version,
         exe=EXE,
         ifSys=0,  # No weight systematics for energy scale variations
-        justMC=True  # Only MC for systematic variations
+        justMC=True,  # Only MC for systematic variations
+        quiet=quiet
     )
 
     return file_count
@@ -282,15 +284,23 @@ def main():
         if not args.quiet:
             print(f"Era: {era}")
 
+        era_jobs = 0
+        skipped = 0
         for systematic in systematics:
             if systematic == 'nominal':
                 jobs = submit_nominal(config, era, args.process_data, args.dry_run, args.quiet)
-                total_jobs += jobs
+                era_jobs += jobs
             else:
-                jobs = submit_systematic(config, era, systematic, args.dry_run, args.quiet)
-                total_jobs += jobs
+                # For systematics, always use quiet=True to suppress per-file output
+                jobs = submit_systematic(config, era, systematic, args.dry_run, quiet=True)
+                era_jobs += jobs
+                if jobs == 0:
+                    skipped += 1
 
+        total_jobs += era_jobs
         if not args.quiet:
+            if len(systematics) > 1:
+                print(f"  Submitted: {len(systematics) - skipped} variations, {era_jobs} jobs" + (f" (skipped {skipped})" if skipped else ""))
             print()
 
     if not args.quiet:

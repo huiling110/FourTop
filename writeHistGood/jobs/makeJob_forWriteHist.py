@@ -17,82 +17,13 @@ except ImportError:
 #!For jobs of energy scale variaion, make the outut version the same of the nominal one
 
 def main(
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly/', #!!V13
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineHadro_v94HadroPreJetVetoHemOnly_TESdm11Down/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineHadro_v94HadroPreJetVetoHemOnly_TESdm11Down/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_v94LepPreJetVetoHemOnly/', #!v13
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinC_v94HadroPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinA_v94HadroPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinC_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_tauF1NewFRBinA_tauFMorph_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorph_v94HadroPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_newFRBinATauFMorphBugFix_v94HadroPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v0baselineLep_newFRBinATauFMorphBugFix_v94LepPreJetVetoHemOnly/',
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/', #!v14, and V16
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/', #TTBB test
-    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/', #TTBB test 2017
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/', #!moved v14 to v13 nominal
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnly/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
-    # inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/',#!!!v14
-    
-    # channel = '1tau1l',
+    inputDir = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/',
     channel = '1tau0l',
-    # channel = '1tau2l',
-    # version = 'v0BDT1tau2l', 
-    # version = 'v0BDT1tau1l',
-    # version = 'v1BDT1tau1lTestLeading7',
-    # version = 'v0BDT1tau1lFakeTau',
-    # version = 'v0BDT1tau0l',
-    # version = 'v0BDT1tau0lFakeTauPtMorphed',
-    # version = 'v0BDT1tau0lFakeTau',
-    # version = 'v0BDT1tau0lV2',
-    # version = 'v0BDT1tau1lV16',
-    # version = 'v0BDT1tau0lV16',
-    # version = 'v0BDT1tau1lV17',
-    # version = 'v8BDT1tau1lV_refactorAndBtagNameFix', 
-    version = 'v8BDT1tau0l_refactorAndBtagNameFix', 
-    # version = 'v0BDT1tau0lV17',
-    # version = 'v0BDT1tau2lV16',
-    # version = 'v0BDT1tau2lV17',
-    # version = 'v5BDT1tau0l_tauFMorphFix',
-    # version = 'v5BDT1tau2l_tauFMorphFix',
-    # version = 'v0BDT1tau2lV17_fakeTauDataDriven',
-    # version = 'v3BDT1tau2lV18_fakeTauDataDriven',
-    # version = 'v4BDT1tau2lV18_fakeTauDataDriven',#correct event weight 
-    # version = 'v3BDT1tau1lV18_fakeTauDataDriven',
-    # version = 'v0DataMC_sys',
-    # version = 'v0DataMC',
-    # version = 'v1DataMC_noHLTSF',
-    # version = 'v1dataMC_fakeTauMC',
-    # version = 'v1dataMC_fakeTauDataDriven',
-    # version = 'v0FRMeasure',
-    # version = 'v2FRMeasureCheckMC',
-    # version = 'v2FRMeasureCheckMC_v2',
-    # version = 'v2FRMeasureCheckMCBin3',
-    # exe = './apps/run_WH_forDataMC.out',
+    version = 'v8BDT1tau0l_refactorAndBtagNameFix',
     exe = './apps/run_treeAnalyzer.out' ,
     ifSys = 1,
-    justMC = False
+    justMC = False,
+    quiet = False
 ):
     
     
@@ -117,73 +48,68 @@ def main(
     
         
    
-    # justMC = True
     isTest = 0
-    print( inputDir, ' ', version )
-
+    if not quiet:
+        print( inputDir, ' ', version )
 
     inputDirDic={}
     inputDirDic['mc'] = inputDir + 'mc/'
     if not justMC:
         inputDirDic['data'] = inputDir + 'data/'
-        
-    Jobsubmitpath = inputDirDic['mc'] + 'variableHists_' + version + '/' 
+
+    Jobsubmitpath = inputDirDic['mc'] + 'variableHists_' + version + '/'
     uf.checkMakeDir(Jobsubmitpath)
-    print('JobsubmitPath: ' ,Jobsubmitpath)
-    subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w') 
-    #important to add the full path so that it can be ran in any folder
+    if not quiet:
+        print('JobsubmitPath: ' ,Jobsubmitpath)
+    subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w')
     subAllProcess.write('#!/bin/bash\n')
 
     for i in inputDirDic.keys():
-        # makeJobsforDir( inputDirDic[i], version,  isTest, subAllProcess, Jobsubmitpath, channel , exe)
-        makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe)
+        makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe, quiet)
     subAllProcess.close()
 
     uf.sumbitJobs(  Jobsubmitpath+'subAllProcess.sh')
 
 
 
-def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out'):
+def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out', quiet=False):
     jobDir = Jobsubmitpath +'jobSH/'
-    uf.checkMakeDir(jobDir) 
+    uf.checkMakeDir(jobDir)
     outputDir = inputDir + 'variableHists_' + version +'/'
     logDir = outputDir+'log/'
     uf.checkMakeDir(jobDir)
     uf.checkMakeDir(outputDir)
     uf.checkMakeDir(logDir)
-    
-    exeDir = (os.path.dirname( os.path.abspath(__file__) ) +'/').rsplit('/', 2)[0] + '/'
-    
 
+    exeDir = (os.path.dirname( os.path.abspath(__file__) ) +'/').rsplit('/', 2)[0] + '/'
+
+    job_count = 0
     for iFile in os.listdir( inputDir ):
         if '.root' in iFile:
             iProcess = iFile.split('.root')[0]
-            print(iProcess)
-            iJobFile = jobDir + 'WH_'+iProcess +'.sh' 
-            # run = f"{exe} {inputDir} {iProcess} {channel} {version} {isTest}"
+            iJobFile = jobDir + 'WH_'+iProcess +'.sh'
             run = f"{exe} {inputDir} {iProcess} {channel} {version} {ifSys} {isTest}"
-            makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir)  
+            makeIjob( iJobFile,  Jobsubmitpath, run ,exeDir, quiet)
 
             logFile = logDir + iProcess + ".log"
             errFile = logDir + iProcess +".err"
-            # subAllProcess.write('hep_sub -os CentOS7 -mem 6000 '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
-            # subAllProcess.write('hep_sub -os CentOS7  '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
             subAllProcess.write('hep_sub  '+ iJobFile + ' -o ' + logFile + ' -e ' + errFile +'\n' )
+            job_count += 1
+
+    subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True, capture_output=True)
+    subprocess.run('chmod 777 ' + Jobsubmitpath+ 'subAllProcess.sh', shell=True, capture_output=True)
+    return job_count
 
 
-    subprocess.run('chmod 777 ' + jobDir +'*sh',  shell=True)
-    subprocess.run('chmod 777 ' + Jobsubmitpath+ 'subAllProcess.sh', shell=True)
 
 
 
-
-
-def makeIjob( shFile, Jobsubmitpath, run, exeDir ):
+def makeIjob( shFile, Jobsubmitpath, run, exeDir, quiet=False ):
     subFile = open( shFile, "w" )
     subFile.write('#!/bin/bash\n')
     subFile.write('cd '+ exeDir + '\n' )
     subFile.write(run)
-    print( 'done writing: ', shFile)
+    subFile.close()
 
 
 def create_parser():
