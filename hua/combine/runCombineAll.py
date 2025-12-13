@@ -470,12 +470,15 @@ def runImpact(cardDir, ifBlind=True, ifVLL=False, channel='1tau1l'):
         if ifile.find('root')>0:
             logger.info(f'Processing workspace: {ifile}')
             outFolder = cardDir + 'combineResults/'
-            wf = cardDir + 'workspace/' + ifile
+            # Convert to absolute path before chdir
+            wf = os.path.abspath(cardDir + 'workspace/' + ifile)
 
             impacDir = outFolder+ 'impactResult/'
 
             # Try to create directory in cardDir; if no write permission, use current dir
             impacDir = ensure_dir_with_fallback(impacDir, 'impactResult', original_dir)
+            # Convert to absolute path before chdir
+            impacDir = os.path.abspath(impacDir) + '/'
 
             #cd to output directory so combine saves files there
             os.chdir(impacDir)  #!don't need to cd in run_runCombineAll.sh anymore

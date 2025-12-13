@@ -17,18 +17,12 @@ Final stages of the analysis pipeline.
 
 ## Environment Setup
 
-**IMPORTANT**: Stages 4.4.1, 4.5, 4.6 require CMSSW environment
+**IMPORTANT**: Stages 4.4.1, 4.5 require CMSSW environment
 
 | Stage | Environment | Command |
 |-------|-------------|---------|
-| 4.1-4.4, 4.7 | ROOT/Python | `source setEnv_newNew.sh` |
-| 4.4.1, 4.5, 4.6 | CMSSW/Combine | `source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv` (in hua/combine/) |
-
-**For hua/combine/ directory (Stage 4.6 only)**: Run these TWO commands:
-```bash
-source /cvmfs/cms.cern.ch/cmsset_default.sh
-cmsenv
-```
+| 4.1-4.4, 4.6, 4.7 | ROOT/Python | `source setEnv_newNew.sh` |
+| 4.4.1, 4.5 | CMSSW/Combine | `source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv` (in hua/combine/) |
 
 ## Stage 4.1: JES Template Consolidation
 
@@ -185,13 +179,18 @@ python3 runCombineAll.py --cardDir CARDDIR --channel CHANNEL --no-blind --steps 
 Generate post-fit distributions using combine results.
 
 ```bash
-cd hua/combine/
-source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv
-
-python3 postfitPlots.py --cardDir combinationV21/run2_1tau1l_v4/
+source setEnv_newNew.sh
+python3 plotting/pl_postFit.py --fit-file hua/combine/combinationV21/run2_1tau0l_v4/combineResults/postfitPlots/fitDiagnosticsTest.root
 ```
 
-**Requires**: Combine fits (Stage 4.5) must be complete.
+**Options**:
+- `--plot-type`: `prefit`, `postfit`, or `both` (default: postfit)
+- `--no-logy`: Use linear scale instead of log
+- `--blind`: Blind signal region data
+
+**Output**: Plots saved to `{fit-file-dir}/postfitPlots/`
+
+**Requires**: Combine fits (Stage 4.5) must be complete (fitDiagnosticsTest.root exists).
 
 ## Stage 4.7: Pre-fit Validation Plots (pl.py)
 
