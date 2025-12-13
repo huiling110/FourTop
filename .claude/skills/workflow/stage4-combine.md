@@ -1,4 +1,4 @@
-# Stage 4: Templates, Datacards, Plots, and Combine
+# Stage 4: Templates, Datacards, Combine, and Plots
 
 Final stages of the analysis pipeline.
 
@@ -10,18 +10,19 @@ Final stages of the analysis pipeline.
 | 4.2 | addTemplate | Create template histograms for combine |
 | 4.3 | smooth | Smooth systematic variations (mandatory for 1tau1l/1tau0l, requires ALL eras) |
 | 4.4 | writeDatacard | Generate datacards for combine |
-| 4.5 | plots | Generate validation plots |
-| 4.6 | combine | Run statistical analysis (significance, limits) |
-| 4.7 | postfit | Generate post-fit plots |
+| 4.4.1 | Run2 combination | Combine 4 eras → 1-channel Run2 datacard (SYNC POINT) |
+| 4.5 | combine fits | Run statistical analysis (significance, limits, signal strength) |
+| 4.6 | postfit | Generate post-fit plots |
+| 4.7 | plots | Generate pre-fit validation plots |
 
 ## Environment Setup
 
-**IMPORTANT**: Only Stage 4.6 (combine) requires CMSSW environment
+**IMPORTANT**: Stages 4.4.1, 4.5, 4.6 require CMSSW environment
 
 | Stage | Environment | Command |
 |-------|-------------|---------|
-| 4.1-4.5, 4.7 | ROOT/Python | `source setEnv_newNew.sh` |
-| 4.6 | CMSSW/Combine | `source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv` (in hua/combine/) |
+| 4.1-4.4, 4.7 | ROOT/Python | `source setEnv_newNew.sh` |
+| 4.4.1, 4.5, 4.6 | CMSSW/Combine | `source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv` (in hua/combine/) |
 
 **For hua/combine/ directory (Stage 4.6 only)**: Run these TWO commands:
 ```bash
@@ -112,21 +113,26 @@ python3 writeDatacard.py --config ../config/CONFIG.yaml --era 2018
 
 **Note**: writeDatacard.py uses the smoothed templates when `options.smoothing: true` in config.
 
-## Stage 4.5: Validation Plots (pl.py)
+## Stage 4.4.1: Run2 Combination (SYNC POINT)
+
+**Requires all 4 eras to have datacards (Stage 4.4 done)**
+
+Combines per-era datacards into a single Run2 datacard for the channel.
 
 ```bash
-source setEnv_newNew.sh
-cd plotting/
-python3 pl.py --config ../config/CONFIG.yaml --era 2018
+cd hua/combine/
+source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv
+
+python3 writeCombinationDatacard.py \
+  --config ../../config/analysis_config_1tau1l_TTBBtest.yaml \
+  --channel 1tau1l
 ```
 
-Options read from config:
-- `options.systematics`: Whether to plot with systematic error bands
-- `options.fake_tau`: Whether to use data-driven fake tau
-- `options.mc_fake_tau`: Whether to use MC fake tau
-- `options.blind`: Whether to blind the signal region
+**Output**: `hua/combine/combinationV{XX}/run2_{channel}_v4/datacard.txt`
 
-## Stage 4.6: Combine (Statistical Analysis)
+**Version**: Uses `versions.combination` from config (e.g., `combinationV21`)
+
+## Stage 4.5: Combine Fits (Statistical Analysis)
 
 **IMPORTANT**: Combine is SLOW (1-2 hours) - Always use screen session!
 
@@ -173,6 +179,33 @@ python3 runCombineAll.py --cardDir CARDDIR --channel CHANNEL --no-blind --steps 
 ```
 
 **Note**: The bash script `run_combine_fits.sh` handles CMSSW setup automatically.
+
+## Stage 4.6: Postfit Plots
+
+Generate post-fit distributions using combine results.
+
+```bash
+cd hua/combine/
+source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv
+
+python3 postfitPlots.py --cardDir combinationV21/run2_1tau1l_v4/
+```
+
+**Requires**: Combine fits (Stage 4.5) must be complete.
+
+## Stage 4.7: Pre-fit Validation Plots (pl.py)
+
+```bash
+source setEnv_newNew.sh
+cd plotting/
+python3 pl.py --config ../config/CONFIG.yaml --era 2018
+```
+
+Options read from config:
+- `options.systematics`: Whether to plot with systematic error bands
+- `options.fake_tau`: Whether to use data-driven fake tau
+- `options.mc_fake_tau`: Whether to use MC fake tau
+- `options.blind`: Whether to blind the signal region
 
 ## Common Options
 

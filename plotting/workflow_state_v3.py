@@ -47,7 +47,11 @@ class CompactWorkflowState:
     STATE_FILE = "state.json"
 
     # Stage order for progression
-    STAGE_ORDER = ['1', '1.1', '2', '2.1', '3', '3.1', '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', 'complete']
+    # Per-era stages: 1-4.4, then sync point 4.4.1, then 4.5-4.7
+    STAGE_ORDER = ['1', '1.1', '2', '2.1', '3', '3.1', '4.1', '4.2', '4.3', '4.4', '4.4.1', '4.5', '4.6', '4.7', 'complete']
+
+    # Stages that require all eras to complete before proceeding
+    SYNC_STAGES = ['4.4.1']  # Run2 combination needs all 4 eras
 
     # Human-readable stage names
     STAGE_NAMES = {
@@ -59,10 +63,12 @@ class CompactWorkflowState:
         '3.1': 'WH systematics',
         '4.1': 'addJES',
         '4.2': 'addTemplate',
-        '4.3': 'writeDatacard',
-        '4.4': 'plots',
-        '4.5': 'combine',
+        '4.3': 'smooth',
+        '4.4': 'writeDatacard',
+        '4.4.1': 'Run2 combination',
+        '4.5': 'combine fits',
         '4.6': 'postfit',
+        '4.7': 'plots',
         'complete': 'done'
     }
 

@@ -4,12 +4,17 @@
 
 ```
 Per-Era:
-1 → 1.1 → 2 → 2.1 → 2.4 → 3 → 4.1 → 4.2 → 4.3 → 4.4 → 4.5 → 4.6 → 4.7
-OS  OS    MV  MV    Fake  WH  JES   Tmpl  Smth  Card  Plot  Comb  Post
+1 → 1.1 → 2 → 2.1 → 2.4 → 3 → 4.1 → 4.2 → 4.3 → 4.4
+OS  OS    MV  MV    Fake  WH  JES   Tmpl  Smth  Card
     sys       sys         +sys
 
 Sync Point (all 4 eras for 1 channel):
-4.4.1 (combineDatacard) - combines 4 eras → 1-channel Run2 datacard
+4.4.1 (Run2 combination) - combines 4 eras → 1-channel Run2 datacard
+
+Post-Combination:
+4.5 → 4.6 → 4.7
+Comb  Post  Plot
+fits  fit
 ```
 
 ## Environment

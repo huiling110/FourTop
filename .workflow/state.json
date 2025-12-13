@@ -27,8 +27,14 @@
       "updated": "2025-12-13T02:48:38Z"
     }
   },
-  "next_action": "run 2016postVFP S4.5 (combine)",
-  "last_update": "2025-12-13T02:48:38Z",
+  "run2": {
+    "stage": "4.4.1",
+    "status": "done",
+    "datacard": "hua/combine/combinationV21/run2_1tau1l_v4/datacard.txt",
+    "updated": "2025-12-13T02:53:00Z"
+  },
+  "next_action": "run S4.5 (combine fits) on Run2 datacard",
+  "last_update": "2025-12-13T02:53:00Z",
   "version": "v3",
   "versions": {
     "stage1": "v94HadroPreJetVetoHemOnly_TTBBtest",
