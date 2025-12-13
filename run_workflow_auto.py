@@ -32,9 +32,9 @@ Stage Groups:
     "4.2"   : Create templates
     "4.3"   : Smooth systematics (requires ALL eras templates, mandatory for 1tau1l/1tau0l)
     "4.4"   : Write datacards
-    "4.5"   : Generate plots
-    "4.6"   : Run combine (significance, limits)
-    "4.7"   : Post-fit plots
+    "4.5"   : Run combine (significance, limits)
+    "4.6"   : Post-fit plots
+    "4.7"   : Generate plots
 """
 
 import argparse
@@ -90,9 +90,9 @@ class WorkflowAutomation:
         '4.3': 'smooth systematics',
         '4.4': 'writeDatacard',
         '4.4.1': 'combineDatacard (1-channel Run2)',
-        '4.5': 'plots',
-        '4.6': 'combine',
-        '4.7': 'postfit plots',
+        '4.5': 'combine',
+        '4.6': 'postfit plots',
+        '4.7': 'plots',
         'complete': 'done'
     }
 
@@ -339,9 +339,10 @@ class WorkflowAutomation:
                     '--config', config, '--quiet'],
             '4.4': ['python3', 'plotting/writeDatacard.py',
                     '--config', config, '--era', era],
-            '4.5': ['python3', 'plotting/pl.py',
+            # 4.5 combine: handled specially by run_combine()
+            '4.6': ['python3', 'plotting/pl_postFit.py',
                     '--config', config, '--era', era],
-            '4.7': ['python3', 'plotting/pl_postFit.py',
+            '4.7': ['python3', 'plotting/pl.py',
                     '--config', config, '--era', era],
         }
         return commands.get(stage)
@@ -441,8 +442,8 @@ python3 makeJob_WH.py --config ../../{config} --era {era} --systematic complete 
             self.log("Error: Workflow not initialized", "ERROR")
             return False
 
-        self.log(f"STARTING: {era} S4.6 (combine) - this may take 1-2 hours")
-        self.state.update_era(era, "4.6", "running", 0)
+        self.log(f"STARTING: {era} S4.5 (combine) - this may take 1-2 hours")
+        self.state.update_era(era, "4.5", "running", 0)
 
         # Create log file
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -474,7 +475,7 @@ bash run_combine_fits.sh ../../{config} {era} {channel}
 
         except Exception as e:
             self.log(f"Error running combine: {e}", "ERROR")
-            self.state.update_era(era, "4.6", "failed", 0)
+            self.state.update_era(era, "4.5", "failed", 0)
             return False
 
     def _wait_for_combine(self, log_file: Path, process: subprocess.Popen,
@@ -500,7 +501,7 @@ bash run_combine_fits.sh ../../{config} {era} {channel}
             if elapsed > timeout:
                 self.log(f"TIMEOUT: combine exceeded {timeout}s, killing...", "ERROR")
                 process.kill()
-                self.state.update_era(era, "4.6", "timeout", 0)
+                self.state.update_era(era, "4.5", "timeout", 0)
                 return False
 
             # Check log file for progress
@@ -530,12 +531,12 @@ bash run_combine_fits.sh ../../{config} {era} {channel}
 
         # Process finished
         if process.returncode == 0:
-            self.log(f"DONE: {era} S4.6 (combine) completed successfully")
-            self.state.update_era(era, "4.6", "done", 0)
+            self.log(f"DONE: {era} S4.5 (combine) completed successfully")
+            self.state.update_era(era, "4.5", "done", 0)
             return True
         else:
-            self.log(f"FAILED: {era} S4.6 (combine) exited with code {process.returncode}", "ERROR")
-            self.state.update_era(era, "4.6", "failed", 0)
+            self.log(f"FAILED: {era} S4.5 (combine) exited with code {process.returncode}", "ERROR")
+            self.state.update_era(era, "4.5", "failed", 0)
             return False
 
     def run_combine_datacard(self) -> bool:
@@ -674,8 +675,8 @@ python3 writeCombinationDatacard.py --config ../../{config} --channel {channel} 
                     if not self.run_combine_datacard():
                         all_success = False
                         break
-                # Handle Stage 4.6 specially (combine fits)
-                elif next_stage == "4.6":
+                # Handle Stage 4.5 specially (combine fits)
+                elif next_stage == "4.5":
                     if not self.run_combine(era):
                         all_success = False
                         break

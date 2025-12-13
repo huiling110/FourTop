@@ -23,6 +23,38 @@ except ImportError:
 # Global quiet flag for controlling verbose output
 QUIET = False
 
+# ===== Channel-specific smoothing settings =====
+# Systematics and processes to smooth for each channel
+CHANNEL_SMOOTHING_CONFIG = {
+    '1tau1l': {
+        'systematics': [
+            'ps_fsr', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac',
+            'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_FlavorPureQuark',
+            'CMS_scale_j_Fragmentation', 'CMS_btag_fixedWP_comb_bc_correlated',
+            'CMS_res_j'
+        ],
+        'processes': ['tt', 'ttbb', 'ttH', 'ttZ', 'ttW', 'singleTop']
+    },
+    '1tau0l': {
+        'systematics': [
+            'ps_fsr', 'ps_isr', 'QCDscale_fac', 'QCDscale_ren',
+            'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_FlavorPureQuark',
+            'CMS_btag_fullShape_hf', 'CMS_res_j', 'pdf_alphas'
+        ],
+        # Note: ttbb excluded from pdf_alphas smoothing (negative norms issue, see writeDatacard.py:398)
+        'processes': ['tt', 'ttH', 'ttZ', 'ttW', 'WJets'],
+        'processes_no_pdf_alphas': ['ttbb']  # these get smoothed for all systematics except pdf_alphas
+    },
+    '1tau2l': {
+        'systematics': [
+            'ps_fsr', 'ps_isr', 'QCDscale_fac', 'QCDscale_ren',
+            'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_FlavorPureQuark',
+            'CMS_res_j'
+        ],
+        'processes': ['tt', 'ttbb', 'ttH', 'ttZ', 'ttW', 'singleTop']
+    }
+}
+
 def main():
     global QUIET
     parser = argparse.ArgumentParser(description='Apply LOWESS smoothing to systematic variations')
@@ -44,13 +76,26 @@ def main():
         suffix = get_template_suffix(config)
         years = get_eras(config)
 
+        # Check if smoothing is enabled in config
+        if not options.get('smoothing', False):
+            print(f"Smoothing is disabled in config (options.smoothing=false). Skipping.")
+            return
+
         # Build template path for 2018 (base year, others derived from it)
         input_template = build_template_path(config, '2018', channel_name, suffix, smoothed=False)
 
-        # Get smoothing settings from config
-        smoothing_config = config.get('smoothing', {})
-        sysList = smoothing_config.get('systematics', [])
-        processList = smoothing_config.get('processes', [])
+        # Get channel-specific smoothing settings
+        if channel_name not in CHANNEL_SMOOTHING_CONFIG:
+            print(f"Warning: No smoothing config for channel {channel_name}. Skipping.")
+            return
+
+        smooth_config = CHANNEL_SMOOTHING_CONFIG[channel_name]
+        sysList = smooth_config['systematics']
+        processList = smooth_config['processes']
+        # Get additional processes that should be smoothed except for pdf_alphas
+        processes_no_pdf_alphas = smooth_config.get('processes_no_pdf_alphas', [])
+        # Combine all processes for the full list
+        allProcessList = processList + processes_no_pdf_alphas
 
         if not QUIET:
             print(f"Using config: {args.config}")
@@ -58,40 +103,22 @@ def main():
             print(f"Template: {input_template}")
             print(f"Systematics to smooth: {sysList}")
             print(f"Processes: {processList}")
-    # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1lV17/combine/templatesForCombine1tau1l_new.root' #Only need to offer 2018 templte, all other years will be processed automatically
-    #!!!1tau1l: CMS_scale_j_FlavorPureGluon, ps_fsr， CMS_scale_j_PileUpDataMC，CMS_scale_j_RelativeSample_2018， CMS_scale_j_TimePtEta，CMS_scale_j_TimePtEta, 
-    # !!!ps_isr_tt, QCDscale_ren_tt, QCDscale_fac_tt 
+            if processes_no_pdf_alphas:
+                print(f"Processes excluded from pdf_alphas: {processes_no_pdf_alphas}")
 
-    #!!!1tau0l: 
-    #!!!1tau2l:
-    
-
-    # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'fakeTauMC']
-    # sysList  = ['ps_fsr', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_PileUpDataMC', 'CMS_scale_j_FlavorPureQuark', 'CMS_scale_j_RelativeSample', 'CMS_scale_j_FlavorPureBottom', 'CMS_scale_j_AbsoluteMPFBias', 'CMS_res_j', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac'] #process correlated systematics
-    # # processList = ['tt']
-    # sysList = ['ps_fsr']
-    # # sysList = ['ps_isr']# process uncorrelated systematics
-    # channel = '1tau1lSR'
-    # sysList = ['ps_fsr', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac', 'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_Fragmentation', 'CMS_btag_fixedWP_comb_bc_correlated', 'CMS_scale_j_FlavorPureQuark'] #!No btag shape uncertainty in 1tau1l channel
-    # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop']
-    # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau.root'
-    # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v3BDT1tau1lV18_fakeTauDataDriven/combine/templatesForCombine1tau1l_new_notMCFTau_unblind.root'
-    
-    
     # ===== Legacy hardcoded settings (for backward compatibility) =====
-    if not args.config:
+    else:
         channel = '1tau0lSR'
-        sysList = ['ps_fsr', 'CMS_btag_fullShape_hf', 'ps_isr', 'CMS_scale_j_FlavorPureGluon', 'pdf_alphas', 'QCDscale_fac', 'QCDscale_ren', 'CMS_res_j', 'CMS_scale_j_FlavorPureQuark']
-        # processList = ['tt', 'ttH', 'ttZ', 'ttW', 'singleTop', 'WJets']
-        processList = ['tt', 'ttH', 'ttZ', 'ttW',  'WJets']
-        # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau0lV17/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root'
-        # input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v8BDT1tau0l_refactorAndBtagNameFix/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root' #!2025-11-24: Done
+        sysList = CHANNEL_SMOOTHING_CONFIG['1tau0l']['systematics']
+        processList = CHANNEL_SMOOTHING_CONFIG['1tau0l']['processes']
+        processes_no_pdf_alphas = CHANNEL_SMOOTHING_CONFIG['1tau0l'].get('processes_no_pdf_alphas', [])
+        allProcessList = processList + processes_no_pdf_alphas
         input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root'
         years = ['2016preVFP', '2016postVFP', '2017', '2018']
     outDir = os.path.dirname(input_template) + '/results/'
     uf.checkMakeDir(outDir)
-   
-    dic_sys = getSmoothedDic(input_template, sysList, processList, channel, years, outDir)
+
+    dic_sys = getSmoothedDic(input_template, sysList, allProcessList, channel, years, outDir, processes_no_pdf_alphas)
     
     
    
@@ -127,7 +154,9 @@ def main():
                 
     
     
-def getSmoothedDic(input_template, sysList, processList, channel, years, outDir):
+def getSmoothedDic(input_template, sysList, processList, channel, years, outDir, processes_no_pdf_alphas=None):
+    if processes_no_pdf_alphas is None:
+        processes_no_pdf_alphas = []
     dic_sys = {}
     for sys in sysList:
         ifCorrelated = wd.MCSys[sys][0]
@@ -137,6 +166,11 @@ def getSmoothedDic(input_template, sysList, processList, channel, years, outDir)
         dic_sys[sys] = {}
 
         for process in processList:
+            # Skip processes that shouldn't be smoothed for pdf_alphas
+            if sys == 'pdf_alphas' and process in processes_no_pdf_alphas:
+                if not QUIET:
+                    print(f'  Skipping {process} for {sys} (excluded in config)')
+                continue
             dic_sys[sys][process] = {}
 
             for iyear in years:
