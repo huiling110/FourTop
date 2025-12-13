@@ -168,8 +168,8 @@ def build_card_dic_from_config(config, channel=None):
 
     for era in eras:
         key = f'SR{channel}_{era}'
-        datacard_dir = build_datacard_path(config, era, channel)
-        datacard_file = os.path.join(datacard_dir, f'datacard_{channel}.txt')
+        datacard_dir = build_datacard_path(config, era)
+        datacard_file = os.path.join(datacard_dir, 'datacard.txt')
         card_dic[key] = datacard_file
 
     return card_dic
@@ -224,8 +224,11 @@ def main():
         card_dic = build_card_dic_from_config(config, channel)
 
         # Get combination version from config or CLI
-        if 'combine' in config and 'combination_version' in config['combine']:
-            config_version = config['combine']['combination_version'].replace('combination', '')
+        # Config uses versions.combination (e.g., "combinationV21")
+        config_version = config.get('versions', {}).get('combination', '')
+        if config_version:
+            # Extract version number (e.g., "combinationV21" -> "V21")
+            config_version = config_version.replace('combination', '')
             combinationVersion = args.version if args.version != 'V20' else config_version
         else:
             combinationVersion = args.version

@@ -2,14 +2,32 @@
 
 Final stages of the analysis pipeline.
 
+## Stage Overview
+
+| Stage | Name | Description |
+|-------|------|-------------|
+| 4.1 | addJES | Consolidate JES/JER/TES systematics into nominal files |
+| 4.2 | addTemplate | Create template histograms for combine |
+| 4.3 | smooth | Smooth systematic variations (mandatory for 1tau1l/1tau0l, requires ALL eras) |
+| 4.4 | writeDatacard | Generate datacards for combine |
+| 4.5 | plots | Generate validation plots |
+| 4.6 | combine | Run statistical analysis (significance, limits) |
+| 4.7 | postfit | Generate post-fit plots |
+
 ## Environment Setup
 
-**IMPORTANT**: Stage 4.1-4.3 use ROOT/Python, Stage 4.4-4.5 use CMSSW/Combine
+**IMPORTANT**: Only Stage 4.6 (combine) requires CMSSW environment
 
 | Stage | Environment | Command |
 |-------|-------------|---------|
-| 4.1-4.3 | ROOT/Python | `source setEnv_newNew.sh` |
-| 4.4-4.5 | CMSSW/Combine | `cmsenv` (in hua/combine/) |
+| 4.1-4.5, 4.7 | ROOT/Python | `source setEnv_newNew.sh` |
+| 4.6 | CMSSW/Combine | `source /cvmfs/cms.cern.ch/cmsset_default.sh && cmsenv` (in hua/combine/) |
+
+**For hua/combine/ directory (Stage 4.6 only)**: Run these TWO commands:
+```bash
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+cmsenv
+```
 
 ## Stage 4.1: JES Template Consolidation
 
@@ -54,39 +72,27 @@ python3 addTemplateNew.py --config ../config/CONFIG.yaml --era 2018
 
 **What it does**: Creates template histograms for combine from WH output.
 
-## Stage 4.2.5: Smooth Systematics (IMPORTANT!)
+## Stage 4.3: Smooth Systematics
 
-**CRITICAL**: Run AFTER addTemplateNew.py and BEFORE writeDatacard.py.
+**CRITICAL**:
+- Run AFTER addTemplateNew.py (4.2) and BEFORE writeDatacard.py (4.4)
+- **Requires ALL eras to have templates** - this is a synchronization point
+- **Mandatory for 1tau1l and 1tau0l channels**
 
 Smooths systematic variations to reduce statistical fluctuations that can cause fit instabilities.
 
 ```bash
 source setEnv_newNew.sh
 cd plotting/
-python3 smooth_systematics_fourTops.py --config ../config/CONFIG.yaml
+python3 smooth_systematics_fourTops.py --config ../config/CONFIG.yaml --quiet
 ```
 
-**Config requirements**: Add a `smoothing` section to your config:
+**Config requirement**: Set `options.smoothing: true` in your config to enable.
 
-```yaml
-smoothing:
-  systematics:
-    - ps_fsr
-    - ps_isr
-    - QCDscale_fac
-    - QCDscale_ren
-    - CMS_scale_j_FlavorPureGluon
-    - CMS_scale_j_FlavorPureQuark
-    - CMS_res_j
-    - CMS_btag_fullShape_hf
-    - pdf_alphas
-  processes:
-    - tt
-    - ttH
-    - ttZ
-    - ttW
-    - WJets
-```
+**Channel-specific settings** are defined in the script itself (`CHANNEL_SMOOTHING_CONFIG`):
+- **1tau1l**: `tt, ttbb, ttH, ttZ, ttW, singleTop` with `ps_fsr, ps_isr, QCDscale_*, CMS_scale_j_*, CMS_res_j`
+- **1tau0l**: `tt, ttbb, ttH, ttZ, ttW, WJets` with `ps_fsr, ps_isr, QCDscale_*, CMS_btag_fullShape_hf, pdf_alphas`
+- **1tau2l**: `tt, ttbb, ttH, ttZ, ttW, singleTop` with `ps_fsr, ps_isr, QCDscale_*, CMS_scale_j_*, CMS_res_j`
 
 **What it does**:
 - Applies LOWESS smoothing to systematic shape variations
@@ -94,9 +100,9 @@ smoothing:
 - Outputs comparison plots to `results/` subdirectory
 - Processes all eras specified in config
 
-**When to skip**: For quick tests with `options.smoothing: false`, you can skip this step.
+**When to skip**: For quick tests set `options.smoothing: false` in config. Script will exit early.
 
-## Stage 4.3: Datacard Generation
+## Stage 4.4: Datacard Generation
 
 ```bash
 source setEnv_newNew.sh
@@ -106,7 +112,7 @@ python3 writeDatacard.py --config ../config/CONFIG.yaml --era 2018
 
 **Note**: writeDatacard.py uses the smoothed templates when `options.smoothing: true` in config.
 
-## Stage 4.4: Validation Plots (pl.py)
+## Stage 4.5: Validation Plots (pl.py)
 
 ```bash
 source setEnv_newNew.sh
@@ -120,15 +126,53 @@ Options read from config:
 - `options.mc_fake_tau`: Whether to use MC fake tau
 - `options.blind`: Whether to blind the signal region
 
-## Stage 4.5: Combine (Statistical Analysis)
+## Stage 4.6: Combine (Statistical Analysis)
 
-**IMPORTANT**: Switch to CMSSW environment!
+**IMPORTANT**: Combine is SLOW (1-2 hours) - Always use screen session!
+
+### Recommended: Run with Bash Script in Screen
+
+```bash
+# Create screen session
+screen -S combine_1tau1l_2018
+
+# Inside screen: Run the wrapper script
+cd hua/combine/
+bash run_combine_fits.sh ../../config/analysis_config_1tau1l_TTBBtest.yaml 2018 1tau1l
+
+# Detach: Ctrl+A then D
+# Reattach: screen -r combine_1tau1l_2018
+# Monitor: tail -f combine_1tau1l_2018_YYYYMMDD_HHMMSS.log
+```
+
+**Script does**:
+- Sets up CMSSW environment (cmsenv) automatically
+- Builds datacard path from config
+- Runs all combine steps: workspace, significance, postfit, signal_strength, impacts
+- Creates timestamped log file
+- Takes ~1-2 hours to complete
+
+**Arguments**:
+1. `CONFIG_FILE`: Path to YAML config (e.g., `../../config/analysis_config_1tau1l_TTBBtest.yaml`)
+2. `ERA`: Era to process (`2018`, `2017`, `2016preVFP`, `2016postVFP`)
+3. `CHANNEL`: Channel name (`1tau1l`, `1tau0l`, `1tau2l`)
+
+### Alternative: Direct Python Call (Advanced)
+
+Only if you need custom options. **IMPORTANT**: Must setup CMSSW environment first!
 
 ```bash
 cd hua/combine/
+
+# Setup CMSSW (required for combine directory!)
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cmsenv  # NOT setEnv_newNew.sh!
-python3 runCombineAll.py  # Check script for options
+
+# Then run combine
+python3 runCombineAll.py --cardDir CARDDIR --channel CHANNEL --no-blind --steps workspace significance postfit
 ```
+
+**Note**: The bash script `run_combine_fits.sh` handles CMSSW setup automatically.
 
 ## Common Options
 

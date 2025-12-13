@@ -1,118 +1,70 @@
 # Stage 3: Histogram Production (WH)
 
-Produces histogram files from Stage 2 output.
-
-**IMPORTANT**: Use unified script `makeJob_WH.py` for all WH jobs (nominal + systematics).
-
-## Commands
+## Quick Reference
 
 ```bash
 source setEnv_newNew.sh
 cd writeHistGood/jobs/
 
-# Submit NOMINAL jobs (Stage 3)
-python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic nominal
+# Stage 3: Complete (nominal + all systematics) - RECOMMENDED
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic complete
 
-# Process data too (nominal only)
-python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic nominal --process-data
+# Stage 3 (nominal only) - for testing
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic nominal
 
-# Monitor jobs
-hep_q -u $USER
+# Stage 3 (systematics only) - if nominal already done
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic all
+
+# Specific systematic groups
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic JES
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic TES
+
+# Available: nominal, TES, JER, MET, EleScale, JES, all, complete
 ```
 
-## Timing Estimates
+**Note**: Use `--systematic complete` to submit nominal+systematics together for parallel execution.
 
-**Nominal only** (`--systematic nominal`):
-- Submission time: ~1 minute
-- Execution time: ~5 minutes
-- Jobs: ~71 MC files
+## Expected Output Counts
 
-**Complete** (`--systematic complete`):
-- Submission time: ~10 minutes
-- Execution time: ~30 minutes
-- Jobs: 71 nominal + (74 systematics × 59 files) = ~4,437 total jobs
+| Type | Variations | Files per var | Total |
+|------|------------|---------------|-------|
+| Nominal | 1 | 71 | 71 |
+| TES | 8 | 59 | 472 |
+| JER | 2 | 59 | 118 |
+| MET | 2 | 59 | 118 |
+| EleScale | 2 | 59 | 118 |
+| JES | 60 | 59 | 3,540 |
 
-## Note on Systematics
+## Output Directory Structure
 
-- If `options.systematics: true` in config: Nominal WH jobs include all weight systematics internally.
-  Still need Stage 3.1 for **energy scale** systematics (TES, JER, MET, EleScale, JES).
-- If `options.systematics: false` in config: Only nominal histograms are produced.
-
-## Stage 3.1: WH Systematic Variations (Energy Scale)
-
-Submit WH jobs for energy scale systematic variations (TES, JER, MET, EleScale, JES).
-Requires Stage 2.1 (MV systematics) to be complete.
-
-```bash
-source setEnv_newNew.sh
-cd writeHistGood/jobs/
-
-# Submit ALL systematics for 2018 (74 variations × 59 MC files = 4,366 jobs)
-python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic all
-
-# Submit BOTH nominal + all systematics (Stage 3 + 3.1 complete)
-python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic complete
-
-# Submit specific systematic group
-python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic TES
-python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic JER
-
-# Dry run
-python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era 2018 --systematic nominal --dry-run
-
-# Available systematics: nominal, TES, JER, MET, EleScale, JES, all, complete
+```
+variableHists_{version}/
+├── *.root      # Histogram files
+├── log/        # Job logs (.log, .err)
+└── jobSH/      # Job scripts
 ```
 
-### Deprecated Scripts (backward compatibility)
+**Paths:**
+- Nominal: `v1baselineHadro_{stage1}_TTBBtest/mc/variableHists_{hist}/`
+- TES/JER/MET/EleScale: `v1baselineHadro_{stage1}_TTBBtest_{sys}/mc/variableHists_{hist}/`
+- JES: `v1baselineHadro_JES{up/Down}_{source}_{stage1}_TTBBtest_JESPt22/mc/variableHists_{hist}/`
 
-The old scripts still work but show deprecation warnings:
-- `makeJob_forWriteHist.py` → Use `makeJob_WH.py --systematic nominal`
-- `makeJob_WH_forJES.py` → Use `makeJob_WH.py --systematic GROUP`
-
-## Systematic Variations
-
-- TES: TESdm0Up/Down, TESdm1Up/Down, TESdm10Up/Down, TESdm11Up/Down (8)
-- JER: JERUp/Down (2)
-- MET: METUp/Down (2)
-- EleScale: EleScaleUp/Down (2)
-- JES: 30 sources × Up/Down = 60 variations
-  - Absolute, BBEC1, EC2, FlavorQCD, HF, RelativeBal, RelativeSample, Total_AK4PFchs, and 22 more sources
-
-Total: 74 variations (14 + 60 JES)
-
-## Path Patterns
-
-**Energy scale systematics (TES, JER, MET, EleScale):**
-- Input: `/publicfs/.../forMVA/{era}/{stage2_version}_{stage1_version}_TTBBtest_{systematic}/mc/`
-- Output: `{input}/variableHists_{hist_version}/`
-- Example: `v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TESdm0Up/mc/variableHists_v0BDT1tau1l_TTBBtest/`
-
-**JES systematics:**
-- Input: `/publicfs/.../forMVA/{era}/{stage2_version}_JES{up/Down}_{source}_{stage1_version}_TTBBtest_JESPt22/mc/`
-- Output: `{input}/variableHists_{hist_version}/`
-- Example Up: `v1baselineHadro_JESup_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/`
-- Example Down: `v1baselineHadro_JESDown_Total_AK4PFchs_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/`
-- **Note**: Case is `JESup` (lowercase u) and `JESDown` (uppercase D)
+**Note**: JES case is `JESup` (lowercase u) and `JESDown` (uppercase D)
 
 ## Monitoring
 
 ```bash
-# Check running jobs
-hep_q -u $USER | grep WH_
+# Check jobs
+hep_q -u $USER
 
-# Check nominal output (channel-specific hist version)
-ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root | wc -l
+# Check nominal
+ls /publicfs/.../variableHists_*/*.root | wc -l
 
-# Check TES systematic output (8 variations, 8 dirs × 59 files = 472)
-ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_TES*/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root 2>/dev/null | wc -l
-
-# Check JER+MET+EleScale systematic output (6 variations, 6 dirs × 59 files = 354)
-ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest_{JER,MET,EleScale}*/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root 2>/dev/null | wc -l
-
-# Check JES systematic output (60 variations, 60 dirs × 59 files = 3,540)
-ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_JES*_v94HadroPreJetVetoHemOnly_TTBBtest_JESPt22/mc/variableHists_v0BDT1tau1l_TTBBtest/*.root 2>/dev/null | wc -l
+# Debug failed jobs
+cat /publicfs/.../variableHists_*/log/PROCESS.err
+bash /publicfs/.../variableHists_*/jobSH/WH_PROCESS.sh  # rerun manually
 ```
 
 ## Next Step
 
-After Stage 3 complete: **Stage 4.1-4.4** - Templates, Datacards, Plots
+After Stage 3 complete → **Stage 4.1** (addJESTemplatesToHistFile.py)

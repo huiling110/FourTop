@@ -12,8 +12,9 @@
 4. **Use workflow_utils** - All Python scripts use `from workflow_utils import ...`
 5. **Commit often** - Commit after each significant code change, not batched
 6. **Dev-docs lifecycle** - After plan approval, immediately create dev-docs structure (`plan.md`, `context.md`, `tasks.md`). **Update dev-docs frequently during execution** - After major milestones, before commits, or when tasks complete. Essential for later review of plan progress
+7. **Workflow state first** - Before ANY workflow operation (checking jobs, verifying outputs, etc.), read `.workflow/state.json` to get concrete paths. This file contains computed paths for all eras - never guess directory structures.
 
-For detailed commands and procedures, see `.claude/skills/workflow.md`
+For detailed commands and procedures, see `.claude/skills/workflow/overview.md`
 
 ---
 
@@ -72,9 +73,10 @@ hep_q -u $USER
 
 | File | Purpose |
 |------|---------|
+| `.workflow/state.json` | **Workflow state with concrete paths** - READ THIS FIRST |
 | `plotting/workflow_utils.py` | Config loading, path building |
 | `config/analysis_config_*.yaml` | Analysis configurations |
-| `.claude/skills/workflow.md` | Stage commands reference |
+| `.claude/skills/workflow/overview.md` | Stage commands reference |
 | `setEnv_newNew.sh` | Environment setup |
 
 ---

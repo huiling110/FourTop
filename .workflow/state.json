@@ -1,0 +1,38 @@
+{
+  "channel": "1tau1l",
+  "config": "config/analysis_config_1tau1l_TTBBtest.yaml",
+  "eras": {
+    "2018": {
+      "stage": "4.4",
+      "status": "done",
+      "jobs": 0,
+      "updated": "2025-12-13T02:48:38Z"
+    },
+    "2017": {
+      "stage": "4.4",
+      "status": "done",
+      "jobs": 0,
+      "updated": "2025-12-13T02:48:38Z"
+    },
+    "2016preVFP": {
+      "stage": "4.4",
+      "status": "done",
+      "jobs": 0,
+      "updated": "2025-12-13T02:48:38Z"
+    },
+    "2016postVFP": {
+      "stage": "4.4",
+      "status": "done",
+      "jobs": 0,
+      "updated": "2025-12-13T02:48:38Z"
+    }
+  },
+  "next_action": "run 2016postVFP S4.5 (combine)",
+  "last_update": "2025-12-13T02:48:38Z",
+  "version": "v3",
+  "versions": {
+    "stage1": "v94HadroPreJetVetoHemOnly_TTBBtest",
+    "stage2": "v1baselineHadro",
+    "hist": "v0BDT1tau1l_TTBBtest"
+  }
+}

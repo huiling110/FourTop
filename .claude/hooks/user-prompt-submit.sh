@@ -66,11 +66,133 @@ check_workflow_patterns() {
 
 # Check if workflow skill should be activated
 if check_workflow_patterns; then
-    # Read workflow state if exists (Phase 8)
     PROJECT_ROOT="${PROJECT_ROOT:-/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop}"
-    STATE_FILE="$PROJECT_ROOT/.workflow_state.json"
 
-    if [[ -f "$STATE_FILE" ]]; then
+    # V3 state file (compact format) - check first
+    STATE_FILE_V3="$PROJECT_ROOT/.workflow/state.json"
+    # V2 state file (legacy format) - fallback
+    STATE_FILE_V2="$PROJECT_ROOT/.workflow_state.json"
+
+    V3_INJECTED=false
+
+    # Try V3 state file first (compact format with paths)
+    if [[ -f "$STATE_FILE_V3" ]]; then
+        # Read V3 state using Python (more reliable than jq for this format)
+        V3_OUTPUT=$(python3 -c "
+import json
+import sys
+try:
+    state_file = sys.argv[1]
+    with open(state_file) as f:
+        state = json.load(f)
+
+    channel = state.get('channel', 'unknown')
+    config = state.get('config', '')
+    next_action = state.get('next_action', 'check status')
+    eras = state.get('eras', {})
+    versions = state.get('versions', {})
+
+    # Build era summary
+    era_parts = []
+    for era in sorted(eras.keys()):
+        info = eras[era]
+        stage = info.get('stage', '?')
+        status = info.get('status', '?')
+        jobs = info.get('jobs', 0)
+
+        if stage == 'complete':
+            era_parts.append(f'{era}: complete')
+        elif jobs > 0 and status == 'running':
+            era_parts.append(f'{era}: S{stage} {status} ({jobs} jobs)')
+        else:
+            era_parts.append(f'{era}: S{stage} {status}')
+
+    # Get next command suggestion
+    next_cmd = '# check workflow state'
+    active_era = None
+    for era in sorted(eras.keys()):
+        info = eras[era]
+        status = info.get('status', 'unknown')
+        stage = info.get('stage', '0')
+
+        if status == 'running':
+            next_cmd = f'hep_q -u \$USER  # Check {era} S{stage} jobs'
+            active_era = era
+            break
+        elif status in ['pending', 'done', 'submitted']:
+            stage_cmds = {
+                '3': f'python3 writeHistGood/jobs/makeJob_WH.py --config {config} --era {era} --systematic nominal',
+                '3.1': f'python3 writeHistGood/jobs/makeJob_WH.py --config {config} --era {era} --systematic all',
+                '4.1': f'python3 plotting/addJESTemplatesToHistFile.py --config {config} --era {era} --execute --quiet',
+                '4.2': f'python3 plotting/addTemplateNew.py --config {config} --era {era} --quiet',
+                '4.3': f'python3 plotting/writeDatacard.py --config {config} --era {era}',
+                '4.4': f'python3 plotting/pl.py --config {config} --era {era}',
+                '4.5': f'cd hua/combine/ && bash run_combine_fits.sh ../../{config} {era} {channel}',
+                '4.6': f'python3 plotting/pl_postFit.py --config {config} --era {era}',
+            }
+            next_cmd = stage_cmds.get(stage, '# check workflow state')
+            active_era = era
+            break
+
+    # Get paths for active era (V3.1 enhancement)
+    paths_info = ''
+    if active_era:
+        era_info = eras.get(active_era, {})
+        paths = era_info.get('paths', {})
+        if paths and 'hist_dir' in paths:
+            hist_dir = paths['hist_dir']
+            paths_info = f'''
+<paths era=\"{active_era}\">
+hist_dir: {hist_dir}
+verify: ls {hist_dir}/*.root 2>/dev/null | wc -l  # expect 71 (nominal) or 559+ (with sys)
+errors: ls {hist_dir}/log/*.err 2>/dev/null | xargs grep -l Error | head -3
+</paths>'''
+
+    # Output
+    print(f'CHANNEL={channel}')
+    print(f'ERAS={\" | \".join(era_parts)}')
+    print(f'NEXT={next_action}')
+    print(f'CMD={next_cmd}')
+    print(f'HIST_VERSION={versions.get(\"hist\", \"\")}')
+    print(f'PATHS_INFO={paths_info}')
+    print('SUCCESS=true')
+except Exception as e:
+    print(f'SUCCESS=false')
+    print(f'ERROR={e}')
+" "$STATE_FILE_V3" 2>/dev/null)
+
+        # Parse output
+        if echo "$V3_OUTPUT" | grep -q "SUCCESS=true"; then
+            V3_CHANNEL=$(echo "$V3_OUTPUT" | grep "^CHANNEL=" | cut -d= -f2-)
+            V3_ERAS=$(echo "$V3_OUTPUT" | grep "^ERAS=" | cut -d= -f2-)
+            V3_NEXT=$(echo "$V3_OUTPUT" | grep "^NEXT=" | cut -d= -f2-)
+            V3_CMD=$(echo "$V3_OUTPUT" | grep "^CMD=" | cut -d= -f2-)
+            V3_HIST_VERSION=$(echo "$V3_OUTPUT" | grep "^HIST_VERSION=" | cut -d= -f2-)
+            V3_PATHS_INFO=$(echo "$V3_OUTPUT" | grep "^PATHS_INFO=" | cut -d= -f2-)
+
+            # Inject V3 workflow state with paths (V3.1 format)
+            echo ""
+            echo "<workflow_state>"
+            echo "Channel: $V3_CHANNEL | $V3_ERAS"
+            if [[ -n "$V3_HIST_VERSION" ]]; then
+                echo "Hist version: $V3_HIST_VERSION"
+            fi
+            echo "Next: $V3_NEXT"
+            echo "Cmd: $V3_CMD"
+            # Inject paths block if available
+            if [[ -n "$V3_PATHS_INFO" ]]; then
+                echo "$V3_PATHS_INFO"
+            fi
+            echo ""
+            echo ">>> IMPORTANT: Read .workflow/state.json for all era paths <<<"
+            echo "</workflow_state>"
+            echo ""
+            V3_INJECTED=true
+        fi
+    fi
+
+    # Fall back to V2 state file if V3 not available
+    if [[ "$V3_INJECTED" != "true" ]] && [[ -f "$STATE_FILE_V2" ]]; then
         # Detect channel from prompt (1tau0l, 1tau1l, 1tau2l)
         prompt_lower=$(echo "$USER_PROMPT" | tr '[:upper:]' '[:lower:]')
         CHANNEL=""
@@ -82,70 +204,43 @@ if check_workflow_patterns; then
             CHANNEL="1tau2l"
         else
             # Default to first channel in state
-            if command -v jq &> /dev/null; then
-                CHANNEL=$(jq -r '.channels | keys[0]' "$STATE_FILE" 2>/dev/null)
-            else
-                # Fallback to Python if jq not available
-                CHANNEL=$(python3 -c "import json; print(list(json.load(open('$STATE_FILE')).get('channels', {}).keys())[0] if json.load(open('$STATE_FILE')).get('channels') else '')" 2>/dev/null)
-            fi
+            CHANNEL=$(python3 -c "import json; print(list(json.load(open('$STATE_FILE_V2')).get('channels', {}).keys())[0] if json.load(open('$STATE_FILE_V2')).get('channels') else '')" 2>/dev/null)
         fi
 
         if [[ -n "$CHANNEL" ]]; then
-            # Try jq first, fall back to Python
-            if command -v jq &> /dev/null; then
-                CURRENT_STAGE=$(jq -r ".channels.\"$CHANNEL\".current.stage // \"unknown\"" "$STATE_FILE" 2>/dev/null)
-                CURRENT_ERA=$(jq -r ".channels.\"$CHANNEL\".current.era // \"unknown\"" "$STATE_FILE" 2>/dev/null)
-                CURRENT_STATUS=$(jq -r ".channels.\"$CHANNEL\".current.status // \"unknown\"" "$STATE_FILE" 2>/dev/null)
-                CURRENT_OP=$(jq -r ".channels.\"$CHANNEL\".current.operation // \"unknown\"" "$STATE_FILE" 2>/dev/null)
-            else
-                # Python fallback
-                CURRENT_STAGE=$(python3 -c "import json; d=json.load(open('$STATE_FILE')); print(d.get('channels',{}).get('$CHANNEL',{}).get('current',{}).get('stage','unknown'))" 2>/dev/null)
-                CURRENT_ERA=$(python3 -c "import json; d=json.load(open('$STATE_FILE')); print(d.get('channels',{}).get('$CHANNEL',{}).get('current',{}).get('era','unknown'))" 2>/dev/null)
-                CURRENT_STATUS=$(python3 -c "import json; d=json.load(open('$STATE_FILE')); print(d.get('channels',{}).get('$CHANNEL',{}).get('current',{}).get('status','unknown'))" 2>/dev/null)
-                CURRENT_OP=$(python3 -c "import json; d=json.load(open('$STATE_FILE')); print(d.get('channels',{}).get('$CHANNEL',{}).get('current',{}).get('operation','unknown'))" 2>/dev/null)
-            fi
+            # Python extraction for V2 format
+            CURRENT_STAGE=$(python3 -c "import json; d=json.load(open('$STATE_FILE_V2')); print(d.get('channels',{}).get('$CHANNEL',{}).get('current',{}).get('stage','unknown'))" 2>/dev/null)
+            CURRENT_ERA=$(python3 -c "import json; d=json.load(open('$STATE_FILE_V2')); print(d.get('channels',{}).get('$CHANNEL',{}).get('current',{}).get('era','unknown'))" 2>/dev/null)
+            CURRENT_STATUS=$(python3 -c "import json; d=json.load(open('$STATE_FILE_V2')); print(d.get('channels',{}).get('$CHANNEL',{}).get('current',{}).get('status','unknown'))" 2>/dev/null)
+            CURRENT_OP=$(python3 -c "import json; d=json.load(open('$STATE_FILE_V2')); print(d.get('channels',{}).get('$CHANNEL',{}).get('current',{}).get('operation','unknown'))" 2>/dev/null)
 
-            # Inject workflow context (auto-inject only, per user preference)
+            # Inject V2 workflow context
             if [[ "$CURRENT_STAGE" != "unknown" && "$CURRENT_STAGE" != "null" ]]; then
                 echo ""
                 echo "<workflow_context>"
-                echo "Channel: $CHANNEL"
-                echo "Current Pipeline State:"
-                echo "  Stage: $CURRENT_STAGE"
-                echo "  Era: $CURRENT_ERA"
+                echo "Channel: $CHANNEL (V2 state)"
+                echo "  Stage: $CURRENT_STAGE | Era: $CURRENT_ERA | Status: $CURRENT_STATUS"
                 echo "  Operation: $CURRENT_OP"
-                echo "  Status: $CURRENT_STATUS"
-                echo ""
-                echo "Detected workflow keywords in prompt. Relevant stage skill:"
-                echo "  .claude/skills/workflow/stage${CURRENT_STAGE%%.*}.md"
-                echo ""
-                echo "State file: .workflow_state.json (updated automatically)"
+                echo "Skill: .claude/skills/workflow/stage${CURRENT_STAGE%%.*}.md"
                 echo "</workflow_context>"
                 echo ""
+                V3_INJECTED=true
             fi
         fi
     fi
 
-    # Original banner (shown if no state or as fallback)
-    if [[ ! -f "$STATE_FILE" ]] || [[ -z "$CHANNEL" ]] || [[ "$CURRENT_STAGE" == "unknown" ]]; then
+    # Show fallback banner only if no state injected
+    if [[ "$V3_INJECTED" != "true" ]]; then
         echo ""
         echo "═══════════════════════════════════════════════════════════════════════"
-        echo "🎯 SKILL ACTIVATION CHECK: workflow skill may be relevant"
+        echo "WORKFLOW SKILL: Detected workflow keywords in prompt"
         echo "═══════════════════════════════════════════════════════════════════════"
         echo ""
-        echo "Detected workflow-related keywords in your prompt."
+        echo "No workflow state found. Initialize with:"
+        echo "  python3 plotting/workflow_state_v3.py --init --channel 1tau1l \\"
+        echo "    --config config/analysis_config_1tau1l_TTBBtest.yaml --eras 2017"
         echo ""
-        echo "Consider using the workflow skill (.claude/skills/workflow.md) for:"
-        echo "  - Correct environment setup (source setEnv_newNew.sh vs cmsenv)"
-        echo "  - Required flags (--config and --era, --sys for systematics)"
-        echo "  - Stage-specific commands: OS (Stage 1), MV (2), WH (3), PL (4)"
-        echo "  - Fake tau/lepton regeneration requirements"
-        echo "  - Python pattern: use workflow_utils for config handling"
-        echo ""
-        echo "Python scripts MUST use workflow_utils:"
-        echo "  from workflow_utils import load_config, get_options, ..."
-        echo ""
-        echo "Usage: Skill 'workflow' or read .claude/skills/workflow.md"
+        echo "Or use workflow skill: .claude/skills/workflow/"
         echo "═══════════════════════════════════════════════════════════════════════"
         echo ""
     fi
