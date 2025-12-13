@@ -1,7 +1,7 @@
 # Tasks: Workflow Optimization V3
 
 **Created**: 2025-12-12
-**Last Updated**: 2025-12-12
+**Last Updated**: 2025-12-13
 **Status**: IN PROGRESS
 
 ---
@@ -75,16 +75,18 @@ Add combination stages to automate Run2 datacard generation.
 - [ ] Add Stage 4.4.2 support for 3-channel combination
 - [ ] Update `plotting/workflow_state_v3.py`: Multi-channel state tracking
 
-## Phase 7: 1tau0l Run2 Pipeline 🔄 IN PROGRESS
+## Phase 7: 1tau0l Run2 Pipeline ✅ COMPLETE
 
 ### Status
 - [x] Initialized workflow state for 1tau0l (all 4 eras)
 - [x] Stage 3 (WH) complete for all 4 eras (71 nominal files each)
-- [ ] Stage 4.1-4.2 for 2017, 2016preVFP, 2016postVFP (2018 already done)
-- [ ] Stage 4.3 (smooth) - requires all eras
-- [ ] Stage 4.4 (datacard)
-- [ ] Stage 4.4.1 (Run2 combination)
-- [ ] Stage 4.5 (combine fits)
+- [x] Stage 4.1-4.2 for 2017, 2016preVFP, 2016postVFP (2018 already done)
+- [x] Stage 4.3 (smooth) - fixed ttbb pdf_alphas exclusion
+- [x] Stage 4.4 (datacard) - all 4 eras
+- [x] Stage 4.4.1 (Run2 combination)
+- [x] Stage 4.5 (combine fits) - Results: observed sig=0, expected sig=0.196
+- [x] Stage 4.6 (postfit plots) - generated for both channels
+- [ ] Impacts running in background
 
 ### New Stage Flow
 ```
@@ -247,3 +249,31 @@ Cross-Channel: 4.4.2 (combine 3 channels → 3-channel datacard)
   - Initialized state for 1tau0l (all 4 eras)
   - Current status: 2018 has templates, 2017/2016preVFP/2016postVFP need Stage 4.1-4.2
 - **Next**: Run 1tau0l Stage 4.1-4.4.1, then 3-channel combination
+
+### Session 13 (2025-12-13)
+- **1tau0l Run2 Full Pipeline Complete**:
+  - Stage 4.1 (addJES): Completed for 2017, 2016preVFP, 2016postVFP
+  - Stage 4.2 (addTemplate): Completed for all 4 eras
+  - Stage 4.3 (smooth): Fixed ttbb pdf_alphas exclusion issue
+    - Root cause: writeDatacard.py excludes pdf_alphas for ttbb (negative norms)
+    - Fix: Added `processes_no_pdf_alphas` config to smooth_systematics_fourTops.py
+  - Stage 4.4 (writeDatacard): Completed for all 4 eras
+  - Stage 4.4.1 (Run2 combination): Generated `hua/combine/combinationV21/run2_1tau0l_v4/datacard.txt`
+  - Stage 4.5 (combine fits): Results:
+    - Observed significance: 0
+    - Expected significance: 0.196
+    - Best fit r: ~0 (no excess)
+  - Stage 4.6 (postfit plots): Generated for both 1tau0l and 1tau1l
+- **Bug Fixes**:
+  - `smooth_systematics_fourTops.py`: Added `processes_no_pdf_alphas` to exclude ttbb from pdf_alphas
+  - `run_workflow_auto.py`: Fixed stage ordering (4.5=combine, 4.6=postfit, 4.7=plots)
+  - `runCombineAll.py`: Fixed relative path bug in runImpact (now uses absolute paths)
+  - `run_combine_fits.sh`: Added `exp_significance` to default steps
+  - `stage4-combine.md`: Updated S4.6 to use `plotting/pl_postFit.py`
+- **Commits**:
+  - `0a741ef5`: fix: Exclude ttbb from pdf_alphas smoothing and reorder stages 4.5-4.7
+  - `d3ccbcf1`: feat: Add exp_significance step to combine fits script
+  - `fb5ef4eb`: fix: Use absolute paths in runImpact and update stage4 skill
+- **State.json updated** to v3.4 with both channels complete through S4.5
+- **Impacts running in background** for both channels
+- **TODO noted**: Update run_workflow_auto.py for multi-channel support (deferred)
