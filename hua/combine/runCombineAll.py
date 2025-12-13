@@ -167,8 +167,8 @@ Examples:
     parser.add_argument('--no-blind', '--ifBlind=False', dest='ifBlind', action='store_false',
                         help='Run unblinded analysis (use observed data)')
     parser.add_argument('--steps', nargs='+',
-                        choices=['workspace', 'limits', 'significance', 'impacts', 'postfit', 'signal_strength', 'gof'],
-                        help='Run only specific steps (default: all)')
+                        choices=['workspace', 'limits', 'significance', 'exp_significance', 'impacts', 'postfit', 'signal_strength', 'gof'],
+                        help='Run only specific steps (default: all except exp_significance)')
     parser.add_argument('--skip-impacts', action='store_true',
                         help='Skip impact calculation (can be time-consuming)')
     parser.add_argument('--ifVLL', '--VLL', dest='ifVLL', action='store_true',
@@ -230,6 +230,13 @@ Examples:
             logger.info("STEP 3: Calculating significance")
             logger.info("="*80)
             runCombineSig(working_cardDir, False, ifBlind, ifVLL, channel)
+
+        # Step 3b: Calculate expected significance (always uses Asimov dataset)
+        if 'exp_significance' in steps:
+            logger.info("\n" + "="*80)
+            logger.info("STEP 3b: Calculating expected significance")
+            logger.info("="*80)
+            runCombineSig(working_cardDir, False, True, ifVLL, channel)  # Force ifBlind=True for expected
 
         # Step 4: Impact plots (time-consuming, can be skipped)
         if 'impacts' in steps and not args.skip_impacts:

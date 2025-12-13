@@ -62,13 +62,18 @@ class WorkflowAutomation:
     # Stage order for progression
     # Note: Stage 3 submits nominal+systematics together (--systematic complete) for parallel execution
     # Note: Stage 4.3 (smooth) requires ALL eras to have templates - it's a sync point
-    STAGE_ORDER = ['1', '1.1', '2', '2.1', '3', '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', 'complete']
+    # Note: Stage 4.4.1 (combineDatacard) combines 4 eras into 1-channel Run2 datacard
+    # Note: Stage 4.4.2 (combineDatacard 3-channel) combines 3 channels' Run2 datacards
+    STAGE_ORDER = ['1', '1.1', '2', '2.1', '3', '4.1', '4.2', '4.3', '4.4', '4.4.1', '4.5', '4.6', '4.7', 'complete']
 
     # Stages that submit jobs and require waiting
     JOB_STAGES = {'1', '1.1', '2', '2.1', '3'}
 
     # Stages that require all eras to be at the same point (sync points)
-    SYNC_STAGES = {'4.3'}  # smooth_systematics needs all eras' templates
+    SYNC_STAGES = {'4.3', '4.4.1'}  # smooth_systematics and combineDatacard need all eras
+
+    # Stages that require all channels to be at the same point (cross-channel sync)
+    CROSS_CHANNEL_STAGES = {'4.4.2'}  # 3-channel combination
 
     # Channels that require smoothing (mandatory)
     SMOOTH_CHANNELS = {'1tau1l', '1tau0l'}
@@ -84,6 +89,7 @@ class WorkflowAutomation:
         '4.2': 'addTemplate',
         '4.3': 'smooth systematics',
         '4.4': 'writeDatacard',
+        '4.4.1': 'combineDatacard (1-channel Run2)',
         '4.5': 'plots',
         '4.6': 'combine',
         '4.7': 'postfit plots',
@@ -287,6 +293,10 @@ class WorkflowAutomation:
         # Run command
         self.log(f"Running: {' '.join(cmd[:5])}...")  # First 5 parts for readability
 
+        # Stage 3 with systematics takes ~10-20 mins to submit - run in background
+        if stage == '3':
+            return self._submit_wh_background(era, config, channel)
+
         returncode, stdout, stderr = self.run_command(cmd)
 
         if returncode == 0:
@@ -336,9 +346,82 @@ class WorkflowAutomation:
         }
         return commands.get(stage)
 
+    def _submit_wh_background(self, era: str, config: str, channel: str) -> bool:
+        """
+        Submit Stage 3 (WH) jobs in background.
+
+        WH with systematics takes 10-20 minutes to submit all jobs.
+        This method starts submission in background and polls for job appearances.
+
+        Args:
+            era: Era to process
+            config: Config file path
+            channel: Channel name
+
+        Returns:
+            True if submission started successfully
+        """
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_file = self.project_root / ".workflow" / f"wh_{channel}_{era}_{timestamp}.log"
+
+        # Build command
+        cmd = f'''
+cd {self.project_root}
+source setEnv_newNew.sh
+cd writeHistGood/jobs
+python3 makeJob_WH.py --config ../../{config} --era {era} --systematic complete --quiet
+'''
+
+        self.log(f"Starting WH submission in background (log: {log_file})")
+        self.state.update_era(era, "3", "submitting", 0)
+
+        try:
+            with open(log_file, 'w') as f:
+                process = subprocess.Popen(
+                    ['bash', '-c', cmd],
+                    stdout=f,
+                    stderr=subprocess.STDOUT,
+                    cwd=self.project_root
+                )
+
+            # Poll for jobs to appear (check every 30s for up to 25 mins)
+            max_wait = 1500  # 25 minutes
+            poll_interval = 30
+            start_time = time.time()
+            initial_jobs = self.get_running_jobs()
+
+            while time.time() - start_time < max_wait:
+                time.sleep(poll_interval)
+
+                # Check if process finished
+                if process.poll() is not None:
+                    if process.returncode == 0:
+                        jobs = self.get_running_jobs()
+                        self.state.update_era(era, "3", "running", jobs)
+                        self.log(f"SUBMITTED: {era} S3 - {jobs} jobs in queue")
+                        return True
+                    else:
+                        self.log(f"WH submission failed (exit code {process.returncode})", "ERROR")
+                        self.state.update_era(era, "3", "failed", 0)
+                        return False
+
+                # Check for new jobs
+                current_jobs = self.get_running_jobs()
+                if current_jobs > initial_jobs:
+                    elapsed = int(time.time() - start_time)
+                    self.log(f"WH submission in progress: {current_jobs} jobs ({elapsed}s elapsed)")
+                    self.state.update_era(era, "3", "submitting", current_jobs)
+
+            self.log("WH submission timeout (25 min)", "ERROR")
+            return False
+
+        except Exception as e:
+            self.log(f"Error starting WH submission: {e}", "ERROR")
+            return False
+
     def run_combine(self, era: str) -> bool:
         """
-        Run Stage 4.5 (combine) with proper CMSSW environment.
+        Run Stage 4.6 (combine) with proper CMSSW environment.
 
         This stage requires special handling:
         - Different environment (cmsenv vs setEnv_newNew.sh)
@@ -358,8 +441,8 @@ class WorkflowAutomation:
             self.log("Error: Workflow not initialized", "ERROR")
             return False
 
-        self.log(f"STARTING: {era} S4.5 (combine) - this may take 1-2 hours")
-        self.state.update_era(era, "4.5", "running", 0)
+        self.log(f"STARTING: {era} S4.6 (combine) - this may take 1-2 hours")
+        self.state.update_era(era, "4.6", "running", 0)
 
         # Create log file
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -391,7 +474,7 @@ bash run_combine_fits.sh ../../{config} {era} {channel}
 
         except Exception as e:
             self.log(f"Error running combine: {e}", "ERROR")
-            self.state.update_era(era, "4.5", "failed", 0)
+            self.state.update_era(era, "4.6", "failed", 0)
             return False
 
     def _wait_for_combine(self, log_file: Path, process: subprocess.Popen,
@@ -417,7 +500,7 @@ bash run_combine_fits.sh ../../{config} {era} {channel}
             if elapsed > timeout:
                 self.log(f"TIMEOUT: combine exceeded {timeout}s, killing...", "ERROR")
                 process.kill()
-                self.state.update_era(era, "4.5", "timeout", 0)
+                self.state.update_era(era, "4.6", "timeout", 0)
                 return False
 
             # Check log file for progress
@@ -447,12 +530,66 @@ bash run_combine_fits.sh ../../{config} {era} {channel}
 
         # Process finished
         if process.returncode == 0:
-            self.log(f"DONE: {era} S4.5 (combine) completed successfully")
-            self.state.update_era(era, "4.5", "done", 0)
+            self.log(f"DONE: {era} S4.6 (combine) completed successfully")
+            self.state.update_era(era, "4.6", "done", 0)
             return True
         else:
-            self.log(f"FAILED: {era} S4.5 (combine) exited with code {process.returncode}", "ERROR")
-            self.state.update_era(era, "4.5", "failed", 0)
+            self.log(f"FAILED: {era} S4.6 (combine) exited with code {process.returncode}", "ERROR")
+            self.state.update_era(era, "4.6", "failed", 0)
+            return False
+
+    def run_combine_datacard(self) -> bool:
+        """
+        Run Stage 4.4.1: Combine 4 eras into 1-channel Run2 datacard.
+
+        This is a sync point - requires all eras to have completed Stage 4.4.
+        Uses CMSSW environment for combineCards.py.
+
+        Returns:
+            True if successful, False otherwise
+        """
+        config = self.state.get_config()
+        channel = self.state.get_channel()
+
+        if not config or not channel:
+            self.log("Error: Workflow not initialized", "ERROR")
+            return False
+
+        self.log(f"STARTING: S4.4.1 (combineDatacard) - combining 4 eras for {channel}")
+
+        # Build command with CMSSW environment
+        cmd = f'''
+cd {self.project_root}/hua/combine/
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+eval `scramv1 runtime -sh`
+python3 writeCombinationDatacard.py --config ../../{config} --channel {channel} --quiet
+'''
+
+        try:
+            result = subprocess.run(
+                ['bash', '-c', cmd],
+                cwd=self.project_root,
+                capture_output=True,
+                text=True,
+                timeout=600  # 10 minute timeout
+            )
+
+            if result.returncode == 0:
+                self.log(f"DONE: S4.4.1 (combineDatacard) for {channel}")
+                # Update all eras to 4.4.1 done
+                for era in self.state.get_eras():
+                    self.state.update_era(era, "4.4.1", "done", 0)
+                return True
+            else:
+                self.log(f"FAILED: S4.4.1 (combineDatacard)", "ERROR")
+                self.log(f"stderr: {result.stderr[:500]}", "ERROR")
+                return False
+
+        except subprocess.TimeoutExpired:
+            self.log(f"TIMEOUT: S4.4.1 (combineDatacard) exceeded 10 minutes", "ERROR")
+            return False
+        except Exception as e:
+            self.log(f"Error running combineDatacard: {e}", "ERROR")
             return False
 
     def get_next_stage(self, current_stage: str) -> Optional[str]:
@@ -523,8 +660,22 @@ bash run_combine_fits.sh ../../{config} {era} {channel}
                     self.state.mark_complete(era)
                     break
 
-                # Handle Stage 4.5 specially (combine)
-                if next_stage == "4.5":
+                # Handle Stage 4.4.1 specially (combineDatacard - sync point)
+                if next_stage == "4.4.1":
+                    # Check if all eras are at 4.4 done before running
+                    all_eras_ready = all(
+                        self.state.get_era_status(e).get("stage") == "4.4" and
+                        self.state.get_era_status(e).get("status") == "done"
+                        for e in self.state.get_eras()
+                    )
+                    if not all_eras_ready:
+                        self.log(f"Skipping {era} S4.4.1 - not all eras at S4.4 done yet")
+                        break
+                    if not self.run_combine_datacard():
+                        all_success = False
+                        break
+                # Handle Stage 4.6 specially (combine fits)
+                elif next_stage == "4.6":
                     if not self.run_combine(era):
                         all_success = False
                         break

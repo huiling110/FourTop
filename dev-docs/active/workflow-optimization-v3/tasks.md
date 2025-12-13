@@ -52,24 +52,39 @@
 - [ ] Update `CLAUDE.md` if needed (no changes required)
 - [ ] Final commit
 
-## Phase 6: Run2 Combination Support 🔄 IN PROGRESS
+## Phase 6: Run2 Combination Support ✅ COMPLETE (1tau1l)
 
 Add combination stages to automate Run2 datacard generation.
 
-### Prerequisites
-- [ ] 1tau1l 2017: Complete Stage 3 → 4.2 (currently at S3)
-- [x] 1tau1l 2018: Stage 4.5 done
-- [x] 1tau1l 2016preVFP: Stage 4.5 done
-- [x] 1tau1l 2016postVFP: Stage 4.2 done
+### Prerequisites - 1tau1l ✅
+- [x] 1tau1l 2017: Stage 4.4 done
+- [x] 1tau1l 2018: Stage 4.4 done
+- [x] 1tau1l 2016preVFP: Stage 4.4 done
+- [x] 1tau1l 2016postVFP: Stage 4.4 done
+- [x] 1tau1l Run2 combination: Stage 4.4.1 done
+- [x] 1tau1l combine fits: Stage 4.5 done (sig=0.549σ, obs limit=5.61)
 
 ### Implementation
 - [x] Update `config/analysis_config_1tau1l_TTBBtest.yaml`: datacard → `v1_ttbb_smoothing`
 - [x] Update `run_workflow_auto.py`: Add STAGE_ORDER, STAGE_NAMES for 4.4.1
 - [x] Add `run_combine_datacard()` method for Stage 4.4.1 (cmsenv handling)
 - [x] Update `.claude/skills/workflow/overview.md` with Stage 4.4.1
+- [x] Stage reordering: 4.5=combine, 4.6=postfit, 4.7=plots
+- [x] Added `exp_significance` step to runCombineAll.py
 - [ ] Modify `hua/combine/writeCombinationDatacard.py`: Add --mode 1channel/3channel
 - [ ] Add Stage 4.4.2 support for 3-channel combination
 - [ ] Update `plotting/workflow_state_v3.py`: Multi-channel state tracking
+
+## Phase 7: 1tau0l Run2 Pipeline 🔄 IN PROGRESS
+
+### Status
+- [x] Initialized workflow state for 1tau0l (all 4 eras)
+- [x] Stage 3 (WH) complete for all 4 eras (71 nominal files each)
+- [ ] Stage 4.1-4.2 for 2017, 2016preVFP, 2016postVFP (2018 already done)
+- [ ] Stage 4.3 (smooth) - requires all eras
+- [ ] Stage 4.4 (datacard)
+- [ ] Stage 4.4.1 (Run2 combination)
+- [ ] Stage 4.5 (combine fits)
 
 ### New Stage Flow
 ```
@@ -203,3 +218,32 @@ Cross-Channel: 4.4.2 (combine 3 channels → 3-channel datacard)
   - Run Stage 4.1-4.2 for 2017
   - Run Stage 4.3-4.4-4.4.1 for all 4 eras
 - **TODO**: Clean up unnecessary scripts from previous workflow optimization (v1, v2)
+
+### Session 12 (2025-12-13)
+- **1tau1l Run2 Full Pipeline Complete**:
+  - 2017 WH completed (71 nominal + all systematics)
+  - Stage 4.1-4.4 run for all 4 eras
+  - Stage 4.4.1 (Run2 combination): Generated `hua/combine/combinationV21/run2_1tau1l_v4/datacard.txt`
+  - Stage 4.5 (combine fits): Completed with results:
+    - Significance: 0.549σ
+    - Expected limit: 4.72 (median)
+    - Observed limit: 5.61
+- **Hook+Skill System Enhancement (Option D)**:
+  - Added concrete paths to state.json (V3.1)
+  - Updated CLAUDE.md with rule #7: "Workflow state first"
+  - Hook now injects `<paths era="...">` with hist_dir and verification commands
+  - Created `.claude/docs/hook-skill-system.md` documentation
+  - Commit: `efcde8e8 feat: Enhance hook+skill system with concrete paths (V3.1)`
+- **Stage Reordering** (commit `082b87ff`):
+  - 4.5 = combine fits (was plots)
+  - 4.6 = postfit
+  - 4.7 = plots (was combine)
+- **runCombineAll.py Enhancement**:
+  - Added `exp_significance` step for expected significance (always Asimov)
+- **Bug Fixes**:
+  - `writeCombinationDatacard.py`: Fixed `build_datacard_path()` args (was passing 3, takes 2)
+  - `writeCombinationDatacard.py`: Fixed config reading for combination version (`versions.combination`)
+- **Started 1tau0l workflow**:
+  - Initialized state for 1tau0l (all 4 eras)
+  - Current status: 2018 has templates, 2017/2016preVFP/2016postVFP need Stage 4.1-4.2
+- **Next**: Run 1tau0l Stage 4.1-4.4.1, then 3-channel combination
