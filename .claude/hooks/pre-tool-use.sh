@@ -41,22 +41,26 @@ if [[ "$command_str" =~ ^(ls|cd|pwd|cat|head|tail|grep|find|mkdir|rm|cp|mv|git|h
     exit 0
 fi
 
-# Check if command involves Python analysis scripts
-if [[ "$command_str" =~ python.*plotting/ || "$command_str" =~ python.*writeHistGood/ || "$command_str" =~ python.*makeVariables/ || "$command_str" =~ python.*objectSelectionOptimized/jobs/ ]]; then
+# Check if command involves Python analysis scripts (excluding hua/combine/)
+if [[ "$command_str" =~ python.*plotting/ || "$command_str" =~ python.*writeHistGood/ || "$command_str" =~ python.*makeVariables/ || "$command_str" =~ python.*objectSelectionOptimized/jobs/ ]] && [[ ! "$command_str" =~ python.*hua/combine ]]; then
     # Check if ROOT is available (indicates environment is set up)
     if ! command -v root &> /dev/null; then
         echo ""
         echo "═══════════════════════════════════════════════════════════════════════"
-        echo "⚠️  ENVIRONMENT CHECK: ROOT not found in PATH"
+        echo "❌ ENVIRONMENT ERROR: setEnv_newNew.sh not sourced!"
         echo "═══════════════════════════════════════════════════════════════════════"
         echo ""
-        echo "You may need to source the environment first:"
-        echo "  source setEnv_newNew.sh"
+        echo "REQUIRED: Source environment before running Python analysis scripts:"
+        echo "  source setEnv_newNew.sh && python3 ..."
+        echo ""
+        echo "Example:"
+        echo "  source setEnv_newNew.sh && python3 plotting/addJESTemplatesToHistFile.py --config ..."
         echo ""
         echo "Exception: For hua/combine/ scripts, use 'cmsenv' instead."
         echo "═══════════════════════════════════════════════════════════════════════"
         echo ""
-        # Don't block, just warn (exit 0)
+        # Block the command - exit with error
+        exit 1
     fi
 fi
 

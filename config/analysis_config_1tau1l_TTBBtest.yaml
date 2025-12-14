@@ -12,7 +12,7 @@ versions:
   stage1: "v94HadroPreJetVetoHemOnly_TTBBtest"  # Object selection output
   stage2: "v1baselineHadro"                      # Variable calculation output
   hist: "v0BDT1tau1l_TTBBtest"                   # Histogram version
-  datacard: "v0_ttbb_nosmoothing"                        # Datacard version
+  datacard: "v1_ttbb_smoothing"                          # Datacard version
   combination: "combinationV21"                  # Combine version
 
 # Channel name (simple string, not dict)
@@ -31,7 +31,7 @@ options:
   mc_fake_tau: false
   blind: false
   systematics: true  # Enabled for Phase 8 testing
-  smoothing: false
+  smoothing: true
   ifVLL: false  # Don't process VLL samples in WH jobs
 
 # Base paths

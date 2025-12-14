@@ -46,12 +46,12 @@
       "Edit(~/.ssh/**)"
     ],
     "allow": [
-      "Bash(*)",
-      "Edit(*)",
-      "Write(*)",
-      "Read(*)",
-      "Glob(**)",
-      "Grep(**)"
+      "Bash",
+      "Edit",
+      "Write",
+      "Read",
+      "Glob",
+      "Grep"
     ]
   },
   "hooks": {
@@ -123,9 +123,9 @@
     "  - Writing to read-only NanoAOD data: /publicfs/cms/data/**",
     "",
     "ALLOW RULES (Everything else):",
-    "  - Bash(*) - All bash commands except explicitly denied",
-    "  - Edit(*), Write(*), Read(*) - All file operations",
-    "  - Glob(**), Grep(**) - All search operations",
+    "  - Bash - All bash commands except explicitly denied",
+    "  - Edit, Write, Read - All file operations",
+    "  - Glob, Grep - All search operations",
     "",
     "SAFETY PHILOSOPHY:",
     "  1. Deny list takes absolute priority - explicitly blocked operations cannot run",
