@@ -1,3 +1,7 @@
+---
+description: Review recently modified Python files for code quality issues
+---
+
 # Review Code Quality
 
 Review recently modified Python files for code quality issues.

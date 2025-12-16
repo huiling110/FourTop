@@ -3,39 +3,34 @@
     "defaultMode": "acceptEdits",
     "deny": [
       "Bash(rm -rf /)",
-      "Bash(rm -rf /*)",
+      "Bash(rm -rf /:*)",
       "Bash(rm -rf ~)",
-      "Bash(rm -rf ~/*)",
-      "Bash(rm -rf /publicfs/*)",
-      "Bash(rm -rf /workfs*)",
-      "Bash(sudo *)",
+      "Bash(rm -rf ~/:*)",
+      "Bash(rm -rf .)",
+      "Bash(rm -rf ./)",
+      "Bash(rm -rf /publicfs:*)",
+      "Bash(rm -rf /workfs:*)",
+      "Bash(sudo :*)",
+      "Bash(sudo:*)",
       "Bash(:(){ :|:& };:)",
-      "Bash(chmod -R 000 *)",
-      "Bash(chmod -R 777 *)",
-      "Bash(chown *)",
-      "Bash(git push --force * master)",
-      "Bash(git push --force * main)",
-      "Bash(git push -f * master)",
-      "Bash(git push -f * main)",
-      "Bash(git reset --hard HEAD~*)",
-      "Bash(git clean -fd)",
-      "Bash(* | xargs rm *)",
-      "Bash(* | xargs rm)",
-      "Bash(find * -delete)",
-      "Bash(find * -exec rm *)",
-      "Bash(* && rm -rf *)",
-      "Bash(* && sudo *)",
-      "Bash(* && chmod -R 000 *)",
-      "Bash(* && chmod -R 777 *)",
-      "Bash(* && chown *)",
-      "Bash(* && git push --force *)",
-      "Bash(* && git push -f *)",
-      "Bash(* && git reset --hard *)",
-      "Bash(* && git clean -fd)",
-      "Bash(* && find * -delete)",
-      "Bash(* && * | xargs rm)",
-      "Bash(rm * && *)",
-      "Bash(sudo * && *)",
+      "Bash(chmod -R 000:*)",
+      "Bash(chmod -R 777:*)",
+      "Bash(chown :*)",
+      "Bash(mkfs:*)",
+      "Bash(dd if=:*)",
+      "Bash(dd of=:*)",
+      "Bash(shutdown:*)",
+      "Bash(reboot:*)",
+      "Bash(halt:*)",
+      "Bash(poweroff:*)",
+      "Bash(kill -9 -1)",
+      "Bash(pkill -9:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push origin +:*)",
+      "Bash(git reset --hard HEAD~:*)",
+      "Bash(git clean -fd:*)",
+      "Bash(> /)",
       "Write(/publicfs/cms/data/**)",
       "Edit(/publicfs/cms/data/**)",
       "Write(/etc/**)",
@@ -46,7 +41,6 @@
       "Edit(~/.ssh/**)"
     ],
     "allow": [
-      "Bash",
       "Edit",
       "Write",
       "Read",
@@ -55,89 +49,38 @@
     ]
   },
   "hooks": {
-    "userPromptSubmit": {
-      "command": "bash",
-      "args": [".claude/hooks/user-prompt-submit.sh"],
-      "env": {
-        "USER_PROMPT": "{{user_prompt}}",
-        "PROJECT_ROOT": "{{project_root}}"
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.claude/hooks/user-prompt-submit.sh"
+          }
+        ]
       }
-    },
-    "preToolUse": {
-      "command": "bash",
-      "args": [".claude/hooks/pre-tool-use.sh"],
-      "env": {
-        "TOOL_NAME": "{{tool_name}}",
-        "BASH_COMMAND": "{{bash_command}}",
-        "PROJECT_ROOT": "{{project_root}}"
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.claude/hooks/pre-tool-use.sh"
+          }
+        ]
       }
-    },
-    "postToolUse": {
-      "command": "bash",
-      "args": [".claude/hooks/post-tool-use.sh"],
-      "env": {
-        "TOOL_NAME": "{{tool_name}}",
-        "FILE_PATH": "{{file_path}}",
-        "PROJECT_ROOT": "{{project_root}}"
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/.claude/hooks/post-tool-use.sh"
+          }
+        ]
       }
-    }
-  },
-  "codeQuality": {
-    "python": {
-      "maxFunctionLines": 80,
-      "recommendedFunctionLines": 50,
-      "maxNestingDepth": 5,
-      "recommendedNestingDepth": 3,
-      "maxBranches": 20,
-      "recommendedBranches": 10,
-      "maxFileLines": 1000,
-      "recommendedFileLines": 500
-    },
-    "cpp": {
-      "maxFunctionLines": 150,
-      "maxFileLines": 800
-    }
-  },
-  "comments": [
-    "=== UPDATED 2025-12-11: Deny-list approach for zero prompts ===",
-    "",
-    "STRATEGY: Deny-List Approach (Simplified)",
-    "  - Allow everything by default: Bash(*), Edit(*), Write(*), Read(*), Glob(**), Grep(**)",
-    "  - Explicit deny rules block dangerous operations only",
-    "  - Zero prompts for normal workflow commands",
-    "  - Maximum flexibility with safety guarantee",
-    "",
-    "DENY RULES (Priority: Blocks dangerous operations):",
-    "  - System-wide deletions: rm -rf /, /publicfs/*, /workfs*, ~/*",
-    "  - Sudo commands: elevation to root",
-    "  - Fork bombs and malicious patterns",
-    "  - Destructive permission changes: chmod -R 000/777, chown",
-    "  - Force-pushing to main/master branches",
-    "  - Hard git resets and aggressive cleanup: git reset --hard, git clean -fd",
-    "  - Piped deletions: | xargs rm, find -delete, find -exec rm",
-    "  - Compound dangerous operations:",
-    "    - * && rm -rf *, * && sudo *, * && chmod -R 000/777 *",
-    "    - * && git push --force *, * && git reset --hard *",
-    "    - rm * && *, sudo * && * (dangerous commands first in chain)",
-    "  - Writing to system directories: /etc/**, /usr/**, ~/.ssh/**",
-    "  - Writing to read-only NanoAOD data: /publicfs/cms/data/**",
-    "",
-    "ALLOW RULES (Everything else):",
-    "  - Bash - All bash commands except explicitly denied",
-    "  - Edit, Write, Read - All file operations",
-    "  - Glob, Grep - All search operations",
-    "",
-    "SAFETY PHILOSOPHY:",
-    "  1. Deny list takes absolute priority - explicitly blocked operations cannot run",
-    "  2. Everything else allowed without prompts",
-    "  3. Simpler configuration, easier to maintain",
-    "  4. Deny rules protect critical system areas and destructive operations",
-    "  5. User productivity maximized - no interruptions for safe operations",
-    "",
-    "HOOKS:",
-    "  - userPromptSubmit: Auto-inject workflow context based on keywords",
-    "  - preToolUse: Check environment setup before running analysis scripts",
-    "  - postToolUse: Code quality checks after Edit/Write operations",
-    "  See .claude/hooks/ and .claude/skills/ for implementations"
-  ]
+    ]
+  }
 }
