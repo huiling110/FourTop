@@ -22,7 +22,7 @@
 class treeAnalyzer
 {
 public:
-    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", TString channel="1tau1l", Bool_t isTest = kTRUE, Bool_t ifSys=kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_channel{channel}, m_isTest{isTest}, m_ifSys{ifSys}
+    treeAnalyzer(const TString inputDir, const TString process, TString outVersion = "v0", TString channel="1tau1l", Bool_t isTest = kTRUE, Bool_t ifSys=kTRUE) : m_inputDir{inputDir}, m_processName{process}, m_histVersion{outVersion}, m_channel{channel}, m_isTest{isTest}, m_ifSys{ifSys}
     {
         if (!m_file || m_file->IsZombie())
         {
@@ -73,6 +73,7 @@ public:
 private:
     TString m_inputDir;
     TString m_processName;
+    TString m_histVersion;
     TString m_channel;
     Bool_t m_isTest = kTRUE;
     TTree *m_tree;

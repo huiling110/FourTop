@@ -10,14 +10,23 @@ ROOTGLIBS = $(shell root-config --glibs)
 
 TMVALIBS = -lTMVA
 
-MYLIB = -L/afs/ihep.ac.cn/users/t/turuobing/CMSSW_10_6_20/src/FourTop/myLibrary/ -lcommenFunction
+# Local library path (updated)
+MYLIB = -L/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/myLibrary/ -lcommenFunction
+
+# WH (writeHistGood) directories for selection/weight consistency
+WH_DIR = ../../../writeHistGood
+WH_INC = -I$(WH_DIR)/include -I$(WH_DIR)
+WH_OBJ = $(WH_DIR)/obj/commenSelectionAndWeight.o
+
 # Compiler flags (optional)
 CXXFLAGS = -O3 -Wall -fPIC -g -std=c++17
-CXXFLAGS += $(ROOTCFLAGS) 
+CXXFLAGS += $(ROOTCFLAGS)
+CXXFLAGS += $(WH_INC)
 
 LIBS = $(ROOTLIBS)
 LIBS += $(TMVALIBS)
 LIBS += $(MYLIB)
+LIBS += $(WH_OBJ)
 
 # Source file
 SOURCE = tmvaBDT_training.C

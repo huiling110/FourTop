@@ -63,6 +63,22 @@ inline const    std::map<TString, std::array<TString, 2>> FRfileMap = {
         {"2017", {"/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_1prong/results/fakeRateInPtEta_sumGenBG_newBin.root", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v0baseline_v57ovelapWithTausF/mc/variableHists_v0FR_measureVR_3prong/results/fakeRateInPtEta_sumGenBG_newBin.root"}},
 };
 
+// BDT with TTBB training - 1tau1l (cross-era: 2018 uses 2017 training, others use 2018)
+inline const std::map<TString, std::array<TString, 2>> BDT1tau1l_TTBBtrain = {
+    {"2018", {"/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/BDTTrain/v1BDTttbb/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
+    {"2017", {"/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/BDTTrain/v1BDTttbb/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
+    {"2016preVFP", {"/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/BDTTrain/v1BDTttbb/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
+    {"2016postVFP", {"/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/BDTTrain/v1BDTttbb/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
+};
+
+// BDT with TTBB training - 1tau0l (cross-era: 2018 uses 2017 training, others use 2018)
+inline const std::map<TString, std::array<TString, 2>> BDT1tau0l_TTBBtrain = {
+    {"2018", {"/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_finalFinal25.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/BDTTrain/v1BDTttbb/inputList_finalFinal25.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
+    {"2017", {"/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_finalFinal25.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/BDTTrain/v1BDTttbb/inputList_finalFinal25.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
+    {"2016preVFP", {"/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_finalFinal25.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/BDTTrain/v1BDTttbb/inputList_finalFinal25.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
+    {"2016postVFP", {"/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_finalFinal25.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/BDTTrain/v1BDTttbb/inputList_finalFinal25.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
+};
+
 inline const std::map<TString, std::array<TString, 2>> BDT1tau0l = {
     // {"2018", {"/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v2cut1tau0lSRTauF_v79HadroPresel/mc/BDTTrain/v1final26Var/inputList_1tau0l_final26.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},
     // {"2017", {"/workfs2/cms/huahuil/CMSSW_10_6_20/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l_final26.csv", "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v2cut1tau0lSRTauF_v76WithVLLAllMass/mc/BDTTrain/v1final26Var/inputList_1tau0l_final26.csv/dataset/weight/TMVAClassification_BDT.weights.xml"}},

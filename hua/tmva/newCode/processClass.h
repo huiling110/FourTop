@@ -37,6 +37,11 @@ public:
         return m_name;
     }
 
+    TString getInputFile()
+    {
+        return m_file->GetName();
+    }
+
     Double_t getScale(){
         Double_t genWeightSum = TTTT::getGenSum(m_file->GetName());
         Double_t processScale = ((TTTT::lumiMap.at(m_era)* TTTT::crossSectionMap.at(m_name)) / genWeightSum);

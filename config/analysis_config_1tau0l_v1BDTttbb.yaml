@@ -1,0 +1,40 @@
+# FourTop Analysis Configuration - 1tau0l Channel with TTBB-trained BDT
+# Created: 2025-12-16
+# Purpose: BDT retrained with TTBB samples included in background
+
+metadata:
+  name: "1tau0l_v1BDTttbb"
+  description: "BDT retrained with TTBB samples, consistent selection/weight with WH step"
+  created: "2025-12-16"
+
+# Version strings for each pipeline stage
+versions:
+  stage1: "v94HadroPreJetVetoHemOnly_TTBBtest"  # Object selection output
+  stage2: "v1baselineHadro"                      # Variable calculation output
+  hist: "v1BDTttbb_1tau0l"                       # Histogram version (TTBB-trained BDT)
+  datacard: "v1_ttbb_bdtretrain"                 # Datacard version
+  combination: "combinationV22"                  # Combine version
+
+# Channel name (simple string, not dict)
+channel: "1tau0l"
+
+# Eras to process
+eras:
+  - "2018"
+  - "2017"
+  - "2016postVFP"
+  - "2016preVFP"
+
+# Analysis options (normalized key names)
+options:
+  fake_tau: true
+  mc_fake_tau: false
+  blind: false
+  systematics: true
+  smoothing: true
+  ifVLL: false
+
+# Base paths
+paths:
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"

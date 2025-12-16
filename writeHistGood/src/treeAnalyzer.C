@@ -39,14 +39,17 @@ void treeAnalyzer::Init()
             SR1tau1lSys_NotMCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_NotMCFT", bins1tau1l, sysRegions);
         }
 
-        variableList = "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv";
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v80addTTExtra1/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
-        // weightfile = "./input/BDTTraining_1tau1l_27Var/TMVAClassification_BDT.weights.xml";
-        // weightfile = "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final/dataset/weight/TMVAClassification_BDT.weights.xml";
-        weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
-        //!testing
-        // variableList = "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputlist_1tau1l_leading7.csv";
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/withLeading7/inputlist_1tau1l_leading7.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
+        // Select BDT based on hist version
+        if(m_histVersion.Contains("v1BDTttbb")){
+            // TTBB-trained BDT (cross-era)
+            variableList = WH::BDT1tau1l_TTBBtrain.at(m_era).at(0);
+            weightfile = WH::BDT1tau1l_TTBBtrain.at(m_era).at(1);
+            std::cout << "Using TTBB-trained BDT for 1tau1l\n";
+        } else {
+            // Default BDT
+            variableList = "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv";
+            weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1cut1tau1lSR_v84HadroPresel/mc/BDTTrain/v1finalVar27/inputList_1tau1l_final.csv/dataset/weight/TMVAClassification_BDT.weights.xml";
+        }
 
         std::cout << "training input: " << weightfile << "\n";
     }else if(m_channel=="1tau0l"){
@@ -58,10 +61,17 @@ void treeAnalyzer::Init()
         std::vector<Double_t> bins1tau0l = {-0.35, -0.16, -0.12, -0.105, -0.084, -0.063, -0.042, -0.021, 0.0, 0.021, 0.049, 0.091, 0.35} ; //Bin C, optimized,
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.35, 0.35, sysRegions);//!For optimization binnning
-        // variableList = "/workfs2/cms/huahuil/4topCode/CMSSW_10_2_20_UL/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau0l.csv";
-        // weightfile = "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v4cut1tau0l_v75OverlapRemovalFTau/mc/BDTTrain/v0/dataset/weight/TMVAClassification_BDT.weights.xml";
-        variableList = WH::BDT1tau0l.at(m_era).at(0);
-        weightfile = WH::BDT1tau0l.at(m_era).at(1); 
+        // Select BDT based on hist version
+        if(m_histVersion.Contains("v1BDTttbb")){
+            // TTBB-trained BDT (cross-era)
+            variableList = WH::BDT1tau0l_TTBBtrain.at(m_era).at(0);
+            weightfile = WH::BDT1tau0l_TTBBtrain.at(m_era).at(1);
+            std::cout << "Using TTBB-trained BDT for 1tau0l\n";
+        } else {
+            // Default BDT
+            variableList = WH::BDT1tau0l.at(m_era).at(0);
+            weightfile = WH::BDT1tau0l.at(m_era).at(1);
+        } 
 
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";
