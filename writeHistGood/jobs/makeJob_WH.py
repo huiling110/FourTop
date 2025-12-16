@@ -62,8 +62,8 @@ Examples:
   # Nominal histograms:
   python3 makeJob_WH.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --systematic nominal
 
-  # Process data too (nominal only):
-  python3 makeJob_WH.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --systematic nominal --process-data
+  # Skip data processing (nominal includes data by default):
+  python3 makeJob_WH.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --systematic nominal --no-data
 
   # All systematics:
   python3 makeJob_WH.py --config ../../config/analysis_config_1tau0l_TTBBtest.yaml --era 2018 --systematic all
@@ -84,8 +84,8 @@ Examples:
                         choices=['nominal', 'TES', 'JER', 'MET', 'EleScale', 'JES', 'all', 'complete'],
                         default='nominal',
                         help='Systematic to submit (default: nominal). Use "all" for all systematics, "complete" for nominal+all systematics')
-    parser.add_argument('--process-data', action='store_true',
-                        help='Also process data (nominal only)')
+    parser.add_argument('--no-data', action='store_true',
+                        help='Skip data processing (nominal includes data by default)')
     parser.add_argument('--dry-run', action='store_true',
                         help='Show what would be done without submitting')
     parser.add_argument('--quiet', '-q', action='store_true',
@@ -247,8 +247,8 @@ def main():
     args = parser.parse_args()
 
     # Validate arguments
-    if args.process_data and args.systematic != 'nominal':
-        parser.error("--process-data can only be used with --systematic nominal")
+    if args.no_data and args.systematic not in ['nominal', 'complete']:
+        parser.error("--no-data only applies to nominal (systematics never include data)")
 
     config = load_config(args.config)
     eras = [args.era] if args.era else config['eras']
@@ -269,18 +269,18 @@ def main():
         print(f"Eras: {', '.join(eras)}")
         if is_nominal_only:
             print(f"Mode: Nominal only (Stage 3)")
-            if args.process_data:
-                print(f"Processing: MC + Data")
-            else:
+            if args.no_data:
                 print(f"Processing: MC only")
+            else:
+                print(f"Processing: MC + Data")
         elif is_complete:
             print(f"Mode: Complete (Nominal + All Systematics)")
             print(f"Stage 3: Nominal")
             print(f"Stage 3.1: {len(systematics) - 1} systematic variations")
-            if args.process_data:
-                print(f"Processing: MC + Data (nominal), MC only (systematics)")
-            else:
+            if args.no_data:
                 print(f"Processing: MC only")
+            else:
+                print(f"Processing: MC + Data (nominal), MC only (systematics)")
         else:
             print(f"Mode: Systematics only (Stage 3.1)")
             print(f"Systematic group: {args.systematic} ({len(systematics)} variations)")
@@ -298,7 +298,7 @@ def main():
         skipped = 0
         for systematic in systematics:
             if systematic == 'nominal':
-                jobs = submit_nominal(config, era, args.process_data, args.dry_run, args.quiet)
+                jobs = submit_nominal(config, era, not args.no_data, args.dry_run, args.quiet)
                 era_jobs += jobs
             else:
                 # For systematics, always use quiet=True to suppress per-file output

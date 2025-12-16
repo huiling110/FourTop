@@ -9,8 +9,11 @@ cd writeHistGood/jobs/
 # Stage 3: Complete (nominal + all systematics) - RECOMMENDED
 python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic complete
 
-# Stage 3 (nominal only) - for testing
+# Stage 3 (nominal only) - includes MC + Data by default
 python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic nominal
+
+# Stage 3 (nominal, MC only - skip data)
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic nominal --no-data
 
 # Stage 3 (systematics only) - if nominal already done
 python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic all
