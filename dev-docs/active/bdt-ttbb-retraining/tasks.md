@@ -1,7 +1,7 @@
 # BDT Retraining Tasks
 
-## Status: In Progress - Production Jobs Running
-## Last Updated: 2025-12-17 Session 7
+## Status: In Progress - v3BDTttbb WH Jobs Running
+## Last Updated: 2025-12-17 Session 8
 
 ## Phase 1: Setup ✓
 - [x] Create feature branch `addBDTttbb`
@@ -84,14 +84,13 @@ dataloader->PrepareTrainingAndTestTree(commonSRCut, commonSRCut, trainingSetup);
 
 **Fix verified!** TTBB now scores at low BDT values (background-like) as expected.
 
-## Phase 9: Full Production - IN PROGRESS
+## Phase 9: Full Production - BUGS FOUND
 - [x] Fix treeAnalyzer.C version check bug (was checking "v1BDTttbb" but config had "v2BDTttbb")
 - [x] Simplify code to always use TTBB-trained BDT (removed version check)
 - [x] Submit full WH jobs for 2017/2018 (314 jobs total)
 - [x] Verified jobs using correct v2BDTttbb weights via log inspection
-- [ ] Wait for jobs to complete
-- [ ] Generate datacards with pl.py
-- [ ] Run combine fits
+- [x] Jobs completed
+- [x] **BUG FOUND**: Entries not matching WH exactly (2-3% fewer)
 
 ### Bug Fix (2025-12-17 Session 7)
 **Problem**: Jobs were using OLD BDT weights instead of v2BDTttbb
@@ -103,6 +102,49 @@ dataloader->PrepareTrainingAndTestTree(commonSRCut, commonSRCut, trainingSetup);
 **Fix**: Removed version check, always use `BDT1tau1l_TTBBtrain` / `BDT1tau0l_TTBBtrain` maps
 - Commit: `16369fd9 fix: Always use TTBB-trained BDT (v2) for all channels`
 
+### Bug Fix (2025-12-17 Session 8)
+**Problem**: Training entries not matching WH exactly
+| Process | Training | WH | Match |
+|---------|----------|-----|-------|
+| tttt | 76669 | 78674 | NO |
+| fakeTau_data_ptMorphed | 619 | 640 | NO |
+| TTBB_4f_TTTo2L2Nu | 819 | 848 | NO |
+
+**Root Cause**: Baseline cut mismatch
+- Training used: `jets_HT>500 && jets_6pt>40` (hard-coded)
+- WH uses conditional:
+  - If `bjetsM_num < 4`: `jets_HT > 500 && jets_6pt > 40`
+  - If `bjetsM_num >= 4`: `jets_HT > 480 && jets_6pt > 38`
+
+**Fix Applied**: Updated `getSelectionCut()` in `tmvaBDT_training.C`:
+```cpp
+TCut baseCut = "(jets_num>=6 && bjetsM_num>=2) && ((bjetsM_num<4 && jets_HT>500 && jets_6pt>40) || (bjetsM_num>=4 && jets_HT>480 && jets_6pt>38))";
+```
+
+## Phase 10: v3BDTttbb Training - COMPLETED
+- [x] Fix baseline cut to match WH conditional (bjetsM_num<4 vs >=4)
+- [x] Verify entries match WH exactly (all processes: YES)
+- [x] Train 2018 1tau1l BDT (v3BDTttbb) - ROC-integ = 0.778
+- [x] Train 2017 1tau1l BDT (v3BDTttbb) - ROC-integ = 0.798
+- [x] Update inputFileMap.h with v3BDTttbb paths
+- [x] Rebuild WH code and submit 1tau1l jobs (157 jobs: 76 for 2018, 81 for 2017)
+
+## Phase 11: Validation & 1tau0l - IN PROGRESS
+- [ ] Wait for WH jobs to complete
+- [ ] Verify results match WH expectations
+- [ ] If good, retrain for 1tau0l
+- [ ] Move training weights to workfs and update inputFileMap.h (final cleanup)
+
+### Entry Verification (v3BDTttbb)
+| Process | Training | WH | Match |
+|---------|----------|-----|-------|
+| tttt | 78674 | 78674 | YES ✓ |
+| fakeTau_data_ptMorphed | 640 | 640 | YES ✓ |
+| fakeTau_MC_ptMorphed | 48850 | 48850 | YES ✓ |
+| fakeLepton | 28 | 28 | YES ✓ |
+| ttbar_2l | 541 | 541 | YES ✓ |
+| TTBB_4f_TTTo2L2Nu | 848 | 848 | YES ✓ |
+
 ## Resolved Issues
 1. **Global weight missing**: Added processScale ✓
 2. **makeJob_WH.py data handling**: Fixed to include data by default for nominal ✓
@@ -110,3 +152,4 @@ dataloader->PrepareTrainingAndTestTree(commonSRCut, commonSRCut, trainingSetup);
 4. **tttt job timeout**: Completed successfully via screen session ✓
 5. **Training selection mismatch**: Fixed PrepareTrainingAndTestTree to use SR cut ✓
 6. **Version check mismatch**: Simplified to always use TTBB-trained BDT ✓
+7. **Baseline cut mismatch**: Fixed conditional jets_HT/jets_6pt cut based on bjetsM_num ✓

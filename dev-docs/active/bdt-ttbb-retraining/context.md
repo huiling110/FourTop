@@ -99,7 +99,19 @@ Retrain BDT for 1tau1l and 1tau0l channels with:
   - Commit: `16369fd9 fix: Always use TTBB-trained BDT (v2) for all channels`
   - Resubmitted 314 WH jobs (76×2 for 2018, 81×2 for 2017)
   - Verified via log that jobs now use correct v2BDTttbb weights
-  - Jobs running, waiting for completion
+- 2025-12-17 Session 8:
+  - **CRITICAL BUG #2**: Training entries not matching WH exactly (2-3% fewer)
+  - Root cause: Baseline cut mismatch
+    - Training used: `jets_HT>500 && jets_6pt>40` (hard-coded)
+    - WH uses conditional based on bjetsM_num:
+      - If `bjetsM_num < 4`: `jets_HT > 500 && jets_6pt > 40`
+      - If `bjetsM_num >= 4`: `jets_HT > 480 && jets_6pt > 38`
+  - **v3BDTttbb training completed** with exact WH baseline match:
+    - 2018 1tau1l: ROC-integ = 0.778
+    - 2017 1tau1l: ROC-integ = 0.798
+  - Entry verification: ALL processes match WH exactly (tttt: 78674, fakeTau: 640, etc.)
+  - Commit: `a8b29626 fix: v3BDTttbb training with exact WH baseline cut match`
+  - WH jobs resubmitted (76 for 2018, 81 for 2017)
 
 ## Key Commands
 
@@ -118,11 +130,11 @@ ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94H
 grep "training input" /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v2BDTttbb_1tau1l/log/TTZToLLNuNu.log
 ```
 
-## BDT Weight Paths (v2BDTttbb)
+## BDT Weight Paths (v3BDTttbb - current)
 
 | Era | Channel | Weight File |
 |-----|---------|-------------|
-| 2018 | 1tau1l | `.../2017/.../v2BDTttbb/inputList_1tau1l_final.csv/.../TMVAClassification_BDT.weights.xml` |
-| 2017 | 1tau1l | `.../2018/.../v2BDTttbb/inputList_1tau1l_final.csv/.../TMVAClassification_BDT.weights.xml` |
-| 2018 | 1tau0l | `.../2017/.../v2BDTttbb/inputList_finalFinal25.csv/.../TMVAClassification_BDT.weights.xml` |
-| 2017 | 1tau0l | `.../2018/.../v2BDTttbb/inputList_finalFinal25.csv/.../TMVAClassification_BDT.weights.xml` |
+| 2018 | 1tau1l | `.../2017/.../v3BDTttbb/inputList_1tau1l_final.csv/.../TMVAClassification_BDT.weights.xml` |
+| 2017 | 1tau1l | `.../2018/.../v3BDTttbb/inputList_1tau1l_final.csv/.../TMVAClassification_BDT.weights.xml` |
+| 2018 | 1tau0l | (pending v3 training) |
+| 2017 | 1tau0l | (pending v3 training) |
