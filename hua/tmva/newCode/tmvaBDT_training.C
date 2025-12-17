@@ -401,16 +401,24 @@ int tmvaBDT_training(
     std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";
 
     // Prepare training and test trees
-    // Use empty cut - process-specific selection was already applied when counting events
-    // and the trees contain all events (TMVA will handle train/test split)
-    TCut emptyCut("");
+    // Apply common SR selection cut (jet and b-jet requirements shared across all process types)
+    // This ensures training population matches production population
+    // Note: Process-specific tau/lepton cuts differ, but jet requirements are common
+    TCut commonSRCut("");
+    if(channel == "1tau1l") {
+        commonSRCut = "(jets_num>=6 && bjetsM_num>=2 && jets_HT>500 && jets_6pt>40) && (jets_num>=7 && bjetsM_num>=3)";
+    } else if(channel == "1tau0l") {
+        commonSRCut = "(jets_num>=6 && bjetsM_num>=2 && jets_HT>500 && jets_6pt>40) && (jets_num>=8 && bjetsM_num>=3)";
+    } else if(channel == "1tau2l") {
+        commonSRCut = "(jets_num>=6 && bjetsM_num>=2 && jets_HT>500 && jets_6pt>40) && (jets_num>=4 && bjetsM_num>=2)";
+    }
 
     // Use 0 for nTrain/nTest to let TMVA use all available events with 50:50 split
     std::string trainingSetup = "SplitMode=Random:NormMode=EqualNumEvents:!V";
 
     std::cout << "Training setup: " << trainingSetup << "\n";
-    std::cout << "Note: Using all available events (no pre-selection in PrepareTrainingAndTestTree)\n";
-    dataloader->PrepareTrainingAndTestTree(emptyCut, emptyCut, trainingSetup);
+    std::cout << "Common SR selection: " << commonSRCut.GetTitle() << "\n";
+    dataloader->PrepareTrainingAndTestTree(commonSRCut, commonSRCut, trainingSetup);
 
     factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDT",
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
