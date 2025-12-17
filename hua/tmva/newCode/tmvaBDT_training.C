@@ -409,8 +409,8 @@ int tmvaBDT_training(
     // Use empty cut here since filtering is already done
     TCut emptyCut("");
 
-    // Use 0 for nTrain/nTest to let TMVA use all available events with 50:50 split
-    std::string trainingSetup = "SplitMode=Random:NormMode=EqualNumEvents:!V";
+    // Use 70% training, 30% testing split
+    std::string trainingSetup = "SplitMode=Random:NormMode=EqualNumEvents:!V:nTrain_Signal=0:nTrain_Background=0:SplitSeed=100:TrainTestSplit_Signal=0.7:TrainTestSplit_Background=0.7";
 
     std::cout << "Training setup: " << trainingSetup << "\n";
     std::cout << "Per-tree selection cuts applied via AddTree() - using empty cut for PrepareTrainingAndTestTree\n";

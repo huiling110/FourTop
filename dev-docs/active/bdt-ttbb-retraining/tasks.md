@@ -144,39 +144,94 @@ Initial comparison with v3BDTttbb using old binning showed worse performance:
 
 **Root Cause**: Old binning [-0.25, 0.36] mismatched v3BDT score range [-0.10, 0.21]
 
-## Phase 12: Binning Optimization - IN PROGRESS
+## Phase 12: Binning Optimization - COMPLETED
 - [x] Check v3BDT score range from training output
 - [x] Found: v3BDT range [-0.10, 0.21] vs old [-0.25, 0.36]
 - [x] Run binning optimization using training histograms (MVA_BDT_S/B)
-- [x] Create optimizeBinning_fromTraining.py script
-- [x] Update treeAnalyzer.C with optimized bin edges
-- [x] Commit: `ca7a778c feat: Optimize BDT binning for v3BDTttbb score range`
-- [ ] Rebuild WH and submit 2018 1tau1l jobs
-- [ ] Run pl.py and compare with pre-TTBB BDT
-- [ ] If improved, apply to 2017 and 1tau0l
+- [x] Create optimizeBinning_fromTraining.py script (with lumi scaling)
+- [x] Fixed TMVA normalization issue (S and B normalized to equal integrals)
+- [x] Applied proper lumi scaling: S=3.47, B=125.49 from WH output
+- [x] Tested multiple binning strategies: equal-BG, last-bin optimized, hybrid
 
-### Optimized Binning (v3BDTttbb)
-```cpp
-// Equal BG per bin, range [-0.10, 0.21]
-std::vector<Double_t> bins1tau1l = {-0.100, 0.009, 0.033, 0.048, 0.064, 0.087, 0.119, 0.213};
-```
+## Phase 13: v0 vs v3 Comparison - COMPLETED ❌ v3 WORSE
+- [x] Direct comparison of v0BDT (original) vs v3BDT (TTBB-trained)
 
-From training output optimization:
-| Bin | Signal | Background | S/sqrt(S+B) |
-|-----|--------|------------|-------------|
-| [-0.10, 0.01] | 2.0 | 20.7 | 0.43 |
-| [0.01, 0.03] | 4.8 | 19.9 | 0.97 |
-| [0.03, 0.05] | 5.9 | 20.0 | 1.16 |
-| [0.05, 0.06] | 10.5 | 21.1 | 1.87 |
-| [0.06, 0.09] | 28.7 | 19.1 | 4.15 |
-| [0.09, 0.12] | 48.0 | 19.6 | 5.84 |
-| [0.12, 0.21] | 28.0 | 7.4 | 4.70 |
-| **Total** | | | **19.11** |
+### Critical Finding (2025-12-17 Session 10)
+**v3BDT (TTBB-trained) has WORSE discrimination than v0BDT (original)!**
 
-## Phase 13: Final Validation & 1tau0l - PENDING
-- [ ] Verify optimized binning gives better S/sqrt(B)
-- [ ] If good, retrain for 1tau0l channel
-- [ ] Move training weights to workfs and update inputFileMap.h
+| Metric | v0BDT | v3BDT | Ratio |
+|--------|-------|-------|-------|
+| Signal-BG separation | 0.082 | 0.042 | **2.0x worse** |
+| Signal RMS | 0.078 | 0.034 | Compressed |
+| Top 20% signal S/B | 0.176 | 0.104 | **1.7x worse** |
+| Top 50% signal S/B | 0.089 | 0.078 | 1.2x worse |
+| Total S/√B | 1.160 | 0.841 | **1.4x worse** |
+| Last bin S/B | 0.967 | 0.104 | **9.3x worse** |
+
+**Root Cause Analysis**:
+1. v3BDT signal is more compressed (RMS 0.034 vs 0.078)
+2. More background leaks into high-BDT region in v3
+3. Adding TTBB to training confused the BDT - TTBB kinematics overlap with tttt
+
+## Phase 14: Training Improvement - Add New Variables - IN PROGRESS
+**Approach**: Add 7 new discriminating variables to improve tttt vs TTBB separation
+
+### Physics Rationale
+- tttt: 4 top decays → 4 b-jets from tops
+- TTBB: 2 tops + 2 b-jets from gluon splitting (softer, collinear)
+
+### New Variables (added to existing 26 → total 33)
+| Variable | Physics Reason |
+|----------|----------------|
+| bjetsT_num | Tight b-jet count - tttt should have more |
+| bjetsT_1pt | 1st tight b-jet pt - harder in tttt |
+| bjetsT_2pt | 2nd tight b-jet pt - harder in tttt |
+| bjetsM_2pt | 2nd medium b-jet pt |
+| bjetsM_3pt | 3rd medium b-jet pt |
+| jets_4largestBscoreSum | Total b-flavor - differs between processes |
+| jets_sphericity | Event isotropy - tttt more spherical |
+
+### Implementation Status
+- [x] Created `inputList_1tau1l_v4extended.csv` with 33 variables
+- [x] Trained v4BDTttbb for 2018 1tau1l - **ROC = 0.796**
+- [x] Trained v5BDTttbb without jets_4largestBscoreSum - **ROC = 0.780**
+- [x] Compared all BDT versions
+
+### Final Comparison Results (2025-12-17)
+| Metric | v0BDT | v3BDT | v4BDT | v5BDT |
+|--------|-------|-------|-------|-------|
+| ROC integral | 0.777 | 0.778 | **0.796** | 0.780 |
+| Signal RMS | **0.078** | 0.034 | 0.036 | 0.036 |
+| Separation | 1.073 | 1.068 | **1.165** | 1.080 |
+| Top 20% S/B | 0.184 | 0.074 | **0.223** | 0.157 |
+| Top 20% S/√B | 0.317 | 0.190 | **0.331** | 0.290 |
+
+### Key Findings
+1. **v4BDT is the best** with ROC=0.796 and Top20% S/B=0.223
+2. **jets_4largestBscoreSum is crucial**: removing it drops ROC from 0.796→0.780
+3. **TTBB-trained BDTs (v3,v4,v5) compress signal RMS** compared to v0BDT
+4. Despite compression, v4BDT has better discrimination overall
+
+### Variable Importance (TMVA ranking)
+1. jets_4largestBscoreSum (sep=0.248) - **NEW**
+2. bjetsT_invariantMass (sep=0.155)
+3. bjetsT_num (sep=0.145) - **NEW**
+4. bjetsT_2pt (sep=0.118) - **NEW**
+5. bjetsM_3pt (sep=0.111) - **NEW**
+
+### Recommendation
+- Use **v4BDT** (with all 7 new variables) for production
+- Train remaining eras (2017) and channels (1tau0l) with v4 configuration
+
+## Resolved Issues
+1. **Global weight missing**: Added processScale ✓
+2. **makeJob_WH.py data handling**: Fixed to include data by default for nominal ✓
+3. **Workflow skills**: Updated stage3-wh.md and stage4-combine.md ✓
+4. **tttt job timeout**: Completed successfully via screen session ✓
+5. **Training selection mismatch**: Fixed PrepareTrainingAndTestTree to use SR cut ✓
+6. **Version check mismatch**: Simplified to always use TTBB-trained BDT ✓
+7. **Baseline cut mismatch**: Fixed conditional jets_HT/jets_6pt cut based on bjetsM_num ✓
+8. **TMVA scaling**: Fixed lumi scaling in binning optimization ✓
 
 ### Entry Verification (v3BDTttbb)
 | Process | Training | WH | Match |
