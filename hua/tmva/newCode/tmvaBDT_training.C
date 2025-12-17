@@ -188,8 +188,10 @@ TString getWeightExpression(Int_t processType, const TString& channel) {
 // Helper function to get selection TCut based on process type and channel
 // Based on baselineSelection() and SR1tau1lSel() in commenSelectionAndWeight.C
 TCut getSelectionCut(Int_t processType, const TString& channel) {
-    // Baseline selection (common)
-    TCut baseCut = "(jets_num>=6 && bjetsM_num>=2 && jets_HT>500 && jets_6pt>40)";
+    // Baseline selection - MUST match WH exactly (commenSelectionAndWeight.C lines 9-13)
+    // If bjetsM_num < 4: jets_HT > 500 && jets_6pt > 40
+    // If bjetsM_num >= 4: jets_HT > 480 && jets_6pt > 38
+    TCut baseCut = "(jets_num>=6 && bjetsM_num>=2) && ((bjetsM_num<4 && jets_HT>500 && jets_6pt>40) || (bjetsM_num>=4 && jets_HT>480 && jets_6pt>38))";
 
     // Channel-specific SR selection
     TCut srCut = "";
@@ -357,7 +359,8 @@ int tmvaBDT_training(
             std::cout << "signal tree: " << procName << " (type=" << procType << ")\n";
             std::cout << "  selection: " << selCut.GetTitle() << "\n";
             std::cout << "  weight: " << weightExpr << "\n";
-            dataloader->AddSignalTree(processVec.at(i).getTree(), processScale);
+            // Use AddTree with per-tree selection cut (matches WH step exactly)
+            dataloader->AddTree(processVec.at(i).getTree(), "Signal", processScale, selCut);
             dataloader->SetSignalWeightExpression(weightExpr);
             if(!isTest){
                 allSignal = allSignal + nPass;
@@ -369,8 +372,8 @@ int tmvaBDT_training(
             std::cout << "  selection: " << selCut.GetTitle() << "\n";
             std::cout << "  weight: " << weightExpr << "\n";
 
-            // Add background tree with processScale as global weight
-            dataloader->AddBackgroundTree(processVec.at(i).getTree(), processScale);
+            // Use AddTree with per-tree selection cut (matches WH step exactly)
+            dataloader->AddTree(processVec.at(i).getTree(), "Background", processScale, selCut);
 
             if(!isTest){
                 allBg = allBg + nPass;
@@ -401,24 +404,17 @@ int tmvaBDT_training(
     std::cout << "allSignal=" << allSignal << "  allBg=" << allBg << "\n";
 
     // Prepare training and test trees
-    // Apply common SR selection cut (jet and b-jet requirements shared across all process types)
-    // This ensures training population matches production population
-    // Note: Process-specific tau/lepton cuts differ, but jet requirements are common
-    TCut commonSRCut("");
-    if(channel == "1tau1l") {
-        commonSRCut = "(jets_num>=6 && bjetsM_num>=2 && jets_HT>500 && jets_6pt>40) && (jets_num>=7 && bjetsM_num>=3)";
-    } else if(channel == "1tau0l") {
-        commonSRCut = "(jets_num>=6 && bjetsM_num>=2 && jets_HT>500 && jets_6pt>40) && (jets_num>=8 && bjetsM_num>=3)";
-    } else if(channel == "1tau2l") {
-        commonSRCut = "(jets_num>=6 && bjetsM_num>=2 && jets_HT>500 && jets_6pt>40) && (jets_num>=4 && bjetsM_num>=2)";
-    }
+    // Per-tree selection cuts were already applied via AddTree() above
+    // Each process has its own WH-matching selection (MC, fakeTau, fakeLepton)
+    // Use empty cut here since filtering is already done
+    TCut emptyCut("");
 
     // Use 0 for nTrain/nTest to let TMVA use all available events with 50:50 split
     std::string trainingSetup = "SplitMode=Random:NormMode=EqualNumEvents:!V";
 
     std::cout << "Training setup: " << trainingSetup << "\n";
-    std::cout << "Common SR selection: " << commonSRCut.GetTitle() << "\n";
-    dataloader->PrepareTrainingAndTestTree(commonSRCut, commonSRCut, trainingSetup);
+    std::cout << "Per-tree selection cuts applied via AddTree() - using empty cut for PrepareTrainingAndTestTree\n";
+    dataloader->PrepareTrainingAndTestTree(emptyCut, emptyCut, trainingSetup);
 
     factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDT",
                             // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");

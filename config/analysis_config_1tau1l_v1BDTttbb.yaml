@@ -11,7 +11,7 @@ metadata:
 versions:
   stage1: "v94HadroPreJetVetoHemOnly_TTBBtest"  # Object selection output
   stage2: "v1baselineHadro"                      # Variable calculation output
-  hist: "v2BDTttbb_1tau1l"                       # Histogram version (TTBB-trained BDT, fixed SR selection)
+  hist: "v3BDTttbb_1tau1l"                       # Histogram version (v3: fixed baseline cut to match WH exactly)
   datacard: "v1_ttbb_bdtretrain"                 # Datacard version
   combination: "combinationV22"                  # Combine version
 
