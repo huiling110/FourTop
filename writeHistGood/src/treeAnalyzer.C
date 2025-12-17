@@ -30,13 +30,15 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau1lSR", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
         WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
 
-        // std::vector<Double_t> bins1tau1l = {-0.25, -0.067, -0.024, 0.018, 0.06, 0.1 ,0.145, 0.36 }; //BinF; roughly 30 bg in each bin
-        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions);
-        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.36, sysRegions);//!For optimization binnning
+        // Old binning (for pre-TTBB BDT): std::vector<Double_t> bins1tau1l = {-0.25, -0.067, -0.024, 0.018, 0.06, 0.1 ,0.145, 0.36 };
+        // Optimized binning for v3BDTttbb (equal BG per bin, range [-0.10, 0.21])
+        std::vector<Double_t> bins1tau1l = {-0.100, 0.009, 0.033, 0.048, 0.064, 0.087, 0.119, 0.213};
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions);
+        // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.36, sysRegions);//!For optimization binnning
 
         if(!(m_isData || m_isFakeLepton || m_isFakeTau) && m_ifMCFakeTau){
-            SR1tau1lSys_MCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_MCFT", 100, -0.25, 0.36, sysRegions);
-            SR1tau1lSys_NotMCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_NotMCFT", 100, -0.25, 0.36, sysRegions);
+            SR1tau1lSys_MCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_MCFT", bins1tau1l, sysRegions);
+            SR1tau1lSys_NotMCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_NotMCFT", bins1tau1l, sysRegions);
         }
 
         // Use TTBB-trained BDT (v2, cross-era)
