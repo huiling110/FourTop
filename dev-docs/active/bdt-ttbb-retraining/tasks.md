@@ -1,7 +1,7 @@
 # BDT Retraining Tasks
 
-## Status: In Progress - v3BDTttbb WH Jobs Running
-## Last Updated: 2025-12-17 Session 8
+## Status: In Progress - Binning Optimization Required
+## Last Updated: 2025-12-17 Session 9
 
 ## Phase 1: Setup ✓
 - [x] Create feature branch `addBDTttbb`
@@ -129,11 +129,54 @@ TCut baseCut = "(jets_num>=6 && bjetsM_num>=2) && ((bjetsM_num<4 && jets_HT>500 
 - [x] Update inputFileMap.h with v3BDTttbb paths
 - [x] Rebuild WH code and submit 1tau1l jobs (157 jobs: 76 for 2018, 81 for 2017)
 
-## Phase 11: Validation & 1tau0l - IN PROGRESS
-- [ ] Wait for WH jobs to complete
-- [ ] Verify results match WH expectations
-- [ ] If good, retrain for 1tau0l
-- [ ] Move training weights to workfs and update inputFileMap.h (final cleanup)
+## Phase 11: Validation - ISSUE FOUND
+- [x] Wait for WH jobs to complete
+- [x] Run pl.py and compare BDT distributions
+- [x] **ISSUE**: S/sqrt(B) decreased by 2.7% with old binning
+
+### Validation Results (2025-12-17 Session 9)
+Initial comparison with v3BDTttbb using old binning showed worse performance:
+| Metric | v0BDT | v3BDT | Change |
+|--------|-------|-------|--------|
+| tttt in top 2 bins | 41.4% | 41.4% | Same |
+| TTBB in top 2 bins | 18.5% | 19.5% | +1.0% |
+| S/sqrt(B) | 0.561 | 0.546 | **-2.7%** |
+
+**Root Cause**: Old binning [-0.25, 0.36] mismatched v3BDT score range [-0.10, 0.21]
+
+## Phase 12: Binning Optimization - IN PROGRESS
+- [x] Check v3BDT score range from training output
+- [x] Found: v3BDT range [-0.10, 0.21] vs old [-0.25, 0.36]
+- [x] Run binning optimization using training histograms (MVA_BDT_S/B)
+- [x] Create optimizeBinning_fromTraining.py script
+- [x] Update treeAnalyzer.C with optimized bin edges
+- [x] Commit: `ca7a778c feat: Optimize BDT binning for v3BDTttbb score range`
+- [ ] Rebuild WH and submit 2018 1tau1l jobs
+- [ ] Run pl.py and compare with pre-TTBB BDT
+- [ ] If improved, apply to 2017 and 1tau0l
+
+### Optimized Binning (v3BDTttbb)
+```cpp
+// Equal BG per bin, range [-0.10, 0.21]
+std::vector<Double_t> bins1tau1l = {-0.100, 0.009, 0.033, 0.048, 0.064, 0.087, 0.119, 0.213};
+```
+
+From training output optimization:
+| Bin | Signal | Background | S/sqrt(S+B) |
+|-----|--------|------------|-------------|
+| [-0.10, 0.01] | 2.0 | 20.7 | 0.43 |
+| [0.01, 0.03] | 4.8 | 19.9 | 0.97 |
+| [0.03, 0.05] | 5.9 | 20.0 | 1.16 |
+| [0.05, 0.06] | 10.5 | 21.1 | 1.87 |
+| [0.06, 0.09] | 28.7 | 19.1 | 4.15 |
+| [0.09, 0.12] | 48.0 | 19.6 | 5.84 |
+| [0.12, 0.21] | 28.0 | 7.4 | 4.70 |
+| **Total** | | | **19.11** |
+
+## Phase 13: Final Validation & 1tau0l - PENDING
+- [ ] Verify optimized binning gives better S/sqrt(B)
+- [ ] If good, retrain for 1tau0l channel
+- [ ] Move training weights to workfs and update inputFileMap.h
 
 ### Entry Verification (v3BDTttbb)
 | Process | Training | WH | Match |

@@ -112,6 +112,13 @@ Retrain BDT for 1tau1l and 1tau0l channels with:
   - Entry verification: ALL processes match WH exactly (tttt: 78674, fakeTau: 640, etc.)
   - Commit: `a8b29626 fix: v3BDTttbb training with exact WH baseline cut match`
   - WH jobs resubmitted (76 for 2018, 81 for 2017)
+- 2025-12-17 Session 9:
+  - **Validation Issue**: v3BDTttbb with old binning showed -2.7% worse S/sqrt(B)
+  - Root cause: Old binning [-0.25, 0.36] mismatched v3BDT score range [-0.10, 0.21]
+  - **Binning optimization** using training output histograms (MVA_BDT_S/B)
+  - New optimized binning: `{-0.100, 0.009, 0.033, 0.048, 0.064, 0.087, 0.119, 0.213}`
+  - Created `optimizeBinning_fromTraining.py` script for future use
+  - Commit: `ca7a778c feat: Optimize BDT binning for v3BDTttbb score range`
 
 ## Key Commands
 
