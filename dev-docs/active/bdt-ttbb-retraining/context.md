@@ -119,6 +119,15 @@ Retrain BDT for 1tau1l and 1tau0l channels with:
   - New optimized binning: `{-0.100, 0.009, 0.033, 0.048, 0.064, 0.087, 0.119, 0.213}`
   - Created `optimizeBinning_fromTraining.py` script for future use
   - Commit: `ca7a778c feat: Optimize BDT binning for v3BDTttbb score range`
+- 2025-12-17 Session 10-11:
+  - **Phase 14 Testing**: Added 7 new variables to improve tttt vs TTBB separation
+  - v4BDT (33 vars): ROC=0.796, Top20% S/B=0.223 (**BEST**)
+  - v5BDT (32 vars, no BscoreSum): ROC=0.780
+  - **Key finding**: `jets_4largestBscoreSum` adds +0.016 to ROC but introduces systematics
+  - **Signal RMS compression**: TTBB training compresses signal (0.036 vs 0.078 in v0)
+  - Created `analyzeSeparation_tttt_vs_ttbb.py` for variable ranking
+  - Next: Testing options A (upweight), B (deeper trees), D (add vars) without btag shape
+  - Commit: `4b97089e feat: Add extended variable lists and separation analysis`
 
 ## Key Commands
 

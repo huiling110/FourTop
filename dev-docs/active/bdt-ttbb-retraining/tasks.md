@@ -1,7 +1,7 @@
 # BDT Retraining Tasks
 
-## Status: In Progress - Binning Optimization Required
-## Last Updated: 2025-12-17 Session 9
+## Status: In Progress - Testing Improvement Options (A, B, D)
+## Last Updated: 2025-12-17 Session 11
 
 ## Phase 1: Setup ✓
 - [x] Create feature branch `addBDTttbb`
@@ -219,9 +219,34 @@ Initial comparison with v3BDTttbb using old binning showed worse performance:
 4. bjetsT_2pt (sep=0.118) - **NEW**
 5. bjetsM_3pt (sep=0.111) - **NEW**
 
-### Recommendation
-- Use **v4BDT** (with all 7 new variables) for production
-- Train remaining eras (2017) and channels (1tau0l) with v4 configuration
+### Issue: Signal RMS Compression
+TTBB training compresses signal distribution:
+- v0BDT: Signal RMS = 0.078
+- v4/v5BDT: Signal RMS = 0.036
+
+**Root cause**: TTBB kinematics overlap with tttt, BDT finds compromise
+
+### Issue: btag Shape Variables
+`jets_4largestBscoreSum` is #1 ranked but introduces large systematics → avoid using
+
+## Phase 14.2: Improvement Options Testing - IN PROGRESS
+
+### Options to Test (without btag shape variables)
+| Version | Changes | Status |
+|---------|---------|--------|
+| v6a | Signal upweight 2x | Pending |
+| v6b | MaxDepth=4 | Pending |
+| v6c | MaxDepth=5 | Pending |
+| v6d | Combined (upweight + depth=4 + new vars) | Pending |
+
+### New Variables for v6
+- All from v5 (no jets_4largestBscoreSum)
+- **+jets_average_deltaR** (sep=0.484 for tttt vs TTBB)
+- **+jets_aplanarity** (sep=0.315)
+- Total: 34 variables
+
+### Variable List Created
+- `inputList_1tau1l_v6extended.csv` (34 vars)
 
 ## Resolved Issues
 1. **Global weight missing**: Added processScale ✓
