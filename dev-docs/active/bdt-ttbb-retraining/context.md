@@ -92,3 +92,37 @@ Retrain BDT for 1tau1l and 1tau0l channels with:
     - 2018 1tau0l, 2017 1tau1l, 2017 1tau0l
   - Logs saved to `logs_v1BDTttbb/` directory
   - Updated pre-tool-use hook to block all `rm -rf` commands
+- 2025-12-17 Session 7:
+  - **CRITICAL BUG FIXED**: Jobs were using OLD BDT weights (v1finalVar27) not v2BDTttbb
+  - Root cause: `treeAnalyzer.C` checked `m_histVersion.Contains("v1BDTttbb")` but config had `v2BDTttbb_1tau1l`
+  - Fix: Removed version check, always use `BDT1tau1l_TTBBtrain` / `BDT1tau0l_TTBBtrain` maps
+  - Commit: `16369fd9 fix: Always use TTBB-trained BDT (v2) for all channels`
+  - Resubmitted 314 WH jobs (76×2 for 2018, 81×2 for 2017)
+  - Verified via log that jobs now use correct v2BDTttbb weights
+  - Jobs running, waiting for completion
+
+## Key Commands
+
+### Check job status
+```bash
+hep_q -u huahuil
+```
+
+### Check output file count
+```bash
+ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v2BDTttbb_1tau1l/*.root | wc -l
+```
+
+### Verify BDT weight in logs
+```bash
+grep "training input" /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v2BDTttbb_1tau1l/log/TTZToLLNuNu.log
+```
+
+## BDT Weight Paths (v2BDTttbb)
+
+| Era | Channel | Weight File |
+|-----|---------|-------------|
+| 2018 | 1tau1l | `.../2017/.../v2BDTttbb/inputList_1tau1l_final.csv/.../TMVAClassification_BDT.weights.xml` |
+| 2017 | 1tau1l | `.../2018/.../v2BDTttbb/inputList_1tau1l_final.csv/.../TMVAClassification_BDT.weights.xml` |
+| 2018 | 1tau0l | `.../2017/.../v2BDTttbb/inputList_finalFinal25.csv/.../TMVAClassification_BDT.weights.xml` |
+| 2017 | 1tau0l | `.../2018/.../v2BDTttbb/inputList_finalFinal25.csv/.../TMVAClassification_BDT.weights.xml` |

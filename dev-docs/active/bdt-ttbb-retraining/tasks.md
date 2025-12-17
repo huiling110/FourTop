@@ -1,7 +1,7 @@
 # BDT Retraining Tasks
 
-## Status: In Progress - Testing
-## Last Updated: 2025-12-16 Session 6
+## Status: In Progress - Production Jobs Running
+## Last Updated: 2025-12-17 Session 7
 
 ## Phase 1: Setup ✓
 - [x] Create feature branch `addBDTttbb`
@@ -84,10 +84,24 @@ dataloader->PrepareTrainingAndTestTree(commonSRCut, commonSRCut, trainingSetup);
 
 **Fix verified!** TTBB now scores at low BDT values (background-like) as expected.
 
-## Phase 9: Full Production - READY
-- [ ] Submit full WH jobs for 2017/2018 with v2BDTttbb_1tau1l version
-- [ ] Generate datacards
+## Phase 9: Full Production - IN PROGRESS
+- [x] Fix treeAnalyzer.C version check bug (was checking "v1BDTttbb" but config had "v2BDTttbb")
+- [x] Simplify code to always use TTBB-trained BDT (removed version check)
+- [x] Submit full WH jobs for 2017/2018 (314 jobs total)
+- [x] Verified jobs using correct v2BDTttbb weights via log inspection
+- [ ] Wait for jobs to complete
+- [ ] Generate datacards with pl.py
 - [ ] Run combine fits
+
+### Bug Fix (2025-12-17 Session 7)
+**Problem**: Jobs were using OLD BDT weights instead of v2BDTttbb
+- Log showed: `training input: .../v1cut1tau1lSR_v84HadroPresel/.../v1finalVar27/...`
+- Should be: `.../v1baselineHadro_.../v2BDTttbb/...`
+
+**Root Cause**: `treeAnalyzer.C` checked `m_histVersion.Contains("v1BDTttbb")` but config had `v2BDTttbb_1tau1l`
+
+**Fix**: Removed version check, always use `BDT1tau1l_TTBBtrain` / `BDT1tau0l_TTBBtrain` maps
+- Commit: `16369fd9 fix: Always use TTBB-trained BDT (v2) for all channels`
 
 ## Resolved Issues
 1. **Global weight missing**: Added processScale ✓
@@ -95,3 +109,4 @@ dataloader->PrepareTrainingAndTestTree(commonSRCut, commonSRCut, trainingSetup);
 3. **Workflow skills**: Updated stage3-wh.md and stage4-combine.md ✓
 4. **tttt job timeout**: Completed successfully via screen session ✓
 5. **Training selection mismatch**: Fixed PrepareTrainingAndTestTree to use SR cut ✓
+6. **Version check mismatch**: Simplified to always use TTBB-trained BDT ✓
