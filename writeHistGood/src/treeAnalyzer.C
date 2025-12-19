@@ -30,9 +30,8 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau1lSR", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
         WH::getChannelSys(sysRegions, "1tau1lCR12", m_era, m_isFakeTau, m_isFakeLepton, m_processName, m_ifSys);
 
-        // Old binning (for pre-TTBB BDT): std::vector<Double_t> bins1tau1l = {-0.25, -0.067, -0.024, 0.018, 0.06, 0.1 ,0.145, 0.36 };
-        // Optimized binning for v3BDTttbb (equal BG per bin, range [-0.10, 0.21])
-        std::vector<Double_t> bins1tau1l = {-0.100, 0.009, 0.033, 0.048, 0.064, 0.087, 0.119, 0.213};
+        // v0 BDT binning (original, without TTBB training)
+        std::vector<Double_t> bins1tau1l = {-0.25, -0.067, -0.024, 0.018, 0.06, 0.1, 0.145, 0.36};
         SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau1l, sysRegions);
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.25, 0.36, sysRegions);//!For optimization binnning
 
@@ -41,9 +40,9 @@ void treeAnalyzer::Init()
             SR1tau1lSys_NotMCFT = histForRegionsBase("BDT", "BDT score", m_processName+"_NotMCFT", bins1tau1l, sysRegions);
         }
 
-        // Use TTBB-trained BDT (v2, cross-era)
-        variableList = WH::BDT1tau1l_TTBBtrain.at(m_era).at(0);
-        weightfile = WH::BDT1tau1l_TTBBtrain.at(m_era).at(1);
+        // Use original v0 BDT (without TTBB training)
+        variableList = WH::BDTTrainingMap.at(m_era).at(0);
+        weightfile = WH::BDTTrainingMap.at(m_era).at(1);
 
         std::cout << "training input: " << weightfile << "\n";
     }else if(m_channel=="1tau0l"){
@@ -53,11 +52,11 @@ void treeAnalyzer::Init()
         WH::getChannelSys(sysRegions, "1tau0lCRMR",  m_era, m_isFakeTau,  m_isFakeLepton, m_processName, m_ifSys);
 
         std::vector<Double_t> bins1tau0l = {-0.35, -0.16, -0.12, -0.105, -0.084, -0.063, -0.042, -0.021, 0.0, 0.021, 0.049, 0.091, 0.35} ; //Bin C, optimized,
-        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l 
+        SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, bins1tau0l, sysRegions);//1tau0l
         // SR1tau1lSys = histForRegionsBase("BDT", "BDT score", m_processName, 100, -0.35, 0.35, sysRegions);//!For optimization binnning
-        // Use TTBB-trained BDT (v2, cross-era)
-        variableList = WH::BDT1tau0l_TTBBtrain.at(m_era).at(0);
-        weightfile = WH::BDT1tau0l_TTBBtrain.at(m_era).at(1); 
+        // Use original v0 BDT (without TTBB training)
+        variableList = WH::BDT1tau0l.at(m_era).at(0);
+        weightfile = WH::BDT1tau0l.at(m_era).at(1); 
 
     }else if(m_channel=="1tau2l"){
         std::cout<<"1tau2l\n";

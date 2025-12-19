@@ -2,6 +2,7 @@
 
 ## Created: 2025-12-16
 ## Branch: addBDTttbb
+## Status: CLOSED - Reverted to v0 BDT (2025-12-19)
 
 ## Purpose
 Retrain BDT for 1tau1l and 1tau0l channels with:
@@ -146,11 +147,88 @@ ls /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94H
 grep "training input" /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v2BDTttbb_1tau1l/log/TTZToLLNuNu.log
 ```
 
-## BDT Weight Paths (v3BDTttbb - current)
+## Binning Optimization Method: Hybrid Binning (PREFERRED)
 
-| Era | Channel | Weight File |
-|-----|---------|-------------|
-| 2018 | 1tau1l | `.../2017/.../v3BDTttbb/inputList_1tau1l_final.csv/.../TMVAClassification_BDT.weights.xml` |
-| 2017 | 1tau1l | `.../2018/.../v3BDTttbb/inputList_1tau1l_final.csv/.../TMVAClassification_BDT.weights.xml` |
-| 2018 | 1tau0l | (pending v3 training) |
-| 2017 | 1tau0l | (pending v3 training) |
+**Key insight**: Use fewer bins in low-BDT region (background-dominated), finer bins in high-BDT region (signal-concentrated).
+
+### Statistical Uncertainty in Optimization (IMPORTANT NOTE)
+The `calSig_lastBin()` function in `optimizeBinning.py` has a commented-out option to consider statistical uncertainty:
+```python
+# dataLast = (sLast + bLast) - np.sqrt(sLast + bLast)  # conservative
+dataLast = (sLast + bLast)  # used (no stat unc)
+```
+
+**Why NOT use stat uncertainty for optimization**:
+- With low yields (S~2, B~3 after Run2 scale), √(S+B) ≈ 2.3 is comparable to signal
+- After subtracting √(S+B), observed data can become **less than background**
+- This makes p-value ≈ 1 (no significance), breaking the optimization
+
+**Tested result** (v6a last bin, Run2 x3 scale):
+| Method | Observed | Background | Z-score |
+|--------|----------|------------|---------|
+| No stat unc | 5.44 | 3.40 | 0.66 |
+| With stat unc | 3.11 | 3.40 | -0.41 |
+
+**Conclusion**: Use method WITHOUT stat uncertainty for binning optimization. The proper statistical treatment (Poisson likelihood) is handled by Combine during the fit.
+
+### Hybrid Binning Algorithm
+1. First bin covers entire low-BDT region (background dump)
+2. Finer bins in signal region (BDT > 0.05) to capture signal shape
+3. Last bin optimized for maximum S/B
+
+### v6a 1tau1l Binning (8 bins, S/√B = 1.40)
+```cpp
+std::vector<Double_t> bins1tau1l = {-0.10, 0.02, 0.05, 0.065, 0.08, 0.095, 0.11, 0.13, 0.22};
+```
+
+| Bin Range | S | B | S/√B |
+|-----------|---|---|------|
+| [-0.10, 0.02] | 0.07 | 20.6 | 0.014 |
+| [0.02, 0.05] | 0.22 | 29.1 | 0.042 |
+| [0.05, 0.065] | 0.24 | 22.1 | 0.050 |
+| [0.065, 0.08] | 0.40 | 16.7 | 0.097 |
+| [0.08, 0.095] | 0.54 | 11.3 | 0.160 |
+| [0.095, 0.11] | 0.67 | 15.8 | 0.168 |
+| [0.11, 0.13] | 0.66 | 8.8 | 0.223 |
+| [0.13, 0.22] | 0.68 | 1.1 | **0.640** |
+
+**Comparison with other methods**:
+| Method | S/√B | N_bins |
+|--------|------|--------|
+| Equal BG/bin | 1.22 | 7 |
+| Even binning | 1.23 | 7 |
+| **Hybrid** | **1.40** | **8** |
+| Last-bin optimized | 1.60 | 19 (too many) |
+
+## BDT Weight Paths (v6aBDTttbb - current)
+
+| Era | Channel | Weight File | Status |
+|-----|---------|-------------|--------|
+| 2018 | 1tau1l | `.../2017/.../v6aBDTttbb/inputList_1tau1l_v6extended.csv/.../TMVAClassification_BDT.weights.xml` | ✓ Complete |
+| 2017 | 1tau1l | `.../2018/.../v6aBDTttbb/inputList_1tau1l_v6extended.csv/.../TMVAClassification_BDT.weights.xml` | ✓ Complete |
+| 2018 | 1tau0l | (pending v6a training) | Pending |
+| 2017 | 1tau0l | (pending v6a training) | Pending |
+
+## WH Production Status (v6aBDTttbb_1tau1l) - ABANDONED
+
+| Era | Files | Status | Last Bin S/B |
+|-----|-------|--------|--------------|
+| 2018 | 71/71 | ✓ Complete | 0.42/2.54 |
+| 2017 | 71/71 | ✓ Complete | 0.36/2.27 |
+| 2016preVFP | - | Abandoned | - |
+| 2016postVFP | - | Abandoned | - |
+
+---
+
+## Final Outcome (2025-12-19)
+
+**Decision**: Reverted to original v0 BDT due to:
+1. MC mismodeling of event shape variables (aplanarity, sphericity, average_deltaR)
+2. Signal compression from TTBB kinematic overlap with tttt
+3. Marginal ROC improvement not worth systematic uncertainty burden
+
+**Production BDT**: v0 (original, without TTBB training)
+- 1tau1l: `BDTTrainingMap` with binning `{-0.25, -0.067, -0.024, 0.018, 0.06, 0.1, 0.145, 0.36}`
+- 1tau0l: `BDT1tau0l` with existing optimized binning
+
+See `tasks.md` for full rationale and lessons learned.

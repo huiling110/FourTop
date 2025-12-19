@@ -1,7 +1,7 @@
 # BDT Retraining Tasks
 
-## Status: In Progress - Testing Improvement Options (A, B, D)
-## Last Updated: 2025-12-17 Session 11
+## Status: CLOSED - Reverted to v0 BDT
+## Last Updated: 2025-12-19 Session 14
 
 ## Phase 1: Setup ✓
 - [x] Create feature branch `addBDTttbb`
@@ -229,15 +229,36 @@ TTBB training compresses signal distribution:
 ### Issue: btag Shape Variables
 `jets_4largestBscoreSum` is #1 ranked but introduces large systematics → avoid using
 
-## Phase 14.2: Improvement Options Testing - IN PROGRESS
+## Phase 14.2: Improvement Options Testing - COMPLETED
 
-### Options to Test (without btag shape variables)
-| Version | Changes | Status |
-|---------|---------|--------|
-| v6a | Signal upweight 2x | Pending |
-| v6b | MaxDepth=4 | Pending |
-| v6c | MaxDepth=5 | Pending |
-| v6d | Combined (upweight + depth=4 + new vars) | Pending |
+### v6 Training Results (2025-12-17 Session 12)
+| Version | Config | ROC | Overtraining @B=0.01 |
+|---------|--------|-----|---------------------|
+| v5 (baseline) | 32 vars, depth=3 | 0.780 | - |
+| **v6a** | 34 vars, **upweight 2x** | **0.791** | 0.221/0.441 (acceptable) |
+| v6b | 34 vars, depth=4 | 0.748 | severe overtraining |
+| v6c | 34 vars, depth=5 | 0.746 | 0.058/0.621 (severe!) |
+| v6d | 34 vars, upweight 2x, depth=4 | 0.748 | severe overtraining |
+
+### Key Findings
+1. **Signal upweight 2x (v6a) works**: ROC improved 0.780 → 0.791 (+1.4%)
+2. **Deeper trees overfit badly**: MaxDepth=4/5 cause severe overtraining, ROC drops to 0.746-0.748
+3. **Combined approach fails**: Overfitting from deeper trees dominates even with upweighting
+
+### All BDT Version Comparison
+| Version | Description | ROC | Notes |
+|---------|-------------|-----|-------|
+| v0BDT | Original (no TTBB) | 0.777 | Baseline |
+| v3BDT | TTBB-trained | 0.778 | +0.1% |
+| **v4BDT** | +7 vars w/ BscoreSum | **0.796** | Best overall, but btag systematics |
+| v5BDT | No BscoreSum | 0.780 | Safe from systematics |
+| **v6aBDT** | 34 vars + upweight 2x | **0.791** | **Best without btag shape** |
+
+### Recommendation
+**Use v6a (ROC=0.791)** as the final BDT:
+- +1.4% better than v5 (0.780)
+- -0.6% vs v4 (0.796) but avoids btag shape systematics
+- Signal upweight compensates for TTBB kinematic overlap
 
 ### New Variables for v6
 - All from v5 (no jets_4largestBscoreSum)
@@ -248,6 +269,109 @@ TTBB training compresses signal distribution:
 ### Variable List Created
 - `inputList_1tau1l_v6extended.csv` (34 vars)
 
+## Phase 15: v6a WH Production - COMPLETED ✓
+
+### v6a Training (Both Eras)
+- [x] Train 2018 1tau1l v6a BDT - ROC = 0.791
+- [x] Train 2017 1tau1l v6a BDT - ROC = 0.792
+
+### Code Updates
+- [x] Update `inputFileMap.h` with v6a weight paths (cross-era application)
+  - 2018 uses 2017 training, 2017 uses 2018 training
+- [x] Update `treeAnalyzer.C` with 8 hybrid bins:
+  ```cpp
+  std::vector<Double_t> bins1tau1l = {-0.10, 0.02, 0.05, 0.065, 0.08, 0.095, 0.11, 0.13, 0.22};
+  ```
+- [x] Update `analysis_config_1tau1l_v1BDTttbb.yaml` → hist: "v6aBDTttbb_1tau1l"
+- [x] Rebuild WH code
+
+### WH Job Submission
+- [x] Submit 2018 1tau1l jobs - 71/71 completed ✓
+- [x] Submit 2017 1tau1l jobs - 71/71 completed ✓
+- [x] Verified v6a BDT weights loading correctly (cross-era confirmed)
+
+### Plotting
+- [x] Run pl.py for 2018 - Plots saved to results/
+- [x] Run pl.py for 2017 - Plots saved to results/
+
+### Results Summary
+| Era | tttt (total) | Last Bin S | Last Bin B | S/B (last) |
+|-----|--------------|------------|------------|------------|
+| 2018 | 3.5 | 0.42 | 2.54 | 0.17 |
+| 2017 | 2.4 | 0.36 | 2.27 | 0.16 |
+
+**Data/MC agreement**: Good across all bins, ratio panel shows ~0.8-1.2
+
+### Output Paths
+- 2018: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v6aBDTttbb_1tau1l/`
+- 2017: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v6aBDTttbb_1tau1l/`
+
+## Phase 16: Debug Data/MC Discrepancy - IN PROGRESS
+
+### Issue Observed
+Data/MC discrepancy in v6a BDT distribution needs investigation.
+
+### Investigation Plan
+- [x] Check if tau-related variables are correctly replaced in `replaceTauTVar()`
+- [x] Verify no -99 values in fake tau file for BDT input variables
+- [x] Compare fakeTau BDT distribution: v6a vs v0 (original)
+- [x] Check if new variables (jets_average_deltaR, jets_aplanarity) exist for fakeTau
+- [x] Verify pT morphing is correctly applied
+- [x] Compare shape of individual variables between data and MC
+
+### ROOT CAUSE IDENTIFIED (2025-12-19 Session 13)
+
+**New v6 event shape variables show significant MC mismodeling!**
+
+#### Primary Culprits (NEW variables in v6):
+| Variable | Issue | Data/MC Ratio |
+|----------|-------|---------------|
+| **jets_aplanarity** | MC overestimates at low+high values | 0.6-0.8 at tails |
+| **jets_sphericity** | MC overestimates at high sphericity | ~0.7 at high values |
+| **jets_average_deltaR** | MC overestimates at both tails | ~0.6-0.8 |
+
+#### Secondary Issues (b-jet related):
+| Variable | Issue | Data/MC Ratio |
+|----------|-------|---------------|
+| **bjetsT_num** | Shape mismodeling at n=0 and n≥4 | ~0.7 at n=0, ~0.6 at n≥4 |
+| **bjetsT_1pt/2pt** | MC overestimates at low pT | ~0.6-0.8 at first bin |
+| **muonsTopMVAT_1pt** | Deficit at low pT (<20 GeV) | ~0.6-0.7 |
+
+#### Physics Explanation
+Event shape variables (aplanarity, sphericity, average_deltaR) are known to be difficult for MC:
+- Depend on parton shower modeling
+- Sensitive to underlying event
+- Affected by ME-PS matching
+- Known tension between data and MC in high-multiplicity environments
+
+#### Recommendation
+Consider removing these problematic new variables from v6 BDT:
+1. `jets_aplanarity` - worst mismodeling
+2. `jets_sphericity` - significant shape disagreement
+3. `jets_average_deltaR` - tails mismodeled
+
+Alternative: Retrain BDT without these 3 variables (back to ~31 variables)
+
+### Variable Mapping Analysis (2025-12-19)
+All 8 tau-related BDT input variables are correctly mapped in `replaceTauTVar()`:
+
+| BDT Variable | Replacement List | Source Branch | Status |
+|--------------|------------------|---------------|--------|
+| `tausT_1lepton1_charge` | extraVarsFromF | `tausF_1lepton1_charge` | ✓ |
+| `tausT_leptonsT_invariantMass` | VarToTausFMorph | `tausFMorph_leptonsT_invariantMass` | ✓ |
+| `tausT_1pt` | VarToTausFMorph | `tausFMorph_1pt` | ✓ |
+| `tausT_invariantMass` | VarToTausFMorph | `tausFMorph_invariantMass` | ✓ |
+| `bjetsM_tausT_minDeltaR` | extraVarsFromF | `bjetsM_tausF_minDeltaR` | ✓ |
+| `tausT_1Met_transMass` | VarToTausFMorph | `tausFMorph_1Met_transMass` | ✓ |
+| `jets_tausT_invariantMass` | VarToTausFMorph | `jets_tausFMorph_invariantMass` | ✓ |
+| `tausT_1lepton1Met1_stransMass` | VarToTausFMorph | `tausFMorph_1lepton1Met1_stransMass` | ✓ |
+
+### Next Steps (After Debug)
+- [ ] Submit WH jobs for 2016preVFP and 2016postVFP
+- [ ] Run datacard generation
+- [ ] Run Combine fits
+- [ ] Compare v6a results with original BDT
+
 ## Resolved Issues
 1. **Global weight missing**: Added processScale ✓
 2. **makeJob_WH.py data handling**: Fixed to include data by default for nominal ✓
@@ -257,6 +381,7 @@ TTBB training compresses signal distribution:
 6. **Version check mismatch**: Simplified to always use TTBB-trained BDT ✓
 7. **Baseline cut mismatch**: Fixed conditional jets_HT/jets_6pt cut based on bjetsM_num ✓
 8. **TMVA scaling**: Fixed lumi scaling in binning optimization ✓
+9. **Statistical uncertainty in binning**: Do NOT use for optimization (breaks low-yield regime)
 
 ### Entry Verification (v3BDTttbb)
 | Process | Training | WH | Match |
@@ -276,3 +401,53 @@ TTBB training compresses signal distribution:
 5. **Training selection mismatch**: Fixed PrepareTrainingAndTestTree to use SR cut ✓
 6. **Version check mismatch**: Simplified to always use TTBB-trained BDT ✓
 7. **Baseline cut mismatch**: Fixed conditional jets_HT/jets_6pt cut based on bjetsM_num ✓
+
+---
+
+## FINAL DECISION: Revert to v0 BDT (2025-12-19 Session 14)
+
+### Decision
+**Abandon TTBB-trained BDT experiment and revert to original v0 BDT.**
+
+### Rationale
+After extensive testing of multiple BDT versions (v1-v6a), the TTBB-trained BDT showed fundamental issues:
+
+1. **MC Mismodeling of New Variables** (discovered in Session 13):
+   - Event shape variables (`jets_aplanarity`, `jets_sphericity`, `jets_average_deltaR`) show significant Data/MC disagreement (ratio ~0.6-0.8)
+   - These variables are sensitive to parton shower modeling and ME-PS matching
+   - Would require dedicated systematic uncertainties that may dominate sensitivity
+
+2. **Signal Compression**:
+   - All TTBB-trained BDTs (v3-v6) compress signal RMS from 0.078 to ~0.036
+   - Root cause: TTBB kinematics overlap with tttt, forcing BDT to find compromise
+   - Reduces ability to separate signal in high-BDT tail
+
+3. **No Net Improvement**:
+   - Best TTBB version (v4, ROC=0.796) uses btag shape variable with large systematics
+   - Without btag shape (v6a, ROC=0.791), gain is marginal
+   - MC mismodeling issues likely negate any theoretical improvement
+
+### Changes Made
+```cpp
+// treeAnalyzer.C - reverted to v0 BDT
+// 1tau1l: BDTTrainingMap (original) with binning {-0.25, -0.067, -0.024, 0.018, 0.06, 0.1, 0.145, 0.36}
+// 1tau0l: BDT1tau0l (original) with existing binning
+```
+
+### Code Reverted
+- `writeHistGood/src/treeAnalyzer.C`: Changed back to use `BDTTrainingMap` for 1tau1l and `BDT1tau0l` for 1tau0l
+- Restored original v0 BDT binning for 1tau1l channel
+- WH code rebuilt successfully
+
+### Configs to Use
+- 1tau1l: `config/analysis_config_1tau1l_TTBBtest.yaml` (hist: v0BDT1tau1l_TTBBtest)
+- 1tau0l: `config/analysis_config_1tau0l_TTBBtest.yaml` (hist: v0BDT1tau0l_TTBBtest)
+
+### Lessons Learned
+1. Adding background samples to BDT training is not always beneficial
+2. Event shape variables (aplanarity, sphericity, deltaR) have known MC mismodeling in high-multiplicity environments
+3. Signal compression is a real risk when backgrounds have similar kinematics to signal
+4. Always check Data/MC agreement for new BDT input variables before deployment
+
+### Task Status: CLOSED
+The TTBB BDT retraining experiment is concluded. The original v0 BDT remains the production choice.
