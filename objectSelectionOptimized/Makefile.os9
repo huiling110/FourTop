@@ -19,12 +19,12 @@ ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS = $(shell root-config --libs)
 ROOTGLIBS = $(shell root-config --glibs)
 
-# For AlmaLinux9 (el9):
-# CORRECTIONLIB_FLAGS = -I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include
-# CORRECTIONLIB_LIB = -L/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/lib -lcorrectionlib
-# For CentOS7 (slc7):
-CORRECTIONLIB_FLAGS = -I/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/py3-correctionlib/2.0.0-0c4f44c8dd5561d8c0660135feeb81f4/lib/python3.9/site-packages/correctionlib/include
-CORRECTIONLIB_LIB = -L/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/py3-correctionlib/2.0.0-0c4f44c8dd5561d8c0660135feeb81f4/lib/python3.9/site-packages/correctionlib/lib -lcorrectionlib
+# CORRECTIONLIB_FLAGS = $(shell correction config --cflags)
+# CORRECTIONLIB_LIB = $(shell correction config --ldflags --rpath )
+CORRECTIONLIB_FLAGS = -I/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/include
+# CORRECTIONLIB_LIB = $(shell correction config --ldflags )
+# Hardcoded for CentOS7 compatibility (correction command not available in container)
+CORRECTIONLIB_LIB = -L/scratchfs/cms/huahuil/myenv/lib64/python3.9/site-packages/correctionlib/lib -lcorrectionlib
 # TMVALIBS = -lTMVA
 
 # XGBoost 0.80 for CentOS7 (slc7) - need both xgboost and rabit include paths
