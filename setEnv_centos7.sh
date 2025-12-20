@@ -7,17 +7,26 @@
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 current_dir="${script_dir}"
 
+# IMPORTANT: Reset environment to avoid contamination from existing CMSSW
+# Keep only essential system paths
+export PATH=/usr/local/bin:/usr/bin:/bin
+export LD_LIBRARY_PATH=""
+export PYTHONPATH=""
+
 # Python path for custom modules
-export PYTHONPATH=$PYTHONPATH:${current_dir}/hua/src_py/
+export PYTHONPATH=${current_dir}/hua/src_py/
 
 # GCC 9.3.0 for CentOS7 (slc7_amd64_gcc900)
 export PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin/:$PATH
-export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib64/:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib64/:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib/
 
 # ROOT 6.22.08 for CentOS7
 export ROOTSYS=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/lcg/root/6.22.08-8d9ab2b279c3f35e6100d909611c3c2f
 export PATH=$ROOTSYS/bin/:$PATH
 export LD_LIBRARY_PATH=$ROOTSYS/lib/:$LD_LIBRARY_PATH
+
+# TBB (Threading Building Blocks) - required by ROOT's libImt.so
+export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/tbb/v2021.2.0-cms/lib/:$LD_LIBRARY_PATH
 
 # XGBoost 0.80 (slc7_amd64_gcc700) - the key difference from setEnv_newNew.sh
 export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost/0.80-ikaegh/lib/python2.7/site-packages/xgboost/lib/:$LD_LIBRARY_PATH
