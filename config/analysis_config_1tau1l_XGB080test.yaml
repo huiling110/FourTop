@@ -1,0 +1,37 @@
+# FourTop Analysis Configuration - 1tau1l Channel (XGBoost 0.80 Verification Test)
+# Created: 2025-12-20
+# Purpose: Verify XGBoost library version is root cause of yield differences
+
+metadata:
+  name: "1tau1l_XGB080test"
+  description: "CentOS7 XGBoost 0.80 verification test for yield investigation"
+  created: "2025-12-20"
+
+# Version strings for each pipeline stage
+versions:
+  stage1: "v95XGB080testOS7"              # Object selection output (CentOS7 + XGBoost 0.80)
+  stage2: "v1baselineHadro"               # Variable calculation output
+  hist: "v0BDT1tau1l_XGB080test"          # Histogram version
+  datacard: "v1_xgb080_test"              # Datacard version
+  combination: "combinationV21"           # Combine version
+
+# Channel name
+channel: "1tau1l"
+
+# Eras to process (2018 only for this test)
+eras:
+  - "2018"
+
+# Analysis options
+options:
+  fake_tau: true
+  mc_fake_tau: false
+  blind: false
+  systematics: false  # Nominal only for quick test
+  smoothing: false
+  ifVLL: false
+
+# Base paths
+paths:
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"

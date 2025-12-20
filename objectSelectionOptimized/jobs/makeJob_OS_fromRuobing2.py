@@ -107,9 +107,8 @@ def prepare_job_script(
     with open(script_path, 'w') as f:
         f.write("#!/bin/bash\n")
         f.write(f"cd {app_dir}\n")
-        # Set library paths for RoccoR and myLibrary (needed for HTCondor jobs)
-        f.write("export LD_LIBRARY_PATH=/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/roccor:"
-                "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/myLibrary:$LD_LIBRARY_PATH\n")
+        # Source CentOS7 environment for XGBoost 0.80 compatibility test
+        f.write("source /workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/setEnv_centos7.sh\n")
         command = (f"./apps/run_objectSelection.out {input_dir} {input_file} {output_dir} "
                    f"{TES} {eleScale} {JESSys} {JERSys} {METSys} {if1tau2l} 0")
         f.write(command)
@@ -190,7 +189,8 @@ def make_jobs_for_directory(
         log_file = os.path.join(log_dir, '_%{ProcId}.log')
         err_file = os.path.join(log_dir, '_%{ProcId}.err')
 
-        submit_cmd = (f"hep_sub {process_job_dir}/{job_pattern} "
+        # Use CentOS7 for XGBoost 0.80 compatibility test
+        submit_cmd = (f"hep_sub -os CentOS7 {process_job_dir}/{job_pattern} "
                       f"-o {log_file} -e {err_file} -n {len(sample_files)}")
 
         result = subprocess.run(submit_cmd, shell=True, capture_output=True, text=True)
