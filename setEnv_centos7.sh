@@ -38,8 +38,7 @@ export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/py3-correct
 export LD_LIBRARY_PATH=${current_dir}/myLibrary/:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/roccor/:$LD_LIBRARY_PATH
 
-# System libraries
-export LD_LIBRARY_PATH=/usr/lib/:/usr/lib64/:${LD_LIBRARY_PATH}
+# Note: Do NOT add /usr/lib64 to LD_LIBRARY_PATH - it would override the GCC 9.3.0 libstdc++
 
 # For matplotlib cache
 export MPLCONFIGDIR=/scratchfs/cms/huahuil/matplotlib_cache
