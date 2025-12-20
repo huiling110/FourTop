@@ -752,16 +752,17 @@ source ../setEnv_newNew.sh
 ### Task 10.1: Code Changes for CentOS7 Compatibility
 - [x] Switch XGBoost API in usefulFunc.C (6 params → 5 params)
 - [x] Switch XGBoost paths in Makefile to 0.80
-- [ ] Create setEnv_centos7.sh environment script
-- [ ] Create analysis_config_1tau1l_XGB080test.yaml
+- [x] Create setEnv_centos7.sh environment script
+- [x] Create analysis_config_1tau1l_XGB080test.yaml
 
 ### Task 10.2: Build and Test
-- [ ] Build on CentOS7 using `hep_container shell CentOS7`
-- [ ] Local test on single file
+- [x] Build on CentOS7 using `hep_container shell CentOS7`
+- [x] Local test on single file (XGBoost 0.80 loads successfully)
 
 ### Task 10.3: Submit and Run Pipeline
-- [ ] Modify makeJob_OS_fromRuobing2.py for CentOS7 (`-os CentOS7`)
-- [ ] Submit OS jobs for 2018
+- [x] Modify makeJob_OS_fromRuobing2.py for CentOS7 (`-os CentOS7`)
+- [x] Submit OS jobs for 2018 (3502 jobs submitted, cluster 66243965-66244036)
+- [ ] Wait for OS jobs to complete (~1-2 hours)
 - [ ] Run Stage 2 (MV)
 - [ ] Generate fake backgrounds (Stage 2.4)
 - [ ] Run Stage 3 (WH) histograms
