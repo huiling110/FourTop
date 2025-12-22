@@ -815,3 +815,56 @@ processScale: 0.0075447 (was inf)
 tttt_1tau1lSR_BDT: 80,144 entries, sum=3.527 (was inf)
 ```
 
+---
+
+## Claude Code Workflow Hook Fix (2025-12-22)
+
+During Phase 10 work, discovered that the workflow skill wasn't being triggered for WH job submission.
+
+### Issue
+The `UserPromptSubmit` hook was defined in `user-prompt-submit.sh` but was NOT configured in `.claude/settings.local.json`. Only the `PreToolUse` hook was active.
+
+### Fix Applied
+Added `UserPromptSubmit` hook configuration to `.claude/settings.local.json`:
+```json
+"UserPromptSubmit": [
+  {
+    "matcher": "",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "bash .../hooks/user-prompt-submit.sh"
+      }
+    ]
+  }
+]
+```
+
+### Note on Skill Invocation
+Hooks only **inject context** (workflow state from `.workflow/state.json`). They do NOT auto-invoke skills. Skills must be invoked via the Skill tool (e.g., `/workflow`).
+
+---
+
+## Current Status (2025-12-22)
+
+### Phase 12: WH Verification Jobs
+- **Config**: `analysis_config_1tau1l_XGB080test.yaml`
+- **Hist version**: `v0BDT1tau1l_XGB080testNew`
+- **Input**: `v1baselineHadro_v95XGB080testOS7` (CentOS7 + XGBoost 0.80)
+- **Jobs**: 74 submitted for 2018 era
+- **Status**: Running
+
+### Expected Outcome
+If XGBoost 0.80 is truly the root cause, the XGB080 test WH yields should match Reference closely (~0%), while TTBBtest (XGBoost 1.7.5) shows ~5% difference.
+
+### FINAL VERIFICATION COMPLETE (2025-12-22)
+
+**1tau1lSR Yield Comparison (2018):**
+
+| Sample | XGB080 Test | Reference | TTBBtest | XGB080 vs Ref |
+|--------|-------------|-----------|----------|---------------|
+| **tttt** | 3.526 | 3.526 | 3.467 | **+0.00%** |
+| **Data** | 140 | 140 | 133 | **+0.00%** |
+
+XGB080 Test matches Reference **EXACTLY** at ALL stages (OS, MV, WH), confirming XGBoost library version as the sole root cause.
+
