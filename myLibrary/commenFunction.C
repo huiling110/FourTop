@@ -313,9 +313,18 @@ void getVarFromFile(TString variableListCsv, std::vector<TString> &variablesName
 
 
 Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh) {
+    static int debugCount = 0;  // Limit debug output
     for (const auto& graph : graphs) {
         if (graph.isInEtaRange(eta) && graph.tauProng == tauProng) {
+            if (!graph.graph) {
+                std::cout << "[getFRandError] ERROR: graph is nullptr!\n";
+                return kFALSE;
+            }
             int n = graph.graph->GetN();
+            if (debugCount < 5) {
+                std::cout << "[getFRandError] Matched graph: etaRange=[" << graph.etaMin << "," << graph.etaMax
+                          << "], prong=" << graph.tauProng << ", nPoints=" << n << "\n";
+            }
             Double_t x, y;
             graph.graph->GetPoint(0, x, y); // Get the first point
             Double_t minX = x - graph.graph->GetErrorXlow(0);
@@ -348,6 +357,11 @@ Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int
                 fr = y;
                 errLow = graph.graph->GetErrorYlow(index);
                 errHigh = graph.graph->GetErrorYhigh(index);
+                if (debugCount < 5) {
+                    std::cout << "[getFRandError] index=" << index << ", x=" << x << ", y(fr)=" << y
+                              << ", errYlow=" << errLow << ", errYhigh=" << errHigh << "\n";
+                    debugCount++;
+                }
                 return kTRUE;
             } else {
                 // This else part is technically not needed as index will always be set

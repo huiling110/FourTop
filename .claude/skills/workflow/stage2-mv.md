@@ -102,6 +102,41 @@ python3 createFakeLeptonTree.py --config ../config/CONFIG.yaml --era 2018
 python3 -c "import ROOT; f=ROOT.TFile.Open('path/to/fakeTau_data_ptMorphed.root'); t=f.Get('newtree'); t.Draw('FR_weight','','',100); print('Mean FR_weight:', ROOT.gDirectory.Get('htemp').GetMean())"
 ```
 
+## Local Testing
+
+Run MV binary directly for debugging/testing:
+
+```bash
+source setEnv_newNew.sh
+cd makeVariables_goodCode/
+
+# Arguments: inputDir process outputDir numEntries if1tau2l JESType JESVar
+# numEntries=0 for all, >0 for test mode (e.g., 100 entries)
+
+# Test with 100 entries (fast)
+./apps/run_makeVariables.out \
+    /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/{stage1_version}/mc/ \
+    tttt \
+    /tmp/test_mv/mc/ \
+    100 0 0 0
+
+# Full run (all entries)
+./apps/run_makeVariables.out \
+    /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/{stage1_version}/mc/ \
+    tttt \
+    /tmp/test_mv/mc/ \
+    0 0 0 0
+
+# Check output
+root -l /tmp/test_mv/mc/tttt.root -e "newtree->Scan(\"FR_weight:tausF_jetPt:tausF_jetEta\",\"\",\"\",10)"
+```
+
+**Arguments**:
+- `numEntries`: 0=all, >0=test mode with N entries
+- `if1tau2l`: 0=1tau0l/1tau1l, 1=1tau2l channel
+- `JESType`: 0=nominal, 1-6=systematic types
+- `JESVar`: 0=nominal, 1=up, 2=down
+
 ## Next Step
 
 After Stage 2 + 2.4 complete: **Stage 3 (WH)** - Histogram production
