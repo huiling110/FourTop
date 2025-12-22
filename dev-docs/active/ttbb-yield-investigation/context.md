@@ -1,8 +1,8 @@
 # Context: TTBB Yield Investigation
 
 **Created**: 2025-12-07 10:30
-**Last Updated**: 2025-12-19
-**Status**: RESOLVED - **XGBoost library differences** identified as root cause (NOT floating-point precision)
+**Last Updated**: 2025-12-22
+**Status**: **COMPLETE** - XGBoost library version (0.80 vs 1.7.5) **EXPERIMENTALLY VERIFIED** as root cause
 
 ---
 
@@ -769,9 +769,22 @@ The reverse is also problematic: **models trained with 0.80 may give different p
 
 ---
 
-## FINAL STATUS: RESOLVED
+## FINAL STATUS: **CONFIRMED** (2025-12-20)
 
-**Root Cause**: XGBoost library version incompatibility (0.80 → 1.7.5)
+**Root Cause**: XGBoost library version incompatibility (0.80 → 1.7.5) **EXPERIMENTALLY VERIFIED**
+
+### Verification Test Results (Phase 10)
+
+Ran the full pipeline on CentOS7 with XGBoost 0.80 (`v95XGB080testOS7`):
+
+**Stage 1 (OS) Tree Entry Comparison:**
+
+| Sample | XGB080 Test (CentOS7) | Reference | TTBBtest (AlmaLinux9) | XGB080 vs Ref |
+|--------|----------------------|-----------|----------------------|---------------|
+| **tttt** | **1,730,209** | **1,730,209** | 1,734,672 | **0 (+0.000%)** |
+| **Data** | **269,807** | **269,807** | 269,953 | **0 (+0.000%)** |
+
+**XGB080 Test matches Reference EXACTLY - 100% confirming hypothesis!**
 
 **Impact**:
 - TopMVA scores shift systematically lower in XGBoost 1.7.5
@@ -779,3 +792,26 @@ The reverse is also problematic: **models trained with 0.80 may give different p
 - Results in -5% 1tau1lSR data, -1.7% tttt MC
 
 **Decision**: Accept TTBBtest as new baseline. All future productions must use AlmaLinux 9 with XGBoost 1.7.5 for consistency.
+
+
+---
+
+## WH TFile Caching Bug Fix (2025-12-22)
+
+During Phase 10 WH verification, encountered a bug where WH jobs failed with "Tree 'Runs' not found" causing `processScale: inf`.
+
+### Bug Origin
+Commit `3f947cbf` (July 14, 2025) changed `m_file` from constructor-body assignment to inline `std::unique_ptr` initialization. This inadvertently triggered ROOT's TFile caching behavior: `calQCDScaleNor` and `calPDFScaleNor` opened the same file path with `TFile::Open()`, received the cached pointer, and closed it - leaving `m_file` pointing to a closed file.
+
+### Fix Applied (Commit eaf05636)
+- Added `TFile*` overloads for `calQCDScaleNor` and `calPDFScaleNor` that accept existing file pointer
+- Updated `treeAnalyzer.C` to use `m_file.get()` instead of file path
+
+### Verification
+Full WH run on XGB080 test files completed successfully:
+```
+genWeightSumInitial: 106025 (was 0)
+processScale: 0.0075447 (was inf)
+tttt_1tau1lSR_BDT: 80,144 entries, sum=3.527 (was inf)
+```
+
