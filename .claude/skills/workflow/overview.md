@@ -6,7 +6,9 @@
 Per-Era:
 1 → 1.1 → 2 → 2.1 → 2.4 → 3 → 4.1 → 4.2 → 4.3 → 4.4
 OS  OS    MV  MV    Fake  WH  JES   Tmpl  Smth  Card
-    sys       sys         +sys
+    sys       sys   (MV)  +sys
+
+Stage 2.4 (Fake backgrounds) is in makeVariables_goodCode/
 
 Sync Point (all 4 eras for 1 channel):
 4.4.1 (Run2 combination) - combines 4 eras → 1-channel Run2 datacard
@@ -75,6 +77,11 @@ All scripts: `--config CONFIG.yaml --era ERA`
 ```bash
 source setEnv_newNew.sh
 
+# Stage 2.4: Fake backgrounds (CRITICAL: regenerate for each version!)
+cd makeVariables_goodCode/
+python3 createFaketauTree.py --config ../config/CONFIG.yaml --era ERA
+python3 createFakeLeptonTree.py --config ../config/CONFIG.yaml --era ERA  # 1tau1l/1tau2l only
+
 # Stage 3: WH (nominal + systematics)
 cd writeHistGood/jobs/
 python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic complete
@@ -115,6 +122,6 @@ paths:
 ## Stage-Specific Docs
 
 - `stage1-os.md` - Object Selection
-- `stage2-mv.md` - Make Variables
+- `stage2-mv.md` - Make Variables + Stage 2.4 Fake Backgrounds
 - `stage3-wh.md` - Histograms
 - `stage4-combine.md` - Templates, Datacards, Combine

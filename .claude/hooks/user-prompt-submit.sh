@@ -47,7 +47,12 @@ check_workflow_patterns() {
     fi
 
     # Specific scripts
-    if [[ "$prompt_lower" =~ (createfaketau|addjes|addtemplate|writedatacard|makejob_os|makejob_mv|makejob.*hist) ]]; then
+    if [[ "$prompt_lower" =~ (createfaketau|createfakelepton|addjes|addtemplate|writedatacard|makejob_os|makejob_mv|makejob.*hist) ]]; then
+        return 0
+    fi
+
+    # Directory-based detection (Stage 2 = makeVariables_goodCode)
+    if [[ "$prompt_lower" =~ (makevariables|make.?variables|stage.?2) ]]; then
         return 0
     fi
 

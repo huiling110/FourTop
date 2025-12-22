@@ -72,9 +72,11 @@ ls -d /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_J
 
 **CRITICAL**: Must regenerate for EACH new analysis version. NEVER copy from reference!
 
+**Location**: `makeVariables_goodCode/` (moved from plotting/ for organizational clarity)
+
 ```bash
 source setEnv_newNew.sh
-cd plotting/
+cd makeVariables_goodCode/
 
 # Fake tau (required for ALL channels)
 python3 createFaketauTree.py --config ../config/CONFIG.yaml --era 2018
@@ -83,6 +85,23 @@ python3 createFaketauTree.py --config ../config/CONFIG.yaml --era 2018
 python3 createFakeLeptonTree.py --config ../config/CONFIG.yaml --era 2018
 ```
 
+### Fake Tau Details
+- Creates `fakeTau_data_ptMorphed.root` and `fakeTau_MC_ptMorphed.root`
+- Applies fake rate (FR) weights from measurement region
+- pT morphing corrects for pT spectrum differences
+- Output: `{stage2_path}/mc/fakeTau_*.root`
+
+### Fake Lepton Details
+- Creates `fakeLepton.root` from anti-isolated lepton region (AR)
+- Only needed for channels with lepton requirement (1tau1l, 1tau2l)
+- Output: `{stage2_path}/mc/fakeLepton.root`
+
+### Verification
+```bash
+# Check FR_weight is non-zero (should be ~0.1)
+python3 -c "import ROOT; f=ROOT.TFile.Open('path/to/fakeTau_data_ptMorphed.root'); t=f.Get('newtree'); t.Draw('FR_weight','','',100); print('Mean FR_weight:', ROOT.gDirectory.Get('htemp').GetMean())"
+```
+
 ## Next Step
 
-After Stage 2 complete: **Stage 3 (WH)** - Histogram production
+After Stage 2 + 2.4 complete: **Stage 3 (WH)** - Histogram production
