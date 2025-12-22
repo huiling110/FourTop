@@ -57,6 +57,18 @@ cd ../makeVariables_goodCode && make clean && make
 - `myLibrary/commenFunction.C` - added debug logging to getFRandError
 - `.claude/skills/workflow/stage2-mv.md` - added local testing instructions
 
-## Next Steps
-- [ ] Remove debug logging from production code (optional)
-- [ ] Regenerate fake_tau trees for XGB080 production
+## Production Run Progress
+
+### 2025-12-22 - MV Stage Rerun
+1. [x] Removed debug logging from weightVarMaker.C and commenFunction.C
+2. [x] Rebuilt myLibrary and MV binary
+3. [x] Submitted MV jobs (72 jobs: 68 MC + 4 data) for XGB080test 2018
+4. [ ] Wait for MV jobs to complete
+5. [ ] Submit WH jobs with nominal
+6. [ ] Run pl.py for plots/datacards
+
+**Commits**:
+- `02f717f4` - Added FR debug logging
+- `f7947094` - Removed debug logging
+
+**Job status**: 72 jobs submitted (cluster 66866624-66866745)
