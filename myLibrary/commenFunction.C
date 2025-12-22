@@ -313,59 +313,41 @@ void getVarFromFile(TString variableListCsv, std::vector<TString> &variablesName
 
 
 Bool_t getFRandError(const std::vector<EtaProngGraph>& graphs, Double_t eta, int tauProng, Double_t pt, Double_t& fr, Double_t& errLow, Double_t& errHigh) {
-    static int debugCount = 0;  // Limit debug output
     for (const auto& graph : graphs) {
         if (graph.isInEtaRange(eta) && graph.tauProng == tauProng) {
             if (!graph.graph) {
-                std::cout << "[getFRandError] ERROR: graph is nullptr!\n";
                 return kFALSE;
             }
             int n = graph.graph->GetN();
-            if (debugCount < 5) {
-                std::cout << "[getFRandError] Matched graph: etaRange=[" << graph.etaMin << "," << graph.etaMax
-                          << "], prong=" << graph.tauProng << ", nPoints=" << n << "\n";
-            }
             Double_t x, y;
-            graph.graph->GetPoint(0, x, y); // Get the first point
+            graph.graph->GetPoint(0, x, y);
             Double_t minX = x - graph.graph->GetErrorXlow(0);
-            graph.graph->GetPoint(n-1, x, y); // Get the last point
+            graph.graph->GetPoint(n-1, x, y);
             Double_t maxX = x + graph.graph->GetErrorXhigh(n-1);
 
-            int index = -1; // Index of the point to use
+            int index = -1;
 
-            // Check if pt is out of range
             if (pt < minX) {
-                // Use the first bin
                 index = 0;
             } else if (pt > maxX) {
-                // Use the last bin
                 index = n - 1;
             } else {
-                // pt is within range, find the correct bin
                 for (int i = 0; i < n; ++i) {
                     graph.graph->GetPoint(i, x, y);
                     if (pt >= x - graph.graph->GetErrorXlow(i) && pt <= x + graph.graph->GetErrorXhigh(i)) {
-                        index = i; // Correct bin found
+                        index = i;
                         break;
                     }
                 }
             }
 
             if (index != -1) {
-                // Retrieve the FR and its errors for the determined bin
                 graph.graph->GetPoint(index, x, y);
                 fr = y;
                 errLow = graph.graph->GetErrorYlow(index);
                 errHigh = graph.graph->GetErrorYhigh(index);
-                if (debugCount < 5) {
-                    std::cout << "[getFRandError] index=" << index << ", x=" << x << ", y(fr)=" << y
-                              << ", errYlow=" << errLow << ", errYhigh=" << errHigh << "\n";
-                    debugCount++;
-                }
                 return kTRUE;
             } else {
-                // This else part is technically not needed as index will always be set
-                // but is kept for logical completeness and future-proofing.
                 return kFALSE;
             }
         }

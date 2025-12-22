@@ -411,21 +411,7 @@ void WeightVarMaker::makeVariables(EventForMV *e, const Double_t jets_HT,  Doubl
         Double_t errUp, errDown, nominal;
         Int_t tauProng =  e->tausF_decayMode.At(0)/5 + 1 ;
         tauProng = tauProng==1? 1 : 3;
-        Double_t absEta = std::abs(e->tausF_jetEta.At(0));
-        Double_t jetPt = e->tausF_jetPt.At(0);
-
-        // Debug: print input values and m_graphs size for first 5 events
-        if(m_entry < 5) {
-            std::cout<<"[FR DEBUG] Entry "<<m_entry<<": eta="<<absEta<<", prong="<<tauProng<<", pt="<<jetPt<<", m_graphs.size="<<m_graphs.size()<<"\n";
-        }
-
-        ifFR = TTTT::getFRandError(m_graphs, absEta, tauProng, jetPt, nominal, errDown, errUp);
-
-        // Debug: print results for first 5 events
-        if(m_entry < 5) {
-            std::cout<<"[FR DEBUG] ifFR="<<ifFR<<", nominal="<<nominal<<", errDown="<<errDown<<", errUp="<<errUp<<"\n";
-        }
-
+        ifFR = TTTT::getFRandError(m_graphs, std::abs(e->tausF_jetEta.At(0)), tauProng, e->tausF_jetPt.At(0), nominal, errDown, errUp);
         if (!ifFR)
             {
                 std::cout<<"!!!FR not get<<\n";
