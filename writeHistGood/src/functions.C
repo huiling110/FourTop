@@ -646,7 +646,82 @@ Double_t calPDFScaleNor(const TString inputFile, UInt_t index){
     return scale;
 }
 
+// Overload: accept existing TFile* (don't close the file - caller owns it)
+Double_t calQCDScaleNor(TFile* file, UInt_t index){
+    if (!file || file->IsZombie()) {
+        std::cerr << "Error: invalid file pointer!" << std::endl;
+        return 1;
+    }
 
+    TTreeReader reader("Runs", file);
+    TTreeReaderArray<double> LHEScaleSumw(reader, "LHEScaleSumw");
+    TTreeReaderValue<Double_t> genEventSumw(reader, "genEventSumw");
+
+    Double_t sumGen = 0.;
+    Double_t sumGenScale = 0;
+    while (reader.Next())
+    {
+        sumGen += *genEventSumw;
+        sumGenScale += LHEScaleSumw[index]*(*genEventSumw);
+    }
+    return sumGen/sumGenScale;
+}
+
+// Overload: accept existing TFile* (don't close the file - caller owns it)
+Double_t calPDFScaleNor(TFile* file, UInt_t index){
+    if (!file || file->IsZombie()) {
+        std::cerr << "Error: invalid file pointer!" << std::endl;
+        return 1;
+    }
+
+    TTreeReader reader("Runs", file);
+    TTreeReaderArray<Double_t> LHEPdfSumw(reader, "LHEPdfSumw");
+    TTreeReaderValue<Double_t> genEventSumw(reader, "genEventSumw");
+    TTreeReaderValue<Double_t> LHEPdfSumwUp(reader, "LHEPdfSumwUp");
+    TTreeReaderValue<Double_t> LHEPdfSumwDown(reader, "LHEPdfSumwDown");
+    TTreeReaderValue<Double_t> PSWeightISRSumwUp(reader, "m_PSWeightISRSumwUp");
+    TTreeReaderValue<Double_t> PSWeightISRSumwDown(reader, "m_PSWeightISRSumwDown");
+    TTreeReaderValue<Double_t> PSWeightFSRSumwUp(reader, "m_PSWeightFSRSumwUp");
+    TTreeReaderValue<Double_t> PSWeightFSRSumwDown(reader, "m_PSWeightFSRSumwDown");
+
+    Double_t sumGen = 0.;
+    Double_t sumGenScale = 0;
+    while (reader.Next())
+    {
+        sumGen += *genEventSumw;
+        switch (index)
+        {
+        case 0:
+            sumGenScale += (LHEPdfSumw[101])*(*genEventSumw);
+            break;
+        case 1:
+            sumGenScale += (LHEPdfSumw[102])*(*genEventSumw);
+            break;
+        case 2:
+            sumGenScale += *LHEPdfSumwUp;
+            break;
+        case 3:
+            sumGenScale += *LHEPdfSumwDown;
+            break;
+        case 4:
+            sumGenScale += *PSWeightISRSumwUp;
+            break;
+        case 5:
+            sumGenScale += *PSWeightISRSumwDown;
+            break;
+        case 6:
+            sumGenScale += *PSWeightFSRSumwUp;
+            break;
+        case 7:
+            sumGenScale += *PSWeightFSRSumwDown;
+            break;
+        default:
+            break;
+        }
+    }
+    Double_t scale = std::abs(sumGenScale)>1e-10? sumGen/sumGenScale:1;
+    return scale;
+}
 
 
 

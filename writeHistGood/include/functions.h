@@ -49,6 +49,9 @@ void getChannelSys(std::vector<TString>& sysRegions,  TString region="1tau1lSR",
 
 Double_t calQCDScaleNor(const TString inputFile, UInt_t index);
 Double_t calPDFScaleNor(const TString inputFile, UInt_t index);
+// Overloads that accept existing TFile* (don't close the file)
+Double_t calQCDScaleNor(TFile* file, UInt_t index);
+Double_t calPDFScaleNor(TFile* file, UInt_t index);
 
 
 

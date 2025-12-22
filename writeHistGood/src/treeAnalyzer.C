@@ -115,18 +115,19 @@ void treeAnalyzer::Init()
         m_pdfAlphaS_normUp_SF = 1;
         m_pdfAlphaS_normDown_SF = 1;
     }else{
-        m_scaleRe_normUp_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 7);
-        m_scaleRe_normDown_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 1);
-        m_scaleFa_normUp_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 5);
-        m_scaleFa_normDown_SF = WH::calQCDScaleNor(m_inputDir + m_processName + ".root", 3);
-        m_pdfAlphaS_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 0);//!inf big for singleTop process
-        m_pdfAlphaS_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 1);
-        m_pdf_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 2);
-        m_pdf_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 3);
-        m_PSWeightISR_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 4);
-        m_PSWeightISR_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 5);
-        m_PSWeightFSR_normUp_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 6);
-        m_PSWeightFSR_normDown_SF = WH::calPDFScaleNor(m_inputDir + m_processName + ".root", 7);
+        // Use TFile* overloads to avoid ROOT file caching issues
+        m_scaleRe_normUp_SF = WH::calQCDScaleNor(m_file.get(), 7);
+        m_scaleRe_normDown_SF = WH::calQCDScaleNor(m_file.get(), 1);
+        m_scaleFa_normUp_SF = WH::calQCDScaleNor(m_file.get(), 5);
+        m_scaleFa_normDown_SF = WH::calQCDScaleNor(m_file.get(), 3);
+        m_pdfAlphaS_normUp_SF = WH::calPDFScaleNor(m_file.get(), 0);//!inf big for singleTop process
+        m_pdfAlphaS_normDown_SF = WH::calPDFScaleNor(m_file.get(), 1);
+        m_pdf_normUp_SF = WH::calPDFScaleNor(m_file.get(), 2);
+        m_pdf_normDown_SF = WH::calPDFScaleNor(m_file.get(), 3);
+        m_PSWeightISR_normUp_SF = WH::calPDFScaleNor(m_file.get(), 4);
+        m_PSWeightISR_normDown_SF = WH::calPDFScaleNor(m_file.get(), 5);
+        m_PSWeightFSR_normUp_SF = WH::calPDFScaleNor(m_file.get(), 6);
+        m_PSWeightFSR_normDown_SF = WH::calPDFScaleNor(m_file.get(), 7);
     }
     std::cout<<"m_scaleRe_normDown_SF="<<m_scaleRe_normDown_SF<<"\n";
     std::cout<<"m_scaleRe_normUp_SF="<<m_scaleRe_normUp_SF<<"\n";
