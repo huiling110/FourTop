@@ -1,8 +1,8 @@
 # Tasks: TTBB Yield Investigation
 
 **Created**: 2025-12-07 10:30
-**Last Updated**: 2025-12-22
-**Status**: **COMPLETE** - XGBoost library version (0.80 vs 1.7.5) **EXPERIMENTALLY VERIFIED** as root cause
+**Last Updated**: 2025-12-23
+**Status**: **COMPLETE** - XGBoost library version (0.80 vs 1.7.5) **EXPERIMENTALLY VERIFIED** as root cause + FR_weight bug fixed
 
 ---
 
@@ -935,3 +935,60 @@ XGBoost library version incompatibility (0.80 → 1.7.5) causes systematic downw
 
 ### Recommendation
 Accept TTBBtest as the new baseline. All future productions must use AlmaLinux9 with XGBoost 1.7.5 consistently.
+
+---
+
+## Phase 13: FR_weight=0 Bug Fix (2025-12-22 to 2025-12-23)
+
+### Task 13.1: Establish Baseline
+- [x] Compare XGB080 vs TTBBtest configs - nearly identical
+- [x] Verify FR file path is hardcoded in inputMap_MV.h
+- [x] Confirm OS outputs are IDENTICAL between versions
+- [x] Verify Python can read FR file correctly (y=0.107, 0.129, etc.)
+
+**Status**: Complete
+
+### Task 13.2: Debug C++ Code
+- [x] Add debug logging to weightVarMaker.C
+- [x] Add debug logging to getFRandError in commenFunction.C
+- [x] Rebuild myLibrary and MV binary
+- [x] Run test to see detailed graph debug output
+- [x] Debug output confirmed FR values now correct
+
+**Status**: Complete
+**Root Cause**: Stale compiled objects in myLibrary/MV code
+
+### Task 13.3: Verify Fix
+- [x] FR_weight values verified in output file
+- [x] Values range from 0.07-0.11 as expected
+
+**Status**: Complete
+
+### Task 13.4: Production Run
+- [x] Remove debug logging from production code
+- [x] Rebuild myLibrary and MV binary
+- [x] Submit MV jobs (72 jobs) for XGB080test 2018
+- [x] MV jobs completed - FR_weight correct (0.07-0.12)
+- [x] Submit WH jobs (75 jobs)
+- [x] WH jobs completed
+- [x] Run pl.py - plots generated
+
+**Status**: Complete
+
+### Task 13.5: Final Verification
+- [x] Verify fakeTau yields are non-zero
+  - SR yield: 72.13 (was 0 before fix)
+  - CR12 yield: 277.55 (was 0 before fix)
+
+**Status**: Complete
+
+**Commits**:
+- `02f717f4` - Added FR debug logging
+- `f7947094` - Removed debug logging
+
+---
+
+## ALL PHASES COMPLETE
+
+**Investigation Duration**: 2025-12-07 to 2025-12-23 (16 days)
+**Final Status**: COMPLETE with experimental verification

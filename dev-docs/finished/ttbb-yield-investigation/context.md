@@ -1,7 +1,7 @@
 # Context: TTBB Yield Investigation
 
 **Created**: 2025-12-07 10:30
-**Last Updated**: 2025-12-22
+**Last Updated**: 2025-12-23
 **Status**: **COMPLETE** - XGBoost library version (0.80 vs 1.7.5) **EXPERIMENTALLY VERIFIED** as root cause
 
 ---
@@ -868,3 +868,54 @@ If XGBoost 0.80 is truly the root cause, the XGB080 test WH yields should match 
 
 XGB080 Test matches Reference **EXACTLY** at ALL stages (OS, MV, WH), confirming XGBoost library version as the sole root cause.
 
+---
+
+## Phase 13: FR_weight=0 Bug Context (2025-12-22 to 2025-12-23)
+
+### Key Files for FR Calculation
+- `myLibrary/commenFunction.C:315-374` - getFRandError() function
+- `myLibrary/commenFunction.h` - EtaProngGraph struct definition
+- `makeVariables_goodCode/src/weightVarMaker.C` - FR_weight calculation
+- `makeVariables_goodCode/include/inputMap_MV.h` - FR file path (hardcoded)
+
+### FR Data File
+```
+/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHadro_v94HadroPreJetVetoHemOnly_backupV2/mc/variableHists_v0FRMeasure/results/fakeRateInPtEtaProng.root
+```
+Contains 4 TGraphAsymmErrors objects with 8 points each.
+
+### Useful Commands for FR Debugging
+
+#### Build
+```bash
+cd myLibrary && source ../setEnv_newNew.sh && make
+cd makeVariables_goodCode && make clean && make
+```
+
+#### Test MV locally
+```bash
+cd makeVariables_goodCode
+source ../setEnv_newNew.sh
+./apps/run_makeVariables.out INPUT_DIR PROCESS OUTPUT_DIR 0 0 0 0
+```
+
+#### Verify FR file with Python
+```python
+import ROOT
+f = ROOT.TFile.Open("fakeRateInPtEtaProng.root")
+g = f.Get("data_eta_0_4_prong1")
+for i in range(g.GetN()):
+    x, y = ROOT.Double(), ROOT.Double()
+    g.GetPoint(i, x, y)
+    print(f"Point {i}: x={x}, y={y}")
+```
+
+### XGB080 Test Data Paths
+- OS: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL2018/v95XGB080testOS7/`
+- MV: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v95XGB080testOS7/`
+- WH: `.../variableHists_v0BDT1tau1l_XGB080testNew/`
+
+### FR_weight Bug Resolution
+**Root Cause**: Stale compiled objects in myLibrary/MV code caused FR_weight=0.
+**Fix**: Full rebuild with `make clean && make` resolved the issue.
+**Verification**: FR_weight values now correctly in 0.07-0.12 range.
