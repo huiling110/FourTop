@@ -16,7 +16,7 @@ cd makeVariables_goodCode/jobs/
 # Nominal
 python3 makeJob_makeVaribles_forBDT.py --config ../../config/CONFIG.yaml --era 2018
 
-# All systematics (14 variations: TES×8, JER×2, MET×2, EleScale×2)
+# All systematics (74 total: TES×8, JER×2, MET×2, EleScale×2, JES×60)
 python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018
 
 # Specific group: TES, JER, MET, EleScale, all
