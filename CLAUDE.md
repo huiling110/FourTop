@@ -1,6 +1,6 @@
 # CLAUDE.md - FourTop Analysis AI Context
 
-**Last updated**: 2025-12-08
+**Last updated**: 2025-12-24
 
 ---
 
@@ -13,8 +13,13 @@
 5. **Commit often** - Commit after each significant code change, not batched
 6. **Dev-docs lifecycle** - After plan approval, immediately create dev-docs structure (`plan.md`, `context.md`, `tasks.md`). **Update dev-docs frequently during execution** - After major milestones, before commits, or when tasks complete. Essential for later review of plan progress
 7. **Workflow state first** - Before ANY workflow operation (checking jobs, verifying outputs, etc.), read `.workflow/state.json` to get concrete paths. This file contains computed paths for all eras - never guess directory structures.
+8. **Stage skills auto-discover** - Stage-specific skills are now auto-discovered based on keywords:
+   - `workflow-stage1-os` - OS, NanoAOD, skimmed, held jobs, jetHT, resubmit
+   - `workflow-stage2-mv` - MV, BDT, fake tau, fake lepton, FR_weight
+   - `workflow-stage3-wh` - WH, histograms, variableHists, systematic
+   - `workflow-stage4-combine` - combine, datacard, template, limits, postfit
 
-For detailed commands and procedures, see `.claude/skills/workflow/overview.md`
+For general workflow overview, see `.claude/skills/workflow/overview.md`
 
 ---
 
@@ -29,7 +34,7 @@ For detailed commands and procedures, see `.claude/skills/workflow/overview.md`
 |-------|--------|-----------|---------|
 | 1 | OS | `objectSelectionOptimized/` | NanoAOD → skimmed ntuples |
 | 2 | MV | `makeVariables_goodCode/` | Add BDT scores |
-| 2.4 | - | `plotting/` | Fake background estimation |
+| 2.4 | - | `makeVariables_goodCode/` | Fake background estimation |
 | 3 | WH | `writeHistGood/` | Histogram production |
 | 4 | PL | `plotting/` | Plots, templates, datacards |
 | 4.5 | - | `hua/combine/` | Statistical fits |
@@ -76,7 +81,7 @@ hep_q -u $USER
 | `.workflow/state.json` | **Workflow state with concrete paths** - READ THIS FIRST |
 | `plotting/workflow_utils.py` | Config loading, path building |
 | `config/analysis_config_*.yaml` | Analysis configurations |
-| `.claude/skills/workflow/overview.md` | Stage commands reference |
+| `.claude/skills/workflow-stage*` | Auto-discovered stage skills |
 | `setEnv_newNew.sh` | Environment setup |
 
 ---
@@ -90,4 +95,4 @@ hep_q -u $USER
 
 ---
 
-*See `.claude/skills/workflow.md` for detailed stage commands*
+*Stage skills auto-discovered: workflow-stage1-os, workflow-stage2-mv, workflow-stage3-wh, workflow-stage4-combine*
