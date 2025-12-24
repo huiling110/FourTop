@@ -39,6 +39,8 @@ python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018 
 hep_q -u $USER | grep MV_
 ```
 
+**Job duration**: ~1 hour per job
+
 ## Stage 2.4: Fake Backgrounds
 
 **Only needed for nominal MV**, not systematics. Run with Stage 2 nominal.
