@@ -16,7 +16,7 @@ cd makeVariables_goodCode/jobs/
 # Nominal
 python3 makeJob_makeVaribles_forBDT.py --config ../../config/CONFIG.yaml --era 2018
 
-# All systematics (TES, JER, MET, EleScale)
+# All systematics (14 variations: TES×8, JER×2, MET×2, EleScale×2)
 python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018
 
 # Specific group: TES, JER, MET, EleScale, all
@@ -62,6 +62,18 @@ python3 createFakeLeptonTree.py --config ../config/CONFIG.yaml --era 2018
 ```bash
 # Check FR_weight non-zero (~0.1)
 python3 -c "import ROOT; f=ROOT.TFile.Open('path/fakeTau_data_ptMorphed.root'); t=f.Get('newtree'); print('Mean:', t.GetEntries())"
+```
+
+## Local Testing
+
+```bash
+cd makeVariables_goodCode/
+
+# Args: inputDir process outputDir numEntries if1tau2l JESType JESVar
+./apps/run_makeVariables.out /publicfs/.../UL2018/{stage1}/mc/ tttt /tmp/test_mv/mc/ 100 0 0 0
+
+# numEntries: 0=all, >0=test | if1tau2l: 0=1tau0l/1tau1l, 1=1tau2l
+# JESType: 0=nominal, 1-6=sys | JESVar: 0=nominal, 1=up, 2=down
 ```
 
 ## Next: Stage 3 (WH)
