@@ -60,11 +60,25 @@ ls /publicfs/.../UL2018/{stage1_version}/mc/tttt/*.root | wc -l
 ls /publicfs/.../UL2018/{stage1_version}/data/jetHT_2018a/*.root | wc -l
 ```
 
-## Binary Mismatch Error
+## Troubleshooting
 
+### Binary Mismatch Error
 If `GLIBCXX_3.4.32 not found`: recompile for CentOS7:
 ```bash
 source setEnv_centos7.sh && cd objectSelectionOptimized/ && make clean && make
 ```
+
+### Excessive Memory Usage
+If jobs need unexpectedly high memory (>12GB), check the job script for **wrong input paths**:
+```bash
+# Read a held job script
+cat /publicfs/.../jobs_eachYear/.../OS_*.sh | grep "run_objectSelection"
+```
+**Common issue**: Script points to old nanoAOD path (e.g., `/nanoAOD/2016/data/`) instead of UL path (`/nanoAOD/UL2016_postVFP/`). Old files may be larger or corrupted.
+
+### Ghost Jobs
+Jobs may show "running" for hours after completion:
+- Check if output files exist
+- Remove with `hep_rm <jobid>` if outputs verified
 
 ## Next: Stage 2 (MV)

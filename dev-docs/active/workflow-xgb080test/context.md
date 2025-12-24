@@ -94,3 +94,16 @@ Restructured workflow skills for automatic loading based on keywords:
 | `workflow-stage4-combine` | combine, datacard, template, limits |
 
 No longer need manual skill file reads - Claude auto-discovers based on task context.
+
+## Skill Learning Protocol
+
+**Update skills as we learn**: When discovering issues, fixes, or useful commands during workflow execution, update the corresponding stage skill immediately:
+
+| Discovery | Update |
+|-----------|--------|
+| OS memory issues, held jobs | `.claude/skills/workflow-stage1-os/SKILL.md` |
+| MV path patterns, fake rate bugs | `.claude/skills/workflow-stage2-mv/SKILL.md` |
+| WH file counts, systematic issues | `.claude/skills/workflow-stage3-wh/SKILL.md` |
+| Combine fits, datacard fixes | `.claude/skills/workflow-stage4-combine/SKILL.md` |
+
+This ensures knowledge accumulates in skills for future sessions.
