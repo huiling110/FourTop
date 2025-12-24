@@ -77,6 +77,8 @@ ls -d /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_J
 
 **CRITICAL**: Must regenerate for EACH new analysis version. NEVER copy from reference!
 
+**NOTE**: Fake backgrounds are only needed for **nominal MV step**, not for systematics. Run Stage 2.4 together with Stage 2 MV nominal, then submit MV systematics separately.
+
 **Location**: `makeVariables_goodCode/` (moved from plotting/ for organizational clarity)
 
 ```bash
