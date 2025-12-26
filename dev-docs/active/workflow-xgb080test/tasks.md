@@ -1,84 +1,85 @@
 # Tasks: XGB080test Workflow
 
 ## Status Summary
-| Era | S1 OS | S1.1 OS sys | S2 MV | S2.1 MV sys | S2.4 Fake | S3 WH | S4 |
-|-----|-------|-------------|-------|-------------|-----------|-------|-----|
-| 2018 | DONE | RUNNING | DONE | PENDING | DONE | Nominal | - |
-| 2017 | DONE | PENDING | - | - | - | - | - |
-| 2016preVFP | DONE | PENDING | - | - | - | - | - |
-| 2016postVFP | RUNNING | - | - | - | - | - | - |
+| Era | S1 OS | S1.1 OS sys | S2 MV | S2.1 MV sys | S2.4 Fake | S3 WH | S3.1 WH sys | S4 |
+|-----|-------|-------------|-------|-------------|-----------|-------|-------------|-----|
+| 2018 | DONE | ARCHIVING | DONE | DONE (74) | DONE | DONE | ? | - |
+| 2017 | DONE | RUNNING | DONE | DONE (74) | - | - | - | - |
+| 2016preVFP | - | - | - | - | - | - | - | - |
+| 2016postVFP | - | - | - | - | - | - | - | - |
 
-## Current Phase: Stage 1.1 OS Systematics (2018) + Stage 1 Nominal (2016postVFP)
+## Current Phase: Archiving + 2017 OS Systematics
 
-### Completed
+### Session Dec 26 (continued) - Hook Improvements + Archiving
+
+**2018 OS Systematics Archiving:**
+- [x] 6 archives complete: EleScaleDown/Up, JERDown/Up, JESPt22, METDown
+- [ ] 8 TES archives in progress (`screen -r archive_2018`)
+- [ ] METUp needs re-archive (corrupted from interrupted run)
+
+**2017 OS Systematics:**
+- [ ] ~6400 jobs running (submitted earlier)
+
+**Claude Code Improvements:**
+- [x] Hook now injects skill content (not just hints)
+- [x] Fixed archive_and_cleanup.sh bug (find -type d)
+- [x] Created misc skill for archive script
+- [x] Updated CLAUDE.md with Option C rules (proactive skill reading)
+
+### Earlier Dec 26 - Stage 4 Workflow
+
+**Verified complete for 2018:**
+- [x] Stage 1 OS nominal (68 samples)
+- [x] Stage 1.1 OS systematics (15 variations)
+- [x] Stage 2 MV nominal (71 files)
+- [x] Stage 2.1 MV systematics (74 variations: TES×8, JER×2, MET×2, EleScale×2, JES×60)
+- [x] Stage 2.4 Fake backgrounds (fakeTau_data, fakeTau_MC, fakeLepton)
+- [x] Stage 3 WH nominal (71 histogram files)
+
+**Needs Verification:**
+- [ ] Stage 3.1 WH systematics - check with correct path structure
+
+**Pending (Stage 4 workflow):**
+- [ ] Stage 4.1 addJES - merge JES/JER/TES/MET/EES templates
+- [ ] Stage 4.2 addTemplate
+- [ ] Stage 4.3 smooth_systematics (if smoothing: true)
+- [ ] Stage 4.4 writeDatacard
+- [ ] Stage 4.5 combine fits (workspace, significance, limits)
+- [ ] Stage 4.7 pl.py (plots)
+
+### Code Fixes (Dec 26)
+- [x] **Fixed makeJob_forWriteHist.py** - now reads `ifVLL` from YAML config
+- [x] **Updated hook** - injects full skill content on stage keywords
+- [x] **Updated CLAUDE.md** - Option C: explicit rules to read skills proactively
+- [x] **Fixed archive_and_cleanup.sh** - use `find -type d` not `ls -d`
+- [x] **Created misc skill** - `.claude/skills/misc/SKILL.md`
+
+### Previous Sessions (Dec 24)
+
+#### Completed
 - [x] Verify 2018 Stage 1 OS nominal complete
 - [x] Submit 2017, 2016preVFP, 2016postVFP Stage 1 OS nominal
-- [x] Fix CLAUDE.md Stage 2.4 location and timestamp
-- [x] Create hooks README.md
-- [x] Update pre-tool-use.sh patterns
-- [x] Update stage1-os.md skill (CentOS7 default, job duration, verification)
-- [x] **Fix library mismatch** - created dual-environment myLibrary (OS7 + Linux9)
-- [x] Add --confirm safety to archive_and_cleanup.sh
-- [x] **Make stage1-os.md concise** (179 → ~60 lines)
-- [x] **Create resubmit_held.sh** for memory-held jobs
-- [x] **Fix resubmit_held.sh** - now uses `grep " H "` from hep_q output
-- [x] **Remove ghost jobs** (2017 WJets, 2016preVFP TTZ completed but stuck in queue)
-- [x] **2017 Stage 1 OS nominal** - all outputs verified
-- [x] **2016preVFP Stage 1 OS nominal** - all outputs verified
-- [x] **Submit 2018 OS systematics** (15 variations)
-- [x] **Restructure workflow skills** - Split into 4 auto-discoverable stage skills
+- [x] Fix library mismatch - dual-environment myLibrary (OS7 + Linux9)
+- [x] Create resubmit_held.sh for memory-held jobs
+- [x] Restructure workflow skills into 4 auto-discoverable stage skills
 
-### Issues Fixed
+#### Issues Fixed
+- Library mismatch: `GLIBCXX_3.4.32 not found` - dual-library setup
+- 2016postVFP jetHT_2016H memory issues - resubmit with 12GB
+- Ghost jobs - verified outputs, removed with hep_rm
 
-#### Library Mismatch
-- First OS job submissions failed with `GLIBCXX_3.4.32 not found`
-- Root cause: `libcommenFunction.so` was recompiled for Linux9 on Dec 22
-- Solution: Dual-library setup in myLibrary/
+## Key Commands
 
-#### 2016postVFP jetHT_2016H Memory Issues
-- jetHT_2016H jobs repeatedly held due to memory limits
-- Jobs need ~8GB but default allocation insufficient
-- Solution: `resubmit_held.sh` script to resubmit with higher memory (12GB)
+```bash
+# Stage 3.1 WH systematics
+python3 writeHistGood/jobs/makeJob_WH.py --config config/analysis_config_1tau1l_XGB080test.yaml --era 2018 --systematic all
 
-#### Ghost Jobs
-- 2017 WJets and 2016preVFP TTZ jobs showed "running" for 4+ hours
-- Output files existed, jobs actually completed
-- Condor didn't properly mark them as done
-- Solution: Verified outputs exist, removed ghost jobs with `hep_rm`
+# Stage 4.1 addJES (after WH sys complete)
+python3 plotting/addJESTemplatesToHistFile.py --config config/analysis_config_1tau1l_XGB080test.yaml --era 2018 --execute --quiet
 
-### In Progress
-- [ ] **2016postVFP jetHT_2016H** - 10 jobs with 12GB memory
-- [ ] **2018 OS systematics** - 35156 jobs submitted (15 variations)
-
-### Pending
-- [ ] Submit Stage 1.1 OS systematics for 2017, 2016preVFP, 2016postVFP
-- [ ] Submit Stage 2 MV nominal for all 4 eras
-- [ ] Submit Stage 2.1 MV systematics for all 4 eras
-- [ ] Run Stage 2.4 fake backgrounds for all 4 eras
-- [ ] Submit Stage 3 WH with --systematic complete for all 4 eras
-- [ ] Run Stage 4 pipeline
-
-## Job Status (as of 11:20 Dec 24)
-| Type | Running | Idle | Held | Total |
-|------|---------|------|------|-------|
-| 2016postVFP jetHT | 1 | 0 | 9 | 10 |
-| 2018 Systematics | 0 | 0 | 0 | 0 (completed?) |
-| **Total** | 1 | 0 | 9 | 10 |
-
-**Note**: 2018 systematics jobs no longer in queue - need to verify completion.
-
-## Key Scripts
-- `objectSelectionOptimized/jobs/resubmit_held.sh` - Resubmit held jobs with higher memory
-  - Usage: `./resubmit_held.sh 12000` (12GB)
-  - Default: 10GB
-
-## Code Improvements (Dec 24)
-- **Workflow skills restructured** for auto-discovery:
-  - `.claude/skills/workflow-stage1-os/SKILL.md`
-  - `.claude/skills/workflow-stage2-mv/SKILL.md`
-  - `.claude/skills/workflow-stage3-wh/SKILL.md`
-  - `.claude/skills/workflow-stage4-combine/SKILL.md`
-- Each skill has focused keywords in description for Claude to auto-discover
+# Stage 4.7 pl.py
+python3 plotting/pl.py --config config/analysis_config_1tau1l_XGB080test.yaml --era 2018 --unblind
+```
 
 ## Last Updated
-2025-12-24 11:20
+2025-12-26 14:45

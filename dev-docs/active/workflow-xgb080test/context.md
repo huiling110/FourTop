@@ -39,6 +39,18 @@ myLibrary/
 ## Safety Improvements
 - `scripts/archive_and_cleanup.sh` now requires `--confirm` flag to actually delete
 - Without `--confirm`, script lists directories and aborts with warning
+- Fixed bug: now uses `find -type d` to only match directories (was matching files too)
+- New misc skill: `.claude/skills/misc/SKILL.md` documents archive script usage
+
+### Archive Script Usage
+```bash
+# Dry run
+./scripts/archive_and_cleanup.sh --dry-run --era UL2018 --pattern "v95XGB080testOS7"
+
+# Actual run (use screen!)
+screen -S archive_2018
+./scripts/archive_and_cleanup.sh --confirm --era UL2018 --pattern "v95XGB080testOS7"
+```
 
 ## Useful Commands
 ```bash
@@ -82,18 +94,20 @@ cd objectSelectionOptimized/jobs/
 - Submission takes ~10 minutes per era (use screen/nohup)
 - ~35000 jobs per era for full systematic run
 
-## Skill Auto-Discovery (2025-12-24)
+## Skill Auto-Injection (2025-12-26)
 
-Restructured workflow skills for automatic loading based on keywords:
+The `user-prompt-submit.sh` hook now **injects full skill content** when stage keywords detected:
 
-| Skill | Auto-triggers on |
-|-------|------------------|
-| `workflow-stage1-os` | OS, NanoAOD, held jobs, jetHT, resubmit |
-| `workflow-stage2-mv` | MV, BDT, fake tau, FR_weight |
-| `workflow-stage3-wh` | WH, histograms, variableHists |
-| `workflow-stage4-combine` | combine, datacard, template, limits |
+| Keywords | Skill Injected |
+|----------|----------------|
+| OS, NanoAOD, object selection | `workflow-stage1-os/SKILL.md` |
+| MV, BDT, fake tau/lepton | `workflow-stage2-mv/SKILL.md` |
+| WH, histogram, write hist | `workflow-stage3-wh/SKILL.md` |
+| combine, datacard, template, pl.py | `workflow-stage4-combine/SKILL.md` |
 
-No longer need manual skill file reads - Claude auto-discovers based on task context.
+**How it works**: Hook detects keywords in user prompt, cats the skill file content wrapped in `<skill>` tags. Claude receives the skill content automatically without needing to read it manually.
+
+**CLAUDE.md Option C rules**: Added explicit instructions to read skills proactively before verifying stage outputs.
 
 ## Skill Learning Protocol
 
