@@ -8,10 +8,12 @@
 #
 # Example:
 #   ./archive_and_cleanup.sh --dry-run --era UL2018 --pattern "v94HadroPreJetVetoHemOnly_TTBBtest"
-#   nohup ./archive_and_cleanup.sh --era UL2018 --pattern "v94HadroPreJetVetoHemOnly_TTBBtest" > archive.log 2>&1 &
+#   ./archive_and_cleanup.sh --confirm --era UL2018 --pattern "v94HadroPreJetVetoHemOnly_TTBBtest"
+#   nohup ./archive_and_cleanup.sh --confirm --era UL2018 --pattern "v94HadroPreJetVetoHemOnly_TTBBtest" > archive.log 2>&1 &
 #
 # Safety features:
-#   - Dry-run mode by default (must remove --dry-run to actually delete)
+#   - REQUIRES --confirm flag to actually delete (in addition to removing --dry-run)
+#   - Dry-run mode shows what would be done
 #   - Verifies zip integrity before deleting
 #   - Creates detailed log file
 #   - Skips nominal directory (no suffix)
@@ -23,6 +25,7 @@ set -e  # Exit on error
 
 # Default values
 DRY_RUN=false
+CONFIRM=false
 ERA="UL2018"
 PATTERN="v94HadroPreJetVetoHemOnly_TTBBtest"
 BASE_DIR="/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD"
@@ -34,6 +37,10 @@ while [[ $# -gt 0 ]]; do
             DRY_RUN=true
             shift
             ;;
+        --confirm)
+            CONFIRM=true
+            shift
+            ;;
         --era)
             ERA="$2"
             shift 2
@@ -43,12 +50,15 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         --help|-h)
-            echo "Usage: $0 [--dry-run] [--era ERA] [--pattern PATTERN]"
+            echo "Usage: $0 [--dry-run] [--confirm] [--era ERA] [--pattern PATTERN]"
             echo ""
             echo "Options:"
             echo "  --dry-run       Show what would be done without actually doing it"
+            echo "  --confirm       REQUIRED to actually archive and delete (safety feature)"
             echo "  --era           Era directory (default: UL2018)"
             echo "  --pattern       Directory name pattern to match (default: v94HadroPreJetVetoHemOnly_TTBBtest)"
+            echo ""
+            echo "To actually delete, you must use BOTH: no --dry-run AND --confirm"
             exit 0
             ;;
         *)
@@ -83,7 +93,8 @@ log "=============================================="
 
 # Find directories matching pattern (systematic variations only, not nominal)
 # Nominal has no suffix after the pattern, systematics have _SYS suffix
-DIRS=$(ls -d ${SOURCE_DIR}/${PATTERN}_* 2>/dev/null || true)
+# Use find -type d to only match actual directories, not files
+DIRS=$(find ${SOURCE_DIR} -maxdepth 1 -type d -name "${PATTERN}_*" 2>/dev/null | sort || true)
 
 if [ -z "$DIRS" ]; then
     log "ERROR: No directories found matching pattern: ${SOURCE_DIR}/${PATTERN}_*"
@@ -93,6 +104,30 @@ fi
 # Count directories
 DIR_COUNT=$(echo "$DIRS" | wc -l)
 log "Found ${DIR_COUNT} directories to archive"
+
+# List directories that will be processed
+log ""
+log "Directories to be archived and DELETED:"
+for DIR in $DIRS; do
+    log "  - $(basename "$DIR")"
+done
+log ""
+
+# Safety check: require --confirm flag to actually delete
+if [ "$DRY_RUN" = false ] && [ "$CONFIRM" = false ]; then
+    log "=============================================="
+    log "WARNING: This will PERMANENTLY DELETE ${DIR_COUNT} directories!"
+    log "=============================================="
+    log ""
+    log "To proceed, you must add the --confirm flag:"
+    log "  $0 --confirm --era ${ERA} --pattern \"${PATTERN}\""
+    log ""
+    log "Or use --dry-run to see what would be done:"
+    log "  $0 --dry-run --era ${ERA} --pattern \"${PATTERN}\""
+    log ""
+    log "Aborting for safety."
+    exit 1
+fi
 
 # Process each directory
 PROCESSED=0

@@ -1,6 +1,6 @@
 # CLAUDE.md - FourTop Analysis AI Context
 
-**Last updated**: 2025-12-24
+**Last updated**: 2025-12-26
 
 ---
 
@@ -11,15 +11,14 @@
 3. **Regenerate fakes** - Never copy fake tau/lepton files between versions
 4. **Use workflow_utils** - All Python scripts use `from workflow_utils import ...`
 5. **Commit often** - Commit after each significant code change, not batched
-6. **Dev-docs lifecycle** - After plan approval, immediately create dev-docs structure (`plan.md`, `context.md`, `tasks.md`). **Update dev-docs frequently during execution** - After major milestones, before commits, or when tasks complete. Essential for later review of plan progress
-7. **Workflow state first** - Before ANY workflow operation (checking jobs, verifying outputs, etc.), read `.workflow/state.json` to get concrete paths. This file contains computed paths for all eras - never guess directory structures.
-8. **Stage skills auto-discover** - Stage-specific skills are now auto-discovered based on keywords:
-   - `workflow-stage1-os` - OS, NanoAOD, skimmed, held jobs, jetHT, resubmit
-   - `workflow-stage2-mv` - MV, BDT, fake tau, fake lepton, FR_weight
-   - `workflow-stage3-wh` - WH, histograms, variableHists, systematic
-   - `workflow-stage4-combine` - combine, datacard, template, limits, postfit
-
-For general workflow overview, see `.claude/skills/workflow/overview.md`
+6. **Dev-docs lifecycle** - After plan approval, create dev-docs structure. Update frequently during execution
+7. **READ SKILL BEFORE VERIFYING** - Before checking ANY stage output, READ the corresponding skill file first:
+   - OS/Stage 1 → `.claude/skills/workflow-stage1-os/SKILL.md`
+   - MV/Stage 2 → `.claude/skills/workflow-stage2-mv/SKILL.md`
+   - WH/Stage 3 → `.claude/skills/workflow-stage3-wh/SKILL.md`
+   - Combine/Stage 4 → `.claude/skills/workflow-stage4-combine/SKILL.md`
+   **NEVER guess paths. Skills have the correct path patterns.**
+8. **Proactive skill reading** - When user mentions OS/MV/WH/combine keywords, immediately read the skill BEFORE taking action
 
 ---
 
@@ -39,7 +38,7 @@ For general workflow overview, see `.claude/skills/workflow/overview.md`
 | 4 | PL | `plotting/` | Plots, templates, datacards |
 | 4.5 | - | `hua/combine/` | Statistical fits |
 
-**Configs**: `config/analysis_config_{channel}_TTBBtest.yaml`
+**Configs**: `config/analysis_config_{channel}_*.yaml`
 
 ---
 
@@ -78,11 +77,11 @@ hep_q -u $USER
 
 | File | Purpose |
 |------|---------|
-| `.workflow/state.json` | **Workflow state with concrete paths** - READ THIS FIRST |
+| `config/analysis_config_*.yaml` | Analysis configurations - source of truth for versions |
 | `plotting/workflow_utils.py` | Config loading, path building |
-| `config/analysis_config_*.yaml` | Analysis configurations |
-| `.claude/skills/workflow-stage*` | Auto-discovered stage skills |
-| `setEnv_newNew.sh` | Environment setup |
+| `.claude/skills/workflow-stage*/SKILL.md` | Stage-specific commands and paths |
+| `dev-docs/active/*/tasks.md` | Current task progress tracking |
+| `setEnv_newNew.sh` | Environment setup (except combine) |
 
 ---
 
@@ -95,4 +94,10 @@ hep_q -u $USER
 
 ---
 
-*Stage skills auto-discovered: workflow-stage1-os, workflow-stage2-mv, workflow-stage3-wh, workflow-stage4-combine*
+## AI Self-Correction Rules
+
+When I make mistakes like checking wrong paths:
+1. **Stop and read the skill file** - Don't continue guessing
+2. **Use config to get version strings** - `stage1`, `stage2`, `hist` from YAML
+3. **Follow the path pattern exactly** - Don't invent subdirectory structures
+4. **When in doubt, list directories first** - `ls -d /publicfs/.../forMVA/2018/v1baselineHadro*`

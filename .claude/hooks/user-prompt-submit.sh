@@ -1,11 +1,44 @@
 #!/bin/bash
 # UserPromptSubmit Hook for FourTop Analysis
 # Runs BEFORE Claude sees the user's message
-# Purpose: Inject skill activation reminders based on prompt keywords
+# Purpose: Inject skill activation reminders based on prompt keywords AND current directory
 #
 # This implements auto-activation of skills as suggested by best practices
 
 USER_PROMPT="$USER_PROMPT"
+
+# Detect current directory and suggest skill
+detect_directory_skill() {
+    local cwd="${PWD:-$(pwd)}"
+
+    # Map directories to skills
+    if [[ "$cwd" == *"/plotting"* ]] || [[ "$cwd" == *"/plotting/"* ]]; then
+        echo "workflow-stage4-combine"
+    elif [[ "$cwd" == *"/writeHistGood"* ]]; then
+        echo "workflow-stage3-wh"
+    elif [[ "$cwd" == *"/makeVariables_goodCode"* ]]; then
+        echo "workflow-stage2-mv"
+    elif [[ "$cwd" == *"/objectSelectionOptimized"* ]]; then
+        echo "workflow-stage1-os"
+    elif [[ "$cwd" == *"/hua/combine"* ]]; then
+        echo "workflow-stage4-combine"
+    else
+        echo ""
+    fi
+}
+
+# Get directory-based skill
+DIR_SKILL=$(detect_directory_skill)
+
+# Inject directory-based skill hint if detected
+if [[ -n "$DIR_SKILL" ]]; then
+    echo ""
+    echo "<directory_skill_hint>"
+    echo "Current directory suggests: $DIR_SKILL"
+    echo ">>> Use: /workflow or invoke Skill(\"$DIR_SKILL\") for stage-specific commands <<<"
+    echo "</directory_skill_hint>"
+    echo ""
+fi
 
 # Function to check if prompt matches workflow patterns
 check_workflow_patterns() {
@@ -51,8 +84,13 @@ check_workflow_patterns() {
         return 0
     fi
 
-    # Directory-based detection (Stage 2 = makeVariables_goodCode)
-    if [[ "$prompt_lower" =~ (makevariables|make.?variables|stage.?2) ]]; then
+    # Stage 1 (OS) keywords
+    if [[ "$prompt_lower" =~ (skimmed|nanoaod|nano.?aod|stage.?1|objectselection|object.?selection) ]]; then
+        return 0
+    fi
+
+    # Stage 2 (MV) keywords
+    if [[ "$prompt_lower" =~ (makevariables|make.?variables|stage.?2|fr_weight|fake.?rate) ]]; then
         return 0
     fi
 
@@ -191,6 +229,33 @@ except Exception as e:
             echo ""
             echo ">>> IMPORTANT: Read .workflow/state.json for all era paths <<<"
             echo "</workflow_state>"
+
+            # Detect stage-specific keywords and suggest registered skill
+            prompt_lower=$(echo "$USER_PROMPT" | tr '[:upper:]' '[:lower:]')
+            STAGE_SKILL=""
+            # Stage 1: OS, object selection, NanoAOD processing
+            if [[ "$prompt_lower" =~ (stage.?1|objectselection|object.?selection|skimmed|nanoaod) ]] || [[ "$prompt_lower" =~ (^|[[:space:]])os([[:space:]]|$|[,\.]) ]]; then
+                STAGE_SKILL="workflow-stage1-os"
+            # Stage 2: MV, make variables, BDT, fake backgrounds
+            elif [[ "$prompt_lower" =~ (stage.?2|makevariables|make.?variables|fr_weight|fake.?rate|fake.?tau|fake.?lepton) ]] || [[ "$prompt_lower" =~ (^|[[:space:]])mv([[:space:]]|$|[,\.]) ]]; then
+                STAGE_SKILL="workflow-stage2-mv"
+            # Stage 3: WH, write histograms
+            elif [[ "$prompt_lower" =~ (stage.?3|writehist|write.?hist) ]] || [[ "$prompt_lower" =~ (^|[[:space:]])wh([[:space:]]|$|[,\.]) ]]; then
+                STAGE_SKILL="workflow-stage3-wh"
+            # Stage 4: combine, datacard, template, plotting
+            elif [[ "$prompt_lower" =~ (stage.?4|combine|datacard|template|pl\.py|addjes|addtemplate) ]] || [[ "$prompt_lower" =~ (^|[[:space:]])pl([[:space:]]|$|[,\.]) ]]; then
+                STAGE_SKILL="workflow-stage4-combine"
+            fi
+
+            if [[ -n "$STAGE_SKILL" ]]; then
+                SKILL_FILE="$PROJECT_ROOT/.claude/skills/$STAGE_SKILL/SKILL.md"
+                if [[ -f "$SKILL_FILE" ]]; then
+                    echo ""
+                    echo "<skill name=\"$STAGE_SKILL\">"
+                    cat "$SKILL_FILE"
+                    echo "</skill>"
+                fi
+            fi
             echo ""
             V3_INJECTED=true
         fi
