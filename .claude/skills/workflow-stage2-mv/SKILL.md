@@ -17,7 +17,8 @@ cd makeVariables_goodCode/jobs/
 python3 makeJob_makeVaribles_forBDT.py --config ../../config/CONFIG.yaml --era 2018
 
 # All systematics (74 total: TES×8, JER×2, MET×2, EleScale×2, JES×60)
-python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018
+# Takes ~10 mins to submit - run in screen/nohup!
+nohup python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018 &
 
 # Specific group: TES, JER, MET, EleScale, all
 python3 makeJob_MV_JESVariation.py --config ../../config/CONFIG.yaml --era 2018 --group TES
@@ -59,7 +60,21 @@ python3 createFakeLeptonTree.py --config ../config/CONFIG.yaml --era 2018
 
 **CRITICAL**: Regenerate for each version. NEVER copy!
 
-## Verify
+## Verify Completion
+
+```bash
+cd makeVariables_goodCode/
+
+# Full verification (nominal + 74 systematics)
+python3 verify_mv_completion.py --config ../config/CONFIG.yaml --era 2018
+
+# Nominal only
+python3 verify_mv_completion.py --config ../config/CONFIG.yaml --era 2017 --nominal-only
+```
+
+**Output**: Shows complete/incomplete/missing directories for all variations.
+
+## Verify Fakes
 
 ```bash
 # Check FR_weight non-zero (~0.1)
