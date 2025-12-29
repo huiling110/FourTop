@@ -77,6 +77,12 @@ cd objectSelectionOptimized/jobs/
   - Extracts script name from last column, finds script in jobs directories
   - Default memory: 10GB, usage: `./resubmit_held.sh 12000` for 12GB
 
+- `makeVariables_goodCode/verify_mv_completion.py` - Verify MV stage completion
+  - Checks all samples exist for nominal and all 74 systematic variations
+  - Compares expected samples from Stage 1 to actual MV output
+  - Usage: `python3 verify_mv_completion.py --config ../config/CONFIG.yaml --era 2018`
+  - Reports: complete/incomplete/missing directories with details
+
 ## Technical Findings
 
 ### Ghost Jobs

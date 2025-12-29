@@ -3,22 +3,40 @@
 ## Status Summary
 | Era | S1 OS | S1.1 OS sys | S2 MV | S2.1 MV sys | S2.4 Fake | S3 WH | S3.1 WH sys | S4 |
 |-----|-------|-------------|-------|-------------|-----------|-------|-------------|-----|
-| 2018 | DONE | ARCHIVING | DONE | DONE (74) | DONE | DONE | ? | - |
-| 2017 | DONE | RUNNING | DONE | DONE (74) | - | - | - | - |
+| 2018 | DONE | ARCHIVED | DONE | DONE (74) | DONE | DONE | MERGED | DONE |
+| 2017 | DONE | ARCHIVING | DONE | DONE (74) | PENDING | - | - | - |
 | 2016preVFP | - | - | - | - | - | - | - | - |
 | 2016postVFP | - | - | - | - | - | - | - | - |
 
-## Current Phase: Archiving + 2017 OS Systematics
+## Current Phase: 2017 Workflow Completion
 
-### Session Dec 26 (continued) - Hook Improvements + Archiving
+### Session Dec 29 - 2017 Completion
+
+**2018 Status (Complete):**
+- [x] All stages through Stage 4 complete
+- [x] WH systematics run, merged via addJES, cleaned up
+- [x] OS systematics archived (15 tar.gz files)
+
+**2017 Progress:**
+- [x] OS nominal complete (59 processes)
+- [x] OS systematics complete (15 variations, 59 processes each)
+- [x] MV nominal complete (68 files)
+- [x] MV systematics: TES×8, JER×2, MET×2, EleScale×2 complete
+- [x] MV JES: Resubmitted 15 missing variations (was 45/60)
+- [ ] OS systematics archiving in progress (`screen -r archive_2017`)
+- [ ] Run fakes (createFaketauTree, createFakeLeptonTree)
+- [ ] Run WH with `--systematic complete`
+
+**Skill Updates:**
+- [x] Added verify_mv_completion.py to stage2-mv skill
+
+### Session Dec 26 - Hook Improvements + Archiving
 
 **2018 OS Systematics Archiving:**
-- [x] 6 archives complete: EleScaleDown/Up, JERDown/Up, JESPt22, METDown
-- [ ] 8 TES archives in progress (`screen -r archive_2018`)
-- [ ] METUp needs re-archive (corrupted from interrupted run)
+- [x] All 15 archives complete
 
 **2017 OS Systematics:**
-- [ ] ~6400 jobs running (submitted earlier)
+- [x] All 15 variations complete
 
 **Claude Code Improvements:**
 - [x] Hook now injects skill content (not just hints)
@@ -82,4 +100,4 @@ python3 plotting/pl.py --config config/analysis_config_1tau1l_XGB080test.yaml --
 ```
 
 ## Last Updated
-2025-12-26 14:45
+2025-12-29 09:35
