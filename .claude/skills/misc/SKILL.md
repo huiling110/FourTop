@@ -11,6 +11,20 @@ Archives (tar.gz) and deletes Stage 1 OS systematic directories to save disk spa
 
 **Location**: `scripts/archive_and_cleanup.sh`
 
+### Pre-Archiving Checklist
+
+**IMPORTANT**: Before archiving OS systematics, verify downstream stages completed successfully:
+
+```bash
+# 1. Verify MV systematics all completed (files exist + valid ROOT)
+cd makeVariables_goodCode/
+python3 verify_mv_completion.py --config ../config/CONFIG.yaml --era 2018 --validate
+
+# 2. Only archive OS after MV shows "ALL COMPLETE (validated)"
+```
+
+This ensures OS files aren't deleted while still needed for reprocessing.
+
 ### Usage
 
 ```bash

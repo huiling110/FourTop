@@ -65,14 +65,21 @@ python3 createFakeLeptonTree.py --config ../config/CONFIG.yaml --era 2018
 ```bash
 cd makeVariables_goodCode/
 
-# Full verification (nominal + 74 systematics)
+# Quick check (files exist)
 python3 verify_mv_completion.py --config ../config/CONFIG.yaml --era 2018
+
+# Full validation (files exist + ROOT integrity check)
+python3 verify_mv_completion.py --config ../config/CONFIG.yaml --era 2018 --validate
 
 # Nominal only
 python3 verify_mv_completion.py --config ../config/CONFIG.yaml --era 2017 --nominal-only
 ```
 
-**Output**: Shows complete/incomplete/missing directories for all variations.
+**Options**:
+- `--validate`: Opens each ROOT file to verify it's not corrupted (slower but thorough)
+- `--nominal-only`: Only check nominal, skip systematics
+
+**Output**: Shows complete/incomplete/missing/corrupted for all variations.
 
 ## Verify Fakes
 
