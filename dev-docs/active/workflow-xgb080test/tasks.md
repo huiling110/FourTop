@@ -4,13 +4,13 @@
 | Era | S1 OS | S1.1 OS sys | S2 MV | S2.1 MV sys | S2.4 Fake | S3 WH | S3.1 WH sys | S4 |
 |-----|-------|-------------|-------|-------------|-----------|-------|-------------|-----|
 | 2018 | DONE | ARCHIVED | DONE | DONE (74) | DONE | DONE | MERGED | DONE |
-| 2017 | DONE | ARCHIVING | DONE | DONE (74) | PENDING | - | - | - |
-| 2016preVFP | - | - | - | - | - | - | - | - |
-| 2016postVFP | - | - | - | - | - | - | - | - |
+| 2017 | DONE | ARCHIVING (2/15) | DONE | RUNNING | PENDING | - | - | - |
+| 2016preVFP | DONE | TES RUNNING | - | - | - | - | - | - |
+| 2016postVFP | DONE | TES RUNNING | - | - | - | - | - | - |
 
-## Current Phase: 2017 Workflow Completion
+## Current Phase: 2017 Completion + 2016 OS Systematics
 
-### Session Dec 29 - 2017 Completion
+### Session Dec 29 - 2017 Completion + 2016 Systematics
 
 **2018 Status (Complete):**
 - [x] All stages through Stage 4 complete
@@ -22,13 +22,26 @@
 - [x] OS systematics complete (15 variations, 59 processes each)
 - [x] MV nominal complete (68 files)
 - [x] MV systematics: TES×8, JER×2, MET×2, EleScale×2 complete
-- [x] MV JES: Resubmitted 15 missing variations (was 45/60)
-- [ ] OS systematics archiving in progress (`screen -r archive_2017`)
+- [x] MV JES: Resubmitted 15 missing variations (was 45/60) - RUNNING
+- [ ] OS systematics archiving in progress (2/15) (`screen -r archive_2017`)
 - [ ] Run fakes (createFaketauTree, createFakeLeptonTree)
 - [ ] Run WH with `--systematic complete`
 
-**Skill Updates:**
-- [x] Added verify_mv_completion.py to stage2-mv skill
+**2016 Progress:**
+- [x] 2016preVFP TES OS systematics submitted (8 variations)
+- [x] 2016postVFP TES OS systematics submitted (8 variations)
+- [ ] Unzip v94 archives for JES/JER/MET/EleScale → v95 (waiting for 2017 archive to free file quota)
+
+**Strategy for 2016 OS systematics:**
+- TES: Submit new jobs (TES corrections changed between v94/v95)
+- JES/JER/MET/EleScale: Reuse v94 by unzipping and renaming to v95 (no changes needed)
+- Source: `/publicfs/.../UL2016_preVFP/v94HadroPreJetVetoHemOnly_*.zip` (with underscore)
+- Target: `/publicfs/.../UL2016preVFP/v95XGB080testOS7_*/` (no underscore)
+
+**Code Improvements:**
+- [x] Added ROOT validation to verify_mv_completion.py (`--validate` flag)
+- [x] Updated stage2-mv skill with validation docs
+- [x] Updated misc skill: verify MV before archiving OS
 
 ### Session Dec 26 - Hook Improvements + Archiving
 
@@ -100,4 +113,4 @@ python3 plotting/pl.py --config config/analysis_config_1tau1l_XGB080test.yaml --
 ```
 
 ## Last Updated
-2025-12-29 09:35
+2025-12-29 10:00

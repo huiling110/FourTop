@@ -19,6 +19,25 @@ This workflow run tests XGBoost 0.80 compatibility (CentOS7 mode) for yield veri
 - Stage 4.3 (smooth) requires ALL 4 eras complete
 - WH uses `--systematic complete` for full systematic coverage
 
+## 2016 Era Path Discrepancy
+
+**Important**: 2016 has two path naming conventions:
+- Old archives: `/publicfs/.../UL2016_preVFP/` (with underscore)
+- New output: `/publicfs/.../UL2016preVFP/` (no underscore)
+
+v94 systematic archives are at:
+- `UL2016_preVFP/v94HadroPreJetVetoHemOnly_*.zip`
+- `UL2016_postVFP/v94HadroPreJetVetoHemOnly_*.zip`
+
+When unzipping for v95, extract to the no-underscore path:
+- `UL2016preVFP/v95XGB080testOS7_*/`
+
+## 2016 OS Systematics Strategy
+
+For v95XGB080testOS7:
+- **TES (8 variations)**: Submit new jobs (TES corrections differ between versions)
+- **JES/JER/MET/EleScale (7 variations)**: Unzip v94 and rename (no physics changes)
+
 ## Dual-Library Setup (myLibrary/)
 
 Created to support both CentOS7 (OS stage) and Linux9 (MV/WH stages):
