@@ -1,5 +1,17 @@
 # CLAUDE.md - FourTop Analysis
 
+## Project Overview
+
+**CMS four-top (tttt) measurement and VLL search in hadronic tau channels**
+
+| Channel | Description | Trigger |
+|---------|-------------|---------|
+| 1tau0l | 1 hadronic tau, 0 leptons | HT-based (shared) |
+| 1tau1l | 1 hadronic tau, 1 lepton | HT-based (shared) |
+| 1tau2l | 1 hadronic tau, 2 leptons | Different trigger |
+
+**Note**: 1tau0l and 1tau1l share OS and MV steps (same triggers).
+
 ## Critical Rules
 
 1. **Config-driven** - Always `--config CONFIG --era ERA`, never hardcode paths
