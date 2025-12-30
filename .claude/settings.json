@@ -12,7 +12,6 @@
       "Bash(rm -rf /workfs:*)",
       "Bash(sudo :*)",
       "Bash(sudo:*)",
-      "Bash(:(){ :|:& };:)",
       "Bash(chmod -R 000:*)",
       "Bash(chmod -R 777:*)",
       "Bash(chown :*)",
@@ -45,7 +44,13 @@
       "Write",
       "Read",
       "Glob",
-      "Grep"
+      "Grep",
+      "Skill(workflow-stage1-os)",
+      "Skill(workflow-stage2-mv)",
+      "Skill(workflow-stage3-wh)",
+      "Skill(workflow-stage4-combine)",
+      "Skill(workflow)",
+      "Skill(update-dev-docs)"
     ]
   },
   "hooks": {

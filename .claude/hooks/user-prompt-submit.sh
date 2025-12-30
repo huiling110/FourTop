@@ -254,6 +254,8 @@ except Exception as e:
                     echo "<skill name=\"$STAGE_SKILL\">"
                     cat "$SKILL_FILE"
                     echo "</skill>"
+                    # Create marker file for pre-tool-use hook to check
+                    echo "$(date +%s)" > "/tmp/.claude_skill_${STAGE_SKILL}_$USER"
                 fi
             fi
             echo ""

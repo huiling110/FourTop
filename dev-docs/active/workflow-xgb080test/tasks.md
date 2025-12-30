@@ -3,12 +3,35 @@
 ## Status Summary
 | Era | S1 OS | S1.1 OS sys | S2 MV | S2.1 MV sys | S2.4 Fake | S3 WH | S3.1 WH sys | S4 |
 |-----|-------|-------------|-------|-------------|-----------|-------|-------------|-----|
-| 2018 | DONE | ARCHIVED | DONE | DONE (74) | DONE | DONE | MERGED | DONE |
-| 2017 | DONE | ARCHIVING (2/15) | DONE | RUNNING | PENDING | - | - | - |
-| 2016preVFP | DONE | TES RUNNING | - | - | - | - | - | - |
-| 2016postVFP | DONE | TES RUNNING | - | - | - | - | - | - |
+| 2018 | DONE | ARCHIVED | DONE | DONE (75) | DONE | DONE | MERGED | DONE |
+| 2017 | DONE | ARCHIVED (15) | DONE | DONE (75) | PENDING | - | - | - |
+| 2016preVFP | DONE | DONE (15) | DONE | JES SUBMIT | - | - | - | - |
+| 2016postVFP | DONE | DONE (15) | DONE | JES SUBMIT | - | - | - | - |
 
-## Current Phase: 2017 Completion + 2016 OS Systematics
+## Current Phase: 2016 JES MV + 2017 Fakes
+
+### Session Dec 30 - 2016 JES MV Submission + Skill Enforcement
+
+**Skill Enforcement Improvement:**
+- Added path blocking in `pre-tool-use.sh` for stage path checks
+- Hook warns if skill not invoked within 30 mins (marker file system)
+- Updated CLAUDE.md with "Forced Eval" 3-step protocol
+- Added workflow skills to settings.json auto-allow list
+
+**2016 MV JES Submission:**
+- [x] Verified 2016preVFP: 15/75 variations done (non-JES complete)
+- [x] Verified 2016postVFP: 15/75 variations done (non-JES complete)
+- [ ] Submitting 2016preVFP JES (60 variations) - IN PROGRESS
+- [ ] Submitting 2016postVFP JES (60 variations) - IN PROGRESS
+
+**2017 Status:**
+- [x] MV complete: 75/75 variations (all nominal + systematics)
+- [ ] Stage 2.4 fakes pending
+
+**TTBB Investigation:**
+- TTBB in TES (59 files) but not in JER/MET/EleScale (56 files) - EXPECTED
+- TES affects TTBB physics, JER/MET/EleScale don't significantly impact it
+- Different systematics affect different samples - correct behavior
 
 ### Session Dec 29 - 2017 Completion + 2016 Systematics
 
@@ -113,4 +136,4 @@ python3 plotting/pl.py --config config/analysis_config_1tau1l_XGB080test.yaml --
 ```
 
 ## Last Updated
-2025-12-29 10:00
+2025-12-30 09:50
