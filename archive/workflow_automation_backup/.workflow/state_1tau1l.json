@@ -1,0 +1,49 @@
+{
+  "channel": "1tau1l",
+  "config": "config/analysis_config_1tau1l_TTBBtest.yaml",
+  "eras": {
+    "2018": {
+      "stage": "4.5",
+      "status": "done",
+      "jobs": 0,
+      "updated": "2025-12-13T03:00:00Z"
+    },
+    "2017": {
+      "stage": "4.5",
+      "status": "done",
+      "jobs": 0,
+      "updated": "2025-12-13T03:00:00Z"
+    },
+    "2016preVFP": {
+      "stage": "4.5",
+      "status": "done",
+      "jobs": 0,
+      "updated": "2025-12-13T03:00:00Z"
+    },
+    "2016postVFP": {
+      "stage": "4.5",
+      "status": "done",
+      "jobs": 0,
+      "updated": "2025-12-13T03:00:00Z"
+    }
+  },
+  "run2": {
+    "stage": "4.5",
+    "status": "done",
+    "datacard": "hua/combine/combinationV21/run2_1tau1l_v4/datacard.txt",
+    "results": {
+      "significance": 0.549,
+      "expected_limit": 4.72,
+      "observed_limit": 5.61
+    },
+    "updated": "2025-12-13T11:12:00Z"
+  },
+  "next_action": "run S4.6 (postfit) or S4.7 (plots)",
+  "last_update": "2025-12-13T11:12:00Z",
+  "version": "v3",
+  "versions": {
+    "stage1": "v94HadroPreJetVetoHemOnly_TTBBtest",
+    "stage2": "v1baselineHadro",
+    "hist": "v0BDT1tau1l_TTBBtest"
+  }
+}

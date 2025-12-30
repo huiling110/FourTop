@@ -1,8 +1,3 @@
----
-name: workflow-stage4-combine
-description: Stage 4 Templates, Datacards, Combine, and Plots. Use when running addJES, addTemplate, smoothing, writeDatacard, combine fits, postfit plots, or pl.py. Keywords: stage 4, combine, datacard, template, addJES, addTemplate, smooth, writeDatacard, pl.py, postfit, limits, significance, Run2 combination.
----
-
 # Stage 4: Templates, Datacards, Combine, and Plots
 
 ## Quick Reference
@@ -97,28 +92,3 @@ python3 plotting/pl.py --config config/CONFIG.yaml --era 2018
 - Input: WH output (`variableHists_*`)
 - Output: `{hist_dir}/results/`
 - Config options: `systematics`, `fake_tau`, `mc_fake_tau`, `blind`
-
----
-
-## Verify Each Sub-stage
-
-```bash
-# 4.1: Templates with JES merged (check nominal has JES systematics)
-python3 -c "import ROOT; f=ROOT.TFile('plotting/templates_{version}/template_2018.root'); print([k.GetName() for k in f.GetListOfKeys() if 'JES' in k.GetName()][:5])"
-
-# 4.2: addTemplate completed
-ls plotting/templates_{version}/*_2018.root | wc -l
-
-# 4.4: Datacards exist
-ls plotting/datacard/{version}/datacard_*.txt | wc -l
-
-# 4.4.1: Run2 datacard
-cat hua/combine/{combination}/run2_{channel}_v4/datacard.txt | head -5
-
-# 4.5: Combine results
-cat hua/combine/{combination}/significance_*.txt
-cat hua/combine/{combination}/limits_*.txt
-
-# 4.7: Plots generated
-ls plotting/results_{version}/*.pdf | wc -l
-```

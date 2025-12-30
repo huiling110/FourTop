@@ -11,8 +11,14 @@ NanoAOD to skimmed ntuples. **Default: CentOS7** (XGBoost 0.80).
 
 ```
 Input:  /publicfs/cms/data/TopQuark/nanoAOD/{nanoaod_era}/
-Output: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL{era}/{stage1_version}/
+Output: /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/{output_era}/{stage1_version}/
         └── mc/{process}/*.root, data/{dataset}/*.root
+
+Era mapping (config era → output directory):
+  2018        → UL2018
+  2017        → UL2017
+  2016preVFP  → UL2016_preVFP   (note underscore)
+  2016postVFP → UL2016_postVFP  (note underscore)
 ```
 
 ## Commands
@@ -52,12 +58,22 @@ cd objectSelectionOptimized/jobs/
 ./resubmit_held.sh 12000      # 12GB memory
 ```
 
-## Verify Before Stage 2
+## Verify Completion
 
 ```bash
-# Check key processes have output
-ls /publicfs/.../UL2018/{stage1_version}/mc/tttt/*.root | wc -l
-ls /publicfs/.../UL2018/{stage1_version}/data/jetHT_2018a/*.root | wc -l
+# Base path
+BASE=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD
+
+# Count processes (expect ~59-68 depending on era/channel)
+ls $BASE/UL{era}/{stage1}/mc/ | wc -l
+
+# Check key samples exist
+ls $BASE/UL{era}/{stage1}/mc/tttt/*.root | wc -l      # signal
+ls $BASE/UL{era}/{stage1}/mc/TTBB*/ | wc -l           # TTBB (3 samples)
+ls $BASE/UL{era}/{stage1}/data/jetHT_*/ | wc -l       # data
+
+# For systematics (15 variations)
+ls -d $BASE/UL{era}/{stage1}_*/ | wc -l               # expect 16 (nominal + 15 sys)
 ```
 
 ## Troubleshooting

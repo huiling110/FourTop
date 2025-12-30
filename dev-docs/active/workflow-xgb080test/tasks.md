@@ -4,11 +4,31 @@
 | Era | S1 OS | S1.1 OS sys | S2 MV | S2.1 MV sys | S2.4 Fake | S3 WH | S3.1 WH sys | S4 |
 |-----|-------|-------------|-------|-------------|-----------|-------|-------------|-----|
 | 2018 | DONE | ARCHIVED | DONE | DONE (75) | DONE | DONE | MERGED | DONE |
-| 2017 | DONE | ARCHIVED (15) | DONE | DONE (75) | PENDING | - | - | - |
-| 2016preVFP | DONE | DONE (15) | DONE | JES SUBMIT | - | - | - | - |
-| 2016postVFP | DONE | DONE (15) | DONE | JES SUBMIT | - | - | - | - |
+| 2017 | DONE | ARCHIVED (15) | DONE | DONE (75) | **DONE** | - | - | - |
+| 2016preVFP | DONE | RUNNING (58%) | - | PENDING | - | - | - | - |
+| 2016postVFP | DONE | RUNNING (58%) | - | PENDING | - | - | - | - |
 
-## Current Phase: 2016 JES MV + 2017 Fakes
+## Current Phase: 2017 WH + 2016 OS completion
+
+### Session Dec 30 (cont) - 2017 Fakes Complete
+
+**2017 Stage 2.4 Fakes DONE:**
+- [x] fakeTau_data_ptMorphed.root (96 MB) created
+- [x] fakeTau_MC_ptMorphed.root (520 MB) created
+- [x] fakeLepton.root (409 KB) created
+
+**2016 OS Jobs:**
+- Running: 1390/3344 jobs (707 preVFP + 673 postVFP)
+- ~58% complete after ~3 hours
+- Expected completion: ~2 more hours
+
+**Stage1 Skill Fix:**
+- Updated era mapping: 2016preVFP → UL2016_preVFP (with underscore)
+
+**Next Steps:**
+- [ ] After 2016 OS completes: verify TTBB in all variations
+- [ ] Submit 2016 MV jobs
+- [ ] Run 2017 WH with `--systematic complete`
 
 ### Session Dec 30 - 2016 JES MV Submission + Skill Enforcement
 
@@ -26,12 +46,12 @@
 
 **2017 Status:**
 - [x] MV complete: 75/75 variations (all nominal + systematics)
-- [ ] Stage 2.4 fakes pending
+- [x] Stage 2.4 fakes complete
 
 **TTBB Investigation:**
-- TTBB in TES (59 files) but not in JER/MET/EleScale (56 files) - EXPECTED
-- TES affects TTBB physics, JER/MET/EleScale don't significantly impact it
-- Different systematics affect different samples - correct behavior
+- 2017: TTBB in all systematics (archived) - CORRECT
+- 2016: TTBB missing from JER/MET/EleScale because these were unzipped from v94 (not resubmitted)
+- Fix: Resubmit 2016preVFP/postVFP OS for JER/MET/EleScale (6 variations each)
 
 ### Session Dec 29 - 2017 Completion + 2016 Systematics
 

@@ -1,0 +1,98 @@
+{
+  "version": "v3.4",
+  "last_update": "2025-12-13T20:45:00Z",
+  "base_paths": {
+    "output_base": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA",
+    "combine_base": "hua/combine"
+  },
+  "channels": {
+    "1tau1l": {
+      "config": "config/analysis_config_1tau1l_TTBBtest.yaml",
+      "versions": {
+        "stage1": "v94HadroPreJetVetoHemOnly_TTBBtest",
+        "stage2": "v1baselineHadro",
+        "hist": "v0BDT1tau1l_TTBBtest",
+        "datacard": "v1_ttbb_smoothing",
+        "combination": "combinationV21"
+      },
+      "eras": {
+        "2018": {
+          "stage": "4.5",
+          "status": "done",
+          "hist_dir": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/"
+        },
+        "2017": {
+          "stage": "4.5",
+          "status": "done",
+          "hist_dir": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/"
+        },
+        "2016preVFP": {
+          "stage": "4.5",
+          "status": "done",
+          "hist_dir": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/"
+        },
+        "2016postVFP": {
+          "stage": "4.5",
+          "status": "done",
+          "hist_dir": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau1l_TTBBtest/"
+        }
+      },
+      "run2": {
+        "stage": "4.5",
+        "status": "done",
+        "datacard": "hua/combine/combinationV21/run2_1tau1l_v4/datacard.txt",
+        "results": {
+          "significance": 0.549,
+          "expected_limit": 4.72,
+          "observed_limit": 5.61
+        }
+      }
+    },
+    "1tau0l": {
+      "config": "config/analysis_config_1tau0l_TTBBtest.yaml",
+      "versions": {
+        "stage1": "v94HadroPreJetVetoHemOnly_TTBBtest",
+        "stage2": "v1baselineHadro",
+        "hist": "v0BDT1tau0l_TTBBtest",
+        "datacard": "v1_ttbb_smoothing",
+        "combination": "combinationV21"
+      },
+      "eras": {
+        "2018": {
+          "stage": "4.4",
+          "status": "done",
+          "hist_dir": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau0l_TTBBtest/"
+        },
+        "2017": {
+          "stage": "4.4",
+          "status": "done",
+          "hist_dir": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2017/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau0l_TTBBtest/"
+        },
+        "2016preVFP": {
+          "stage": "4.4",
+          "status": "done",
+          "hist_dir": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016preVFP/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau0l_TTBBtest/"
+        },
+        "2016postVFP": {
+          "stage": "4.4",
+          "status": "done",
+          "hist_dir": "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2016postVFP/v1baselineHadro_v94HadroPreJetVetoHemOnly_TTBBtest/mc/variableHists_v0BDT1tau0l_TTBBtest/"
+        }
+      },
+      "run2": {
+        "stage": "4.5",
+        "status": "done",
+        "datacard": "hua/combine/combinationV21/run2_1tau0l_v4/datacard.txt",
+        "results": {
+          "observed_significance": 0,
+          "expected_significance": 0.196,
+          "best_fit_r": 0
+        }
+      }
+    }
+  },
+  "next_action": "Both channels complete. Consider S4.6 (postfit) or S4.7 (plots)",
+  "todo": [
+    "Update run_workflow_auto.py and workflow_state_v3.py for multi-channel support"
+  ]
+}

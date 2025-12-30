@@ -1,8 +1,3 @@
----
-name: workflow-stage3-wh
-description: Stage 3 Write Histograms (WH) - Histogram production from MV output. Use when submitting WH jobs, checking histogram output, running systematic histogram jobs, or verifying histogram counts. Keywords: WH, write histograms, histogram, stage 3, makeJob_WH, variableHists, systematic complete, nominal.
----
-
 # Stage 3: Histogram Production (WH)
 
 ## Quick Reference
@@ -62,29 +57,17 @@ variableHists_{version}/
 ## Monitoring
 
 ```bash
-hep_q -u $USER | grep WH_
-```
+# Check jobs
+hep_q -u $USER
 
-## Verify Completion
-
-```bash
-# Base path (get from config)
-BASE=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}
-
-# Nominal: expect ~71 files
-ls $BASE/v1baselineHadro_{stage1}/mc/variableHists_{hist}/*.root | wc -l
-
-# Check specific systematics
-ls $BASE/v1baselineHadro_{stage1}_TESdm0Up/mc/variableHists_{hist}/*.root | wc -l
-ls $BASE/v1baselineHadro_{stage1}_JERUp/mc/variableHists_{hist}/*.root | wc -l
-
-# Count all histogram directories (expect 75 total)
-ls -d $BASE/*/mc/variableHists_{hist}/ 2>/dev/null | wc -l
+# Check nominal
+ls /publicfs/.../variableHists_*/*.root | wc -l
 
 # Debug failed jobs
-cat $BASE/.../variableHists_{hist}/log/PROCESS.err
+cat /publicfs/.../variableHists_*/log/PROCESS.err
+bash /publicfs/.../variableHists_*/jobSH/WH_PROCESS.sh  # rerun manually
 ```
 
 ## Next Step
 
-After Stage 3 complete -> **Stage 4.1** (addJESTemplatesToHistFile.py)
+After Stage 3 complete → **Stage 4.1** (addJESTemplatesToHistFile.py)

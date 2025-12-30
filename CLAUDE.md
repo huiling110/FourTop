@@ -110,6 +110,27 @@ hep_q -u $USER
 
 ---
 
+## Workflow Tracking
+
+Progress tracked in: `dev-docs/active/{task}/tasks.md`
+
+**Status table format:**
+```
+| Era | S1 OS | S1.1 sys | S2 MV | S2.1 sys | S2.4 Fake | S3 WH | S4 |
+|-----|-------|----------|-------|----------|-----------|-------|-----|
+| 2018 | DONE | DONE | DONE | DONE | DONE | DONE | DONE |
+```
+
+**Stage skills** (invoke for commands and verification):
+- `/workflow-stage1-os` - Object Selection
+- `/workflow-stage2-mv` - Make Variables + Fakes
+- `/workflow-stage3-wh` - Write Histograms
+- `/workflow-stage4-combine` - Templates, Datacards, Combine
+
+**Update after each stage completion. Commit dev-docs regularly.**
+
+---
+
 ## AI Self-Correction Rules
 
 When I make mistakes like checking wrong paths:
