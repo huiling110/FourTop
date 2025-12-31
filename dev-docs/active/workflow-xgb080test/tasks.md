@@ -1,14 +1,15 @@
 # Tasks: XGB080test Workflow
 
 ## Status Summary
-| Era | S1 OS | S1.1 OS sys | S2 MV | S2.1 MV sys | S2.4 Fake | S3 WH | S3.1 WH sys | S4.1 addJES |
-|-----|-------|-------------|-------|-------------|-----------|-------|-------------|-------------|
-| 2018 | DONE | ARCHIVED | DONE | DONE (75) | DONE | DONE | **PARTIAL** | PENDING |
-| 2017 | DONE | ARCHIVED (15) | DONE | DONE (75) | DONE | DONE | **PARTIAL** | DONE |
-| 2016preVFP | DONE | DONE (16) | DONE | DONE (75) | DONE | DONE | **PARTIAL** | DONE |
-| 2016postVFP | DONE | DONE (16) | DONE | DONE (75) | DONE | DONE | **PARTIAL** | DONE |
+| Era | S4.1 addJES | S4.2 addTpl | S4.3 smooth | S4.4 datacard | S4.5 combine |
+|-----|-------------|-------------|-------------|---------------|--------------|
+| 2018 | DONE | DONE | DONE | DONE | - |
+| 2017 | DONE | DONE | DONE | DONE | - |
+| 2016preVFP | DONE | DONE | DONE | DONE | - |
+| 2016postVFP | DONE | DONE | DONE | DONE | - |
+| **Run2** | - | - | - | DONE | **RUNNING** |
 
-## Current Phase: Stage 4.1 addJES complete, pl.py needs addJES first
+## Current Phase: Stage 4.5 combine fits RUNNING (screen: combine_run2)
 
 ### Session Dec 31 - BDT Weight Path Bug Fix + Stage 4.1
 

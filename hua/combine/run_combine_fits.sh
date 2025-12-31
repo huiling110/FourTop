@@ -5,6 +5,7 @@
 # Examples:
 #   ./run_combine_fits.sh ../../config/analysis_config_1tau1l_TTBBtest.yaml 2018 1tau1l
 #   ./run_combine_fits.sh ../../config/analysis_config_1tau0l_TTBBtest.yaml 2017 1tau0l
+#   ./run_combine_fits.sh ../../config/analysis_config_1tau1l_TTBBtest.yaml run2 1tau1l  # Run2 combination
 #
 # Recommended: Run in screen session for long-running jobs
 #   screen -S combine_1tau1l_2018
@@ -17,11 +18,12 @@ if [ "$#" -ne 3 ]; then
     echo ""
     echo "Arguments:"
     echo "  CONFIG_FILE: Path to YAML config (e.g., ../../config/analysis_config_1tau1l_TTBBtest.yaml)"
-    echo "  ERA: Era to process (2018, 2017, 2016preVFP, 2016postVFP)"
+    echo "  ERA: Era to process (2018, 2017, 2016preVFP, 2016postVFP, run2)"
     echo "  CHANNEL: Channel name (1tau1l, 1tau0l, 1tau2l)"
     echo ""
     echo "Example:"
     echo "  $0 ../../config/analysis_config_1tau1l_TTBBtest.yaml 2018 1tau1l"
+    echo "  $0 ../../config/analysis_config_1tau1l_TTBBtest.yaml run2 1tau1l  # Run2 combination"
     exit 1
 fi
 
@@ -44,21 +46,31 @@ eval `scramv1 runtime -sh`
 cd FourTop/hua/combine
 
 # Build datacard directory path from config
-# Read config to get paths
-python3 << PYEOF
+# For run2, use the combination datacard; otherwise use per-era datacard
+if [ "$ERA" = "run2" ]; then
+    # Run2 combination - get combination version from config
+    CARDDIR=$(python3 << PYEOF
 import sys
 sys.path.insert(0, '../../plotting')
-from workflow_utils import load_config, build_hist_path
+from workflow_utils import load_config
 
 config = load_config('$CONFIG_FILE')
-hist_path = build_hist_path(config, '$ERA')
-datacard_version = config['versions']['datacard']
-cardDir = f"{hist_path}combine/datacardSys_{datacard_version}/"
+combination_version = config['versions'].get('combination', 'V22')
+channel = '${CHANNEL}'
+# Handle both "V22" and "combinationV22" formats
+ver = str(combination_version)
+if ver.startswith('combinationV'):
+    cardDir = f"{ver}/run2_{channel}_v4/"
+elif ver.startswith('V'):
+    cardDir = f"combination{ver}/run2_{channel}_v4/"
+else:
+    cardDir = f"combinationV{ver}/run2_{channel}_v4/"
 print(cardDir)
 PYEOF
-
-# Capture the datacard directory
-CARDDIR=$(python3 << PYEOF
+)
+else
+    # Per-era datacard
+    CARDDIR=$(python3 << PYEOF
 import sys
 sys.path.insert(0, '../../plotting')
 from workflow_utils import load_config, build_hist_path
@@ -70,6 +82,7 @@ cardDir = f"{hist_path}combine/datacardSys_{datacard_version}/"
 print(cardDir)
 PYEOF
 )
+fi
 
 echo "Datacard directory: $CARDDIR"
 echo ""
