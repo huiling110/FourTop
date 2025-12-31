@@ -5,6 +5,22 @@ description: Stage 4 Templates, Datacards, Combine, and Plots. Use when running 
 
 # Stage 4: Templates, Datacards, Combine, and Plots
 
+## Prerequisites Validation
+
+**Before each sub-stage**, validate prerequisites:
+```bash
+python3 scripts/validate_stage.py --stage STAGE --config config/CONFIG.yaml --era ERA
+```
+
+| Stage | Validation | Requirements |
+|-------|------------|--------------|
+| 4.1 | `--stage 4.1` | WH nominal + systematics complete |
+| 4.2 | `--stage 4.2` | addJES complete (template file exists) |
+| 4.3 | `--stage 4.3` | ALL eras have templates (no era needed) |
+| 4.4 | `--stage 4.4` | smooth complete (if enabled) |
+| 4.5 | `--stage 4.5` | datacard exists |
+| 4.7 | `--stage 4.7` | WH + addJES (if systematics) |
+
 ## Quick Reference
 
 | Stage | Command |
