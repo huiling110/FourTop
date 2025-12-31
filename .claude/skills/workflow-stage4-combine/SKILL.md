@@ -16,7 +16,7 @@ description: Stage 4 Templates, Datacards, Combine, and Plots. Use when running 
 | 4.4.1 Run2 combine | `cd hua/combine && cmsenv && python3 writeCombinationDatacard.py --config CONFIG --channel CH` |
 | 4.5 combine fits | `cd hua/combine && bash run_combine_fits.sh CONFIG ERA CHANNEL` (use screen!) |
 | 4.6 postfit | `python3 plotting/pl_postFit.py --fit-file FITDIAG.root` |
-| 4.7 plots (pl.py) | `python3 plotting/pl.py --config CONFIG --era ERA` (**runs after WH, no deps**) |
+| 4.7 plots (pl.py) | `python3 plotting/pl.py --config CONFIG --era ERA` (**needs 4.1 addJES for systematics**) |
 
 ## Environment
 
@@ -88,15 +88,23 @@ Requires Stage 4.5 complete.
 
 ## Stage 4.7: pl.py (pre-fit plots)
 
-**Can run immediately after Stage 3 WH - no dependencies on 4.1-4.6**
+**IMPORTANT: Requires Stage 4.1 (addJES) if running with systematics!**
+
+pl.py with `systematics: true` looks for JES/JER/TES/MET/EES histograms in the nominal files. These are merged by addJES.
 
 ```bash
-python3 plotting/pl.py --config config/CONFIG.yaml --era 2018
+# Without systematics (can run immediately after WH nominal)
+python3 plotting/pl.py --config config/CONFIG.yaml --era 2018 --no-systematics
+
+# With systematics (requires addJES first!)
+python3 plotting/addJESTemplatesToHistFile.py --config config/CONFIG.yaml --era 2018 --execute --quiet
+python3 plotting/pl.py --config config/CONFIG.yaml --era 2018 --unblind
 ```
 
 - Input: WH output (`variableHists_*`)
 - Output: `{hist_dir}/results/`
 - Config options: `systematics`, `fake_tau`, `mc_fake_tau`, `blind`
+- Error if addJES not run: `Unable to find histogram '..._CMS_scale_j_*_BDT'`
 
 ---
 
