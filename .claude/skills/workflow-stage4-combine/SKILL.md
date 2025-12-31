@@ -69,10 +69,20 @@ Output: `hua/combine/combinationV{XX}/run2_{channel}_v4/datacard.txt`
 
 ## Stage 4.5: combine fits (SLOW - use screen!)
 
+**Before running:** Create symbolic link for combination results:
+```bash
+cd hua/combine/
+ln -sfn $(pwd)/combinationV{XX} /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/run2_combination/combinationV{XX}
+```
+
+**Run combine fits:**
 ```bash
 screen -S combine_1tau1l
 cd hua/combine/
+# For single era:
 bash run_combine_fits.sh ../../config/CONFIG.yaml 2018 1tau1l
+# For Run2 combination:
+bash run_combine_fits.sh ../../config/CONFIG.yaml run2 1tau1l
 # Detach: Ctrl+A D | Reattach: screen -r combine_1tau1l
 ```
 
