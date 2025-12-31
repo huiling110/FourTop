@@ -1,0 +1,40 @@
+# FourTop Analysis Configuration - 1tau0l Channel (XGBoost 0.80 Verification Test)
+# Created: 2025-12-31
+# Purpose: Match 1tau1l XGB080test version for 3-channel combination
+
+metadata:
+  name: "1tau0l_XGB080test"
+  description: "CentOS7 XGBoost 0.80 verification test - 1tau0l channel"
+  created: "2025-12-31"
+
+# Version strings for each pipeline stage
+versions:
+  stage1: "v95XGB080testOS7"              # Object selection output (shared with 1tau1l)
+  stage2: "v1baselineHadro"               # Variable calculation output (shared with 1tau1l)
+  hist: "v0BDT1tau0l_XGB080testNew"       # Histogram version (1tau0l specific)
+  datacard: "v1_xgb080_test"              # Datacard version
+  combination: "combinationV22"           # Combine version
+
+# Channel name
+channel: "1tau0l"
+
+# Eras to process
+eras:
+  - "2018"
+  - "2017"
+  - "2016preVFP"
+  - "2016postVFP"
+
+# Analysis options
+options:
+  fake_tau: true
+  mc_fake_tau: false
+  blind: false
+  systematics: true
+  smoothing: true
+  ifVLL: false
+
+# Base paths
+paths:
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"

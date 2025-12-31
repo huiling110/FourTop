@@ -19,6 +19,10 @@
 3. **Regenerate fakes** - Never copy fake tau/lepton files between versions
 4. **Invoke skill before path checks** - Use `/workflow-stage{1-4}*` before checking stage outputs
 5. **Commit often** - After each significant change
+6. **Dev-docs for new tasks** - After exiting plan mode, create `dev-docs/active/{task}/` with:
+   - `context.md` - Goal, key paths, environment, critical notes
+   - `plan.md` - Implementation approach, dependencies, risks
+   - `tasks.md` - Status table, session notes, next steps
 
 ## Workflow
 
