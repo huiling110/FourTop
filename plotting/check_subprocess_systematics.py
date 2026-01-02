@@ -497,6 +497,186 @@ def plot_systematic_comparison(syst, base_path, era, subprocess_nominals, combin
     return output_path
 
 
+# Color palette for subprocesses (up to 12 colors)
+SUBPROCESS_COLORS = [
+    ROOT.kRed, ROOT.kBlue, ROOT.kGreen+2, ROOT.kOrange+1, ROOT.kMagenta+1,
+    ROOT.kCyan+1, ROOT.kYellow+1, ROOT.kViolet+1, ROOT.kTeal+1, ROOT.kPink+1,
+    ROOT.kAzure+1, ROOT.kSpring+1
+]
+
+
+def plot_subprocess_contributions(process, base_path, era, output_dir, channel="1tau1l", region="SR"):
+    """Create subprocess contribution plot for any process.
+
+    Left panel: Stacked histogram of subprocess contributions
+    Right panel: Statistical uncertainty per bin for combined and subprocesses
+    """
+    if process not in PROCESS_SUBPROCESSES:
+        print(f"  WARNING: No subprocess mapping for {process}, skipping contributions plot")
+        return
+
+    subprocesses = PROCESS_SUBPROCESSES[process]
+    region_str = f"{channel}{region}"
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Get nominal histograms for each subprocess
+    subprocess_nominals = {}
+    for subprocess in subprocesses:
+        hist = get_hist_from_wh(base_path, subprocess, region_str)
+        if hist and (hist.Integral() > 0.001 or hist.GetEntries() > 0):
+            subprocess_nominals[subprocess] = hist
+
+    if not subprocess_nominals:
+        print(f"  No subprocess histograms found for {process} in {region_str}")
+        return
+
+    # Create combined nominal
+    combined = None
+    for subprocess, hist in subprocess_nominals.items():
+        if combined is None:
+            combined = hist.Clone(f"{process}_combined_nominal")
+        else:
+            combined.Add(hist)
+
+    nbins = combined.GetNbinsX()
+
+    # Keep references to prevent garbage collection
+    keep_alive = []
+
+    # Create canvas
+    canvas = ROOT.TCanvas(f"c_{process}_{region}_contrib",
+                          f"{process} Subprocess Contributions ({region})", 1200, 800)
+    canvas.Divide(2, 1)
+
+    # ===== Left panel: Stacked histogram =====
+    canvas.cd(1)
+    ROOT.gPad.SetGrid()
+    ROOT.gPad.SetLeftMargin(0.12)
+    ROOT.gPad.SetRightMargin(0.05)
+
+    stack = ROOT.THStack(f"hs_{process}_{region}",
+                         f"{process} Subprocess Contributions ({region});BDT bin;Events")
+    legend = ROOT.TLegend(0.55, 0.65, 0.92, 0.88)
+    legend.SetBorderSize(0)
+    legend.SetFillStyle(0)
+    keep_alive.append(legend)
+
+    # Add subprocesses to stack
+    for idx, subprocess in enumerate(subprocesses):
+        if subprocess in subprocess_nominals:
+            hist = subprocess_nominals[subprocess].Clone(f"{subprocess}_stack")
+            hist.SetDirectory(0)
+            color = SUBPROCESS_COLORS[idx % len(SUBPROCESS_COLORS)]
+            hist.SetFillColor(color)
+            hist.SetLineColor(color)
+            stack.Add(hist)
+            # Shorten subprocess name for legend
+            short_name = subprocess.replace("TTBB_4f_", "").replace("WJetsToLNu_", "WJ_")
+            legend.AddEntry(hist, f"{short_name}: {hist.Integral():.1f}", "f")
+            keep_alive.append(hist)
+
+    stack.Draw("HIST")
+    stack.GetYaxis().SetTitle("Events")
+    stack.GetXaxis().SetTitle("BDT bin")
+    keep_alive.append(stack)
+
+    # Draw combined with error bars
+    combined_err = combined.Clone(f"{process}_combined_err")
+    combined_err.SetDirectory(0)
+    combined_err.SetFillStyle(3004)
+    combined_err.SetFillColor(ROOT.kBlack)
+    combined_err.Draw("E2 SAME")
+    legend.AddEntry(combined_err, f"Combined: {combined.Integral():.1f} #pm stat", "f")
+    keep_alive.append(combined_err)
+
+    legend.Draw()
+
+    # ===== Right panel: Statistical uncertainties =====
+    canvas.cd(2)
+    ROOT.gPad.SetGrid()
+    ROOT.gPad.SetLeftMargin(0.12)
+    ROOT.gPad.SetRightMargin(0.05)
+
+    # Create stat uncertainty histogram for combined
+    h_stat_combined = ROOT.TH1F(f"h_stat_{process}_{region}_combined",
+                                 f"Statistical Uncertainty ({region});BDT bin;Stat. Error [%]",
+                                 nbins, combined.GetXaxis().GetXmin(), combined.GetXaxis().GetXmax())
+    h_stat_combined.SetDirectory(0)
+    keep_alive.append(h_stat_combined)
+
+    for i in range(1, nbins + 1):
+        content = combined.GetBinContent(i)
+        error = combined.GetBinError(i)
+        if content > 0:
+            h_stat_combined.SetBinContent(i, error / content * 100)
+
+    h_stat_combined.SetLineColor(ROOT.kBlack)
+    h_stat_combined.SetLineWidth(3)
+    h_stat_combined.SetFillColor(ROOT.kGray)
+    h_stat_combined.SetFillStyle(3001)
+
+    # Find max for y-axis
+    max_stat = h_stat_combined.GetMaximum()
+
+    # Create stat uncertainty histograms for subprocesses
+    stat_hists = []
+    for idx, subprocess in enumerate(subprocesses):
+        if subprocess in subprocess_nominals:
+            hist = subprocess_nominals[subprocess]
+            h_stat = ROOT.TH1F(f"h_stat_{subprocess}_{region}", "",
+                               nbins, combined.GetXaxis().GetXmin(), combined.GetXaxis().GetXmax())
+            h_stat.SetDirectory(0)
+            for i in range(1, nbins + 1):
+                content = hist.GetBinContent(i)
+                error = hist.GetBinError(i)
+                if content > 0:
+                    h_stat.SetBinContent(i, error / content * 100)
+            color = SUBPROCESS_COLORS[idx % len(SUBPROCESS_COLORS)]
+            h_stat.SetLineColor(color)
+            h_stat.SetLineWidth(2)
+            h_stat.SetLineStyle(2)
+            stat_hists.append((subprocess, h_stat))
+            max_stat = max(max_stat, h_stat.GetMaximum())
+            keep_alive.append(h_stat)
+
+    h_stat_combined.GetYaxis().SetRangeUser(0, max_stat * 1.3)
+    h_stat_combined.Draw("HIST")
+
+    for subprocess, h_stat in stat_hists:
+        h_stat.Draw("HIST SAME")
+
+    # Legend for stat uncertainties
+    leg_stat = ROOT.TLegend(0.55, 0.55, 0.92, 0.88)
+    leg_stat.SetBorderSize(0)
+    leg_stat.SetFillStyle(0)
+    leg_stat.AddEntry(h_stat_combined, f"{process} combined", "f")
+    for subprocess, h_stat in stat_hists[:5]:  # Limit to top 5 for readability
+        short_name = subprocess.replace("TTBB_4f_", "").replace("WJetsToLNu_", "WJ_")
+        leg_stat.AddEntry(h_stat, short_name, "l")
+    leg_stat.Draw()
+    keep_alive.append(leg_stat)
+
+    # Add per-bin info for combined
+    latex = ROOT.TLatex()
+    latex.SetNDC()
+    latex.SetTextSize(0.025)
+    for i in range(1, min(nbins + 1, 8)):
+        content = combined.GetBinContent(i)
+        error = combined.GetBinError(i)
+        pct = error / content * 100 if content > 0 else 0
+        latex.DrawLatex(0.15, 0.88 - 0.03 * (i - 1),
+                        f"Bin {i}: {content:.2f} #pm {error:.2f} ({pct:.1f}%)")
+
+    canvas.Update()
+
+    # Save
+    output_path = os.path.join(output_dir, f"{process}_{region}_subprocess_contributions.png")
+    canvas.SaveAs(output_path)
+    print(f"  Saved: {process}_{region}_subprocess_contributions.png")
+
+    return output_path
+
+
 def plot_subprocess_analysis(base_path, era, output_dir, channel="1tau1l"):
     """Create plots analyzing subprocess contributions to tt systematics."""
 
@@ -778,6 +958,10 @@ def plot_process_subprocess_analysis(process, systematics, base_path, era, outpu
             combined.Add(hist)
 
     print(f"  Combined {process}: {combined.Integral():.2f} events")
+
+    # Plot subprocess contributions
+    print(f"\n  Creating subprocess contributions plot...")
+    plot_subprocess_contributions(process, base_path, era, output_dir, channel, region)
 
     # Plot each systematic
     for syst in systematics:
