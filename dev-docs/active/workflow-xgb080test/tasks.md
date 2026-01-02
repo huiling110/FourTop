@@ -80,6 +80,21 @@ hua/combine/combinationV22/run2_1tau1l_v4/diagnostics/
 
 ### Session History
 
+**Jan 2 - Subprocess Skipping Implementation:**
+- [x] Analyzed subprocess contributions for all processes in SR and CR12:
+  - tt: ttbar_2l dominates (15.2 events), ttbar_1l negligible (0.1 events)
+  - ttbb: TTBB_4f_TTTo2L2Nu dominates (36.0 events), SemiLeptonic (0.1 events)
+  - singleTop: Only st_tW_* contribute (~1.4 events total), others have no files
+- [x] Implemented subprocess skipping in template generation:
+  - Added `SKIP_SUBPROCESSES` config in `ttttGlobleQuantity.py`
+  - Modified `getSumHist()` in `usefulFunc.py` to accept skip list
+  - Updated `addTemplateNew.py` to use skip list and output v3 templates
+  - Skipped: `TTBB_4f_TTToSemiLeptonic`, `ttbar_1l` (< 1% contribution)
+- [x] Removed singleTop from `proChannelDic_forCombine` for 1tau1l:
+  - singleTop has ~1.4 events but ps_fsr fluctuation is 294%
+  - This reduces systematic noise significantly
+- [ ] TODO: Analyze SKIP_SUBPROCESSES for 1tau0l and 1tau2l channels
+
 **Jan 2 - Subprocess Systematic Analysis Tool:**
 - [x] Created `check_subprocess_systematics.py` multi-process, multi-region support:
   - Updated subprocess mappings from `ttttGlobleQuantity.py`
@@ -197,4 +212,4 @@ python3 scripts/validate_stage.py --stage 4.1 --config CONFIG --era ERA
 ```
 
 ## Last Updated
-2026-01-02 (Subprocess systematic analysis tool added)
+2026-01-02 (Subprocess skipping implemented, singleTop removed from 1tau1l)

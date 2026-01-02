@@ -172,7 +172,9 @@ bin 5: -0.050 ± 0.050
 |------|---------|
 | `plotting/smoothTemplate.py` | Smoothing algorithm - check why it's not working |
 | `plotting/check_systematic_fluctuations.py` | Diagnostic tool (created Dec 31) |
-| `plotting/addTemplate.py` | Template generation before smoothing |
+| `plotting/addTemplateNew.py` | Template generation with subprocess skipping (v3) |
+| `hua/src_py/ttttGlobleQuantity.py` | SKIP_SUBPROCESSES config, proChannelDic_forCombine |
+| `hua/src_py/usefulFunc.py` | getSumHist with skip_subprocesses parameter |
 | `hua/combine/combinationV22/run2_1tau1l_v4/` | V22 combine output |
 | `hua/combine/combinationV18/run2_1tau1l/` | V18 reference (working) |
 
@@ -204,23 +206,25 @@ python3 plotting/check_subprocess_systematics.py --config CONFIG --era 2018 --pr
 
 ### Next Steps (Priority Order)
 
-**The template is fine - the issue is somewhere in Combine uncertainty propagation!**
+**IMPLEMENTED: Subprocess skipping and singleTop removal to reduce systematic noise**
 
-#### Priority 1: Investigate CMS_res_j_2018 (Jet Resolution)
-User noticed this systematic looks abnormal - could be the culprit for 57x inflation.
-- Check if histogram has unusual structure
-- Compare to other JES systematics
-- Check if it's being applied correctly
+#### DONE: Subprocess Skipping (Jan 2)
+- Implemented subprocess skipping in template generation
+- Skipped for 1tau1l: `TTBB_4f_TTToSemiLeptonic`, `ttbar_1l` (< 1% contribution)
+- Removed singleTop from 1tau1l combine (only 1.4 events, 294% ps_fsr fluctuation)
+- Template output now uses v3 naming: `templatesForCombine1tau1l_v3_*`
 
-#### Priority 2: Compare V18 vs V22 Combine Setup
-- Check if autoMCStats settings differ
-- Check if different systematics are included
-- Check if there's a datacard bug
+#### Priority 1: Regenerate Templates with v3
+- Run addTemplateNew.py for all eras with subprocess skipping
+- Note: Need to fix tttt histogram naming issue first
 
-#### Priority 3: Debug Combine Uncertainty Propagation
-- Run text2workspace with --verbose
-- Check the workspace for anomalies
-- Compare individual nuisance impacts
+#### Priority 2: Analyze SKIP_SUBPROCESSES for Other Channels
+- Run subprocess contribution analysis for 1tau0l and 1tau2l
+- Update SKIP_SUBPROCESSES config accordingly
+
+#### Priority 3: Investigate Smoothing Effectiveness
+- Check which systematics are being smoothed vs not
+- Some JES systematics still have same-direction Up/Down after smoothing
 
 #### Lower Priority (Template Issues)
 4. **Handle negative yields** in TTWJetsToQQ
@@ -254,4 +258,4 @@ python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --threshold 15
 ```
 
 ## Last Updated
-2026-01-02 (Subprocess systematic analysis tool added)
+2026-01-02 (Subprocess skipping implemented, singleTop removed from 1tau1l)
