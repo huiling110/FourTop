@@ -1,5 +1,10 @@
 # Context: XGB080test Workflow
 
+## Goal
+**Complete through Stage 4 with physics results for 1tau1l channel.**
+- All 4 eras: 2018, 2017, 2016preVFP, 2016postVFP
+- Final deliverables: significance, limits, postfit plots, impact plots
+
 ## Purpose
 This workflow run tests XGBoost 0.80 compatibility (CentOS7 mode) for yield verification.
 
@@ -8,9 +13,10 @@ This workflow run tests XGBoost 0.80 compatibility (CentOS7 mode) for yield veri
 - Stage 1 output: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL{era}/v95XGB080testOS7/`
 - Stage 2 output: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/v1baselineHadro_v95XGB080testOS7/`
 - WH output: `{stage2_path}/mc/variableHists_v0BDT1tau1l_XGB080testNew/`
+- Combine: `hua/combine/combinationV22/run2_1tau1l_v4/`
 
 ## Environment
-- Stages 1-4.4, 4.7: `source setEnv_newNew.sh` (but OS uses setEnv_centos7.sh internally)
+- Stages 1-4.4, 4.7: `source setEnv_newNew.sh`
 - Stages 4.4.1, 4.5: `cmsenv` in hua/combine/
 
 ## Critical Notes
@@ -19,130 +25,233 @@ This workflow run tests XGBoost 0.80 compatibility (CentOS7 mode) for yield veri
 - Stage 4.3 (smooth) requires ALL 4 eras complete
 - WH uses `--systematic complete` for full systematic coverage
 
-## 2016 Era Path Discrepancy
+## BLOCKING Issue: V22 Large Uncertainties
 
-**Important**: 2016 has two path naming conventions:
-- Old archives: `/publicfs/.../UL2016_preVFP/` (with underscore)
-- New output: `/publicfs/.../UL2016preVFP/` (no underscore)
+**Status: NEEDS FIX before proceeding with physics results**
 
-v94 systematic archives are at:
-- `UL2016_preVFP/v94HadroPreJetVetoHemOnly_*.zip`
-- `UL2016_postVFP/v94HadroPreJetVetoHemOnly_*.zip`
+### Problem Summary
+V22 postfit uncertainties are 4-5x larger than V18, making results unusable.
 
-When unzipping for v95, extract to the no-underscore path:
-- `UL2016preVFP/v95XGB080testOS7_*/`
+| Metric | V22 | V18 |
+|--------|-----|-----|
+| Prefit Error | 16.4% | 5.5% |
+| Postfit Error | 21.8% | 4.8% |
+| Signal Strength | r = 1.08 ± 2.01 | r = 2.12 ± 1.94 |
 
-## 2016 OS Systematics Strategy
+### Root Cause Analysis (Updated Jan 2, 2026)
 
-For v95XGB080testOS7:
-- **TES (8 variations)**: Submit new jobs (TES corrections differ between versions)
-- **JES/JER/MET/EleScale (7 variations)**: Unzip v94 and rename (no physics changes)
+**ROOT CAUSES IDENTIFIED** - Two major issues found!
 
-## Dual-Library Setup (myLibrary/)
+#### Issue 1: JES/JER Systematics Have Wrong Event Counts
 
-Created to support both CentOS7 (OS stage) and Linux9 (MV/WH stages):
+**JES and JER systematic variations have ~50% fewer entries than nominal!**
+
+| Systematic | Entries | Ratio vs Nominal |
+|------------|---------|------------------|
+| Nominal | 555 | 100% |
+| JER Up | 285 | 51% ← BUG! |
+| JER Down | 267 | 48% ← BUG! |
+| AbsoluteMPFBias Up | 280 | 50% ← BUG! |
+| ps_fsr Up | 555 | 100% ✓ |
+
+Weight-based systematics (ps_fsr, pileup) are correct (100% entries).
+JES/JER are produced by re-running with shifted jets, causing different events to pass selection.
+
+#### Issue 2: 79% of Systematics Have Up/Down in SAME Direction
+
+For tt bin 4, **31 out of 39 significant systematics have Up and Down variations in the same direction**, which is physically impossible for real systematic uncertainties.
+
+| Systematic | Up % | Down % | Issue |
+|------------|------|--------|-------|
+| CMS_scale_j_AbsoluteMPFBias | +19.1% | +13.5% | Both positive! |
+| CMS_scale_j_AbsoluteStat_2018 | +17.6% | +13.5% | Both positive! |
+| ps_fsr | -7.3% | +8.5% | ✓ Opposite (correct) |
+
+This happens because:
+1. Only ~3 events in tt bin 4 (very low stats)
+2. JES variations select different events
+3. Random fluctuations dominate over real systematic effect
+
+#### Quantitative Impact
+
+| Source | Template | Combine Prefit | Inflation |
+|--------|----------|----------------|-----------|
+| tt bin 4 | 80% | 590% | **7.3x** |
+| tt bin 1 | 33% | 166% | 5.0x |
+| singleTop bin 4 | ~100% | 691% | ~7x |
+
+#### V18 vs V22 Comparison
+
+| Metric | V18 | V22 |
+|--------|-----|-----|
+| tt definition | tt = tt + ttbb | tt and ttbb separate |
+| tt bin 4 events | 10.0 | 2.8 |
+| tt bin 4 error | 21.6% | 589.6% |
+
+The tt/ttbb split causes individual processes to have fewer events → higher relative fluctuations → unphysical systematic shapes.
+
+#### Diagnostic Plots Created
 
 ```
-myLibrary/
-├── libcommenFunction.so -> libcommenFunction_linux9.so  (default)
-├── libcommenFunction_linux9.so  (208KB, for MV/WH)
-├── libcommenFunction_os7.so     (495KB, for OS)
-├── os7/
-│   └── libcommenFunction.so -> ../libcommenFunction_os7.so
-└── build_os7.sh  (script to rebuild OS7 version)
+hua/combine/combinationV22/run2_1tau1l_v4/diagnostics/
+├── tt_template_vs_combine_uncertainty.pdf  # Shows 7x inflation
+├── tt_systematic_shapes.pdf                # Shows shape variations
+└── tt_bin4_root_cause.pdf                  # Up/Down same direction analysis
 ```
 
-- `setEnv_newNew.sh`: Uses default symlink (Linux9)
-- `setEnv_centos7.sh`: Prepends `myLibrary/os7/` to LD_LIBRARY_PATH
+### Recommended Fixes (Priority Order)
 
-## Safety Improvements
-- `scripts/archive_and_cleanup.sh` now requires `--confirm` flag to actually delete
-- Without `--confirm`, script lists directories and aborts with warning
-- Fixed bug: now uses `find -type d` to only match directories (was matching files too)
-- New misc skill: `.claude/skills/misc/SKILL.md` documents archive script usage
+1. **Merge tt + ttbb back together** - Restores statistics to V18 levels
+2. **Symmetrize Up/Down variations** - Force Down = -Up for problematic systematics
+3. **Increase smoothing aggressiveness** - Current smoothing helps but not enough
+4. **Add minimum event threshold** - Exclude bins with <5 events from shape fits
 
-### Archive Script Usage
+| Process | Bin | Template Err | FitDiag Err | Inflation |
+|---------|-----|--------------|-------------|-----------|
+| tt | 4 | 2.42 (85%) | 16.8 (590%) | **57x** |
+| ttZ | 3 | 0.03 (13%) | 2.8 (1175%) | **93x** |
+| tttt | 6 | 0.015 (2%) | 1.4 (204%) | **94x** |
+
+**This is NOT a template problem - something in Combine is wrong!**
+
+#### 2. Template Analysis (tt bin 4) - Reasonable Values
+
+- Nominal: 2.849 events
+- MC stat error: 0.294 (10.3%)
+- 76 shape systematics, each contributing 10-21%
+- **Total from template: 2.42 (85%)** ← This is reasonable!
+- **But fitDiagnostics shows: 16.8 (590%)** ← 57x inflation!
+
+Largest systematic contributors in template (all reasonable):
+- CMS_scale_j_AbsoluteMPFBiasUp: 19.1%
+- CMS_scale_t_DeepTau2017v2p1_DM1: 18.9%
+- CMS_scale_j_AbsoluteStat_2018Up: 17.6%
+
+#### 3. Suspicious: CMS_res_j_2018 (Jet Resolution) - TO INVESTIGATE
+
+User noticed CMS_res_j_2018 looks abnormal:
+- May have many more entries than other systematics
+- May be missing uncertainty bars
+- **Could be the culprit for the 57x inflation!**
+
+#### 4. Covariance Matrix Shows High Bin-to-Bin Correlations
+
+2018 SR correlation matrix:
+- bins 1↔4: 0.90 correlation
+- bins 4↔5: 0.92 correlation
+- bin 7 anti-correlated with all others (-0.68 to -0.72)
+
+This suggests systematic shapes are creating unphysical inter-bin correlations.
+
+#### 5. WH Output Issues Found
+
+**L1 Prefiring Bug (excluded from template, but indicates WH issue):**
+```
+ttbar_2l_1tau1lSR_CMS_l1_ecal_prefiring_2018Up: ALL ZEROS
+ttbar_2l_1tau1lSR_CMS_l1_ecal_prefiring_2018Down: ALL ZEROS
+```
+
+**TTWJetsToQQ Negative Yields:**
+```
+bin 4: -0.020 ± 0.108 (negative from MC weights)
+bin 5: -0.050 ± 0.050
+```
+
+#### 6. Subprocess Statistics (2018 1tau1l SR)
+
+| Process | Main Contributor | Events | Notes |
+|---------|-----------------|--------|-------|
+| tt | ttbar_2l | 15.2 | Only 2l contributes (expected) |
+| ttbb | TTBB_4f_TTTo2L2Nu | 36.0 | Only 2l contributes |
+| singleTop | st_tW only | 1.4 | st_schan/tchan = 0 events |
+| ttW | TTWJetsToLNu | 0.4 | TTWJetsToQQ has negative yields |
+
+### Key Files for Investigation
+
+| File | Purpose |
+|------|---------|
+| `plotting/smoothTemplate.py` | Smoothing algorithm - check why it's not working |
+| `plotting/check_systematic_fluctuations.py` | Diagnostic tool (created Dec 31) |
+| `plotting/addTemplate.py` | Template generation before smoothing |
+| `hua/combine/combinationV22/run2_1tau1l_v4/` | V22 combine output |
+| `hua/combine/combinationV18/run2_1tau1l/` | V18 reference (working) |
+
+### Diagnostic Tools
 ```bash
-# Dry run
-./scripts/archive_and_cleanup.sh --dry-run --era UL2018 --pattern "v95XGB080testOS7"
+# Analyze systematic fluctuations (template level)
+python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --threshold 15
 
-# Actual run (use screen!)
-screen -S archive_2018
-./scripts/archive_and_cleanup.sh --confirm --era UL2018 --pattern "v95XGB080testOS7"
+# Subprocess systematic analysis (WH level)
+python3 plotting/check_subprocess_systematics.py --config CONFIG --era 2018 --process all --region all --auto-top5
 ```
+
+**Fluctuation report output**: `{template_dir}/systematic_fluctuations/`
+- `fluctuation_report.txt` - Ranked list of problematic variations
+- `top5_systematics_{process}.png` - Top 5 systematics per process
+
+**Subprocess analysis output**: `{WH_dir}/subprocess_systematics/{process}_{region}/`
+- `compare_{process}_{region}_{syst}.png` - Combined + subprocess shapes
+
+### Most Affected Processes
+| Process | Max Variation | Worst Systematics |
+|---------|---------------|-------------------|
+| ttW | 68% | CMS_scale_j_FlavorPureGluon, TimePtEta |
+| singleTop | 60% | ps_fsr, CMS_scale_j_AbsoluteScale |
+| ttbb | 49% | QCDscale |
+| tt | 44% | CMS_scale_j_FlavorPureGluon |
+| ttZ | 41% | ps_fsr |
+| ttH | 41% | ps_fsr |
+
+### Next Steps (Priority Order)
+
+**The template is fine - the issue is somewhere in Combine uncertainty propagation!**
+
+#### Priority 1: Investigate CMS_res_j_2018 (Jet Resolution)
+User noticed this systematic looks abnormal - could be the culprit for 57x inflation.
+- Check if histogram has unusual structure
+- Compare to other JES systematics
+- Check if it's being applied correctly
+
+#### Priority 2: Compare V18 vs V22 Combine Setup
+- Check if autoMCStats settings differ
+- Check if different systematics are included
+- Check if there's a datacard bug
+
+#### Priority 3: Debug Combine Uncertainty Propagation
+- Run text2workspace with --verbose
+- Check the workspace for anomalies
+- Compare individual nuisance impacts
+
+#### Lower Priority (Template Issues)
+4. **Handle negative yields** in TTWJetsToQQ
+5. **Fix L1 prefiring bug** in WH code (all zeros)
+6. **Remove zero-event subprocesses** (st_schan_*, st_tchan)
+
+## New Workflow Tools (Dec 31)
+
+| Tool | Purpose | Usage |
+|------|---------|-------|
+| `scripts/workflow_status.py` | Multi-channel dashboard | `python3 scripts/workflow_status.py` |
+| `scripts/check_wh_jobs.py` | WH job monitor | `--config X --all --watch` |
+| `scripts/validate_stage.py` | Prerequisites check | `--stage 4.1 --config X --era Y` |
+| `/new-task` skill | Scaffold dev-docs | For new multi-session tasks |
+| `/status` skill | Status dashboard | Quick overview |
+
+## Related Tasks
+- `workflow-1tau0l-xgb080`: 1tau0l channel (WH running)
+- After both complete: 3-channel combination
 
 ## Useful Commands
 ```bash
 # Check job status
-hep_q -u huahuil
+hep_q -u huahuil | grep -c WH_
 
-# Check held jobs with reason
-hep_q -u huahuil -hold
+# Multi-channel status
+python3 scripts/workflow_status.py
 
-# Release all held jobs
-hep_release -a
-
-# Remove jobs
-hep_rm <cluster_id>
-
-# Resubmit held jobs with higher memory
-cd objectSelectionOptimized/jobs/
-./resubmit_held.sh 6000    # 6GB memory
+# Check systematic fluctuations
+python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --threshold 15
 ```
 
-## New Scripts
-- `objectSelectionOptimized/jobs/resubmit_held.sh` - Resubmit held jobs with higher memory
-  - Uses `hep_q -u $USER | grep " H "` to find held jobs
-  - Extracts script name from last column, finds script in jobs directories
-  - Default memory: 10GB, usage: `./resubmit_held.sh 12000` for 12GB
-
-- `makeVariables_goodCode/verify_mv_completion.py` - Verify MV stage completion
-  - Checks all samples exist for nominal and all 74 systematic variations
-  - Compares expected samples from Stage 1 to actual MV output
-  - Usage: `python3 verify_mv_completion.py --config ../config/CONFIG.yaml --era 2018`
-  - Reports: complete/incomplete/missing directories with details
-
-## Technical Findings
-
-### Ghost Jobs
-- Jobs can appear "running" for hours even after completion
-- Condor doesn't always update job status correctly
-- **Solution**: Check output files exist, then remove with `hep_rm`
-
-### jetHT_2016H Memory Requirements
-- These data files are large and need ~8GB+ memory
-- Default memory allocation causes jobs to be held
-- **Solution**: Resubmit with 12GB memory using `resubmit_held.sh`
-
-### Stage 1.1 OS Systematics
-- 15 variations per era: JES, JER×2, MET×2, EleScale×2, TES×8
-- Submission takes ~10 minutes per era (use screen/nohup)
-- ~35000 jobs per era for full systematic run
-
-## Skill Auto-Injection (2025-12-26)
-
-The `user-prompt-submit.sh` hook now **injects full skill content** when stage keywords detected:
-
-| Keywords | Skill Injected |
-|----------|----------------|
-| OS, NanoAOD, object selection | `workflow-stage1-os/SKILL.md` |
-| MV, BDT, fake tau/lepton | `workflow-stage2-mv/SKILL.md` |
-| WH, histogram, write hist | `workflow-stage3-wh/SKILL.md` |
-| combine, datacard, template, pl.py | `workflow-stage4-combine/SKILL.md` |
-
-**How it works**: Hook detects keywords in user prompt, cats the skill file content wrapped in `<skill>` tags. Claude receives the skill content automatically without needing to read it manually.
-
-**CLAUDE.md Option C rules**: Added explicit instructions to read skills proactively before verifying stage outputs.
-
-## Skill Learning Protocol
-
-**Update skills as we learn**: When discovering issues, fixes, or useful commands during workflow execution, update the corresponding stage skill immediately:
-
-| Discovery | Update |
-|-----------|--------|
-| OS memory issues, held jobs | `.claude/skills/workflow-stage1-os/SKILL.md` |
-| MV path patterns, fake rate bugs | `.claude/skills/workflow-stage2-mv/SKILL.md` |
-| WH file counts, systematic issues | `.claude/skills/workflow-stage3-wh/SKILL.md` |
-| Combine fits, datacard fixes | `.claude/skills/workflow-stage4-combine/SKILL.md` |
-
-This ensures knowledge accumulates in skills for future sessions.
+## Last Updated
+2026-01-02 (Subprocess systematic analysis tool added)

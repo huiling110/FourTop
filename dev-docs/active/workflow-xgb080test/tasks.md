@@ -80,6 +80,22 @@ hua/combine/combinationV22/run2_1tau1l_v4/diagnostics/
 
 ### Session History
 
+**Jan 2 - Subprocess Systematic Analysis Tool:**
+- [x] Created `check_subprocess_systematics.py` multi-process, multi-region support:
+  - Updated subprocess mappings from `ttttGlobleQuantity.py`
+  - Added `--process all` to analyze tt, ttbb, singleTop, ttW, ttZ, ttH
+  - Added `--region all` to analyze both SR and CR12
+  - Added `--auto-top5` to auto-detect worst systematics from fluctuation_report.txt
+  - Updated `plot_systematic_comparison()` with region/process parameters
+- [x] Generated subprocess comparison plots for all processes:
+  - `subprocess_systematics/{process}_{region}/compare_{process}_{region}_{syst}.png`
+  - Each plot shows: combined + top 2 subprocesses, shape + variation %
+- [x] Key findings from subprocess analysis:
+  - tt: ttbar_2l dominates (15.24 events), ttbar_1l negligible (0.11 events)
+  - ttbb: TTBB_4f_TTTo2L2Nu dominates (35.97 events)
+  - singleTop: Only st_tW_antitop (0.54) and st_tW_top (0.88) contribute
+  - Fluctuation report top systematics: singleTop→ps_fsr, ttW→ps_fsr/JES sources
+
 **Jan 2 - Enhanced Diagnostic Tool + Quantitative Analysis:**
 - [x] Enhanced `check_systematic_fluctuations.py`:
   - Added `--datacard` option to use all processes from datacard (including tttt)
@@ -170,6 +186,9 @@ hua/combine/combinationV22/run2_1tau1l_v4/diagnostics/
 # Check systematic fluctuations
 python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --threshold 15 --max-plots 20
 
+# Subprocess systematic analysis (new)
+python3 plotting/check_subprocess_systematics.py --config CONFIG --era 2018 --process all --region all --auto-top5
+
 # Multi-channel status
 python3 scripts/workflow_status.py
 
@@ -178,4 +197,4 @@ python3 scripts/validate_stage.py --stage 4.1 --config CONFIG --era ERA
 ```
 
 ## Last Updated
-2026-01-02 (Enhanced diagnostic tool + quantified Combine inflation mechanism)
+2026-01-02 (Subprocess systematic analysis tool added)
