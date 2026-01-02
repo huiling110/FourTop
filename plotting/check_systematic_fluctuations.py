@@ -8,8 +8,14 @@ issues with smoothing or low statistics.
 Usage:
     python3 plotting/check_systematic_fluctuations.py TEMPLATE.root [--threshold 0.1] [--output-dir plots/] [--channel 1tau1l]
 
+    # Plot top 5 systematics per process for all processes
+    python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --top-per-process 5
+
+    # Compare smoothed vs unsmoothed templates
+    python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --compare-smoothed SMOOTHED.root
+
 Example:
-    python3 plotting/check_systematic_fluctuations.py /publicfs/.../templatesForCombine1tau1l_new_notMCFTau_unblind_smoothed.root --threshold 0.1
+    python3 plotting/check_systematic_fluctuations.py /publicfs/.../templatesForCombine1tau1l_new_notMCFTau_unblind.root --top-per-process 5
 """
 
 import ROOT
@@ -44,27 +50,34 @@ def parse_histogram_name(name, channel="1tau1l"):
     cr_marker = f"{channel}CR"
 
     region = None
+    process = None
+    systematic_part = None
+
     if sr_marker in name:
         region = "SR"
-        parts = name.split(f"_{sr_marker}_")
+        # Split on the region marker
+        idx = name.find(f"_{sr_marker}")
+        process = name[:idx]
+        remainder = name[idx + len(f"_{sr_marker}"):]
+        # Remove leading underscore if present
+        systematic_part = remainder.lstrip("_") if remainder else ""
     elif cr_marker in name:
         region = "CR"
-        parts = name.split(f"_{cr_marker}")
-        if len(parts) > 1:
-            parts[1] = parts[1].lstrip("_").lstrip("12_")  # Handle CR12
+        idx = name.find(f"_{cr_marker}")
+        process = name[:idx]
+        remainder = name[idx + len(f"_{cr_marker}"):]
+        systematic_part = remainder.lstrip("_").lstrip("12_") if remainder else ""
     else:
         return None, None, None, None
 
-    if len(parts) < 1:
+    if not process:
         return None, None, None, None
 
-    process = parts[0]
-
-    if len(parts) == 1 or parts[1] == "":
+    if not systematic_part:
         # Nominal histogram
         return process, region, None, None
 
-    systematic = parts[1]
+    systematic = systematic_part
 
     # Determine direction
     direction = None
@@ -282,7 +295,7 @@ def plot_variation(result, output_dir, index):
     safe_name = f"{result['process']}_{result['systematic']}_{result['direction']}"
     safe_name = safe_name.replace("/", "_")
 
-    output_path = os.path.join(output_dir, f"fluctuation_{index:03d}_{safe_name}.pdf")
+    output_path = os.path.join(output_dir, f"fluctuation_{index:03d}_{safe_name}.png")
     canvas.SaveAs(output_path)
 
     return output_path
@@ -440,7 +453,7 @@ def plot_systematic_updown(process, region, systematic, nominal, varied_up, vari
     safe_name = f"{process}_{systematic}"
     safe_name = safe_name.replace("/", "_").replace(" ", "_")
 
-    output_path = os.path.join(output_dir, f"systematic_{index:03d}_{safe_name}.pdf")
+    output_path = os.path.join(output_dir, f"systematic_{index:03d}_{safe_name}.png")
     canvas.SaveAs(output_path)
 
     return output_path
@@ -531,8 +544,439 @@ def plot_variation_updown(process, region, systematic, variations_up, variations
     safe_name = f"{process}_{systematic}"
     safe_name = safe_name.replace("/", "_").replace(" ", "_")
 
-    output_path = os.path.join(output_dir, f"variation_{index:03d}_{safe_name}.pdf")
+    output_path = os.path.join(output_dir, f"variation_{index:03d}_{safe_name}.png")
     canvas.SaveAs(output_path)
+
+    return output_path
+
+
+def get_top_systematics_per_process(results, n_top=5, region="SR"):
+    """Group results by process and return top N systematics for each process.
+
+    Only considers results from the specified region to avoid mixing SR and CR.
+    """
+    from collections import defaultdict
+
+    # Group by process, filtering by region
+    by_process = defaultdict(list)
+    for r in results:
+        if r['region'] == region:
+            by_process[r['process']].append(r)
+
+    # For each process, group by systematic and get max score
+    top_per_process = {}
+    for process, proc_results in by_process.items():
+        # Group by systematic
+        by_syst = defaultdict(list)
+        for r in proc_results:
+            by_syst[r['systematic']].append(r)
+
+        # Get max score for each systematic
+        syst_scores = []
+        for syst, syst_results in by_syst.items():
+            max_score = max(r['score'] for r in syst_results)
+            syst_scores.append((syst, max_score, syst_results))
+
+        # Sort by score and take top N
+        syst_scores.sort(key=lambda x: x[1], reverse=True)
+        top_per_process[process] = syst_scores[:n_top]
+
+    return top_per_process
+
+
+def plot_top_systematics_for_process(process, top_systematics, nominals, tfile,
+                                      output_dir, channel="1tau1l"):
+    """Plot top N systematics for a single process on one canvas."""
+    ROOT.gStyle.SetOptStat(0)
+
+    n_syst = len(top_systematics)
+    if n_syst == 0:
+        return
+
+    # Create canvas with subplots
+    canvas = ROOT.TCanvas(f"c_{process}", f"{process} - Top Systematics", 1600, 400 * n_syst)
+    canvas.Divide(2, n_syst)
+
+    region = "SR"
+    nominal_key = f"{process}_{region}"
+    nominal = nominals.get(nominal_key)
+
+    if not nominal:
+        print(f"  Warning: No nominal histogram for {process}")
+        return
+
+    for i, (syst_name, score, syst_results) in enumerate(top_systematics):
+        # Get Up and Down histograms
+        up_hist = None
+        down_hist = None
+        up_result = None
+        down_result = None
+
+        for r in syst_results:
+            if r['direction'] == 'Up':
+                up_hist = r['varied']
+                up_result = r
+            elif r['direction'] == 'Down':
+                down_hist = r['varied']
+                down_result = r
+
+        # Left panel: Shape comparison
+        canvas.cd(2*i + 1)
+        ROOT.gPad.SetGrid()
+        ROOT.gPad.SetLeftMargin(0.12)
+        ROOT.gPad.SetRightMargin(0.05)
+
+        nom_clone = nominal.Clone(f"nom_{process}_{i}")
+        nom_clone.SetLineColor(ROOT.kBlack)
+        nom_clone.SetLineWidth(2)
+        nom_clone.SetMarkerStyle(20)
+        nom_clone.SetMarkerSize(0.8)
+
+        # Create error band histogram for stat uncertainty
+        nom_err_band = nominal.Clone(f"nom_err_{process}_{i}")
+        nom_err_band.SetFillColor(ROOT.kGray)
+        nom_err_band.SetFillStyle(3001)
+        nom_err_band.SetLineColor(ROOT.kBlack)
+        nom_err_band.SetMarkerSize(0)
+
+        title = f"{process} | {syst_name} (score={score:.1f})"
+        nom_clone.SetTitle(title)
+        nom_clone.GetYaxis().SetTitle("Events")
+        nom_clone.GetXaxis().SetTitle("BDT bin")
+
+        max_val = nom_clone.GetMaximum()
+        min_val = 0
+
+        if up_hist:
+            up_clone = up_hist.Clone(f"up_{process}_{i}")
+            up_clone.SetLineColor(ROOT.kRed)
+            up_clone.SetLineWidth(2)
+            up_clone.SetLineStyle(1)
+            max_val = max(max_val, up_clone.GetMaximum())
+
+        if down_hist:
+            down_clone = down_hist.Clone(f"down_{process}_{i}")
+            down_clone.SetLineColor(ROOT.kBlue)
+            down_clone.SetLineWidth(2)
+            down_clone.SetLineStyle(1)
+            max_val = max(max_val, down_clone.GetMaximum())
+
+        nom_clone.GetYaxis().SetRangeUser(min_val, max_val * 1.5)
+        nom_err_band.GetYaxis().SetRangeUser(min_val, max_val * 1.5)
+
+        # Draw order: error band first, then histograms
+        nom_err_band.Draw("E2")  # Error band
+        nom_clone.Draw("HIST SAME")  # Nominal line
+
+        if up_hist:
+            up_clone.Draw("HIST SAME")
+        if down_hist:
+            down_clone.Draw("HIST SAME")
+
+        # Redraw nominal on top for visibility
+        nom_clone.Draw("HIST SAME")
+
+        # Legend
+        leg = ROOT.TLegend(0.55, 0.65, 0.92, 0.88)
+        leg.SetBorderSize(0)
+        leg.SetFillStyle(0)
+        leg.AddEntry(nom_err_band, "Nominal #pm stat.", "f")
+        leg.AddEntry(nom_clone, "Nominal", "l")
+        if up_hist:
+            leg.AddEntry(up_clone, "Up", "l")
+        if down_hist:
+            leg.AddEntry(down_clone, "Down", "l")
+        leg.Draw()
+
+        # Add info about entries and integrals
+        latex = ROOT.TLatex()
+        latex.SetNDC()
+        latex.SetTextSize(0.035)
+        latex.SetTextColor(ROOT.kBlack)
+        nom_int = nominal.Integral()
+        nom_ent = nominal.GetEntries()
+        latex.DrawLatex(0.15, 0.85, f"Nom: {nom_int:.1f} ({int(nom_ent)} ent)")
+        if up_hist:
+            latex.SetTextColor(ROOT.kRed)
+            up_int = up_hist.Integral()
+            up_ent = up_hist.GetEntries()
+            latex.DrawLatex(0.15, 0.80, f"Up: {up_int:.1f} ({int(up_ent)} ent)")
+        if down_hist:
+            latex.SetTextColor(ROOT.kBlue)
+            down_int = down_hist.Integral()
+            down_ent = down_hist.GetEntries()
+            latex.DrawLatex(0.15, 0.75, f"Down: {down_int:.1f} ({int(down_ent)} ent)")
+
+        # Right panel: Variation percentages
+        canvas.cd(2*i + 2)
+        ROOT.gPad.SetGrid()
+        ROOT.gPad.SetLeftMargin(0.12)
+        ROOT.gPad.SetRightMargin(0.05)
+
+        nbins = nominal.GetNbinsX()
+        h_up = ROOT.TH1F(f"h_up_{process}_{i}", "", nbins,
+                         nominal.GetXaxis().GetXmin(),
+                         nominal.GetXaxis().GetXmax())
+        h_down = ROOT.TH1F(f"h_down_{process}_{i}", "", nbins,
+                           nominal.GetXaxis().GetXmin(),
+                           nominal.GetXaxis().GetXmax())
+
+        # Fill variation histograms
+        if up_result and up_result['metrics'].get('variations'):
+            for j, var in enumerate(up_result['metrics']['variations']):
+                if var is not None:
+                    h_up.SetBinContent(j + 1, var)
+
+        if down_result and down_result['metrics'].get('variations'):
+            for j, var in enumerate(down_result['metrics']['variations']):
+                if var is not None:
+                    h_down.SetBinContent(j + 1, var)
+
+        h_up.SetLineColor(ROOT.kRed)
+        h_up.SetLineWidth(2)
+        h_up.SetFillColor(ROOT.kRed - 9)
+        h_up.SetFillStyle(3004)
+
+        h_down.SetLineColor(ROOT.kBlue)
+        h_down.SetLineWidth(2)
+        h_down.SetFillColor(ROOT.kBlue - 9)
+        h_down.SetFillStyle(3005)
+
+        h_up.SetTitle(f"{syst_name} variation [%]")
+        h_up.GetYaxis().SetTitle("Variation [%]")
+        h_up.GetXaxis().SetTitle("BDT bin")
+
+        # Determine y-axis range
+        all_vars = []
+        if up_result and up_result['metrics'].get('variations'):
+            all_vars.extend([v for v in up_result['metrics']['variations'] if v is not None])
+        if down_result and down_result['metrics'].get('variations'):
+            all_vars.extend([v for v in down_result['metrics']['variations'] if v is not None])
+
+        if all_vars:
+            max_var = max(abs(v) for v in all_vars)
+        else:
+            max_var = 10
+        h_up.GetYaxis().SetRangeUser(-max_var * 1.4, max_var * 1.4)
+
+        h_up.Draw("HIST")
+        h_down.Draw("HIST SAME")
+
+        # Zero line
+        line = ROOT.TLine(h_up.GetXaxis().GetXmin(), 0,
+                          h_up.GetXaxis().GetXmax(), 0)
+        line.SetLineColor(ROOT.kBlack)
+        line.SetLineStyle(2)
+        line.SetLineWidth(2)
+        line.Draw()
+
+        # Add metrics text
+        latex = ROOT.TLatex()
+        latex.SetNDC()
+        latex.SetTextSize(0.04)
+        if up_result:
+            latex.SetTextColor(ROOT.kRed)
+            latex.DrawLatex(0.15, 0.85, f"Up: max={up_result['metrics']['max_var']:.1f}%")
+        if down_result:
+            latex.SetTextColor(ROOT.kBlue)
+            latex.DrawLatex(0.15, 0.78, f"Down: max={down_result['metrics']['max_var']:.1f}%")
+
+    # Save
+    output_path = os.path.join(output_dir, f"top5_systematics_{process}.png")
+    canvas.SaveAs(output_path)
+    print(f"  Saved: {output_path}")
+
+    return output_path
+
+
+def parse_datacard_systematics(datacard_path):
+    """Parse a Combine datacard to extract systematic names."""
+    systematics = set()
+    if not os.path.exists(datacard_path):
+        return systematics
+
+    with open(datacard_path, 'r') as f:
+        for line in f:
+            line = line.strip()
+            # Shape systematics have format: syst_name shape ...
+            # or lnN systematics: syst_name lnN ...
+            parts = line.split()
+            if len(parts) > 1 and parts[1] in ['shape', 'shapeN2', 'lnN']:
+                systematics.add(parts[0])
+
+    return systematics
+
+
+def plot_total_systematic(process, nominals, results, output_dir, channel="1tau1l",
+                          datacard_systematics=None):
+    """Plot nominal with total systematic uncertainty band for a process."""
+    ROOT.gStyle.SetOptStat(0)
+
+    region = "SR"
+    nominal_key = f"{process}_{region}"
+    nominal = nominals.get(nominal_key)
+
+    if not nominal:
+        print(f"  Warning: No nominal histogram for {process}")
+        return None
+
+    nbins = nominal.GetNbinsX()
+
+    # Group results by systematic for this process
+    from collections import defaultdict
+    syst_variations = defaultdict(dict)  # systematic -> {Up: [vars], Down: [vars]}
+
+    for r in results:
+        if r['process'] != process or r['region'] != region:
+            continue
+        syst = r['systematic']
+        direction = r['direction']
+
+        # Filter by datacard systematics if provided
+        if datacard_systematics and syst not in datacard_systematics:
+            continue
+
+        if direction in ['Up', 'Down']:
+            syst_variations[syst][direction] = r['metrics'].get('variations', [])
+
+    # Calculate total uncertainty per bin
+    total_up = [0.0] * nbins
+    total_down = [0.0] * nbins
+
+    for syst, dirs in syst_variations.items():
+        up_vars = dirs.get('Up', [])
+        down_vars = dirs.get('Down', [])
+
+        for i in range(nbins):
+            up_val = up_vars[i] if i < len(up_vars) and up_vars[i] is not None else 0
+            down_val = down_vars[i] if i < len(down_vars) and down_vars[i] is not None else 0
+
+            # Add in quadrature (take max of up/down for each direction)
+            if up_val > 0:
+                total_up[i] = math.sqrt(total_up[i]**2 + up_val**2)
+            else:
+                total_down[i] = math.sqrt(total_down[i]**2 + up_val**2)
+
+            if down_val < 0:
+                total_down[i] = math.sqrt(total_down[i]**2 + down_val**2)
+            else:
+                total_up[i] = math.sqrt(total_up[i]**2 + down_val**2)
+
+    # Create canvas
+    canvas = ROOT.TCanvas(f"c_total_{process}", f"{process} - Total Systematic", 1200, 800)
+    canvas.Divide(1, 2)
+
+    # Top pad: nominal with error band
+    canvas.cd(1)
+    ROOT.gPad.SetPad(0, 0.35, 1, 1)
+    ROOT.gPad.SetBottomMargin(0.02)
+    ROOT.gPad.SetGrid()
+
+    nom_clone = nominal.Clone(f"nom_total_{process}")
+
+    # Create error band histogram
+    h_band = nom_clone.Clone(f"h_band_{process}")
+    for i in range(1, nbins + 1):
+        nom_val = nominal.GetBinContent(i)
+        stat_err = nominal.GetBinError(i)
+        syst_up = nom_val * total_up[i-1] / 100 if total_up[i-1] else 0
+        syst_down = nom_val * total_down[i-1] / 100 if total_down[i-1] else 0
+        # Total error = sqrt(stat^2 + syst^2)
+        total_err = math.sqrt(stat_err**2 + max(syst_up, syst_down)**2)
+        h_band.SetBinError(i, total_err)
+
+    h_band.SetFillColor(ROOT.kYellow - 9)
+    h_band.SetFillStyle(1001)
+    h_band.SetMarkerSize(0)
+    h_band.SetTitle(f"{process} - Total Systematic Uncertainty;BDT bin;Events")
+
+    # Create stat-only band
+    h_stat_band = nom_clone.Clone(f"h_stat_band_{process}")
+    h_stat_band.SetFillColor(ROOT.kGray)
+    h_stat_band.SetFillStyle(3001)
+    h_stat_band.SetMarkerSize(0)
+
+    max_val = nom_clone.GetMaximum() * 1.5
+    h_band.GetYaxis().SetRangeUser(0, max_val)
+    h_band.Draw("E2")  # Stat+syst band (yellow)
+    h_stat_band.Draw("E2 SAME")  # Stat-only band (gray) on top
+
+    nom_clone.SetLineColor(ROOT.kBlack)
+    nom_clone.SetLineWidth(2)
+    nom_clone.SetMarkerStyle(20)
+    nom_clone.SetMarkerSize(0.8)
+    nom_clone.Draw("HIST SAME")
+
+    # Legend
+    leg = ROOT.TLegend(0.60, 0.65, 0.88, 0.88)
+    leg.SetBorderSize(0)
+    leg.SetFillStyle(0)
+    leg.AddEntry(nom_clone, "Nominal", "l")
+    leg.AddEntry(h_stat_band, "Stat only", "f")
+    leg.AddEntry(h_band, "Stat #oplus Syst", "f")
+    leg.Draw()
+
+    # Add text with number of systematics
+    latex = ROOT.TLatex()
+    latex.SetNDC()
+    latex.SetTextSize(0.04)
+    n_syst = len(syst_variations)
+    latex.DrawLatex(0.15, 0.85, f"N systematics: {n_syst}")
+
+    # Bottom pad: uncertainty percentage
+    canvas.cd(2)
+    ROOT.gPad.SetPad(0, 0, 1, 0.35)
+    ROOT.gPad.SetTopMargin(0.02)
+    ROOT.gPad.SetBottomMargin(0.25)
+    ROOT.gPad.SetGrid()
+
+    h_up_pct = ROOT.TH1F(f"h_up_pct_{process}", "", nbins,
+                          nominal.GetXaxis().GetXmin(),
+                          nominal.GetXaxis().GetXmax())
+    h_down_pct = ROOT.TH1F(f"h_down_pct_{process}", "", nbins,
+                            nominal.GetXaxis().GetXmin(),
+                            nominal.GetXaxis().GetXmax())
+
+    for i in range(nbins):
+        h_up_pct.SetBinContent(i + 1, total_up[i])
+        h_down_pct.SetBinContent(i + 1, -total_down[i])
+
+    h_up_pct.SetLineColor(ROOT.kRed)
+    h_up_pct.SetFillColor(ROOT.kRed - 9)
+    h_up_pct.SetFillStyle(3004)
+    h_up_pct.SetLineWidth(2)
+
+    h_down_pct.SetLineColor(ROOT.kBlue)
+    h_down_pct.SetFillColor(ROOT.kBlue - 9)
+    h_down_pct.SetFillStyle(3005)
+    h_down_pct.SetLineWidth(2)
+
+    max_pct = max(max(total_up), max(total_down)) * 1.3 if total_up or total_down else 50
+    h_up_pct.GetYaxis().SetRangeUser(-max_pct, max_pct)
+    h_up_pct.SetTitle("")
+    h_up_pct.GetYaxis().SetTitle("Total Syst [%]")
+    h_up_pct.GetYaxis().SetTitleSize(0.08)
+    h_up_pct.GetYaxis().SetTitleOffset(0.5)
+    h_up_pct.GetYaxis().SetLabelSize(0.07)
+    h_up_pct.GetXaxis().SetTitle("BDT bin")
+    h_up_pct.GetXaxis().SetTitleSize(0.1)
+    h_up_pct.GetXaxis().SetLabelSize(0.08)
+
+    h_up_pct.Draw("HIST")
+    h_down_pct.Draw("HIST SAME")
+
+    # Zero line
+    line = ROOT.TLine(h_up_pct.GetXaxis().GetXmin(), 0,
+                       h_up_pct.GetXaxis().GetXmax(), 0)
+    line.SetLineColor(ROOT.kBlack)
+    line.SetLineStyle(2)
+    line.SetLineWidth(2)
+    line.Draw()
+
+    # Save
+    output_path = os.path.join(output_dir, f"total_systematic_{process}.png")
+    canvas.SaveAs(output_path)
+    print(f"  Saved: {output_path}")
 
     return output_path
 
@@ -599,6 +1043,14 @@ def main():
                         help="Maximum number of systematics to plot (default: 30)")
     parser.add_argument("--no-plots", action="store_true",
                         help="Skip plot generation, only print report")
+    parser.add_argument("--top-per-process", type=int, default=0,
+                        help="Plot top N systematics per process (default: 0, disabled)")
+    parser.add_argument("--compare-smoothed", default=None,
+                        help="Path to smoothed template for comparison")
+    parser.add_argument("--datacard", default=None,
+                        help="Path to datacard to filter systematics for total plot")
+    parser.add_argument("--total-systematic", action="store_true",
+                        help="Generate total systematic uncertainty plot per process")
 
     args = parser.parse_args()
 
@@ -667,6 +1119,98 @@ def main():
                                  args.output_dir, i)
 
         print(f"Plots saved to: {args.output_dir}/")
+
+    # Generate top N systematics per process plots
+    if args.top_per_process > 0 and results:
+        print(f"\n=== Generating top {args.top_per_process} systematics per process ===")
+
+        # Build nominals dictionary from results (they already have the histogram)
+        nominals = {}
+        for r in results:
+            key = f"{r['process']}_{r['region']}"
+            if key not in nominals and r.get('nominal'):
+                nominals[key] = r['nominal']
+
+        # Get top systematics per process
+        top_per_process = get_top_systematics_per_process(results, n_top=args.top_per_process)
+
+        for process in sorted(top_per_process.keys()):
+            top_systs = top_per_process[process]
+            if top_systs:
+                print(f"\nProcess: {process}")
+                for syst_name, score, _ in top_systs:
+                    print(f"  - {syst_name}: score={score:.1f}")
+                plot_top_systematics_for_process(process, top_systs, nominals, tfile,
+                                                  args.output_dir, args.channel)
+
+    # Generate total systematic plots
+    if args.total_systematic and results:
+        print(f"\n=== Generating total systematic uncertainty plots ===")
+
+        # Build nominals dictionary from results
+        nominals = {}
+        for r in results:
+            key = f"{r['process']}_{r['region']}"
+            if key not in nominals and r.get('nominal'):
+                nominals[key] = r['nominal']
+
+        # Parse datacard for systematics filter if provided
+        datacard_systematics = None
+        if args.datacard:
+            datacard_systematics = parse_datacard_systematics(args.datacard)
+            print(f"Filtering to {len(datacard_systematics)} systematics from datacard")
+
+        # Get unique processes
+        processes = set(r['process'] for r in results)
+
+        for process in sorted(processes):
+            plot_total_systematic(process, nominals, results, args.output_dir,
+                                  args.channel, datacard_systematics)
+
+    # Compare with smoothed template if provided
+    if args.compare_smoothed and os.path.exists(args.compare_smoothed):
+        print(f"\n=== Comparing with smoothed template ===")
+        print(f"Smoothed: {args.compare_smoothed}")
+
+        tfile_smoothed = ROOT.TFile(args.compare_smoothed)
+        results_smoothed = analyze_template(tfile_smoothed, channel=args.channel, threshold=args.threshold)
+
+        # Print comparison report
+        print(f"\nUnsmoothed: {len(results)} variations > {args.threshold}%")
+        print(f"Smoothed: {len(results_smoothed)} variations > {args.threshold}%")
+
+        # Generate plots for smoothed template
+        smoothed_output_dir = os.path.join(args.output_dir, "smoothed")
+        os.makedirs(smoothed_output_dir, exist_ok=True)
+
+        if args.top_per_process > 0 and results_smoothed:
+            # Build nominals dictionary from results
+            nominals_smoothed = {}
+            for r in results_smoothed:
+                key = f"{r['process']}_{r['region']}"
+                if key not in nominals_smoothed and r.get('nominal'):
+                    nominals_smoothed[key] = r['nominal']
+
+            top_per_process_smoothed = get_top_systematics_per_process(results_smoothed, n_top=args.top_per_process)
+
+            for process in sorted(top_per_process_smoothed.keys()):
+                top_systs = top_per_process_smoothed[process]
+                if top_systs:
+                    print(f"\n[Smoothed] Process: {process}")
+                    for syst_name, score, _ in top_systs:
+                        print(f"  - {syst_name}: score={score:.1f}")
+                    plot_top_systematics_for_process(process, top_systs, nominals_smoothed, tfile_smoothed,
+                                                      smoothed_output_dir, args.channel)
+
+        # Also generate total systematic plots for smoothed
+        if args.total_systematic and results_smoothed:
+            print(f"\n=== Generating total systematic plots for smoothed ===")
+            processes_smoothed = set(r['process'] for r in results_smoothed)
+            for process in sorted(processes_smoothed):
+                plot_total_systematic(process, nominals_smoothed, results_smoothed,
+                                      smoothed_output_dir, args.channel, datacard_systematics if args.datacard else None)
+
+        tfile_smoothed.Close()
 
     tfile.Close()
 
