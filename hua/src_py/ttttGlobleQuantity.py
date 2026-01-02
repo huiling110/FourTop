@@ -169,7 +169,6 @@ genSumDic={
     'ttZ': 32793800.0
 }
 
-# summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'WJets', 'data' ]
 summedProcessList = [ 'tttt', 'tt', 'qcd', 'ttX', 'VV', 'singleTop', 'WJets', 'jetHT', 'singleMu' ]
 
 histoGramPerSample = { 
@@ -583,12 +582,27 @@ proChannelDic = {
     '1tau2l':  ['fakeTau', 'tt', 'ttbb', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], #! with ttbb
 }
 proChannelDic_forCombine = {
-    # '1tau1l':  ['fakeTauMC', 'tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
-    # '1tau1l':  [ 'tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
-    '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! with ttbb
-    # '1tau2l': ['tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'],
+    # '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! with ttbb
+    '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton',  'tttt', 'jetHT'], #! with ttbb, removed singleTop
     '1tau2l': ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton',  'Minor',  'tttt', 'leptonSum'], #! with ttbb
     '1tau0l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW', 'ttH', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! with ttbb
+}
+
+# Subprocesses to SKIP per channel - these have negligible contribution and add noise to systematics
+# Based on analysis of subprocess contributions in 2018 SR and CR regions
+# Skip criteria: < 1% of parent process AND < 1 event in region
+SKIP_SUBPROCESSES = {
+    '1tau1l': [
+        'TTBB_4f_TTToSemiLeptonic',  # 0.3% of ttbb, ~0.1-0.3 events
+        'ttbar_1l',                   # 0.7% of tt in SR, ~0.1 events (but 1 in CR12)
+        # Note: st_schan_*, st_tchan_*, ttHJet* files don't exist (different naming or no events)
+    ],
+    '1tau0l': [
+        # Add 1tau0l specific skips here after analysis
+    ],
+    '1tau2l': [
+        # Add 1tau2l specific skips here after analysis
+    ],
 }
 
 #!copied from inputMAP_MV.H

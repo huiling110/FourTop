@@ -3,6 +3,7 @@ import ROOT
 import usefulFunc as uf
 import writeDatacard as wd
 import pl as pl
+import ttttGlobleQuantity as gq
 
 # Import workflow utilities for config-based path building
 try:
@@ -99,22 +100,22 @@ def main():
             sumProSys[process] = new_sys_list
 
     
-    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
-    
-    
-    addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind, args.quiet) 
-   
-          
-             
-            
-                    
-                    
-                    
+    # Get skip list for this channel (reduces systematic noise from negligible subprocesses)
+    skip_subprocesses = gq.SKIP_SUBPROCESSES.get(channel, [])
+    if skip_subprocesses and not args.quiet:
+        print(f"Will skip subprocesses: {skip_subprocesses}")
+
+    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau, skip_subprocesses=skip_subprocesses)#sumProcessPerVar[ivar][region][sumPro]
+
+
+    addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind, args.quiet)
+
     outDir = inputDir+'combine/'
     uf.checkMakeDir(outDir)
-    name = 'templatesForCombine'+channel+'_new'
+    # v3: Skip negligible subprocesses to reduce systematic noise
+    name = 'templatesForCombine'+channel+'_v3'
     if not ifMCFTau:
-        name = name.replace('new', 'new_notMCFTau') 
+        name = name.replace('v3', 'v3_notMCFTau')
     if not ifBlind:
         name = name + '_unblind'
     templateFile = outDir + name + '.root'

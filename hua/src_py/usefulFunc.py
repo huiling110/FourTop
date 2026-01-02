@@ -241,23 +241,31 @@ def print_dict_structure(dictionary, indent=0):
             print_dict_structure(value, indent + 1)
     # print('\n')
 
-def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018', isRun3=False, ifDebug=False, ifMCFTau=False):
+def getSumHist(inputDirDic, regionList, sumProList, sumProSys,varList, era='2018', isRun3=False, ifDebug=False, ifMCFTau=False, skip_subprocesses=None):
 #!new and better
     #return sumProHists[var][region][sumPro]
-    #return sumProHistSys[var][region][sumPro]['sys'] 
-    #!ifMCFTau=True: 
+    #return sumProHistSys[var][region][sumPro]['sys']
+    #!ifMCFTau=True:
+    #!skip_subprocesses: list of subprocess names to skip (e.g., negligible contributions)
     print('start to get hists and add them from root files')
     allDic = gq.histoGramPerSample.copy()
     if 'ttX' not in sumProList:
         allDic.update(gq.ttX_newMap)
-    if isRun3: 
+    if isRun3:
         allDic = gq.Run3Samples
     if ifMCFTau:
-        modifyDicForMCFTau(allDic, sumProList)    
-    
+        modifyDicForMCFTau(allDic, sumProList)
+
+    # Filter out skipped subprocesses
+    if skip_subprocesses:
+        for skip_sub in skip_subprocesses:
+            if skip_sub in allDic:
+                print(f'SKIPPING subprocess: {skip_sub} (negligible contribution)')
+                del allDic[skip_sub]
+
     allSubPro = list(allDic.keys())
     # print('allSubPro: ', allSubPro)
-    toGetSubHist = {} 
+    toGetSubHist = {}
     toGetSubHistSys = {}
     for isub in allSubPro:
         isdata = isData(isub)
