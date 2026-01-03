@@ -4,16 +4,22 @@
 | Era | S3 WH | S4.1 addJES | S4.2 addTpl v3 | S4.3 smooth | S4.4 datacard | S4.5 combine |
 |-----|-------|-------------|----------------|-------------|---------------|--------------|
 | 2018 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE |
-| 2017 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - |
-| 2016preVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - |
-| 2016postVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - |
+| 2017 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE |
+| 2016preVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE |
+| 2016postVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE |
 | **Run2** | - | - | - | - | ✅ DONE | ✅ DONE |
 
 **WH version**: `v1BDT1tau1l_XGB080testNew`
 
-### Combine Fit Results (Jan 3, 2026) - MAJOR IMPROVEMENT!
+### Combine Fit Results - V3 Smoothed (Jan 3, 2026) - COMPLETE!
 
-**Signal Strength**: `r = 1.33 -1.33/+2.24`
+**Significance:**
+- Observed: **0.619σ**
+- Expected: **0.527σ**
+
+**Signal Strength**: `r = 1.33 -1.33/+2.23`
+
+**Impacts:** Complete with 235 parameters (8 pages). Impact plot saved.
 
 **Prefit Uncertainty Comparison (2018 SR Bin 4):**
 | Process | Old V22 | Smoothed V3 | Improvement |
@@ -40,11 +46,11 @@
 ### Output Files
 - Smoothed templates: `templatesForCombine1tau1l_v3_notMCFTau_unblind_smoothed_v2.root`
 - Run2 datacard: `hua/combine/combinationV22/run2_1tau1l_v4/datacard.txt`
-- FitDiagnostics: `hua/combine/combinationV22/run2_1tau1l_v4/fitDiagnostics_smoothedV3.root`
+- Impacts: `hua/combine/combinationV22/run2_1tau1l_v4/combineResults/impactResult/impacts.pdf`
 
 ### Next Steps
-1. Run postfit plots with new fitDiagnostics
-2. Generate impacts plot
+1. ~~Run postfit plots with new fitDiagnostics~~ - DONE
+2. ~~Generate impacts plot~~ - DONE
 3. Compare with V18 reference
 
 ---
@@ -282,4 +288,4 @@ python3 scripts/validate_stage.py --stage 4.1 --config CONFIG --era ERA
 ```
 
 ## Last Updated
-2026-01-03 (Smoothing complete - very effective! Ready for datacard generation)
+2026-01-03 11:48 - V3 smoothed combine complete! Significance: 0.619σ (obs), 0.527σ (exp)
