@@ -620,6 +620,27 @@ def plot_top_systematics_for_process(process, top_systematics, nominals, tfile,
                 down_hist = r['varied']
                 down_result = r
 
+        # If Up or Down is missing (didn't pass threshold), try to fetch from template
+        region_str = f"{channel}{region}"
+        if up_hist is None:
+            hist_name = f"{process}_{region_str}_{syst_name}Up_BDT"
+            up_hist = tfile.Get(hist_name)
+            if up_hist:
+                # Calculate metrics for display even if below threshold
+                vars_up = calculate_variation(nominal, up_hist)
+                if vars_up:
+                    _, metrics = calculate_fluctuation_score(vars_up)
+                    up_result = {'metrics': metrics, 'varied': up_hist}
+        if down_hist is None:
+            hist_name = f"{process}_{region_str}_{syst_name}Down_BDT"
+            down_hist = tfile.Get(hist_name)
+            if down_hist:
+                # Calculate metrics for display even if below threshold
+                vars_down = calculate_variation(nominal, down_hist)
+                if vars_down:
+                    _, metrics = calculate_fluctuation_score(vars_down)
+                    down_result = {'metrics': metrics, 'varied': down_hist}
+
         # Left panel: Shape comparison
         canvas.cd(2*i + 1)
         ROOT.gPad.SetGrid()
