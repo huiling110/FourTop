@@ -25,39 +25,52 @@ QUIET = False
 
 # ===== Channel-specific smoothing settings =====
 # Systematics and processes to smooth for each channel
-# Updated 2026-01-02: Added all problematic JES systematics identified in fluctuation report
+# Updated 2026-01-03: Added all remaining JES systematics from v3 fluctuation report
 # See: plots/systematic_fluctuations/fluctuation_report.txt
 CHANNEL_SMOOTHING_CONFIG = {
     '1tau1l': {
         'systematics': [
             # Theory uncertainties
             'ps_fsr', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac',
-            # JES - All sources with >40% max variation in fluctuation report
-            'CMS_scale_j_FlavorPureGluon',   # Score 69.3 (ttW)
-            'CMS_scale_j_TimePtEta',          # Score 65.7 (ttW) - WAS MISSING
-            'CMS_scale_j_RelativeSample',     # Score 55.2 (ttW) - WAS MISSING
-            'CMS_scale_j_AbsoluteScale',      # Score 54.0 (singleTop) - WAS MISSING
-            'CMS_scale_j_PileUpPtRef',        # Score 52.2 (ttW) - WAS MISSING
-            'CMS_scale_j_AbsoluteMPFBias',    # Score 50.7 (singleTop) - WAS MISSING
-            'CMS_scale_j_AbsoluteStat',       # Score 50.7 (singleTop) - WAS MISSING
-            'CMS_scale_j_FlavorPureQuark',    # Score 49.1 (ttW)
-            'CMS_scale_j_FlavorPureCharm',    # Score 49.4 (ttW) - WAS MISSING
-            'CMS_scale_j_RelativeBal',        # Score 48.5 (singleTop) - WAS MISSING
-            'CMS_scale_j_FlavorPureBottom',   # Score 47.8 (ttW) - WAS MISSING
-            'CMS_scale_j_PileUpDataMC',       # Score 45.5 (ttW) - WAS MISSING
+            # JES - Correlated across years
+            'CMS_scale_j_FlavorPureGluon',
+            'CMS_scale_j_FlavorPureQuark',
+            'CMS_scale_j_FlavorPureCharm',
+            'CMS_scale_j_FlavorPureBottom',
             'CMS_scale_j_Fragmentation',
-            'CMS_scale_j_RelativeFSR',        # Score 36.1 (singleTop) - WAS MISSING
+            'CMS_scale_j_AbsoluteScale',
+            'CMS_scale_j_AbsoluteMPFBias',
+            'CMS_scale_j_PileUpDataMC',
+            'CMS_scale_j_PileUpPtRef',
+            'CMS_scale_j_RelativeFSR',
+            'CMS_scale_j_RelativeBal',
+            'CMS_scale_j_RelativeSample',
+            'CMS_scale_j_SinglePionECAL',    # Added Jan 3 - 42% ttZ
+            'CMS_scale_j_SinglePionHCAL',    # Added Jan 3 - 41% ttZ
+            'CMS_scale_j_PileUpPtBB',        # Added Jan 3 - 103% ttW!
+            'CMS_scale_j_PileUpPtEC1',       # Added Jan 3 - 62% ttW
+            'CMS_scale_j_RelativePtBB',      # Added Jan 3 - 42% ttZ
+            # JES - Year-uncorrelated (need year suffix matching)
+            'CMS_scale_j_TimePtEta',
+            'CMS_scale_j_AbsoluteStat',
+            'CMS_scale_j_RelativeJEREC1',    # Added Jan 3 - 91% ttW
+            'CMS_scale_j_RelativeStatEC',    # Added Jan 3 - 64% ttW
+            'CMS_scale_j_RelativeStatFSR',   # Added Jan 3 - 41% ttZ
+            'CMS_scale_j_RelativePtEC1',     # Added Jan 3 - 40% ttZ
             # JER
-            'CMS_res_j',                      # Score 39.9 (ttW)
+            'CMS_res_j',
             # B-tagging
             'CMS_btag_fixedWP_comb_bc_correlated',
-            # TES - Added for completeness
-            'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',   # Score 47.4 (ttW)
-            'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',  # Score 39.6 (ttW)
+            # TES
+            'CMS_scale_t_DeepTau2017v2p1_DM0_genTau',  # Added Jan 3 - 50% ttZ
+            'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',
+            'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',
+            # Electron scale - Added Jan 3 - 45% tt
+            'CMS_scale_e',
             # MET
-            'CMS_scale_met_unclustered_energy',  # Score 39.5 (ttW) - WAS MISSING
+            'CMS_scale_met_unclustered_energy',
             # Pileup
-            'CMS_pileup',                     # Score 39.0 (singleTop) - WAS MISSING
+            'CMS_pileup',
         ],
         'processes': ['tt', 'ttbb', 'ttH', 'ttZ', 'ttW', 'singleTop']
     },

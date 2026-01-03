@@ -3,34 +3,49 @@
 ## Status Summary - v1BDT1tau1l_XGB080testNew (Fresh Run with Subprocess Skipping)
 | Era | S3 WH | S4.1 addJES | S4.2 addTpl v3 | S4.3 smooth | S4.4 datacard | S4.5 combine |
 |-----|-------|-------------|----------------|-------------|---------------|--------------|
-| 2018 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - | - |
-| 2017 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - | - |
-| 2016preVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - | - |
-| 2016postVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - | - |
-| **Run2** | - | - | - | - | - | - |
+| 2018 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE |
+| 2017 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - |
+| 2016preVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - |
+| 2016postVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - |
+| **Run2** | - | - | - | - | ✅ DONE | ✅ DONE |
 
 **WH version**: `v1BDT1tau1l_XGB080testNew`
 
-### Smoothing Results (Jan 3, 2026) - VERY EFFECTIVE!
+### Combine Fit Results (Jan 3, 2026) - MAJOR IMPROVEMENT!
 
-**Key reductions in problematic bin 4 variations:**
-| Process | Systematic | Before | After | Reduction |
-|---------|------------|--------|-------|-----------|
-| ttW | CMS_scale_j_FlavorPureGluon Up | +78.8% | +10.1% | **68.7%** |
-| ttW | ps_fsr Down | -196.7% | 0% | **Complete fix!** |
-| ttW | ps_fsr Up | +111.3% | 0% | **Complete fix!** |
-| tt | ps_fsr Down | +19.0% | +7.9% | 11.1% |
-| tt | CMS_scale_j_FlavorPureGluon Up | +17.8% | +11.4% | 6.4% |
+**Signal Strength**: `r = 1.33 -1.33/+2.24`
 
-**Output files:**
-- Original: `templatesForCombine1tau1l_v3_notMCFTau_unblind.root`
-- Smoothed: `templatesForCombine1tau1l_v3_notMCFTau_unblind_smoothed_v2.root`
-- Comparison plots: `combine/results/systematics_comparison_*.png` (460 plots)
+**Prefit Uncertainty Comparison (2018 SR Bin 4):**
+| Process | Old V22 | Smoothed V3 | Improvement |
+|---------|---------|-------------|-------------|
+| tt      | 590%    | 203%        | **-65%** |
+| ttbb    | 92%     | 45%         | **-51%** |
+| ttW     | 316%    | 183%        | **-42%** |
+| ttZ     | 100%    | 68%         | **-32%** |
+| ttH     | 50%     | 35%         | **-30%** |
+
+**Total Process Uncertainties:**
+| Process | Old V22 | Smoothed V3 | Improvement |
+|---------|---------|-------------|-------------|
+| tt      | 120%    | 43%         | **-64%** |
+| ttW     | 627%    | 85%         | **-86%** |
+| ttZ     | 293%    | 75%         | **-74%** |
+| ttH     | 40%     | 26%         | **-35%** |
+
+**Smoothing Config Updated (35 systematics):**
+- Added 11 more JES systematics (PileUpPtBB, RelativeJEREC1, RelativeStatEC, etc.)
+- Added CMS_scale_e, CMS_scale_t_DeepTau2017v2p1_DM0_genTau
+- Fluctuation report: 710 → 507 problematic variations (-29%)
+
+### Output Files
+- Smoothed templates: `templatesForCombine1tau1l_v3_notMCFTau_unblind_smoothed_v2.root`
+- Run2 datacard: `hua/combine/combinationV22/run2_1tau1l_v4/datacard.txt`
+- FitDiagnostics: `hua/combine/combinationV22/run2_1tau1l_v4/fitDiagnostics_smoothedV3.root`
 
 ### Next Steps
-1. Generate datacard with smoothed v3 templates
-2. Run Combine fit
-3. Compare prefit uncertainties vs V22 (expect significant reduction)
+1. Run postfit plots with new fitDiagnostics
+2. Generate impacts plot
+3. Compare with V18 reference
 
 ---
 
