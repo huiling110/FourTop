@@ -74,3 +74,83 @@ ls -lh /publicfs/.../UL2018/*.tar.gz
 
 - ~13 minutes per directory (4.7GB compressed)
 - 9 TES directories = ~2 hours total
+
+---
+
+## Systematic Fluctuation Checker
+
+Analyzes template files to identify systematic variations with large bin-to-bin fluctuations that may indicate smoothing issues or low statistics.
+
+**Location**: `plotting/check_systematic_fluctuations.py`
+
+### Basic Usage
+
+```bash
+source setEnv_newNew.sh
+
+# Basic analysis (threshold 10%)
+python3 plotting/check_systematic_fluctuations.py TEMPLATE.root
+
+# Custom threshold (e.g., 15%)
+python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --threshold 15
+
+# Full analysis with all plots
+python3 plotting/check_systematic_fluctuations.py TEMPLATE.root \
+    --threshold 10 \
+    --total-systematic \
+    --top-per-process 5
+```
+
+### Options
+
+| Flag | Description |
+|------|-------------|
+| `--threshold N` | Minimum fluctuation score to report (default: 10%) |
+| `--total-systematic` | Generate total systematic uncertainty plot per process |
+| `--top-per-process N` | Plot top N systematics per process |
+| `--no-plots` | Skip plot generation, only print report |
+| `--max-plots N` | Maximum number of systematics to plot (default: 30) |
+| `--compare-smoothed FILE` | Compare with smoothed template |
+| `--datacard FILE` | Filter systematics using datacard |
+| `--channel NAME` | Channel name (default: 1tau1l) |
+
+### Example Commands
+
+```bash
+# Check fluctuations on smoothed template
+python3 plotting/check_systematic_fluctuations.py \
+    /path/to/templatesForCombine1tau1l_v3_smoothed.root \
+    --threshold 10 --total-systematic --top-per-process 5
+
+# Compare before/after smoothing
+python3 plotting/check_systematic_fluctuations.py \
+    /path/to/original.root \
+    --compare-smoothed /path/to/smoothed.root \
+    --top-per-process 5
+
+# Quick report without plots
+python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --no-plots
+```
+
+### Output
+
+Output is saved to `{template_dir}/systematic_fluctuations/`:
+- `fluctuation_report.txt` - Ranked list of problematic variations
+- `top5_systematics_{process}.png` - Top 5 systematics per process
+- `total_systematic_{process}.png` - Total uncertainty per process
+- `systematic_*.png` - Individual systematic shape comparisons
+
+### Interpretation
+
+| Score | Meaning |
+|-------|---------|
+| < 10% | Acceptable |
+| 10-30% | Monitor |
+| 30-50% | Consider smoothing |
+| > 50% | Requires fixing (smoothing or merging) |
+
+### Key Metrics
+
+- **Max%**: Maximum variation in any bin
+- **RMS%**: Root-mean-square of variations across bins
+- **Max Δ**: Maximum bin-to-bin change (shape distortion indicator)
