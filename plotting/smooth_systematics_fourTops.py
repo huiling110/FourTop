@@ -25,21 +25,69 @@ QUIET = False
 
 # ===== Channel-specific smoothing settings =====
 # Systematics and processes to smooth for each channel
+# Updated 2026-01-02: Added all problematic JES systematics identified in fluctuation report
+# See: plots/systematic_fluctuations/fluctuation_report.txt
 CHANNEL_SMOOTHING_CONFIG = {
     '1tau1l': {
         'systematics': [
+            # Theory uncertainties
             'ps_fsr', 'ps_isr', 'QCDscale_ren', 'QCDscale_fac',
-            'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_FlavorPureQuark',
-            'CMS_scale_j_Fragmentation', 'CMS_btag_fixedWP_comb_bc_correlated',
-            'CMS_res_j'
+            # JES - All sources with >40% max variation in fluctuation report
+            'CMS_scale_j_FlavorPureGluon',   # Score 69.3 (ttW)
+            'CMS_scale_j_TimePtEta',          # Score 65.7 (ttW) - WAS MISSING
+            'CMS_scale_j_RelativeSample',     # Score 55.2 (ttW) - WAS MISSING
+            'CMS_scale_j_AbsoluteScale',      # Score 54.0 (singleTop) - WAS MISSING
+            'CMS_scale_j_PileUpPtRef',        # Score 52.2 (ttW) - WAS MISSING
+            'CMS_scale_j_AbsoluteMPFBias',    # Score 50.7 (singleTop) - WAS MISSING
+            'CMS_scale_j_AbsoluteStat',       # Score 50.7 (singleTop) - WAS MISSING
+            'CMS_scale_j_FlavorPureQuark',    # Score 49.1 (ttW)
+            'CMS_scale_j_FlavorPureCharm',    # Score 49.4 (ttW) - WAS MISSING
+            'CMS_scale_j_RelativeBal',        # Score 48.5 (singleTop) - WAS MISSING
+            'CMS_scale_j_FlavorPureBottom',   # Score 47.8 (ttW) - WAS MISSING
+            'CMS_scale_j_PileUpDataMC',       # Score 45.5 (ttW) - WAS MISSING
+            'CMS_scale_j_Fragmentation',
+            'CMS_scale_j_RelativeFSR',        # Score 36.1 (singleTop) - WAS MISSING
+            # JER
+            'CMS_res_j',                      # Score 39.9 (ttW)
+            # B-tagging
+            'CMS_btag_fixedWP_comb_bc_correlated',
+            # TES - Added for completeness
+            'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',   # Score 47.4 (ttW)
+            'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',  # Score 39.6 (ttW)
+            # MET
+            'CMS_scale_met_unclustered_energy',  # Score 39.5 (ttW) - WAS MISSING
+            # Pileup
+            'CMS_pileup',                     # Score 39.0 (singleTop) - WAS MISSING
         ],
         'processes': ['tt', 'ttbb', 'ttH', 'ttZ', 'ttW', 'singleTop']
     },
     '1tau0l': {
         'systematics': [
+            # Theory uncertainties
             'ps_fsr', 'ps_isr', 'QCDscale_fac', 'QCDscale_ren',
-            'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_FlavorPureQuark',
-            'CMS_btag_fullShape_hf', 'CMS_res_j', 'pdf_alphas'
+            # JES - expanded list matching 1tau1l
+            'CMS_scale_j_FlavorPureGluon',
+            'CMS_scale_j_TimePtEta',
+            'CMS_scale_j_RelativeSample',
+            'CMS_scale_j_AbsoluteScale',
+            'CMS_scale_j_PileUpPtRef',
+            'CMS_scale_j_AbsoluteMPFBias',
+            'CMS_scale_j_AbsoluteStat',
+            'CMS_scale_j_FlavorPureQuark',
+            'CMS_scale_j_FlavorPureCharm',
+            'CMS_scale_j_RelativeBal',
+            'CMS_scale_j_FlavorPureBottom',
+            'CMS_scale_j_PileUpDataMC',
+            'CMS_scale_j_Fragmentation',
+            'CMS_scale_j_RelativeFSR',
+            # JER
+            'CMS_res_j',
+            # B-tagging (shape-based for 1tau0l)
+            'CMS_btag_fullShape_hf',
+            # PDF
+            'pdf_alphas',
+            # Pileup
+            'CMS_pileup',
         ],
         # Note: ttbb excluded from pdf_alphas smoothing (negative norms issue, see writeDatacard.py:398)
         'processes': ['tt', 'ttH', 'ttZ', 'ttW', 'WJets'],
@@ -47,9 +95,27 @@ CHANNEL_SMOOTHING_CONFIG = {
     },
     '1tau2l': {
         'systematics': [
+            # Theory uncertainties
             'ps_fsr', 'ps_isr', 'QCDscale_fac', 'QCDscale_ren',
-            'CMS_scale_j_FlavorPureGluon', 'CMS_scale_j_FlavorPureQuark',
-            'CMS_res_j'
+            # JES - expanded list
+            'CMS_scale_j_FlavorPureGluon',
+            'CMS_scale_j_TimePtEta',
+            'CMS_scale_j_RelativeSample',
+            'CMS_scale_j_AbsoluteScale',
+            'CMS_scale_j_PileUpPtRef',
+            'CMS_scale_j_AbsoluteMPFBias',
+            'CMS_scale_j_AbsoluteStat',
+            'CMS_scale_j_FlavorPureQuark',
+            'CMS_scale_j_FlavorPureCharm',
+            'CMS_scale_j_RelativeBal',
+            'CMS_scale_j_FlavorPureBottom',
+            'CMS_scale_j_PileUpDataMC',
+            'CMS_scale_j_Fragmentation',
+            'CMS_scale_j_RelativeFSR',
+            # JER
+            'CMS_res_j',
+            # Pileup
+            'CMS_pileup',
         ],
         'processes': ['tt', 'ttbb', 'ttH', 'ttZ', 'ttW', 'singleTop']
     }
@@ -60,6 +126,8 @@ def main():
     parser = argparse.ArgumentParser(description='Apply LOWESS smoothing to systematic variations')
     parser.add_argument('--quiet', '-q', action='store_true', help='Suppress verbose output')
     parser.add_argument('--config', '-c', type=str, help='Path to YAML config file')
+    parser.add_argument('--template-version', '-t', type=str, default='new',
+                        help='Template version suffix (e.g., "new", "v3"). Default: new')
     args = parser.parse_args()
     QUIET = args.quiet
 
@@ -80,6 +148,10 @@ def main():
         if not options.get('smoothing', False):
             print(f"Smoothing is disabled in config (options.smoothing=false). Skipping.")
             return
+
+        # Replace 'new' with the specified template version if different
+        if args.template_version != 'new':
+            suffix = suffix.replace('_new', f'_{args.template_version}')
 
         # Build template path for 2018 (base year, others derived from it)
         input_template = build_template_path(config, '2018', channel_name, suffix, smoothed=False)
@@ -125,30 +197,52 @@ def main():
     if not QUIET:
         print(f'\nSmoothing completed for all processes and years. Saving smoothed histograms...')
     for year in years:
-        output_file = input_template.replace('.root', f'_smoothed.root')
+        output_file = input_template.replace('.root', f'_smoothed_v2.root')  # v2: preserves variances
         output_file = output_file.replace('2018', year)
         inputYear = input_template.replace('2018', year)
-        with uproot.open(inputYear) as infile:
-            with uproot.recreate(output_file) as outfile:
-                for key, obj in infile.items():
-                    hist_name = key.split(';')[0]  #!!!Fixe; or else extra ;1;1 in the hist name for the output file
 
-                    ipro, ichannel, isys = extract_parts_from_name(hist_name)
+        # Use ROOT to properly preserve SumW2 (MC stat errors)
+        # uproot loses variance info when writing with (data, edges) tuple
+        infile_root = ROOT.TFile.Open(inputYear, "READ")
+        outfile_root = ROOT.TFile.Open(output_file, "RECREATE")
 
-                    if isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] and ichannel == channel:
-                        if not QUIET:
-                            print('!!! replace histogram:', hist_name, 'with smoothed values for', isys, ipro, year)
-                        if 'Up_BDT' in hist_name:
-                            hist_data = dic_sys[isys][ipro][year][0]
-                        elif 'Down_BDT' in hist_name:
-                            hist_data = dic_sys[isys][ipro][year][1]
+        for key in infile_root.GetListOfKeys():
+            hist_name = key.GetName()
+            obj = infile_root.Get(hist_name)
 
-                        edges = obj.axes[0].edges()
-                        outfile[hist_name] = (hist_data, edges)
+            if not obj or not obj.InheritsFrom("TH1"):
+                continue
 
-                    else:
-                        # Copy other histograms without modification
-                        outfile[hist_name] = obj
+            ipro, ichannel, isys = extract_parts_from_name(hist_name)
+
+            if isys in dic_sys and ipro in dic_sys[isys] and year in dic_sys[isys][ipro] and ichannel == channel:
+                if not QUIET:
+                    print('!!! replace histogram:', hist_name, 'with smoothed values for', isys, ipro, year)
+                if 'Up_BDT' in hist_name:
+                    hist_data = dic_sys[isys][ipro][year][0]
+                elif 'Down_BDT' in hist_name:
+                    hist_data = dic_sys[isys][ipro][year][1]
+                else:
+                    # Copy unchanged
+                    outfile_root.cd()
+                    obj.Write()
+                    continue
+
+                # Clone and update bin contents, preserving SumW2 structure
+                h_new = obj.Clone()
+                for i in range(1, h_new.GetNbinsX() + 1):
+                    h_new.SetBinContent(i, hist_data[i-1])
+                    # Preserve original error (MC stat)
+                    # h_new.SetBinError(i, obj.GetBinError(i))  # Keep original error
+                outfile_root.cd()
+                h_new.Write()
+            else:
+                # Copy other histograms without modification
+                outfile_root.cd()
+                obj.Write()
+
+        infile_root.Close()
+        outfile_root.Close()
         if not QUIET:
             print(f'Smoothed histograms saved to {output_file}')
                 
@@ -178,7 +272,12 @@ def getSmoothedDic(input_template, sysList, processList, channel, years, outDir,
                 iFile = input_template.replace('2018', iyear)
                 if not QUIET:
                     print(f'Processing file: {iFile}')
-                nominal_hist, up_hist, down_hist = getHist_uproot(iFile, nom_name, up_name, down_name) 
+                try:
+                    nominal_hist, up_hist, down_hist = getHist_uproot(iFile, nom_name, up_name, down_name)
+                except Exception as e:
+                    if not QUIET:
+                        print(f'  Skipping {process} for {sys}/{iyear}: histogram not found')
+                    continue 
                 
                 combined_nominal, combined_var, combined_up, combined_up_var, combined_down, combined_down_var = getForSmooth(input_template, sys, process, channel, years, iyear, ifCorrelated, ifProcessCorrelated)
                 bin_centers = (nominal_hist.axis().edges()[:-1] + nominal_hist.axis().edges()[1:]) / 2

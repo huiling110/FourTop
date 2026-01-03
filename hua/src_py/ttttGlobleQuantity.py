@@ -575,7 +575,8 @@ dataDict = {
 
 proChannelDic = {
     # '1tau1l':  ['tt', 'ttX',  'fakeLepton', 'singleTop', 'WJets',  'tttt', 'jetHT'], #! 1tau1l, no Minor in any region in 1tau1l
-    '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttX',  'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! 1tau1l, with ttbb
+    # '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttX',  'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! 1tau1l, with ttbb
+    '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttX',  'fakeLepton',  'tttt', 'jetHT'], #! 1tau1l, with ttbb, no singleTop
     '1tau0l':  [ 'fakeTau', 'tt', 'ttbb', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, with ttbb
     # '1tau0l':  [ 'qcd', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, for fake tau validation with qcd
     # '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'],

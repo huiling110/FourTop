@@ -11,9 +11,10 @@ metadata:
 versions:
   stage1: "v95XGB080testOS7"              # Object selection output (CentOS7 + XGBoost 0.80)
   stage2: "v1baselineHadro"               # Variable calculation output
-  hist: "v0BDT1tau1l_XGB080test"          # Histogram version
+  # hist: "v0BDT1tau1l_XGB080testNew"      # Histogram version (fresh run)
+  hist: "v1BDT1tau1l_XGB080testNew"      # Histogram version (re run)
   datacard: "v1_xgb080_test"              # Datacard version
-  combination: "combinationV21"           # Combine version
+  combination: "combinationV22"           # Combine version
 
 # Channel name
 channel: "1tau1l"
@@ -21,14 +22,17 @@ channel: "1tau1l"
 # Eras to process (2018 only for this test)
 eras:
   - "2018"
+  - "2017"
+  - "2016preVFP"
+  - "2016postVFP"
 
 # Analysis options
 options:
   fake_tau: true
   mc_fake_tau: false
   blind: false
-  systematics: false  # Nominal only for quick test
-  smoothing: false
+  systematics: true  # Nominal only for quick test
+  smoothing: true  # Disabled for 2018-only run (smoothing needs all eras)
   ifVLL: false
 
 # Base paths
