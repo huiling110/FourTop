@@ -163,6 +163,8 @@ def main():
                         help='Use smoothed templates (default: from config options.smoothing)')
     parser.add_argument('--no-smoothed', dest='smoothed', action='store_false',
                         help='Use unsmoothed templates')
+    parser.add_argument('--template-version', type=str, default=None,
+                        help='Template version suffix (e.g., "v3" for templatesForCombine1tau1l_v3_...)')
     args = parser.parse_args()
 
     # Validate workflow_utils is available
@@ -173,14 +175,30 @@ def main():
     config = load_config(args.config)
     channel = get_channel(config)
     options = get_options(config)
-    suffix = get_template_suffix(config)
+
+    # Build suffix: use template-version if specified, otherwise from config
+    if args.template_version:
+        # Custom template version: e.g., "v3" -> "_v3_notMCFTau_unblind"
+        suffix = f"_{args.template_version}"
+        if not options.get('mc_fake_tau', False):
+            suffix += '_notMCFTau'
+        if not options.get('blind', True):
+            suffix += '_unblind'
+    else:
+        suffix = get_template_suffix(config)
 
     # Determine smoothed setting: command line overrides config
     if args.smoothed is None:
         use_smoothed = options.get('smoothing', True)
     else:
         use_smoothed = args.smoothed
-    inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=use_smoothed)
+
+    # For smoothed v3 templates, use _smoothed_v2 suffix
+    if use_smoothed and args.template_version == 'v3':
+        inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=False)
+        inputTemplate = inputTemplate.replace('.root', '_smoothed_v2.root')
+    else:
+        inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=use_smoothed)
     ifFTauMC = options.get('mc_fake_tau', False)
     datacard_version = config.get('versions', {}).get('datacard', outVersion)
 
