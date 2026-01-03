@@ -1,6 +1,40 @@
 # Tasks: XGB080test Workflow (1tau1l)
 
-## Status Summary
+## Status Summary - v1BDT1tau1l_XGB080testNew (Fresh Run with Subprocess Skipping)
+| Era | S3 WH | S4.1 addJES | S4.2 addTpl v3 | S4.3 smooth | S4.4 datacard | S4.5 combine |
+|-----|-------|-------------|----------------|-------------|---------------|--------------|
+| 2018 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - | - |
+| 2017 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - | - |
+| 2016preVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - | - |
+| 2016postVFP | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - | - |
+| **Run2** | - | - | - | - | - | - |
+
+**WH version**: `v1BDT1tau1l_XGB080testNew`
+
+### Smoothing Results (Jan 3, 2026) - VERY EFFECTIVE!
+
+**Key reductions in problematic bin 4 variations:**
+| Process | Systematic | Before | After | Reduction |
+|---------|------------|--------|-------|-----------|
+| ttW | CMS_scale_j_FlavorPureGluon Up | +78.8% | +10.1% | **68.7%** |
+| ttW | ps_fsr Down | -196.7% | 0% | **Complete fix!** |
+| ttW | ps_fsr Up | +111.3% | 0% | **Complete fix!** |
+| tt | ps_fsr Down | +19.0% | +7.9% | 11.1% |
+| tt | CMS_scale_j_FlavorPureGluon Up | +17.8% | +11.4% | 6.4% |
+
+**Output files:**
+- Original: `templatesForCombine1tau1l_v3_notMCFTau_unblind.root`
+- Smoothed: `templatesForCombine1tau1l_v3_notMCFTau_unblind_smoothed_v2.root`
+- Comparison plots: `combine/results/systematics_comparison_*.png` (460 plots)
+
+### Next Steps
+1. Generate datacard with smoothed v3 templates
+2. Run Combine fit
+3. Compare prefit uncertainties vs V22 (expect significant reduction)
+
+---
+
+## Previous Run Status (v0BDT1tau1l_XGB080testNew - Corrupted tttt.root)
 | Era | S4.1 addJES | S4.2 addTpl | S4.3 smooth | S4.4 datacard | S4.5 combine |
 |-----|-------------|-------------|-------------|---------------|--------------|
 | 2018 | DONE | DONE | DONE | DONE | - |
@@ -9,7 +43,7 @@
 | 2016postVFP | DONE | DONE | DONE | DONE | - |
 | **Run2** | - | - | - | DONE | **DONE** |
 
-## Current Phase: **ROOT CAUSES IDENTIFIED - Ready for Fix Implementation**
+## Current Phase: **WH Jobs Running - Preparing for v3 Template Test**
 
 ### Critical Issue: V22 Uncertainties 4-5x Larger than V18
 
@@ -79,6 +113,27 @@ hua/combine/combinationV22/run2_1tau1l_v4/diagnostics/
 - [x] Create diagnostic plots
 
 ### Session History
+
+**Jan 3 - Smoothing Complete with Very Effective Results:**
+- [x] WH jobs completed for all 4 eras
+- [x] Run addJES for all 4 eras
+- [x] Generated v3 templates with subprocess skipping (SKIP_SUBPROCESSES applied)
+- [x] Enhanced smooth_systematics_fourTops.py:
+  - Added `--template-version` argument for flexible template selection
+  - Added graceful handling of missing processes (singleTop)
+  - Expanded systematics list to 24 (including all problematic JES sources)
+- [x] Run smoothing on v3 templates - 460 comparison plots generated
+- [x] **Tested smoothing effectiveness - VERY EFFECTIVE!**
+  - ttW ps_fsr fluctuations reduced from ±100-200% to ~0%
+  - ttW JES fluctuations reduced by 60-70%
+  - tt systematic fluctuations reduced by 5-11%
+- [ ] Generate datacard with smoothed templates
+- [ ] Run Combine and compare to V22
+
+**Jan 2 (cont) - Fresh WH Run with v1 Version:**
+- [x] Discovered tttt.root was corrupted (empty file, 480 bytes) on Dec 31
+- [x] Changed hist version from v0 to v1 in config to avoid overwriting
+- [x] Submitted WH jobs for all 4 eras with `--systematic complete`
 
 **Jan 2 - Subprocess Skipping Implementation:**
 - [x] Analyzed subprocess contributions for all processes in SR and CR12:
@@ -212,4 +267,4 @@ python3 scripts/validate_stage.py --stage 4.1 --config CONFIG --era ERA
 ```
 
 ## Last Updated
-2026-01-02 (Subprocess skipping implemented, singleTop removed from 1tau1l)
+2026-01-03 (Smoothing complete - very effective! Ready for datacard generation)

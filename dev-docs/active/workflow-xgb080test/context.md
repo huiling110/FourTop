@@ -12,7 +12,8 @@ This workflow run tests XGBoost 0.80 compatibility (CentOS7 mode) for yield veri
 - Config: `config/analysis_config_1tau1l_XGB080test.yaml`
 - Stage 1 output: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL{era}/v95XGB080testOS7/`
 - Stage 2 output: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/v1baselineHadro_v95XGB080testOS7/`
-- WH output: `{stage2_path}/mc/variableHists_v0BDT1tau1l_XGB080testNew/`
+- WH output (v1, current): `{stage2_path}/mc/variableHists_v1BDT1tau1l_XGB080testNew/`
+- WH output (v0, corrupted tttt.root): `{stage2_path}/mc/variableHists_v0BDT1tau1l_XGB080testNew/`
 - Combine: `hua/combine/combinationV22/run2_1tau1l_v4/`
 
 ## Environment
@@ -204,32 +205,40 @@ python3 plotting/check_subprocess_systematics.py --config CONFIG --era 2018 --pr
 | ttZ | 41% | ps_fsr |
 | ttH | 41% | ps_fsr |
 
-### Next Steps (Priority Order)
+### Smoothing Results (Jan 3, 2026) - VERY EFFECTIVE!
 
-**IMPLEMENTED: Subprocess skipping and singleTop removal to reduce systematic noise**
+**All fixes implemented and validated:**
 
-#### DONE: Subprocess Skipping (Jan 2)
+#### DONE: Subprocess Skipping (Jan 2-3)
 - Implemented subprocess skipping in template generation
 - Skipped for 1tau1l: `TTBB_4f_TTToSemiLeptonic`, `ttbar_1l` (< 1% contribution)
 - Removed singleTop from 1tau1l combine (only 1.4 events, 294% ps_fsr fluctuation)
-- Template output now uses v3 naming: `templatesForCombine1tau1l_v3_*`
+- Template output uses v3 naming: `templatesForCombine1tau1l_v3_*`
 
-#### Priority 1: Regenerate Templates with v3
-- Run addTemplateNew.py for all eras with subprocess skipping
-- Note: Need to fix tttt histogram naming issue first
+#### DONE: Enhanced Smoothing (Jan 3)
+- Added `--template-version` argument to smoothing script
+- Expanded systematics list to 24 (all problematic JES/TES/MET/pileup sources)
+- Added graceful handling of missing processes
 
-#### Priority 2: Analyze SKIP_SUBPROCESSES for Other Channels
-- Run subprocess contribution analysis for 1tau0l and 1tau2l
-- Update SKIP_SUBPROCESSES config accordingly
+#### Smoothing Validation Results (Bin 4 Variations):
+| Process | Systematic | Before | After | Reduction |
+|---------|------------|--------|-------|-----------|
+| ttW | CMS_scale_j_FlavorPureGluon Up | +78.8% | +10.1% | **68.7%** |
+| ttW | ps_fsr Down | -196.7% | 0% | **Complete fix!** |
+| ttW | ps_fsr Up | +111.3% | 0% | **Complete fix!** |
+| tt | ps_fsr Down | +19.0% | +7.9% | 11.1% |
+| ttbb | CMS_scale_j_FlavorPureGluon Down | -7.6% | 0% | 7.6% |
 
-#### Priority 3: Investigate Smoothing Effectiveness
-- Check which systematics are being smoothed vs not
-- Some JES systematics still have same-direction Up/Down after smoothing
+### Next Steps
 
-#### Lower Priority (Template Issues)
-4. **Handle negative yields** in TTWJetsToQQ
-5. **Fix L1 prefiring bug** in WH code (all zeros)
-6. **Remove zero-event subprocesses** (st_schan_*, st_tchan)
+1. **Generate datacard with smoothed v3 templates**
+2. **Run Combine fit**
+3. **Compare prefit uncertainties** - expect significant reduction vs V22
+
+#### Lower Priority (Future)
+- Analyze SKIP_SUBPROCESSES for 1tau0l and 1tau2l channels
+- Handle negative yields in TTWJetsToQQ
+- Fix L1 prefiring bug in WH code (all zeros)
 
 ## New Workflow Tools (Dec 31)
 
@@ -258,4 +267,4 @@ python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --threshold 15
 ```
 
 ## Last Updated
-2026-01-02 (Subprocess skipping implemented, singleTop removed from 1tau1l)
+2026-01-03 (Smoothing complete - very effective! Ready for datacard generation)
