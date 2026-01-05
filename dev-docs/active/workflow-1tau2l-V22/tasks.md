@@ -12,59 +12,48 @@
 
 | Era | S1-2 OS/MV | S3 WH | S4.1 addJES | S4.2-4.3 | S4.4 datacard | S4.5 combine |
 |-----|------------|-------|-------------|----------|---------------|--------------|
-| 2018 | DONE (V18) | - | - | - | - | - |
-| 2017 | DONE (V18) | - | - | - | - | - |
-| 2016preVFP | DONE (V18) | - | - | - | - | - |
-| 2016postVFP | DONE (V18) | - | - | - | - | - |
+| 2018 | DONE (V18) | SUBMITTING | - | - | - | - |
+| 2017 | DONE (V18) | PENDING | - | - | - | - |
+| 2016preVFP | DONE (V18) | PENDING | - | - | - | - |
+| 2016postVFP | DONE (V18) | PENDING | - | - | - | - |
 
 ## Key Info
 - **MV directories exist** for all 4 eras with full systematics (JES, JER, TES, MET, EleScale)
-- Stage 1-2 reused from V18: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/v1baselineHadroBtagWeightAdded_v94LepPreJetVetoHemOnlyV2/`
+- Stage 1-2 reused from V18
+- **Use screen** for WH submission with `--systematic complete`
 
-## Workflow Steps
+## In Progress
+- Submitting WH for 2018 with `--systematic complete` (takes ~20 min)
 
-### Stage 3: WH (Write Histograms)
+## Next Steps
+1. Wait for 2018 WH submission to complete
+2. Submit WH for 2017, 2016preVFP, 2016postVFP (use screen)
+3. Wait for WH jobs to complete (~2-4 hours)
+4. Run Stage 4 pipeline
+
+## Commands
+
+### Stage 3: WH (use screen!)
 ```bash
+screen -S wh_1tau2l
 source setEnv_newNew.sh
 cd writeHistGood/jobs/
 python3 makeJob_WH.py --config ../../config/analysis_config_1tau2l_V22.yaml --era ERA --systematic complete
+# Ctrl+A, D to detach
 ```
 
-### Stage 4.1: addJES
+### Stage 4.1-4.5
 ```bash
+# After WH complete
 python3 plotting/addJESTemplatesToHistFile.py --config config/analysis_config_1tau2l_V22.yaml --era ERA --execute --quiet
-```
-
-### Stage 4.2: addTemplate
-```bash
 python3 plotting/addTemplateNew.py --config config/analysis_config_1tau2l_V22.yaml --era ERA
-```
-
-### Stage 4.3: smooth (needs all eras)
-```bash
 python3 plotting/smooth_systematics_fourTops.py --config config/analysis_config_1tau2l_V22.yaml --template-version v3 --quiet
-```
-
-### Stage 4.4: writeDatacard
-```bash
 python3 plotting/writeDatacard.py --config config/analysis_config_1tau2l_V22.yaml --era ERA --template-version v3
-```
 
-### Stage 4.4.1: Run2 combination
-```bash
 cd hua/combine && cmsenv
 python3 writeCombinationDatacard.py --config ../../config/analysis_config_1tau2l_V22.yaml --channel 1tau2l
-```
-
-### Stage 4.5: combine fits
-```bash
 bash run_combine_fits.sh ../../config/analysis_config_1tau2l_V22.yaml run2 1tau2l
 ```
 
-## Next Steps
-1. Submit WH for all 4 eras with `--systematic complete`
-2. Wait for WH completion
-3. Run Stage 4 pipeline
-
 ## Last Updated
-2026-01-05 09:50
+2026-01-05 10:25
