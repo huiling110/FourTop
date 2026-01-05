@@ -1,0 +1,40 @@
+# FourTop Analysis Configuration - 1tau2l Channel (V22 Combination)
+# Created: 2026-01-05
+# Purpose: V22 combination for 1tau2l channel using V18 MV inputs
+
+metadata:
+  name: "1tau2l_V22"
+  description: "1tau2l channel for V22 combination - reusing V18 MV inputs"
+  created: "2026-01-05"
+
+# Version strings for each pipeline stage
+versions:
+  stage1: "v94LepPreJetVetoHemOnlyV2"        # Object selection (from V18)
+  stage2: "v1baselineHadroBtagWeightAdded"   # Variable calculation output (from V18)
+  hist: "v0BDT1tau2l_V22"                    # Histogram version (fresh for V22)
+  datacard: "v1_V22"                         # Datacard version
+  combination: "combinationV22"              # Combine version
+
+# Channel name
+channel: "1tau2l"
+
+# Eras to process
+eras:
+  - "2018"
+  - "2017"
+  - "2016preVFP"
+  - "2016postVFP"
+
+# Analysis options (matching 1tau1l V22)
+options:
+  fake_tau: true
+  mc_fake_tau: false
+  blind: false
+  systematics: true
+  smoothing: true
+  ifVLL: false
+
+# Base paths
+paths:
+  nanoaod_base: "/publicfs/cms/data/TopQuark/nanoAOD"
+  output_base: "/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA"

@@ -93,18 +93,29 @@ CHANNEL_SMOOTHING_CONFIG = {
             'CMS_scale_j_PileUpDataMC',
             'CMS_scale_j_Fragmentation',
             'CMS_scale_j_RelativeFSR',
+            'CMS_scale_j_SinglePionHCAL',  # Added - in top impacts
+            'CMS_scale_j_SinglePionECAL',  # Added
             # JER
             'CMS_res_j',
-            # B-tagging (shape-based for 1tau0l)
+            # B-tagging (shape-based for 1tau0l) - expanded
             'CMS_btag_fullShape_hf',
+            'CMS_btag_fullShape_lf',       # Added - in top impacts
+            'CMS_btag_fullShape_cferr1',   # Added - in top impacts
+            'CMS_btag_fullShape_cferr2',   # Added
+            # TES - Added matching 1tau1l
+            'CMS_scale_t_DeepTau2017v2p1_DM0_genTau',
+            'CMS_scale_t_DeepTau2017v2p1_DM1_genTau',
+            'CMS_scale_t_DeepTau2017v2p1_DM10_genTau',
+            'CMS_scale_t_DeepTau2017v2p1_DM11_genTau',
+            # MET
+            'CMS_scale_met_unclustered_energy',
             # PDF
             'pdf_alphas',
+            'pdf_00',  # PDF envelope - critical for ttbb (bin 12 has +22%/-43% variation)
             # Pileup
             'CMS_pileup',
         ],
-        # Note: ttbb excluded from pdf_alphas smoothing (negative norms issue, see writeDatacard.py:398)
-        'processes': ['tt', 'ttH', 'ttZ', 'ttW', 'WJets'],
-        'processes_no_pdf_alphas': ['ttbb']  # these get smoothed for all systematics except pdf_alphas
+        'processes': ['tt', 'ttH', 'ttZ', 'ttW', 'WJets', 'ttbb'],
     },
     '1tau2l': {
         'systematics': [
