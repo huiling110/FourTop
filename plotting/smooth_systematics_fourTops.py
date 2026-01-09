@@ -72,7 +72,7 @@ CHANNEL_SMOOTHING_CONFIG = {
             # Pileup
             'CMS_pileup',
         ],
-        'processes': ['tt', 'ttbb', 'ttH', 'ttZ', 'ttW', 'singleTop']
+        'processes': ['tt', 'ttbb', 'ttH', 'ttZ', 'ttW']  # singleTop removed (1.4 events, 294% ps_fsr)
     },
     '1tau0l': {
         'systematics': [
