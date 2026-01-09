@@ -1,6 +1,74 @@
 # Tasks: XGB080test Workflow (1tau1l)
 
-## Status Summary - v1BDT1tau1l_XGB080testNew (Fresh Run with Subprocess Skipping)
+## Current: MV Bug Fix Rerun (Jan 9, 2026)
+
+**Issue**: One-sided systematic bug discovered and fixed in MV step
+**Action**: Resubmitting WH jobs for 2018 with all systematics
+
+| Era | S3 WH | S4.1 addJES | S4.2 addTpl | S4.3 smooth | S4.4 datacard | S4.5 combine |
+|-----|-------|-------------|-------------|-------------|---------------|--------------|
+| 2018 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | - |
+| 2017 | ✅ (old OK) | ✅ | ✅ | ✅ | ✅ | - |
+| 2016preVFP | ✅ (old OK) | ✅ | ✅ | ✅ | ✅ | - |
+| 2016postVFP | ✅ (old OK) | ✅ | ✅ | ✅ | ✅ | - |
+| **Run2** | - | - | - | - | ✅ DONE | ✅ DONE |
+
+**WH version**: `v0BDT1tau1l_XGB080testNew` (same hist version, rerunning with fixed MV)
+**Jobs submitted**: 4441 (75 variations × ~59 files)
+**WH Started**: 2026-01-09 09:03
+**Combine Completed**: 2026-01-09 10:38
+
+### Results - MV Bug Fix Run (Jan 9, 2026)
+
+| Metric | Previous (Jan 3) | MV Bug Fix | Change |
+|--------|------------------|------------|--------|
+| Observed Significance | 0.619σ | **0.543σ** | -0.076σ |
+| Expected Significance | 0.527σ | **0.523σ** | -0.004σ |
+| Signal Strength | 1.33 -1.33/+2.23 | **1.20 -1.20/+2.29** | ~same |
+
+**Output Files:**
+- Impacts: `combinationV22/run2_1tau1l_v4/combineResults/impactResult/impacts.pdf`
+- Signal Strength Scan: `combinationV22/run2_1tau1l_v4/combineResults/signalStrength/scan_plot.pdf`
+
+---
+
+## 3-Channel Combination (Jan 9, 2026)
+
+**Status**: 🔄 Impacts running (~3 hours remaining)
+
+### Channels Combined:
+- 1tau0l: `combinationV22/run2_1tau0l_v4/datacard.txt` (Jan 8)
+- 1tau1l: `combinationV22/run2_1tau1l_v4/datacard.txt` (Jan 9, MV bug fix)
+- 1tau2l: `combinationV22/run2_1tau2l_v4/datacard.txt` (Jan 6)
+
+### Results (Preliminary):
+
+| Metric | 1tau1l Only | 3-Channel | Improvement |
+|--------|-------------|-----------|-------------|
+| **Observed Significance** | 0.54σ | **1.05σ** | +0.51σ |
+| **Expected Significance** | 0.52σ | **0.99σ** | +0.47σ |
+| Signal Strength | 1.20 -1.20/+2.29 | **1.20 -1.14/+1.34** | Tighter errors |
+
+**Limits (95% CL):**
+- Observed: r < 3.63
+- Expected: r < 2.30 (median)
+- Expected ±1σ: [1.58, 3.41]
+- Expected ±2σ: [1.15, 4.92]
+
+### Progress:
+- [x] 3-channel datacard created (278 lines, 801 KB)
+- [x] Workspace built
+- [x] Limits calculated
+- [x] Significance calculated: **1.05σ**
+- [ ] Impacts: 103/239 fits done (running with 8 parallel jobs)
+- [ ] Postfit plots
+- [ ] Signal strength scan
+
+**Output Directory**: `hua/combine/combinationV22/run2_3channels_v4/`
+
+---
+
+## Previous: v1BDT1tau1l_XGB080testNew (Fresh Run with Subprocess Skipping)
 | Era | S3 WH | S4.1 addJES | S4.2 addTpl v3 | S4.3 smooth | S4.4 datacard | S4.5 combine |
 |-----|-------|-------------|----------------|-------------|---------------|--------------|
 | 2018 | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE | ✅ DONE |

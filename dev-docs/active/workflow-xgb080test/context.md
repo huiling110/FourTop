@@ -13,8 +13,9 @@ This workflow run tests XGBoost 0.80 compatibility (CentOS7 mode) for yield veri
 - Stage 1 output: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/UL{era}/v95XGB080testOS7/`
 - Stage 2 output: `/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/{era}/v1baselineHadro_v95XGB080testOS7/`
 - WH output (v1, current): `{stage2_path}/mc/variableHists_v1BDT1tau1l_XGB080testNew/`
-- WH output (v0, corrupted tttt.root): `{stage2_path}/mc/variableHists_v0BDT1tau1l_XGB080testNew/`
-- Combine: `hua/combine/combinationV22/run2_1tau1l_v4/`
+- WH output (v0, MV bug fix): `{stage2_path}/mc/variableHists_v0BDT1tau1l_XGB080testNew/`
+- Combine 1tau1l: `hua/combine/combinationV22/run2_1tau1l_v4/`
+- **Combine 3-channel**: `hua/combine/combinationV22/run2_3channels_v4/`
 
 ## Environment
 - Stages 1-4.4, 4.7: `source setEnv_newNew.sh`
