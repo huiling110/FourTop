@@ -457,22 +457,32 @@ def run_postfit_main_legacy():
 
 def _parse_region_name(region_name):
     """
-    Parse region name (e.g., 'SR1tau0l_2018') to extract channel and era.
+    Parse region name to extract channel and era.
+    Handles both formats:
+    - 'SR1tau0l_2018' (single channel format)
+    - 'SR1tau0l_SR1tau0l_2018' (3-channel combination format)
     Returns (channel, era) tuple or (None, None) if parsing fails.
     """
     if '_' not in region_name:
         return None, None
 
     parts = region_name.split('_')
-    if len(parts) != 2:
-        return None, None
 
-    region_part, era = parts
-    if not region_part.startswith('SR'):
-        return None, None
+    # Handle 3-part format: SR{channel}_SR{channel}_{era}
+    if len(parts) == 3:
+        region_part1, region_part2, era = parts
+        if region_part1.startswith('SR') and region_part2.startswith('SR'):
+            channel = region_part1[2:]  # Remove 'SR' prefix
+            return channel, era
 
-    channel = region_part[2:]  # Remove 'SR' prefix
-    return channel, era
+    # Handle 2-part format: SR{channel}_{era}
+    if len(parts) == 2:
+        region_part, era = parts
+        if region_part.startswith('SR'):
+            channel = region_part[2:]  # Remove 'SR' prefix
+            return channel, era
+
+    return None, None
 
 
 def get_channels_and_eras(filename):
@@ -867,9 +877,15 @@ def _convert_tgraph_to_hist(graph, total_hist, fit, era):
 def _load_single_histogram(file, fit, iRegion, era, process):
     """Load a single histogram from file, handling data TGraph conversion."""
     processToGet = 'data' if process in ('leptonSum', 'jetHT') else process
-    histname = f'shapes_{fit}/{iRegion}_{era}/{processToGet}'
 
+    # Try 3-channel format first: SR{channel}_SR{channel}_{era}
+    histname = f'shapes_{fit}/{iRegion}_{iRegion}_{era}/{processToGet}'
     hist = file.Get(histname)
+
+    # Fall back to 2-part format: SR{channel}_{era}
+    if not hist:
+        histname = f'shapes_{fit}/{iRegion}_{era}/{processToGet}'
+        hist = file.Get(histname)
     if not hist:
         print(f"Warning: Histogram {histname} not found in {fit} for era {era}.")
         return None
@@ -880,7 +896,11 @@ def _load_single_histogram(file, fit, iRegion, era, process):
 
     # Convert TGraphAsymmErrors to TH1 for data
     if process in ('leptonSum', 'jetHT') and hist_clone.ClassName() == 'TGraphAsymmErrors':
-        total_hist = file.Get(f'shapes_{fit}/{iRegion}_{era}/total')
+        # Try 3-channel format first
+        total_hist = file.Get(f'shapes_{fit}/{iRegion}_{iRegion}_{era}/total')
+        if not total_hist:
+            # Fall back to 2-part format
+            total_hist = file.Get(f'shapes_{fit}/{iRegion}_{era}/total')
         if total_hist:
             hist_clone = _convert_tgraph_to_hist(hist_clone, total_hist, fit, era)
 
