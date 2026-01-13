@@ -140,6 +140,21 @@ python3 plotting/pl.py --config config/CONFIG.yaml --era 2018 --unblind
 - Config options: `systematics`, `fake_tau`, `mc_fake_tau`, `blind`
 - Error if addJES not run: `Unable to find histogram '..._CMS_scale_j_*_BDT'`
 
+## Stage 4.8: Run2 Prefit Combination Plots
+
+**IMPORTANT: Requires addJES for ALL 4 eras first!**
+
+Combines histograms from all eras (2016preVFP, 2016postVFP, 2017, 2018) into Run2 plots with systematics.
+
+```bash
+python3 plotting/plotVariables_combination.py --config config/CONFIG.yaml --channel 1tau1l
+```
+
+- Input: WH output from all 4 eras (reads 2018 path from config, derives others)
+- Output: `{hist_dir_2018}/results/` with `*_combination_withSys.pdf`
+- Requires: addJES complete for all 4 eras
+- Skips subprocesses in `SKIP_SUBPROCESSES` (e.g., ttbar_1l for 1tau1l)
+
 ---
 
 ## Verify Each Sub-stage
