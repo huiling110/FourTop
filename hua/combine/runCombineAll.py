@@ -361,6 +361,9 @@ def measureSignalStrength(cardDir, ifVLL=False, channel='1tau1l'):
     if datacardFile is None:
         return
 
+    # Convert to absolute path before changing directory
+    datacardFile = os.path.abspath(datacardFile)
+
     outFolder = cardDir + 'combineResults/'
     signalStrengthDir = outFolder + 'signalStrength/'
 
