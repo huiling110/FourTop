@@ -32,16 +32,16 @@
 
 ---
 
-## 3-Channel Combination (Jan 9, 2026)
+## 3-Channel Combination (Jan 9-13, 2026) - COMPLETE
 
-**Status**: 🔄 Impacts running (~3 hours remaining)
+**Status**: ✅ ALL COMPLETE
 
 ### Channels Combined:
 - 1tau0l: `combinationV22/run2_1tau0l_v4/datacard.txt` (Jan 8)
 - 1tau1l: `combinationV22/run2_1tau1l_v4/datacard.txt` (Jan 9, MV bug fix)
 - 1tau2l: `combinationV22/run2_1tau2l_v4/datacard.txt` (Jan 6)
 
-### Results (Preliminary):
+### Final Results:
 
 | Metric | 1tau1l Only | 3-Channel | Improvement |
 |--------|-------------|-----------|-------------|
@@ -59,10 +59,28 @@
 - [x] 3-channel datacard created (278 lines, 801 KB)
 - [x] Workspace built
 - [x] Limits calculated
-- [x] Significance calculated: **1.05σ**
-- [ ] Impacts: 103/239 fits done (running with 8 parallel jobs)
-- [ ] Postfit plots
-- [ ] Signal strength scan
+- [x] Significance calculated: **1.05σ** (obs), **0.99σ** (exp)
+- [x] FitDiagnostics postfit: r = 1.20 -1.14/+1.34 (42 min)
+- [x] Postfit plots generated: **45 plots** (15 per channel × 3 channels)
+- [x] Fixed pl_postFit.py for 3-channel combination format
+- [x] Impacts complete: **369 parameters** (impacts.pdf, impacts.json)
+- [x] Signal strength scan complete: 100 points, r ∈ [0, 10]
+
+### Output Files (Jan 13, 2026):
+| File | Size | Description |
+|------|------|-------------|
+| `combineResults/impactResult/impacts.pdf` | 108 KB | Impact plot (12 pages) |
+| `combineResults/impactResult/impacts.json` | 160 KB | Impact data (369 params) |
+| `combineResults/postfitResult/postfitPlots/` | 45 files | Postfit plots (15/channel) |
+| `combineResults/signalStrength/scan_plot.pdf` | 16 KB | Signal strength scan |
+| `combineResults/postfitResult/fitDiagnosticsTest.root` | 2.9 MB | FitDiagnostics output |
+
+### Code Fixes (Jan 12, 2026):
+**pl_postFit.py** (commit `8678a7c4`) updated to handle 3-channel combination format:
+- Directory names use `SR{channel}_SR{channel}_{era}` (e.g., `SR1tau1l_SR1tau1l_2018`)
+- Fixed `_parse_region_name()` to handle 3-part format
+- Fixed `_load_single_histogram()` to try 3-channel path first
+- Fixed TGraph-to-TH1 conversion for total histogram path
 
 **Output Directory**: `hua/combine/combinationV22/run2_3channels_v4/`
 
@@ -356,4 +374,4 @@ python3 scripts/validate_stage.py --stage 4.1 --config CONFIG --era ERA
 ```
 
 ## Last Updated
-2026-01-03 11:48 - V3 smoothed combine complete! Significance: 0.619σ (obs), 0.527σ (exp)
+2026-01-13 - 3-channel combination FULLY COMPLETE. All outputs generated: impacts (369 params), postfit plots (45), signal strength scan.

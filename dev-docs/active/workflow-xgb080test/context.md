@@ -1,7 +1,8 @@
 # Context: XGB080test Workflow
 
 ## Goal
-**Complete through Stage 4 with physics results for 1tau1l channel.**
+**Complete through Stage 4 with physics results for 3-channel combination.**
+- Channels: 1tau0l, 1tau1l, 1tau2l
 - All 4 eras: 2018, 2017, 2016preVFP, 2016postVFP
 - Final deliverables: significance, limits, postfit plots, impact plots
 
@@ -274,5 +275,23 @@ python3 scripts/workflow_status.py
 python3 plotting/check_systematic_fluctuations.py TEMPLATE.root --threshold 15
 ```
 
+## 3-Channel Combination Results (Jan 13, 2026) - FINAL
+
+| Metric | Value |
+|--------|-------|
+| **Observed Significance** | 1.05σ |
+| **Expected Significance** | 0.99σ |
+| **Signal Strength** | r = 1.20 -1.14/+1.34 |
+| **Observed Limit (95% CL)** | r < 3.63 |
+| **Expected Limit (95% CL)** | r < 2.30 |
+
+### All Outputs Complete:
+- **Postfit Plots**: 45 plots (15 per channel × 3 channels)
+- **Impacts**: 369 parameters, impacts.pdf (108 KB)
+- **Signal Strength Scan**: scan_plot.pdf (100 points, r ∈ [0, 10])
+
+### Output Directory:
+`hua/combine/combinationV22/run2_3channels_v4/combineResults/`
+
 ## Last Updated
-2026-01-03 (Issue RESOLVED! Combine fit complete with 64-86% uncertainty reduction)
+2026-01-13 (3-channel combination FULLY COMPLETE - all outputs generated)
