@@ -65,7 +65,8 @@ python3 plotting/smooth_systematics_fourTops.py --config config/CONFIG.yaml --qu
 ```
 
 - Requires `options.smoothing: true` in config
-- Mandatory for 1tau1l/1tau0l before writeDatacard
+- **Mandatory for 1tau1l/1tau0l** before writeDatacard
+- **NOT needed for 1tau2l** - skip this stage and go directly to 4.4
 
 ## Stage 4.4: writeDatacard
 
@@ -91,18 +92,25 @@ cd hua/combine/
 ln -sfn $(pwd)/combinationV{XX} /publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/run2_combination/combinationV{XX}
 ```
 
-**Run combine fits:**
+### run_combine_fits.sh (recommended)
+
 ```bash
 screen -S combine_1tau1l
 cd hua/combine/
-# For single era:
-bash run_combine_fits.sh ../../config/CONFIG.yaml 2018 1tau1l
-# For Run2 combination:
 bash run_combine_fits.sh ../../config/CONFIG.yaml run2 1tau1l
 # Detach: Ctrl+A D | Reattach: screen -r combine_1tau1l
 ```
 
-Takes 1-2 hours. Runs: workspace, significance, postfit, signal_strength, impacts.
+Takes 1-2 hours. Runs all steps: workspace, significance, postfit, signal_strength, impacts.
+
+### runCombineAll.py (for individual steps)
+
+```bash
+cd hua/combine/combinationV{XX}/run2_{channel}_v4/ && cmsenv
+python3 ../../runCombineAll.py --cardDir . --steps impacts --no-blind
+```
+
+Steps: `workspace`, `limits`, `significance`, `impacts`, `postfit`, `signal_strength`, `gof`
 
 ## Stage 4.6: postfit plots
 
