@@ -66,6 +66,23 @@ check_dangerous() {
             return 1
         fi
     done
+
+    # Special check: find with -delete (regex needed)
+    if [[ "$cmd" =~ find[[:space:]].*-delete ]]; then
+        echo ""
+        echo "═══════════════════════════════════════════════════════════════════════"
+        echo "🚫 BLOCKED: Dangerous command detected!"
+        echo "═══════════════════════════════════════════════════════════════════════"
+        echo ""
+        echo "Pattern: find ... -delete"
+        echo "Command: $cmd"
+        echo ""
+        echo "This command has been blocked for safety."
+        echo "═══════════════════════════════════════════════════════════════════════"
+        echo ""
+        return 1
+    fi
+
     return 0
 }
 
@@ -78,21 +95,12 @@ fi
 # ENVIRONMENT CHECKS
 # ============================================================================
 
-# Check for common mistake - using setEnv_newNew.sh without full path
-if [[ "$command_str" =~ "source setEnv_newNew.sh" ]] && [[ ! "$command_str" =~ "cd $PROJECT_ROOT" ]] && [[ ! "$command_str" =~ "cd /workfs2" ]]; then
-    echo ""
-    echo "═══════════════════════════════════════════════════════════════════════"
-    echo "⚠️  PATH ERROR: setEnv_newNew.sh needs full path!"
-    echo "═══════════════════════════════════════════════════════════════════════"
-    echo ""
-    echo "WRONG:  source setEnv_newNew.sh"
-    echo "RIGHT:  cd $PROJECT_ROOT && source setEnv_newNew.sh"
-    echo ""
-    exit 1
-fi
+# Note: Removed the setEnv path check - Claude Code runs from project root so
+# "source setEnv_newNew.sh" works fine. The environment check below catches real issues.
 
-# Skip environment setup commands themselves
-if [[ "$command_str" =~ source.*setEnv || "$command_str" =~ cmsenv ]]; then
+# Skip ONLY if command is purely environment setup (no other commands chained)
+# This allows "source setEnv && python3 pl.py" to proceed to skill checking
+if [[ "$command_str" =~ ^(source.*setEnv|cmsenv)$ ]]; then
     exit 0
 fi
 
@@ -216,50 +224,72 @@ if [[ "$command_str" =~ python.*hua/combine ]]; then
 fi
 
 # ============================================================================
-# WORKFLOW SKILL REMINDERS (NON-BLOCKING)
+# WORKFLOW SKILL ENFORCEMENT (BLOCKING)
 # ============================================================================
-# Map commands to their corresponding skill files for reference
+# Block stage-specific commands unless the skill was invoked first
+# This ensures Claude always has the skill context before running commands
 
-check_workflow_skill() {
+check_workflow_skill_blocking() {
     local cmd="$1"
-    local skill_file=""
+    local skill_name=""
     local stage_name=""
 
     # Stage 1: Object Selection
     if [[ "$cmd" =~ makeJob_OS || "$cmd" =~ submit_all_systematics\.sh ]]; then
-        skill_file=".claude/skills/workflow-stage1-os/SKILL.md"
+        skill_name="workflow-stage1-os"
         stage_name="Stage 1 (Object Selection)"
     # Stage 2: Make Variables
     elif [[ "$cmd" =~ makeJob_MV || "$cmd" =~ makeJob_makeVaribles || "$cmd" =~ createFaketau || "$cmd" =~ createFakeLepton ]]; then
-        skill_file=".claude/skills/workflow-stage2-mv/SKILL.md"
+        skill_name="workflow-stage2-mv"
         stage_name="Stage 2 (Make Variables)"
     # Stage 3: Write Histograms
     elif [[ "$cmd" =~ makeJob_WH\.py || "$cmd" =~ run_treeAnalyzer\.out ]]; then
-        skill_file=".claude/skills/workflow-stage3-wh/SKILL.md"
+        skill_name="workflow-stage3-wh"
         stage_name="Stage 3 (Write Histograms)"
     # Stage 4: Plotting/Datacard/Combine
-    elif [[ "$cmd" =~ addJES.*\.py || "$cmd" =~ addTemplate.*\.py || "$cmd" =~ smooth_systematics.*\.py || "$cmd" =~ writeDatacard\.py || "$cmd" =~ pl\.py || "$cmd" =~ writeCombination.*\.py || "$cmd" =~ run_combine || "$cmd" =~ runCombine ]]; then
-        skill_file=".claude/skills/workflow-stage4-combine/SKILL.md"
+    elif [[ "$cmd" =~ addJES.*\.py || "$cmd" =~ addTemplate.*\.py || "$cmd" =~ smooth_systematics.*\.py || "$cmd" =~ writeDatacard\.py || "$cmd" =~ pl\.py || "$cmd" =~ writeCombination.*\.py || "$cmd" =~ run_combine || "$cmd" =~ runCombine || "$cmd" =~ plotVariables ]]; then
+        skill_name="workflow-stage4-combine"
         stage_name="Stage 4 (Plotting/Combine)"
     fi
 
-    if [[ -n "$skill_file" ]]; then
-        echo ""
-        echo "═══════════════════════════════════════════════════════════════════════"
-        echo "📖 WORKFLOW SKILL REMINDER: $stage_name"
-        echo "═══════════════════════════════════════════════════════════════════════"
-        echo ""
-        echo "Before running this command, ensure you've read:"
-        echo "  $skill_file"
-        echo ""
-        echo "Quick reference:"
-        echo "  cat $PROJECT_ROOT/$skill_file | head -50"
-        echo "═══════════════════════════════════════════════════════════════════════"
-        echo ""
+    # If no stage detected, allow command
+    if [[ -z "$skill_name" ]]; then
+        return 0
     fi
+
+    # Check if skill was recently invoked (marker file within 30 mins)
+    local marker_file="/tmp/.claude_skill_${skill_name}_$USER"
+    local current_time=$(date +%s)
+
+    if [[ -f "$marker_file" ]]; then
+        local marker_time=$(cat "$marker_file" 2>/dev/null || echo 0)
+        local age=$((current_time - marker_time))
+        if [[ $age -lt 1800 ]]; then
+            # Skill was invoked within 30 mins, allow command
+            return 0
+        fi
+    fi
+
+    # BLOCK: Skill not invoked or expired
+    echo ""
+    echo "═══════════════════════════════════════════════════════════════════════"
+    echo "🚫 BLOCKED: $stage_name skill not invoked!"
+    echo "═══════════════════════════════════════════════════════════════════════"
+    echo ""
+    echo "Command: $cmd"
+    echo ""
+    echo "You MUST invoke the skill first:"
+    echo "  Skill(\"$skill_name\")"
+    echo ""
+    echo "This ensures you have the correct paths, prerequisites, and commands."
+    echo "═══════════════════════════════════════════════════════════════════════"
+    echo ""
+    return 1
 }
 
-# Show workflow skill reminder (non-blocking)
-check_workflow_skill "$command_str"
+# Check workflow skill (BLOCKING - exit 2 if skill not invoked)
+if ! check_workflow_skill_blocking "$command_str"; then
+    exit 2
+fi
 
 exit 0

@@ -1,7 +1,60 @@
 import usefulFunc as uf
-import ttttGlobleQuantity as gq                                
+import ttttGlobleQuantity as gq
 # import plotVaribles as pl
 import pl as pl
+import argparse
+import yaml
+import os
+
+def get_input_dir_from_config(config, era):
+    """Build input directory path from config for a given era."""
+    base_path = config['paths']['output_base']
+    stage1_version = config['versions']['stage1']
+    hist_version = config['versions']['hist']
+
+    return f"{base_path}/{era}/v1baselineHadro_{stage1_version}/mc/variableHists_{hist_version}/"
+
+def main_with_config(config_path, channel):
+    """Main function using config file."""
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+
+    # Get input directories for all eras
+    inputDir2018 = get_input_dir_from_config(config, '2018')
+    inputDir2017 = get_input_dir_from_config(config, '2017')
+    inputDir2016preVFP = get_input_dir_from_config(config, '2016preVFP')
+    inputDir2016postVFP = get_input_dir_from_config(config, '2016postVFP')
+
+    # Get options from config
+    ifMCFTau = config.get('options', {}).get('mc_fake_tau', False)
+    ifblinding = config.get('options', {}).get('blind', False)
+
+    # Set region list based on channel
+    if channel == '1tau1l':
+        regionList = ['1tau1lSR', '1tau1lCR12']
+    elif channel == '1tau0l':
+        regionList = ['1tau0lSR', '1tau0lCRMR', '1tau0lVR']
+    elif channel == '1tau2l':
+        regionList = ['1tau2lSR', '1tau2lCR3']
+    else:
+        raise ValueError(f"Unknown channel: {channel}")
+
+    print(f"Config: {config_path}")
+    print(f"Channel: {channel}")
+    print(f"Regions: {regionList}")
+    print(f"Input dir (2018): {inputDir2018}")
+
+    variables = ['BDT']
+    sumPros = pl.getSumList(channel, True, False, ifMCFTau)
+    print(f"Processes: {sumPros}")
+
+    sumProHists2018, sumProHistsSys2018 = getSumHistPerYear(inputDir2018, regionList, variables, sumPros, channel, ifMCFTau)
+    sumProHists2017, sumProHistsSys2017 = getSumHistPerYear(inputDir2017, regionList, variables, sumPros, channel, ifMCFTau)
+    sumProHists2016preVFP, sumProHistsSys2016preVFP = getSumHistPerYear(inputDir2016preVFP, regionList, variables, sumPros, channel, ifMCFTau)
+    sumProHists2016postVFP, sumProHistsSys2016postVFP = getSumHistPerYear(inputDir2016postVFP, regionList, variables, sumPros, channel, ifMCFTau)
+
+    for iVar in variables:
+        plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSys2017, sumProHists2016preVFP, sumProHistsSys2016preVFP, sumProHists2016postVFP, sumProHistsSys2016postVFP, sumPros, inputDir2018, iVar, ifMCFTau, ifblinding)
 
 def main():
     # inputDir2018 = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v0baselineHardro_v80addTauJetVar/mc/variableHists_v2BDT1tau1l_binE/'
@@ -179,10 +232,22 @@ def getSumHistPerYear(inputDir2018, regionList, variables, sumPros, channel, ifM
     uf.checkMakeDir( inputDirDic['mc']+'results/')
     
     sumProSys = pl.getSysDicPL(sumPros, True, channel, era, True)
-    sumProHists, sumProHistsSys = uf.getSumHist(inputDirDic, regionList, sumPros, sumProSys,  variables, era, False, False, ifMCFTau)
+    # Skip subprocesses that were excluded from JES systematics (negligible contribution)
+    skip_subs = gq.SKIP_SUBPROCESSES.get(channel, [])
+    sumProHists, sumProHistsSys = uf.getSumHist(inputDirDic, regionList, sumPros, sumProSys,  variables, era, False, False, ifMCFTau, skip_subs)
     return sumProHists, sumProHistsSys
     
     
     
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Plot Run2 combination prefit plots')
+    parser.add_argument('--config', type=str, help='Path to config YAML file')
+    parser.add_argument('--channel', type=str, choices=['1tau1l', '1tau0l', '1tau2l'],
+                        help='Analysis channel')
+    args = parser.parse_args()
+
+    if args.config and args.channel:
+        main_with_config(args.config, args.channel)
+    else:
+        # Fall back to legacy hardcoded paths
+        main()

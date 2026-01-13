@@ -122,7 +122,9 @@ def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFake
     sumProList = getSumList(channel, ifFakeTau, ifVLL, ifMCFTau)    
     sumProSys = getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)    
     [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
-    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 , False, ifMCFTau)#sumProcessPerVar[ivar][region][sumPro]
+    # Skip subprocesses that were excluded from JES systematics (negligible contribution)
+    skip_subs = gq.SKIP_SUBPROCESSES.get(channel, []) if ifDoSystmatic else []
+    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 , False, ifMCFTau, skip_subs)#sumProcessPerVar[ivar][region][sumPro]
     
     plotDir = inputDirDic['mc']+'results/'
     uf.checkMakeDir( plotDir)
