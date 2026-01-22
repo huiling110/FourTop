@@ -22,6 +22,10 @@
 | **6** | Add type hints | ✅ done | All modules have type hints |
 | **6** | Update CLAUDE.md | ✅ done | Package documentation added |
 | **6** | Create test suite | pending | |
+| **E** | Create fourtop/plotting/style.py | ✅ done | setTDRStyle, addCMSTextToPad, getMyLegend |
+| **E** | Add getSumHist to fourtop.utils.histogram | ✅ done | Main aggregation function |
+| **E** | Convert workflow_utils.py to thin wrapper | ✅ done | ~700→85 lines |
+| **E** | Update pl.py to use fourtop imports | ✅ done | Removed uf, st, workflow_utils |
 
 ## Session Notes
 
@@ -100,7 +104,8 @@ fourtop/
 │   └── state.py        # Workflow state
 ├── plotting/
 │   ├── __init__.py
-│   └── stack.py        # Stack plot building
+│   ├── stack.py        # Stack plot building
+│   └── style.py        # ROOT TDR style, CMS labels
 ├── stage4/
 │   ├── __init__.py
 │   ├── templates.py    # Template ROOT file generation
@@ -127,12 +132,43 @@ fourtop/
 **Commits:**
 - `feat: Add jobs/base.py with JobSubmitter base class`
 
+### Session 5 (2026-01-22 continued)
+- Phase E: Complete pl.py Refactoring
+- Created `fourtop/plotting/style.py`:
+  - `setTDRStyle()` - ROOT TDR style configuration
+  - `setMyStyle()` - Custom plot styling
+  - `addCMSTextToPad()` - Add CMS label to pad
+  - `addCMSTextToCan()` - Add CMS label to canvas
+  - `getMyLegend()` - Create styled legend
+  - Uses fourtop imports (lumiMap, isRun3) instead of legacy gq/uf
+- Added `getSumHist()` to `fourtop/utils/histogram.py`:
+  - Main histogram aggregation function (~100 lines)
+  - `_modifyDicForMCFTau()` helper for MC fake tau splitting
+  - Reuses existing functions from fourtop.utils.process
+- Converted `plotting/workflow_utils.py` to thin wrapper:
+  - Reduced from ~700 lines to ~85 lines
+  - Now just re-exports from fourtop.workflow
+- Updated `plotting/pl.py` to use fourtop imports:
+  - Removed `import usefulFunc as uf`
+  - Removed `import setTDRStyle as st`
+  - Now imports directly from fourtop.workflow, fourtop.plotting.style, fourtop.utils.histogram
+
+**Files modified:**
+- fourtop/plotting/style.py (NEW ~220 lines)
+- fourtop/plotting/__init__.py
+- fourtop/utils/histogram.py (added getSumHist, ~100 lines)
+- fourtop/utils/__init__.py
+- fourtop/workflow/__init__.py
+- plotting/pl.py (updated imports)
+- plotting/workflow_utils.py (thin wrapper)
+
 ## Next Steps
 
 1. ~~Create jobs/base.py for job submission~~ ✅
 2. ~~Add type hints~~ ✅ (all modules created with type hints)
-3. Update remaining scripts to use fourtop imports
-4. Create test suite with golden references (optional)
+3. ~~Phase E: Complete pl.py refactoring~~ ✅
+4. Update remaining scripts to use fourtop imports (incremental)
+5. Create test suite with golden references (optional)
 
 ## Migration Guide for Remaining Scripts
 
@@ -179,7 +215,7 @@ source setEnv_newNew.sh
 python3 -c "from fourtop.constants import lumiMap, MCSYS, JESVariationList"
 python3 -c "from fourtop.utils import checkMakeDir, isData, getHistFromFile"
 python3 -c "from fourtop.workflow import load_config, build_hist_path"
-python3 -c "from fourtop.plotting import getHists, COLOUR_PER_SAMPLE"
+python3 -c "from fourtop.plotting import getHists, COLOUR_PER_SAMPLE, setTDRStyle, addCMSTextToPad"
 python3 -c "from fourtop.stage4 import resetNegativeBins, getSysDic, addJESToFile, runCommand"
 python3 -c "from fourtop.jobs import JobSubmitter, BatchJobSubmitter"
 ```

@@ -141,6 +141,57 @@ def getProSysDic(
     return proSys
 
 
+def getProSysDicForPlotting(
+    processes: List[str],
+    ifSys: bool = False,
+    channel: str = '1tau1l',
+    era: str = '2018',
+    forCombine: bool = False
+) -> Dict[str, List[str]]:
+    """
+    Get systematic dictionary per process for plotting.
+
+    This inverts the getSysDic result to provide a mapping from
+    each process to its list of applicable systematics.
+    Used by pl.py for validation plots with systematic bands.
+
+    Args:
+        processes: List of process names
+        ifSys: If False, return empty dict (no systematics)
+        channel: Channel name ('1tau0l', '1tau1l', '1tau2l')
+        era: Era string ('2018', '2017', '2016preVFP', '2016postVFP')
+        forCombine: If True, use combine-compatible systematic names
+
+    Returns:
+        Dictionary mapping process name to list of systematic names
+        Example: {'tt': ['pdf_00', 'pdf_01', ...], 'ttX': [...], ...}
+    """
+    if not ifSys:
+        return {}
+
+    sumProSys: Dict[str, List[str]] = {}
+
+    # Remove data process from list (not needed for systematics)
+    proc_list = processes.copy()
+    data_process = 'leptonSum' if channel == '1tau2l' else 'jetHT'
+    if data_process in proc_list:
+        proc_list.remove(data_process)
+
+    # Get systematic dictionary from getSysDic
+    proSys = getSysDic(proc_list, channel, era, forCombine)
+
+    # Invert: from {sys: [type, {proc: 0/1}]} to {proc: [sys1, sys2, ...]}
+    for ipro in proc_list:
+        sumProSys[ipro] = []
+        for isys, sysList in proSys.items():
+            # sysList = [type, {process: 0/1}]
+            if len(sysList) >= 2 and isinstance(sysList[1], dict):
+                if sysList[1].get(ipro, 0) == 1:
+                    sumProSys[ipro].append(isys)
+
+    return sumProSys
+
+
 def addLumi(sysDic: Dict, era: str, processes: List[str]) -> None:
     """
     Add luminosity uncertainties to systematic dictionary.

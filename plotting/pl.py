@@ -4,15 +4,18 @@ import csv
 import argparse
 import os
 
-import usefulFunc as uf
-# from ROOT import * #!!!Bad proctice, disables in latest ROOT versions
 import ROOT
-import setTDRStyle as st
-import ttttGlobleQuantity as gq
-import writeDatacard as wd
 
-# Use consistent workflow utilities
-from workflow_utils import (
+# Use fourtop package imports (replaces legacy uf, st, gq, wd imports)
+from fourtop.utils.process import getSumListFull, isData, isBG, isRun3
+from fourtop.utils.io import checkMakeDir, getInputDicNew
+from fourtop.utils.histogram import getSumHist, addBGHist
+from fourtop.stage4.datacards import getProSysDicForPlotting
+from fourtop.constants.jes import SKIP_SUBPROCESSES
+from fourtop.plotting.style import setTDRStyle, setMyStyle, addCMSTextToPad, getMyLegend
+
+# Use fourtop.workflow directly (canonical source)
+from fourtop.workflow import (
     load_config, build_hist_path, get_channel, get_regions, get_options
 )
 
@@ -79,11 +82,11 @@ def main():
     print(f'Options: systematics={ifSystematic}, fake_tau={ifFTau}, mc_fake_tau={ifMCFTau}, blind={ifblinding}')
 
     # Setup and run plotting
-    isRun3 = uf.isRun3(inputDir)
-    inputDirDic = uf.getInputDicNew( inputDir)
-    uf.checkMakeDir( inputDirDic['mc']+'results/')
+    is_run3 = isRun3(inputDir)
+    inputDirDic = getInputDicNew(inputDir)
+    checkMakeDir(inputDirDic['mc']+'results/')
 
-    plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFTau, ifVLL,  channel, ifLogy, ifPrintSB, ifStackSignal, ifSystematic, ifMCFTau, ifblinding)
+    plotNormal(inputDirDic, variables, regionList, plotName, era, is_run3, ifFTau, ifVLL,  channel, ifLogy, ifPrintSB, ifStackSignal, ifSystematic, ifMCFTau, ifblinding)
 
    
 def read_csv_as_lines(file_path, delimiter=','):
@@ -104,59 +107,28 @@ def read_csv_as_lines(file_path, delimiter=','):
 
 
 def getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, ifCombine=False):
-    #ifCombine: if combine, the ttX processes are split
-    sumProList = gq.proChannelDic[channel] if not ifCombine else gq.proChannelDic_forCombine[channel]
-    if ifVLL:
-        sumProList.append(ifVLL)
-    if not ifFakeTau:
-        sumProList.remove('fakeTau')
-        #add qcd to the front 
-        sumProList.insert(0, 'qcd')
-    # if ifMCFTau and (not ifCombine):
-    if ifMCFTau :
-        sumProList.insert(0, 'fakeTauMC')
-    print('sum pro', sumProList) 
+    """Get process list for channel. Thin wrapper around fourtop.utils.process.getSumListFull."""
+    sumProList = getSumListFull(channel, ifFakeTau, ifVLL, ifMCFTau, ifCombine)
+    print('sum pro', sumProList)
     return sumProList
 
-def plotNormal(inputDirDic, variables, regionList, plotName, era, isRun3, ifFakeTau=False, ifVLL='',  channel='1tau1l',  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifDoSystmatic=False, ifMCFTau=False, ifBlind=True):
-    sumProList = getSumList(channel, ifFakeTau, ifVLL, ifMCFTau)    
-    sumProSys = getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)    
+def plotNormal(inputDirDic, variables, regionList, plotName, era, is_run3, ifFakeTau=False, ifVLL='',  channel='1tau1l',  ifLogy=False, ifPrintSB=False, ifStackSignal=False, ifDoSystmatic=False, ifMCFTau=False, ifBlind=True):
+    sumProList = getSumList(channel, ifFakeTau, ifVLL, ifMCFTau)
+    sumProSys = getSysDicPL(sumProList, ifDoSystmatic, channel, era, True)
     [print(ipro, ': ', sysL) for ipro, sysL in sumProSys.items()]
     # Skip subprocesses that were excluded from JES systematics (negligible contribution)
-    skip_subs = gq.SKIP_SUBPROCESSES.get(channel, []) if ifDoSystmatic else []
-    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, isRun3 , False, ifMCFTau, skip_subs)#sumProcessPerVar[ivar][region][sumPro]
-    
+    skip_subs = SKIP_SUBPROCESSES.get(channel, []) if ifDoSystmatic else []
+    sumProcessPerVar, sumProcessPerVarSys = getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, is_run3, False, ifMCFTau, skip_subs)#sumProcessPerVar[ivar][region][sumPro]
+
     plotDir = inputDirDic['mc']+'results/'
-    uf.checkMakeDir( plotDir)
+    checkMakeDir(plotDir)
     for variable in variables:
         for iRegion in regionList:       
             makeStackPlotNew(sumProcessPerVar[variable][iRegion], sumProList, variable, iRegion, plotDir, False, plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB, ifVLL, sumProcessPerVarSys[variable][iRegion], ifDoSystmatic, ifBlind) 
     
 def getSysDicPL(inProcess, ifSys=False, channel='1tau1l', era='2018', ifCombine=False):
-    #todo: add funcionality of getting systematics from datacard
-    #!Lumi uncertainty to be added mannually
-    if not ifSys:
-        return {}
-    sumProSys = {}
-    print('staring to get process systematic')
-    # processes = gq.proChannelDic[channel][:] if not ifCombine else gq.proChannelDic_forCombine[channel][:]
-    processes = inProcess[:]
-    print('processes in getSysDicPL(): ', processes) #?not 'jetHT' already
-    if channel=='1tau2l':
-        processes.remove('leptonSum')
-    else:
-        processes.remove('jetHT')
-    proSys = wd.getSysDic(processes, channel, era, ifCombine)          
-    print(proSys)
-    
-    for ipro in processes:
-        sumProSys[ipro] = [] 
-        for isys, sysList in proSys.items():
-            print(isys, sysList)
-            if sysList[1][ipro]==1:
-                sumProSys[ipro].append(isys)
-    
-    return sumProSys
+    """Get systematic dictionary per process. Thin wrapper around fourtop.stage4.datacards.getProSysDicForPlotting."""
+    return getProSysDicForPlotting(inProcess, ifSys, channel, era, ifCombine)
         
        
        
@@ -167,11 +139,11 @@ def plotFakeTau(inputDirDic, variables, regions, plotName, era, isRun3, ifFTau=F
     print('\n plot fake tau')
     
     sumProList = ['jetHT','tt', 'ttX', 'singleTop', 'WJets', 'tttt'] 
-    sumPro = uf.getSumHist(inputDirDic, regions, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+    sumPro = getSumHist(inputDirDic, regions, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
     for ivar in variables:
         for Iregion in regions:
             FRRegions = [Iregion+'Gen', Iregion+'LTauNotT_Weighted', Iregion+'LTauNotTGen_Weighted']
-            sumProForFR = uf.getSumHist(inputDirDic, FRRegions, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
+            sumProForFR = getSumHist(inputDirDic, FRRegions, sumProList, variables, era, isRun3 )#sumProcessPerVar[ivar][region][sumPro]
             replaceGenMC(sumPro[ivar][Iregion], sumProForFR[ivar][Iregion+'Gen'])
             addFakeTau(sumPro[ivar][Iregion], sumProForFR[ivar][Iregion+'LTauNotT_Weighted'], sumProForFR[ivar], Iregion+'LTauNotTGen_Weighted')
             
@@ -186,7 +158,7 @@ def replaceGenMC(histsNorminal, histsFR):
     print('replace gen MC')
     
 def addFakeTau(histsNorminal, histsLTauNotT, histsLTauNotTGen, genRegion):
-    histsLTauNotTGenAll = uf.addBGHist(histsLTauNotTGen, genRegion) 
+    histsLTauNotTGenAll = addBGHist(histsLTauNotTGen, genRegion) 
     fakeTau = (histsLTauNotT['jetHT'] - histsLTauNotTGenAll).Clone('fakeTau')
     histsNorminal['fakeTau'] = fakeTau  
     print('fake tau bg added \n') 
@@ -249,7 +221,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
-    myStyle = st.setMyStyle()
+    myStyle = setMyStyle()
     myStyle.cd() #???not sure why the gStyle is not affecting the sedond pad
     
     canvasName = '{}_{}'.format( region, name )
@@ -324,7 +296,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     leggy.Draw()
     
     #text above the plot
-    st.addCMSTextToPad(canvy, era)
+    addCMSTextToPad(canvy, era)
     
     
     canvy.Update()
@@ -353,14 +325,14 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
 def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL='', ifStackSignal=False, ifDoSystmatic=False, ifPostfit=False):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     canvy.cd()
-    leggy = st.getMyLegend(0.18,0.75,0.89,0.90)
+    leggy = getMyLegend(0.18,0.75,0.89,0.90)
     # for ipro in nominal.keys():
     for ipro in legendOrder:
         # if ipro == 'jetHT' :
-        if uf.isData(ipro):
+        if isData(ipro):
             if dataHist:
                 leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
-        elif  uf.isBG(ipro, ifVLL)==1:
+        elif isBG(ipro, ifVLL)==1:
             sigPro = 'tttt' if ipro == 'tttt' else ifVLL
             signalEntry = '{}*{}[{:.1f}*{}]'.format(sigPro,signalScale, getIntegral(nominal[sigPro]), signalScale)
             leggy.AddEntry( signal, signalEntry, 'l')
@@ -507,7 +479,7 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
     stack = ROOT.THStack( 'stack', 'stack' )
     legendOrder.reverse()
     for i in legendOrder:
-        if uf.isData(i):
+        if isData(i):
             if not ifBlind:
                 dataHist = nominal["jetHT"].Clone() if not if1tau2l else nominal['leptonSum'].Clone()
                 dataHist.SetMarkerStyle(20)
@@ -516,8 +488,8 @@ def getHists(nominal,  legendOrder, ifBlind, doSystmatic=False, ifStackSignal = 
                 dataHist.SetLineColor(ROOT.kBlack)
                 dataHist.SetTitleSize(0.0)
             continue
-        if uf.isBG(i, ifVLL)==3: continue
-        if uf.isBG(i, ifVLL)==1 and (not ifStackSignal): continue
+        if isBG(i, ifVLL)==3: continue
+        if isBG(i, ifVLL)==1 and (not ifStackSignal): continue
         
         nominal[i].SetFillColor(colourPerSample[i])
         nominal[i].SetLineColor(ROOT.kBlack)

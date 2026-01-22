@@ -389,3 +389,144 @@ def sumProDic(subProHists: Dict, sumProDicMapping: Dict) -> Dict:
                         sumProHists[ivar][ire][sumPro].Add(systs)
 
     return sumProHists
+
+
+# =============================================================================
+# Full Histogram Aggregation
+# =============================================================================
+
+def _modifyDicForMCFTau(allDic: Dict[str, str], sumList: List[str]) -> None:
+    """
+    Modify process dictionary to split MC fake tau contributions.
+
+    For MC fake tau studies, splits each subprocess into:
+    - {subprocess}_NotMCFT: Non-fake tau contribution
+    - {subprocess}_MCFT: MC fake tau contribution
+
+    Args:
+        allDic: Process dictionary (modified in place)
+        sumList: List of summed processes to include
+    """
+    from fourtop.utils.process import isData
+
+    updatedDic = {}
+    for isub, sumPro in allDic.items():
+        if isData(isub):
+            continue
+        if sumPro == 'fakeTau' or sumPro == 'fakeLepton':
+            continue
+        if sumPro == 'tttt':
+            continue
+        if sumPro not in sumList:
+            continue
+        # Update isub in allDic with postfix
+        updatedDic[isub + '_NotMCFT'] = sumPro
+        updatedDic[isub + '_MCFT'] = 'fakeTauMC'
+
+    # Remove original keys and add updated ones
+    for isub in updatedDic:
+        original_key = isub[:-len('_MCFT')]
+        if original_key in allDic:
+            del allDic[original_key]
+
+    allDic.update(updatedDic)
+    print('proDic updated with MCFTau\n')
+
+
+def getSumHist(
+    inputDirDic: Dict[str, str],
+    regionList: List[str],
+    sumProList: List[str],
+    sumProSys: Dict,
+    varList: List[str],
+    era: str = '2018',
+    isRun3: bool = False,
+    ifDebug: bool = False,
+    ifMCFTau: bool = False,
+    skip_subprocesses: Optional[List[str]] = None
+) -> Tuple[Dict, Dict]:
+    """
+    Get summed process histograms from ROOT files.
+
+    Aggregates histograms from individual subprocesses into summed process
+    categories (e.g., ttbar_0l + ttbar_1l + ttbar_2l -> tt).
+
+    Args:
+        inputDirDic: Dict with 'mc' and 'data' input directories
+        regionList: List of region names
+        sumProList: List of summed process names to include
+        sumProSys: Dict of systematics per summed process
+        varList: List of variable names
+        era: Era string (e.g., '2018')
+        isRun3: If True, use Run3 sample definitions
+        ifDebug: If True, print debug information
+        ifMCFTau: If True, split MC fake tau contributions
+        skip_subprocesses: List of subprocess names to skip
+
+    Returns:
+        Tuple of:
+        - sumProHists[var][region][sumPro]: Nominal histograms
+        - sumProHistSys[var][region][sumPro][sys]: Systematic histograms
+    """
+    from fourtop.utils.process import isData, checkIfOtherYear
+    from fourtop.constants.samples import histoGramPerSample, ttX_newMap, Run3Samples
+
+    print('start to get hists and add them from root files')
+
+    # Get sample-to-process mapping
+    allDic = histoGramPerSample.copy()
+    if 'ttX' not in sumProList:
+        allDic.update(ttX_newMap)
+    if isRun3:
+        allDic = Run3Samples.copy()
+    if ifMCFTau:
+        _modifyDicForMCFTau(allDic, sumProList)
+
+    # Filter out skipped subprocesses
+    if skip_subprocesses:
+        for skip_sub in skip_subprocesses:
+            if skip_sub in allDic:
+                print(f'SKIPPING subprocess: {skip_sub} (negligible contribution)')
+                del allDic[skip_sub]
+
+    allSubPro = list(allDic.keys())
+    toGetSubHist: Dict = {}
+    toGetSubHistSys: Dict = {}
+
+    for isub in allSubPro:
+        is_data = isData(isub)
+        if allDic[isub] not in sumProList:
+            continue  # not getting
+        if checkIfOtherYear(isub, era, is_data):
+            continue
+        if ifDebug:
+            print('getting: ', isub)
+
+        inputDir = inputDirDic['data'] if is_data else inputDirDic['mc']
+
+        # Handle MCFT postfixes
+        if isub.endswith('_MCFT'):
+            iroot = isub.removesuffix('_MCFT')
+        elif isub.endswith('_NotMCFT'):
+            iroot = isub.removesuffix('_NotMCFT')
+        else:
+            iroot = isub
+        rootFile = inputDir + iroot + '.root'
+
+        print('opening file:', rootFile)
+        isubProHist, isubProHistSys = getHistFromFileDic(
+            rootFile, regionList, varList, isub, sumProSys, era, allDic[isub]
+        )
+        print_dict_structure(isubProHist)
+        toGetSubHist = merge_dicts(toGetSubHist, isubProHist)
+        toGetSubHistSys = merge_dicts(toGetSubHistSys, isubProHistSys)
+
+    print_dict_structure(toGetSubHist)
+    print('\n')
+
+    sumProHists = sumProDic(toGetSubHist, allDic)
+    sumProHistsSys = sumProDic(toGetSubHistSys, allDic)
+    print_dict_structure(sumProHists)
+    print_dict_structure(sumProHistsSys)
+
+    return sumProHists, sumProHistsSys

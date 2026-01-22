@@ -209,6 +209,50 @@ def getSumList(channel: str, forCombine: bool = False) -> List[str]:
     return proc_dict.get(channel, [])
 
 
+def getSumListFull(
+    channel: str,
+    ifFakeTau: bool = True,
+    ifVLL: str = '',
+    ifMCFTau: bool = False,
+    forCombine: bool = False
+) -> List[str]:
+    """
+    Get process list with all options for plotting/templates.
+
+    This is the full-featured version used by pl.py and addTemplateNew.py.
+    It modifies the base process list based on analysis options.
+
+    Args:
+        channel: Channel name ('1tau0l', '1tau1l', '1tau2l')
+        ifFakeTau: If True, include fakeTau; if False, use qcd instead
+        ifVLL: VLL process name to add (e.g., 'VLLm800'), or '' for none
+        ifMCFTau: If True, include fakeTauMC at the beginning
+        forCombine: If True, use split ttX processes
+
+    Returns:
+        List of process names with modifications applied
+    """
+    # Get base list (make a copy to avoid modifying original)
+    sumProList = getSumList(channel, forCombine).copy()
+
+    # Add VLL process if specified
+    if ifVLL:
+        sumProList.append(ifVLL)
+
+    # Handle fake tau vs QCD
+    if not ifFakeTau:
+        if 'fakeTau' in sumProList:
+            sumProList.remove('fakeTau')
+        # Add qcd to the front
+        sumProList.insert(0, 'qcd')
+
+    # Add MC fake tau if requested
+    if ifMCFTau:
+        sumProList.insert(0, 'fakeTauMC')
+
+    return sumProList
+
+
 def getSameValues(diction: dict, value) -> List[str]:
     """
     Get all keys in dictionary with the specified value.

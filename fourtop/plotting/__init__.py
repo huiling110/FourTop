@@ -21,3 +21,11 @@ from fourtop.plotting.stack import (
     getIntegral,
     setUpStack,
 )
+
+from fourtop.plotting.style import (
+    setTDRStyle,
+    setMyStyle,
+    addCMSTextToPad,
+    addCMSTextToCan,
+    getMyLegend,
+)

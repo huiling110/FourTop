@@ -24,6 +24,7 @@ from fourtop.stage4.templates import (
 from fourtop.stage4.datacards import (
     getSysDic,
     getProSysDic,
+    getProSysDicForPlotting,
     addLumi,
     addProcessNormalization,
     remove0Process,

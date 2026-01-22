@@ -31,6 +31,7 @@ from fourtop.utils.process import (
     checkIfOtherYear,
     checkIfInputDic,
     getSumList,
+    getSumListFull,
     getSameValues,
     getEraFromDir,
     getChannelFromDir,
@@ -51,4 +52,5 @@ from fourtop.utils.histogram import (
     getEff,
     getHistFromFileDic,
     sumProDic,
+    getSumHist,
 )
