@@ -10,3 +10,10 @@ Modules:
     stage2 - Make Variables job submission
     stage3 - Write Histograms job submission
 """
+
+from fourtop.jobs.base import (
+    JobSubmitter,
+    BatchJobSubmitter,
+    get_processes_from_directory,
+    check_input_directory,
+)

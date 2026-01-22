@@ -18,7 +18,7 @@
 | **5** | Refactor writeDatacard.py | ✅ done | stage4/datacards.py |
 | **5** | Refactor addJESTemplatesToHistFile.py | ✅ done | stage4/systematics.py |
 | **5** | Refactor runCombineAll.py | ✅ done | stage4/combine.py |
-| **6** | Create jobs/base.py | pending | |
+| **6** | Create jobs/base.py | ✅ done | JobSubmitter, BatchJobSubmitter |
 | **6** | Add type hints | pending | |
 | **6** | Update CLAUDE.md | ✅ done | Package documentation added |
 | **6** | Create test suite | pending | |
@@ -111,9 +111,24 @@ fourtop/
     └── __init__.py     # (stub - future)
 ```
 
+### Session 4 (2026-01-22 continued)
+- Created `fourtop/jobs/base.py`:
+  - `JobSubmitter` - Abstract base class for HTCondor job submission
+  - `BatchJobSubmitter` - Subclass for multi-file batch processing (Stage 1)
+  - `get_processes_from_directory()` - List processes from directory
+  - `check_input_directory()` - Validate process directory names
+- Common patterns encapsulated:
+  - Directory structure creation (job_scripts, logs)
+  - Shell script generation with environment setup
+  - HTCondor submission via hep_sub
+  - Cluster logging to CSV
+
+**Commits:**
+- `feat: Add jobs/base.py with JobSubmitter base class`
+
 ## Next Steps
 
-1. Create jobs/base.py for job submission
+1. ~~Create jobs/base.py for job submission~~ ✅
 2. Add comprehensive type hints
 3. Create test suite with golden references
 4. Update remaining scripts to use fourtop imports
