@@ -18,16 +18,14 @@ Usage:
 """
 import argparse
 import os
-import sys
 
 import makeJob_forWriteHist as mj
 
-# Add paths for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'hua', 'src_py'))
-
-from workflow_utils import load_config, build_stage2_path, build_stage2_output, get_channel, get_versions, get_workflow_state
-from ttttGlobleQuantity import JESVariationList as JES_SOURCES
+# Use fourtop package for all imports
+from fourtop.workflow import (
+    load_config, build_stage2_path, build_stage2_output, get_channel, get_versions, get_workflow_state
+)
+from fourtop.constants.jes import JESVariationList as JES_SOURCES
 
 # Systematic variations by group
 SYSTEMATIC_GROUPS = {

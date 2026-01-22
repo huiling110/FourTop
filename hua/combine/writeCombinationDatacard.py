@@ -1,12 +1,10 @@
 import subprocess
 import os
 import argparse
-import sys
 
-# Try to import workflow_utils for config-based path building
+# Use fourtop package for config-based path building
 try:
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../plotting'))
-    from workflow_utils import (
+    from fourtop.workflow import (
         load_config, build_datacard_path, get_eras, get_channel
     )
     WORKFLOW_UTILS_AVAILABLE = True
@@ -149,13 +147,15 @@ cardDic_1tau2l = {
 }
 
 
-def build_card_dic_from_config(config, channel=None):
+def build_card_dic_from_config(config, channel=None, era_hist_overrides=None):
     """
     Build card dictionary from YAML config file.
 
     Args:
         config: Configuration dictionary from load_config()
         channel: Channel name (e.g., '1tau0l'). If None, uses config default.
+        era_hist_overrides: Dict mapping era -> hist version for mixed templates.
+                           E.g., {'2017': 'v0BDT1tau0l_XGB080testNew'}
 
     Returns:
         Dictionary mapping 'SR{channel}_{era}' to datacard file paths
@@ -168,11 +168,45 @@ def build_card_dic_from_config(config, channel=None):
 
     for era in eras:
         key = f'SR{channel}_{era}'
-        datacard_dir = build_datacard_path(config, era)
+
+        # Use era-specific hist override if provided
+        if era_hist_overrides and era in era_hist_overrides:
+            # Create a modified config with the overridden hist version
+            config_copy = config.copy()
+            config_copy['versions'] = config['versions'].copy()
+            config_copy['versions']['hist'] = era_hist_overrides[era]
+            datacard_dir = build_datacard_path(config_copy, era)
+        else:
+            datacard_dir = build_datacard_path(config, era)
+
         datacard_file = os.path.join(datacard_dir, 'datacard.txt')
         card_dic[key] = datacard_file
 
     return card_dic
+
+
+def parse_era_hist_overrides(override_str):
+    """
+    Parse era-hist override string into dictionary.
+
+    Format: "era1=hist1,era2=hist2" or "era1=hist1 era2=hist2"
+    Example: "2017=v0BDT1tau0l_XGB080testNew,2016preVFP=v0BDT1tau0l_XGB080testNew"
+
+    Returns:
+        Dict mapping era -> hist version
+    """
+    if not override_str:
+        return None
+
+    overrides = {}
+    # Split by comma or space
+    parts = override_str.replace(',', ' ').split()
+    for part in parts:
+        if '=' in part:
+            era, hist = part.split('=', 1)
+            overrides[era.strip()] = hist.strip()
+
+    return overrides if overrides else None
 
 
 def main():
@@ -206,6 +240,12 @@ def main():
         action='store_true',
         help='Suppress non-essential output'
     )
+    parser.add_argument(
+        '--era-hist',
+        type=str,
+        help='Era-specific hist version overrides. Format: "era1=hist1,era2=hist2". '
+             'E.g., "2017=v0BDT1tau0l_XGB080testNew,2016preVFP=v0BDT1tau0l_XGB080testNew"'
+    )
     args = parser.parse_args()
 
     # Determine card dictionary and output settings
@@ -220,8 +260,14 @@ def main():
         # Get channel (CLI overrides config)
         channel = args.channel if args.channel else get_channel(config)
 
-        # Build card dictionary from config
-        card_dic = build_card_dic_from_config(config, channel)
+        # Parse era-specific hist overrides
+        era_hist_overrides = parse_era_hist_overrides(args.era_hist)
+
+        # Build card dictionary from config (with optional era-specific overrides)
+        card_dic = build_card_dic_from_config(config, channel, era_hist_overrides)
+
+        if era_hist_overrides and not args.quiet:
+            print(f"Using era-specific hist overrides: {era_hist_overrides}")
 
         # Get combination version from config or CLI
         # Config uses versions.combination (e.g., "combinationV21")

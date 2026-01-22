@@ -20,16 +20,14 @@ Usage:
 import argparse
 import os
 import subprocess
-import sys
 
-# Add plotting directory for workflow_utils
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
-from workflow_utils import (
+# Use fourtop package for all imports
+from fourtop.workflow import (
     load_config, get_eras, get_channel, get_channel_if1tau2l,
     build_stage1_output, build_stage2_output, ERA_TO_UL, get_workflow_state
 )
-
-import usefulFunc as uf
+from fourtop.utils.process import checkIfInputDic
+from fourtop.utils.io import submitJobs
 
 
 def create_parser():
@@ -191,7 +189,7 @@ def generate_jobs_for_dir(input_dir, output_dir, era_key, job_dir, if1tau2l,
 
     job_count = 0
     for entry in os.listdir(input_dir):
-        if not uf.checkIfInputDic(entry, isRun3=False):
+        if not checkIfInputDic(entry, isRun3=False):
             continue
 
         job_file = os.path.join(jobs_dir, f"MV_{era_key}_{entry}.sh")
@@ -322,7 +320,7 @@ def main():
                 print(f"[WARNING] Could not update workflow state: {e}")
 
         print(f"\nSubmitting jobs...")
-        uf.sumbitJobs(master_script)
+        submitJobs(master_script)
         print("Jobs submitted!")
 
         # Update workflow state after submission

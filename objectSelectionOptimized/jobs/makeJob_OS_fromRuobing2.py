@@ -17,17 +17,13 @@ Requirements:
 """
 
 import os
-import sys
 import subprocess
 import re
 import glob
 import argparse
 
-# Add plotting directory to path for workflow_utils
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'hua', 'src_py'))
-
-from workflow_utils import (
+# Use fourtop package for all imports
+from fourtop.workflow import (
     load_config,
     get_eras,
     get_channel,
@@ -38,8 +34,9 @@ from workflow_utils import (
     ERA_TO_UL,
     get_workflow_state,
 )
-import ttttGlobleQuantity as gq
-import usefulFunc as uf
+from fourtop.utils.io import checkMakeDir
+from fourtop.utils.process import checkIfInputDic, isRun3
+from fourtop.constants.samples import histoGramPerSample
 
 
 # =============================================================================
@@ -136,17 +133,17 @@ def make_jobs_for_directory(
     # Adjust output for data vs MC
     output_subdir = 'data/' if is_data else 'mc/'
     output_dir = os.path.join(output_dir, output_subdir)
-    uf.checkMakeDir(output_dir)
+    checkMakeDir(output_dir)
 
     for process in all_processes:
         if not quiet:
             print(f'Processing: {process}')
 
-        if not uf.checkIfInputDic(process, is_run3):
+        if not checkIfInputDic(process, is_run3):
             continue
 
         # Check if process should be skipped
-        process_group = gq.histoGramPerSample.get(process)
+        process_group = histoGramPerSample.get(process)
         if process_group in skip_processes:
             if not quiet:
                 print(f'  Skipping {process} (group: {process_group})')
@@ -160,8 +157,8 @@ def make_jobs_for_directory(
 
         process_output_dir = os.path.join(output_dir, process)
         log_dir = os.path.join(process_output_dir, 'log')
-        uf.checkMakeDir(process_output_dir)
-        uf.checkMakeDir(log_dir)
+        checkMakeDir(process_output_dir)
+        checkMakeDir(log_dir)
 
         # Create submission script
         submit_script = os.path.join(job_scripts_folder, f"{process}.sh")
@@ -292,9 +289,9 @@ def run_stage1(
         print(f"{'='*60}\n")
 
     # Setup job directories
-    uf.checkMakeDir(output_dir)
+    checkMakeDir(output_dir)
     jobs_dir = os.path.join(output_dir, 'jobs_eachYear')
-    uf.checkMakeDir(jobs_dir)
+    checkMakeDir(jobs_dir)
 
     era_ul = ERA_TO_UL.get(era, f'UL{era}')
     job_scripts_folder = os.path.join(jobs_dir, era_ul)
@@ -303,9 +300,9 @@ def run_stage1(
         subprocess.run(f'rm -fr {job_scripts_folder}', shell=True)
         if not quiet:
             print(f'Removing old job folder: {job_scripts_folder}')
-    uf.checkMakeDir(job_scripts_folder)
+    checkMakeDir(job_scripts_folder)
 
-    is_run3 = uf.isRun3(input_dir)
+    is_run3 = isRun3(input_dir)
 
     # Submit MC jobs
     mc_input = os.path.join(input_dir, 'mc')
