@@ -26,6 +26,10 @@
 | **E** | Add getSumHist to fourtop.utils.histogram | ✅ done | Main aggregation function |
 | **E** | Convert workflow_utils.py to thin wrapper | ✅ done | ~700→85 lines |
 | **E** | Update pl.py to use fourtop imports | ✅ done | Removed uf, st, workflow_utils |
+| **F** | Update job scripts (OS/MV/WH) | ✅ done | All use fourtop imports |
+| **F** | Update run_workflow.py | ✅ done | Uses fourtop.workflow |
+| **F** | Update writeCombinationDatacard.py | ✅ done | Uses fourtop.workflow |
+| **F** | Update helper scripts | ✅ done | check_*.py, verify_*.py |
 
 ## Session Notes
 
@@ -162,30 +166,60 @@ fourtop/
 - plotting/pl.py (updated imports)
 - plotting/workflow_utils.py (thin wrapper)
 
+### Session 5 continued - Phase F: Migrate remaining scripts
+- Updated job submission scripts to use fourtop imports:
+  - `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py`
+  - `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py`
+  - `writeHistGood/jobs/makeJob_WH.py`
+  - `writeHistGood/jobs/makeJob_WH_forJES.py`
+  - `writeHistGood/jobs/makeJob_forWriteHist.py`
+  - `makeVariables_goodCode/jobs/makeJob_MV_JESVariation.py`
+- Updated core workflow scripts:
+  - `run_workflow.py`
+  - `hua/combine/writeCombinationDatacard.py`
+- Updated helper scripts:
+  - `scripts/check_mv_systematics.py`
+  - `scripts/check_os_systematics.py`
+  - `scripts/submit_os_resubmit.py`
+  - `makeVariables_goodCode/verify_mv_completion.py`
+
+**Commits:**
+- `refactor: Complete Phase E - pl.py uses fourtop imports`
+- `refactor: Remove sys.path hacks from job scripts`
+- `refactor: Update run_workflow.py and makeJob_forWriteHist.py`
+- `refactor: Update helper scripts to use fourtop imports`
+
 ## Next Steps
 
 1. ~~Create jobs/base.py for job submission~~ ✅
 2. ~~Add type hints~~ ✅ (all modules created with type hints)
 3. ~~Phase E: Complete pl.py refactoring~~ ✅
-4. Update remaining scripts to use fourtop imports (incremental)
+4. ~~Phase F: Update remaining scripts to use fourtop imports~~ ✅
 5. Create test suite with golden references (optional)
 
-## Migration Guide for Remaining Scripts
+## Migration Status
 
-The following scripts still use sys.path hacks and can be migrated incrementally:
+### COMPLETED ✅
+| Script | Status |
+|--------|--------|
+| `run_workflow.py` | ✅ Uses fourtop.workflow |
+| `hua/combine/writeCombinationDatacard.py` | ✅ Uses fourtop.workflow |
+| `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` | ✅ Uses fourtop imports |
+| `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` | ✅ Uses fourtop imports |
+| `makeVariables_goodCode/jobs/makeJob_MV_JESVariation.py` | ✅ Uses fourtop imports |
+| `writeHistGood/jobs/makeJob_WH.py` | ✅ Uses fourtop imports |
+| `writeHistGood/jobs/makeJob_WH_forJES.py` | ✅ Uses fourtop imports |
+| `writeHistGood/jobs/makeJob_forWriteHist.py` | ✅ Uses fourtop imports |
+| `scripts/check_mv_systematics.py` | ✅ Uses fourtop imports |
+| `scripts/check_os_systematics.py` | ✅ Uses fourtop imports |
+| `scripts/submit_os_resubmit.py` | ✅ Uses fourtop imports |
+| `makeVariables_goodCode/verify_mv_completion.py` | ✅ Uses fourtop imports |
 
-### High Priority (core workflow scripts)
-| Script | Old Import | New Import |
-|--------|------------|------------|
-| `run_workflow.py` | `from workflow_utils import load_config` | `from fourtop.workflow import load_config` |
-| `hua/combine/writeCombinationDatacard.py` | `from workflow_utils import ...` | `from fourtop.workflow import ...` |
-
-### Medium Priority (job submission scripts)
-| Script | Old Import | New Import |
-|--------|------------|------------|
-| `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` | `import ttttGlobleQuantity as gq` | `from fourtop.constants import samples, physics` |
-| `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` | `from workflow_utils import ...` | `from fourtop.workflow import ...` |
-| `writeHistGood/jobs/makeJob_WH.py` | `import ttttGlobleQuantity as gq` | `from fourtop.constants import samples` |
+### Remaining (archive/low priority)
+| Script | Notes |
+|--------|-------|
+| `archive/workflow_automation_backup/run_workflow_auto.py` | Archive, no need to update |
+| `archive/workflow_automation_backup/workflow_state_v3.py` | Archive, no need to update |
 
 ### Migration Pattern
 
