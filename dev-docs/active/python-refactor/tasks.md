@@ -30,6 +30,12 @@
 | **F** | Update run_workflow.py | ✅ done | Uses fourtop.workflow |
 | **F** | Update writeCombinationDatacard.py | ✅ done | Uses fourtop.workflow |
 | **F** | Update helper scripts | ✅ done | check_*.py, verify_*.py |
+| **F** | Update pl_postFit.py | ✅ done | Uses fourtop.workflow |
+| **F** | Update plotVariables_combination.py | ✅ done | Uses fourtop.utils.histogram |
+| **F** | Update addTemplateNew.py (uf removal) | ✅ done | Uses fourtop.utils.histogram |
+| **F** | Update smooth_systematics_fourTops.py | ✅ done | Uses fourtop.constants.systematics |
+| **F** | Update createFaketauTree.py | ✅ done | Uses fourtop.utils.process |
+| **F** | Update createFakeLeptonTree.py | ✅ done | Uses fourtop.utils.process |
 
 ## Session Notes
 
@@ -199,27 +205,54 @@ fourtop/
 
 ## Migration Status
 
-### COMPLETED ✅
+### COMPLETED ✅ - Essential Workflow Scripts
 | Script | Status |
 |--------|--------|
 | `run_workflow.py` | ✅ Uses fourtop.workflow |
 | `hua/combine/writeCombinationDatacard.py` | ✅ Uses fourtop.workflow |
+| **Stage 1 (OS)** | |
 | `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` | ✅ Uses fourtop imports |
+| **Stage 2 (MV)** | |
 | `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` | ✅ Uses fourtop imports |
 | `makeVariables_goodCode/jobs/makeJob_MV_JESVariation.py` | ✅ Uses fourtop imports |
+| `makeVariables_goodCode/createFaketauTree.py` | ✅ Uses fourtop imports |
+| `makeVariables_goodCode/createFakeLeptonTree.py` | ✅ Uses fourtop imports |
+| **Stage 3 (WH)** | |
 | `writeHistGood/jobs/makeJob_WH.py` | ✅ Uses fourtop imports |
 | `writeHistGood/jobs/makeJob_WH_forJES.py` | ✅ Uses fourtop imports |
 | `writeHistGood/jobs/makeJob_forWriteHist.py` | ✅ Uses fourtop imports |
+| **Stage 4 (Combine)** | |
+| `plotting/pl.py` | ✅ Uses fourtop imports |
+| `plotting/pl_postFit.py` | ✅ Uses fourtop imports |
+| `plotting/addTemplateNew.py` | ✅ Uses fourtop imports |
+| `plotting/plotVariables_combination.py` | ✅ Uses fourtop imports |
+| `plotting/smooth_systematics_fourTops.py` | ✅ Uses fourtop imports |
+| `plotting/writeDatacard.py` | ✅ Uses fourtop imports |
+| `plotting/addJESTemplatesToHistFile.py` | ✅ Uses fourtop imports |
+| **Helper Scripts** | |
 | `scripts/check_mv_systematics.py` | ✅ Uses fourtop imports |
 | `scripts/check_os_systematics.py` | ✅ Uses fourtop imports |
 | `scripts/submit_os_resubmit.py` | ✅ Uses fourtop imports |
 | `makeVariables_goodCode/verify_mv_completion.py` | ✅ Uses fourtop imports |
 
-### Remaining (archive/low priority)
+### Remaining - Auxiliary Scripts (migrate incrementally)
 | Script | Notes |
 |--------|-------|
-| `archive/workflow_automation_backup/run_workflow_auto.py` | Archive, no need to update |
-| `archive/workflow_automation_backup/workflow_state_v3.py` | Archive, no need to update |
+| `plotting/plotForFakeRate.py` | Fake rate plotting utility |
+| `plotting/plotBtagEff.py` | Btag efficiency plotting |
+| `plotting/plotLimitVsMass.py` | Limit vs mass plotting |
+| `plotting/checkJobResult.py` | Job result checking |
+| `plotting/getGenSum.py` | Generator sum weights |
+| `plotting/optimizeBinning.py` | Binning optimization |
+| `plotting/plotHLTEfficiency.py` | HLT efficiency plotting |
+| `plotting/plotTemplatesAndSys.py` | Template/systematic plotting |
+| `objectSelectionOptimized/jobs/makeJob_objectTSelectorForNanoAOD.py` | Alternative OS job maker |
+
+### Archive (no need to update)
+| Script | Notes |
+|--------|-------|
+| `archive/workflow_automation_backup/run_workflow_auto.py` | Archive |
+| `archive/workflow_automation_backup/workflow_state_v3.py` | Archive |
 
 ### Migration Pattern
 
