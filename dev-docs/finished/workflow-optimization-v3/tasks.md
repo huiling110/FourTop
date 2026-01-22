@@ -277,3 +277,12 @@ Cross-Channel: 4.4.2 (combine 3 channels → 3-channel datacard)
 - **State.json updated** to v3.4 with both channels complete through S4.5
 - **Impacts running in background** for both channels
 - **TODO noted**: Update run_workflow_auto.py for multi-channel support (deferred)
+
+### Session 14 (2025-12-17)
+- **Workflow Skill Discoverability Enhancement**:
+  - Created `.claude/skills/workflow/SKILL.md` with proper YAML front matter format
+  - Previous format (`skill.json`) wasn't discoverable in Available Skills list
+  - New format matches `refactor` skill pattern (YAML front matter with name/description)
+  - Skill now appears alongside refactor in Available Skills
+  - Keywords: submit, stage, workflow, makeJob, histogram, combine, datacard
+- **Commit**: `0971d5b7 feat: Add SKILL.md for workflow skill discoverability`
