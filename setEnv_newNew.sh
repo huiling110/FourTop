@@ -39,6 +39,7 @@ export PYTHONPATH=$(python -c "import sys; print(':'.join(sys.path))") # Export 
 
 #Set up python
 export PYTHONPATH=$PYTHONPATH:${current_dir}/hua/src_py/ #Python can find the custom modules: usefulFunc....
+export PYTHONPATH=$PYTHONPATH:${current_dir}/ #Python can find the fourtop package
 
 #For matplotlib cache
 export MPLCONFIGDIR=/scratchfs/cms/huahuil/matplotlib_cache
