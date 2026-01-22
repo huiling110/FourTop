@@ -20,3 +20,13 @@ from fourtop.stage4.templates import (
     buildTemplatePath,
     TemplateBuilder,
 )
+
+from fourtop.stage4.datacards import (
+    getSysDic,
+    getProSysDic,
+    addLumi,
+    addProcessNormalization,
+    remove0Process,
+    write_shape_datacard,
+    DatacardWriter,
+)
