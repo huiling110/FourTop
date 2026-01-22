@@ -19,7 +19,7 @@
 | **5** | Refactor addJESTemplatesToHistFile.py | ✅ done | stage4/systematics.py |
 | **5** | Refactor runCombineAll.py | ✅ done | stage4/combine.py |
 | **6** | Create jobs/base.py | ✅ done | JobSubmitter, BatchJobSubmitter |
-| **6** | Add type hints | pending | |
+| **6** | Add type hints | ✅ done | All modules have type hints |
 | **6** | Update CLAUDE.md | ✅ done | Package documentation added |
 | **6** | Create test suite | pending | |
 
@@ -108,7 +108,8 @@ fourtop/
 │   ├── systematics.py  # JES/TES/MET consolidation
 │   └── combine.py      # Combine fit orchestration
 └── jobs/
-    └── __init__.py     # (stub - future)
+    ├── __init__.py
+    └── base.py         # JobSubmitter, BatchJobSubmitter
 ```
 
 ### Session 4 (2026-01-22 continued)
@@ -129,9 +130,46 @@ fourtop/
 ## Next Steps
 
 1. ~~Create jobs/base.py for job submission~~ ✅
-2. Add comprehensive type hints
-3. Create test suite with golden references
-4. Update remaining scripts to use fourtop imports
+2. ~~Add type hints~~ ✅ (all modules created with type hints)
+3. Update remaining scripts to use fourtop imports
+4. Create test suite with golden references (optional)
+
+## Migration Guide for Remaining Scripts
+
+The following scripts still use sys.path hacks and can be migrated incrementally:
+
+### High Priority (core workflow scripts)
+| Script | Old Import | New Import |
+|--------|------------|------------|
+| `run_workflow.py` | `from workflow_utils import load_config` | `from fourtop.workflow import load_config` |
+| `hua/combine/writeCombinationDatacard.py` | `from workflow_utils import ...` | `from fourtop.workflow import ...` |
+
+### Medium Priority (job submission scripts)
+| Script | Old Import | New Import |
+|--------|------------|------------|
+| `objectSelectionOptimized/jobs/makeJob_OS_fromRuobing2.py` | `import ttttGlobleQuantity as gq` | `from fourtop.constants import samples, physics` |
+| `makeVariables_goodCode/jobs/makeJob_makeVaribles_forBDT.py` | `from workflow_utils import ...` | `from fourtop.workflow import ...` |
+| `writeHistGood/jobs/makeJob_WH.py` | `import ttttGlobleQuantity as gq` | `from fourtop.constants import samples` |
+
+### Migration Pattern
+
+Replace:
+```python
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
+from workflow_utils import load_config, get_eras
+import ttttGlobleQuantity as gq
+import usefulFunc as uf
+```
+
+With:
+```python
+from fourtop.workflow import load_config, get_eras
+from fourtop.constants import samples, physics
+from fourtop.utils import checkMakeDir, isData
+```
+
+**Note**: Scripts can be migrated incrementally as they are modified for other reasons.
 
 ## Commands Reference
 
@@ -143,4 +181,5 @@ python3 -c "from fourtop.utils import checkMakeDir, isData, getHistFromFile"
 python3 -c "from fourtop.workflow import load_config, build_hist_path"
 python3 -c "from fourtop.plotting import getHists, COLOUR_PER_SAMPLE"
 python3 -c "from fourtop.stage4 import resetNegativeBins, getSysDic, addJESToFile, runCommand"
+python3 -c "from fourtop.jobs import JobSubmitter, BatchJobSubmitter"
 ```
