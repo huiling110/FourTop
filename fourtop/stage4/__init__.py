@@ -42,3 +42,12 @@ from fourtop.stage4.systematics import (
     addJESToFile,
     getJESHistForDir,
 )
+
+from fourtop.stage4.combine import (
+    ensure_dir,
+    ensure_dir_with_fallback,
+    ensure_writable_carddir,
+    get_workspace_file,
+    runCommand,
+    cardToWorkspaces,
+)
