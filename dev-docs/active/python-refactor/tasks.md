@@ -14,10 +14,10 @@
 | **3** | Split usefulFunc.py | ✅ done | io.py, histogram.py, process.py |
 | **3** | Create utils/logging.py | ✅ done | setup_logger, get_logger |
 | **4** | Refactor pl.py | ✅ done | plotting/stack.py module |
-| **4** | Refactor addTemplateNew.py | pending | |
-| **5** | Refactor writeDatacard.py | pending | |
-| **5** | Refactor addJESTemplatesToHistFile.py | pending | |
-| **5** | Refactor runCombineAll.py | pending | |
+| **4** | Refactor addTemplateNew.py | ✅ done | stage4/templates.py |
+| **5** | Refactor writeDatacard.py | ✅ done | stage4/datacards.py |
+| **5** | Refactor addJESTemplatesToHistFile.py | ✅ done | stage4/systematics.py |
+| **5** | Refactor runCombineAll.py | ✅ done | stage4/combine.py |
 | **6** | Create jobs/base.py | pending | |
 | **6** | Add type hints | pending | |
 | **6** | Update CLAUDE.md | ✅ done | Package documentation added |
@@ -57,6 +57,24 @@
 - `feat: Add plotting/stack.py module for stack plot building` (2 files, 357 insertions)
 - `docs: Add Python package documentation to CLAUDE.md` (1 file, 91 insertions)
 
+### Session 3 (2026-01-22 continued)
+- Refactored Stage 4 scripts to use fourtop package:
+  - `fourtop/stage4/templates.py`: resetNegativeBins, addDataHist, TemplateBuilder
+  - `fourtop/stage4/datacards.py`: getSysDic, addLumi, write_shape_datacard, DatacardWriter
+  - `fourtop/stage4/systematics.py`: addJESToFile, addJERToFile, addTESToFile, addMETToFile, addEESToFile
+  - `fourtop/stage4/combine.py`: ensure_dir, runCommand, cardToWorkspaces
+- Updated Stage 4 scripts to use fourtop imports:
+  - addTemplateNew.py: 155 → uses fourtop.stage4.templates
+  - writeDatacard.py: 508 → 109 lines (80% reduction)
+  - addJESTemplatesToHistFile.py: 694 → ~480 lines (30% reduction)
+- Added build_hist_path_jes to fourtop.workflow exports
+
+**Commits:**
+- `refactor: Extract template functions to fourtop/stage4/templates.py`
+- `refactor: Extract datacard functions to fourtop/stage4/datacards.py`
+- `refactor: Extract systematic consolidation to fourtop/stage4/systematics.py`
+- `refactor: Extract Combine helpers to fourtop/stage4/combine.py`
+
 ## Package Structure (Created)
 
 ```
@@ -84,17 +102,21 @@ fourtop/
 │   ├── __init__.py
 │   └── stack.py        # Stack plot building
 ├── stage4/
-│   └── __init__.py     # (stub - future)
+│   ├── __init__.py
+│   ├── templates.py    # Template ROOT file generation
+│   ├── datacards.py    # CMS Combine datacard writing
+│   ├── systematics.py  # JES/TES/MET consolidation
+│   └── combine.py      # Combine fit orchestration
 └── jobs/
     └── __init__.py     # (stub - future)
 ```
 
 ## Next Steps
 
-1. Refactor Stage 4 scripts (addTemplateNew.py, writeDatacard.py, etc.)
-2. Create jobs/base.py for job submission
-3. Add comprehensive type hints
-4. Create test suite with golden references
+1. Create jobs/base.py for job submission
+2. Add comprehensive type hints
+3. Create test suite with golden references
+4. Update remaining scripts to use fourtop imports
 
 ## Commands Reference
 
@@ -105,4 +127,5 @@ python3 -c "from fourtop.constants import lumiMap, MCSYS, JESVariationList"
 python3 -c "from fourtop.utils import checkMakeDir, isData, getHistFromFile"
 python3 -c "from fourtop.workflow import load_config, build_hist_path"
 python3 -c "from fourtop.plotting import getHists, COLOUR_PER_SAMPLE"
+python3 -c "from fourtop.stage4 import resetNegativeBins, getSysDic, addJESToFile, runCommand"
 ```
