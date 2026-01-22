@@ -20,14 +20,11 @@ Usage:
 """
 import argparse
 import os
-import sys
 import subprocess
 
-# Add paths for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'hua', 'src_py'))
-from workflow_utils import load_config, get_eras
-from ttttGlobleQuantity import JESVariationList as JES_SOURCES, validate_jes_list
+# Use fourtop package for all imports
+from fourtop.workflow import load_config, get_eras
+from fourtop.constants.jes import JESVariationList as JES_SOURCES, validate_jes_list
 
 # Validate C++/Python JES list synchronization at import time
 # This prevents submitting jobs with mismatched JES indices

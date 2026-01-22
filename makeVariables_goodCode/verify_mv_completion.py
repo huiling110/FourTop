@@ -16,7 +16,6 @@ Usage:
 """
 
 import os
-import sys
 import argparse
 from pathlib import Path
 from collections import defaultdict
@@ -29,17 +28,9 @@ try:
 except ImportError:
     ROOT_AVAILABLE = False
 
-# Add parent directories to path for imports
-script_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(script_dir)
-plotting_dir = os.path.join(parent_dir, 'plotting')
-
-if plotting_dir not in sys.path:
-    sys.path.insert(0, plotting_dir)
-
-# Import workflow utilities
+# Import workflow utilities from fourtop package
 try:
-    from workflow_utils import load_config, build_stage2_path
+    from fourtop.workflow import load_config, build_stage2_path
     WORKFLOW_UTILS_AVAILABLE = True
 except ImportError:
     WORKFLOW_UTILS_AVAILABLE = False
