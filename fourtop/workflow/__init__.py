@@ -21,6 +21,7 @@ from fourtop.workflow.config import (
 )
 from fourtop.workflow.paths import (
     build_hist_path,
+    build_hist_path_jes,
     build_template_path,
     build_datacard_path,
     build_stage1_input,
