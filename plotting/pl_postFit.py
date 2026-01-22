@@ -23,20 +23,13 @@ Usage:
 import ROOT
 import argparse
 import os
-import sys
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Use fourtop package imports
+from fourtop.utils.io import checkMakeDir
+from fourtop.workflow import load_config, build_hist_path, build_combine_path, get_channel, get_eras
 
-import usefulFunc as uf
+# Keep pl imports (now internally uses fourtop)
 import pl as plt
-
-# Try to import workflow_utils for config support
-try:
-    from workflow_utils import load_config, build_hist_path, build_combine_path, get_channel, get_eras
-    WORKFLOW_UTILS_AVAILABLE = True
-except ImportError:
-    WORKFLOW_UTILS_AVAILABLE = False
 
 
 def parse_args():
@@ -114,7 +107,7 @@ def main():
     if args.plot_type in ('postfit', 'both'):
         if args.fit_file:
             run_postfit_plots(args.fit_file, args)
-        elif args.config and WORKFLOW_UTILS_AVAILABLE:
+        elif args.config:
             # Auto-detect fit file from config
             config = load_config(args.config)
             fit_file = get_fit_file_from_config(config)
@@ -129,11 +122,11 @@ def main():
             run_postfit_plots_legacy()
 
     if args.plot_type in ('prefit', 'both'):
-        if args.config and WORKFLOW_UTILS_AVAILABLE:
+        if args.config:
             config = load_config(args.config)
             run_prefit_plots(config, args)
         else:
-            print("Pre-fit plots require --config and workflow_utils. Install PyYAML.")
+            print("Pre-fit plots require --config. Run: source setEnv_newNew.sh")
             return 1
 
     return 0
@@ -201,7 +194,7 @@ def run_prefit_plots(config, args):
             plotDir = args.output_dir
         else:
             plotDir = os.path.dirname(template_path) + '/prefitPlots/'
-        uf.checkMakeDir(plotDir)
+        checkMakeDir(plotDir)
 
         # Load histograms from template
         iRegion = f'{channel}SR'  # e.g., 1tau0lSR
@@ -395,7 +388,7 @@ def run_postfit_main(fitFile, args):
 
     fitDir = fitFile.rsplit('/', 1)[0]
     plotDir = f'{fitDir}/postfitPlots/'
-    uf.checkMakeDir(plotDir)
+    checkMakeDir(plotDir)
 
     histsPerChannel = {}
 

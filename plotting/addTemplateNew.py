@@ -6,18 +6,12 @@ from fourtop.workflow import (
     load_config, build_hist_path, get_channel, get_options, get_regions
 )
 from fourtop.utils import checkMakeDir, getInputDicNew, getEraFromDir
+from fourtop.utils.process import getSumListFull
+from fourtop.utils.histogram import getSumHist
 from fourtop.constants.jes import SKIP_SUBPROCESSES
 from fourtop.constants.systematics import MCSYS
 from fourtop.stage4.templates import addDataHist, resetNegativeBins
-
-# Legacy imports for complex functions not yet refactored
-import usefulFunc as uf  # For getSumHist (complex histogram loading)
-import pl as pl  # For getSumList, getSysDicPL
-
-
-def getSumHist(*args, **kwargs):
-    """Wrapper for legacy getSumHist function."""
-    return uf.getSumHist(*args, **kwargs)
+from fourtop.stage4.datacards import getProSysDicForPlotting
 
 
 def main():
@@ -52,10 +46,10 @@ def main():
     inputDirDic = getInputDicNew(inputDir)
     is1tau2l = True if channel == '1tau2l' else False
 
-    sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, True)
+    sumProList = getSumListFull(channel, ifFakeTau, '', ifMCFTau, True)
     if not args.quiet:
         print('sumProList:', sumProList)
-    sumProSys = pl.getSysDicPL(sumProList, True, channel, era, True)
+    sumProSys = getProSysDicForPlotting(sumProList, True, channel, era, True)
 
     # WORKAROUND: For 2016preVFP/postVFP eras, we need to use the actual era suffix
     # to find histograms in ROOT files, even though getSysDicPL maps them to _2016

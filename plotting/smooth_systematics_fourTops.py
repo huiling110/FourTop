@@ -6,19 +6,13 @@ import statsmodels.api as sm
 import os
 import matplotlib.pyplot as plt
 
-import usefulFunc as uf
-import writeDatacard as wd
-#!!!source setEnv_newNew.sh to set up the environment
-
-# Import workflow utilities for config-based path building
-try:
-    from workflow_utils import (
-        load_config, build_template_path, get_channel, get_options,
-        get_template_suffix, get_eras
-    )
-    WORKFLOW_UTILS_AVAILABLE = True
-except ImportError:
-    WORKFLOW_UTILS_AVAILABLE = False
+# Use fourtop package for centralized utilities
+from fourtop.utils.io import checkMakeDir
+from fourtop.constants.systematics import MCSYS
+from fourtop.workflow import (
+    load_config, build_template_path, get_channel, get_options,
+    get_template_suffix, get_eras
+)
 
 # Global quiet flag for controlling verbose output
 QUIET = False
@@ -155,10 +149,6 @@ def main():
     args = parser.parse_args()
     QUIET = args.quiet
 
-    # Validate arguments
-    if args.config and not WORKFLOW_UTILS_AVAILABLE:
-        parser.error("workflow_utils not available. Install pyyaml or use hardcoded paths.")
-
     # Config-based settings (new workflow)
     if args.config:
         config = load_config(args.config)
@@ -212,7 +202,7 @@ def main():
         input_template = '/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD/forMVA/2018/v1baselineHadroBtagWeightAdded_v94HadroPreJetVetoHemOnly/mc/variableHists_v9BDT1tau0l_CMSNamingComplete/combine/templatesForCombine1tau0l_new_notMCFTau_unblind.root'
         years = ['2016preVFP', '2016postVFP', '2017', '2018']
     outDir = os.path.dirname(input_template) + '/results/'
-    uf.checkMakeDir(outDir)
+    checkMakeDir(outDir)
 
     dic_sys = getSmoothedDic(input_template, sysList, allProcessList, channel, years, outDir, processes_no_pdf_alphas)
     
@@ -277,8 +267,8 @@ def getSmoothedDic(input_template, sysList, processList, channel, years, outDir,
         processes_no_pdf_alphas = []
     dic_sys = {}
     for sys in sysList:
-        ifCorrelated = wd.MCSys[sys][0]
-        ifProcessCorrelated = wd.MCSys[sys][3]
+        ifCorrelated = MCSYS[sys][0]
+        ifProcessCorrelated = MCSYS[sys][3]
         if not QUIET:
             print(f'\nProcessing systematic: {sys}, correlated: {ifCorrelated}, ifProcessCorrelated: {ifProcessCorrelated}')
         dic_sys[sys] = {}

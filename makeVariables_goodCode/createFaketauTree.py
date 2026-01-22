@@ -12,18 +12,14 @@ Via workflow runner:
 Historical paths preserved in: config/historical_paths_backup.txt
 """
 import argparse
-import usefulFunc as uf
-import ttttGlobleQuantity as gq
 import ROOT
 import pandas as pd
 import os
 
-# Import workflow utilities for config-based path building
-try:
-    from workflow_utils import load_config, build_stage2_path, get_channel, get_eras
-    WORKFLOW_UTILS_AVAILABLE = True
-except ImportError:
-    WORKFLOW_UTILS_AVAILABLE = False
+# Use fourtop package for centralized utilities
+from fourtop.utils.io import getDirDic
+from fourtop.utils.process import getEraFromDir, getAllSubPro
+from fourtop.workflow import load_config, build_stage2_path, get_channel, get_eras
 
 
 def create_parser():
@@ -54,9 +50,9 @@ def run_for_era(inputDir: str, era: str, is1tau2l: bool, ifMorphTauPt: bool, qui
         print(f"Input: {inputDir}")
         print(f"{'='*60}")
 
-    inputDirDic = uf.getDirDic(inputDir)
+    inputDirDic = getDirDic(inputDir)
     if not quiet:
-        print(f"Era detected: {uf.getEraFromDir(inputDir)}")
+        print(f"Era detected: {getEraFromDir(inputDir)}")
 
     postFix = '_ptMorphed' if ifMorphTauPt else ''
     createFakeTauTree(inputDirDic, era, is1tau2l, '', postFix, ifMorphTauPt)
@@ -69,9 +65,6 @@ def run_for_era(inputDir: str, era: str, is1tau2l: bool, ifMorphTauPt: bool, qui
 def main():
     parser = create_parser()
     args = parser.parse_args()
-
-    if not WORKFLOW_UTILS_AVAILABLE:
-        parser.error("workflow_utils not available. Install pyyaml: pip install pyyaml")
 
     # Load config
     config = load_config(args.config)
@@ -103,7 +96,7 @@ def main():
 def makeOtherMCGen(inputDirDic, era):
     MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt','VLLm500', 'VLLm550','VLLm600','VLLm650','VLLm700','VLLm750','VLLm800','VLLm850','VLLm900','VLLm950','VLLm1000']
     for iPro in MCSum:
-        isubPros = uf.getAllSubPro(era, iPro, False)
+        isubPros = getAllSubPro(era, iPro, False)
         print(isubPros)
         for isubPro in isubPros:
             ifile = inputDirDic['mc']+ isubPro + '.root'
@@ -119,7 +112,7 @@ def makeOtherMCGen(inputDirDic, era):
 def createFakeTauTree(inputDirDic, era, is1tau2l = False, extraSel='', extraPostfix = '', ifMorphTauPt = False):
     sumData='leptonSum' if is1tau2l else 'jetHT' 
     print('sumData: ', sumData)
-    allDataFiles = uf.getAllSubPro(era, [sumData])
+    allDataFiles = getAllSubPro(era, [sumData])
     print('all data files: ', allDataFiles)
     allDataFiles = [inputDirDic['data']+ ipro + '.root' for ipro in allDataFiles]
     print('all data files: ', allDataFiles)
@@ -154,7 +147,7 @@ def createFakeTauTree_mc(inputDirDic, era, is1tau2l=False, extraSel='', extraPos
     # if is1tau2l:
         # MCSum.append('Minor')
     allMC = []
-    allMC += uf.getAllSubPro(era, MCSum, False)
+    allMC += getAllSubPro(era, MCSum, False)
     allMCFiles = [inputDirDic['mc']+ ipro + '.root' for ipro in allMC]
     print(allMCFiles)
     
@@ -189,7 +182,7 @@ def createFakeTauTree_Gen(inputDirDic, era, is1tau2l=False, extraSel='lepTopMVAT
     MCSum = ['tt', 'ttX', 'qcd', 'WJets', 'singleTop'] 
     # MCSum = ['tt', 'ttX', 'WJets', 'singleTop', 'tttt', 'Minor']
     # MCSum = ['qcd']
-    allMCList = uf.getAllSubPro(era, MCSum, False)
+    allMCList = getAllSubPro(era, MCSum, False)
     #remove qcd low HT files
     allMCList.remove('qcd_50to100')
     allMCList.remove('qcd_100to200')

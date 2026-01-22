@@ -1,10 +1,17 @@
-import usefulFunc as uf
-import ttttGlobleQuantity as gq
-# import plotVaribles as pl
-import pl as pl
 import argparse
 import yaml
 import os
+
+# Use fourtop package imports
+from fourtop.utils.process import getSumListFull, isData
+from fourtop.utils.io import checkMakeDir, getInputDicNew
+from fourtop.utils import getEraFromDir
+from fourtop.utils.histogram import getSumHist
+from fourtop.stage4.datacards import getProSysDicForPlotting
+from fourtop.constants.jes import SKIP_SUBPROCESSES
+
+# Keep pl for makeStackPlotNew (complex plotting, uses fourtop internally)
+import pl as pl
 
 def get_input_dir_from_config(config, era):
     """Build input directory path from config for a given era."""
@@ -45,7 +52,7 @@ def main_with_config(config_path, channel):
     print(f"Input dir (2018): {inputDir2018}")
 
     variables = ['BDT']
-    sumPros = pl.getSumList(channel, True, False, ifMCFTau)
+    sumPros = getSumListFull(channel, True, '', ifMCFTau, False)
     print(f"Processes: {sumPros}")
 
     sumProHists2018, sumProHistsSys2018 = getSumHistPerYear(inputDir2018, regionList, variables, sumPros, channel, ifMCFTau)
@@ -163,7 +170,7 @@ def main():
     ifblinding = False
     
     variables = ['BDT']
-    sumPros = pl.getSumList(channel, True, False, ifMCFTau)
+    sumPros = getSumListFull(channel, True, '', ifMCFTau, False)
     print(sumPros)
     
     sumProHists2018, sumProHistsSys2018 = getSumHistPerYear(inputDir2018, regionList, variables, sumPros, channel, ifMCFTau)
@@ -185,7 +192,7 @@ def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSy
             # sumProHists2018[iVar][ire][isumPro].Print()
             combineHists[ire][isumPro] = sumProHists2018[iVar][ire][isumPro].Clone()
             combineHistSys[ire][isumPro] = {}
-            if not uf.isData(isumPro):
+            if not isData(isumPro):
                 combineHists[ire][isumPro].Add(sumProHists2017[iVar][ire][isumPro])
                 combineHists[ire][isumPro].Add(sumProHists2016preVFP[iVar][ire][isumPro])
                 combineHists[ire][isumPro].Add(sumProHists2016postVFP[iVar][ire][isumPro])
@@ -200,7 +207,7 @@ def plotIVar(sumProHists2018, sumProHistsSys2018, sumProHists2017, sumProHistsSy
                 combineHists[ire][isumPro].Add(sumProHists2016postVFP[iVar][ire][isumPro])
     
     plotDir = inputDir2018+'results/'
-    uf.checkMakeDir(plotDir)
+    checkMakeDir(plotDir)
     plotName = 'combination_withSys' if not ifMCFTau else 'combination_withSys_MCFTau'
     for ire in combineHists.keys():
         # pl.makeStackPlotNew(combineHists[ire], sumPros, iVar, ire, plotDir, False, plotName, 'Run2', True, 100, True, True, True, False, combineHistSys[ire], True ) 
@@ -226,16 +233,16 @@ def addSys(sumProHistsSys2018, sumProHistsSys2017, sumProHistsSys2016preVFP, sum
     
     
 def getSumHistPerYear(inputDir2018, regionList, variables, sumPros, channel, ifMCFTau = False):
-    era = uf.getEraFromDir(inputDir2018)
+    era = getEraFromDir(inputDir2018)
     print('era=', era)
     # isRun3 = uf.isRun3(inputDir2018)
-    inputDirDic = uf.getInputDicNew( inputDir2018)
-    uf.checkMakeDir( inputDirDic['mc']+'results/')
+    inputDirDic = getInputDicNew(inputDir2018)
+    checkMakeDir( inputDirDic['mc']+'results/')
     
-    sumProSys = pl.getSysDicPL(sumPros, True, channel, era, True)
+    sumProSys = getProSysDicForPlotting(sumPros, True, channel, era, True)
     # Skip subprocesses that were excluded from JES systematics (negligible contribution)
-    skip_subs = gq.SKIP_SUBPROCESSES.get(channel, [])
-    sumProHists, sumProHistsSys = uf.getSumHist(inputDirDic, regionList, sumPros, sumProSys,  variables, era, False, False, ifMCFTau, skip_subs)
+    skip_subs = SKIP_SUBPROCESSES.get(channel, [])
+    sumProHists, sumProHistsSys = getSumHist(inputDirDic, regionList, sumPros, sumProSys,  variables, era, False, False, ifMCFTau, skip_subs)
     return sumProHists, sumProHistsSys
     
     

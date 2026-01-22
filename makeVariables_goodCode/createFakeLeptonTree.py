@@ -14,26 +14,10 @@ Note: Only needed for 1tau1l and 1tau2l channels (channels with lepton requireme
 import argparse
 import ROOT
 import os
-import sys
 
-# Add parent directories to path for imports
-script_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(script_dir)
-plotting_dir = os.path.join(parent_dir, 'plotting')
-hua_src_dir = os.path.join(parent_dir, 'hua', 'src_py')
-
-for path in [plotting_dir, hua_src_dir]:
-    if path not in sys.path:
-        sys.path.insert(0, path)
-
-# Import workflow utilities for config-based path building
-try:
-    from workflow_utils import load_config, build_stage2_path, get_channel, get_eras
-    import usefulFunc as uf
-    WORKFLOW_UTILS_AVAILABLE = True
-except ImportError as e:
-    print(f"Import error: {e}")
-    WORKFLOW_UTILS_AVAILABLE = False
+# Use fourtop package for centralized utilities
+from fourtop.workflow import load_config, build_stage2_path, get_channel, get_eras
+from fourtop.utils.process import getSubProDic, getEraFromDir
 
 
 def create_parser():
@@ -105,7 +89,7 @@ def create_fake_lepton_tree(inputDir: str, era: str, is1tau2l: bool, quiet: bool
         df = ROOT.RDataFrame('newtree', inputData)
     else:
         # Get jetHT sub-datasets for this era
-        subDataList = uf.getSubProDic(uf.getEraFromDir(inputData), ['jetHT'])
+        subDataList = getSubProDic(getEraFromDir(inputData), ['jetHT'])
         if not quiet:
             print(f'subDataList: {subDataList}')
 
@@ -170,9 +154,6 @@ def create_fake_lepton_tree(inputDir: str, era: str, is1tau2l: bool, quiet: bool
 def main():
     parser = create_parser()
     args = parser.parse_args()
-
-    if not WORKFLOW_UTILS_AVAILABLE:
-        parser.error("workflow_utils not available. Ensure you're in the correct environment.")
 
     # Load config
     config = load_config(args.config)
