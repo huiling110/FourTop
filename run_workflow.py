@@ -54,11 +54,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from typing import List, Optional, Tuple
 
-# Add plotting directory to path for workflow_utils
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'plotting'))
-
+# Use fourtop package for all imports
 try:
-    from workflow_utils import (
+    from fourtop.workflow import (
         load_config, get_eras, get_channel, build_hist_path,
         build_combine_path, get_options, get_channel_if1tau2l,
         build_stage1_output, build_stage2_output
@@ -66,7 +64,7 @@ try:
     WORKFLOW_UTILS_AVAILABLE = True
 except ImportError:
     WORKFLOW_UTILS_AVAILABLE = False
-    print("WARNING: workflow_utils not available. Install PyYAML first.")
+    print("WARNING: fourtop package not available. Run: source setEnv_newNew.sh")
 
 
 # Global logger
@@ -402,9 +400,11 @@ def run_stage_3_3(config: dict, era: str, quiet: bool = False) -> Tuple[int, str
         return 1, '', 'Input directory not found'
 
     # Create job submission script dynamically
+    # Uses fourtop package - requires setEnv_newNew.sh for PYTHONPATH
     job_script_content = f'''#!/usr/bin/env python3
 import sys
 sys.path.insert(0, "{project_root}/writeHistGood/jobs")
+
 import makeJob_forWriteHist as mj
 
 mj.main(

@@ -1,18 +1,11 @@
 import os
 import subprocess
 import argparse
-import sys
 
-import usefulFunc as uf
-
-# Add plotting directory to path for workflow_utils
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'plotting'))
-
-try:
-    from workflow_utils import load_config, build_stage2_path, get_channel, get_versions, get_workflow_state
-    WORKFLOW_UTILS_AVAILABLE = True
-except ImportError:
-    WORKFLOW_UTILS_AVAILABLE = False
+# Use fourtop package for all imports
+from fourtop.utils.io import checkMakeDir
+from fourtop.workflow import load_config, build_stage2_path, get_channel, get_versions, get_workflow_state
+WORKFLOW_UTILS_AVAILABLE = True
 
 #!For jobs of energy scale variaion, make the outut version the same of the nominal one
 
@@ -59,7 +52,7 @@ def main(
         inputDirDic['data'] = inputDir + 'data/'
 
     Jobsubmitpath = inputDirDic['mc'] + 'variableHists_' + version + '/'
-    uf.checkMakeDir(Jobsubmitpath)
+    checkMakeDir(Jobsubmitpath)
     if not quiet:
         print('JobsubmitPath: ' ,Jobsubmitpath)
     subAllProcess = open( Jobsubmitpath+'subAllProcess.sh', 'w')
@@ -81,12 +74,12 @@ def main(
 
 def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out', quiet=False, ifVLL=True):
     jobDir = Jobsubmitpath +'jobSH/'
-    uf.checkMakeDir(jobDir)
+    checkMakeDir(jobDir)
     outputDir = inputDir + 'variableHists_' + version +'/'
     logDir = outputDir+'log/'
-    uf.checkMakeDir(jobDir)
-    uf.checkMakeDir(outputDir)
-    uf.checkMakeDir(logDir)
+    checkMakeDir(jobDir)
+    checkMakeDir(outputDir)
+    checkMakeDir(logDir)
 
     exeDir = (os.path.dirname( os.path.abspath(__file__) ) +'/').rsplit('/', 2)[0] + '/'
 
@@ -187,12 +180,17 @@ if __name__=='__main__':
         versions = get_versions(config)
         version = versions['hist']
 
+        # Read ifVLL from config options (default True for backwards compatibility)
+        options = config.get('options', {})
+        ifVLL = options.get('ifVLL', True)
+
         print(f"=== Config mode ===")
         print(f"Config: {args.config}")
         print(f"Era: {args.era}")
         print(f"Channel: {channel}")
         print(f"Input dir: {inputDir}")
         print(f"Hist version: {version}")
+        print(f"ifVLL: {ifVLL}")
 
         if args.dry_run:
             print("\n[DRY RUN] Would submit jobs with above settings")
@@ -211,7 +209,8 @@ if __name__=='__main__':
                 channel=channel,
                 version=version,
                 ifSys=args.sys,
-                justMC=args.just_mc
+                justMC=args.just_mc,
+                ifVLL=ifVLL
             )
 
             # Update workflow state after submission
