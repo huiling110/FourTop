@@ -1,18 +1,23 @@
 import argparse
 import ROOT
-import usefulFunc as uf
-import writeDatacard as wd
-import pl as pl
-import ttttGlobleQuantity as gq
 
-# Import workflow utilities for config-based path building
-try:
-    from workflow_utils import (
-        load_config, build_hist_path, get_channel, get_options
-    )
-    WORKFLOW_UTILS_AVAILABLE = True
-except ImportError:
-    WORKFLOW_UTILS_AVAILABLE = False
+# Use fourtop package for centralized utilities
+from fourtop.workflow import (
+    load_config, build_hist_path, get_channel, get_options, get_regions
+)
+from fourtop.utils import checkMakeDir, getInputDicNew, getEraFromDir
+from fourtop.constants.jes import SKIP_SUBPROCESSES
+from fourtop.constants.systematics import MCSYS
+from fourtop.stage4.templates import addDataHist, resetNegativeBins
+
+# Legacy imports for complex functions not yet refactored
+import usefulFunc as uf  # For getSumHist (complex histogram loading)
+import pl as pl  # For getSumList, getSysDicPL
+
+
+def getSumHist(*args, **kwargs):
+    """Wrapper for legacy getSumHist function."""
+    return uf.getSumHist(*args, **kwargs)
 
 
 def main():
@@ -24,13 +29,6 @@ def main():
                         choices=['2018', '2017', '2016preVFP', '2016postVFP'],
                         help='Era to process (required)')
     args = parser.parse_args()
-
-    # Validate workflow_utils is available
-    if not WORKFLOW_UTILS_AVAILABLE:
-        parser.error("workflow_utils not available. Install pyyaml: pip install pyyaml")
-
-    # Import additional workflow utilities
-    from workflow_utils import get_regions
 
     # Load config and build paths
     config = load_config(args.config)
@@ -50,8 +48,8 @@ def main():
         print(f"Input dir: {inputDir}")
 
     # Historical paths preserved in: config/historical_paths_backup.txt
-    era = uf.getEraFromDir(inputDir)
-    inputDirDic = uf.getInputDicNew( inputDir)
+    era = getEraFromDir(inputDir)
+    inputDirDic = getInputDicNew(inputDir)
     is1tau2l = True if channel == '1tau2l' else False
 
     sumProList = pl.getSumList(channel, ifFakeTau, False, ifMCFTau, True)
@@ -99,25 +97,26 @@ def main():
                     new_sys_list.append(sys_name)
             sumProSys[process] = new_sys_list
 
-    
+
     # Get skip list for this channel (reduces systematic noise from negligible subprocesses)
-    skip_subprocesses = gq.SKIP_SUBPROCESSES.get(channel, [])
+    skip_subprocesses = SKIP_SUBPROCESSES.get(channel, [])
     if skip_subprocesses and not args.quiet:
         print(f"Will skip subprocesses: {skip_subprocesses}")
 
-    sumProcessPerVar, sumProcessPerVarSys = uf.getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau, skip_subprocesses=skip_subprocesses)#sumProcessPerVar[ivar][region][sumPro]
+    sumProcessPerVar, sumProcessPerVarSys = getSumHist(inputDirDic, regionList, sumProList, sumProSys, variables, era, False , False, ifMCFTau, skip_subprocesses=skip_subprocesses)#sumProcessPerVar[ivar][region][sumPro]
 
 
     addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind, args.quiet)
 
     outDir = inputDir+'combine/'
-    uf.checkMakeDir(outDir)
-    # v3: Skip negligible subprocesses to reduce systematic noise
-    name = 'templatesForCombine'+channel+'_v3'
+    checkMakeDir(outDir)
+    # Get template version from config (default: v3)
+    template_version = config.get('versions', {}).get('template_file', 'v3')
+    name = f'templatesForCombine{channel}_{template_version}'
     if not ifMCFTau:
-        name = name.replace('v3', 'v3_notMCFTau')
+        name += '_notMCFTau'
     if not ifBlind:
-        name = name + '_unblind'
+        name += '_unblind'
     templateFile = outDir + name + '.root'
     outFile = ROOT.TFile(templateFile, 'RECREATE')
     
@@ -138,7 +137,7 @@ def main():
                         sysName = sys.replace('_up', '').replace('_down', '')
                         sysName = sysName.replace('_2018', '').replace('_2017', '').replace('_2016preVFP', '').replace('_2016postVFP', '').replace('_2016', '') # remove era
                         #sysName is sys remove '_up" or '_down'
-                        if not wd.MCSys[sysName][3]: # process-uncorrelated sys
+                        if sysName in MCSYS and not MCSYS[sysName][3]: # process-uncorrelated sys
                             sysNameNew = sysName + '_' + sumPro
                             hist.SetName(hist.GetName().replace(sysName, sysNameNew))
 
@@ -146,42 +145,11 @@ def main():
     outFile.Write()
     outFile.Close()
     print('template file created:', templateFile)
-   
-   
-def addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind=True, quiet=False):
-    #add fake data for SR
-    dataName = 'leptonSum' if is1tau2l else 'jetHT'
-    for ivar in variables:
-        for region in regionList:
-            dataHist = None
-            if 'SR' in region and ifBlind:
-                for sumPro in sumProList:
-                    if uf.isData(sumPro): continue
-                    if not quiet:
-                        print('fake data: ', sumPro)
 
-                    hist = sumProcessPerVar[ivar][region][sumPro]
-                    resetNegtiveBins(hist)
 
-                    if dataHist == None:
-                        dataHist = sumProcessPerVar[ivar][region][sumPro].Clone()
-                        dataHist.SetName(dataHist.GetName().replace(sumPro, 'data_obs'))
-                    else:
-                        dataHist.Add(sumProcessPerVar[ivar][region][sumPro])    # some process has negative bins, set them to 0
-                sumProcessPerVar[ivar][region][dataName] = dataHist
-                if not quiet:
-                    print('fake data hist:', dataHist.GetName())
-            dataHistName = sumProcessPerVar[ivar][region][dataName].GetName().replace(dataName, 'data_obs')
-            sumProcessPerVar[ivar][region][dataName].SetName(dataHistName)
+# Note: addDataHist and resetNegativeBins are now imported from fourtop.stage4.templates
 
-def resetNegtiveBins(hist):
-    for i in range(1, hist.GetNbinsX()+1):
-        if hist.GetBinContent(i) < 0.:
-            hist.SetBinContent(i, 0)
-            hist.SetBinError(i, 0)
-    return hist
-    
-    
+
 if __name__ == "__main__":
     main()
     

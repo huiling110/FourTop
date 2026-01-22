@@ -11,3 +11,12 @@ Modules:
     combine - Combine fit orchestration
     combination - Multi-era combination
 """
+
+from fourtop.stage4.templates import (
+    resetNegativeBins,
+    addDataHist,
+    renameProcessUncorrelatedSys,
+    writeTemplateFile,
+    buildTemplatePath,
+    TemplateBuilder,
+)
