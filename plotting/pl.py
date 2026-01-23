@@ -213,11 +213,12 @@ def checkHists( histsDict ):
         histsDict[ikey].Print()
 
 
-def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}, ifSystematic=False, ifBlinding=True, ifPostfit=False):
+def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, savePost = "", era='2016', includeDataInStack=True, signalScale = 100, ifStackSignal = False, ifLogy=False, ifPrint=False, ifVLL=False, sysHists={}, ifSystematic=False, ifBlinding=True, ifPostfit=False, ifPaper=False):
     '''
     nominal is a dic of distribution for all processes including data
     nominal: nominal[iprocess]
     sysHists: sysHists[iprocess]['prefiring_up']
+    ifPaper: If True, use publication-quality labels and annotations
     '''
     #name is variable name
     print( 'start plotting data/mc plot for {}'.format(name))
@@ -284,7 +285,7 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     downPad.cd()
     myStyle.cd()
     myStyle.SetOptTitle(0)
-    sumHistoData = getHistToData( dataHist, sumHist)
+    sumHistoData = getHistToData( dataHist, sumHist, ifPaper)
     sumHistoData.Draw("E1X0")
     
     assymErrorPlotRatio = getErrorPlot(sumHist,systsUp,systsDown,True)
@@ -292,11 +293,18 @@ def makeStackPlotNew(nominal, legendOrder, name, region, outDir, ifFakeTau, save
     assymErrorPlotRatio.Draw("e2 same")
 
     #legend
-    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL, ifStackSignal, ifSystematic, ifPostfit)
+    leggy = addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy, ifVLL, ifStackSignal, ifSystematic, ifPostfit, ifPaper)
     leggy.Draw()
-    
+
     #text above the plot
-    addCMSTextToPad(canvy, era)
+    addCMSTextToPad(canvy, era, preliminary=(not ifPaper))
+
+    # Paper mode: add region and fit type labels
+    if ifPaper:
+        from fourtop.plotting.style import addRegionLabel, addFitTypeLabel
+        upPad.cd()
+        addRegionLabel(upPad, region)
+        addFitTypeLabel(upPad, ifPostfit)
     
     
     canvy.Update()
@@ -322,31 +330,49 @@ def printSBLastBin(sumHist, signal, canvas, ifPrint=False):
     canvas.Draw()
 
  
-def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL='', ifStackSignal=False, ifDoSystmatic=False, ifPostfit=False):
+def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, signalScale, ifLogy=False, ifVLL='', ifStackSignal=False, ifDoSystmatic=False, ifPostfit=False, ifPaper=False):
     # x1,y1,x2,y2 are the coordinates of the Legend in the current pad (in normalised coordinates by default)
     canvy.cd()
     leggy = getMyLegend(0.18,0.75,0.89,0.90)
+
+    # Import paper labels if needed
+    if ifPaper:
+        from fourtop.plotting.labels import get_process_label, get_signal_label
+
     # for ipro in nominal.keys():
     for ipro in legendOrder:
         # if ipro == 'jetHT' :
         if isData(ipro):
             if dataHist:
-                leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
+                if ifPaper:
+                    leggy.AddEntry(dataHist, "Data [{:.1f}]".format(getIntegral(dataHist)), "epl")
+                else:
+                    leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
         elif isBG(ipro, ifVLL)==1:
             sigPro = 'tttt' if ipro == 'tttt' else ifVLL
-            signalEntry = '{}*{}[{:.1f}*{}]'.format(sigPro,signalScale, getIntegral(nominal[sigPro]), signalScale)
+            if ifPaper:
+                # Paper format: "t#bar{t}t#bar{t} #times 100 [4.4]"
+                signalEntry = get_signal_label(sigPro, signalScale, yield_val=getIntegral(nominal[sigPro]), paper_mode=True)
+            else:
+                signalEntry = '{}*{}[{:.1f}*{}]'.format(sigPro,signalScale, getIntegral(nominal[sigPro]), signalScale)
             leggy.AddEntry( signal, signalEntry, 'l')
             # if ifLogy:
             if ifStackSignal:
-                legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
+                if ifPaper:
+                    legText = '{} [{:.1f}]'.format(get_process_label(ipro, paper_mode=True), getIntegral(nominal[ipro]))
+                else:
+                    legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
                 leggy.AddEntry(nominal[ipro], legText,"f")
         else:
-            legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
+            if ifPaper:
+                legText = '{} [{:.1f}]'.format(get_process_label(ipro, paper_mode=True), getIntegral(nominal[ipro]))
+            else:
+                legText = '{}[{:.1f}]'.format(ipro, getIntegral(nominal[ipro]))
             leggy.AddEntry(nominal[ipro], legText,"f")
 
     # Determine the uncertainty label based on flags
     if ifPostfit:
-        sysLeggy = 'Postfit unc.'  # Postfit uncertainties include stat + all syst propagated through fit
+        sysLeggy = 'Post-fit unc.' if ifPaper else 'Postfit unc.'
     elif ifDoSystmatic:
         sysLeggy = 'Stat. + Syst. unc.'  # Pre-fit with systematics
     else:
@@ -354,19 +380,19 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
 
     leggy.AddEntry(assymErrorPlot, sysLeggy,"f")
     # leggy.AddEntry(assymErrorPlot,"Stat. unc","f")
-    
-    leggy.SetNColumns(2) 
+
+    leggy.SetNColumns(2)
     leggy.Draw()
     canvy.Update()
     return leggy
   
-def getHistToData( dataHist, sumHist):
+def getHistToData( dataHist, sumHist, ifPaper=False):
     if dataHist:
         sumHistoData = dataHist.Clone(dataHist.GetName()+"_ratio")
         sumHistoData.Sumw2()
         sumHistoData.Divide(sumHist)
     else:
-        sumHistoData = sumHist.Clone() 
+        sumHistoData = sumHist.Clone()
         sumHistoData.Reset()
     sumHistoData.GetYaxis().SetTitle("Data/pred.")
     # sumHistoData.GetYaxis().SetTitleOffset(1.3)
@@ -375,7 +401,8 @@ def getHistToData( dataHist, sumHist):
     sumHistoData.SetMaximum(1.55)
     sumHistoData.GetXaxis().SetTitle(sumHist.GetTitle())
     sumHistoData.GetXaxis().SetTitleSize(0.05)
-    sumHistoData.GetYaxis().SetNdivisions(6)
+    # Reduce y-axis divisions for cleaner look (especially in paper mode)
+    sumHistoData.GetYaxis().SetNdivisions(505 if ifPaper else 6)
     # sumHistoData.GetYaxis().SetTitleSize(0.05)
     # sumHistoData.GetYaxis().SetLabelSize(0.04)
     sumHistoData.SetTitle("")

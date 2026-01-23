@@ -28,4 +28,15 @@ from fourtop.plotting.style import (
     addCMSTextToPad,
     addCMSTextToCan,
     getMyLegend,
+    addRegionLabel,
+    addFitTypeLabel,
+)
+
+from fourtop.plotting.labels import (
+    PROCESS_LABELS_PAPER,
+    REGION_LABELS,
+    get_process_label,
+    get_signal_label,
+    get_region_label,
+    get_fit_type_label,
 )

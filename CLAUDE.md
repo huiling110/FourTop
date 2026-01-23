@@ -13,7 +13,7 @@ CMS four-top (tttt) measurement in hadronic tau channels: 1tau0l, 1tau1l, 1tau2l
 3. **Regenerate fakes** - Never copy fake tau/lepton files between versions
 4. **Invoke stage skill first** - Before stage work, invoke `/workflow-stage{1-4}*`
 5. **Commit often** - After each significant change
-6. **Dev-docs for tasks** - Create `dev-docs/active/{task}/` with context.md, plan.md, tasks.md
+6. **Dev-docs after plan approval** - After ExitPlanMode approval, IMMEDIATELY create `dev-docs/active/{task}/` with context.md, plan.md, tasks.md
 
 ## Skills
 

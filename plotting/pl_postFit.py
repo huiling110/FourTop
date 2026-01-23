@@ -95,6 +95,16 @@ def parse_args():
         default='',
         help='Include VLL signal in plots. Optionally specify mass point (default: VLLm700)'
     )
+    parser.add_argument(
+        '--paper',
+        action='store_true',
+        help='Publication mode: clean labels, region/fit annotations, no "Preliminary", output to publication/ subfolder'
+    )
+    parser.add_argument(
+        '--no-sb',
+        action='store_true',
+        help='Hide S/B text in last bin'
+    )
 
     return parser.parse_args()
 
@@ -171,8 +181,9 @@ def run_prefit_plots(config, args):
     ifPostfit = False  # This is pre-fit
     ifStackSignal = False if ifVLL else True  # Don't stack VLL signal - show as overlay
     ifLogy = not args.no_logy
-    ifPrintSB = True
+    ifPrintSB = not getattr(args, 'no_sb', False)
     ifBlind = args.blind
+    ifPaper = getattr(args, 'paper', False)
 
     # Get process list
     sumProList = plt.getSumList(channel, ifFakeTau, ifVLL, ifMCFTau, True)
@@ -193,7 +204,10 @@ def run_prefit_plots(config, args):
         if args.output_dir:
             plotDir = args.output_dir
         else:
-            plotDir = os.path.dirname(template_path) + '/prefitPlots/'
+            if ifPaper:
+                plotDir = os.path.dirname(template_path) + '/prefitPlots/publication/'
+            else:
+                plotDir = os.path.dirname(template_path) + '/prefitPlots/'
         checkMakeDir(plotDir)
 
         # Load histograms from template
@@ -211,7 +225,7 @@ def run_prefit_plots(config, args):
         plotName = f'{variable}_{iRegion}_prefit_{era}'
         plt.makeStackPlotNew(sumProcess, sumProList, variable, iRegion, plotDir, False,
                            plotName, era, True, 100, ifStackSignal, ifLogy, ifPrintSB,
-                           ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit)
+                           ifVLL, {}, ifDoSystmatic, ifBlind, ifPostfit, ifPaper)
 
         print(f"  Saved: {plotDir}{plotName}.png")
 
@@ -301,6 +315,7 @@ def run_postfit_plots_legacy():
 def _get_plot_options(args):
     """Create plotting options dict from args."""
     ifVLL = getattr(args, 'vll', '')
+    ifPaper = getattr(args, 'paper', False)
     return {
         'variable': 'BDT',
         'ifFakeTau': True,
@@ -310,8 +325,9 @@ def _get_plot_options(args):
         'ifPostfit': True,
         'ifStackSignal': False if ifVLL else True,  # Don't stack VLL signal - show as overlay
         'ifLogy': not getattr(args, 'no_logy', False),
-        'ifPrintSB': True,
+        'ifPrintSB': not getattr(args, 'no_sb', False),  # S/B text in last bin
         'ifBlind': getattr(args, 'blind', False),
+        'ifPaper': ifPaper,  # Publication mode
     }
 
 
@@ -342,7 +358,7 @@ def _plot_channel_eras(histsPerEra, sumProList, opts, iRegion, plotDir, channel)
                 sumProcess, sumProList, opts['variable'], iRegion, plotDir, False,
                 plotName, era, True, 100, opts['ifStackSignal'], opts['ifLogy'],
                 opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
-                opts['ifBlind'], opts['ifPostfit'])
+                opts['ifBlind'], opts['ifPostfit'], opts['ifPaper'])
 
 
 def _plot_run2_combination(combinedHists, sumProList, opts, iRegion, plotDir):
@@ -353,7 +369,7 @@ def _plot_run2_combination(combinedHists, sumProList, opts, iRegion, plotDir):
             sumProcess, sumProList, opts['variable'], iRegion, plotDir, False,
             plotName, 'Run2', True, 100, opts['ifStackSignal'], opts['ifLogy'],
             opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
-            opts['ifBlind'], opts['ifPostfit'])
+            opts['ifBlind'], opts['ifPostfit'], opts['ifPaper'])
 
 
 def _plot_multichannel_combination(channels, histsPerChannel, channel_name, region_name, opts, plotDir):
@@ -372,7 +388,7 @@ def _plot_multichannel_combination(channels, histsPerChannel, channel_name, regi
             sumProcess, sumProList, opts['variable'], region_name, plotDir, False,
             plotName, 'Run2', True, 100, opts['ifStackSignal'], opts['ifLogy'],
             opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
-            opts['ifBlind'], opts['ifPostfit'])
+            opts['ifBlind'], opts['ifPostfit'], opts['ifPaper'])
 
 
 def run_postfit_main(fitFile, args):
@@ -387,7 +403,10 @@ def run_postfit_main(fitFile, args):
         print(f'  {channel}: {eras}')
 
     fitDir = fitFile.rsplit('/', 1)[0]
-    plotDir = f'{fitDir}/postfitPlots/'
+    if opts['ifPaper']:
+        plotDir = f'{fitDir}/postfitPlots/publication/'
+    else:
+        plotDir = f'{fitDir}/postfitPlots/'
     checkMakeDir(plotDir)
 
     histsPerChannel = {}
@@ -769,6 +788,15 @@ def get_union_process_list(channels, ifFakeTau, ifVLL, ifMCFTau):
                     data_process = 'jetHT'
             elif proc not in all_processes:
                 all_processes.append(proc)
+
+    # Group ttZ, ttW, ttH into ttX (same as _prepare_process_list)
+    for proc in ['ttZ', 'ttW', 'ttH']:
+        if proc in all_processes:
+            all_processes.remove(proc)
+    # Insert ttX after tt if not already present
+    if 'ttX' not in all_processes and 'tt' in all_processes:
+        insert_pos = all_processes.index('tt') + 1
+        all_processes.insert(insert_pos, 'ttX')
 
     # Add data process at end (if exists)
     if data_process:

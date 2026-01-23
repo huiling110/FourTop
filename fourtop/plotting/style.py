@@ -245,16 +245,20 @@ def addCMSTextToCan(
 
 def addCMSTextToPad(
     canvas: ROOT.TCanvas,
-    era: str = '2016'
+    era: str = '2016',
+    preliminary: bool = True,
+    show_era_in_label: bool = True
 ) -> None:
     """
-    Add CMS preliminary label to pad with luminosity.
+    Add CMS label to pad with luminosity.
 
     Automatically positions text based on pad margins.
 
     Args:
         canvas: ROOT canvas/pad
-        era: Era string (e.g., '2018', '2022')
+        era: Era string (e.g., '2018', '2022', 'Run2')
+        preliminary: If True, show "Preliminary"; if False, CMS only (for publication)
+        show_era_in_label: If True, show era after "Preliminary"
     """
     canvas.Update()
 
@@ -266,7 +270,15 @@ def addCMSTextToPad(
     cmsTextFont = 61
     extraTextFont = 52
     cmsText = "CMS"
-    extraText = "Preliminary " + era
+
+    # Build extra text based on options
+    if preliminary:
+        if show_era_in_label:
+            extraText = "Preliminary " + era
+        else:
+            extraText = "Preliminary"
+    else:
+        extraText = ""  # No extra text for publication
 
     latex = ROOT.TLatex()
     latex.SetNDC()
@@ -275,10 +287,11 @@ def addCMSTextToPad(
     latex.SetTextFont(cmsTextFont)
     latex.DrawLatexNDC(0.15, y, cmsText)
 
-    latex1 = ROOT.TLatex()
-    latex1.SetTextFont(extraTextFont)
-    latex1.SetTextSize(0.04 * 0.76)
-    latex1.DrawLatexNDC(0.15 + 0.10, y, extraText)
+    if extraText:
+        latex1 = ROOT.TLatex()
+        latex1.SetTextFont(extraTextFont)
+        latex1.SetTextSize(0.04 * 0.76)
+        latex1.DrawLatexNDC(0.15 + 0.10, y, extraText)
 
     lumiText = lumiMap[era] / 1000
     lumiText_s = '{0:.1f}'.format(lumiText)
@@ -316,3 +329,63 @@ def getMyLegend(x1: float, x2: float, y1: float, y2: float) -> ROOT.TLegend:
     legend.SetFillColor(0)
     legend.SetFillStyle(0)
     return legend
+
+
+def addRegionLabel(
+    canvas: ROOT.TCanvas,
+    region: str,
+    x: float = 0.20,
+    y: float = 0.68
+) -> None:
+    """
+    Add region label to plot (e.g., "SR 1τ_h0ℓ").
+
+    Args:
+        canvas: ROOT canvas/pad
+        region: Region code (e.g., 'SR1tau0l') - will be formatted
+        x: x position (NDC)
+        y: y position (NDC)
+    """
+    from fourtop.plotting.labels import get_region_label
+
+    canvas.cd()
+    region_text = get_region_label(region)
+
+    latex = ROOT.TLatex()
+    latex.SetNDC()
+    latex.SetTextAlign(11)  # Left-aligned
+    latex.SetTextSize(0.035)
+    latex.SetTextFont(42)
+    latex.DrawLatexNDC(x, y, region_text)
+
+    canvas.Update()
+
+
+def addFitTypeLabel(
+    canvas: ROOT.TCanvas,
+    is_postfit: bool,
+    x: float = 0.20,
+    y: float = 0.63
+) -> None:
+    """
+    Add fit type label to plot ("Pre-fit" or "Post-fit").
+
+    Args:
+        canvas: ROOT canvas/pad
+        is_postfit: True for post-fit, False for pre-fit
+        x: x position (NDC)
+        y: y position (NDC)
+    """
+    from fourtop.plotting.labels import get_fit_type_label
+
+    canvas.cd()
+    fit_text = get_fit_type_label(is_postfit)
+
+    latex = ROOT.TLatex()
+    latex.SetNDC()
+    latex.SetTextAlign(11)  # Left-aligned
+    latex.SetTextSize(0.035)
+    latex.SetTextFont(42)
+    latex.DrawLatexNDC(x, y, fit_text)
+
+    canvas.Update()
