@@ -365,7 +365,7 @@ def addFitTypeLabel(
     canvas: ROOT.TCanvas,
     is_postfit: bool,
     x: float = 0.20,
-    y: float = 0.63
+    y: float = 0.58
 ) -> None:
     """
     Add fit type label to plot ("Pre-fit" or "Post-fit").

@@ -425,8 +425,8 @@ def setUpStack(canvy, stack, sumMax, signalMax, ifLogy=False):
     stack.Draw("hist")
     stack.GetXaxis().SetLabelSize(0.0)
     stack.GetYaxis().SetTitle('Events')
-    stack.GetYaxis().SetTitleOffset(1.2)
-    stack.GetYaxis().SetTitleSize(0.05)
+    stack.GetYaxis().SetTitleOffset(1.3)
+    stack.GetYaxis().SetTitleSize(0.04)
     
     canvy.Modified()
     canvy.Update()

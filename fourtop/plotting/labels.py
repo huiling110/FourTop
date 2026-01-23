@@ -74,23 +74,24 @@ PROCESS_LABELS_DEFAULT: Dict[str, str] = {
 # =============================================================================
 
 #: Region labels for plot annotations
+#: Using simpler format without complex LaTeX for better rendering
 REGION_LABELS: Dict[str, str] = {
     # Signal regions
-    'SR1tau0l': 'SR 1#tau_{h}0#ell',
-    'SR1tau1l': 'SR 1#tau_{h}1#ell',
-    'SR1tau2l': 'SR 1#tau_{h}2#ell',
-    '1tau0lSR': 'SR 1#tau_{h}0#ell',
-    '1tau1lSR': 'SR 1#tau_{h}1#ell',
-    '1tau2lSR': 'SR 1#tau_{h}2#ell',
+    'SR1tau0l': '1#tau_{h}0l SR',
+    'SR1tau1l': '1#tau_{h}1l SR',
+    'SR1tau2l': '1#tau_{h}2l SR',
+    '1tau0lSR': '1#tau_{h}0l SR',
+    '1tau1lSR': '1#tau_{h}1l SR',
+    '1tau2lSR': '1#tau_{h}2l SR',
 
     # Control regions
-    'CR1tau0l': 'CR 1#tau_{h}0#ell',
-    'CR1tau1l': 'CR 1#tau_{h}1#ell',
-    'CR1tau2l': 'CR 1#tau_{h}2#ell',
+    'CR1tau0l': '1#tau_{h}0l CR',
+    'CR1tau1l': '1#tau_{h}1l CR',
+    'CR1tau2l': '1#tau_{h}2l CR',
 
     # Combined regions
-    'SR1tau0l1l2l': 'SR Combined',
-    'SR1tau1land2l': 'SR 1#tau_{h}1#ell+2#ell',
+    'SR1tau0l1l2l': 'Combined SR',
+    'SR1tau1land2l': '1#tau_{h}1l+2l SR',
 }
 
 

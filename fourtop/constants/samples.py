@@ -490,18 +490,19 @@ dataDict: Dict[str, List[str]] = {
 # =============================================================================
 
 #: Process list per channel for validation plots and analysis
-#: Order matters for stack plot legend
+#: Order matters for stack plot legend (ttbb before tt for legend order: ttbb, tt, ttX)
 proChannelDic: Dict[str, List[str]] = {
-    '1tau1l': ['fakeTau', 'tt', 'ttbb', 'ttX', 'fakeLepton', 'tttt', 'jetHT'],
-    '1tau0l': ['fakeTau', 'tt', 'ttbb', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'],
+    '1tau1l': ['fakeTau', 'ttbb', 'tt', 'ttX', 'fakeLepton', 'tttt', 'jetHT'],
+    '1tau0l': ['fakeTau', 'ttbb', 'tt', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'],
     '1tau2l': ['fakeTau', 'tt', 'ttX', 'fakeLepton', 'singleTop', 'Minor', 'tttt', 'leptonSum'],
 }
 
 #: Process list per channel for CMS Combine (ttX split into ttZ/ttW/ttH)
+#: Order: ttbb before tt so that after grouping ttZ/ttW/ttH->ttX, legend shows ttbb, tt, ttX
 proChannelDic_forCombine: Dict[str, List[str]] = {
-    '1tau1l': ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW', 'ttH', 'fakeLepton', 'tttt', 'jetHT'],
+    '1tau1l': ['fakeTau', 'ttbb', 'tt', 'ttZ', 'ttW', 'ttH', 'fakeLepton', 'tttt', 'jetHT'],
     '1tau2l': ['fakeTau', 'tt', 'ttZ', 'ttW', 'ttH', 'fakeLepton', 'Minor', 'tttt', 'leptonSum'],
-    '1tau0l': ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW', 'ttH', 'singleTop', 'WJets', 'tttt', 'jetHT'],
+    '1tau0l': ['fakeTau', 'ttbb', 'tt', 'ttZ', 'ttW', 'ttH', 'singleTop', 'WJets', 'tttt', 'jetHT'],
 }
 
 
