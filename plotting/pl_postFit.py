@@ -18,6 +18,9 @@ Usage:
 
     # Use config file for paths
     python3 pl_postFit.py --config ../../config/analysis_config.yaml --plot-type postfit
+
+    # Publication mode (clean labels, no "Preliminary", output to publication/ subfolder)
+    python3 pl_postFit.py --fit-file /path/to/fitDiagnosticsTest.root --paper
 """
 
 import ROOT

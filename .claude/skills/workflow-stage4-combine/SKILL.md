@@ -31,7 +31,7 @@ python3 scripts/validate_stage.py --stage STAGE --config config/CONFIG.yaml --er
 | 4.4 writeDatacard | `python3 plotting/writeDatacard.py --config CONFIG --era ERA` |
 | 4.4.1 Run2 combine | `cd hua/combine && cmsenv && python3 writeCombinationDatacard.py --config CONFIG --channel CH` |
 | 4.5 combine fits | `cd hua/combine && bash run_combine_fits.sh CONFIG ERA CHANNEL` (use screen!) |
-| 4.6 postfit | `python3 plotting/pl_postFit.py --fit-file FITDIAG.root` |
+| 4.6 postfit | `python3 plotting/pl_postFit.py --fit-file FITDIAG.root [--paper]` |
 | 4.7 plots (pl.py) | `python3 plotting/pl.py --config CONFIG --era ERA` (**needs 4.1 addJES for systematics**) |
 
 ## Environment
@@ -115,8 +115,16 @@ Steps: `workspace`, `limits`, `significance`, `impacts`, `postfit`, `signal_stre
 ## Stage 4.6: postfit plots
 
 ```bash
+# Standard postfit plots
 python3 plotting/pl_postFit.py --fit-file hua/combine/.../fitDiagnosticsTest.root
+
+# Publication mode (clean labels, no "Preliminary", output to publication/ subfolder)
+python3 plotting/pl_postFit.py --fit-file hua/combine/.../fitDiagnosticsTest.root --paper
 ```
+
+Options:
+- `--paper`: Publication mode with clean labels, region annotations, no "Preliminary", saves to `publication/` subfolder
+- `--no-sb`: Hide S/B text in last bin
 
 Requires Stage 4.5 complete.
 
