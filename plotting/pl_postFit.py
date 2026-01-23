@@ -357,22 +357,24 @@ def _plot_channel_eras(histsPerEra, sumProList, opts, iRegion, plotDir, channel)
         print(f'\nPlotting {channel} era: {era}')
         for ifit, sumProcess in era_hists.items():
             plotName = f"{opts['variable']}_{iRegion}_{ifit}_{era}"
+            isPostfit = (ifit != 'prefit')  # prefit -> False, fit_s/fit_b -> True
             plt.makeStackPlotNew(
                 sumProcess, sumProList, opts['variable'], iRegion, plotDir, False,
                 plotName, era, True, 100, opts['ifStackSignal'], opts['ifLogy'],
                 opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
-                opts['ifBlind'], opts['ifPostfit'], opts['ifPaper'])
+                opts['ifBlind'], isPostfit, opts['ifPaper'])
 
 
 def _plot_run2_combination(combinedHists, sumProList, opts, iRegion, plotDir):
     """Plot Run2 combined histograms."""
     for ifit, sumProcess in combinedHists.items():
         plotName = f"{opts['variable']}_{iRegion}_{ifit}_Run2"
+        isPostfit = (ifit != 'prefit')  # prefit -> False, fit_s/fit_b -> True
         plt.makeStackPlotNew(
             sumProcess, sumProList, opts['variable'], iRegion, plotDir, False,
             plotName, 'Run2', True, 100, opts['ifStackSignal'], opts['ifLogy'],
             opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
-            opts['ifBlind'], opts['ifPostfit'], opts['ifPaper'])
+            opts['ifBlind'], isPostfit, opts['ifPaper'])
 
 
 def _plot_multichannel_combination(channels, histsPerChannel, channel_name, region_name, opts, plotDir):
@@ -387,11 +389,12 @@ def _plot_multichannel_combination(channels, histsPerChannel, channel_name, regi
 
     for ifit, sumProcess in combined.items():
         plotName = f"{opts['variable']}_{region_name}_{ifit}_Run2"
+        isPostfit = (ifit != 'prefit')  # prefit -> False, fit_s/fit_b -> True
         plt.makeStackPlotNew(
             sumProcess, sumProList, opts['variable'], region_name, plotDir, False,
             plotName, 'Run2', True, 100, opts['ifStackSignal'], opts['ifLogy'],
             opts['ifPrintSB'], opts['ifVLL'], {}, opts['ifDoSystmatic'],
-            opts['ifBlind'], opts['ifPostfit'], opts['ifPaper'])
+            opts['ifBlind'], isPostfit, opts['ifPaper'])
 
 
 def run_postfit_main(fitFile, args):

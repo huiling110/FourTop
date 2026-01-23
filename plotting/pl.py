@@ -373,6 +373,8 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
     # Determine the uncertainty label based on flags
     if ifPostfit:
         sysLeggy = 'Post-fit unc.' if ifPaper else 'Postfit unc.'
+    elif ifPaper:
+        sysLeggy = 'Pre-fit unc.'  # Paper mode pre-fit
     elif ifDoSystmatic:
         sysLeggy = 'Stat. + Syst. unc.'  # Pre-fit with systematics
     else:
