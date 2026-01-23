@@ -230,7 +230,7 @@ def addCMSTextToCan(
     latex.DrawLatex(x2, y, extraText)
 
     lumiText = lumiMap[era] / 1000
-    lumiText_s = '{0:.1f}'.format(lumiText)
+    lumiText_s = '{0:.0f}'.format(lumiText)
     is_run3 = isRun3(era)
     energy = '13.6' if is_run3 else '13'
     lumiText_s = lumiText_s + ' fb^{-1}(' + energy + 'TeV)'
@@ -294,7 +294,7 @@ def addCMSTextToPad(
         latex1.DrawLatexNDC(0.15 + 0.10, y, extraText)
 
     lumiText = lumiMap[era] / 1000
-    lumiText_s = '{0:.1f}'.format(lumiText)
+    lumiText_s = '{0:.0f}'.format(lumiText)
     is_run3 = isRun3(era)
     energy = '13.6' if is_run3 else '13'
     lumiText_s = lumiText_s + ' fb^{-1}(' + energy + 'TeV)'
@@ -365,7 +365,7 @@ def addFitTypeLabel(
     canvas: ROOT.TCanvas,
     is_postfit: bool,
     x: float = 0.20,
-    y: float = 0.58
+    y: float = 0.53
 ) -> None:
     """
     Add fit type label to plot ("Pre-fit" or "Post-fit").

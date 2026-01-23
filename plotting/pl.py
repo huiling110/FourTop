@@ -345,7 +345,7 @@ def addLegend(canvy, nominal, legendOrder, dataHist, assymErrorPlot, signal, sig
         if isData(ipro):
             if dataHist:
                 if ifPaper:
-                    leggy.AddEntry(dataHist, "Data [{:.1f}]".format(getIntegral(dataHist)), "epl")
+                    leggy.AddEntry(dataHist, "Data [{:.0f}]".format(getIntegral(dataHist)), "epl")
                 else:
                     leggy.AddEntry(dataHist,"Data[{:.1f}]".format(getIntegral(dataHist)),"epl")
         elif isBG(ipro, ifVLL)==1:
