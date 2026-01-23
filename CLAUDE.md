@@ -1,58 +1,38 @@
 # CLAUDE.md - FourTop Analysis
 
+<!-- Keep this file under 50 lines. Move details to skills or .claude/rules/ -->
+
 ## Project Overview
 
-**CMS four-top (tttt) measurement and VLL search in hadronic tau channels**
-
-| Channel | Description | Trigger |
-|---------|-------------|---------|
-| 1tau0l | 1 hadronic tau, 0 leptons | HT-based (shared) |
-| 1tau1l | 1 hadronic tau, 1 lepton | HT-based (shared) |
-| 1tau2l | 1 hadronic tau, 2 leptons | Different trigger |
-
-**Note**: 1tau0l and 1tau1l share OS and MV steps (same triggers).
+CMS four-top (tttt) measurement in hadronic tau channels: 1tau0l, 1tau1l, 1tau2l.
 
 ## Critical Rules
 
 1. **Config-driven** - Always `--config CONFIG --era ERA`, never hardcode paths
 2. **Environment** - `source setEnv_newNew.sh` (combine: `cmsenv`)
 3. **Regenerate fakes** - Never copy fake tau/lepton files between versions
-4. **ALWAYS invoke stage skill first** - Before ANY stage work, ASK: "Which stage am I in?" then invoke `/workflow-stage{1-4}*`. This applies to:
-   - Running stage commands (submit jobs, run combine, etc.)
-   - Checking stage outputs or paths
-   - Debugging stage issues
-   - Continuing interrupted stage work
+4. **Invoke stage skill first** - Before stage work, invoke `/workflow-stage{1-4}*`
 5. **Commit often** - After each significant change
-6. **Dev-docs for new tasks** - After exiting plan mode, create `dev-docs/active/{task}/` with:
-   - `context.md` - Goal, key paths, environment, critical notes
-   - `plan.md` - Implementation approach, dependencies, risks
-   - `tasks.md` - Status table, session notes, next steps
+6. **Dev-docs for tasks** - Create `dev-docs/active/{task}/` with context.md, plan.md, tasks.md
 
-## Workflow
+## Skills
 
-**Stage skills** (invoke for commands, paths, verification):
-- `/workflow-stage1-os` - Object Selection
-- `/workflow-stage2-mv` - Make Variables + Fakes
-- `/workflow-stage3-wh` - Write Histograms
-- `/workflow-stage4-combine` - Templates, Datacards, Combine
+| Skill | Purpose |
+|-------|---------|
+| `/workflow-stage1-os` | Object Selection commands |
+| `/workflow-stage2-mv` | Make Variables + Fakes |
+| `/workflow-stage3-wh` | Write Histograms |
+| `/workflow-stage4-combine` | Templates, Datacards, Combine |
+| `/python-package-guide` | fourtop package API reference |
+| `/refactor` | Python code refactoring |
 
-**Progress tracking**: `dev-docs/active/{task}/tasks.md` with status table
+## Quick Reference
 
-**Config**: `config/analysis_config_{channel}_*.yaml`
-
-## Dev-Docs
-
-For multi-session tasks in `dev-docs/active/{task}/`:
-- Read `tasks.md` to resume
-- Update frequently, commit often
-- When context low, update dev-docs before ending
+- **Config**: `config/analysis_config_{channel}_*.yaml`
+- **Progress**: `dev-docs/active/{task}/tasks.md`
+- **Python imports**: Use `fourtop` package, never `sys.path` hacks
 
 ## User Preferences
 
-- Physicist, experienced developer
-- Direct feedback, explain *why* not just *how*
+- Physicist, experienced developer - direct feedback, explain *why*
 - Physics safety: watch for sign errors, branch bugs
-
-## Python Package
-
-Use `fourtop` package for all Python imports. For full API reference: `/python-package-guide`
