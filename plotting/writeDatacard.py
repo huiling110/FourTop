@@ -39,6 +39,9 @@ def main():
     parser.add_argument('--mode', '-m', type=str, default='bdt',
                         choices=['bdt', 'variables'],
                         help='Mode: bdt (default, variableHists_*) or variables (inputVarHists_*)')
+    parser.add_argument('--region', '-r', type=str, default='SR',
+                        choices=['SR', 'CRMR', 'VR'],
+                        help='Region for datacard (default: SR, for 1tau0l also: CRMR, VR)')
     args = parser.parse_args()
 
     # Load config and build paths
@@ -84,9 +87,14 @@ def main():
     if variable != 'BDT':
         datacard_version = f"{datacard_version}_{variable}"
 
+    # Add region suffix for non-SR regions
+    region = args.region
+    if region != 'SR':
+        datacard_version = f"{datacard_version}_{region}"
+
     if not args.quiet:
         print(f"Using config: {args.config}")
-        print(f"Era: {args.era}, Channel: {channel}, Mode: {args.mode}")
+        print(f"Era: {args.era}, Channel: {channel}, Mode: {args.mode}, Region: {region}")
         print(f"Template: {inputTemplate}")
 
     # Historical paths preserved in: config/historical_paths_backup.txt
@@ -116,7 +124,7 @@ def main():
     addLumi(sysDic, era, processes)
     addProcessNormalization(sysDic, processes)
 
-    write_shape_datacard(outCard, inputTemplate, channel, processes, sysDic, era, variable)
+    write_shape_datacard(outCard, inputTemplate, channel, processes, sysDic, era, variable, region)
 
 
 if __name__ == '__main__':

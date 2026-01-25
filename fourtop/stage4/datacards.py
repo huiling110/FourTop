@@ -336,7 +336,8 @@ def write_shape_datacard(
     processes: List[str],
     systematics: Dict,
     era: str = '2018',
-    variable: str = 'BDT'
+    variable: str = 'BDT',
+    region: str = 'SR'
 ) -> None:
     """
     Write a shape datacard for CMS Combine.
@@ -350,14 +351,17 @@ def write_shape_datacard(
             { "uncertainty_name": [type, { "process_name": value }] }
         era: Era string for bin naming
         variable: Variable name for histogram lookup (default: BDT)
+        region: Region name (SR, CRMR, VR) - default: SR
     """
     num_processes = len(processes)
     signal_index = processes.index('tttt')
 
     # Column widths for formatting
     process_col_width = 70
-    value_col_width = 22
-    channelNameName = f"SR{channel_name}_{era}"
+    # value_col_width must be > max(len(channelNameName)) to ensure proper spacing
+    # CRMR1tau0l_2016postVFP = 22 chars, so use 25 for safety
+    value_col_width = 25
+    channelNameName = f"{region}{channel_name}_{era}"
 
     rates = "rate".ljust(process_col_width)
     proString = "process".ljust(process_col_width)
@@ -368,7 +372,7 @@ def write_shape_datacard(
         f"jmax {num_processes - 1}  number of background processes",
         "kmax *  number of nuisance parameters (sources of systematic uncertainties)",
         "---------------",
-        f"shapes * {channelNameName} {root_file} $PROCESS_{channel_name}SR_{variable} $PROCESS_{channel_name}SR_$SYSTEMATIC_{variable}",
+        f"shapes * {channelNameName} {root_file} $PROCESS_{channel_name}{region}_{variable} $PROCESS_{channel_name}{region}_$SYSTEMATIC_{variable}",
         "---------------",
         f"bin         {channelNameName}",
         "observation -1",

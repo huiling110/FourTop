@@ -75,6 +75,7 @@ CHANNEL_LABELS = {
 # X-axis labels for input variables
 VARIABLE_LABELS = {
     'tausT_1pt': r'$\tau_{\mathrm{h}}$ $p_{\mathrm{T}}$ [GeV]',
+    'tausF_1jetPt': r'Fake $\tau_{\mathrm{h}}$ candidate jet $p_{\mathrm{T}}$ [GeV]',
     'jets_HT': r'$H_{\mathrm{T}}$ [GeV]',
     'MET_pt': r'$p_{\mathrm{T}}^{\mathrm{miss}}$ [GeV]',
     'bjetsM_num': r'Number of b-jets',
