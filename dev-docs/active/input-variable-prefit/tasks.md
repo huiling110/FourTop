@@ -47,6 +47,21 @@ python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic c
 
 ## Session Notes
 
+### 2026-01-26 (session 4)
+
+**Plot styling improvements:**
+- Fixed x-axis binning: combine FitDiagnostics loses original range
+- Added VARIABLE_BINNING dict to restore correct x-axis values
+- Added VARIABLE_XLIM dict for zooming to relevant range
+- Fixed prong number: shift bins by -0.5 so prong 1,3 appear at 1,3 (not 1.5,3.5)
+- Moved region/Pre-fit label to top-left, on separate lines
+- Increased legend fontsize from 15 to 17
+- Removed data count from legend
+
+**WH jobs status:**
+- 1tau1l: All 4 eras submitted (~17,771 jobs total)
+- 1tau2l: All 4 eras submitting
+
 ### 2026-01-25 (session 3)
 
 **1tau0l prefit plots COMPLETE:**
@@ -103,10 +118,17 @@ python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic c
 
 | Variable | Region | Status |
 |----------|--------|--------|
-| tausT_1jetEtaAbs | CR2 | WH jobs running |
+| tausT_1jetEtaAbs | CR2 | WH jobs submitted (17,771 total) |
 
 ## 1tau2l Target
 
 | Variable | Region | Status |
 |----------|--------|--------|
 | bjetsM_num | CR3 | WH jobs submitting |
+
+## WH Job Counts (mode=variables)
+
+| Channel | 2018 | 2017 | 2016preVFP | 2016postVFP | Total |
+|---------|------|------|------------|-------------|-------|
+| 1tau1l | 4441 | 4447 | 4443 | 4440 | 17,771 |
+| 1tau2l | - | - | - | - | Submitting |
