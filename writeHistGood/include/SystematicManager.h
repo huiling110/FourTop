@@ -526,6 +526,124 @@ public:
         histObj.fillHistVec(region + "_CMS_fake_t_" + m_era + "Down", bdtScore,
             e->FR_weight_final_down, passSelection, isData);
     }
+
+    // =========================================================================
+    // Methods for variable histogram vectors (used by variableAnalyzer)
+    // =========================================================================
+
+    /**
+     * @brief Fill detector systematics for variable histogram vector
+     *
+     * Same logic as fillSystematics() but operates on a vector of histogram objects.
+     * Used by variableAnalyzer which produces multiple variable histograms.
+     */
+    void fillSystematicsForVariables(
+        const TString& region,
+        Double_t baseWeight,
+        Bool_t passSelection,
+        event* e,
+        std::vector<std::shared_ptr<histForRegionsBase>>& histVec,
+        Bool_t isData) const {
+
+        if (isData) return;
+
+        for (const auto& sys : m_systematics) {
+            TString upName = region + "_" + sys.name;
+            TString downName = region + "_" + sys.name;
+
+            if (sys.isEraDependent) {
+                upName += "_" + m_era;
+                downName += "_" + m_era;
+            }
+
+            upName += "Up";
+            downName += "Down";
+
+            // Calculate varied weights
+            Double_t upWeight = sys.upWeightFunc(e, baseWeight);
+            Double_t downWeight = sys.downWeightFunc(e, baseWeight);
+
+            // Fill all histogram objects in the vector
+            for (auto& hist : histVec) {
+                hist->fillHistVec(upName, upWeight, passSelection, isData);
+                hist->fillHistVec(downName, downWeight, passSelection, isData);
+            }
+        }
+    }
+
+    /**
+     * @brief Fill theory systematics for variable histogram vector
+     *
+     * Same logic as fillTheorySystematics() but operates on a vector of histogram objects.
+     */
+    void fillTheorySystematicsForVariables(
+        const TString& region,
+        Double_t baseWeight,
+        Bool_t passSelection,
+        event* e,
+        std::vector<std::shared_ptr<histForRegionsBase>>& histVec,
+        Bool_t isData,
+        Double_t scaleRe_normUp, Double_t scaleRe_normDown,
+        Double_t scaleFa_normUp, Double_t scaleFa_normDown,
+        Double_t pdfAlphaS_normUp, Double_t pdfAlphaS_normDown,
+        Double_t pdf_normUp, Double_t pdf_normDown,
+        Double_t PSWeightISR_normUp, Double_t PSWeightISR_normDown,
+        Double_t PSWeightFSR_normUp, Double_t PSWeightFSR_normDown) const {
+
+        if (isData) return;
+
+        // Calculate all theory weights
+        Double_t wScaleReUp = baseWeight * e->scaleWeightRe_up_.v() * scaleRe_normUp;
+        Double_t wScaleReDown = baseWeight * e->scaleWeightRe_down_.v() * scaleRe_normDown;
+        Double_t wScaleFaUp = baseWeight * e->scaleWeightFa_up_.v() * scaleFa_normUp;
+        Double_t wScaleFaDown = baseWeight * e->scaleWeightFa_down_.v() * scaleFa_normDown;
+        Double_t wPdfAlphaSUp = baseWeight * e->pdfWeightAlphaS_up_.v() * pdfAlphaS_normUp;
+        Double_t wPdfAlphaSDown = baseWeight * e->pdfWeightAlphaS_down_.v() * pdfAlphaS_normDown;
+        Double_t wPdfUp = baseWeight * e->pdfWeight_up_.v() * pdf_normUp;
+        Double_t wPdfDown = baseWeight * e->pdfWeight_down_.v() * pdf_normDown;
+        Double_t wPSISRUp = baseWeight * e->PSWeightISR_up_.v() * PSWeightISR_normUp;
+        Double_t wPSISRDown = baseWeight * e->PSWeightISR_down_.v() * PSWeightISR_normDown;
+        Double_t wPSFSRUp = baseWeight * e->PSWeightFSR_up_.v() * PSWeightFSR_normUp;
+        Double_t wPSFSRDown = baseWeight * e->PSWeightFSR_down_.v() * PSWeightFSR_normDown;
+
+        // Fill all histogram objects
+        for (auto& hist : histVec) {
+            hist->fillHistVec(region + "_QCDscale_renUp", wScaleReUp, passSelection, isData);
+            hist->fillHistVec(region + "_QCDscale_renDown", wScaleReDown, passSelection, isData);
+            hist->fillHistVec(region + "_QCDscale_facUp", wScaleFaUp, passSelection, isData);
+            hist->fillHistVec(region + "_QCDscale_facDown", wScaleFaDown, passSelection, isData);
+            hist->fillHistVec(region + "_pdf_alphasUp", wPdfAlphaSUp, passSelection, isData);
+            hist->fillHistVec(region + "_pdf_alphasDown", wPdfAlphaSDown, passSelection, isData);
+            hist->fillHistVec(region + "_pdf_00Up", wPdfUp, passSelection, isData);
+            hist->fillHistVec(region + "_pdf_00Down", wPdfDown, passSelection, isData);
+            hist->fillHistVec(region + "_ps_isrUp", wPSISRUp, passSelection, isData);
+            hist->fillHistVec(region + "_ps_isrDown", wPSISRDown, passSelection, isData);
+            hist->fillHistVec(region + "_ps_fsrUp", wPSFSRUp, passSelection, isData);
+            hist->fillHistVec(region + "_ps_fsrDown", wPSFSRDown, passSelection, isData);
+        }
+    }
+
+    /**
+     * @brief Fill data-driven fake tau systematic for variable histogram vector
+     *
+     * Same logic as fillDataDrivenFakeTauSystematic() but operates on a vector of histogram objects.
+     */
+    void fillDataDrivenFakeTauSystematicForVariables(
+        const TString& region,
+        event* e,
+        std::vector<std::shared_ptr<histForRegionsBase>>& histVec,
+        Bool_t passSelection,
+        Bool_t isData) const {
+
+        if (isData) return;
+
+        for (auto& hist : histVec) {
+            hist->fillHistVec(region + "_CMS_fake_t_" + m_era + "Up",
+                e->FR_weight_final_up, passSelection, isData);
+            hist->fillHistVec(region + "_CMS_fake_t_" + m_era + "Down",
+                e->FR_weight_final_down, passSelection, isData);
+        }
+    }
 };
 
 #endif // SYSTEMATICMANAGER_H

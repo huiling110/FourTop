@@ -17,7 +17,8 @@ def main(
     ifSys = 1,
     justMC = False,
     quiet = False,
-    ifVLL = True
+    ifVLL = True,
+    mode = 'bdt'  # 'bdt' or 'variables'
 ):
     
     
@@ -51,7 +52,11 @@ def main(
     if not justMC:
         inputDirDic['data'] = inputDir + 'data/'
 
-    Jobsubmitpath = inputDirDic['mc'] + 'variableHists_' + version + '/'
+    # Output directory prefix depends on mode
+    # bdt mode: variableHists_ (BDT histograms)
+    # variables mode: inputVarHists_ (input variable histograms)
+    hist_prefix = 'inputVarHists_' if mode == 'variables' else 'variableHists_'
+    Jobsubmitpath = inputDirDic['mc'] + hist_prefix + version + '/'
     checkMakeDir(Jobsubmitpath)
     if not quiet:
         print('JobsubmitPath: ' ,Jobsubmitpath)
@@ -59,7 +64,7 @@ def main(
     subAllProcess.write('#!/bin/bash\n')
 
     for i in inputDirDic.keys():
-        makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe, quiet, ifVLL)
+        makeJobsforDir( inputDirDic[i], version, ifSys, isTest, subAllProcess, Jobsubmitpath, channel , exe, quiet, ifVLL, mode)
     subAllProcess.close()
 
     # Submit jobs (always suppress per-job hep_sub output, summary shows total)
@@ -72,10 +77,11 @@ def main(
 
 
 
-def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out', quiet=False, ifVLL=True):
+def makeJobsforDir( inputDir, version, ifSys, isTest, subAllProcess, Jobsubmitpath , channel, exe='./apps/run_WH_forDataMC.out', quiet=False, ifVLL=True, mode='bdt'):
     jobDir = Jobsubmitpath +'jobSH/'
     checkMakeDir(jobDir)
-    outputDir = inputDir + 'variableHists_' + version +'/'
+    hist_prefix = 'inputVarHists_' if mode == 'variables' else 'variableHists_'
+    outputDir = inputDir + hist_prefix + version +'/'
     logDir = outputDir+'log/'
     checkMakeDir(jobDir)
     checkMakeDir(outputDir)
@@ -145,6 +151,8 @@ Examples:
                         help='Only process MC (skip data)')
     parser.add_argument('--dry-run', action='store_true',
                         help='Show what would be done without submitting')
+    parser.add_argument('--mode', choices=['bdt', 'variables'], default='bdt',
+                        help='Mode: bdt (BDT histograms, default) or variables (input variable histograms)')
     return parser
 
 
@@ -184,10 +192,18 @@ if __name__=='__main__':
         options = config.get('options', {})
         ifVLL = options.get('ifVLL', True)
 
+        # Set executable based on mode
+        if args.mode == 'variables':
+            exe = './apps/run_variableAnalyzer.out'
+        else:
+            exe = './apps/run_treeAnalyzer.out'
+
         print(f"=== Config mode ===")
         print(f"Config: {args.config}")
         print(f"Era: {args.era}")
         print(f"Channel: {channel}")
+        print(f"Mode: {args.mode}")
+        print(f"Executable: {exe}")
         print(f"Input dir: {inputDir}")
         print(f"Hist version: {version}")
         print(f"ifVLL: {ifVLL}")
@@ -208,9 +224,11 @@ if __name__=='__main__':
                 inputDir=inputDir,
                 channel=channel,
                 version=version,
+                exe=exe,
                 ifSys=args.sys,
                 justMC=args.just_mc,
-                ifVLL=ifVLL
+                ifVLL=ifVLL,
+                mode=args.mode
             )
 
             # Update workflow state after submission

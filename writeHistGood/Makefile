@@ -1,5 +1,7 @@
-PROGRAM = run_treeAnalyzer
+# Default target (BDT analyzer)
+PROGRAM ?= run_treeAnalyzer
 # PROGRAM = run_WH_forDataMC
+# PROGRAM = run_variableAnalyzer
 
 
 
@@ -60,9 +62,17 @@ LIBS += $(TBBLIBS)
 # CXXFLAGS += -fsanitize=address
 
 
-.PHONY: all clean
+.PHONY: all clean bdt variables
 
 all: $(TARGET)
+
+# Build BDT analyzer (default)
+bdt:
+	$(MAKE) PROGRAM=run_treeAnalyzer
+
+# Build input variable analyzer
+variables:
+	$(MAKE) PROGRAM=run_variableAnalyzer
 
 $(TARGET): $(OBJECTS) apps/$(PROGRAM).C
 	$(CXX) $(CXXFLAGS) $(LIBS) $(OBJECTS) apps/$(PROGRAM).C -o $(TARGET)

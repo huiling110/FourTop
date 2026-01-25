@@ -46,8 +46,9 @@ for source in JES_SOURCES:
     SYSTEMATIC_GROUPS['JES'].append(f'JESup_{source}')
     SYSTEMATIC_GROUPS['JES'].append(f'JESDown_{source}')
 
-# Default executable
-EXE = './apps/run_treeAnalyzer.out'
+# Default executables
+EXE_BDT = './apps/run_treeAnalyzer.out'
+EXE_VARIABLES = './apps/run_variableAnalyzer.out'
 
 
 def create_parser():
@@ -88,6 +89,8 @@ Examples:
                         help='Show what would be done without submitting')
     parser.add_argument('--quiet', '-q', action='store_true',
                         help='Reduce output verbosity')
+    parser.add_argument('--mode', choices=['bdt', 'variables'], default='bdt',
+                        help='Mode: bdt (BDT histograms, default) or variables (input variable histograms)')
     return parser
 
 
@@ -132,12 +135,15 @@ def get_ifVLL(config: dict) -> bool:
 
 
 def submit_nominal(config: dict, era: str, process_data: bool = False,
-                   dry_run: bool = False, quiet: bool = False):
+                   dry_run: bool = False, quiet: bool = False, mode: str = 'bdt'):
     """Submit WH jobs for nominal (no systematic variations)."""
     channel = get_channel(config)
     versions = get_versions(config)
     hist_version = versions['hist']
     ifVLL = get_ifVLL(config)
+
+    # Select executable based on mode
+    exe = EXE_VARIABLES if mode == 'variables' else EXE_BDT
 
     # Build input path (nominal - no systematic suffix)
     input_dir = build_stage2_path(config, era)
@@ -171,23 +177,27 @@ def submit_nominal(config: dict, era: str, process_data: bool = False,
         inputDir=input_dir,
         channel=channel,
         version=hist_version,
-        exe=EXE,
+        exe=exe,
         ifSys=1,  # Enable weight systematics for nominal
         justMC=not process_data,
         quiet=quiet,
-        ifVLL=ifVLL
+        ifVLL=ifVLL,
+        mode=mode
     )
 
     return len(mc_files) + len(data_files)
 
 
 def submit_systematic(config: dict, era: str, systematic: str,
-                      dry_run: bool = False, quiet: bool = False):
+                      dry_run: bool = False, quiet: bool = False, mode: str = 'bdt'):
     """Submit WH jobs for a single systematic variation."""
     channel = get_channel(config)
     versions = get_versions(config)
     hist_version = versions['hist']
     ifVLL = get_ifVLL(config)
+
+    # Select executable based on mode
+    exe = EXE_VARIABLES if mode == 'variables' else EXE_BDT
 
     # Build input path with systematic suffix
     # JES variations have special path format
@@ -230,11 +240,12 @@ def submit_systematic(config: dict, era: str, systematic: str,
         inputDir=input_dir_base,
         channel=channel,
         version=hist_version,
-        exe=EXE,
+        exe=exe,
         ifSys=0,  # No weight systematics for energy scale variations
         justMC=True,  # Only MC for systematic variations
         quiet=quiet,
-        ifVLL=ifVLL
+        ifVLL=ifVLL,
+        mode=mode
     )
 
     return file_count
@@ -265,6 +276,7 @@ def main():
         print(f"Channel: {channel}")
         print(f"Hist version: {versions['hist']}")
         print(f"Eras: {', '.join(eras)}")
+        print(f"Output mode: {args.mode} ({'input variables' if args.mode == 'variables' else 'BDT'})")
         if is_nominal_only:
             print(f"Mode: Nominal only (Stage 3)")
             if args.no_data:
@@ -296,11 +308,11 @@ def main():
         skipped = 0
         for systematic in systematics:
             if systematic == 'nominal':
-                jobs = submit_nominal(config, era, not args.no_data, args.dry_run, args.quiet)
+                jobs = submit_nominal(config, era, not args.no_data, args.dry_run, args.quiet, args.mode)
                 era_jobs += jobs
             else:
                 # For systematics, always use quiet=True to suppress per-file output
-                jobs = submit_systematic(config, era, systematic, args.dry_run, quiet=True)
+                jobs = submit_systematic(config, era, systematic, args.dry_run, quiet=True, mode=args.mode)
                 era_jobs += jobs
                 if jobs == 0:
                     skipped += 1
