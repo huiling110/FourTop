@@ -175,6 +175,8 @@ Examples:
                         help='Run VLL (Vector-Like Lepton) analysis instead of tttt analysis')
     parser.add_argument('--channel', type=str, default='1tau1l',
                         help='Analysis channel for VLL (e.g., 1tau1l, 1tau0l, 1tau2l). Only used with --ifVLL')
+    parser.add_argument('--variable', type=str, default='BDT',
+                        help='Variable name for output organization (default: BDT). Non-BDT variables create separate output directories.')
     parser.set_defaults(ifBlind=False, ifVLL=False)  # Default to unblinded for backward compatibility
 
     args = parser.parse_args()
@@ -191,6 +193,7 @@ Examples:
     ifBlind = args.ifBlind
     ifVLL = args.ifVLL
     channel = args.channel
+    variable = args.variable
 
     logger.info("="*80)
     analysis_type = "VLL Search" if ifVLL else "Four-Top Search"
@@ -200,6 +203,8 @@ Examples:
     logger.info(f"Analysis mode: {'BLINDED (expected)' if ifBlind else 'UNBLINDED (observed)'}")
     if ifVLL:
         logger.info(f"VLL analysis channel: {channel}")
+    if variable != 'BDT':
+        logger.info(f"Variable: {variable}")
     logger.info("="*80)
 
 
@@ -256,7 +261,7 @@ Examples:
             logger.info("\n" + "="*80)
             logger.info("STEP 5: Generating post-fit plots")
             logger.info("="*80)
-            runPostFitPlots(working_cardDir, ifVLL, channel)  #!Step 2 of unblinding
+            runPostFitPlots(working_cardDir, ifVLL, channel, variable)  #!Step 2 of unblinding
 
         # Step 6: Signal strength measurement
         if 'signal_strength' in steps:
@@ -419,13 +424,14 @@ def measureSignalStrength(cardDir, ifVLL=False, channel='1tau1l'):
         logger.debug(f"Returned to directory: {original_dir}")
 
 
-def runPostFitPlots(cardDir, ifVLL=False, channel='1tau1l'):
+def runPostFitPlots(cardDir, ifVLL=False, channel='1tau1l', variable='BDT'):
     '''Using CMSSW14_1_0_pre4 to run postfit plots
 
     Args:
         cardDir: Directory containing datacards and workspaces
         ifVLL: If True, use VLL-specific datacard naming
         channel: Analysis channel (e.g., '1tau1l', '1tau0l', '1tau2l')
+        variable: Variable name for output organization (default: BDT)
     '''
     original_dir = os.getcwd()
 
@@ -434,9 +440,16 @@ def runPostFitPlots(cardDir, ifVLL=False, channel='1tau1l'):
     datacardFile = os.path.abspath(datacardFile)
 
     outFolder = cardDir + 'combineResults/'
-    postfitDir = outFolder+ 'postfitPlots/'
+    # Add variable suffix for non-BDT variables to avoid overwriting BDT results
+    var_suffix = '' if variable == 'BDT' else f'_{variable}'
+    postfitDir = outFolder + f'postfitPlots{var_suffix}/'
+
+    # Safety check: non-BDT variables must have suffix in path
+    if variable != 'BDT':
+        assert f'_{variable}' in postfitDir, f"Safety check: non-BDT variable {variable} must have suffix in path"
+
     # Try to create directory in cardDir; if no write permission, use current dir
-    postfitDir = ensure_dir_with_fallback(postfitDir, 'postfitPlots', original_dir)
+    postfitDir = ensure_dir_with_fallback(postfitDir, f'postfitPlots{var_suffix}', original_dir)
     os.chdir(postfitDir)  #!don't need to cd in run_runCombineAll.sh anymore
     logger.info(f"Working directory: {postfitDir}")
 

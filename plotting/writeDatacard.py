@@ -7,13 +7,11 @@ from fourtop.workflow import (
     load_config, build_template_path, get_channel, get_options
 )
 from fourtop.utils import checkMakeDir, getEraFromDir
+from fourtop.utils.process import getSumListFull
 from fourtop.constants.systematics import MCSYS
 from fourtop.stage4.datacards import (
     getSysDic, addLumi, addProcessNormalization, remove0Process, write_shape_datacard
 )
-
-# Legacy imports for complex functions not yet refactored
-import pl as pl  # For getSumList
 
 # Alias for backward compatibility (some external scripts may import MCSys from this file)
 MCSys = MCSYS
@@ -36,6 +34,8 @@ def main():
                         help='Use unsmoothed templates')
     parser.add_argument('--template-version', type=str, default=None,
                         help='Template version suffix (e.g., "v3" for templatesForCombine1tau1l_v3_...)')
+    parser.add_argument('--variable', type=str, default='BDT',
+                        help='Variable for datacard (default: BDT)')
     args = parser.parse_args()
 
     # Load config and build paths
@@ -45,13 +45,20 @@ def main():
 
     # Get template version from CLI or config
     template_version = args.template_version or config.get('versions', {}).get('template_file', 'v3')
+    variable = args.variable
 
     # Build suffix using template version
-    suffix = f"_{template_version}"
+    # Add variable suffix for non-BDT variables
+    var_suffix = '' if variable == 'BDT' else f'_{variable}'
+    suffix = f"_{template_version}{var_suffix}"
     if not options.get('mc_fake_tau', False):
         suffix += '_notMCFTau'
     if not options.get('blind', True):
         suffix += '_unblind'
+
+    # Safety check: non-BDT variables must have suffix in path
+    if variable != 'BDT':
+        assert f'_{variable}' in suffix, f"Safety check: non-BDT variable {variable} must have suffix"
 
     # Determine smoothed setting: command line overrides config
     # Default: 1tau0l/1tau1l use smoothed (smoothing: true), 1tau2l uses non-smoothed (smoothing: false)
@@ -70,6 +77,10 @@ def main():
     ifFTauMC = options.get('mc_fake_tau', False)
     datacard_version = config.get('versions', {}).get('datacard', outVersion)
 
+    # Add variable suffix to datacard version for non-BDT variables
+    if variable != 'BDT':
+        datacard_version = f"{datacard_version}_{variable}"
+
     if not args.quiet:
         print(f"Using config: {args.config}")
         print(f"Era: {args.era}, Channel: {channel}")
@@ -82,7 +93,7 @@ def main():
     outCard = f"{outDir}datacard.txt"  # Use consistent name for combine workflow
     era = getEraFromDir(inputTemplate)
 
-    processes = pl.getSumList(channel, True, False, ifFTauMC, True)
+    processes = getSumListFull(channel, True, '', ifFTauMC, True)
     if channel == '1tau2l':
         processes.remove('leptonSum')
     else:
@@ -90,7 +101,7 @@ def main():
     if not args.quiet:
         print(processes)
 
-    remove0Process(processes, inputTemplate, channel, args.quiet)
+    remove0Process(processes, inputTemplate, channel, args.quiet, variable)
 
     era = getEraFromDir(inputTemplate)
     sysDic = getSysDic(processes, channel, era)
@@ -102,7 +113,7 @@ def main():
     addLumi(sysDic, era, processes)
     addProcessNormalization(sysDic, processes)
 
-    write_shape_datacard(outCard, inputTemplate, channel, processes, sysDic, era)
+    write_shape_datacard(outCard, inputTemplate, channel, processes, sysDic, era, variable)
 
 
 if __name__ == '__main__':

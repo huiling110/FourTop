@@ -147,7 +147,7 @@ cardDic_1tau2l = {
 }
 
 
-def build_card_dic_from_config(config, channel=None, era_hist_overrides=None):
+def build_card_dic_from_config(config, channel=None, era_hist_overrides=None, variable='BDT'):
     """
     Build card dictionary from YAML config file.
 
@@ -156,6 +156,7 @@ def build_card_dic_from_config(config, channel=None, era_hist_overrides=None):
         channel: Channel name (e.g., '1tau0l'). If None, uses config default.
         era_hist_overrides: Dict mapping era -> hist version for mixed templates.
                            E.g., {'2017': 'v0BDT1tau0l_XGB080testNew'}
+        variable: Variable name (default: 'BDT'). Non-BDT variables use separate datacard directories.
 
     Returns:
         Dictionary mapping 'SR{channel}_{era}' to datacard file paths
@@ -165,6 +166,9 @@ def build_card_dic_from_config(config, channel=None, era_hist_overrides=None):
 
     eras = get_eras(config)
     card_dic = {}
+
+    # Variable suffix for non-BDT variables
+    var_suffix = '' if variable == 'BDT' else f'_{variable}'
 
     for era in eras:
         key = f'SR{channel}_{era}'
@@ -178,6 +182,12 @@ def build_card_dic_from_config(config, channel=None, era_hist_overrides=None):
             datacard_dir = build_datacard_path(config_copy, era)
         else:
             datacard_dir = build_datacard_path(config, era)
+
+        # Add variable suffix to datacard directory for non-BDT variables
+        if variable != 'BDT':
+            # Insert variable suffix before the trailing slash
+            # e.g., datacardSys_v6AllSys/ -> datacardSys_v6AllSys_tausT_1pt/
+            datacard_dir = datacard_dir.rstrip('/') + var_suffix + '/'
 
         datacard_file = os.path.join(datacard_dir, 'datacard.txt')
         card_dic[key] = datacard_file
@@ -246,6 +256,13 @@ def main():
         help='Era-specific hist version overrides. Format: "era1=hist1,era2=hist2". '
              'E.g., "2017=v0BDT1tau0l_XGB080testNew,2016preVFP=v0BDT1tau0l_XGB080testNew"'
     )
+    parser.add_argument(
+        '--variable',
+        type=str,
+        default='BDT',
+        help='Variable name for datacard organization (default: BDT). '
+             'Non-BDT variables create separate output directories.'
+    )
     args = parser.parse_args()
 
     # Determine card dictionary and output settings
@@ -264,7 +281,7 @@ def main():
         era_hist_overrides = parse_era_hist_overrides(args.era_hist)
 
         # Build card dictionary from config (with optional era-specific overrides)
-        card_dic = build_card_dic_from_config(config, channel, era_hist_overrides)
+        card_dic = build_card_dic_from_config(config, channel, era_hist_overrides, args.variable)
 
         if era_hist_overrides and not args.quiet:
             print(f"Using era-specific hist overrides: {era_hist_overrides}")
@@ -280,15 +297,24 @@ def main():
             combinationVersion = args.version
 
         # Auto-generate output directory name if not provided
+        variable = args.variable
+        var_suffix = '' if variable == 'BDT' else f'_{variable}'
+
+        # Safety check: non-BDT variables must have suffix in path
+        if variable != 'BDT':
+            assert var_suffix, f"Safety check: non-BDT variable {variable} must have suffix"
+
         if args.output_dir:
             cardDir = args.output_dir
         else:
             blind_suffix = '' if config.get('options', {}).get('ifBlind', True) else '_unblind'
-            cardDir = f'run2_{channel}_v4{blind_suffix}'
+            cardDir = f'run2_{channel}_v4{var_suffix}{blind_suffix}'
 
         if not args.quiet:
             print(f"Using config-based paths from: {args.config}")
             print(f"Channel: {channel}, Version: {combinationVersion}")
+            if variable != 'BDT':
+                print(f"Variable: {variable}")
     else:
         # Legacy mode: use hardcoded dictionaries
         # combinationVersion = 'V11'

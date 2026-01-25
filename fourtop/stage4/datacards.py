@@ -296,7 +296,8 @@ def remove0Process(
     processes: List[str],
     inputTemplate: str,
     channel: str,
-    quiet: bool = False
+    quiet: bool = False,
+    variable: str = 'BDT'
 ) -> None:
     """
     Remove processes with zero integral from the process list.
@@ -306,12 +307,13 @@ def remove0Process(
         inputTemplate: Path to template ROOT file
         channel: Channel name
         quiet: If True, suppress output
+        variable: Variable name (default: BDT)
     """
     rootFile = ROOT.TFile(inputTemplate, "READ")
     to_remove = []
 
     for ipro in processes:
-        histName = f"{ipro}_{channel}SR_BDT"
+        histName = f"{ipro}_{channel}SR_{variable}"
         hist = rootFile.Get(histName)
         if hist is None:
             if not quiet:
@@ -333,7 +335,8 @@ def write_shape_datacard(
     channel_name: str,
     processes: List[str],
     systematics: Dict,
-    era: str = '2018'
+    era: str = '2018',
+    variable: str = 'BDT'
 ) -> None:
     """
     Write a shape datacard for CMS Combine.
@@ -346,6 +349,7 @@ def write_shape_datacard(
         systematics: Dictionary of systematic uncertainties structured as:
             { "uncertainty_name": [type, { "process_name": value }] }
         era: Era string for bin naming
+        variable: Variable name for histogram lookup (default: BDT)
     """
     num_processes = len(processes)
     signal_index = processes.index('tttt')
@@ -364,7 +368,7 @@ def write_shape_datacard(
         f"jmax {num_processes - 1}  number of background processes",
         "kmax *  number of nuisance parameters (sources of systematic uncertainties)",
         "---------------",
-        f"shapes * {channelNameName} {root_file} $PROCESS_{channel_name}SR_BDT $PROCESS_{channel_name}SR_$SYSTEMATIC_BDT",
+        f"shapes * {channelNameName} {root_file} $PROCESS_{channel_name}SR_{variable} $PROCESS_{channel_name}SR_$SYSTEMATIC_{variable}",
         "---------------",
         f"bin         {channelNameName}",
         "observation -1",
@@ -415,7 +419,7 @@ class DatacardWriter:
         writer.write(template_path, output_dir)
     """
 
-    def __init__(self, config: dict, era: str, quiet: bool = False):
+    def __init__(self, config: dict, era: str, quiet: bool = False, variable: str = 'BDT'):
         """
         Initialize datacard writer.
 
@@ -423,10 +427,12 @@ class DatacardWriter:
             config: Analysis configuration dictionary
             era: Era string (2018, 2017, etc.)
             quiet: If True, suppress output
+            variable: Variable name for histogram lookup (default: BDT)
         """
         self.config = config
         self.era = era
         self.quiet = quiet
+        self.variable = variable
 
         self.channel = None
         self.processes = None
@@ -461,7 +467,7 @@ class DatacardWriter:
             print(f"Processes: {self.processes}")
 
         # Remove zero-integral processes
-        remove0Process(self.processes, template_path, self.channel, self.quiet)
+        remove0Process(self.processes, template_path, self.channel, self.quiet, self.variable)
 
         # Build systematic dictionary
         sysDic = getSysDic(self.processes, self.channel, self.era)
@@ -471,6 +477,6 @@ class DatacardWriter:
         # Write datacard
         checkMakeDir(output_dir)
         outCard = f"{output_dir}/datacard.txt"
-        write_shape_datacard(outCard, template_path, self.channel, self.processes, sysDic, self.era)
+        write_shape_datacard(outCard, template_path, self.channel, self.processes, sysDic, self.era, self.variable)
 
         return outCard

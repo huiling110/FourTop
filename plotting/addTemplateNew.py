@@ -22,6 +22,8 @@ def main():
     parser.add_argument('--era', '-e', type=str, required=True,
                         choices=['2018', '2017', '2016preVFP', '2016postVFP'],
                         help='Era to process (required)')
+    parser.add_argument('--variables', '-v', type=str, default='BDT',
+                        help='Comma-separated list of variables (default: BDT)')
     args = parser.parse_args()
 
     # Load config and build paths
@@ -29,7 +31,7 @@ def main():
     channel = get_channel(config)
     options = get_options(config)
     inputDir = build_hist_path(config, args.era)
-    variables = ['BDT']
+    variables = [v.strip() for v in args.variables.split(',')]
     regionList = get_regions(config)
     ifFakeTau = options.get('fake_tau', True)
     ifMCFTau = options.get('mc_fake_tau', False)
@@ -106,16 +108,25 @@ def main():
     checkMakeDir(outDir)
     # Get template version from config (default: v3)
     template_version = config.get('versions', {}).get('template_file', 'v3')
-    name = f'templatesForCombine{channel}_{template_version}'
-    if not ifMCFTau:
-        name += '_notMCFTau'
-    if not ifBlind:
-        name += '_unblind'
-    templateFile = outDir + name + '.root'
-    outFile = ROOT.TFile(templateFile, 'RECREATE')
-    
-    #for all hists in sumProcessPerVar and sumProcessPerVarSys, save them to the outFile
+
+    # Create separate template file for each variable
     for ivar in variables:
+        # Build template filename with variable suffix for non-BDT variables
+        var_suffix = '' if ivar == 'BDT' else f'_{ivar}'
+        name = f'templatesForCombine{channel}_{template_version}{var_suffix}'
+        if not ifMCFTau:
+            name += '_notMCFTau'
+        if not ifBlind:
+            name += '_unblind'
+        templateFile = outDir + name + '.root'
+
+        # Safety check: non-BDT variables must have suffix in path
+        if ivar != 'BDT':
+            assert f'_{ivar}' in templateFile, f"Safety check: non-BDT variable {ivar} must have suffix in path"
+
+        outFile = ROOT.TFile(templateFile, 'RECREATE')
+
+        # Write histograms for this variable
         for region in regionList:
             for sumPro in sumProList:
                 if sumPro in sumProcessPerVar[ivar][region]:
@@ -136,9 +147,9 @@ def main():
                             hist.SetName(hist.GetName().replace(sysName, sysNameNew))
 
                         hist.Write(hist.GetName())
-    outFile.Write()
-    outFile.Close()
-    print('template file created:', templateFile)
+        outFile.Write()
+        outFile.Close()
+        print('template file created:', templateFile)
 
 
 # Note: addDataHist and resetNegativeBins are now imported from fourtop.stage4.templates

@@ -66,13 +66,13 @@ def parse_args():
 
     # Per-channel regions
     parser.add_argument('--regions-1tau0l', nargs='+',
-                        default=['1tau0lSR', '1tau0lMR', '1tau0lVR'],
+                        default=['1tau0lSR', '1tau0lCRMR', '1tau0lVR'],
                         help='Regions for 1tau0l channel')
     parser.add_argument('--regions-1tau1l', nargs='+',
-                        default=['1tau1lSR', '1tau1lCR1'],
+                        default=['1tau1lSR', '1tau1lCR12'],
                         help='Regions for 1tau1l channel')
     parser.add_argument('--regions-1tau2l', nargs='+',
-                        default=['1tau2lCR3', '1tau2lCR4'],
+                        default=['1tau2lCR3'],
                         help='Regions for 1tau2l channel (control regions only)')
 
     # Options
