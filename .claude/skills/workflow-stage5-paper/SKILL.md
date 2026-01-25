@@ -196,3 +196,156 @@ head -20 path/to/datacard.txt
 cd hua/combine && cmsenv
 ValidateDatacards.py datacard.txt
 ```
+
+---
+
+## Getting Prefit Shapes from Combine
+
+### Quick Command
+
+```bash
+cd hua/combine && cmsenv
+cd /path/to/datacardSys_v1_xgb080_test_{variable}/
+
+# Create workspace
+text2workspace.py datacard.txt -o workspace_{variable}.root
+
+# Get prefit shapes (with --skipBOnlyFit for speed)
+combine -M FitDiagnostics workspace_{variable}.root \
+    --saveShapes \
+    --saveWithUncertainties \
+    --skipBOnlyFit \
+    -n _{variable}_prefit
+```
+
+### Output Structure
+
+`fitDiagnostics_{variable}_prefit.root`:
+```
+shapes_prefit/
+├── {channel}_{era}/
+│   ├── data (TGraphAsymmErrors)
+│   ├── {process} (TH1F) - per-process histograms
+│   ├── total (TH1F)
+│   ├── total_signal (TH1F)
+│   ├── total_background (TH1F)
+│   └── total_covar (TH2F) - covariance matrix
+shapes_fit_s/ (similar structure, S+B fit)
+```
+
+### Key Options
+
+| Option | Purpose |
+|--------|---------|
+| `--saveShapes` | Save prefit and postfit shapes |
+| `--saveWithUncertainties` | Include stat+sys uncertainties |
+| `--skipBOnlyFit` | Skip background-only fit (faster) |
+| `-t -1` | Use Asimov dataset (blinded) |
+
+### Extract Prefit Histograms
+
+```python
+import ROOT
+
+f = ROOT.TFile("fitDiagnostics_{variable}_prefit.root", "READ")
+shapes = f.Get("shapes_prefit/SR1tau0l_2018")
+
+# Get stacked background
+total_bkg = shapes.Get("total_background")
+
+# Get individual processes
+ttbb = shapes.Get("ttbb")
+tttt = shapes.Get("tttt")
+
+# Data points
+data = shapes.Get("data")  # TGraphAsymmErrors
+
+# Covariance matrix for uncertainty band
+covar = shapes.Get("total_covar")
+```
+
+**Note**: NumPy version warnings in CMSSW env can be ignored - combine runs successfully.
+
+---
+
+## Plotting Prefit Input Variables
+
+After FitDiagnostics creates `shapes_prefit`, use `plot_prefit_inputvar.py` to create publication-quality plots.
+
+### Basic Usage
+
+```bash
+source setEnv_newNew.sh
+cd plotting/plotting_paper/
+
+# Single channel
+python plot_prefit_inputvar.py fitDiagnostics.root \
+    --variable tausT_1pt \
+    --channels SR1tau0l \
+    --output-dir ./plots
+
+# Run2 combination
+python plot_prefit_inputvar.py fitDiagnostics_run2.root \
+    --variable tausT_1pt \
+    --channels SR1tau0l SR1tau1l SR1tau2l \
+    --output-dir ./plots
+```
+
+### Key Features
+
+- **Linear y-axis** (appropriate for input variables, unlike log-scale BDT plots)
+- **No event counts in legend** (cleaner for publication)
+- **Same CMS styling** as `plot_postfit_histograms.py` (fonts, colors, stacking order)
+- **Auto-positioning legend** based on histogram shape
+- **Data/MC ratio panel** with uncertainty band
+
+### Output Files
+
+```
+prefit_inputvar_{channel}_{variable}.pdf
+prefit_inputvar_{channel}_{variable}.png
+```
+
+### Example: Full Run2 Prefit Workflow
+
+```bash
+# 1. Combine datacards (use combineCards.py)
+cd hua/combine/combinationV{XX}/run2_1tau0l_{variable}/
+cmsenv
+combineCards.py \
+    SR1tau0l_2018="$BASE/2018/.../datacardSys_v1_{variable}/datacard.txt" \
+    SR1tau0l_2017="$BASE/2017/.../datacardSys_v1_{variable}/datacard.txt" \
+    SR1tau0l_2016preVFP="$BASE/2016preVFP/.../datacardSys_v1_{variable}/datacard.txt" \
+    SR1tau0l_2016postVFP="$BASE/2016postVFP/.../datacardSys_v1_{variable}/datacard.txt" \
+    > datacard.txt
+
+# 2. Create workspace and run FitDiagnostics
+text2workspace.py datacard.txt -o workspace.root
+combine -M FitDiagnostics workspace.root \
+    --saveShapes --saveWithUncertainties --skipBOnlyFit \
+    -n _run2_{variable}_prefit
+
+# 3. Create plots
+source setEnv_newNew.sh
+cd plotting/plotting_paper/
+python plot_prefit_inputvar.py \
+    ../../hua/combine/combinationV{XX}/run2_1tau0l_{variable}/fitDiagnostics_run2_{variable}_prefit.root \
+    --variable {variable} \
+    --channels SR1tau0l \
+    --output-dir ./plots
+```
+
+### Available Variable Labels
+
+| Variable | X-axis Label |
+|----------|--------------|
+| `tausT_1pt` | τh pT [GeV] |
+| `jets_HT` | HT [GeV] |
+| `MET_pt` | pTmiss [GeV] |
+| `bjetsM_num` | Number of b-jets |
+| `jets_num` | Number of jets |
+| `tausT_1eta` | τh η |
+| `tausT_1decayMode` | τh decay mode |
+| `lepsT_1pt` | Lepton pT [GeV] |
+
+For additional variables, add to `VARIABLE_LABELS` dict in the script.
