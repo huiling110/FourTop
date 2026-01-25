@@ -26,13 +26,18 @@ def main():
                         help='Comma-separated list of variables (default: BDT)')
     parser.add_argument('--input-dir', type=str, default=None,
                         help='Override input directory (default: use config)')
+    parser.add_argument('--output-dir', type=str, default=None,
+                        help='Override output directory (default: {input-dir}/combine/)')
+    parser.add_argument('--mode', '-m', type=str, default='bdt',
+                        choices=['bdt', 'variables'],
+                        help='Mode: bdt (default, variableHists_*) or variables (inputVarHists_*)')
     args = parser.parse_args()
 
     # Load config and build paths
     config = load_config(args.config)
     channel = get_channel(config)
     options = get_options(config)
-    inputDir = args.input_dir if args.input_dir else build_hist_path(config, args.era)
+    inputDir = args.input_dir if args.input_dir else build_hist_path(config, args.era, mode=args.mode)
     variables = [v.strip() for v in args.variables.split(',')]
     regionList = get_regions(config)
     ifFakeTau = options.get('fake_tau', True)
@@ -41,7 +46,7 @@ def main():
 
     if not args.quiet:
         print(f"Using config: {args.config}")
-        print(f"Era: {args.era}, Channel: {channel}")
+        print(f"Era: {args.era}, Channel: {channel}, Mode: {args.mode}")
         print(f"Regions: {regionList}")
         print(f"Input dir: {inputDir}")
 
@@ -106,7 +111,9 @@ def main():
 
     addDataHist(variables, regionList, sumProList, sumProcessPerVar, is1tau2l, ifBlind, args.quiet)
 
-    outDir = inputDir+'combine/'
+    outDir = args.output_dir if args.output_dir else inputDir+'combine/'
+    if not outDir.endswith('/'):
+        outDir += '/'
     checkMakeDir(outDir)
     # Get template version from config (default: v3)
     template_version = config.get('versions', {}).get('template_file', 'v3')

@@ -166,46 +166,54 @@ def build_stage2_output_jes(config: Dict[str, Any], era: str, jes_direction: str
     return path + '/'
 
 
-def build_hist_path(config: Dict[str, Any], era: str) -> str:
+def build_hist_path(config: Dict[str, Any], era: str, mode: str = 'bdt') -> str:
     """
     Build path to histogram directory for a given era.
 
-    Pattern: {stage2_path}/variableHists_{hist_version}/
+    Pattern: {stage2_path}/{prefix}_{hist_version}/
+    - mode='bdt': prefix='variableHists' (BDT discriminant histograms)
+    - mode='variables': prefix='inputVarHists' (input variable histograms)
 
     Args:
         config: Configuration dictionary from load_config().
         era: Era string (2018, 2017, 2016preVFP, 2016postVFP).
+        mode: 'bdt' (default) or 'variables'.
 
     Returns:
         Full path to histogram directory (with trailing /).
     """
     stage2_path = build_stage2_path(config, era).rstrip('/')
     hist_version = config['versions']['hist']
-    return os.path.join(stage2_path, f"variableHists_{hist_version}") + '/'
+    prefix = 'inputVarHists' if mode == 'variables' else 'variableHists'
+    return os.path.join(stage2_path, f"{prefix}_{hist_version}") + '/'
 
 
 def build_hist_path_jes(config: Dict[str, Any], era: str, jes_direction: str,
-                        jes_source: str) -> str:
+                        jes_source: str, mode: str = 'bdt') -> str:
     """
     Build path to histogram directory for JES systematic variations.
 
-    Pattern: {stage2_jes_path}/variableHists_{hist_version}/
+    Pattern: {stage2_jes_path}/{prefix}_{hist_version}/
+    - mode='bdt': prefix='variableHists' (BDT discriminant histograms)
+    - mode='variables': prefix='inputVarHists' (input variable histograms)
 
     Args:
         config: Configuration dictionary from load_config().
         era: Era string (2018, 2017, 2016preVFP, 2016postVFP).
         jes_direction: 'up' or 'Down' (case matters for path matching).
         jes_source: JES source name (e.g., 'AbsoluteMPFBias_AK4PFchs').
+        mode: 'bdt' (default) or 'variables'.
 
     Returns:
         Full path to JES histogram directory (with trailing /).
     """
     stage2_jes_path = build_stage2_output_jes(config, era, jes_direction, jes_source).rstrip('/')
     hist_version = config['versions']['hist']
-    return os.path.join(stage2_jes_path, f"variableHists_{hist_version}") + '/'
+    prefix = 'inputVarHists' if mode == 'variables' else 'variableHists'
+    return os.path.join(stage2_jes_path, f"{prefix}_{hist_version}") + '/'
 
 
-def build_combine_path(config: Dict[str, Any], era: str) -> str:
+def build_combine_path(config: Dict[str, Any], era: str, mode: str = 'bdt') -> str:
     """
     Build path to combine directory for a given era.
 
@@ -214,11 +222,12 @@ def build_combine_path(config: Dict[str, Any], era: str) -> str:
     Args:
         config: Configuration dictionary from load_config().
         era: Era string.
+        mode: 'bdt' (default, variableHists_*) or 'variables' (inputVarHists_*).
 
     Returns:
         Full path to combine directory (with trailing /).
     """
-    hist_path = build_hist_path(config, era).rstrip('/')
+    hist_path = build_hist_path(config, era, mode=mode).rstrip('/')
     return os.path.join(hist_path, 'combine') + '/'
 
 
@@ -227,7 +236,8 @@ def build_template_path(
     era: str,
     channel: Optional[str] = None,
     suffix: Optional[str] = None,
-    smoothed: bool = False
+    smoothed: bool = False,
+    mode: str = 'bdt'
 ) -> str:
     """
     Build path to template ROOT file for combine.
@@ -240,11 +250,12 @@ def build_template_path(
         channel: Channel name. If None, uses config channel.
         suffix: Optional suffix. If None, builds from config options.
         smoothed: If True, append '_smoothed' before .root.
+        mode: 'bdt' (default, variableHists_*) or 'variables' (inputVarHists_*).
 
     Returns:
         Full path to template ROOT file.
     """
-    combine_path = build_combine_path(config, era)
+    combine_path = build_combine_path(config, era, mode=mode)
     if channel is None:
         channel = get_channel(config)
     if suffix is None:
@@ -256,7 +267,7 @@ def build_template_path(
     return os.path.join(combine_path, filename)
 
 
-def build_datacard_path(config: Dict[str, Any], era: str) -> str:
+def build_datacard_path(config: Dict[str, Any], era: str, mode: str = 'bdt') -> str:
     """
     Build path to datacard output directory.
 
@@ -265,11 +276,12 @@ def build_datacard_path(config: Dict[str, Any], era: str) -> str:
     Args:
         config: Configuration dictionary from load_config().
         era: Era string.
+        mode: 'bdt' (default, variableHists_*) or 'variables' (inputVarHists_*).
 
     Returns:
         Full path to datacard directory (with trailing /).
     """
-    combine_path = build_combine_path(config, era).rstrip('/')
+    combine_path = build_combine_path(config, era, mode=mode).rstrip('/')
     datacard_version = config['versions'].get('datacard', 'v1')
     return os.path.join(combine_path, f"datacardSys_{datacard_version}") + '/'
 

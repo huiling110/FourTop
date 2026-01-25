@@ -36,6 +36,9 @@ def main():
                         help='Template version suffix (e.g., "v3" for templatesForCombine1tau1l_v3_...)')
     parser.add_argument('--variable', type=str, default='BDT',
                         help='Variable for datacard (default: BDT)')
+    parser.add_argument('--mode', '-m', type=str, default='bdt',
+                        choices=['bdt', 'variables'],
+                        help='Mode: bdt (default, variableHists_*) or variables (inputVarHists_*)')
     args = parser.parse_args()
 
     # Load config and build paths
@@ -70,10 +73,10 @@ def main():
     # Build template path
     if use_smoothed:
         # For smoothed templates, use _smoothed_v2 suffix (smoothing script output)
-        inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=False)
+        inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=False, mode=args.mode)
         inputTemplate = inputTemplate.replace('.root', '_smoothed_v2.root')
     else:
-        inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=False)
+        inputTemplate = build_template_path(config, args.era, channel, suffix, smoothed=False, mode=args.mode)
     ifFTauMC = options.get('mc_fake_tau', False)
     datacard_version = config.get('versions', {}).get('datacard', outVersion)
 
@@ -83,7 +86,7 @@ def main():
 
     if not args.quiet:
         print(f"Using config: {args.config}")
-        print(f"Era: {args.era}, Channel: {channel}")
+        print(f"Era: {args.era}, Channel: {channel}, Mode: {args.mode}")
         print(f"Template: {inputTemplate}")
 
     # Historical paths preserved in: config/historical_paths_backup.txt

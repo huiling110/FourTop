@@ -4,6 +4,7 @@ import os
 import shutil
 import zipfile
 from pathlib import Path
+from functools import partial
 
 # Use fourtop package for centralized utilities
 from fourtop.workflow import load_config, build_hist_path, build_hist_path_jes, get_channel, get_regions
@@ -17,6 +18,7 @@ WORKFLOW_UTILS_AVAILABLE = True
 
 # Global config for use in addJESToFile when using workflow_utils
 _CONFIG = None
+_MODE = 'bdt'  # Global mode for use in find_systematic_directories
 
 # Global quiet flag for controlling verbose output
 QUIET = False
@@ -57,8 +59,8 @@ def find_systematic_directories(nominal_dir):
     # Use workflow_utils for path building if config is available (same as addJESToFile)
     if _CONFIG is not None and WORKFLOW_UTILS_AVAILABLE:
         for jes_source in JESVariationList:
-            jes_up_dir = build_hist_path_jes(_CONFIG, era, 'up', jes_source)
-            jes_down_dir = build_hist_path_jes(_CONFIG, era, 'Down', jes_source)
+            jes_up_dir = build_hist_path_jes(_CONFIG, era, 'up', jes_source, mode=_MODE)
+            jes_down_dir = build_hist_path_jes(_CONFIG, era, 'Down', jes_source, mode=_MODE)
 
             if os.path.exists(jes_up_dir):
                 sys_hist_dirs.append(jes_up_dir)
@@ -345,6 +347,11 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
                         help='Era to process (required)')
     parser.add_argument('--quiet', '-q', action='store_true',
                         help='Suppress non-essential output')
+    parser.add_argument('--mode', '-m', type=str, default='bdt',
+                        choices=['bdt', 'variables'],
+                        help='Mode: bdt (default) or variables (input variable histograms)')
+    parser.add_argument('--variables', '-v', type=str, default=None,
+                        help='Comma-separated list of variables (default: BDT for bdt mode, all for variables mode)')
 
     args = parser.parse_args()
     global QUIET
@@ -355,10 +362,11 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
         parser.error("workflow_utils not available. Install pyyaml: pip install pyyaml")
 
     # Load config and build paths
-    global _CONFIG
+    global _CONFIG, _MODE
     config = load_config(args.config)
     _CONFIG = config  # Store config globally for use in addJESToFile
-    nominalDir = build_hist_path(config, args.era)
+    _MODE = args.mode  # Store mode globally for find_systematic_directories
+    nominalDir = build_hist_path(config, args.era, mode=args.mode)
     channel = get_channel(config)
     regionList = get_regions(config)
 
@@ -367,10 +375,22 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
         print(f"Era: {args.era}")
         print(f"Channel: {channel}")
         print(f"Regions: {regionList}")
+        print(f"Mode: {args.mode}")
         print(f"Nominal dir: {nominalDir}")
 
-    # Historical paths preserved in: config/historical_paths_backup.txt
-    variables = ['BDT']
+    # Set variables based on mode and --variables argument
+    if args.variables:
+        # User specified variables
+        variables = [v.strip() for v in args.variables.split(',')]
+    elif args.mode == 'bdt':
+        variables = ['BDT']
+    else:
+        # For variables mode, we need to get variables from the histogram file
+        # Default to a common subset for testing
+        variables = ['tausT_1pt']  # Default for variables mode if not specified
+        if not args.quiet:
+            print(f"Variables mode: using default variable {variables}")
+            print("Specify --variables to process specific variables")
 
     # Determine MC fake tau flag based on channel
     ifMCFTau = channel in ['1tau1l', '1tau2l']
@@ -388,15 +408,18 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
     }
     consolidation_errors = []
 
+    # Create mode-aware build_hist_path_jes wrapper
+    build_hist_path_jes_with_mode = partial(build_hist_path_jes, mode=args.mode)
+
     # Consolidate systematics with error handling
     try:
         addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables,
-                     config=config, build_hist_path_jes_func=build_hist_path_jes, quiet=args.quiet)
+                     config=config, build_hist_path_jes_func=build_hist_path_jes_with_mode, quiet=args.quiet)
         if ifMCFTau:
             addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_MCFT',
-                         config=config, build_hist_path_jes_func=build_hist_path_jes, quiet=args.quiet)
+                         config=config, build_hist_path_jes_func=build_hist_path_jes_with_mode, quiet=args.quiet)
             addJESToFile(allSubProcesses, channel, regionList, era, nominalDir, variables, '_NotMCFT',
-                         config=config, build_hist_path_jes_func=build_hist_path_jes, quiet=args.quiet)
+                         config=config, build_hist_path_jes_func=build_hist_path_jes_with_mode, quiet=args.quiet)
         consolidation_success['JES'] = True
         if not args.quiet:
             print("✓ JES consolidation successful")
@@ -416,7 +439,7 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
             print(f"✗ JER consolidation failed: {e}")
 
     try:
-        addMETToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau, quiet=args.quiet)
+        addMETToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau, quiet=args.quiet)
         consolidation_success['MET'] = True
         if not args.quiet:
             print("✓ MET consolidation successful")
@@ -426,7 +449,7 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
             print(f"✗ MET consolidation failed: {e}")
 
     try:
-        addEESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau, quiet=args.quiet)
+        addEESToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau, quiet=args.quiet)
         consolidation_success['EES'] = True
         if not args.quiet:
             print("✓ EES consolidation successful")
@@ -436,7 +459,7 @@ Cleanup actions (enabled by default, requires --execute to actually delete):
             print(f"✗ EES consolidation failed: {e}")
 
     try:
-        addTESToFile(allSubProcesses, regionList, era, nominalDir, ifMCFTau, quiet=args.quiet)
+        addTESToFile(allSubProcesses, regionList, era, nominalDir, variables, ifMCFTau, quiet=args.quiet)
         consolidation_success['TES'] = True
         if not args.quiet:
             print("✓ TES consolidation successful")

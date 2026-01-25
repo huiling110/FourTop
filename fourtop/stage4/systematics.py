@@ -144,6 +144,7 @@ def addTESToFile(
     regionList: List[str],
     era: str,
     nominalDir: str,
+    variables: List[str] = None,
     ifMCFTau: bool = False,
     quiet: bool = False
 ) -> None:
@@ -155,9 +156,13 @@ def addTESToFile(
         regionList: List of region names
         era: Era string
         nominalDir: Path to nominal histogram directory
+        variables: List of variables (default: ['BDT'])
         ifMCFTau: If True, also process MCFT variants
         quiet: If True, suppress output
     """
+    if variables is None:
+        variables = ['BDT']
+
     # Map 2016 VFP eras to unified "2016" for tau TES correlation
     mapped_era = "2016" if era in ["2016preVFP", "2016postVFP"] else era
 
@@ -166,13 +171,14 @@ def addTESToFile(
         iTESDownDir = nominalDir.replace('/mc/', f'_TESdm{dm}Down/mc/')
         TESName = f'CMS_scale_t_DeepTau2017v2p1_DM{dm}_genTau'
 
-        addUpDownToFile(allSubProcesses, regionList, mapped_era, nominalDir,
-                        iTESUpDir, iTESDownDir, TESName, quiet=quiet)
-        if ifMCFTau:
+        for ivariable in variables:
             addUpDownToFile(allSubProcesses, regionList, mapped_era, nominalDir,
-                            iTESUpDir, iTESDownDir, TESName, 'BDT', '_MCFT', quiet)
-            addUpDownToFile(allSubProcesses, regionList, mapped_era, nominalDir,
-                            iTESUpDir, iTESDownDir, TESName, 'BDT', '_NotMCFT', quiet)
+                            iTESUpDir, iTESDownDir, TESName, ivariable, quiet=quiet)
+            if ifMCFTau:
+                addUpDownToFile(allSubProcesses, regionList, mapped_era, nominalDir,
+                                iTESUpDir, iTESDownDir, TESName, ivariable, '_MCFT', quiet)
+                addUpDownToFile(allSubProcesses, regionList, mapped_era, nominalDir,
+                                iTESUpDir, iTESDownDir, TESName, ivariable, '_NotMCFT', quiet)
 
 
 def addJERToFile(
@@ -218,6 +224,7 @@ def addMETToFile(
     regionList: List[str],
     era: str,
     nominalDir: str,
+    variables: List[str] = None,
     ifMCFTau: bool = False,
     quiet: bool = False
 ) -> None:
@@ -229,20 +236,25 @@ def addMETToFile(
         regionList: List of region names
         era: Era string
         nominalDir: Path to nominal histogram directory
+        variables: List of variables (default: ['BDT'])
         ifMCFTau: If True, also process MCFT variants
         quiet: If True, suppress output
     """
+    if variables is None:
+        variables = ['BDT']
+
     METUpDir = nominalDir.replace('/mc/', '_METUp/mc/')
     METDownDir = nominalDir.replace('/mc/', '_METDown/mc/')
     name = 'CMS_scale_met_unclustered_energy'
 
-    addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
-                    METUpDir, METDownDir, name, quiet=quiet)
-    if ifMCFTau:
+    for ivariable in variables:
         addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
-                        METUpDir, METDownDir, name, 'BDT', '_MCFT', quiet)
-        addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
-                        METUpDir, METDownDir, name, 'BDT', '_NotMCFT', quiet)
+                        METUpDir, METDownDir, name, ivariable, quiet=quiet)
+        if ifMCFTau:
+            addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
+                            METUpDir, METDownDir, name, ivariable, '_MCFT', quiet)
+            addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
+                            METUpDir, METDownDir, name, ivariable, '_NotMCFT', quiet)
 
 
 def addEESToFile(
@@ -250,6 +262,7 @@ def addEESToFile(
     regionList: List[str],
     era: str,
     nominalDir: str,
+    variables: List[str] = None,
     ifMCFTau: bool = False,
     quiet: bool = False
 ) -> None:
@@ -261,20 +274,25 @@ def addEESToFile(
         regionList: List of region names
         era: Era string
         nominalDir: Path to nominal histogram directory
+        variables: List of variables (default: ['BDT'])
         ifMCFTau: If True, also process MCFT variants
         quiet: If True, suppress output
     """
+    if variables is None:
+        variables = ['BDT']
+
     EESUpDir = nominalDir.replace('/mc/', '_EleScaleUp/mc/')
     EESDownDir = nominalDir.replace('/mc/', '_EleScaleDown/mc/')
     name = 'CMS_scale_e'
 
-    addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
-                    EESUpDir, EESDownDir, name, quiet=quiet)
-    if ifMCFTau:
+    for ivariable in variables:
         addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
-                        EESUpDir, EESDownDir, name, 'BDT', '_MCFT', quiet)
-        addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
-                        EESUpDir, EESDownDir, name, 'BDT', '_NotMCFT', quiet)
+                        EESUpDir, EESDownDir, name, ivariable, quiet=quiet)
+        if ifMCFTau:
+            addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
+                            EESUpDir, EESDownDir, name, ivariable, '_MCFT', quiet)
+            addUpDownToFile(allSubProcesses, regionList, era, nominalDir,
+                            EESUpDir, EESDownDir, name, ivariable, '_NotMCFT', quiet)
 
 
 def getJESHistForDir(
