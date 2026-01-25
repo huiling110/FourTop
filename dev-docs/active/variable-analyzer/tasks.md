@@ -56,10 +56,35 @@
 - TES: `.../v1baselineHadro_v95XGB080testOS7_TESdm{0,1,10,11}{Up,Down}/mc/inputVarHists_*/`
 - JER/MET/EleScale: `.../v1baselineHadro_v95XGB080testOS7_{JER,MET,EleScale}{Up,Down}/mc/inputVarHists_*/`
 
+## Stage 4 Integration (2026-01-25)
+
+### Scripts Updated for `--mode variables`
+| Script | Status | Notes |
+|--------|--------|-------|
+| fourtop/workflow/paths.py | Completed | Added mode param to build_hist_path, build_combine_path, build_template_path, build_datacard_path |
+| fourtop/stage4/systematics.py | Completed | Added variables param to addTESToFile, addMETToFile, addEESToFile |
+| plotting/addJESTemplatesToHistFile.py | Completed | Added --mode and --variables arguments |
+| plotting/addTemplateNew.py | Completed | Added --mode argument |
+| plotting/writeDatacard.py | Completed | Added --mode argument |
+
+### Tested Workflow (2018 tausT_1pt)
+1. **addJES**: JES failed (no JES variations), JER/TES/MET/EES all successful ✅
+2. **addTemplate**: Created template with 1848 histograms (30 nominal, 1818 systematic) ✅
+3. **writeDatacard**: Created datacard with all systematics ✅
+
+### Output Files
+- Template: `inputVarHists_*/combine/templatesForCombine1tau0l_v3_tausT_1pt_notMCFTau_unblind.root`
+- Datacard: `inputVarHists_*/combine/datacardSys_v1_xgb080_test_tausT_1pt/datacard.txt`
+
+### Stage 5 Skill Created
+- `.claude/skills/workflow-stage5-paper/SKILL.md` - Documents input variable prefit workflow
+
 ## Next Steps
 
 1. Re-submit stuck tttt nominal job if needed
-2. Move this task to `dev-docs/finished/` when complete
+2. Submit variableAnalyzer for other eras (2017, 2016preVFP, 2016postVFP)
+3. Submit variableAnalyzer for other channels (1tau1l, 1tau2l)
+4. Move this task to `dev-docs/finished/` when complete
 
 ## Files Created/Modified
 
