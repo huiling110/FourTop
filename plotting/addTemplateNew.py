@@ -24,13 +24,15 @@ def main():
                         help='Era to process (required)')
     parser.add_argument('--variables', '-v', type=str, default='BDT',
                         help='Comma-separated list of variables (default: BDT)')
+    parser.add_argument('--input-dir', type=str, default=None,
+                        help='Override input directory (default: use config)')
     args = parser.parse_args()
 
     # Load config and build paths
     config = load_config(args.config)
     channel = get_channel(config)
     options = get_options(config)
-    inputDir = build_hist_path(config, args.era)
+    inputDir = args.input_dir if args.input_dir else build_hist_path(config, args.era)
     variables = [v.strip() for v in args.variables.split(',')]
     regionList = get_regions(config)
     ifFakeTau = options.get('fake_tau', True)
