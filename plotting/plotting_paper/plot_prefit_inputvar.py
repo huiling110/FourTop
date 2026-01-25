@@ -75,7 +75,7 @@ CHANNEL_LABELS = {
 # X-axis labels for input variables
 VARIABLE_LABELS = {
     'tausT_1pt': r'$\tau_{\mathrm{h}}$ $p_{\mathrm{T}}$ [GeV]',
-    'tausF_1jetPt': r'Fake $\tau_{\mathrm{h}}$ candidate jet $p_{\mathrm{T}}$ [GeV]',
+    'tausF_1jetPt': r'$\tau_{\mathrm{h}}$ jet $p_{\mathrm{T}}$ [GeV]',
     'jets_HT': r'$H_{\mathrm{T}}$ [GeV]',
     'MET_pt': r'$p_{\mathrm{T}}^{\mathrm{miss}}$ [GeV]',
     'bjetsM_num': r'Number of b-jets',
@@ -86,7 +86,48 @@ VARIABLE_LABELS = {
     'lepsT_1eta': r'Lepton $\eta$',
     'bjetsM_1pt': r'Leading b-jet $p_{\mathrm{T}}$ [GeV]',
     'jets_1pt': r'Leading jet $p_{\mathrm{T}}$ [GeV]',
+    'tausT_prongNum': r'$\tau_{\mathrm{h}}$ prong number',
+    'tausF_1prongNum': r'$\tau_{\mathrm{h}}$ prong number',
 }
+
+# Original binning for input variables (combine FitDiagnostics loses this info)
+# Format: (variable, region_pattern) -> bin_edges
+# region_pattern: 'SR', 'CRMR', 'VR', 'CR2', 'CR3', or None for all regions
+VARIABLE_BINNING = {
+    # tausF_1jetPt: 10 bins, 0-200 GeV (20 GeV bins)
+    ('tausF_1jetPt', None): np.linspace(0, 200, 11),
+    # tausT_1pt: 10 bins, 0-200 GeV
+    ('tausT_1pt', None): np.linspace(0, 200, 11),
+    # jets_HT: 10 bins, 400-2000 GeV
+    ('jets_HT', None): np.linspace(400, 2000, 11),
+    # tausF_1prongNum: 10 bins, shift by -0.5 so prong 1,3 appear at 1,3 not 1.5,3.5
+    ('tausF_1prongNum', None): np.linspace(-0.5, 9.5, 11),
+    # tausT_prongNum: 10 bins, shift by -0.5
+    ('tausT_prongNum', None): np.linspace(-0.5, 9.5, 11),
+}
+
+# X-axis display limits (for zooming into relevant range)
+# Format: variable -> (xmin, xmax)
+VARIABLE_XLIM = {
+    'tausF_1prongNum': (0.5, 3.5),  # Only prong 1 and 3 are populated
+    'tausT_prongNum': (0.5, 3.5),
+}
+
+def get_original_binning(variable, channel):
+    """Get original bin edges for a variable/channel combination."""
+    # Extract region from channel (e.g., 'VR1tau0l' -> 'VR')
+    region = None
+    for r in ['SR', 'CRMR', 'VR', 'CR2', 'CR3', 'CR12']:
+        if channel.startswith(r):
+            region = r
+            break
+
+    # Try specific region first, then fall back to general
+    if (variable, region) in VARIABLE_BINNING:
+        return VARIABLE_BINNING[(variable, region)]
+    if (variable, None) in VARIABLE_BINNING:
+        return VARIABLE_BINNING[(variable, None)]
+    return None
 
 
 def load_channel_data(root_file, shapes_dir, channel_base, years, processes):
@@ -178,8 +219,16 @@ def plot_channel(data, channel, variable, output_dir):
                                              gridspec_kw={'height_ratios': [3, 1], 'hspace': 0.05},
                                              sharex=True)
 
+    # Get original binning if available (combine FitDiagnostics loses x-axis info)
+    original_edges = get_original_binning(variable, channel)
     edges = data['edges']
     n_bins = len(data['total'])
+
+    # Use original binning if available and bin count matches
+    if original_edges is not None and len(original_edges) == len(edges):
+        edges = original_edges
+        print(f"  Using original binning: {edges[0]:.1f} to {edges[-1]:.1f}")
+
     bin_centers = (edges[:-1] + edges[1:]) / 2
     data_vals = data['data']
     total_vals = data['total']
@@ -242,7 +291,11 @@ def plot_channel(data, channel, variable, output_dir):
 
     # === KEY CHANGE 1: Linear y-axis ===
     ax_main.set_ylim(0, max_val * 1.6)  # 60% headroom for legend
-    ax_main.set_xlim(edges[0], edges[-1])
+    # Use custom xlim if defined for this variable
+    if variable in VARIABLE_XLIM:
+        ax_main.set_xlim(*VARIABLE_XLIM[variable])
+    else:
+        ax_main.set_xlim(edges[0], edges[-1])
     ax_main.set_ylabel('Events', fontsize=22, fontweight='medium')
     ax_main.tick_params(axis='x', labelbottom=False)
     ax_main.yaxis.grid(True, linestyle='-', alpha=0.2, which='major')
@@ -253,10 +306,10 @@ def plot_channel(data, channel, variable, output_dir):
     ax_main.text(1.0, 1.01, r'138 fb$^{-1}$ (13 TeV)', transform=ax_main.transAxes,
                 fontsize=18, va='bottom', ha='right')
 
-    # Channel label
-    channel_text = f"{CHANNEL_LABELS.get(channel, channel)}, Pre-fit"
-    ax_main.text(0.98, 0.95, channel_text, transform=ax_main.transAxes,
-                fontsize=18, va='top', ha='right', fontweight='medium',
+    # Channel label (top left, below CMS) - region and Pre-fit on separate lines
+    channel_text = f"{CHANNEL_LABELS.get(channel, channel)}\nPre-fit"
+    ax_main.text(0.02, 0.95, channel_text, transform=ax_main.transAxes,
+                fontsize=18, va='top', ha='left', fontweight='medium',
                 bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.85, edgecolor='none'))
 
     # === KEY CHANGE 2: No event counts in legend ===
@@ -273,14 +326,14 @@ def plot_channel(data, channel, variable, output_dir):
                       label='Pre-fit unc.')
     )
 
-    # Data in legend (keep count for data only)
+    # Data in legend (no count)
     legend_handles.append(
         Line2D([0], [0], marker='o', color='w', markerfacecolor='black', markersize=10,
-              label=f'Data [{int(np.sum(data_vals))}]')
+              label='Data')
     )
 
     ax_main.legend(handles=legend_handles, loc=legend_loc, ncol=2, frameon=True,
-                  fancybox=False, edgecolor='none', framealpha=0.9, fontsize=15,
+                  fancybox=False, edgecolor='none', framealpha=0.9, fontsize=17,
                   columnspacing=0.8, handletextpad=0.5, labelspacing=0.4,
                   bbox_to_anchor=legend_bbox)
 
@@ -297,7 +350,11 @@ def plot_channel(data, channel, variable, output_dir):
                                  color='gray', alpha=0.3, hatch='///', linewidth=0)
 
     ax_ratio.axhline(y=1, color='black', linestyle='-', linewidth=1)
-    ax_ratio.set_xlim(edges[0], edges[-1])
+    # Use custom xlim if defined for this variable
+    if variable in VARIABLE_XLIM:
+        ax_ratio.set_xlim(*VARIABLE_XLIM[variable])
+    else:
+        ax_ratio.set_xlim(edges[0], edges[-1])
     ax_ratio.set_ylim(0.5, 1.5)
 
     # === KEY CHANGE 3: Variable name as x-axis label ===
