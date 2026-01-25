@@ -68,9 +68,33 @@
 | plotting/writeDatacard.py | Completed | Added --mode argument |
 
 ### Tested Workflow (2018 tausT_1pt)
-1. **addJES**: JES failed (no JES variations), JER/TES/MET/EES all successful ✅
+1. **addJES**: JES failed (see below), JER/TES/MET/EES all successful ✅
 2. **addTemplate**: Created template with 1848 histograms (30 nominal, 1818 systematic) ✅
 3. **writeDatacard**: Created datacard with all systematics ✅
+
+### JES Failure Analysis
+**Why JES failed**: JES requires a different workflow than TES/JER/MET/EleScale:
+- TES/JER/MET/EleScale: Use **nominal** Stage 2 MV output, variation applied at Stage 3 WH
+- JES: Requires **separate** Stage 2 MV jobs first, then Stage 3 WH
+
+**Status**: Stage 2 MV JES directories **exist** for v95XGB080testOS7. What was missing:
+- Stage 3 WH variableAnalyzer on JES outputs (`inputVarHists_*` in JES directories)
+
+**Fix applied (2026-01-25)**:
+```bash
+cd writeHistGood/jobs/
+python3 makeJob_WH.py --config ../../config/analysis_config_1tau0l_XGB080test.yaml --era 2018 --systematic JES --mode variables
+# Submitted: 60 variations × 59 MC = 3540 jobs
+```
+
+**Full JES workflow for input variables**:
+1. Stage 2 MV JES: Already exists (from previous BDT workflow)
+2. Stage 3 WH JES: `makeJob_WH.py --systematic JES --mode variables` ← Completed (3540 jobs)
+3. addJES/addTemplate/writeDatacard: ✅ All completed with 30 JES sources
+
+**Final verification (2026-01-25)**:
+- Template: 180 JES histograms for tausT_1pt (30 sources × 2 directions × 3 regions)
+- Datacard: All JES systematics (CMS_scale_j_*) properly configured
 
 ### Output Files
 - Template: `inputVarHists_*/combine/templatesForCombine1tau0l_v3_tausT_1pt_notMCFTau_unblind.root`
