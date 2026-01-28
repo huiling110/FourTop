@@ -58,23 +58,50 @@ cd objectSelectionOptimized/jobs/
 ./resubmit_held.sh 12000      # 12GB memory
 ```
 
-## Verify Completion
+## CRITICAL: Check for Corrupted/Missing Files
+
+**MUST run this after OS jobs complete** to detect corrupted or incomplete files.
 
 ```bash
-# Base path
-BASE=/publicfs/cms/user/huahuil/tauOfTTTT_NanoAOD
+source setEnv_newNew.sh
 
-# Count processes (expect ~59-68 depending on era/channel)
-ls $BASE/UL{era}/{stage1}/mc/ | wc -l
+# Check specific systematic
+python3 scripts/check_os_systematics.py --config config/CONFIG.yaml --era 2018 --systematic JESPt22
 
-# Check key samples exist
-ls $BASE/UL{era}/{stage1}/mc/tttt/*.root | wc -l      # signal
-ls $BASE/UL{era}/{stage1}/mc/TTBB*/ | wc -l           # TTBB (3 samples)
-ls $BASE/UL{era}/{stage1}/data/jetHT_*/ | wc -l       # data
+# Check only nominal
+python3 scripts/check_os_systematics.py --config config/CONFIG.yaml --era 2018 --nominal-only
 
-# For systematics (15 variations)
-ls -d $BASE/UL{era}/{stage1}_*/ | wc -l               # expect 16 (nominal + 15 sys)
+# Check nominal + all systematics (default) - slower
+python3 scripts/check_os_systematics.py --config config/CONFIG.yaml --era 2018
 ```
+
+**How corruption is detected:**
+- Opens each ROOT file and tries to read the "tree"
+- Files that can't be opened or have no tree are **corrupted**
+- Only checks samples that have job scripts (were actually submitted)
+
+### Resubmitting Failed Jobs
+
+Uses the **existing job scripts** created by `makeJob_OS_fromRuobing2.py`:
+
+```bash
+# Dry-run first to see what will be submitted
+python3 scripts/submit_os_resubmit.py --config config/CONFIG.yaml --era 2018 --systematic JESPt22 --dry-run
+
+# Submit failed jobs for a systematic
+python3 scripts/submit_os_resubmit.py --config config/CONFIG.yaml --era 2018 --systematic JESPt22
+
+# Monitor resubmitted jobs
+hep_q -u $USER | grep OS_UL2018
+```
+
+The script:
+- Checks for corrupted files using `check_os_systematics.py`
+- Maps each corrupted file to its original job script index
+- Resubmits using `hep_sub -os CentOS7` with the existing scripts
+- Logs stored in: `{output_dir}/mc/resubmit_logs/{sample}/`
+
+**Common issue**: Jobs can crash silently, producing partial ROOT files. Always verify before proceeding to Stage 2!
 
 ## Troubleshooting
 

@@ -70,6 +70,7 @@ CHANNEL_LABELS = {
     'SR1tau1l': r'$1\tau_{\mathrm{h}}1\ell$ SR', 'CR121tau1l': r'$1\tau_{\mathrm{h}}1\ell$ CR1',
     'SR1tau0l': r'$1\tau_{\mathrm{h}}0\ell$ SR', 'CRMR1tau0l': r'$1\tau_{\mathrm{h}}0\ell$ MR',
     'VR1tau0l': r'$1\tau_{\mathrm{h}}0\ell$ VR', 'SR1tau2l': r'$1\tau_{\mathrm{h}}2\ell$ SR',
+    'CR31tau2l': r'$1\tau_{\mathrm{h}}2\ell$ CR2',
 }
 
 # X-axis labels for input variables
@@ -88,6 +89,8 @@ VARIABLE_LABELS = {
     'jets_1pt': r'Leading jet $p_{\mathrm{T}}$ [GeV]',
     'tausT_prongNum': r'$\tau_{\mathrm{h}}$ prong number',
     'tausF_1prongNum': r'$\tau_{\mathrm{h}}$ prong number',
+    'tausF_1jetEtaAbs': r'$\tau_{\mathrm{h}}$ jet $|\eta|$',
+    'tausT_1jetEtaAbs': r'$\tau_{\mathrm{h}}$ jet $|\eta|$',
 }
 
 # Original binning for input variables (combine FitDiagnostics loses this info)
@@ -104,6 +107,12 @@ VARIABLE_BINNING = {
     ('tausF_1prongNum', None): np.linspace(-0.5, 9.5, 11),
     # tausT_prongNum: 10 bins, shift by -0.5
     ('tausT_prongNum', None): np.linspace(-0.5, 9.5, 11),
+    # tausF_1jetEtaAbs: 5 bins, 0-2.4
+    ('tausF_1jetEtaAbs', None): np.linspace(0, 2.4, 6),
+    # tausT_1jetEtaAbs: 5 bins, 0-2.4
+    ('tausT_1jetEtaAbs', None): np.linspace(0, 2.4, 6),
+    # bjetsM_num: 8 bins, -0.5 to 7.5 (integer bins 0-7)
+    ('bjetsM_num', None): np.linspace(-0.5, 7.5, 9),
 }
 
 # X-axis display limits (for zooming into relevant range)
@@ -111,6 +120,9 @@ VARIABLE_BINNING = {
 VARIABLE_XLIM = {
     'tausF_1prongNum': (0.5, 3.5),  # Only prong 1 and 3 are populated
     'tausT_prongNum': (0.5, 3.5),
+    'tausF_1jetEtaAbs': (0, 2.4),
+    'tausT_1jetEtaAbs': (0, 2.4),
+    'bjetsM_num': (0.5, 3.5),  # Show b-jet multiplicities 1-3
 }
 
 def get_original_binning(variable, channel):

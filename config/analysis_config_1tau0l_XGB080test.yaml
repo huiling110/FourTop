@@ -11,7 +11,7 @@ metadata:
 versions:
   stage1: "v95XGB080testOS7"              # Object selection output (shared with 1tau1l)
   stage2: "v1baselineHadro"               # Variable calculation output (shared with 1tau1l)
-  hist: "v0BDT1tau0l_XGB080testNew"       # Histogram version (1tau0l specific)
+  hist: "v0BDT1tau0l_XGB080testNew"  # Histogram version ()
   datacard: "v1_xgb080_test"              # Datacard version
   combination: "combinationV22"           # Combine version
 

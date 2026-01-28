@@ -118,7 +118,7 @@ python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic c
 
 | Variable | Region | Status |
 |----------|--------|--------|
-| tausT_1jetEtaAbs | CR2 | WH jobs submitted (17,771 total) |
+| tausT_1jetEtaAbs | CR12 | WH jobs submitted (17,771 total) |
 
 ## 1tau2l Target
 

@@ -32,8 +32,8 @@ void run_treeAnalyzer(
     TString histVersion = "v0_test",//
     Bool_t ifSys = kTRUE,
     // Bool_t ifSys = kFALSE,
-    // Bool_t isTest = kTRUE)
-    Bool_t isTest = kFALSE)
+    Bool_t isTest = kTRUE)
+    // Bool_t isTest = kFALSE)
 {
     TStopwatch t;
     t.Start();

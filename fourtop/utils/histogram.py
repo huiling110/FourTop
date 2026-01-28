@@ -295,17 +295,51 @@ def getHistFromFileDic(
     subProHist: Dict = {}
     subProHistSys: Dict = {}
 
+    # Build list of all histogram names we need (for efficient batch reading)
+    hist_names_needed = set()
+    for ivar in varList:
+        for ire in regionList:
+            # Nominal histogram
+            hist_names_needed.add(f'{subPro}_{ire}_{ivar}')
+            # Systematic histograms
+            if sumPro in sumProSys:
+                for isys in sumProSys[sumPro]:
+                    hist_names_needed.add(f'{subPro}_{ire}_{isys}Up_{ivar}')
+                    hist_names_needed.add(f'{subPro}_{ire}_{isys}Down_{ivar}')
+
+    # Read all histograms at once from the open file
+    hist_cache: Dict[str, ROOT.TH1] = {}
+    for name in hist_names_needed:
+        hist = file.Get(name)
+        if hist:
+            cloned = hist.Clone()
+            cloned.SetDirectory(0)
+            hist_cache[name] = cloned
+
+    # Organize into output dictionaries
     for ivar in varList:
         subProHist[ivar] = {}
         subProHistSys[ivar] = {}
         for ire in regionList:
             histName = f'{subPro}_{ire}_{ivar}'
             subProHist[ivar][ire] = {}
-            subProHist[ivar][ire][subPro] = getHistFromFile(fileName, [histName])[0]
+            if histName in hist_cache:
+                subProHist[ivar][ire][subPro] = hist_cache[histName]
+            else:
+                print(f"Warning: Histogram {histName} not found in {fileName}")
+                continue
+
+            # Get systematic histograms from cache
             subProHistSys[ivar][ire] = {}
-            subProHistSys[ivar][ire][subPro] = _getSysHistNames(
-                sumProSys, subPro, ire, ivar, era, fileName, sumPro
-            )
+            sysDic: Dict[str, ROOT.TH1] = {}
+            if sumPro in sumProSys:
+                for isys in sumProSys[sumPro]:
+                    isysUp = f'{subPro}_{ire}_{isys}Up_{ivar}'
+                    isysDown = f'{subPro}_{ire}_{isys}Down_{ivar}'
+                    if isysUp in hist_cache and isysDown in hist_cache:
+                        sysDic[f'{isys}_up'] = hist_cache[isysUp]
+                        sysDic[f'{isys}_down'] = hist_cache[isysDown]
+            subProHistSys[ivar][ire][subPro] = sysDic
 
     file.Close()
     return subProHist, subProHistSys

@@ -94,8 +94,8 @@ if [ ! -f "${CARDDIR}datacard.txt" ]; then
     exit 1
 fi
 
-# Create log filename
-LOG_FILE="combine_${CHANNEL}_${ERA}_$(date +%Y%m%d_%H%M%S).log"
+# Create log filename in same directory as datacard
+LOG_FILE="${CARDDIR}combine_${CHANNEL}_${ERA}_$(date +%Y%m%d_%H%M%S).log"
 
 echo "Running combine with steps: workspace significance exp_significance postfit signal_strength impacts"
 echo "Log file: $LOG_FILE"
@@ -117,7 +117,7 @@ echo ""
 echo "=== Combine Fits Complete ==="
 echo "End time: $(date)"
 echo "Exit code: $EXIT_CODE"
-echo "Log saved to: $(pwd)/$LOG_FILE"
+echo "Log saved to: $LOG_FILE"
 
 if [ $EXIT_CODE -eq 0 ]; then
     echo "✓ SUCCESS: All combine steps completed"

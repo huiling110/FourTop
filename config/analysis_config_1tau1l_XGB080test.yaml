@@ -11,8 +11,7 @@ metadata:
 versions:
   stage1: "v95XGB080testOS7"              # Object selection output (CentOS7 + XGBoost 0.80)
   stage2: "v1baselineHadro"               # Variable calculation output
-  # hist: "v0BDT1tau1l_XGB080testNew"      # Histogram version (fresh run)
-  hist: "v1BDT1tau1l_XGB080testNew"      # Histogram version (re run)
+  hist: "v0BDT1tau1l_XGB080testNew"  # Histogram version (2018 symlinked to v2_sysFix)
   datacard: "v1_xgb080_test"              # Datacard version
   combination: "combinationV22"           # Combine version
 

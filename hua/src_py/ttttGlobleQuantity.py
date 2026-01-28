@@ -580,12 +580,12 @@ proChannelDic = {
     '1tau0l':  [ 'fakeTau', 'tt', 'ttbb', 'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, with ttbb
     # '1tau0l':  [ 'qcd', 'tt',  'ttX', 'singleTop', 'WJets', 'tttt', 'jetHT'], #!1tau0l, for fake tau validation with qcd
     # '1tau2l':  ['tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'],
-    '1tau2l':  ['fakeTau', 'tt', 'ttbb', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], #! with ttbb
+    '1tau2l':  ['fakeTau', 'tt', 'ttX', 'fakeLepton', 'singleTop',  'Minor',  'tttt', 'leptonSum'], #! NO ttbb for 1tau2l (samples not available)
 }
 proChannelDic_forCombine = {
     # '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton', 'singleTop',  'tttt', 'jetHT'], #! with ttbb
     '1tau1l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton',  'tttt', 'jetHT'], #! with ttbb, removed singleTop
-    '1tau2l': ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW',  'ttH', 'fakeLepton',  'Minor',  'tttt', 'leptonSum'], #! with ttbb
+    '1tau2l': ['fakeTau', 'tt', 'ttZ', 'ttW',  'ttH', 'fakeLepton',  'Minor',  'tttt', 'leptonSum'], #! NO ttbb for 1tau2l (samples not available)
     '1tau0l':  ['fakeTau', 'tt', 'ttbb', 'ttZ', 'ttW', 'ttH', 'singleTop', 'WJets', 'tttt', 'jetHT'], #! with ttbb
 }
 
@@ -602,7 +602,10 @@ SKIP_SUBPROCESSES = {
         # Add 1tau0l specific skips here after analysis
     ],
     '1tau2l': [
-        # Add 1tau2l specific skips here after analysis
+        # TTBB samples don't exist in 1tau2l MV output (no entries pass selection)
+        'TTBB_4f_TTTo2L2Nu',
+        'TTBB_4f_TTToHadronic',
+        'TTBB_4f_TTToSemiLeptonic',
     ],
 }
 

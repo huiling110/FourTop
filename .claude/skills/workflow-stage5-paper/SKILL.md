@@ -42,8 +42,11 @@ python3 plotting/addJESTemplatesToHistFile.py \
     --era 2018 \
     --mode variables \
     --variables tausT_1pt \
-    --execute --quiet
+    --execute --quiet \
+    --keep-sys-dirs  # CRITICAL: Keep systematic dirs for other variables!
 ```
+
+**CRITICAL**: Always use `--keep-sys-dirs` for input variables mode! By default, addJES deletes the systematic variation directories after merging. If you need to process multiple variables (tausT_1pt, tausF_1jetPt, jets_HT, etc.), you MUST keep the source directories.
 
 **Note**: JES variations require separate Stage 2/3 jobs with JES systematic flag. For prefit plots, JER/TES/MET/EES are sufficient.
 
@@ -79,13 +82,13 @@ source setEnv_newNew.sh
 
 # Assuming WH output exists from variableAnalyzer
 
-# Step 1: Consolidate energy scale systematics
+# Step 1: Consolidate energy scale systematics (KEEP sys dirs for other variables!)
 python3 plotting/addJESTemplatesToHistFile.py \
     --config config/analysis_config_1tau0l_XGB080test.yaml \
     --era 2018 \
     --mode variables \
     --variables tausT_1pt \
-    --execute --quiet
+    --execute --quiet --keep-sys-dirs
 
 # Step 2: Create template
 python3 plotting/addTemplateNew.py \
@@ -109,9 +112,10 @@ Process multiple variables by specifying a comma-separated list:
 
 ```bash
 # addJES and addTemplate support comma-separated variables
+# CRITICAL: Use --keep-sys-dirs to preserve dirs for other eras/variables!
 python3 plotting/addJESTemplatesToHistFile.py \
     --config CONFIG.yaml --era 2018 --mode variables \
-    --variables "tausT_1pt,jets_HT,MET_pt" --execute
+    --variables "tausT_1pt,jets_HT,MET_pt" --execute --keep-sys-dirs
 
 python3 plotting/addTemplateNew.py \
     --config CONFIG.yaml --era 2018 --mode variables \
@@ -349,3 +353,121 @@ python plot_prefit_inputvar.py \
 | `lepsT_1pt` | Lepton pT [GeV] |
 
 For additional variables, add to `VARIABLE_LABELS` dict in the script.
+
+---
+
+## Automation Script: run_inputvar_prefit_pipeline.py
+
+For processing multiple regions (SR, CRMR, VR) with a single command:
+
+```bash
+source setEnv_newNew.sh
+
+# Full pipeline (Stage 4.1 to plots) - DRY-RUN first
+python scripts/run_inputvar_prefit_pipeline.py \
+    --config config/analysis_config_1tau0l_XGB080test.yaml \
+    --variable tausT_1pt \
+    --regions SR CRMR VR \
+    --dry-run
+
+# Execute (Stage 4.1-4.4 only, combine needs cmsenv)
+python scripts/run_inputvar_prefit_pipeline.py \
+    --config config/analysis_config_1tau0l_XGB080test.yaml \
+    --variable tausT_1pt \
+    --regions SR CRMR VR \
+    --start-from addjes
+```
+
+### Multi-Region Datacards
+
+The `--region` parameter in `writeDatacard.py` supports SR, CRMR, VR:
+
+```bash
+# Generate datacards for each region
+for REGION in SR CRMR VR; do
+    python3 plotting/writeDatacard.py \
+        --config config/CONFIG.yaml --era 2018 \
+        --mode variables --variable tausT_1pt \
+        --region $REGION --no-smoothed
+done
+```
+
+Output paths:
+- SR: `datacardSys_v1_xgb080_test_tausT_1pt/`
+- CRMR: `datacardSys_v1_xgb080_test_tausT_1pt_CRMR/`
+- VR: `datacardSys_v1_xgb080_test_tausT_1pt_VR/`
+
+### Run2 Combination for Multiple Regions
+
+```bash
+cd hua/combine && cmsenv
+
+for REGION in SR CRMR VR; do
+    mkdir -p combinationV23/run2_1tau0l_tausT_1pt_$REGION
+    cd combinationV23/run2_1tau0l_tausT_1pt_$REGION
+
+    # Determine version suffix
+    if [ "$REGION" = "SR" ]; then
+        VERSION="v1_xgb080_test_tausT_1pt"
+    else
+        VERSION="v1_xgb080_test_tausT_1pt_$REGION"
+    fi
+
+    # Combine datacards
+    combineCards.py \
+        ${REGION}1tau0l_2018="$BASE/2018/.../datacardSys_$VERSION/datacard.txt" \
+        ${REGION}1tau0l_2017="$BASE/2017/.../datacardSys_$VERSION/datacard.txt" \
+        ${REGION}1tau0l_2016preVFP="$BASE/2016preVFP/.../datacardSys_$VERSION/datacard.txt" \
+        ${REGION}1tau0l_2016postVFP="$BASE/2016postVFP/.../datacardSys_$VERSION/datacard.txt" \
+        > datacard.txt
+
+    # Create workspace and run FitDiagnostics
+    text2workspace.py datacard.txt -o workspace.root
+    combine -M FitDiagnostics workspace.root \
+        --saveShapes --saveWithUncertainties --skipBOnlyFit \
+        -n _run2_tausT_1pt_${REGION}_prefit
+
+    cd ../..
+done
+```
+
+### Plot All Regions
+
+```bash
+source setEnv_newNew.sh
+cd plotting/plotting_paper/
+
+for REGION in SR CRMR VR; do
+    python plot_prefit_inputvar.py \
+        ../../hua/combine/combinationV23/run2_1tau0l_tausT_1pt_$REGION/fitDiagnostics_run2_tausT_1pt_${REGION}_prefit.root \
+        --variable tausT_1pt \
+        --channels ${REGION}1tau0l \
+        --output-dir ./inputvar_plots
+done
+```
+
+---
+
+## Fake Tau Jet Variables (tausF_*)
+
+For variables like `tausF_1jetPt` (fake tau candidate jet pT):
+
+1. **WH jobs include all variables** - nominal + systematics run together
+2. **addJES merges energy scale systematics** per variable
+3. **Run addJES before addTemplate** for each variable you want to plot
+
+```bash
+# Merge energy scale systematics for tausF_1jetPt
+# CRITICAL: Always use --keep-sys-dirs for input variables!
+python3 plotting/addJESTemplatesToHistFile.py \
+    --config config/analysis_config_1tau0l_XGB080test.yaml \
+    --era 2018 --mode variables \
+    --variables tausF_1jetPt \
+    --execute --quiet --keep-sys-dirs
+```
+
+**WARNING**: If you ran addJES without `--keep-sys-dirs`, the systematic directories are deleted and you must resubmit WH Stage 3 jobs:
+```bash
+cd writeHistGood/jobs/
+python3 makeJob_WH.py --config ../../config/CONFIG.yaml --era ERA --systematic complete --mode variables
+```

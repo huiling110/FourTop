@@ -34,8 +34,9 @@ export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/py2-xgboost
 # correctionlib 2.0.0 for CentOS7 (slc7_amd64_gcc900)
 export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/py3-correctionlib/2.0.0-0c4f44c8dd5561d8c0660135feeb81f4/lib/python3.9/site-packages/correctionlib/lib:$LD_LIBRARY_PATH
 
-# Custom libraries
-export LD_LIBRARY_PATH=${current_dir}/myLibrary/:$LD_LIBRARY_PATH
+# Custom libraries - use OS7 version of libcommenFunction.so
+# The os7/ subdirectory contains symlink to libcommenFunction_os7.so (compiled for CentOS7)
+export LD_LIBRARY_PATH=${current_dir}/myLibrary/os7/:${current_dir}/myLibrary/:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/roccor/:$LD_LIBRARY_PATH
 
 # Note: Do NOT add /usr/lib64 to LD_LIBRARY_PATH - it would override the GCC 9.3.0 libstdc++

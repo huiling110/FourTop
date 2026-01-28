@@ -40,8 +40,8 @@ def main():
                         choices=['bdt', 'variables'],
                         help='Mode: bdt (default, variableHists_*) or variables (inputVarHists_*)')
     parser.add_argument('--region', '-r', type=str, default='SR',
-                        choices=['SR', 'CRMR', 'VR'],
-                        help='Region for datacard (default: SR, for 1tau0l also: CRMR, VR)')
+                        choices=['SR', 'CRMR', 'VR', 'CR12', 'CR3'],
+                        help='Region for datacard (default: SR, for 1tau0l: CRMR/VR, for 1tau1l: CR12, for 1tau2l: CR3)')
     args = parser.parse_args()
 
     # Load config and build paths

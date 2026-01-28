@@ -140,6 +140,8 @@ void getProcessesVec(TString inputDir, std::vector<Process>& processVec, const T
     };
 
     processVec.clear();
+    // Ensure inputDir ends with "/"
+    if(!inputDir.EndsWith("/")) inputDir += "/";
     for(UInt_t i=0; i<allProcesses.at(channel).size(); i++){
         TString ifile = inputDir+allProcesses.at(channel).at(i)+".root";
         // Check if file exists before adding
@@ -246,11 +248,14 @@ int tmvaBDT_training(
     TString variableListCsv = "/workfs2/cms/huahuil/CMSSW_14_1_0_pre4/src/FourTop/hua/tmva/newCode/inputList/inputList_1tau1l_final.csv",
     const TString channel = "1tau1l",
     const TString ifVLL = "",
-    const TString era = "2018"  // Era for lumi lookup (global weight)
+    const TString era = "2018",  // Era for lumi lookup (global weight)
+    Double_t signalWeight = 1.0,  // Signal weight multiplier (for upweighting)
+    Int_t maxDepth = 3  // BDT MaxDepth parameter
     )
 {
     std::cout << "inputDir=" << inputDir << "\n";
-    std::cout << "channel=" << channel << " ifVLL=" << ifVLL << " era=" << era << "\n\n";
+    std::cout << "channel=" << channel << " ifVLL=" << ifVLL << " era=" << era << "\n";
+    std::cout << "signalWeight=" << signalWeight << " maxDepth=" << maxDepth << "\n\n";
 
     // Get lumi for this era (for global weight calculation)
     Double_t lumi = 1.0;
@@ -359,8 +364,13 @@ int tmvaBDT_training(
             std::cout << "signal tree: " << procName << " (type=" << procType << ")\n";
             std::cout << "  selection: " << selCut.GetTitle() << "\n";
             std::cout << "  weight: " << weightExpr << "\n";
+            // Apply signal weight multiplier for upweighting experiments
+            Double_t sigScale = processScale * signalWeight;
+            if(signalWeight != 1.0) {
+                std::cout << "  signal upweight: " << signalWeight << "x (scale: " << processScale << " -> " << sigScale << ")\n";
+            }
             // Use AddTree with per-tree selection cut (matches WH step exactly)
-            dataloader->AddTree(processVec.at(i).getTree(), "Signal", processScale, selCut);
+            dataloader->AddTree(processVec.at(i).getTree(), "Signal", sigScale, selCut);
             dataloader->SetSignalWeightExpression(weightExpr);
             if(!isTest){
                 allSignal = allSignal + nPass;
@@ -416,12 +426,13 @@ int tmvaBDT_training(
     std::cout << "Per-tree selection cuts applied via AddTree() - using empty cut for PrepareTrainingAndTestTree\n";
     dataloader->PrepareTrainingAndTestTree(emptyCut, emptyCut, trainingSetup);
 
-    factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDT",
-                            // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");
-                            // "!H:!V:NTrees=850:MinNodeSize=2.5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30");
-                            // "!H:!V:NTrees=850:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=20");//trainA: increase MinNodeSize
-                            "!H:!V:NTrees=1000:MinNodeSize=5%:MaxDepth=3:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
-                            // "!H:!V:NTrees=500:MinNodeSize=5%:MaxDepth=3:BoostType=Grad:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1");//trainB: increase MinNodeSize
+    // Build BDT options string with configurable MaxDepth
+    TString bdtOptions = TString::Format(
+        "!H:!V:NTrees=1000:MinNodeSize=5%%:MaxDepth=%d:BoostType=AdaBoost:AdaBoostBeta=0.5:UseBaggedBoost:BaggedSampleFraction=0.5:SeparationType=GiniIndex:nCuts=30:Shrinkage=0.1",
+        maxDepth);
+    std::cout << "BDT options: " << bdtOptions << "\n";
+
+    factory->BookMethod(dataloader, TMVA::Types::kBDT, "BDT", bdtOptions);
     // if (Use["BDTB"]) // Bagging
     //   factory->BookMethod( dataloader, TMVA::Types::kBDT, "BDTB",
                         //    "!H:!V:NTrees=400:BoostType=Bagging:SeparationType=GiniIndex:nCuts=20" );//default
@@ -471,9 +482,11 @@ int main(int argc, char const *argv[])
     TString inputDir, outDir, variableList;
     TString channel, ifVLL, era;
     Bool_t isTest;
+    Double_t signalWeight = 1.0;
+    Int_t maxDepth = 3;
     if (argc < 5)
     {
-        std::cout<<"Usage: ./my_program inputDir outDir isTest variableList channel [ifVLL] [era]\n";
+        std::cout<<"Usage: ./my_program inputDir outDir isTest variableList channel [ifVLL] [era] [signalWeight] [maxDepth]\n";
         std::cout<<"Running with defaults for testing...\n";
         tmvaBDT_training();
     }
@@ -486,6 +499,8 @@ int main(int argc, char const *argv[])
         channel = (argc > 5) ? argv[5] : "1tau1l";
         ifVLL = (argc > 6) ? argv[6] : "";
         era = (argc > 7) ? argv[7] : "2018";
-        tmvaBDT_training(inputDir, outDir, isTest, variableList, channel, ifVLL, era);
+        signalWeight = (argc > 8) ? std::atof(argv[8]) : 1.0;
+        maxDepth = (argc > 9) ? std::atoi(argv[9]) : 3;
+        tmvaBDT_training(inputDir, outDir, isTest, variableList, channel, ifVLL, era, signalWeight, maxDepth);
     }
 }

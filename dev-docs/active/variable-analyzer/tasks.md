@@ -103,12 +103,64 @@ python3 makeJob_WH.py --config ../../config/analysis_config_1tau0l_XGB080test.ya
 ### Stage 5 Skill Created
 - `.claude/skills/workflow-stage5-paper/SKILL.md` - Documents input variable prefit workflow
 
+### Combine Prefit Test (2026-01-25)
+
+**Question**: Can we get prefit-only histograms without running full fit?
+
+**Answer**: No direct option to skip fit entirely, but:
+- `--saveShapes` creates `shapes_prefit`, `shapes_fit_sb`, `shapes_fit_b` folders
+- `--skipBOnlyFit` skips background-only fit (faster)
+- Prefit shapes are always available in `shapes_prefit/` after FitDiagnostics
+
+**Test run**:
+```bash
+cd hua/combine/ && cmsenv
+cd /path/to/datacardSys_v1_xgb080_test_tausT_1pt/
+
+# Create workspace (ignore numpy warnings - combine runs fine)
+text2workspace.py datacard.txt -o workspace_tausT_1pt.root
+
+# Run FitDiagnostics with prefit shapes
+combine -M FitDiagnostics workspace_tausT_1pt.root \
+    --saveShapes --saveWithUncertainties --skipBOnlyFit \
+    -n _tausT_1pt_prefit
+```
+
+**Output** (`fitDiagnostics_tausT_1pt_prefit.root`):
+```
+shapes_prefit/
+├── SR1tau0l_2018/
+│   ├── data (TGraphAsymmErrors)
+│   ├── WJets, fakeTau, singleTop, tt, ttH, ttW, ttZ, ttbb, tttt (TH1F)
+│   ├── total, total_signal, total_background (TH1F)
+│   └── total_covar (TH2F)
+```
+
+**Note**: NumPy version conflict in CMSSW env (numpy 2.x vs compiled 1.x), but combine runs successfully despite warnings.
+
 ## Next Steps
 
 1. Re-submit stuck tttt nominal job if needed
 2. Submit variableAnalyzer for other eras (2017, 2016preVFP, 2016postVFP)
 3. Submit variableAnalyzer for other channels (1tau1l, 1tau2l)
 4. Move this task to `dev-docs/finished/` when complete
+
+## Status: HALTED (2026-01-25)
+
+**Reason**: User requested halt
+
+**What's complete**:
+- ✅ variableAnalyzer implementation (all files created)
+- ✅ 1tau0l 2018: nominal + all 74 systematics (TES/JER/MET/EES/JES)
+- ✅ Stage 4 scripts updated for `--mode variables`
+- ✅ Full pipeline tested: addJES → addTemplate → writeDatacard → combine prefit
+- ✅ Stage 5 skill created with documentation
+
+**What's pending**:
+- Other eras: 2017, 2016preVFP, 2016postVFP
+- Other channels: 1tau1l, 1tau2l
+
+**To resume**: Run `makeJob_WH.py --systematic complete --mode variables` for remaining eras/channels
 
 ## Files Created/Modified
 

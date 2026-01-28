@@ -78,7 +78,7 @@ def run_addjes(config_path, era, variable, base_dir, dry_run=False):
         f"python3 plotting/addJESTemplatesToHistFile.py "
         f"--config {config_path} --era {era} "
         f"--mode variables --variables {variable} "
-        f"--execute --quiet"
+        f"--execute --quiet --keep-sys-dirs"  # CRITICAL: Keep dirs for other variables!
     )
     return run_cmd(cmd, f"addJES: {era} - {variable}", dry_run, cwd=base_dir)
 

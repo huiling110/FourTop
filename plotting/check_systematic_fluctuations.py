@@ -554,6 +554,8 @@ def get_top_systematics_per_process(results, n_top=5, region="SR"):
     """Group results by process and return top N systematics for each process.
 
     Only considers results from the specified region to avoid mixing SR and CR.
+    NOTE: This only uses systematics above threshold. Use get_top_systematics_from_template
+    for all systematics.
     """
     from collections import defaultdict
 
@@ -576,6 +578,85 @@ def get_top_systematics_per_process(results, n_top=5, region="SR"):
         for syst, syst_results in by_syst.items():
             max_score = max(r['score'] for r in syst_results)
             syst_scores.append((syst, max_score, syst_results))
+
+        # Sort by score and take top N
+        syst_scores.sort(key=lambda x: x[1], reverse=True)
+        top_per_process[process] = syst_scores[:n_top]
+
+    return top_per_process
+
+
+def get_top_systematics_from_template(tfile, processes, n_top=5, channel="1tau1l", region="SR"):
+    """Get top N systematics for each process by reading ALL systematics from template file.
+
+    This function reads directly from the ROOT file, so it includes all systematics
+    regardless of any threshold.
+    """
+    from collections import defaultdict
+
+    region_str = f"{channel}{region}"
+    all_keys = [k.GetName() for k in tfile.GetListOfKeys()]
+
+    top_per_process = {}
+
+    for process in processes:
+        # Get nominal
+        nominal_name = f"{process}_{region_str}_BDT"
+        nominal = tfile.Get(nominal_name)
+        if not nominal:
+            continue
+
+        # Find all systematics for this process
+        process_hists = [k for k in all_keys if k.startswith(f"{process}_{region_str}_") and k.endswith("_BDT")]
+
+        # Group by systematic name
+        syst_data = defaultdict(dict)
+        for hist_name in process_hists:
+            if hist_name == nominal_name:
+                continue
+
+            name = hist_name.replace(f"{process}_{region_str}_", "").replace("_BDT", "")
+            if name.endswith("Up"):
+                syst_name = name[:-2]
+                direction = "Up"
+            elif name.endswith("Down"):
+                syst_name = name[:-4]
+                direction = "Down"
+            else:
+                continue
+
+            h = tfile.Get(hist_name)
+            if not h:
+                continue
+
+            # Calculate variation and score
+            variations = calculate_variation(nominal, h)
+            if variations:
+                score, metrics = calculate_fluctuation_score(variations)
+                syst_data[syst_name][direction] = {
+                    'score': score,
+                    'metrics': metrics,
+                    'varied': h,
+                    'process': process,
+                    'region': region,
+                    'systematic': syst_name,
+                    'direction': direction
+                }
+
+        # Get max score for each systematic and create results list
+        syst_scores = []
+        for syst_name, dirs in syst_data.items():
+            max_score = max(
+                dirs.get('Up', {}).get('score', 0),
+                dirs.get('Down', {}).get('score', 0)
+            )
+            # Create syst_results list in same format as before
+            syst_results = []
+            if 'Up' in dirs:
+                syst_results.append(dirs['Up'])
+            if 'Down' in dirs:
+                syst_results.append(dirs['Down'])
+            syst_scores.append((syst_name, max_score, syst_results))
 
         # Sort by score and take top N
         syst_scores.sort(key=lambda x: x[1], reverse=True)
@@ -869,8 +950,12 @@ def get_nominals_from_template(tfile, processes, channel="1tau1l", region="SR"):
 
 
 def plot_total_systematic(process, nominals, results, output_dir, channel="1tau1l",
-                          datacard_systematics=None):
-    """Plot nominal with total systematic uncertainty band for a process."""
+                          datacard_systematics=None, tfile=None):
+    """Plot nominal with total systematic uncertainty band for a process.
+
+    Note: This function now reads ALL systematics from the template file directly,
+    not just those that exceeded the threshold in 'results'.
+    """
     ROOT.gStyle.SetOptStat(0)
 
     region = "SR"
@@ -883,22 +968,66 @@ def plot_total_systematic(process, nominals, results, output_dir, channel="1tau1
 
     nbins = nominal.GetNbinsX()
 
-    # Group results by systematic for this process
+    # Get ALL systematics from template file, not just those above threshold
     from collections import defaultdict
     syst_variations = defaultdict(dict)  # systematic -> {Up: [vars], Down: [vars]}
 
-    for r in results:
-        if r['process'] != process or r['region'] != region:
-            continue
-        syst = r['systematic']
-        direction = r['direction']
+    if tfile:
+        # Read all systematics directly from template file
+        region_str = f"{channel}{region}"
+        all_keys = [k.GetName() for k in tfile.GetListOfKeys()]
+        process_hists = [k for k in all_keys if k.startswith(f"{process}_{region_str}_") and k.endswith("_BDT")]
 
-        # Filter by datacard systematics if provided
-        if datacard_systematics and syst not in datacard_systematics:
-            continue
+        for hist_name in process_hists:
+            # Skip nominal
+            if hist_name == f"{process}_{region_str}_BDT":
+                continue
 
-        if direction in ['Up', 'Down']:
-            syst_variations[syst][direction] = r['metrics'].get('variations', [])
+            # Parse systematic name
+            name = hist_name.replace(f"{process}_{region_str}_", "").replace("_BDT", "")
+            if name.endswith("Up"):
+                syst_name = name[:-2]
+                direction = "Up"
+            elif name.endswith("Down"):
+                syst_name = name[:-4]
+                direction = "Down"
+            else:
+                continue
+
+            # Filter by datacard systematics if provided
+            if datacard_systematics and syst_name not in datacard_systematics:
+                continue
+
+            h = tfile.Get(hist_name)
+            if not h:
+                continue
+
+            # Calculate variations
+            variations = []
+            for i in range(1, nbins + 1):
+                nom_val = nominal.GetBinContent(i)
+                var_val = h.GetBinContent(i)
+                if nom_val > 0.1:  # min_events threshold
+                    rel_var = (var_val / nom_val - 1) * 100
+                else:
+                    rel_var = None
+                variations.append(rel_var)
+
+            syst_variations[syst_name][direction] = variations
+    else:
+        # Fallback: use results (only systematics above threshold)
+        for r in results:
+            if r['process'] != process or r['region'] != region:
+                continue
+            syst = r['systematic']
+            direction = r['direction']
+
+            # Filter by datacard systematics if provided
+            if datacard_systematics and syst not in datacard_systematics:
+                continue
+
+            if direction in ['Up', 'Down']:
+                syst_variations[syst][direction] = r['metrics'].get('variations', [])
 
     # Calculate total uncertainty per bin
     total_up = [0.0] * nbins
@@ -991,12 +1120,11 @@ def plot_total_systematic(process, nominals, results, output_dir, channel="1tau1
     ROOT.gPad.SetBottomMargin(0.25)
     ROOT.gPad.SetGrid()
 
-    h_up_pct = ROOT.TH1F(f"h_up_pct_{process}", "", nbins,
-                          nominal.GetXaxis().GetXmin(),
-                          nominal.GetXaxis().GetXmax())
-    h_down_pct = ROOT.TH1F(f"h_down_pct_{process}", "", nbins,
-                            nominal.GetXaxis().GetXmin(),
-                            nominal.GetXaxis().GetXmax())
+    # Clone nominal to preserve bin structure (may have variable bin widths)
+    h_up_pct = nominal.Clone(f"h_up_pct_{process}")
+    h_up_pct.Reset()
+    h_down_pct = nominal.Clone(f"h_down_pct_{process}")
+    h_down_pct.Reset()
 
     for i in range(nbins):
         h_up_pct.SetBinContent(i + 1, total_up[i])
@@ -1194,42 +1322,29 @@ def main():
         # Determine which processes to plot
         if datacard_processes:
             processes_to_plot = datacard_processes
-            # Get nominals directly from template for all datacard processes
-            nominals = get_nominals_from_template(tfile, processes_to_plot, args.channel)
         else:
-            # Fall back to processes from results
-            processes_to_plot = None
-            # Build nominals dictionary from results (they already have the histogram)
-            nominals = {}
-            for r in results:
-                key = f"{r['process']}_{r['region']}"
-                if key not in nominals and r.get('nominal'):
-                    nominals[key] = r['nominal']
+            # Fall back to processes from results (above threshold)
+            processes_to_plot = sorted(set(r['process'] for r in results))
 
-        # Get top systematics per process
-        top_per_process = get_top_systematics_per_process(results, n_top=args.top_per_process)
+        # Get nominals directly from template for all processes
+        nominals = get_nominals_from_template(tfile, processes_to_plot, args.channel)
 
-        # Determine processes to iterate
-        if processes_to_plot:
-            for process in processes_to_plot:
-                top_systs = top_per_process.get(process, [])
-                print(f"\nProcess: {process}")
-                if top_systs:
-                    for syst_name, score, _ in top_systs:
-                        print(f"  - {syst_name}: score={score:.1f}")
-                    plot_top_systematics_for_process(process, top_systs, nominals, tfile,
-                                                      args.output_dir, args.channel)
-                else:
-                    print(f"  (no large fluctuations above threshold)")
-        else:
-            for process in sorted(top_per_process.keys()):
-                top_systs = top_per_process[process]
-                if top_systs:
-                    print(f"\nProcess: {process}")
-                    for syst_name, score, _ in top_systs:
-                        print(f"  - {syst_name}: score={score:.1f}")
-                    plot_top_systematics_for_process(process, top_systs, nominals, tfile,
-                                                      args.output_dir, args.channel)
+        # Get top systematics per process from ALL systematics in template (not just above threshold)
+        top_per_process = get_top_systematics_from_template(
+            tfile, processes_to_plot, n_top=args.top_per_process, channel=args.channel
+        )
+
+        # Plot for each process
+        for process in processes_to_plot:
+            top_systs = top_per_process.get(process, [])
+            print(f"\nProcess: {process}")
+            if top_systs:
+                for syst_name, score, _ in top_systs:
+                    print(f"  - {syst_name}: score={score:.1f}")
+                plot_top_systematics_for_process(process, top_systs, nominals, tfile,
+                                                  args.output_dir, args.channel)
+            else:
+                print(f"  (no systematics found)")
 
     # Generate total systematic plots
     if args.total_systematic and results:
@@ -1261,7 +1376,7 @@ def main():
 
         for process in processes:
             plot_total_systematic(process, nominals, results, args.output_dir,
-                                  args.channel, datacard_systematics)
+                                  args.channel, datacard_systematics, tfile=tfile)
 
     # Compare with smoothed template if provided
     if args.compare_smoothed and os.path.exists(args.compare_smoothed):
@@ -1291,38 +1406,27 @@ def main():
             # Determine which processes to plot
             if datacard_processes:
                 processes_to_plot = datacard_processes
-                nominals_smoothed = get_nominals_from_template(tfile_smoothed, processes_to_plot, args.channel)
             else:
-                processes_to_plot = None
-                # Build nominals dictionary from results
-                nominals_smoothed = {}
-                for r in results_smoothed:
-                    key = f"{r['process']}_{r['region']}"
-                    if key not in nominals_smoothed and r.get('nominal'):
-                        nominals_smoothed[key] = r['nominal']
+                processes_to_plot = sorted(set(r['process'] for r in results_smoothed))
 
-            top_per_process_smoothed = get_top_systematics_per_process(results_smoothed, n_top=args.top_per_process)
+            # Get nominals from smoothed template
+            nominals_smoothed = get_nominals_from_template(tfile_smoothed, processes_to_plot, args.channel)
 
-            if processes_to_plot:
-                for process in processes_to_plot:
-                    top_systs = top_per_process_smoothed.get(process, [])
-                    print(f"\n[Smoothed] Process: {process}")
-                    if top_systs:
-                        for syst_name, score, _ in top_systs:
-                            print(f"  - {syst_name}: score={score:.1f}")
-                        plot_top_systematics_for_process(process, top_systs, nominals_smoothed, tfile_smoothed,
-                                                          smoothed_output_dir, args.channel)
-                    else:
-                        print(f"  (no large fluctuations above threshold)")
-            else:
-                for process in sorted(top_per_process_smoothed.keys()):
-                    top_systs = top_per_process_smoothed[process]
-                    if top_systs:
-                        print(f"\n[Smoothed] Process: {process}")
-                        for syst_name, score, _ in top_systs:
-                            print(f"  - {syst_name}: score={score:.1f}")
-                        plot_top_systematics_for_process(process, top_systs, nominals_smoothed, tfile_smoothed,
-                                                          smoothed_output_dir, args.channel)
+            # Get top systematics from ALL systematics in smoothed template
+            top_per_process_smoothed = get_top_systematics_from_template(
+                tfile_smoothed, processes_to_plot, n_top=args.top_per_process, channel=args.channel
+            )
+
+            for process in processes_to_plot:
+                top_systs = top_per_process_smoothed.get(process, [])
+                print(f"\n[Smoothed] Process: {process}")
+                if top_systs:
+                    for syst_name, score, _ in top_systs:
+                        print(f"  - {syst_name}: score={score:.1f}")
+                    plot_top_systematics_for_process(process, top_systs, nominals_smoothed, tfile_smoothed,
+                                                      smoothed_output_dir, args.channel)
+                else:
+                    print(f"  (no systematics found)")
 
         # Also generate total systematic plots for smoothed
         if args.total_systematic:
@@ -1340,7 +1444,7 @@ def main():
 
             for process in processes_smoothed:
                 plot_total_systematic(process, nominals_smoothed, results_smoothed,
-                                      smoothed_output_dir, args.channel, datacard_systematics)
+                                      smoothed_output_dir, args.channel, datacard_systematics, tfile=tfile_smoothed)
 
         tfile_smoothed.Close()
 
